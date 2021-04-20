@@ -2,7 +2,7 @@
 sort: 1
 ---
 
-# Test Documentation
+# Mathematical Stats
 
 ```
 {% raw %}{% include list.liquid all=true %}{% endraw %}
