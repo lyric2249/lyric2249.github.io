@@ -1,8 +1,8 @@
 ---
-sort: 99
+sort: 0
 ---
 
-# Help
+# Main Screen
 
 ## jekyll-rtd-theme
 
