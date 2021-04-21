@@ -18,7 +18,7 @@
       margin-bottom: 0;
     }
   }
-
+  
   &.note {
     background-color: lighten($theme-blue, 50%);
 
@@ -48,6 +48,14 @@
 
     .title {
       background: lighten($theme-red, 20%);
+    }
+  }
+
+  &.func {
+    background-color: lighten(#D3D3D3, 50%);
+
+    .title {
+      background: lighten(#D3D3D3, 20%);
     }
   }
 }
