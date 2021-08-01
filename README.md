@@ -111,8 +111,8 @@ sqlite execute에서 인자의 네임이 잘못되었을 때
 
 출처: https://fold22.tistory.com/17 [나의 흔적]
 
-
-
+https://twitter.com/cand1e/status/1400150211490508800
+그라뉴
 선데이버거클럽
 
 
