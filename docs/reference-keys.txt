@@ -22,6 +22,7 @@ comparison-of-nested-models
 stratification
 test-statistics
 handling-ties
+r-bookdown
 tutorial
 about
 usage
