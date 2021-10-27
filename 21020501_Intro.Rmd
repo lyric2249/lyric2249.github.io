@@ -56,7 +56,7 @@ $$\delta_i = \begin{cases} 1, & T_i \le C_i & \text{(uncensored)} \\ 0, & T_i > 
 
 
 
-## 1. Right Censoring (most of the course)
+### 1. Right Censoring (most of the course)
 
 Fail이 확실하게 터진 경우에만 fail, 이외의 경우에는 censor. 조사기간 종료까지 발병하지 않았거나, 이외의 이유로 종료 이전에 연구 이탈하면 양쪽 모두 censored.
 
@@ -85,7 +85,7 @@ Censoring times are random.
 ※ let's focus on right censoring. Suppose $$T_1 , \cdots, T_n \sim f(t)$$ and $$C_1 , \cdots, C_n \sim g(c)$$. Then, we observe $$X_i = \min(T_i , C_i )$$ for $$i = 1, \cdots, n$$. In type Ⅰ censoring, $$C_i$$ is fixed (at $$C_r$$ or $$C_{r_i}$$). In random censoring, $$C_i$$ is random.
 
 
-## 2. Left Censoring
+### 2. Left Censoring
 less common in practice
 
 

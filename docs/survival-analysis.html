@@ -162,10 +162,12 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>1</b> Survival Analysis</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="survival-analysis.html"><a href="survival-analysis.html#introduction"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
-<li class="chapter" data-level="1.2" data-path="survival-analysis.html"><a href="survival-analysis.html#censoring-sources"><i class="fa fa-check"></i><b>1.2</b> Censoring Sources</a></li>
-<li class="chapter" data-level="1.3" data-path="survival-analysis.html"><a href="survival-analysis.html#right-censoring-most-of-the-course"><i class="fa fa-check"></i><b>1.3</b> 1. Right Censoring (most of the course)</a></li>
-<li class="chapter" data-level="1.4" data-path="survival-analysis.html"><a href="survival-analysis.html#left-censoring"><i class="fa fa-check"></i><b>1.4</b> 2. Left Censoring</a></li>
-<li class="chapter" data-level="1.5" data-path="survival-analysis.html"><a href="survival-analysis.html#cox-regression"><i class="fa fa-check"></i><b>1.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="1.2" data-path="survival-analysis.html"><a href="survival-analysis.html#censoring-sources"><i class="fa fa-check"></i><b>1.2</b> Censoring Sources</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="survival-analysis.html"><a href="survival-analysis.html#right-censoring-most-of-the-course"><i class="fa fa-check"></i><b>1.2.1</b> 1. Right Censoring (most of the course)</a></li>
+<li class="chapter" data-level="1.2.2" data-path="survival-analysis.html"><a href="survival-analysis.html#left-censoring"><i class="fa fa-check"></i><b>1.2.2</b> 2. Left Censoring</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="survival-analysis.html"><a href="survival-analysis.html#cox-regression"><i class="fa fa-check"></i><b>1.3</b> Cox Regression</a></li>
 </ul></li>
 <li class="appendix"><span><b>00-00</b></span></li>
 <li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
@@ -254,12 +256,11 @@ dependent censoring (<em>informative drop-out</em>), censoring이 failure time�
 <span class="math display">\[X_i = \min(T_i , C_i )\]</span> observed time
 <span class="math display">\[\delta_i = \begin{cases} 1, &amp; T_i \le C_i &amp; \text{(uncensored)} \\ 0, &amp; T_i &gt; C_i &amp; \text{(censored)} \end{cases}\]</span></p>
 </div>
-</div>
-<div id="right-censoring-most-of-the-course" class="section level2" number="1.3">
-<h2><span class="header-section-number">1.3</span> 1. Right Censoring (most of the course)</h2>
+<div id="right-censoring-most-of-the-course" class="section level3" number="1.2.1">
+<h3><span class="header-section-number">1.2.1</span> 1. Right Censoring (most of the course)</h3>
 <p>Fail이 확실하게 터진 경우에만 fail, 이외의 경우에는 censor. 조사기간 종료까지 발병하지 않았거나, 이외의 이유로 종료 이전에 연구 이탈하면 양쪽 모두 censored.</p>
-<div id="type-of-data-to-be-analyzed-in-survival-analysis" class="section level4" number="1.3.0.1">
-<h4><span class="header-section-number">1.3.0.1</span> Type of Data to be analyzed in survival analysis</h4>
+<div id="type-of-data-to-be-analyzed-in-survival-analysis" class="section level4" number="1.2.1.1">
+<h4><span class="header-section-number">1.2.1.1</span> Type of Data to be analyzed in survival analysis</h4>
 <ol style="list-style-type: decimal">
 <li>Type Ⅰ Censoring:
 특정 시점이 왔을 때 연구 종료. ex) 쥐한테 특정 영양소 먹이고 언제까지 생존하는지</li>
@@ -280,8 +281,8 @@ Censoring times are random.</li>
 <p>※ let’s focus on right censoring. Suppose <span class="math display">\[T_1 , \cdots, T_n \sim f(t)\]</span> and <span class="math display">\[C_1 , \cdots, C_n \sim g(c)\]</span>. Then, we observe <span class="math display">\[X_i = \min(T_i , C_i )\]</span> for <span class="math display">\[i = 1, \cdots, n\]</span>. In type Ⅰ censoring, <span class="math display">\[C_i\]</span> is fixed (at <span class="math display">\[C_r\]</span> or <span class="math display">\[C_{r_i}\]</span>). In random censoring, <span class="math display">\[C_i\]</span> is random.</p>
 </div>
 </div>
-<div id="left-censoring" class="section level2" number="1.4">
-<h2><span class="header-section-number">1.4</span> 2. Left Censoring</h2>
+<div id="left-censoring" class="section level3" number="1.2.2">
+<h3><span class="header-section-number">1.2.2</span> 2. Left Censoring</h3>
 <p>less common in practice</p>
 <p>$$
 <span class="math display">\[\begin{align}
@@ -413,18 +414,19 @@ r(A_{n \times n})=r, \; \; \; r[\mathcal{N}(A)] = n-r
 $$</p>
 
 </div>
-<div id="cox-regression" class="section level2" number="1.5">
-<h2><span class="header-section-number">1.5</span> Cox Regression</h2>
-<div id="proportional-hazards-model" class="section level4" number="1.5.0.1">
-<h4><span class="header-section-number">1.5.0.1</span> Proportional Hazards Model</h4>
+</div>
+<div id="cox-regression" class="section level2" number="1.3">
+<h2><span class="header-section-number">1.3</span> Cox Regression</h2>
+<div id="proportional-hazards-model" class="section level4" number="1.3.0.1">
+<h4><span class="header-section-number">1.3.0.1</span> Proportional Hazards Model</h4>
 <p>Proposed by Cox (1972, JRSS-B), primarily to model the relationship between <strong>hazard function</strong> and <strong>covariates</strong>. most cited paper in statistics ( 41; 000 as of April 2016), one of the most cited in science.</p>
 <p>Several extensions to more complex data structures, e.g., clustered failure time data, or recurrent event data, etc.</p>
 <p>※ Data Structure</p>
 <p>Observed data: <span class="math inline">\(\Big \{ X_i = T_i \wedge C_i, \; \; \; \Delta_i = I(T_i &lt; C_i), \; \;\; \mathbf Z_i (\cdot) \Big \} \overset {iid} \sim\)</span></p>
 <p>추가로 <span class="math inline">\(N_i = I(X_i \le t , \; \Delta_i = 1)\)</span>, <span class="math inline">\(Z_i(t)\)</span> = covariate vector (possibly time-dependent).</p>
 </div>
-<div id="cox-ph-model" class="section level4" number="1.5.0.2">
-<h4><span class="header-section-number">1.5.0.2</span> Cox PH Model</h4>
+<div id="cox-ph-model" class="section level4" number="1.3.0.2">
+<h4><span class="header-section-number">1.3.0.2</span> Cox PH Model</h4>
 <p><span class="math display">\[
 \lambda_i (t) = \lambda (t \vert Z_i ) = \lambda_0 (t) \exp (\beta&#39; Z_i) \tag{Cox Model}
 \]</span></p>
@@ -501,8 +503,8 @@ S(t \Big | Z_i = 0) = 0.70 &amp;&amp; vs. &amp;&amp; S(t \Big | Z_i = 1) = 0.59
 
 \end{align}\]</span>
 $$</p>
-<div id="cox-model-independent-censoring" class="section level6" number="1.5.0.2.0.1">
-<h6><span class="header-section-number">1.5.0.2.0.1</span> Cox Model: Independent Censoring</h6>
+<div id="cox-model-independent-censoring" class="section level6" number="1.3.0.2.0.1">
+<h6><span class="header-section-number">1.3.0.2.0.1</span> Cox Model: Independent Censoring</h6>
 <p>Independent censoring assumption is less stringent than in nonparametric estimation.</p>
 <p>Assumption is often written as <span class="math inline">\(T_i \perp C_i \Big \vert Z_i\)</span>:
 $$
@@ -517,8 +519,8 @@ $$</p>
 <p>※ Note: <span class="math inline">\(C_i\)</span> is allowed to depend on <span class="math inline">\(Z_i\)</span></p>
 </div>
 </div>
-<div id="semiparametric-ph-model-general" class="section level4" number="1.5.0.3">
-<h4><span class="header-section-number">1.5.0.3</span> Semiparametric PH Model: General</h4>
+<div id="semiparametric-ph-model-general" class="section level4" number="1.3.0.3">
+<h4><span class="header-section-number">1.3.0.3</span> Semiparametric PH Model: General</h4>
 <ul>
 <li>General expression for multiplicative proportional hazards model:</li>
 </ul>
@@ -535,8 +537,8 @@ $$</p>
 - certain choices of <span class="math inline">\(g(x)\)</span> lead to numerical issues; e.g., likelihood is flat; local maxima, etc.
 - <span class="math inline">\(g(x) \not = exp(x)\)</span> has received little attention in the literature</p>
 </div>
-<div id="multiplicative-model" class="section level4" number="1.5.0.4">
-<h4><span class="header-section-number">1.5.0.4</span> Multiplicative Model</h4>
+<div id="multiplicative-model" class="section level4" number="1.3.0.4">
+<h4><span class="header-section-number">1.3.0.4</span> Multiplicative Model</h4>
 <p><strong>Cox model</strong> is a <strong>multiplicative model</strong>, i.e., covariates assumed to affect survival probability by multiplying the baseline hazard.</p>
 <ul>
 <li>Additive models also been proposed</li>
@@ -544,8 +546,8 @@ $$</p>
 <p><span class="math display">\[
 \]</span></p>
 </div>
-<div id="proportional-hazards-regression-and-multiplicative-intensity-model" class="section level4" number="1.5.0.5">
-<h4><span class="header-section-number">1.5.0.5</span> Proportional Hazards Regression and Multiplicative Intensity Model</h4>
+<div id="proportional-hazards-regression-and-multiplicative-intensity-model" class="section level4" number="1.3.0.5">
+<h4><span class="header-section-number">1.3.0.5</span> Proportional Hazards Regression and Multiplicative Intensity Model</h4>
 <ul>
 <li>Recall Counting process: martingale representation</li>
 </ul>
@@ -597,8 +599,8 @@ l(t) = Y(t)\lambda_0(t) e^{\beta &#39; Z(t) }
 <li><p>Data: <span class="math inline">\(n\)</span> independent observations on $ { N(), ; Y(), ; Z() }$</p></li>
 </ul>
 </div>
-<div id="likelihood-conditional-marginal-and-partial-likelihoods" class="section level4" number="1.5.0.6">
-<h4><span class="header-section-number">1.5.0.6</span> Likelihood; conditional, marginal and partial likelihoods</h4>
+<div id="likelihood-conditional-marginal-and-partial-likelihoods" class="section level4" number="1.3.0.6">
+<h4><span class="header-section-number">1.3.0.6</span> Likelihood; conditional, marginal and partial likelihoods</h4>
 <ul>
 <li><p><span class="math inline">\(X =\)</span> vector of observations; <span class="math inline">\(f_X(x, \theta) =\)</span> density of <span class="math inline">\(X\)</span></p></li>
 <li><p><span class="math inline">\(\theta =\)</span> vector parameter; <span class="math inline">\(\theta = (\beta &#39; , \phi&#39;)&#39;\)</span></p></li>
@@ -648,8 +650,8 @@ Q_1 = V1,&amp; &amp;&amp; Q_i =(V_1 , W_1 , \cdots , W_{i-1}, V_i)
 \end{align}\]</span>
 $$</p>
 <p>$<em>{i=1}^K f</em>{W_i | Q_i } (w_i | q_i ; ; ) $ is free of <span class="math inline">\(\phi\)</span> <span class="math inline">\(\Rightarrow\)</span> use $ <em>{i=1}^K f</em>{W_i | Q_i } (w_i | q_i ; ; ) $ (partial likelihood)</p>
-<div id="partial-marginal-likelihoods" class="section level6" number="1.5.0.6.0.1">
-<h6><span class="header-section-number">1.5.0.6.0.1</span> Partial &amp; Marginal Likelihoods</h6>
+<div id="partial-marginal-likelihoods" class="section level6" number="1.3.0.6.0.1">
+<h6><span class="header-section-number">1.3.0.6.0.1</span> Partial &amp; Marginal Likelihoods</h6>
 <p>Focus on Proportional Hazards Model: i.e., <span class="math inline">\((X_i, \; \delta_i, \; Z_i), \; i = 1, \cdots, n\)</span> (<span class="math inline">\(n\)</span> independent triplets)</p>
 <p>$$
 <span class="math display">\[\begin{align}
@@ -833,8 +835,8 @@ $$</p>
 2. <span class="math inline">\(\hat \beta^{(0)} = 0\)</span> usually works.</p>
 </div>
 </div>
-<div id="cox-proportional-hazards-model" class="section level4" number="1.5.0.7">
-<h4><span class="header-section-number">1.5.0.7</span> Cox Proportional Hazards Model</h4>
+<div id="cox-proportional-hazards-model" class="section level4" number="1.3.0.7">
+<h4><span class="header-section-number">1.3.0.7</span> Cox Proportional Hazards Model</h4>
 <p>Cox model:</p>
 <p>$$
 <span class="math display">\[\begin{align}
@@ -898,8 +900,8 @@ RR = \frac{\lambda(t \Big | Z_1 , \cdots, Z_k)}{\lambda(t \Big | Z_1 &#39;, \cdo
 \]</span></p>
 <p>20.png</p>
 </div>
-<div id="comparison-of-nested-models" class="section level4" number="1.5.0.8">
-<h4><span class="header-section-number">1.5.0.8</span> Comparison of Nested Models</h4>
+<div id="comparison-of-nested-models" class="section level4" number="1.3.0.8">
+<h4><span class="header-section-number">1.3.0.8</span> Comparison of Nested Models</h4>
 <ul>
 <li>Nested Models:</li>
 </ul>
@@ -937,8 +939,8 @@ X^2_{Cox} \sim \chi^2_{k-p} &amp;&amp; k-p \text{ is the ## of parameters set to
 \]</span></p>
 <p>20.png, 21.png</p>
 </div>
-<div id="stratification" class="section level4" number="1.5.0.9">
-<h4><span class="header-section-number">1.5.0.9</span> Stratification</h4>
+<div id="stratification" class="section level4" number="1.3.0.9">
+<h4><span class="header-section-number">1.3.0.9</span> Stratification</h4>
 <p>Two Ways to Stratify. Suppose a confounder <span class="math inline">\(C\)</span> has 3 levels on which we would like to stratify when comparin
 g <span class="math inline">\(\lambda(t \Big | E )\)</span> and <span class="math inline">\(\lambda ( t \Big | \bar E )\)</span>. How? <span class="math inline">\(X_E = \begin{cases}1&amp;E&amp;\text{(exposed)}\\0&amp;\bar E&amp;\text{(not exposed)}\end{cases}\)</span></p>
 <p>22.png</p>
@@ -955,8 +957,8 @@ g <span class="math inline">\(\lambda(t \Big | E )\)</span> and <span class="mat
 <p>23.png</p>
 <p>24.png</p>
 </div>
-<div id="test-statistics" class="section level4" number="1.5.0.10">
-<h4><span class="header-section-number">1.5.0.10</span> Test statistics</h4>
+<div id="test-statistics" class="section level4" number="1.3.0.10">
+<h4><span class="header-section-number">1.3.0.10</span> Test statistics</h4>
 <p>The standard asymptotic likelihood inference tests, Wald, score, and likelihood ratio (LR), still can be applied for the Cox partial likelihood.</p>
 <p>25.png</p>
 <p>Their finite sample properties may differ; in general, the LRT is the most reliable, the Wald test is the least.</p>
@@ -964,8 +966,8 @@ g <span class="math inline">\(\lambda(t \Big | E )\)</span> and <span class="mat
 <p>When <span class="math inline">\(p = 1\)</span> and the single covariate is categorical, the score test is identical to the log-rank test.</p>
 <p>27.png</p>
 </div>
-<div id="handling-ties" class="section level4" number="1.5.0.11">
-<h4><span class="header-section-number">1.5.0.11</span> Handling ties</h4>
+<div id="handling-ties" class="section level4" number="1.3.0.11">
+<h4><span class="header-section-number">1.3.0.11</span> Handling ties</h4>
 <p>Real data sets often contain tied event times.</p>
 <ul>
 <li>When do we have ties?</li>
