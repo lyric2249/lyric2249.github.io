@@ -1,7 +1,8 @@
-# (PART) 21-02 Survival {-} 
+# (PART) 21-02  {-} 
 
 
-# Introduction
+# Survival Analysis
+## Introduction
 
 1. SA의 결과물은 보통 *time-to-event*, 즉슨 대부분의 경우에 nonnegative이며, 이는 곧 time domain을 한정함.
 2. time-to-event의 distribution은 보통 *skewed*.
