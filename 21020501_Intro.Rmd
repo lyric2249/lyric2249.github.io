@@ -18,7 +18,7 @@
 
 
 
-## Censoring Sources
+#### Censoring Sources
 1. Adminisitrative censoring
 - event 발생 전에 연구 종료
 often independent of failure time
@@ -36,7 +36,7 @@ dependent censoring (*informative drop-out*), censoring이 failure time에 연�
 
 
 
-###### 임시방편
+######### 임시방편
 
 1. censor된 시간을 failure time으로 인식. $$\bar X \le E(X)$$ (underestimate).
 
@@ -44,7 +44,7 @@ dependent censoring (*informative drop-out*), censoring이 failure time에 연�
 
 
 
-#### notation
+###### notation
 
 $$T_i$$: potential failure time for the i-th subject
 $$C_i$$: potential censoring time for the i-th subject
@@ -56,13 +56,13 @@ $$\delta_i = \begin{cases} 1, & T_i \le C_i & \text{(uncensored)} \\ 0, & T_i > 
 
 
 
-### Right Censoring (most of the course)
+#### Right Censoring (most of the course)
 
 Fail이 확실하게 터진 경우에만 fail, 이외의 경우에는 censor. 조사기간 종료까지 발병하지 않았거나, 이외의 이유로 종료 이전에 연구 이탈하면 양쪽 모두 censored.
 
 
 
-#### Type of Data to be analyzed in survival analysis
+###### Type of Data to be analyzed in survival analysis
 
 1. Type Ⅰ Censoring:
 특정 시점이 왔을 때 연구 종료. ex) 쥐한테 특정 영양소 먹이고 언제까지 생존하는지
@@ -85,7 +85,7 @@ Censoring times are random.
 ※ let's focus on right censoring. Suppose $$T_1 , \cdots, T_n \sim f(t)$$ and $$C_1 , \cdots, C_n \sim g(c)$$. Then, we observe $$X_i = \min(T_i , C_i )$$ for $$i = 1, \cdots, n$$. In type Ⅰ censoring, $$C_i$$ is fixed (at $$C_r$$ or $$C_{r_i}$$). In random censoring, $$C_i$$ is random.
 
 
-### Left Censoring
+#### Left Censoring
 less common in practice
 
 

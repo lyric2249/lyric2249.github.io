@@ -3,7 +3,6 @@ tab:nice-tab
 survival-analysis
 introduction
 censoring-sources
-임시방편
 notation
 right-censoring-most-of-the-course
 type-of-data-to-be-analyzed-in-survival-analysis
