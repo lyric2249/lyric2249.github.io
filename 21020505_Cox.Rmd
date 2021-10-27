@@ -1,9 +1,9 @@
-# Cox Regression
+## Cox Regression
 
 
 
 
-## Proportional Hazards Model
+#### Proportional Hazards Model
 
 Proposed by Cox (1972, JRSS-B), primarily to model the relationship between **hazard function** and **covariates**. most cited paper in statistics ( 41; 000 as of April 2016), one of the most cited in science.
 
@@ -21,7 +21,7 @@ Observed data: $\Big \{ X_i = T_i \wedge C_i, \; \; \; \Delta_i = I(T_i < C_i), 
 
 
 
-## Cox PH Model
+#### Cox PH Model
 
 $$
 \lambda_i (t) = \lambda (t \vert Z_i ) = \lambda_0 (t) \exp (\beta' Z_i) \tag{Cox Model}
@@ -120,7 +120,7 @@ $$
 
 
 
-### Cox Model: Independent Censoring
+###### Cox Model: Independent Censoring
 
 Independent censoring assumption is less stringent than in nonparametric estimation.
 
@@ -144,7 +144,7 @@ $$
 
 
 
-## Semiparametric PH Model: General
+#### Semiparametric PH Model: General
 
 
 - General expression for multiplicative proportional hazards model:
@@ -172,7 +172,7 @@ $g(x) = 1+x = (1+x)^{-1} = \log(1+x)$
 
 
 
-## Multiplicative Model
+#### Multiplicative Model
 
 **Cox model** is a **multiplicative model**, i.e., covariates assumed to affect survival probability by multiplying the baseline hazard.
 
@@ -191,7 +191,7 @@ $$
 
 
 
-## Proportional Hazards Regression and Multiplicative Intensity Model
+#### Proportional Hazards Regression and Multiplicative Intensity Model
 
 - Recall Counting process: martingale representation
 
@@ -260,7 +260,7 @@ $$
 
 
 
-## Likelihood; conditional, marginal and partial likelihoods
+#### Likelihood; conditional, marginal and partial likelihoods
 
 - $X =$ vector of observations; $f_X(x, \theta) =$ density of $X$
 - $\theta =$ vector parameter; $\theta = (\beta ' , \phi')'$
@@ -317,7 +317,7 @@ $\prod_{i=1}^K f_{W_i | Q_i } (w_i \Big | q_i \; ; \theta) $ is free of $\phi$ $
 
 
 
-### Partial & Marginal Likelihoods
+###### Partial & Marginal Likelihoods
 
 Focus on Proportional Hazards Model: i.e., $(X_i, \; \delta_i, \; Z_i), \; i = 1, \cdots, n$ ($n$ independent triplets)
 
@@ -570,7 +570,7 @@ $$
 
 
 
-## Cox Proportional Hazards Model
+#### Cox Proportional Hazards Model
 Cox model:
 
 $$
@@ -663,7 +663,7 @@ $$
 
 
 
-## Comparison of Nested Models
+#### Comparison of Nested Models
 
 - Nested Models:
 
@@ -707,7 +707,7 @@ Use the **partial likelihood ratio statistic**, $X^2_{Cox} = -2 \Big[ \log PL(RM
 Under $H_0$: Reduced model, and when $n$ is large:
 $$
 \begin{align}
-X^2_{Cox} \sim \chi^2_{k-p} && k-p \text{ is the # of parameters set to 0 by }H_0
+X^2_{Cox} \sim \chi^2_{k-p} && k-p \text{ is the ## of parameters set to 0 by }H_0
 \end{align}
 $$
 
@@ -719,7 +719,7 @@ $$
 
 
 
-## Stratification
+#### Stratification
 
 Two Ways to Stratify. Suppose a confounder $C$ has 3 levels on which we would like to stratify when comparin
 g $\lambda(t \Big | E )$ and $\lambda ( t \Big | \bar E )$. How? $X_E = \begin{cases}1&E&\text{(exposed)}\\0&\bar E&\text{(not exposed)}\end{cases}$
@@ -755,7 +755,7 @@ g $\lambda(t \Big | E )$ and $\lambda ( t \Big | \bar E )$. How? $X_E = \begin{c
 
 
 
-## Test statistics
+#### Test statistics
 
 The standard asymptotic likelihood inference tests, Wald, score, and likelihood ratio (LR), still can be applied for the Cox partial likelihood.
 
@@ -776,7 +776,7 @@ When $p = 1$ and the single covariate is categorical, the score test is identica
 27.png
 
 
-## Handling ties
+#### Handling ties
 
 Real data sets often contain tied event times.
 
