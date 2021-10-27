@@ -38,7 +38,7 @@ dependent censoring (*informative drop-out*), censoring이 failure time에 연�
 
 ######### 임시방편
 
-1. censor된 시간을 failure time으로 인식. $$\bar X \le E(X)$$ (underestimate).
+1. censor된 시간을 failure time으로 인식. $\bar X \le E(X)$ (underestimate).
 
 2. censor 관측치를 전부 삭제. loss of infomration.
 
@@ -46,10 +46,10 @@ dependent censoring (*informative drop-out*), censoring이 failure time에 연�
 
 ###### notation
 
-$$T_i$$: potential failure time for the i-th subject
-$$C_i$$: potential censoring time for the i-th subject
-$$X_i = \min(T_i , C_i )$$ observed time
-$$\delta_i = \begin{cases} 1, & T_i \le C_i & \text{(uncensored)} \\ 0, & T_i > C_i & \text{(censored)} \end{cases}$$
+$T_i$: potential failure time for the i-th subject
+$C_i$: potential censoring time for the i-th subject
+$X_i = \min(T_i , C_i )$ observed time
+$\delta_i = \begin{cases} 1, & T_i \le C_i & \text{(uncensored)} \\ 0, & T_i > C_i & \text{(censored)} \end{cases}$
 
 
 
@@ -82,7 +82,7 @@ reliabilty 분석에서 흔함. 특정 횟수 failure 발생시 연구 종료.
 3. Random Censoring:
 Censoring times are random.
 
-※ let's focus on right censoring. Suppose $$T_1 , \cdots, T_n \sim f(t)$$ and $$C_1 , \cdots, C_n \sim g(c)$$. Then, we observe $$X_i = \min(T_i , C_i )$$ for $$i = 1, \cdots, n$$. In type Ⅰ censoring, $$C_i$$ is fixed (at $$C_r$$ or $$C_{r_i}$$). In random censoring, $$C_i$$ is random.
+※ let's focus on right censoring. Suppose $T_1 , \cdots, T_n \sim f(t)$ and $C_1 , \cdots, C_n \sim g(c)$. Then, we observe $X_i = \min(T_i , C_i )$ for $i = 1, \cdots, n$. In type Ⅰ censoring, $C_i$ is fixed (at $C_r$ or $C_{r_i}$). In random censoring, $C_i$ is random.
 
 
 #### Left Censoring

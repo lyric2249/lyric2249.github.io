@@ -237,16 +237,16 @@ dependent censoring (<em>informative drop-out</em>), censoring이 failure time�
 <div id="임시방편" class="section level9" number="1.1.0.1.0.0.0.0.1">
 <p class="heading" number="1.1.0.1.0.0.0.0.1"><span class="header-section-number">1.1.0.1.0.0.0.0.1</span> 임시방편</p>
 <ol style="list-style-type: decimal">
-<li><p>censor된 시간을 failure time으로 인식. <span class="math display">\[\bar X \le E(X)\]</span> (underestimate).</p></li>
+<li><p>censor된 시간을 failure time으로 인식. <span class="math inline">\(\bar X \le E(X)\)</span> (underestimate).</p></li>
 <li><p>censor 관측치를 전부 삭제. loss of infomration.</p></li>
 </ol>
 </div>
 <div id="notation" class="section level6" number="1.1.0.1.0.1">
 <h6><span class="header-section-number">1.1.0.1.0.1</span> notation</h6>
-<p><span class="math display">\[T_i\]</span>: potential failure time for the i-th subject
-<span class="math display">\[C_i\]</span>: potential censoring time for the i-th subject
-<span class="math display">\[X_i = \min(T_i , C_i )\]</span> observed time
-<span class="math display">\[\delta_i = \begin{cases} 1, &amp; T_i \le C_i &amp; \text{(uncensored)} \\ 0, &amp; T_i &gt; C_i &amp; \text{(censored)} \end{cases}\]</span></p>
+<p><span class="math inline">\(T_i\)</span>: potential failure time for the i-th subject
+<span class="math inline">\(C_i\)</span>: potential censoring time for the i-th subject
+<span class="math inline">\(X_i = \min(T_i , C_i )\)</span> observed time
+<span class="math inline">\(\delta_i = \begin{cases} 1, &amp; T_i \le C_i &amp; \text{(uncensored)} \\ 0, &amp; T_i &gt; C_i &amp; \text{(censored)} \end{cases}\)</span></p>
 </div>
 </div>
 <div id="right-censoring-most-of-the-course" class="section level4" number="1.1.0.2">
@@ -271,7 +271,7 @@ reliabilty 분석에서 흔함. 특정 횟수 failure 발생시 연구 종료.</
 <li>Random Censoring:
 Censoring times are random.</li>
 </ol>
-<p>※ let’s focus on right censoring. Suppose <span class="math display">\[T_1 , \cdots, T_n \sim f(t)\]</span> and <span class="math display">\[C_1 , \cdots, C_n \sim g(c)\]</span>. Then, we observe <span class="math display">\[X_i = \min(T_i , C_i )\]</span> for <span class="math display">\[i = 1, \cdots, n\]</span>. In type Ⅰ censoring, <span class="math display">\[C_i\]</span> is fixed (at <span class="math display">\[C_r\]</span> or <span class="math display">\[C_{r_i}\]</span>). In random censoring, <span class="math display">\[C_i\]</span> is random.</p>
+<p>※ let’s focus on right censoring. Suppose <span class="math inline">\(T_1 , \cdots, T_n \sim f(t)\)</span> and <span class="math inline">\(C_1 , \cdots, C_n \sim g(c)\)</span>. Then, we observe <span class="math inline">\(X_i = \min(T_i , C_i )\)</span> for <span class="math inline">\(i = 1, \cdots, n\)</span>. In type Ⅰ censoring, <span class="math inline">\(C_i\)</span> is fixed (at <span class="math inline">\(C_r\)</span> or <span class="math inline">\(C_{r_i}\)</span>). In random censoring, <span class="math inline">\(C_i\)</span> is random.</p>
 </div>
 </div>
 <div id="left-censoring" class="section level4" number="1.1.0.3">
