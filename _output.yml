@@ -10,7 +10,7 @@ bookdown::gitbook:
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     toolbar:
-      position: static
+      position: fixed
     edit: https://github.com/lyric2249/lyric2249.github.io/edit/main/%s
     download: []
 #bookdown::pdf_book:
