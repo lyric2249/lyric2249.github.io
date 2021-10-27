@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 5. Cox Regression | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 5. Cox Regression | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 5. Cox Regression | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2021-10-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="references.html"/>
+<link rel="next" href="censoring-sources.html"/>
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="hello-bookdown.html"><a href="hello-bookdown.html"><i class="fa fa-check"></i><b>2</b> Hello bookdown</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="hello-bookdown.html"><a href="hello-bookdown.html#a-section"><i class="fa fa-check"></i><b>2.1</b> A section</a>
+<ul>
+<li class="chapter" data-level="" data-path="hello-bookdown.html"><a href="hello-bookdown.html#an-unnumbered-section"><i class="fa fa-check"></i>An unnumbered section</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="cross.html"><a href="cross.html"><i class="fa fa-check"></i><b>3</b> Cross-references</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="cross.html"><a href="cross.html#chapters-and-sub-chapters"><i class="fa fa-check"></i><b>3.1</b> Chapters and sub-chapters</a></li>
+<li class="chapter" data-level="3.2" data-path="cross.html"><a href="cross.html#captioned-figures-and-tables"><i class="fa fa-check"></i><b>3.2</b> Captioned figures and tables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="parts.html"><a href="parts.html"><i class="fa fa-check"></i><b>4</b> Parts</a></li>
+<li class="chapter" data-level="5" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html"><i class="fa fa-check"></i><b>5</b> Footnotes and citations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#footnotes"><i class="fa fa-check"></i><b>5.1</b> Footnotes</a></li>
+<li class="chapter" data-level="5.2" data-path="footnotes-and-citations.html"><a href="footnotes-and-citations.html#citations"><i class="fa fa-check"></i><b>5.2</b> Citations</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="blocks.html"><a href="blocks.html"><i class="fa fa-check"></i><b>6</b> Blocks</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="blocks.html"><a href="blocks.html#equations"><i class="fa fa-check"></i><b>6.1</b> Equations</a></li>
+<li class="chapter" data-level="6.2" data-path="blocks.html"><a href="blocks.html#theorems-and-proofs"><i class="fa fa-check"></i><b>6.2</b> Theorems and proofs</a></li>
+<li class="chapter" data-level="6.3" data-path="blocks.html"><a href="blocks.html#callout-blocks"><i class="fa fa-check"></i><b>6.3</b> Callout blocks</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="sharing-your-book.html"><a href="sharing-your-book.html"><i class="fa fa-check"></i><b>7</b> Sharing your book</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="sharing-your-book.html"><a href="sharing-your-book.html#publishing"><i class="fa fa-check"></i><b>7.1</b> Publishing</a></li>
+<li class="chapter" data-level="7.2" data-path="sharing-your-book.html"><a href="sharing-your-book.html#pages"><i class="fa fa-check"></i><b>7.2</b> 404 pages</a></li>
+<li class="chapter" data-level="7.3" data-path="sharing-your-book.html"><a href="sharing-your-book.html#metadata-for-sharing"><i class="fa fa-check"></i><b>7.3</b> Metadata for sharing</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="8" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>8</b> 5. Cox Regression</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="cox-regression.html"><a href="cox-regression.html#proportional-hazards-model"><i class="fa fa-check"></i><b>8.1</b> Proportional Hazards Model</a></li>
+<li class="chapter" data-level="8.2" data-path="cox-regression.html"><a href="cox-regression.html#cox-ph-model"><i class="fa fa-check"></i><b>8.2</b> Cox PH Model</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="cox-regression.html"><a href="cox-regression.html#cox-model-independent-censoring"><i class="fa fa-check"></i><b>8.2.1</b> Cox Model: Independent Censoring</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="cox-regression.html"><a href="cox-regression.html#semiparametric-ph-model-general"><i class="fa fa-check"></i><b>8.3</b> Semiparametric PH Model: General</a></li>
+<li class="chapter" data-level="8.4" data-path="cox-regression.html"><a href="cox-regression.html#multiplicative-model"><i class="fa fa-check"></i><b>8.4</b> Multiplicative Model</a></li>
+<li class="chapter" data-level="8.5" data-path="cox-regression.html"><a href="cox-regression.html#proportional-hazards-regression-and-multiplicative-intensity-model"><i class="fa fa-check"></i><b>8.5</b> Proportional Hazards Regression and Multiplicative Intensity Model</a></li>
+<li class="chapter" data-level="8.6" data-path="cox-regression.html"><a href="cox-regression.html#likelihood-conditional-marginal-and-partial-likelihoods"><i class="fa fa-check"></i><b>8.6</b> Likelihood; conditional, marginal and partial likelihoods</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="cox-regression.html"><a href="cox-regression.html#partial-marginal-likelihoods"><i class="fa fa-check"></i><b>8.6.1</b> Partial &amp; Marginal Likelihoods</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="cox-regression.html"><a href="cox-regression.html#cox-proportional-hazards-model"><i class="fa fa-check"></i><b>8.7</b> Cox Proportional Hazards Model</a></li>
+<li class="chapter" data-level="8.8" data-path="cox-regression.html"><a href="cox-regression.html#comparison-of-nested-models"><i class="fa fa-check"></i><b>8.8</b> Comparison of Nested Models</a></li>
+<li class="chapter" data-level="8.9" data-path="cox-regression.html"><a href="cox-regression.html#stratification"><i class="fa fa-check"></i><b>8.9</b> Stratification</a></li>
+<li class="chapter" data-level="8.10" data-path="cox-regression.html"><a href="cox-regression.html#test-statistics"><i class="fa fa-check"></i><b>8.10</b> Test statistics</a></li>
+<li class="chapter" data-level="8.11" data-path="cox-regression.html"><a href="cox-regression.html#handling-ties"><i class="fa fa-check"></i><b>8.11</b> Handling ties</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="censoring-sources.html"><a href="censoring-sources.html"><i class="fa fa-check"></i><b>9</b> Censoring Sources</a>
+<ul>
+<li class="chapter" data-level="9.0.1" data-path="censoring-sources.html"><a href="censoring-sources.html#임시방편"><i class="fa fa-check"></i><b>9.0.1</b> 임시방편</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="notation.html"><a href="notation.html"><i class="fa fa-check"></i><b>10</b> notation</a></li>
+<li class="chapter" data-level="11" data-path="right-censoring-most-of-the-course.html"><a href="right-censoring-most-of-the-course.html"><i class="fa fa-check"></i><b>11</b> 1. Right Censoring (most of the course)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="right-censoring-most-of-the-course.html"><a href="right-censoring-most-of-the-course.html#type-of-data-to-be-analyzed-in-survival-analysis"><i class="fa fa-check"></i><b>11.1</b> Type of Data to be analyzed in survival analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="left-censoring.html"><a href="left-censoring.html"><i class="fa fa-check"></i><b>12</b> 2. Left Censoring</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cox-regression" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> 5. Cox Regression</h1>
+<div id="proportional-hazards-model" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Proportional Hazards Model</h2>
+<p>Proposed by Cox (1972, JRSS-B), primarily to model the relationship between <strong>hazard function</strong> and <strong>covariates</strong>. most cited paper in statistics ( 41; 000 as of April 2016), one of the most cited in science.</p>
+<p>Several extensions to more complex data structures, e.g., clustered failure time data, or recurrent event data, etc.</p>
+<p>※ Data Structure</p>
+<p>Observed data: <span class="math inline">\(\Big \{ X_i = T_i \wedge C_i, \; \; \; \Delta_i = I(T_i &lt; C_i), \; \;\; \mathbf Z_i (\cdot) \Big \} \overset {iid} \sim\)</span></p>
+<p>추가로 <span class="math inline">\(N_i = I(X_i \le t , \; \Delta_i = 1)\)</span>, <span class="math inline">\(Z_i(t)\)</span> = covariate vector (possibly time-dependent).</p>
+</div>
+<div id="cox-ph-model" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Cox PH Model</h2>
+<p><span class="math display">\[
+\lambda_i (t) = \lambda (t \vert Z_i ) = \lambda_0 (t) \exp (\beta&#39; Z_i) \tag{Cox Model}
+\]</span></p>
+<p>semiparametric model:</p>
+<ul>
+<li><span class="math inline">\(\exp(\beta &#39; Z_i)\)</span>, parametric assumption on covariate effects</li>
+<li>multiplicative model</li>
+<li><span class="math inline">\(\beta\)</span> : <span class="math inline">\(p \times 1\)</span> vector, <span class="math inline">\(p &lt; \infty\)</span></li>
+<li><span class="math inline">\(\lambda_0(t)\)</span>, nonparametric; is <span class="math inline">\(\infty\)</span> dimensional</li>
+<li>shape of hazard function is unspecified</li>
+</ul>
+<p>Due to nonparametric component, <strong>standard maximum likelihood theory</strong> does <strong>not</strong> apply</p>
+<p>Let <span class="math inline">\(Z_{ij}\)</span> be the <span class="math inline">\(j\)</span>-th element of <span class="math inline">\(Z_i\)</span>
+- <span class="math inline">\(\beta_j\)</span> = difference in log hazards
+- <span class="math inline">\(\exp(\beta_j)\)</span> = ratio of hazards; assumed constant for all <span class="math inline">\(t\)</span></p>
+<ul>
+<li><span class="math inline">\(\lambda_0(t)\)</span>: baseline hazard; common to all subjects, <span class="math inline">\(\lambda_0(t) = \lambda_i(t \big | Z_i = \mathbf 0)\)</span></li>
+</ul>
+<p>The hazard ratio, <span class="math inline">\(\exp(\beta_j)\)</span>, is sometimes referred to as a <strong>relative risk</strong>
+- risk = <strong>probability</strong>, not a rate
+- hazard is a <strong>rate</strong>, not a probability
+- in ratio of hazards, time dimension cancels out</p>
+<p>Direction of effect:
+$$
+<span class="math display">\[\begin{align}
+
+\beta_j &gt; 0: &amp;&amp;\uparrow\lambda_i &amp;&amp;\downarrow S_i(t)
+\\
+\beta_j &lt; 0: &amp;&amp;\downarrow\lambda_i &amp;&amp;\uparrow S_i(t)
+
+
+\end{align}\]</span>
+$$</p>
+<p>Magnitude of effect is easy to interpret w.r.t. <span class="math inline">\(\lambda_i(t)\)</span></p>
+<p>Cumulative hazard function:</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda_i (t) &amp;= \lambda_0(t) \exp(\beta Z_i)
+\\
+\Lambda_i (t) &amp;= \int_0^t \lambda_0(s) \exp(\beta Z_i) ds
+\\
+&amp;= \Lambda_0(t) \exp(\beta Z_i)
+
+\end{align}\]</span>
+$$</p>
+<p>Survival function:</p>
+<p>$$
+<span class="math display">\[\begin{align}
+S_i (t) &amp;= \exp \Big \{ -\Lambda_i (t) \Big\}
+\\
+&amp;= \exp \Big \{ -\Lambda_0 (t) \exp(\beta &#39; Z_i)\Big\}
+\\
+&amp;= S_0(t)^{\exp \Big \{ \beta&#39;Z_i \Big\}}
+
+
+\end{align}\]</span>
+$$</p>
+<p>By fitting a Cox model, one can readily interpret the multiplicative effect on the hazard:
+- ex) randomized trial: treatment (<span class="math inline">\(Z_i=1\)</span>) versus placebo (<span class="math inline">\(Z_i=0\)</span>); <span class="math inline">\(\hat \beta = 0.405\)</span> (<span class="math inline">\(\exp(\hat \beta)=1.5\)</span>)
+- <span class="math inline">\(\lambda_i(t)\)</span> for treated patients is 50% more of that of the controls.
+- irrespective of <span class="math inline">\(\lambda_0(t)\)</span></p>
+<p>Nevertheless, <span class="math inline">\(\Lambda_0(t)\)</span> is required in order to <strong>determine <span class="math inline">\(Z_i\)</span>’s effect on <span class="math inline">\(S_i(t)\)</span></strong>, e.g.,</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+S(t \Big | Z_i = 0) = 0.95 &amp;&amp; vs. &amp;&amp; S(t \Big | Z_i = 1) = 0.93
+
+
+\\
+S(t \Big | Z_i = 0) = 0.70 &amp;&amp; vs. &amp;&amp; S(t \Big | Z_i = 1) = 0.59
+
+
+
+\end{align}\]</span>
+$$</p>
+<div id="cox-model-independent-censoring" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Cox Model: Independent Censoring</h3>
+<p>Independent censoring assumption is less stringent than in nonparametric estimation.</p>
+<p>Assumption is often written as <span class="math inline">\(T_i \perp C_i \Big \vert Z_i\)</span>:
+$$
+<span class="math display">\[\begin{alignat}{2}
+
+&amp;\lim_{\delta \rightarrow 0} \frac{1}{\delta} P(t \le T_i &lt; t+ \delta \Big | T_i \ge t , \; C_i \ge t , &amp;&amp;\; Z_i)
+\\
+= &amp;\lim_{\delta \rightarrow 0} \frac{1}{\delta} P(t \le T_i &lt; t+ \delta \Big | T_i \ge t ,  &amp;&amp;\; Z_i)
+
+\end{alignat}\]</span>
+$$</p>
+<p>※ Note: <span class="math inline">\(C_i\)</span> is allowed to depend on <span class="math inline">\(Z_i\)</span></p>
+</div>
+</div>
+<div id="semiparametric-ph-model-general" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Semiparametric PH Model: General</h2>
+<ul>
+<li>General expression for multiplicative proportional hazards model:</li>
+</ul>
+<p><span class="math display">\[
+\lambda_i (t) = \lambda_0 (t) g(\beta &#39; Z_i )
+\]</span></p>
+<p><span class="math inline">\(g(x)\)</span> is link function, specified. <span class="math inline">\(\forall x: g(x) \ge 0\)</span>, <span class="math inline">\(\exists g&#39;&#39;(x)\)</span>, and in special case, <span class="math inline">\(g(x) = \exp(x)\)</span>.</p>
+<ul>
+<li>Other choices for link function (e.g., Self &amp; Prentice, 1983):
+<span class="math inline">\(g(x) = 1+x = (1+x)^{-1} = \log(1+x)\)</span></li>
+</ul>
+<p>※ Notes:
+- not all choices of <span class="math inline">\(g(x)\)</span> lead to clear interpretation of <span class="math inline">\(\beta_j\)</span>
+- certain choices of <span class="math inline">\(g(x)\)</span> lead to numerical issues; e.g., likelihood is flat; local maxima, etc.
+- <span class="math inline">\(g(x) \not = exp(x)\)</span> has received little attention in the literature</p>
+</div>
+<div id="multiplicative-model" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Multiplicative Model</h2>
+<p><strong>Cox model</strong> is a <strong>multiplicative model</strong>, i.e., covariates assumed to affect survival probability by multiplying the baseline hazard.</p>
+<ul>
+<li>Additive models also been proposed</li>
+</ul>
+<p><span class="math display">\[
+\]</span></p>
+</div>
+<div id="proportional-hazards-regression-and-multiplicative-intensity-model" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Proportional Hazards Regression and Multiplicative Intensity Model</h2>
+<ul>
+<li>Recall Counting process: martingale representation</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+
+N(t) &amp;= I(X\le t , \; \Delta = 1)
+\\
+Y(t) &amp;= I(X \ge t)
+\\
+M(t) &amp;= N(t) - \int_0^t Y(u)\lambda_0(u) e^{\beta &#39; Z } du \tag{1}
+\\
+\mathcal F_t &amp;= \sigma \Big \{ N(u) , Y(u+) , Z: \; \; 0 \le u \le t \Big \}
+
+
+
+\end{align}\]</span></p>
+<p>$$</p>
+<ol style="list-style-type: decimal">
+<li>intensity <span class="math inline">\(l(u) = Y(u)\lambda_0(u) e^{\beta &#39; Z }\)</span>, therefore integrated form is cumulative intensity <span class="math inline">\(A(t)\)</span>.</li>
+</ol>
+<ul>
+<li>Multiplicative Intensity Model:</li>
+</ul>
+<p><span class="math display">\[
+l(t) = Y(t)\lambda_0(t) e^{\beta &#39; Z(t) }
+\]</span></p>
+<ul>
+<li><p>Counting process: <span class="math inline">\(N(t)\)</span> = Number of events of a specified type that have occurred by time <span class="math inline">\(t\)</span></p>
+<ul>
+<li><span class="math inline">\(N(t)\)</span> may take more than one jump</li>
+<li>multiple infections, repeated breakdowns, hospital admissions</li>
+<li><span class="math inline">\(EN(t) &lt; \infty\)</span></li>
+</ul></li>
+<li><p>At-risk process: <span class="math inline">\(Y(t)\)</span>, left-continuous process, <span class="math inline">\(1\)</span> if failure can be observed at time <span class="math inline">\(t\)</span>, otherwise <span class="math inline">\(0\)</span>.</p>
+<ul>
+<li><span class="math inline">\(Y(t)\)</span> can be used to represent situation in which a subject enter and exit risk sets several times</li>
+<li><span class="math inline">\(Y(t)\)</span> may be <span class="math inline">\(1\)</span> even after an observed failure</li>
+</ul></li>
+<li><p>Covariate process: <span class="math inline">\(Z(t)\)</span> = (bounded) predictable process</p>
+<ul>
+<li>time-dependent treatment, risk factors</li>
+<li>model checking and relaxing PH assumption</li>
+</ul></li>
+<li><p>Baseline hazard function: <span class="math inline">\(\lambda_0(\cdot)\)</span> = an arbitrary deterministic function</p></li>
+<li><p>Filtration: <span class="math inline">\(\mathcal F_t = \sigma \Big \{ N(u) , Y(u+) , Z(u): \; \; 0 \le u \le t \Big \}\)</span></p></li>
+<li><p>Martingale: <span class="math inline">\(M(t) = N(t) - \int_0^t l(u) du\)</span></p></li>
+<li><p>Intensity function: $ E { dN(t) | F_{t-} } = l(t) dt$</p></li>
+<li><p>Data: <span class="math inline">\(n\)</span> independent observations on $ { N(), ; Y(), ; Z() }$</p></li>
+</ul>
+</div>
+<div id="likelihood-conditional-marginal-and-partial-likelihoods" class="section level2" number="8.6">
+<h2><span class="header-section-number">8.6</span> Likelihood; conditional, marginal and partial likelihoods</h2>
+<ul>
+<li><p><span class="math inline">\(X =\)</span> vector of observations; <span class="math inline">\(f_X(x, \theta) =\)</span> density of <span class="math inline">\(X\)</span></p></li>
+<li><p><span class="math inline">\(\theta =\)</span> vector parameter; <span class="math inline">\(\theta = (\beta &#39; , \phi&#39;)&#39;\)</span></p></li>
+<li><p><span class="math inline">\(\beta =\)</span> parameter of interest; <span class="math inline">\(\phi =\)</span> nuisance parameter</p></li>
+<li><p><strong>likelihood</strong>: <span class="math inline">\(f_X(x, \theta) = f_{W|V} (w \Big | v, \theta )f_V (v, \theta)\)</span></p>
+<ul>
+<li><span class="math inline">\(X = (V&#39;, W&#39;)&#39;\)</span></li>
+<li>infinite-dimensional <span class="math inline">\(\phi\)</span></li>
+<li><span class="math inline">\(f_{W|V} (w \Big | v, \theta )\)</span> does not involve <span class="math inline">\(\phi\)</span> <span class="math inline">\(\Rightarrow\)</span> use <span class="math inline">\(f_{W|V} (w \Big | v, \beta )\)</span> (conditional likelihood)</li>
+<li><span class="math inline">\(f_V (v, \theta)\)</span> does not involve <span class="math inline">\(\phi\)</span> <span class="math inline">\(\Rightarrow\)</span> use <span class="math inline">\(f_V (v, \beta)\)</span> (marginal likelihood)</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+X = (V_1 , W_1 , \cdots, V_K , W_K)
+\]</span></p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+
+f_X(x, \theta) &amp;= f_{V_1 , W_1 , \cdots, V_K , W_K} (v_1 , w_1 , \cdots, v_K , w_K\; ;\; \theta)
+\\
+
+&amp;= 
+f_{V_1}(v_1 \; ; \; \theta)
+
+f_{W_1 | V_1}(w_1 | v_1\; ; \; \theta)
+
+f_{V_2 | V_1, W_1}(v_2 |  v_1, w_1\; ; \; \theta) \times \cdots
+
+\\
+
+&amp;= \left \{ \prod_{i=1}^K f_{W_i | Q_i } (w_i \Big | q_i \; ; \theta) \right \}
+
+
+\left \{ \prod_{i=1}^K f_{V_i | P_i } (v_i \Big | p_i \; ; \theta) \right \}
+
+\end{align}\]</span>
+$$</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+
+P_1 = \phi,&amp; &amp;&amp; P_i =(V_1 , W_1 , \cdots, V_{i-1} , W_{i-1})
+\\
+Q_1 = V1,&amp; &amp;&amp; Q_i =(V_1 , W_1 , \cdots , W_{i-1}, V_i)
+
+\end{align}\]</span>
+$$</p>
+<p>$<em>{i=1}^K f</em>{W_i | Q_i } (w_i | q_i ; ; ) $ is free of <span class="math inline">\(\phi\)</span> <span class="math inline">\(\Rightarrow\)</span> use $ <em>{i=1}^K f</em>{W_i | Q_i } (w_i | q_i ; ; ) $ (partial likelihood)</p>
+<div id="partial-marginal-likelihoods" class="section level3" number="8.6.1">
+<h3><span class="header-section-number">8.6.1</span> Partial &amp; Marginal Likelihoods</h3>
+<p>Focus on Proportional Hazards Model: i.e., <span class="math inline">\((X_i, \; \delta_i, \; Z_i), \; i = 1, \cdots, n\)</span> (<span class="math inline">\(n\)</span> independent triplets)</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+&amp;\lambda(t \Big | Z ) = \lambda_0 (t) e^{\beta &#39; Z} &amp;&amp;S(t \Big | Z) = \Big \{ S_0(t) \Big \}^{e^{\beta &#39; Z}} \tag{1}
+
+\end{align}\]</span>
+$$</p>
+<p>위에서 $ _0 (t)$는 <strong>unspecified</strong>.</p>
+<ul>
+<li><strong>Partial Likelihood</strong>: assume no ties, absolutely continuous failure distribution</li>
+</ul>
+<p>Suppose there are L observed failures at <span class="math inline">\(\tau_1 &lt; \cdots &lt; \tau_L\)</span> (set <span class="math inline">\(\tau_0 \equiv 0\)</span> &amp; <span class="math inline">\(\tau_{L+1} \equiv \infty\)</span>)</p>
+<p>16.png</p>
+<p>Let (i) be the label for individual failing at <span class="math inline">\(\tau_i\)</span> (set <span class="math inline">\((L + 1) \equiv n + 1\)</span>). Note <span class="math inline">\(t_{(i)} = \tau_i\)</span></p>
+<p>Covariates for <span class="math inline">\(L\)</span> failures: <span class="math inline">\((Z_{(1)}, \cdots, Z_{(L)})\)</span>. (Hereafter, condition on $ { Z_i : i = 1, , n }$)</p>
+<p>Censorship times in <span class="math inline">\([\tau_i; \tau_{i+1})\)</span>: <span class="math inline">\((\tau_{i1}, \cdots, \tau_{i, m_i})\)</span> with covariates <span class="math inline">\((Z_{(i,1)}, \cdots, Z_{(i,m_i)})\)</span>, i.e., <span class="math inline">\((i, j)\)</span> is label for item censored at <span class="math inline">\(\tau_{ij}\)</span></p>
+<p>17.png</p>
+<p>The data can be divided into sets</p>
+<p><span class="math display">\[
+(V_1 , W_1, \cdots, V_{L+1} ,  W_{L+1})
+\]</span></p>
+<p>where, for <span class="math inline">\(i = 1, \cdots, L, L+1\)</span>,</p>
+<p>$$
+<span class="math display">\[\begin{align}
+V_i &amp;= \Big \{ \tau_i , \tau_{i-1, j}  \; \; ; \; \; (i-1, j):j = 1, \cdots, m_{i-1} \Big \}
+
+\\
+
+and \; \; \; \;W_i &amp;= \Big \{ (i) \Big \}
+
+
+\end{align}\]</span>
+$$</p>
+<p>18.png</p>
+<p>19.png</p>
+<p>GOAL: Build a likelihood on a subset of the full data set
+- carrying most of the information about <span class="math inline">\(\beta\)</span>
+- carrying no information on nuisance parameters <span class="math inline">\(\Big \{ \lambda_0 (t) : t \ge 0 \Big \}\)</span></p>
+<p>PROPOSAL: Generate likelihood of <span class="math inline">\(\Big \{ W_1, \cdots, W_L \Big \}\)</span></p>
+<p>JUSTIFICATION, WHY?:
+- Timing of events <span class="math inline">\(\Big \{ \tau_1 , \cdots, \tau_L \Big \}\)</span> can be explained by <span class="math inline">\(\lambda_0(\cdot)\)</span>.
+- Censoring <strong>times and labels</strong> can be ignored if we assume <strong>non-informative censorship</strong> (independent censoring).</p>
+<p>So this is a partial likelihood in the sense that it is only part of the likelihood of the observed data.</p>
+<p>If <span class="math inline">\(Q_i \equiv (V_1, W_1 , \cdots, V_{i-1}, W_{i-1}, V_i)\)</span> and <span class="math inline">\(\mathcal F_{\tau_i} \equiv (Q_i, Z)\)</span>, the partial likelihood is <span class="math inline">\(\prod_{i=1}^L P \Big ( W_i = (i) \Big | \mathcal F_{\tau_i} \Big)\)</span>, i.e., given the risk set at <span class="math inline">\(\tau_i\)</span>, and given event occurs at <span class="math inline">\(\tau_i\)</span>.</p>
+<p>Denote <span class="math inline">\(R_i \equiv \Big \{ j : X_j \ge \tau_i \Big \}\)</span> as risk set at <span class="math inline">\(\tau_i\)</span>. Then, by the assumption of independent censoring,</p>
+<p>$$
+<span class="math display">\[\begin{align}
+P \Big ( W_i = (i) \Big | \mathcal F_{\tau_i} \Big)
+
+
+
+
+&amp;=
+\frac{
+
+
+P \Bigg \{ t_{(i)} \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \} \cdot 
+\prod\limits_{j \in R_i - (i)} P \Bigg \{ t_{j} \not \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \} 
+}{
+
+\sum\limits_{l \in R_i} 
+\left[
+P \Bigg \{ t_{l} \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \} \cdot 
+\prod\limits_{j \in R_i - l} P \Bigg \{ t_{j} \not \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \}
+\right]
+}
+\tag{a}
+
+
+
+
+
+\\
+\\
+\\
+
+
+&amp;=
+\frac{
+d\Lambda \Big( \tau_i \Big | Z_{(i)} \Big)
+\prod\limits_{j \in R_i - (i)} \bigg \{ 1 - d\Lambda \Big( \tau_i \Big | Z_{j} \Big) \bigg \}
+}{
+\sum\limits_{l \in R_i} \left [ d\Lambda \Big( \tau_i \Big | Z_{l} \Big)
+\prod\limits_{j \in R_i - l} \bigg \{ 1 - d\Lambda \Big( \tau_i \Big | Z_{j} \Big) \bigg \} \right ]
+}
+
+
+\; \; \; \div \; \; \; \frac{d\tau_i}{d\tau_i}
+
+\tag{2}
+\\
+\\
+\\
+
+&amp;= \frac{\lambda\Big(\tau_i \Big | Z_{(i)} \Big)}{ \frac{P \Big\{T\in [t, t+dt) \Big | T \ge t , Z \Big\}}{dt}= \sum\limits_{l\in R_i} \left[ \lambda\Big(\tau_i \Big | Z_{l} \Big) \right]}
+
+\; \; \; \overset {(1)}{=}  \; \; \; 
+
+
+\frac{\exp(\beta &#39; Z_{(i)})}{\sum\limits_{l\in R_i} \exp(\beta &#39; Z_{l})}
+
+
+
+
+
+\end{align}\]</span>
+$$
+- at (a), <span class="math inline">\(P \Bigg \{ t_{j} \not \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \} = 1 - P \Bigg \{ t_{j} \in \big[\tau_i , \tau_i + d\tau \big) \Bigg |\mathcal F_{\tau_i} \Bigg \}\)</span>
+- at (2), $ d( <em>i | Z</em>{j} ) = 0$</p>
+<p>Thus, the <strong>Partial Likelihood</strong> is</p>
+<p><span class="math display">\[
+\prod^L_{i=1}\frac{\exp(\beta &#39; Z_{(i)})}{\sum\limits_{l\in R_i} \exp(\beta &#39; Z_{l})} = L(\beta)\tag{3}
+\]</span></p>
+<p>Note: unspecified <span class="math inline">\(\lambda_0(\cdot)\)</span> + noninformative censoring <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\prod\limits_{i=1}^L f_{V_i \big | P_i} (v_i \Big | p_i ; \theta)\)</span> contains little or no information about <span class="math inline">\(\beta\)</span>.</p>
+<ul>
+<li>Counting process notation:</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+L(\beta) = \prod^n_{i=1}\prod_{t\ge0} \left \{ 
+
+\frac{\exp(\beta &#39; Z_{i})}{\sum\limits_{j=1}^n Y_j(t) \exp(\beta &#39; Z_{j})}
+
+\right\}^{dN_i(t)}
+
+
+, &amp;&amp; dN_i(t) = \begin{cases} 1 &amp; N_i(t) - N_i {(t-)} =1\\0 &amp; o.w.\end{cases}
+
+\end{align}\]</span>
+$$</p>
+<ul>
+<li><p>Maximum partial likelihood estimator (MPLE): <span class="math inline">\(L( \hat \beta) = \max_\beta L(\beta)\)</span> (using Newton-Raphson (NR) algorithm)</p>
+<ul>
+<li>Specifically, the <strong>log partial likelihood</strong> is then</li>
+</ul>
+<p><span class="math display">\[
+l(\beta) = \sum_{i=1}^n \int_0^\infty \left[ Y_i (t) Z_i \beta - \log\left( \sum_{j=1}^n Y_j(t) \exp(\beta &#39; Z_j ) \right) \right]dN_i(t)
+\]</span></p>
+<ul>
+<li><strong>The score vector</strong>, <span class="math inline">\(U(\beta)\)</span>, can be obtained by differentiating <span class="math inline">\(l(\beta)\)</span> w.r.t. <span class="math inline">\(\beta\)</span>:</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+U(\beta) &amp;= \sum_{i=1}^n \int_0^\infty \Big \{ Z_i - \bar Z(\beta, t) \Big \}&amp;&amp;dN_i (t)
+
+\\
+
+&amp;= \sum_{i=1}^n \int_0^\infty \left \{ Z_i - \frac{\sum_{i=1}^n Y_i (t) Z_i \exp(\beta &#39; Z_i)}{\sum_{i=1}^n Y_i (t) \exp(\beta &#39; Z_i)} \right \}&amp;&amp;dN_i (t)
+
+\end{alignat}\]</span>
+$$</p>
+<ul>
+<li><p>where <span class="math inline">\(\bar Z(\beta, t)\)</span> is a weighted mean of <span class="math inline">\(Z\)</span> over those observations still at risk at time <span class="math inline">\(t\)</span>.</p></li>
+<li><p>The information matrix, <span class="math inline">\(\mathcal I(\beta)\)</span>, is the negative second derivative where</p></li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\mathcal I(\beta) &amp;= \sum\limits_{i=1}^n \int_0^\infty V(\beta, t) dN_i(s)
+
+\\
+\\
+
+V(\beta, t) &amp;= \frac{\sum\limits_{i=1}^n Y_i(t) \exp(\beta &#39; Z_i ) \Big \{ Z_i - \hat Z (\beta, t)\Big\}&#39;\Big \{ Z_i - \hat Z (\beta, t)\Big\}}{\sum\limits_{i=1}^n Y_i(t) \exp(\beta &#39; Z_i )}
+
+\end{align}\]</span>
+$$</p>
+<ul>
+<li>and <span class="math inline">\(V(\beta, t)\)</span> is the weighted variance of <span class="math inline">\(Z\)</span> at time <span class="math inline">\(t\)</span>.</li>
+</ul></li>
+</ul>
+<p>Then, the MPLE, <span class="math inline">\(\hat \beta\)</span>, is found by solving the partial likelihood equation: <span class="math inline">\(U(\hat \beta) = 0\)</span>.</p>
+<p>Under some regularity conditions, <span class="math inline">\(\hat \beta\)</span> is consistent and asymptotically normally distributed with mean <span class="math inline">\(\beta\)</span> and variance <span class="math inline">\(E \Big \{ \mathcal I(\beta) \Big\}^{-1}\)</span> (will be shown later.)</p>
+<p>The NR algorithm to solve the partial likelihood equation: Compute iteratively until convergence (requires an initial value <span class="math inline">\(\hat \beta^{(0)}\)</span>).</p>
+<p><span class="math display">\[
+\hat\beta^{(n+1)} = \hat\beta^{(n)} + \mathcal I ^{-1} \Big( \hat \beta^{(n)}\Big) \cdot U \Big( \hat \beta^{(n)}\Big)
+\]</span></p>
+<p>※ Note:
+1. (incredibly) Robust algorithm!
+2. <span class="math inline">\(\hat \beta^{(0)} = 0\)</span> usually works.</p>
+</div>
+</div>
+<div id="cox-proportional-hazards-model" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Cox Proportional Hazards Model</h2>
+<p>Cox model:</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda_i(t) = \lambda(t \Big | Z_i ) 
+&amp;= \lambda_0 (t) \exp(\beta &#39; Z_i) 
+\\
+&amp;= \lambda_0(t) \exp(\beta_1 Z_{i1} + \cdots + \beta_k Z_{ik})
+\\
+&amp;\Updownarrow
+\\
+
+\log \lambda(t \Big | Z_i ) &amp;= \log \Big[ \lambda_0(t) \Big] +\beta_1 Z_{i1} + \cdots + \beta_k Z_{ik}
+\\
+S(t \Big | Z_i ) &amp;= 
+
+
+
+\Big[ S_0(t) \Big]^{\exp(\beta_1 Z_{i1} + \cdots + \beta_k Z_{ik})}
+
+
+\end{align}\]</span>
+$$</p>
+<p>※ Note:</p>
+<p>$$
+<span class="math display">\[\begin{align}
+\lambda_0 (t) &amp;= \lambda(t \Big | Z_1 = \cdots = Z_k = 0)
+\\
+\\
+\exp(\beta_1 Z_{1} + \cdots + \beta_k Z_{k}) &amp;= RR 
+
+
+
+\\
+&amp;= \frac{\lambda(t \Big | Z_1 , \cdots, Z_k)}{\lambda(t \Big | Z_1 = \cdots = Z_k = 0)} \tag{1}
+\end{align}\]</span>
+$$
+- (1) is relative risk of hazard of death comparing covariates values <span class="math inline">\(Z_1,\cdots, Z_k\)</span> to <span class="math inline">\(Z_1 = \cdots = Z_k = 0\)</span></p>
+<p>Interpreting Cox Model Coeffcients: <span class="math inline">\(\beta_k\)</span> is the log RR (hazard ratio) for a unit change in <span class="math inline">\(Z_k\)</span>, given all other covariates remain constant, i.e.,</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+
+\frac
+{\lambda\Big[t \Big | Z_1 , \cdots, (Z_{k&#39;}+1), \cdots, Z_k \Big]}
+{\lambda\Big[t \Big | Z_1 , \cdots, Z_{k&#39;}, \cdots, Z_k \Big]} 
+
+
+&amp;= \exp \Big (\beta_1 \cdot 0 + \cdots + \beta_{k&#39;} \cdot (Z_{k&#39;} +1 - Z_{k&#39;}) + \cdots + \beta_k \cdot 0 \Big)
+
+\\
+
+&amp;= \exp(\beta_{k&#39;})
+
+
+\end{align}\]</span>
+$$</p>
+<p>The RR comparing 2 sets of values for the covariates <span class="math inline">\((Z_1 , \cdots, Z_k)\)</span> vs. <span class="math inline">\((Z_1&#39; , \cdots, Z_k&#39;)\)</span>:</p>
+<p><span class="math display">\[
+RR = \frac{\lambda(t \Big | Z_1 , \cdots, Z_k)}{\lambda(t \Big | Z_1 &#39;, \cdots, Z_k&#39;)} =\exp \Big \{ \beta_1(Z_1 - Z_1&#39;) + \cdots + \beta_k(Z_k - Z_k&#39;) \Big \}
+\]</span></p>
+<p>20.png</p>
+</div>
+<div id="comparison-of-nested-models" class="section level2" number="8.8">
+<h2><span class="header-section-number">8.8</span> Comparison of Nested Models</h2>
+<ul>
+<li>Nested Models:</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda(t) &amp;= \lambda_0(t) \exp \Big ( \beta_1 Z_1 + \cdots \beta_p Z_p + \beta_{p+1} Z_{p+1} +\cdots + \beta_{k} Z_{k}\Big) \tag{Full Model}
+
+\\
+
+&amp;= \lambda_0(t) \exp \Big ( \beta_1 Z_1 + \cdots \beta_p Z_p \Big) \tag{Reduced Model}
+
+
+\end{align}\]</span></p>
+<p>$$</p>
+<p>To test:</p>
+<ul>
+<li>Nested Models:</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+
+&amp;H_0:  &amp;&amp;RM &amp;&amp; \Leftrightarrow &amp;&amp; H_0: \beta_{p+1} = \cdots = \beta_k = 0
+\\
+&amp;H_A:  &amp;&amp;RM &amp;&amp; \Leftrightarrow &amp;&amp; H_A:  \not = \text{ somewhere}
+
+\end{align}\]</span></p>
+<p>$$</p>
+<p>Use the <strong>partial likelihood ratio statistic</strong>, <span class="math inline">\(X^2_{Cox} = -2 \Big[ \log PL(RM) - \log PL(FM)\Big]\)</span>.</p>
+<p>Under <span class="math inline">\(H_0\)</span>: Reduced model, and when <span class="math inline">\(n\)</span> is large:
+<span class="math display">\[
+\begin{align}
+X^2_{Cox} \sim \chi^2_{k-p} &amp;&amp; k-p \text{ is the # of parameters set to 0 by }H_0
+\end{align}
+\]</span></p>
+<p>20.png, 21.png</p>
+</div>
+<div id="stratification" class="section level2" number="8.9">
+<h2><span class="header-section-number">8.9</span> Stratification</h2>
+<p>Two Ways to Stratify. Suppose a confounder <span class="math inline">\(C\)</span> has 3 levels on which we would like to stratify when comparin
+g <span class="math inline">\(\lambda(t \Big | E )\)</span> and <span class="math inline">\(\lambda ( t \Big | \bar E )\)</span>. How? <span class="math inline">\(X_E = \begin{cases}1&amp;E&amp;\text{(exposed)}\\0&amp;\bar E&amp;\text{(not exposed)}\end{cases}\)</span></p>
+<p>22.png</p>
+<ul>
+<li>Which Way to Stratify?</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Under dummy variable stratification model, the proportional stratum-to-stratum hazards assumption may not be correct. If not, the con-founder <span class="math inline">\(C\)</span> may be inadequately controlled.</li>
+<li>Proportionality assumption can be checked using time-dependent covariates.</li>
+<li>True stratification is a more thorough adjustment, as long as observations within each level are homogeneous. If <span class="math inline">\(C\)</span> can be measured continuously and the strata were formed by grouping values of it, better control for <span class="math inline">\(C\)</span> might be achieved with continuous (could be time-dependent) covariate adjustment.</li>
+<li>If <span class="math inline">\(C\)</span> is controlled using the true stratification there is no way to estimate one summary relative risk comparing two levels of <span class="math inline">\(C\)</span>. However, we can estimate <span class="math inline">\(\lambda_{0i}(t)\)</span> for each stratum then we can estimate a RR function.</li>
+<li>True stratification generally requires more data to obtain the same precision in coefficient estimates.</li>
+</ol>
+<p>23.png</p>
+<p>24.png</p>
+</div>
+<div id="test-statistics" class="section level2" number="8.10">
+<h2><span class="header-section-number">8.10</span> Test statistics</h2>
+<p>The standard asymptotic likelihood inference tests, Wald, score, and likelihood ratio (LR), still can be applied for the Cox partial likelihood.</p>
+<p>25.png</p>
+<p>Their finite sample properties may differ; in general, the LRT is the most reliable, the Wald test is the least.</p>
+<p>26.png</p>
+<p>When <span class="math inline">\(p = 1\)</span> and the single covariate is categorical, the score test is identical to the log-rank test.</p>
+<p>27.png</p>
+</div>
+<div id="handling-ties" class="section level2" number="8.11">
+<h2><span class="header-section-number">8.11</span> Handling ties</h2>
+<p>Real data sets often contain tied event times.</p>
+<ul>
+<li>When do we have ties?</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Continuous event times are grouped into intervals.</li>
+<li>Event time scale is discrete.</li>
+</ol>
+<p>Four commonly used ways of handling ties: 1) Breslow approximation, 2) Efron approximation, 3) Exact partial likelihood, and 4) Averaged likelihood.</p>
+<p>When the underlying time is continuous but ties are generated due to a grouping, the contribution to the partial likelihood for the <span class="math inline">\(i\)</span>-th event at time <span class="math inline">\(t_i\)</span> is <span class="math inline">\(\frac{\exp(\beta &#39; Z_i)}{ \sum\limits_{j \in R_i} Y_j(t_i) \exp(\beta &#39; Z_j)}\)</span></p>
+<p>Two commonly used methods are
+1. Breslow approximation
+2. Efron approximation</p>
+<p>Example: Assume 5 subjects are at risk of dying at time <span class="math inline">\(t\)</span> and two die at the same time <span class="math inline">\(t\)</span> (because of grouping of time) If the time data had been more precise, then the first two terms in the likelihood would be either</p>
+<p>28.png</p>
+<p>29.png</p>
+<p>30.png</p>
+
+<ol style="list-style-type: decimal">
+<li><p>SA의 결과물은 보통 <em>time-to-event</em>, 즉슨 대부분의 경우에 nonnegative이며, 이는 곧 time domain을 한정함.</p></li>
+<li><p>time-to-event의 distribution은 보통 <em>skewed</em>.</p></li>
+<li><p>Survival data은 자주 <em>right censored</em>. 조사 대상자들은 조사 기간중에만 생존했음을 알며, 조사 기간 넘어서 죽으면 해당 시간이 정확히 기록되지 않음.</p></li>
+<li><p>tail probability. 충분한 후속연구 후에는, tail of survival curve에 해당하는 subject들이 보통 되게 적음. estimation of the tail of the survival curve can be quite difficult. tail에서 survival density는 엄청 적어짐. 따라서 총 표본 수가 많이 확보되어 있지 않으면 tail에 해당하는 분석결과는 확보하기가 어렵다.</p></li>
+<li><p>모든 연구의 시간은 finite이므로 모든 subjects들에게서 발생한 event of interest 중 일부는 육안으로 관찰 못 할수도 있다. 장기적으로 발생은 했는데, 그게 우리 손닿는 곳에서 터지지 않았음.</p></li>
+<li><p>일반적으로 관측안된 failure time 들이 포함되어 있으면 기존 통계 테크닉은 사용할 수 없음.</p></li>
+<li><p>failure time 이 관측되지 않은 subject들은 censored 되었다고 표현.</p></li>
+<li><p>censored observations를 포함한 자료에서 정보를 뽑아내는 것이 SA의 estimation methods의 목적.</p></li>
+</ol>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="references.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="censoring-sources.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/5cox.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
