@@ -1,5 +1,5 @@
 --- 
-title: "."
+title: "Self-Study"
 #author: "John Doe"
 #date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
