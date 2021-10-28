@@ -7,6 +7,9 @@ notation
 right-censoring-most-of-the-course
 type-of-data-to-be-analyzed-in-survival-analysis
 left-censoring
+section
+section-1
+section-2
 cox-regression
 proportional-hazards-model
 cox-ph-model
@@ -21,6 +24,7 @@ comparison-of-nested-models
 stratification
 test-statistics
 handling-ties
+concepts
 r-bookdown
 tutorial
 about
