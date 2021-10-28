@@ -1,5 +1,6 @@
 fig:nice-fig
 tab:nice-tab
+survival-analysis
 introduction
 censoring-sources
 notation
