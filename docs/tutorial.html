@@ -159,14 +159,14 @@ div.csl-indent {
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Intro</a></li>
 <li class="part"><span><b>I 21-02</b></span></li>
-<li class="chapter" data-level="1" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>1</b> Survival Analysis</a>
+<li class="chapter" data-level="" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i>Survival Analysis</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
-<li class="chapter" data-level="1.2" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>1.2</b> </a></li>
-<li class="chapter" data-level="1.3" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>1.3</b> </a></li>
-<li class="chapter" data-level="1.4" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>1.4</b> </a></li>
-<li class="chapter" data-level="1.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>1.5</b> Cox Regression</a></li>
-<li class="chapter" data-level="1.6" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>1.6</b> Concepts</a></li>
+<li class="chapter" data-level="0.1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>0.1</b> Introduction</a></li>
+<li class="chapter" data-level="0.2" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>0.2</b> </a></li>
+<li class="chapter" data-level="0.3" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>0.3</b> </a></li>
+<li class="chapter" data-level="0.4" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>0.4</b> </a></li>
+<li class="chapter" data-level="0.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>0.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="0.6" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>0.6</b> Concepts</a></li>
 </ul></li>
 <li class="appendix"><span><b>00-00</b></span></li>
 <li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
@@ -203,18 +203,18 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="tutorial" class="section level2" number="2.1">
+<div id="tutorial" class="section level2" number="1.1">
 <h2><span class="header-section-number">A.1</span> Tutorial</h2>
-<div id="about" class="section level3" number="2.1.1">
+<div id="about" class="section level3" number="1.1.1">
 <h3><span class="header-section-number">A.1.1</span> About</h3>
 <p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc’s Markdown supports; for example, a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<div id="usage" class="section level6" number="2.1.1.0.0.1">
+<div id="usage" class="section level6" number="1.1.1.0.0.1">
 <h6><span class="header-section-number">A.1.1.0.0.1</span> Usage</h6>
 <p>Each <strong>bookdown</strong> chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter <em>must</em> start with a first-level heading: <code>### A good chapter</code>, and can contain one (and only one) first-level heading.</p>
 <p>Use second-level and higher headings within chapters like: <code>###### A short section</code> or <code>######### An even shorter section</code>.</p>
 <p>The <code>index.Rmd</code> file is required, and is also your first book chapter. It will be the homepage when you render the book.</p>
 </div>
-<div id="render-book" class="section level6" number="2.1.1.0.0.2">
+<div id="render-book" class="section level6" number="1.1.1.0.0.2">
 <h6><span class="header-section-number">A.1.1.0.0.2</span> Render book</h6>
 <p>You can render the HTML version of this example book without changing anything:</p>
 <ol style="list-style-type: decimal">
@@ -225,16 +225,16 @@ div.csl-indent {
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="tutorial.html#cb1-1" aria-hidden="true" tabindex="-1"></a>bookdown<span class="sc">::</span><span class="fu">render_book</span>()</span></code></pre></div>
 <p>To render this example to PDF as a <code>bookdown::pdf_book</code>, you’ll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.org/tinytex/" class="uri">https://yihui.org/tinytex/</a>.</p>
 </div>
-<div id="preview-book" class="section level6" number="2.1.1.0.0.3">
+<div id="preview-book" class="section level6" number="1.1.1.0.0.3">
 <h6><span class="header-section-number">A.1.1.0.0.3</span> Preview book</h6>
 <p>As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in “Preview book,” or from the R console:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="tutorial.html#cb2-1" aria-hidden="true" tabindex="-1"></a>bookdown<span class="sc">::</span><span class="fu">serve_book</span>()</span></code></pre></div>
 </div>
 </div>
-<div id="hello-bookdown" class="section level3" number="2.1.2">
+<div id="hello-bookdown" class="section level3" number="1.1.2">
 <h3><span class="header-section-number">A.1.2</span> Hello bookdown</h3>
 <p>All chapters start with a first-level heading followed by your chapter title, like the line above. There should be only one first-level heading (<code>###</code>) per .Rmd file.</p>
-<div id="a-section" class="section level6" number="2.1.2.0.0.1">
+<div id="a-section" class="section level6" number="1.1.2.0.0.1">
 <h6><span class="header-section-number">A.1.2.0.0.1</span> A section</h6>
 <p>All chapter sections start with a second-level (<code>######</code>) or higher heading followed by your section title, like the sections above and below here. You can have as many as you want within a chapter.</p>
 <div id="an-unnumbered-section" class="section level9 unnumbered">
@@ -243,10 +243,10 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<div id="cross-references" class="section level3" number="2.1.3">
+<div id="cross-references" class="section level3" number="1.1.3">
 <h3><span class="header-section-number">A.1.3</span> Cross-references</h3>
 <p>Cross-references make it easier for your readers to find and link to elements in your book.</p>
-<div id="chapters-and-sub-chapters" class="section level6" number="2.1.3.0.0.1">
+<div id="chapters-and-sub-chapters" class="section level6" number="1.1.3.0.0.1">
 <h6><span class="header-section-number">A.1.3.0.0.1</span> Chapters and sub-chapters</h6>
 <p>There are two steps to cross-reference any heading:</p>
 <ol style="list-style-type: decimal">
@@ -261,7 +261,7 @@ div.csl-indent {
 </ul></li>
 </ol>
 </div>
-<div id="captioned-figures-and-tables" class="section level6" number="2.1.3.0.0.2">
+<div id="captioned-figures-and-tables" class="section level6" number="1.1.3.0.0.2">
 <h6><span class="header-section-number">A.1.3.0.0.2</span> Captioned figures and tables</h6>
 <p>Figures and tables <em>with captions</em> can also be cross-referenced from elsewhere in your book using <code>\@ref(fig:chunk-label)</code> and <code>\@ref(tab:chunk-label)</code>, respectively.</p>
 <p>See Figure <a href="tutorial.html#fig:nice-fig">A.1</a>.</p>
@@ -331,20 +331,20 @@ FIGURE A.1: Here is a nice figure!
 </table>
 </div>
 </div>
-<div id="parts" class="section level3" number="2.1.4">
+<div id="parts" class="section level3" number="1.1.4">
 <h3><span class="header-section-number">A.1.4</span> Parts</h3>
 <p>You can add parts to organize one or more book chapters together. Parts can be inserted at the top of an .Rmd file, before the first-level chapter heading in that same file.</p>
 <p>Add a numbered part: <code>### (PART) Act one {-}</code> (followed by <code>### A chapter</code>)</p>
 <p>Add an unnumbered part: <code>### (PART\*) Act one {-}</code> (followed by <code>### A chapter</code>)</p>
 <p>Add an appendix as a special kind of un-numbered part: <code>### (APPENDIX) Other stuff {-}</code> (followed by <code>### A chapter</code>). Chapters in an appendix are prepended with letters instead of numbers.</p>
 </div>
-<div id="footnotes-and-citations" class="section level3" number="2.1.5">
+<div id="footnotes-and-citations" class="section level3" number="1.1.5">
 <h3><span class="header-section-number">A.1.5</span> Footnotes and citations</h3>
-<div id="footnotes" class="section level6" number="2.1.5.0.0.1">
+<div id="footnotes" class="section level6" number="1.1.5.0.0.1">
 <h6><span class="header-section-number">A.1.5.0.0.1</span> Footnotes</h6>
 <p>Footnotes are put inside the square brackets after a caret <code>^[]</code>. Like this one.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </div>
-<div id="citations" class="section level6" number="2.1.5.0.0.2">
+<div id="citations" class="section level6" number="1.1.5.0.0.2">
 <h6><span class="header-section-number">A.1.5.0.0.2</span> Citations</h6>
 <p>Reference items in your bibliography file(s) using <code>@key</code>.</p>
 <p>For example, we are using the <strong>bookdown</strong> package <span class="citation">(<a href="#ref-R-bookdown" role="doc-biblioref">Xie 2021</a>)</span> (check out the last code chunk in index.Rmd to see how this citation key was added) in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> (this citation was added manually in an external file book.bib).
@@ -352,9 +352,9 @@ Note that the <code>.bib</code> files need to be listed in the index.Rmd with th
 <p>The RStudio Visual Markdown Editor can also make it easier to insert citations: <a href="https://rstudio.github.io/visual-markdown-editing/###/citations" class="uri">https://rstudio.github.io/visual-markdown-editing/###/citations</a></p>
 </div>
 </div>
-<div id="blocks" class="section level3" number="2.1.6">
+<div id="blocks" class="section level3" number="1.1.6">
 <h3><span class="header-section-number">A.1.6</span> Blocks</h3>
-<div id="equations" class="section level6" number="2.1.6.0.0.1">
+<div id="equations" class="section level6" number="1.1.6.0.0.1">
 <h6><span class="header-section-number">A.1.6.0.0.1</span> Equations</h6>
 <p>Here is an equation.</p>
 <p><span class="math display">\[\begin{equation} 
@@ -362,7 +362,7 @@ Note that the <code>.bib</code> files need to be listed in the index.Rmd with th
 \end{equation}\]</span></p>
 <p>You may refer to using <code>\@ref(eq:binom)</code>, like see Equation <code>\@ref(eq:binom)</code>.</p>
 </div>
-<div id="theorems-and-proofs" class="section level6" number="2.1.6.0.0.2">
+<div id="theorems-and-proofs" class="section level6" number="1.1.6.0.0.2">
 <h6><span class="header-section-number">A.1.6.0.0.2</span> Theorems and proofs</h6>
 <p>Labeled theorems can be referenced in text using <code>\@ref(thm:tri)</code>, for example, check out this smart theorem .</p>
 <p>::: {.theorem ###tri}
@@ -372,22 +372,22 @@ and <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</
 :::</p>
 <p>Read more here <a href="https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html" class="uri">https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html</a>.</p>
 </div>
-<div id="callout-blocks" class="section level6" number="2.1.6.0.0.3">
+<div id="callout-blocks" class="section level6" number="1.1.6.0.0.3">
 <h6><span class="header-section-number">A.1.6.0.0.3</span> Callout blocks</h6>
 <p>The R Markdown Cookbook provides more help on how to use custom blocks to design your own callouts: <a href="https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html" class="uri">https://bookdown.org/yihui/rmarkdown-cookbook/custom-blocks.html</a></p>
 </div>
 </div>
-<div id="sharing-your-book" class="section level3" number="2.1.7">
+<div id="sharing-your-book" class="section level3" number="1.1.7">
 <h3><span class="header-section-number">A.1.7</span> Sharing your book</h3>
-<div id="publishing" class="section level6" number="2.1.7.0.0.1">
+<div id="publishing" class="section level6" number="1.1.7.0.0.1">
 <h6><span class="header-section-number">A.1.7.0.0.1</span> Publishing</h6>
 <p>HTML books can be published online, see: <a href="https://bookdown.org/yihui/bookdown/publishing.html" class="uri">https://bookdown.org/yihui/bookdown/publishing.html</a></p>
 </div>
-<div id="pages" class="section level6" number="2.1.7.0.0.2">
+<div id="pages" class="section level6" number="1.1.7.0.0.2">
 <h6><span class="header-section-number">A.1.7.0.0.2</span> 404 pages</h6>
 <p>By default, users will be directed to a 404 page if they try to access a webpage that cannot be found. If you’d like to customize your 404 page instead of using the default, you may add either a <code>_404.Rmd</code> or <code>_404.md</code> file to your project root and use code and/or Markdown syntax.</p>
 </div>
-<div id="metadata-for-sharing" class="section level6" number="2.1.7.0.0.3">
+<div id="metadata-for-sharing" class="section level6" number="1.1.7.0.0.3">
 <h6><span class="header-section-number">A.1.7.0.0.3</span> Metadata for sharing</h6>
 <p>Bookdown HTML books will provide HTML metadata for social sharing on platforms like Twitter, Facebook, and LinkedIn, using information you provide in the <code>index.Rmd</code> YAML. To setup, set the <code>url</code> for your book and the path to your <code>cover-image</code> file. Your book’s <code>title</code> and <code>description</code> are also used.</p>
 <p>This <code>gitbook</code> uses the same social sharing data across all chapters in your book- all links shared will look the same.</p>
