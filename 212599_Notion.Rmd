@@ -1,0 +1,6 @@
+## Concepts
+
+$S(t)$: survival function. 시점 $t$까지는 살아있을 확률.
+
+$h(t) = \lambda(t) = \frac{f(t)}{S(t)}$: hazard function. 시점 $t$에서 사망할 확률.
+

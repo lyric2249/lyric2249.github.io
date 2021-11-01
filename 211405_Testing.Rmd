@@ -1,0 +1,2174 @@
+---
+sort: 4
+---
+
+
+
+
+## Testing
+
+
+
+### More About Models: Two approaches for linear model
+
+
+
+$
+\begin{alignat}{2}
+
+Y &= E(Y) &&+ Y - E(Y)  \\
+
+&= \mu &&+ \epsilon \tag{Parameter-free approach }
+
+\\
+\\
+
+Y &= E(Y) &&+ Y - E(Y)  \\
+
+&= X \beta &&+ \epsilon \tag{Parameter approach}
+
+
+
+
+\end{alignat}
+$
+
+$
+\begin{alignat}{2}
+
+E(\epsilon) &= 0, \; \; \;  && Cov(\epsilon) &&= \sigma^2 I \tag{Ordinary Least Square, OLS}
+
+\\ 
+
+E(\epsilon) &= 0, && Cov(\epsilon) &&= \sigma^2 \Sigma \tag{Generalized Least Square, GLS}
+
+
+
+\end{alignat}
+$
+
+<br/>
+<br/>
+<br/>
+
+
+- Consider 
+
+$
+Y=X \beta + \epsilon, \; \; \; \; \; E(\epsilon)=0, \; Cov(\epsilon) = \sigma^2 I
+$
+
+| | $\mathcal{C}(X)$ | $\mathcal{C}(X)^\perp$ |
+| :-: | :-: | :-: |
+| itslef | Estimation Space | Error Space |
+| orthogonal projection onto | $M \\ = X(X'X)^-X'$ | $I - M \\= I - X(X'X)^-X'$ |
+|  | $E(Y) = X \beta \in \mathcal{C}(X)$ | $E(\epsilon) \in \mathcal{C}(X)^\perp$ |
+|  | $Cov(Y) = \sigma^2 I$ | $Cov(\epsilon) = \sigma^2 I$ |
+
+
+<br/>
+<br/>
+<br/>
+
+- One-Way ANOVA
+
+
+$
+
+\begin{alignat}{4}
+
+
+
+y_{ij} &= \mu_i &&+ \epsilon_{ij} \\
+&= E(y_{ij}) &&+ \epsilon_{ij} \\
+
+
+&= \mu + \alpha_i &&+ \epsilon_{ij} \\
+
+\\\
+
+\bar \mu &= \mu + \bar \alpha_+ \\
+
+
+\mu_1 - \mu_2 &= \alpha_1 - \alpha_2
+
+
+
+\end{alignat}
+$
+
+the parameters in the two models are different, but they are related.
+
+<br/>
+<br/>
+<br/>
+
+
+- Simple Linear Regression
+
+$
+
+\begin{alignat}{4}
+y_i & = \beta_0 + \beta_1 x_i &&+\epsilon_i
+
+\\
+
+
+& = E(y_i) &&+\epsilon_i
+ 
+\\
+
+& = \gamma_0 + \gamma_1(x_i - \bar x) &&+\epsilon_i
+
+
+\end{alignat}
+$
+
+$
+
+\begin{alignat}{2}
+
+\mathcal{C}(X_1) = \mathcal{C}(X_2) \; \; \Longrightarrow \; \;\; \; \; X_1 &= X_2 T
+
+
+\\
+
+X_1 \beta_1 &= X_2 T \beta_1 && = X_2 \beta_2
+
+\\
+
+& &&= X_2 (T \beta_1 + \nu), \; \; \; \forall\nu \in \mathcal{C}(X_2')^\perp
+
+
+\end{alignat}
+$
+
+※ Note: A unique parameterization for $X_j, \; j=1,2$ occurs $\iff$ $X_j ' X_j$ is nonsingular.
+
+
+- Exercise: Show that a unique parameterization for $X_j, \; j=1,2$ means $\mathcal{C}(X_2 ' )^\perp = \{0\}$.
+
+
+### Testing Models
+
+Consider
+
+$
+Y=X \beta + \epsilon, \; \; \; \; \; \epsilon \sim N(0, \; I_n)
+$
+
+let's partition $X$ into $X = \begin{pmatrix} X_0, & X_1 \end{pmatrix}: \; \mathcal{C}(X_0) \subset \mathcal{C}(X)  $
+
+
+
+$
+\begin{alignat}{2}
+
+
+Y &= X_0 \beta_0 + X_1 \beta_1 &&+ \epsilon \tag{Full Model, FM}
+
+\\
+
+
+Y &= X_0 \gamma &&+ \epsilon \tag{Reduced Model, RM}
+
+\end{alignat}
+$
+
+이때 Hypothesis testing procedure can be described as $H_0:$ Reduced Model, $H_1:$ Full Model. (Example 3.2.0: pp. 52–54).
+
+<br/>
+<br/>
+<br/>
+
+
+Let $M$ and $M_0$ be the orthogonal projection onto $\mathcal{C}(X)$ and $\mathcal{C}(X_0)$ respectively.
+
+Note that with $\mathcal{C}(X_0) \subset \mathcal{C}(X)$, $M - M_0$ is the orthogonal projection onto the orthogonal complement of $\mathcal{C}(X_0)$ with respect to $\mathcal{C}(X)$, that is,
+
+$
+\begin{align}
+
+\mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp  &= \mathcal{C}(M - M_0) \\
+
+&= \mathcal{C}(M \cap M_0^\perp ) \\
+
+\\\
+
+\hat\mu &= \hat E(Y) = MY \tag{under FM}
+
+
+
+\\
+
+\hat\mu_0 &= \hat E(Y) = M_0 Y \tag{under RM}
+
+
+
+
+
+\end{align}
+$
+
+
+
+If RM is true, then $MY-M_0 Y = (M - M_0)Y$ should be reasonably small. Note that $E(M-M_0)Y = 0$.
+
+<br/>
+<br/>
+<br/>
+
+
+The decision about whether RM is appropriate hinges on deciding whether the vector $(M - M_0)Y$ is large.
+
+The size of $(M - M_0)Y$'s **obvious measure** is $[(M - M_0)Y]'[(M - M_0)Y] = Y'(M-M_0)Y$. 
+
+The size of $(M - M_0)Y$'s **reasonable measure** is given by $\dfrac{Y'(M-M_0)Y}{r(M-M_0)}$. 
+
+
+
+- ※ Note that $E \left( \dfrac{Y'(M-M_0)Y}{r(M-M_0)} \right) = \sigma^2 + \dfrac{\beta'X'(M-M_0)X \beta}{r(M-M_0)} $.
+
+
+<br/>
+<br/>
+<br/>
+
+
+- Theorem 3.2.1.
+
+Consider
+
+$
+Y=X \beta + \epsilon, \; \; \; \; \; \epsilon \sim N(0, \; I_n) , \; \; \; \; \; \mathcal{C}(X_0) \subset \mathcal{C}(X) \\
+
+\\
+\\
+
+\begin{alignat}{2}
+
+
+Y &= X_0 \beta_0 + X_1 \beta_1 &&+ \epsilon \tag{Full Model, FM}
+
+\\
+
+
+Y &= X_0 \gamma &&+ \epsilon \tag{Reduced Model, RM}
+
+\end{alignat}
+
+
+$
+
+
+
+
+$
+
+\begin{alignat}{2}
+
+\dfrac
+{\dfrac{Y'(M-M_0)Y}{r(M-M_0)}}
+{\dfrac{Y'(I-M)Y}{r(I-M)}}
+
+
+
+&=
+
+
+\dfrac
+{\dfrac{Y'(M-M_0)Y}{df_1}}
+{\dfrac{Y'(I-M)Y}{df_2}} 
+
+
+
+
+&&\sim 
+
+
+F \Bigg( df_1 , df_2, \dfrac{\beta' X' (M-M_0)X \beta }{2 \sigma^2} 
+
+
+
+&& \Bigg) \tag{Under the FM}
+
+\\
+
+\\\
+
+
+\\\
+
+
+
+
+\dfrac
+{\dfrac{Y'(M-M_0)Y}{r(M-M_0)}}
+{\dfrac{Y'(I-M)Y}{r(I-M)}}
+
+
+
+&=
+
+
+\dfrac
+{\dfrac{Y'(M-M_0)Y}{df_1}}
+{\dfrac{Y'(I-M)Y}{df_2}}
+
+
+&&\sim 
+
+
+F \big( df_1 , df_2, 0 
+
+&& \big) 
+
+\tag{Under the RM}
+
+\end{alignat}
+
+
+
+
+$
+
+
+
+
+<br/>
+<br/>
+
+- Note: Example 3.2.2.; pp. 58–59
+
+$
+\begin{alignat}{2}
+
+
+M-M_0 &= (I-M_0) &&-(I-M)
+
+\\
+
+Y'(M-M_0)Y &= Y'(I-M_0)Y &&-Y'(I-M)Y
+
+\\
+
+ &= SSE_{RM} &&-SSE_{FM}
+
+
+
+
+\end{alignat}
+$
+
+
+
+
+
+### A Generalized Test Procedure
+
+
+Assume that $Y = X \beta + \epsilon$ is correct. Want to test the adequacy of a model $Y = X_0 \gamma + Xb + \epsilon$, where $\mathcal{C}(X_0) \subset \mathcal{C}(X)$ and some known vector $Xb=$ offset.
+
+<br/>
+<br/>
+
+- Example 3.2.3.; Multiple Regression
+
+$
+Y = \beta_0 J + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_3 + \epsilon
+$
+
+want to test $H_0: \beta_2 = \beta_3+5, \; beta_1 = 0, \cdots$.
+
+$
+\begin{alignat}{2}
+
+
+Y &= X \beta && &&+ \epsilon \tag{FM}
+
+\\
+
+Y^\ast &\equiv Y && - X b &&
+
+\\
+
+&=X \beta && - Xb &&+ \epsilon
+
+\\
+
+&=X (\beta && - b) &&+ \epsilon
+
+
+\\
+
+&=X \beta^\ast && &&+ \epsilon \tag{FM}
+
+\\
+\\\
+\\\
+
+
+Y &= X_0 \gamma && + Xb &&+ \epsilon \tag{RM}
+
+\\
+
+Y^\ast &\equiv Y && && && - X b 
+
+\\
+
+&=X \gamma &&  &&+ \epsilon \tag{RM}
+
+
+
+
+\end{alignat}
+$
+
+
+<br/>
+<br/>
+
+In addition, when $Y^\ast = Y_\ast$,
+
+$
+
+\begin{alignat}{2}
+
+\dfrac
+{\dfrac{ Y_\ast ' (M-M_0) Y_\ast }{ r(M-M_0)}}
+{\dfrac{ Y_\ast ' (I-M) Y_\ast }{r(I-M)}}
+
+&\sim F \Big( r(M-M_0), r(I-M), \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &=\dfrac{1}{2 \sigma^2} \Big( {\beta^\ast} ' X ' (M-M_0) X \beta^\ast \Big) \tag{non-centrality parameter}
+
+
+\end{alignat}
+$
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+$
+
+\begin{alignat}{2}
+
+0 &= \beta_\ast '  X' &&(M-M_0) X \beta_\ast
+
+
+\\
+
+
+&\Updownarrow	
+
+\\
+
+
+0 &= &&(M-M_0)X \beta_\ast
+
+\\
+
+&\Updownarrow	
+
+
+\\
+
+X\beta & = M_0 (X &&\beta - X b) + Xb \tag{3}
+
+\end{alignat}
+
+
+
+
+
+
+$
+
+<br/>
+<br/>
+
+(3) will hold if 
+
+$
+\begin{align}
+\gamma &= (X_0 ' X_0)^- X_0(X \beta - Xb) \\
+
+&= (X_0 ' X_0)^- X_0 X \beta_\ast 
+
+\end{align}
+
+$
+
+<br/>
+<br/>
+
+Furthermore,
+
+
+
+$
+\begin{alignat}{2}
+Y_\ast ' (M-M_0)Y_\ast &= 
+
+
+Y_\ast ' (I-M_0)Y_\ast &&- &&Y_\ast ' (I-M)Y_\ast  \; \; \; \; \;\text{ , and }
+
+
+
+
+\\
+
+Y ' (I-M)Y &= && && Y_\ast ' (I-M)Y_\ast  
+
+
+
+
+\end{alignat}
+
+$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+### Testing Linear Parametric Functions
+
+$H_0: Y= X \beta + \epsilon, \; \; \; \; \; \Lambda' \beta=0 \tag{1}$
+
+
+$
+\begin{alignat}{2}
+
+
+\Lambda ' \beta = 0 \; \; \; &\iff \beta &&\in \mathcal{N}(\Lambda ') = \mathcal{C}(X)^\perp
+
+\\
+
+&\iff \beta \perp \mathcal{C}(\Lambda)
+
+
+
+\\
+
+&\iff \beta \perp \mathcal{C}(\Gamma) \; \; \; \; \; \; \; \; \; \; &&\text{ if } \exists\Gamma \; \; s.t. \; \mathcal{C}(\Gamma) = \mathcal{C}(\Lambda)
+
+\\
+
+&\iff \beta \perp \mathcal{C}(U) &&\text{ if } \exists U \; \; s.t. \; \mathcal{C}(U) = \mathcal{C}(\Lambda)^\perp
+
+\\
+
+&\iff \beta = U_\gamma && \exists \gamma \tag{2}
+
+
+
+\end{alignat}
+
+$
+
+<br/>
+<br/>
+
+Thus, letting $X_0 = XU$, (in general, $\mathcal{C}(X_0) \subset \mathcal{C}(X)$), then
+
+$
+\begin{alignat}{2}
+
+
+
+Y &= X \beta &&+ \epsilon
+
+\\
+
+&= X U \gamma &&+ \epsilon
+
+\\
+
+&= X_0 \gamma &&+ \epsilon \tag{3}
+
+\end{alignat}
+
+$
+
+<br/>
+<br/>
+
+Suppose $\mathcal{C}(X_0) = \mathcal{C}(X)$. Then there is nothing to test and $\Lambda' \beta = 0$ involves only arbitrary side conditions that do not affect the model. (EXAMPLE 3.3.1. pp. 62–64)
+
+
+
+
+$
+\Lambda ' \beta \; \;  \text{is estimable } \; \;   \iff \; \; \exists P:\Lambda = X' P
+$
+
+$
+
+\begin{align}
+
+\mathcal{C}(MP) &\equiv \mathcal{C}(M-M_0) \\
+
+
+
+
+&= \mathcal{C}(X-X_0) \\
+
+
+
+&= \mathcal{C}(X) \; \cap \; \mathcal{C}(X_0)^\perp\\
+
+
+&= \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp
+
+
+\end{align}
+$
+
+<br/>
+<br/>
+
+thus, its distribution for testing $H_0: \Lambda ' \beta = 0$ is given by
+
+
+
+$
+
+\begin{alignat}{2}
+
+\dfrac
+{\dfrac{Y'(M_{MP})Y}{r(M_{MP})}}
+{\dfrac{Y'(I-M)Y}{r(I-M)}}
+
+&\sim F \Big( r(M_{MP}), r(I-M), \delta^2 \Big)
+
+ \tag{5}
+
+\\
+\\\
+
+\delta^2 &= \beta ' X' M_{MP}X \beta
+
+ \tag{non-centrality parameter}
+
+
+
+
+
+\end{alignat}
+
+
+
+
+
+
+$
+
+
+
+<br/>
+<br/>
+
+
+
+- Proposition 3.3.2
+
+
+$
+
+\begin{alignat}{2}
+
+\mathcal{C}(M-M_0) 
+
+
+&= \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp \\
+
+&= \mathcal{C}(XU)_{\mathcal{C}(X)}^\perp
+
+
+= \mathcal{C}(MP) 
+
+\end{alignat}
+
+
+
+
+
+
+$
+
+
+
+
+
+
+$
+
+
+\begin{alignat}{2}
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; \Lambda ' \beta = 0
+
+\\
+
+\Updownarrow
+
+\\
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; P'X \beta = 0
+
+\\
+
+\Updownarrow
+
+\\
+
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; P'MX \beta = 0 (\because MX = X)
+
+\\
+
+\Updownarrow
+
+\\
+
+E(Y) \in \mathcal{C}(X), \; \; \; \; E(Y) \perp \mathcal{C}(MP)
+
+\\
+
+\Updownarrow
+
+\\
+
+E(Y) \in \mathcal{C}(X) \; \cap \;  \mathcal{C}(MP)^\perp, \; \; \; \; 
+\mathcal{C}(X_0)=\mathcal{C}(X) \; \cap \; \mathcal{C}(MP)^\perp = \mathcal{C}(MP)^\perp_{\mathcal{C}(X)}
+
+\Longrightarrow
+
+\mathcal{C}(X_0)^\perp_{\mathcal{C}(X)} = \mathcal{C}(MP)
+
+
+
+
+
+\\
+
+\Updownarrow
+
+\\
+
+
+
+
+X_0 = (I-M_{MP})X
+
+
+
+
+
+
+
+
+\end{alignat}
+
+
+
+
+
+
+$
+
+
+
+$
+
+\begin{align}
+
+\mathcal{C} \Big[ (I-M_{MP})X \ \Big] 
+
+
+&= \mathcal{C} (X) \; \cap \; \mathcal{C} (MP)^\perp \\
+
+&= \mathcal{C} (X) \; \cap \; \mathcal{C} (P)^\perp \tag{EXAMPLE 3.3.4.: pp.66–67}
+
+
+\end{align}
+$
+
+let $\Lambda ' \beta$ is estimable, i.e., $\Lambda = X'P$. then $\mathcal{C}(\Lambda) = \mathcal{C}(X'P) =\mathcal{C}(MP)$, and $X \hat \beta = MY$, and $\Lambda ' \hat \beta = P' X \hat \beta = P' M Y$. then
+
+
+
+$
+
+\begin{align}
+
+Y' M_{MP}Y &= Y' M && (P'  M  P)^- && MPY
+
+
+
+
+\\
+
+&= \hat \beta ' \Lambda  && [P' X(X'X)^-X' P]^- && \Lambda ' \hat \beta
+
+\\
+
+&= \hat \beta ' \Lambda  && [\Lambda' (X'X)^- \Lambda]^- && \Lambda ' \hat \beta
+
+
+
+
+
+
+\end{align}
+
+$
+
+***이윗부분 전혀모르겠음***
+
+<br/>
+<br/>
+
+thus,
+
+$
+\begin{align}
+(5) = \dfrac{\dfrac{\hat \beta ' \Lambda [\Lambda ' (X'X)^- \Lambda]^- \Lambda' \hat \beta}{r(\Lambda)}}{MSE} &\sim F \Big( r(MP), r(I-M), \delta^2 \Big)\\
+
+
+\\\
+\\\
+
+
+
+\delta^2  &= \dfrac{\hat \beta ' \Lambda [\Lambda ' (X'X)^- \Lambda]^- \Lambda' \hat \beta}{2 \sigma^2} \\
+
+Cov\Big(\Lambda ' \hat \beta \Big)  &= \sigma^2 \Lambda ' (X' X)^{-} \Lambda 
+
+
+
+\end{align}
+$
+
+
+<br/>
+<br/>
+
+
+For $H_0: \lambda ' \beta =0, \; \; \; \lambda \in \mathbb{R}^p$,
+
+
+
+
+
+$
+
+\begin{align}
+
+
+Y'M_{MP}Y &= \hat \beta ' \lambda \big [\lambda ' (X'X)^- \lambda \big]^- \lambda' \hat \beta
+
+\\
+
+&=\dfrac{\big( \lambda' \hat \beta \big)^2}{\lambda'(X'X)^-\lambda}
+
+\end{align}
+
+$
+
+
+
+
+<br/>
+<br/>
+
+and, under $H_0: \lambda ' \beta =0$,
+
+$
+F = (5) = \dfrac{\big( \lambda' \hat \beta \big)^2}{MSE \Big[\lambda'(X'X)^-\lambda\Big]} \sim F \Big ( 1, \; r(I-M) \Big)
+$
+
+
+
+<br/>
+<br/>
+
+
+- Definition 3.3.5. 
+
+The condition $E(Y) \perp \mathcal{C}(MP)$ is called the constraint by $\Lambda ' \beta = 0$ where $\Lambda = X' P$. in other words, $\mathcal{C}(MP)$ is the **constraint** by $\Lambda ' \beta = 0$.
+
+
+
+<br/>
+<br/>
+
+- Do Exercise 3.5: 
+
+Show that a necessary and sufficient condition for $\rho_1 ' X \beta = 0$ and $\rho_2 ' X \beta = 0$ to determine the orthogonal constraints on the model is that $\rho_1 ' X \rho_2 = 0$
+
+----
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+### Theoretical Complements
+
+Consider testing $\Lambda ' \beta = 0$ when $\Lambda ' \beta$ is NOT estimable.
+
+let $\Lambda_0 ' \beta$ be estimable part of $\Lambda ' \beta$.
+
+$\Lambda_0$ is chosen, so that $\mathcal{C}(\Lambda_0) = \mathcal{C}(\Lambda) \; \cap \; \mathcal{C}(X')$, which means that $\Lambda ' \beta = 0$ implies that $\Lambda_0 ' \beta = 0$ but $\Lambda_0 ' \beta$ is **estimable**, because $\mathcal{C}(\Lambda_0) \subset \mathcal{C}(X')$.
+
+
+<br/>
+<br/>
+
+
+- Theorem 3.3.6. 
+
+let $\mathcal{C}(\Lambda_0) = \mathcal{C}(\Lambda) \; \cap \; \mathcal{C}(X')$ and $\mathcal{C}(U_0) = \mathcal{C}(\Lambda_0)^\perp$. Then $\mathcal{C}(XU) = \mathcal{C}(XU_0)$. Thus $\Lambda ' \beta = 0$ and $\Lambda_0 ' \beta = 0$ induce the same RM.
+
+
+<br/>
+<br/>
+
+
+- Proposition 3.3.7. 
+
+let $\Lambda_0 ' \beta$ be estimable and $\Lambda \not = 0$. then $\Lambda ' \beta = 0 \; \; \Longrightarrow \; \; \mathcal{C}(XU) \not = \mathcal{C}(X)$.
+
+
+<br/>
+<br/>
+
+
+- Corollary 3.3.8.
+
+$
+
+\mathcal{C}(\Lambda_0) = \mathcal{C}(\Lambda) \; \cap \; \mathcal{C}(X') = \{0 \}
+
+\\
+
+\Updownarrow
+
+\\
+
+\mathcal{C}(XU) \; \cap \; \mathcal{C}(X)
+
+$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+
+### A Generalized Test Procedure
+
+Consider as below, whose column space is solvable. 
+
+$H_0: \Lambda' \beta = d, \; \; \; \; \; d \in \mathcal{C}(X'), \; \; \; \; \Lambda' b =d$
+
+
+$
+\begin{alignat}{2}
+
+
+
+
+\Lambda ' \beta = 
+
+\Lambda ' b =  d
+
+
+
+ \; \; \; &\iff \Lambda ' (\beta - b) &&= 0
+
+
+
+
+
+\\
+
+&\iff (\beta - b) &&\perp \mathcal{C}(\Lambda)
+
+\\
+
+&\iff (\beta - b) &&\in \mathcal{C}(U) \; \; \; \; \; \; &&\text{where } \; \mathcal{C}(U) = \mathcal{C}(\Lambda)^\perp
+
+\\
+
+&\iff (\beta - b) &&= U_\gamma &&\exists \gamma
+
+
+\\
+
+&\iff X\beta - Xb &&= XU_\gamma
+
+\\
+
+& \; \; \; \Updownarrow
+
+\\
+
+X\beta  &= XU_\gamma + Xb, \\
+
+Y &= X \beta + \epsilon \\
+&= X U_\gamma + Xb + \epsilon \\
+&= X_0 \gamma + Xb + \epsilon, && && \text{where } \; X_0 = XU
+
+
+
+
+
+
+
+
+\end{alignat}
+
+$
+
+
+
+if $\Lambda = X'P$, then $\mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp = \mathcal{C}(MP)$ and its test statistics is
+
+$
+\begin{align}
+
+
+
+F = \dfrac
+{\dfrac{(Y-Xb)'M_{MP}(Y-Xb)}{r \Big(M_{MP} \Big)}}
+{\dfrac{(Y-Xb)'(I-M)(Y-Xb)}{r \Big(I-M \Big)}}
+
+= 
+
+
+
+
+
+
+\dfrac
+{\dfrac{(\Lambda ' \hat \beta - d)' \Big[ \Lambda'(X'X)^{-}\Lambda \Big]^- (\Lambda ' \hat \beta - d)}{r(\Lambda)}}
+{MSE}
+
+
+\sim F(?, ?, ?)
+
+\end{align}
+$
+
+<br/>
+<br/>
+
+
+- Remark: (EXAMPLE 3.3.9.: pp.71–72, EXAMPLE 3.4.1.: pp.75)
+
+If $\Lambda ' \beta = d$, the same reduced model results if we take $\Lambda ' \beta = d_0$, where $d_0 = d + \Lambda ' \nu$ and $\nu \perp \mathcal{C}(X')$. Note that, in this construction, if $\Lambda ' \beta = d$ is estimable, $d_0 = d$ for any $\nu$.
+
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+
+### Testing Single Degrees of Freedom in a Given Subspace
+
+
+
+
+
+$
+RM: Y=X_ 0 \gamma + \epsilon  \; \; \; \; \; vs. \; \; \; \; \; 
+
+
+FM: Y=X \beta + \epsilon, \; \; \; \; \; with\; \; \mathcal{C}(X_0) \subset \mathcal{C}(X)
+
+$
+
+let $M_\ast = M - M_0$, consider $H_0 : \Lambda ' \beta = 0$.
+
+if $\Lambda = X'P$, i.e. $\Lambda \in \mathcal{C}(X')$, then $M_\ast = M_{MP}$.
+
+
+<br/>
+<br/>
+
+
+- Proposition 3.3.2
+
+
+
+Since $M M_\ast = M_\ast$, 
+
+$
+
+\begin{align}
+
+&\mathcal{C}(M - M_0) = \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp \equiv \mathcal{C}(XU)_{\mathcal{C}(X)}^\perp = \mathcal{C}(MP)
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&M \rho \in \mathcal{C}(M_\ast)
+
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&M \rho = M_\ast M \rho =  M_\ast \rho
+
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&\rho ' \hat \beta = \rho ' M_\ast Y = \rho ' M Y 
+
+
+
+\end{align}
+$
+
+thus the test statistic for $H_0 : \Lambda ' \beta = 0$ is
+
+
+
+
+$
+
+
+\dfrac{Y ' M_\ast \rho ( \rho ' M_\ast \rho )^{-1} \rho ' M_\ast Y }{MSE}
+
+=
+
+\dfrac{\dfrac{(\rho ' M_\ast Y)^2}{\rho ' M_\ast \rho} }{MSE}
+
+
+
+
+$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+### Breaking SS into Independent Components
+
+Consider $X = \begin{pmatrix} X_0, & X_1 \end{pmatrix}$. set
+
+$
+
+\begin{alignat}{2}
+&SSR(X_1 \vert X_0) &&\equiv Y ' (M-M_0)Y && \tag{Sum of Squares for regression X1 after X0}\\
+
+&SSR(X) &&\equiv Y ' MY \\
+
+&SSR(X_0) &&\equiv Y ' M_0 Y \\
+
+&SSR(X) &&= SSR(X_0) &&+ SSR (X_1 \vert X_0)
+
+\end{alignat}
+$
+
+- Note: if $\epsilon \sim N(0, \; \sigma I)$, then $SSR(X_0) \perp SsR(X_1 \vert X_0)$.
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+### General Theory
+
+Let $M$ and $M_\ast$ be the orthogonal projection operator into $\mathcal{C}(X)$ and $\mathcal{C}(X_\ast)$ respectively. Then, with $\mathcal{C}(X_\ast) \subset \mathcal{C}(X)$, $M_\ast$ defines a test statistic as below.
+
+$
+
+\dfrac
+{\dfrac{Y' M_\ast Y}{r(M_\ast)}} 
+{\dfrac{Y' (I-M) Y}{r(I-M)}}
+
+\; \; \; \text{for RM}:Y = X_\ast \gamma + \epsilon
+
+$
+
+$
+\begin{align}
+
+&I-(M-M_\ast ) &&= (I-M) + M_\ast
+
+\\
+
+&\mathcal{C}(M-M_\ast) &&:\tag{Estimation Space, under H0}
+
+\\
+
+&\mathcal{C}(M_\ast)  &&:\tag{Test Space, under H0}
+
+\\
+
+
+&\mathcal{C} \Big(I - (M-M_\ast)\Big)  &&:\tag{Error Space, under H0}
+
+
+
+
+
+\end{align}
+
+$
+
+Using Gram-Schmidt procedure, let’s construct $M_\ast$ so that
+
+$
+
+M_\ast = RR' = \sum_{i=1}^r R_iR_i ' = \sum_{i=1}^r M_i, \; \; \; \; \; R=(R_1 , \cdots, R_r)
+
+$
+
+and $M_i M_j=0$ for $i \not = j$. By **Theorem 1.3.7**,
+
+$
+Y'M_i Y \perp Y'M_j Y \; \; \; \iff \; \; \; M_i M_j =0
+$
+
+Next, $ Y'M Y = \sum_{i=1}^r Y'M_i Y $, therefore when $r(M_i)=1$, 
+
+$
+
+\dfrac
+{\dfrac{Y'M_i Y}{r(M_i)}}
+{\dfrac{Y'(I-M) Y}{r(I-M)}}
+
+\sim F \Bigg( 1, r(I-M), \dfrac{1}{2 \sigma^2} \beta ' X' M_i X \beta \Bigg)
+
+$
+
+
+$
+
+\begin{alignat}{2}
+
+& && &&   &&\beta ' X' M_\ast X \beta \; \; &&= \; \; \sum_{i=1}^r \beta ' X' M_i X \beta  &&  =0
+
+\; \; \;
+
+\\
+
+&\iff && && \forall i \; \; : \; \; && \beta ' X' M_i X \beta && &&=0
+
+\\
+
+&\iff && &&\forall i \; \; : \; \; &&R_i ' X \beta && &&= 0
+
+\\
+
+&\iff && && &&H_0 \text{ is true.}
+
+
+
+
+\end{alignat}
+$
+
+<br/>
+<br/>
+
+
+- EXAMPLE 3.6.1.: Balanced design; pp.79–80
+- EXAMPLE 3.6.2.: Unbalanced design;pp.80–81
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+### Two-Way ANOVA
+
+$
+\begin{alignat}{2}
+y_{ijk} &= \mu + \alpha_i + \eta_j &&+ \epsilon_{ijk} \tag{FM}
+
+\\
+
+
+
+
+
+y_{ijk} &= \mu + \alpha_i  &&+ \epsilon_{ijk} \tag{RM}
+
+
+\end{alignat}
+$
+
+$
+\begin{align}
+M &= M_\mu + M_\alpha + M_\eta
+
+\\
+
+Y'(M-M_0)Y &= R(\eta \; \Big \vert \; \alpha, \; \mu) \tag{1}
+
+
+\end{align}
+$
+
+1. Reduction in SSE, due to fitting $\eta_j$'s after $\mu$ and $\alpha_i$'s.
+
+Next, 
+
+$
+
+\begin{alignat}{2}
+y_{ijk} &= \mu + \alpha_i &&+ \epsilon_{ijk} \tag{FM}
+
+\\
+
+
+
+
+
+y_{ijk} &= \mu &&+ \epsilon_{ijk} \tag{RM}
+
+
+\\
+
+\\\
+
+\\\
+
+
+Y'(M_0-M_J)Y &= R(\alpha \; \Big \vert \; \mu) 
+
+\\
+
+Y'(M-M_J)Y &= R(\alpha, \; \eta \; \Big \vert \; \mu)
+
+\\
+
+&= R(\eta \; \Big \vert \; \mu, \; \alpha) &&+ R(\alpha \; \Big \vert \; \mu)  
+
+
+
+\end{alignat}
+
+
+$
+
+
+In general,
+
+$
+
+\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) &\not = R(\eta \; \Big \vert \; \mu)  
+ 
+\\
+
+R(\alpha \; \Big \vert \; \eta, \; \mu) & \not = R(\alpha \; \Big \vert \; \mu)  
+ 
+
+
+\end{alignat}
+
+
+$
+
+In paricular, for balanced design, if $\mathcal{C}(X_\alpha) \perp \mathcal{C}(X_\eta)$,
+
+$
+
+\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) & = R(\eta \; \Big \vert \; \mu)  
+ 
+\\
+
+R(\alpha \; \Big \vert \; \eta, \; \mu) & = R(\alpha \; \Big \vert \; \mu)  
+ 
+
+
+\end{alignat}
+
+
+$
+
+- Proposition 3.6.3.
+
+$
+
+\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) & = R(\eta \; \Big \vert \; \mu)  
+ 
+
+
+\; \; \; \; \; &&\iff \; \; \; \; \;
+
+
+\mathcal{C}(X_1 - M_j) \perp \mathcal{C}(X_0 - M_j)
+
+\\
+
+
+
+\text{that is}\; \; \; \; \; \; \; 
+
+
+M_1 - M_J& = M-M_0
+ 
+
+
+\; \; \; \; \; &&\iff \; \; \; \; \;
+
+
+(M_1 - M_J)(M_0 - M_J) = 0, 
+
+
+\; \; \; \; \; \text{where} \; &&R(\eta \; \Big \vert \; \alpha, \; \mu) &&= Y'(M-M_0)Y
+
+\\
+
+& && && R(\eta \; \Big \vert \; \mu) &&= Y'(M_1 -M_0)Y
+
+\end{alignat}
+
+
+$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+### Confidence Regions
+
+$100(1-\alpha)\%$ Confidence Region(CR) for $\Lambda ' \beta$ consists of all the vectors $d$ satisfying the inequality
+
+$
+
+\dfrac
+{\dfrac{\Big[\Lambda ' \hat \beta - d\Big]' \Big[\Lambda ' (X'X)^- \Lambda\Big]^- \Big[\Lambda ' \hat \beta - d\Big]}{r(\Lambda)}}
+{MSE}
+
+
+
+\le \Big( 1- \alpha, \; r(\Lambda), \; r(I-M) \Big)
+
+$
+
+These vectors form an ellipsoid in $r(\Lambda)$-dimensional space.
+
+
+For regression problems, if we take $P' = (X'X)^{-1}X'$, then $\Lambda'\beta = P' X \beta = \beta = d$.
+
+The $100(1-\alpha)\%$ CR is
+
+$
+\begin{alignat}{2}
+
+
+&
+\dfrac
+{\dfrac{\Big[\Lambda ' \hat \beta - d\Big]' \Big[\Lambda ' (X'X)^- \Lambda\Big]^- \Big[\Lambda ' \hat \beta - d\Big]}{r(\Lambda)}}
+{MSE}
+
+\; \; \; 
+&&
+= 
+
+\; \; \; 
+&
+\dfrac
+{\dfrac{\Big(\hat \beta - \beta \Big)' \Big( X'X \Big)\Big(\hat \beta - \beta \Big)}
+
+{p}}
+{MSE}
+
+\; \; \; 
+
+&&\le 
+
+\; \; \; 
+\Big( 1- \alpha, \; p, \; n-p \Big)
+
+
+\end{alignat}
+
+$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+### Tests for Generalized Least Squares Models
+
+$
+\begin{alignat}{4}
+
+&Y &&= &&X \beta &&+ &&\epsilon \; \; \; \; \; &&vs. \; \; \; \; \; &&Y = &&X_0 \beta_0 &&+ &&\epsilon
+
+, \; \; \; \; \; && \epsilon \sim N(0, \; \sigma^2 V)
+
+
+
+\tag{1}
+
+\\
+
+
+& && && && && && \Updownarrow
+
+\\
+
+
+
+
+
+
+
+Q^{-1}&Y &&= Q^{-1} &&X \beta &&+ Q^{-1} &&\epsilon \; \; \; \; \; \; \; \;  \; &&vs. \; \; \; \; \; Q^{-1} &&Y = Q^{-1} &&X_0 \beta_0 &&+ Q^{-1} &&\epsilon
+
+
+
+, \; \; \; \; \; Q^{-1} && \epsilon \sim N(0, \; \sigma^2 I)
+
+\tag{2}
+
+\end{alignat}
+$
+
+test (1) and (2) is equal.
+
+- Note: $\mathcal{C}(Q^{-1}X_0) \subset \mathcal{C}(Q^{-1}X)$.
+
+<br/>
+<br/>
+
+
+From Section 2.7,
+
+$
+\begin{align}
+
+
+A &= X(X'V^{-1}X)^- X' \ast V^{-1}
+
+\\
+\\
+
+MSE &= \dfrac{Y' (I-A)' V^{-1} (I-A)Y}{n-r(X)}
+
+\\
+\\
+
+A_0 &= X_0(X_0'V^{-1}X_0)^- X_0' \ast V^{-1}
+
+\end{align}
+$
+
+
+- Theorem 3.8.1
+
+$
+\begin{align}
+
+\dfrac{\dfrac{Y' (A-A_0) V^{-1} (A-A_0)Y}{r(X) - r(X_0 )}}{MSE} &\sim F \Big( r(X)-r(X_0), \; n-r(X) , \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &= \dfrac{\beta ' X' (A-A_0) V^{-1} (A-A_0)X \beta}{2\sigma^2} \tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+
+{\beta ' X' (A-A0) V^{-1} (A-A_0)X \beta} \; \; \; \; \; &\iff \; \; \; \; \; E(Y) \in \mathcal{C}(X_0) \tag{2}
+
+
+\end{align}
+$
+
+<br/>
+<br/>
+
+
+- Theorem 3.8.2
+
+let $\Lambda ' \beta$ be estimable. then the test statistic for $H_0 : \Lambda ' \beta = 0$ is
+
+
+$
+\begin{align}
+
+
+
+
+\dfrac{\dfrac{\hat \beta ' \Lambda \Big[ \Lambda ' (X'V^{-1}X)^- \Lambda \Big]^- \Lambda ' \hat \beta}{r(\Lambda)}}{MSE} &\sim F \Big( r(\lambda), \; n-r(X) , \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &= \dfrac{\beta ' \Lambda \Big[ \Lambda ' (X'V^{-1}X)^- \Lambda \Big]^- \Lambda ' \beta}{2\sigma^2} \tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+
+{\beta ' \Lambda \Big[ \Lambda ' (X'V^{-1}X)^- \Lambda \Big]^- \Lambda ' \beta} \; \; \; \; \; &\iff \; \; \; \; \; \Lambda ' \beta  = 0\tag{2}
+
+
+\end{align}
+$
+
+<br/>
+<br/>
+
+
+- Theorem 3.8.3
+
+
+
+$
+\begin{align}
+
+\dfrac{Y' (A-A_0) V^{-1} (A-A_0)Y}{\sigma^2} &\sim \chi^2\Big(r(x) - r(X_0), \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &= \dfrac{\beta ' X' (A-A_0) V^{-1} (A-A_0)X \beta}{2\sigma^2},
+
+\\
+\\
+
+\sigma^2 = 0 \; \; \; \; \; &\iff E(Y) \in \mathcal{C}(X_0)
+
+
+
+
+\tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+\dfrac{\hat \beta ' \Lambda \Big[ \Lambda ' (X'V^{-1}X)^- \Lambda \Big]^- \Lambda ' \hat \beta}{2\sigma^2} 
+
+&\sim \chi^2 \Big( r(\Lambda) , \; \delta^2 \Big)
+
+
+\\
+\\
+
+\delta^2 &= {\hat \beta ' \Lambda \Big[ \Lambda ' (X'V^{-1}X)^- \Lambda \Big]^- \Lambda ' \hat \beta}, 
+
+\\
+\\
+
+\sigma^2 = 0 \; \; \; \; \; &\iff \Lambda ' \beta = 0 \tag{2}
+
+
+\end{align}
+$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

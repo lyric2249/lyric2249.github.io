@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.2 Markov Chain Monte Carlo | Self-Study</title>
+  <meta name="description" content="4.2 Markov Chain Monte Carlo | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.2 Markov Chain Monte Carlo | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.2 Markov Chain Monte Carlo | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="importance-sampling.html"/>
+<link rel="next" href="advanced-mcmc-wk08.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Intro</a></li>
+<li class="part"><span><b>I 20-02</b></span></li>
+<li class="chapter" data-level="1" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>1</b> Categorical</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>1.1.1</b> Data Type and Statistical Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>2</b> Bayesian</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2.1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>2.1.1</b> 변수의 독립성</a></li>
+<li class="chapter" data-level="2.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>2.1.2</b> 교환가능성</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>2.2</b> Continual Aeassessment Method</a></li>
+<li class="chapter" data-level="2.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>2.3</b> Horseshoe Prior</a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01</b></span></li>
+<li class="chapter" data-level="3" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>3</b> Mathematical Stats</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>3.1</b> Inference</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>3.1.1</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="completeness.html"><a href="completeness.html"><i class="fa fa-check"></i><b>3.2</b> Completeness</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="completeness.html"><a href="completeness.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>3.2.1</b> 레만-쉐페 thm.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="completeness.html"><a href="completeness.html#rao-blackwell-thm.-1"><i class="fa fa-check"></i><b>3.2.2</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Test</a></li>
+<li class="chapter" data-level="3.4" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>3.4</b> Power Fucntion</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>3.4.1</b> Significance Probability (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Testing Method</a></li>
+<li class="chapter" data-level="3.6" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>3.6</b> Data Reduction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>3.6.1</b> Sufficiency Principle</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>3.7</b> Borel Paradox</a></li>
+<li class="chapter" data-level="3.8" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>3.8</b> Neyman–Pearson lemma</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>3.8.1</b> Overview</a></li>
+<li class="chapter" data-level="3.8.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>3.8.2</b> Generalized LRT</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>3.9</b> 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>4</b> MCMC</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>4.1</b> Importance Sampling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>4.1.1</b> Independent Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.2</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>4.2.1</b> MH Algorithm</a></li>
+<li class="chapter" data-level="4.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>4.2.2</b> Random Walk Chains (Most Widely Used)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>4.2.3</b> Basic Gibbs Sampler</a></li>
+<li class="chapter" data-level="4.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>4.2.4</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> 1. Data Augmentation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> 2. Hit-and-Run Algorithm</a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> 3. Metropolis-Adjusted Langevin Algorithm</a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> 4. Multiple-Try Metropolis Algorithm</a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> 5. Reversible Jump MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>4.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Multimodal Target Distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>4.4.3</b> Doubly-intractable Normalizing Constants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>4.6.1</b> Introduction to Hamiltonian Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>4.7</b> Population Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>4.7.1</b> Adaptive Direction Sampling</a></li>
+<li class="chapter" data-level="4.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>4.7.2</b> Conjugate Gradient MC</a></li>
+<li class="chapter" data-level="4.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>4.7.3</b> Parallel Tempering</a></li>
+<li class="chapter" data-level="4.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>4.7.4</b> Evolutionary MC</a></li>
+<li class="chapter" data-level="4.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>4.7.5</b> Sequential Parallel Tempering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>4.8</b> Stochastic Approximation Monte Carlo</a></li>
+<li class="chapter" data-level="4.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>4.9</b> Review</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>4.9.1</b> Wk01</a></li>
+<li class="chapter" data-level="4.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>4.9.2</b> wk03</a></li>
+<li class="chapter" data-level="4.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>4.9.3</b> wk04, 05</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>4.10</b> Else</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>4.10.1</b> Hw4. Rasch Model</a></li>
+<li class="chapter" data-level="4.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>4.10.2</b> DA) Example: MVN</a></li>
+<li class="chapter" data-level="4.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>4.10.3</b> Bayesian adaptive clinical trial with delayed outcomes</a></li>
+<li class="chapter" data-level="4.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>4.10.4</b> NMAR의 종류</a></li>
+<li class="chapter" data-level="4.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>4.10.5</b> wk10) Bayesian Model Selection</a></li>
+<li class="chapter" data-level="4.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>4.10.6</b> Autologistic model</a></li>
+<li class="chapter" data-level="4.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>4.10.7</b> wk10) Bayesian Model Averaging</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>5</b> MVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>5.1</b> Overview of mva (not ended)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>5.1.1</b> Notation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>5.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="5.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>5.1.3</b> Statistical Inference on Correlation</a></li>
+<li class="chapter" data-level="5.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>5.1.4</b> Standardization</a></li>
+<li class="chapter" data-level="5.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>5.1.5</b> Missing Value Treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>5.2</b> Multivariate Nomral (wk2)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>5.2.2</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>5.2.3</b> Properties of MVN</a></li>
+<li class="chapter" data-level="5.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>5.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>5.2.5</b> Linear Combination of Random Vectors</a></li>
+<li class="chapter" data-level="5.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>5.2.6</b> Multivariate Normal Likelihood</a></li>
+<li class="chapter" data-level="5.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>5.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span></a></li>
+<li class="chapter" data-level="5.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>5.2.8</b> Assessing Normality</a></li>
+<li class="chapter" data-level="5.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>5.2.9</b> Power Transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>5.3</b> Inference about Mean Vector (wk3)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>5.3.2</b> 1. Confidence Region</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>5.3.3</b> 2. Simultaneous CI</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>5.3.4</b> 3. Note: Bonferroni Multiple Comparison</a></li>
+<li class="chapter" data-level="5.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>5.3.5</b> 4. Large Sample Inferences about a Mean Vector</a></li>
+<li class="chapter" data-level="5.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>5.3.6</b> 1. Profile Analysis (wk4, 5)</a></li>
+<li class="chapter" data-level="5.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>5.3.7</b> 2. Test for Linear Trend</a></li>
+<li class="chapter" data-level="5.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>5.3.8</b> 3. Inferences about a Covariance Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>5.4</b> Comparison of Several MV Means (wk5)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>5.4.1</b> Paired Comparison</a></li>
+<li class="chapter" data-level="5.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>5.4.2</b> Comparing Mean Vectors from Two Populations</a></li>
+<li class="chapter" data-level="5.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>5.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>5.4.4</b> Comparing Several Multivariate Population Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>5.5</b> Multivariate Multiple Regression (wk6)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
+<li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>5.7.1</b> Method of Estimation</a></li>
+<li class="chapter" data-level="5.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>5.7.2</b> Factor Rotation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>5.7.3</b> Varimax Criterion</a></li>
+<li class="chapter" data-level="5.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>5.7.4</b> Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>5.8</b> Discrimination and Classification</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>5.8.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="5.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>5.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations</a></li>
+<li class="chapter" data-level="5.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>5.8.3</b> Evaluating Classification Functions</a></li>
+<li class="chapter" data-level="5.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>5.8.4</b> Classification with several Populations (wk13)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>5.8.5</b> Other Discriminant Analysis Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>5.9</b> Clustering, Distance Methods, and Ordination</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>5.9.1</b> Overview</a></li>
+<li class="chapter" data-level="5.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>5.9.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="5.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>5.9.3</b> K-means Clustering</a></li>
+<li class="chapter" data-level="5.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>5.9.4</b> 군집의 평가방법</a></li>
+<li class="chapter" data-level="5.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>5.9.5</b> Clustering using Density Estimation (wk14)</a></li>
+<li class="chapter" data-level="5.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>5.9.6</b> Multidimensional Scaling (MDS)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>6</b> Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="svd.html"><a href="svd.html"><i class="fa fa-check"></i><b>6.1</b> SVD</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="svd.html"><a href="svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>6.1.1</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="6.1.2" data-path="svd.html"><a href="svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>6.1.2</b> Singular value Decomposition: General-version</a></li>
+<li class="chapter" data-level="6.1.3" data-path="svd.html"><a href="svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>6.1.3</b> Singular value Decomposition: Another-version</a></li>
+<li class="chapter" data-level="6.1.4" data-path="svd.html"><a href="svd.html#quadratic-forms"><i class="fa fa-check"></i><b>6.1.4</b> Quadratic Forms</a></li>
+<li class="chapter" data-level="6.1.5" data-path="svd.html"><a href="svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>6.1.5</b> Partitioned Matrices</a></li>
+<li class="chapter" data-level="6.1.6" data-path="svd.html"><a href="svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>6.1.6</b> Geometrical Aspects</a></li>
+<li class="chapter" data-level="6.1.7" data-path="svd.html"><a href="svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>6.1.7</b> Column, Row and Null Space</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>7</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="what.html"><a href="what.html"><i class="fa fa-check"></i><b>7.1</b> What</a></li>
+<li class="chapter" data-level="7.2" data-path="random-vectors-and-matrices.html"><a href="random-vectors-and-matrices.html"><i class="fa fa-check"></i><b>7.2</b> Random Vectors and Matrices</a></li>
+<li class="chapter" data-level="7.3" data-path="multivariate-normal-distributions.html"><a href="multivariate-normal-distributions.html"><i class="fa fa-check"></i><b>7.3</b> Multivariate Normal Distributions</a></li>
+<li class="chapter" data-level="7.4" data-path="distributions-of-quadratic-forms.html"><a href="distributions-of-quadratic-forms.html"><i class="fa fa-check"></i><b>7.4</b> Distributions of Quadratic Forms</a></li>
+<li class="chapter" data-level="7.5" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>7.5</b> Estimation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>7.5.1</b> Identifiability and Estimability</a></li>
+<li class="chapter" data-level="7.5.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>7.5.2</b> Estimation: Least Squares</a></li>
+<li class="chapter" data-level="7.5.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>7.5.3</b> Estimation: Best Linear Unbiased</a></li>
+<li class="chapter" data-level="7.5.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>7.5.4</b> Estimation: Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>7.5.5</b> Estimation: Minimum Variance Unbiased</a></li>
+<li class="chapter" data-level="7.5.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>7.5.6</b> Sampling Distributions of Estimates</a></li>
+<li class="chapter" data-level="7.5.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>7.5.7</b> Generalized Least Squares(GLS)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>7.6</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>7.6.1</b> One-Way ANOVA</a></li>
+<li class="chapter" data-level="7.6.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>7.6.2</b> More About Models</a></li>
+<li class="chapter" data-level="7.6.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>7.6.3</b> Estimating and Testing Contrasts</a></li>
+<li class="chapter" data-level="7.6.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>7.6.4</b> Cochran’s Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>7.7</b> Testing</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>7.7.1</b> More About Models: Two approaches for linear model</a></li>
+<li class="chapter" data-level="7.7.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>7.7.2</b> Testing Models</a></li>
+<li class="chapter" data-level="7.7.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>7.7.3</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="7.7.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>7.7.4</b> Testing Linear Parametric Functions</a></li>
+<li class="chapter" data-level="7.7.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>7.7.5</b> Theoretical Complements</a></li>
+<li class="chapter" data-level="7.7.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>7.7.6</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="7.7.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>7.7.7</b> Testing Single Degrees of Freedom in a Given Subspace</a></li>
+<li class="chapter" data-level="7.7.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>7.7.8</b> Breaking SS into Independent Components</a></li>
+<li class="chapter" data-level="7.7.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>7.7.9</b> General Theory</a></li>
+<li class="chapter" data-level="7.7.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>7.7.10</b> Two-Way ANOVA</a></li>
+<li class="chapter" data-level="7.7.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>7.7.11</b> Confidence Regions</a></li>
+<li class="chapter" data-level="7.7.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>7.7.12</b> Tests for Generalized Least Squares Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>7.8</b> Generalized Least Squares</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>7.8.1</b> A direct solution via inner products</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>7.9</b> Flat</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>7.9.1</b> 1.Flat</a></li>
+<li class="chapter" data-level="7.9.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>7.9.2</b> 2. Solutions to systems of linear equations</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>7.10</b> Unified Approach to Balanced ANOVA Models</a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02</b></span></li>
+<li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>8.2</b> </a></li>
+<li class="chapter" data-level="8.3" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>8.3</b> </a></li>
+<li class="chapter" data-level="8.4" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>8.4</b> </a></li>
+<li class="chapter" data-level="8.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>8.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="8.6" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>8.6</b> Concepts</a></li>
+</ul></li>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>A.1</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>A.1.1</b> About</a></li>
+<li class="chapter" data-level="A.1.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>A.1.2</b> Hello bookdown</a></li>
+<li class="chapter" data-level="A.1.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>A.1.3</b> Cross-references</a></li>
+<li class="chapter" data-level="A.1.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>A.1.4</b> Parts</a></li>
+<li class="chapter" data-level="A.1.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>A.1.5</b> Footnotes and citations</a></li>
+<li class="chapter" data-level="A.1.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>A.1.6</b> Blocks</a></li>
+<li class="chapter" data-level="A.1.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>A.1.7</b> Sharing your book</a></li>
+<li class="chapter" data-level="" data-path="tutorial.html"><a href="tutorial.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>B</b> NoName</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="markov-chain-monte-carlo" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Markov Chain Monte Carlo</h2>
+<p>$ f $ 가 측정은 되는데 샘플화가 안되면, MC를 통해 유사한 샘플을 만들어낼 수 있었다. 이를 넘어서 MCMC는 $ f $ 의 모사함수에서 샘플링하는 게 가능하지만, 이 이상으로 이는 임의의 함수 <span class="math inline">\(p\)</span>에 대해 <span class="math inline">\(E[p(X)]\)</span>가 신뢰도 높게 측정되는 경우에만 샘플링 가능한 별개의 방법론으로 보는 게 정확하다.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">MC</th>
+<th align="center">MCMC</th>
+<th align="center">numerical integration approach</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">iterative nature</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">can be customized to very diverse &amp; <br> difficult problem</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">무관하며 implementation이 complex하지도 않음</td>
+<td align="center">문제가 고차원이면 수렴이 느려짐</td>
+</tr>
+</tbody>
+</table>
+<p>시퀀스 $ { ^{(t)} } $는 MC, $ t = 0, 1, 2, …. $. $ ^{(t)} = (X_1^{t} , , X_p^{(t)})$ 와 <strong>state space</strong> 는 양쪽 모두 연속이거나 discrete.</p>
+<p>For the types of Markov chains, $ { ^{(t)} } $의 분포는 체인의 limiting stationary distribution으로 수렴한다. 체인이 irreducible, aperiodic 할 때.</p>
+<p>MCMC의 샘플링 전략은 irreducible, aperiodic MC를 만드는 것. stationary distribution이 목표분포 $ f $ 와 일치하는.</p>
+<p>t가 충분히 크다면 이 체인으로부터의 $ ^{(t)} $의 실현값은 근사적으로 마지널 분포 $ f $ 를 갖는다.</p>
+<p>이런 MCMC의 특성은 베이지안 추론에 크게 도움이 되며 자주 쓰인다.</p>
+<p><br />
+<br />
+<br /></p>
+<p>Markov Chain 자체는 <strong>어떤 상태에서 다른 상태로 넘어갈 때, 바로 전 단계의 상태에만 영향을 받는</strong> (Markov Property) 확률 과정을 의미한다.
+* 보통 사람들은 전날 먹은 식사와 유사한 식사를 하지 않으려는 경향이 있다.
+* 가령, 어제 짜장면을 먹었다면 오늘은 면종류의 음식을 먹으려고 하지 않는다.</p>
+<p><br />
+<br />
+<br />
+<br />
+<br /></p>
+<div id="mh-algorithm" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> MH Algorithm</h3>
+<p>MCMC 중 가장 유명한 적용법은 MH 알고리즘. $ t=0 $에서 시작. 시작 distribution $ g $에서 추출한, $ f(^{(0)} )&gt; 0 $ 을 만족하는 $^{(0)} $를 $ ^{(0)} = ^{(0)} $ 로 잡고 개시한다.</p>
+<p>이때 제안분포 $ g $ 에서 후보 $ ^{( )} $ 를 하나 만들고, MH ratio $R (^{(t)}, ^{} ) $ 는</p>
+<p>$
+R (^{(t)}, ^{} )</p>
+<p>= 
+{f(^{( )}) g(^{( t )} | ^{( )})}
+{f(^{( t )}) g(^{( )} | ^{( t )}) }</p>
+<p>=
+{
+{f(^{( )})}
+{g(^{( )} | ^{( t )})}
+}
+{
+{f(^{( t )})}
+{g(^{( t )} | ^{( )})}
+}</p>
+<p>=
+{
+{f(^{( t+1 )})}
+{g(^{( t+1 )} | ^{( t )})}
+}
+{
+{f(^{( t )})}
+{g(^{( t )} | ^{( t+1 )})}
+}
+$</p>
+<pre class="warning"><code>
+여기서 단순 Metropolis 알고리즘은 단순히 $ \dfrac {f(x_1)} {f(x_0)}$ &gt; $1 $ 이기만 하면 새로운 샘플을 수용한다. 이인즉 $ g $로 표준화해주는 것의 가장 주요한 요점은 둘의 시작 높이, 즉 쥐고 나온 수저가 다를 수 있으므로 이를 표준화해준다는 것이다. 아웃풋이 높은 $x_i$를 선택하는 것은 MLE 관점에 기반한다.
+
+단 언제나 그렇듯 이렇게 샘플을 다쳐내면 오히려 음질의 결과가 나온다. 따라서 샘플의 풀을 넓히기 위해 탈락할 녀석들도 확률적으로 살려서 합류시킨다. 이게 고정된 기준점으로 샘플을 쳐내는 것이 아닌, $ \dfrac {f(x_1)} {f(x_0)}$ &gt; $u \sim U {(0,1)} $ 을 기준으로 삼아 샘플을 생존시키는 것이다. 이 조건을 실패하면 생산해두었던 샘플 $\textbf X^{(t)}$ 는 버려지고 새로운 샘플을 $t+1$으로 설정해 재진행한다.</code></pre>
+<p>이후</p>
+$
+^{(t+1)} = {
+<span class="math display">\[\begin{array}{@{}lr@{}}
+    \textbf {X}^{\ast}, &amp; \text{with probability } min \left\{ R \left( \textbf {x}^{(t+1)}, \textbf {X}^{\ast} \right), 1 \right\} \\
+    \textbf {x}^{(t)}, &amp; o.w.
+    \end{array}\]</span>
+<p>}
+$</p>
+<p>이러한 MH 알고리즘에 의해 생성된 MC가 aperiodic &amp; irreducible 이라면, 해당 체인은 정적분포로 수렴.</p>
+<p>우리는 이러한 MH 체인에 의해 생성된 정적분포의 실현값들을 평균함으로써 rv의 함수의 기댓값을 구할 수 있다.</p>
+<p><span class="math inline">\(E \left[ h \left( \textbf {X} \right) \right] \approx \dfrac {1} {n} \sum_{i=1}^n {h \left( \textbf {x}^{(i)} \right)},\)</span></p>
+<p>$E { { h (  ) - E } }^2, $</p>
+<p><span class="math inline">\(E \{ I_{h ( \textbf {X} \le q )} \}\)</span></p>
+<p>시퀀스 $ { ^{()} } $ 는 state space의 몇몇 포인트들의 multiple copies를 가질 수 있다는 것을 명심. 이는 <span class="math inline">\(\textbf {X}^{(t+1)}\)</span>가 제안값 <span class="math inline">\(\textbf {x}^{(\ast )}\)</span>가 아니라 <span class="math inline">\(\textbf {x}^{(t)}\)</span>를 채택했을 때 발생.</p>
+<ul>
+<li>Burn-in Period: 체인의 초기값에 대한 persistent dependence는 이의 성능을 심각하게 낮출 수 있다. 이는 샘플 평균을 계산할 때 체인의 초기 실현값 일부를 제하는 것으로 보정될 수 있다.</li>
+</ul>
+<p>consistent 결과들을 관측하기 위해 MCMC를 여러 시작점에서 각각 돌려본다.</p>
+<p>잘 골라진 제안분포 $ g $가 생산하는 후보값들은 <strong>stationary 분포</strong>의 서포트를 합리적인 반복 안에서 전부 커버하고, 내놓는 후보값들이 지나치게 여러번 accepted되거나 rejected 되지 않는다.
+* proposal 분포 $ g $ 가 지나치게 퍼져있으면, 후보값들은 자주 reject되고 체인은 타겟분포 $ f $ 의 space를 탐색하기 위해 많은 반복을 요구하게 된다.
+* proposal 분포 $ g $ 가 지나치게 모여있으면, 체인은 다회의 반복동안 타겟분포 $ f $의 한 작은 구역에 모여있게 된다. 따라서 타겟분포의 다른 영역은 적절하게 탐색되지 못한다.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+<div id="independent-chains" class="section level5" number="4.2.1.0.1">
+<h5><span class="header-section-number">4.2.1.0.1</span> Independent Chains</h5>
+<p>acceptance 여부 결정시에 ratio 자체는 MH ratio를 사용한다. 이 MC ratio에는 과거 실현값(<span class="math inline">\(x^{(t)}\)</span>)이 들어있다. 따라서 이는 MCMC 방법론에 해당한다. 하지만 새로운 value <span class="math inline">\(g(x&#39;)\)</span>을 생산할 때, 이 자체는 <span class="math inline">\(g(x&#39;\rvert x^{(t)})=g(x&#39; \rvert \cdot )\)</span>을 따르게, 즉 <span class="math inline">\(g(x&#39;\rvert x^{(t)})=g(x&#39; )\)</span> 마냥 과거의 실현값에 dependent 하지 않게 새로운 값을 생산해내는 방법론. 즉 새로이 제시되는 candidate value가 과거의 실현값들과 independent 하므로 명칭이 저러한 것이다.</p>
+<p>즉 <strong>MH ratio 자체는 과거의 샘플을 이용해서</strong> MCMC 범주에 들어가나 샘플 자체는 과거의 샘플과 independent하게 생산.</p>
+<p>MH 알고리즘의 제안분포는 고정된 덴시티 <span class="math inline">\(g\)</span>에 대해서 $ g ( ^{} ^{(t)} )$ 따위로 생성. 이는 <strong>independent chain</strong> 이라고 불리며, 이에 사용되는 각 후보값들은 과거에서 독립적으로 추출되었다. MH ratio는</p>
+<p>$R (^{(t)}, ^{} )</p>
+<p>= 
+{f(^{( )}) g(^{( t )} | ^{( )})}
+{f(^{( t )}) g(^{( )} | ^{( t )}) }</p>
+<p>= 
+{f(^{( )}) g(^{( t )})}
+{f(^{( t )}) g(^{( )}) }</p>
+<p>=
+{
+{f(^{( )})}
+{g(^{( t )})}
+}
+{
+{f(^{( t )})}
+{g(^{( )})}
+}</p>
+<p>=
+{
+{f(^{( )})}
+{g(^{( )})}
+}
+{
+{f(^{( t )})}
+{g(^{( t )})}
+}</p>
+<p>=  {w^{(t)}}
+</p>
+<p>$</p>
+<ul>
+<li>importance ratio of <span class="math inline">\(X&#39;\)</span>, importance ratio of <span class="math inline">\(X^{(t)}\)</span>. This can be seen as weight also.</li>
+</ul>
+<p>이때 가장 우측의 등식은 importance ratio ($ r $)의 등식으로 재표현된 것이며, 이때 $ f $ 는 타겟분포, $ g $ 는 그것의 envelope로 본 것이다.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+<div id="example-bayesian-inference-mixture-distribution" class="section level6" number="4.2.1.0.1.1">
+<h6><span class="header-section-number">4.2.1.0.1.1</span> Example: Bayesian Inference, Mixture Distribution</h6>
+<p>MCMC 알고리즘은 $ p(y ) = c , {*} , p() L(y) $ 로 표현될 수 있는 베이지안 추론에서 특히 강력하다. 베이지안 추론에서 <span class="math inline">\(c\)</span>의 계산이 드럽게 어렵다는 것이 이것 이상의 다른 추론전략을 방해하기 때문이다.</p>
+<p>보유하는 stationary 분포가 타겟 post인 MCMC에서 생산된 샘플들은 post 모먼트, tail 확률, 그리고 다른 유용한 quantity 계산에 쓰일 수 있다.</p>
+<p>independent 체인에서 prior를 proposal 분포(<span class="math inline">\(g\)</span>)로 쓰자. 즉 <span class="math inline">\(f\)</span>가 post, <span class="math inline">\(g\)</span>가 prior다. 이런다면</p>
+<p>$</p>
+<p>R ({}^{(t)}, ^{} )</p>
+<p>=
+{
+{f(^{( )})}
+{g(^{( )})}
+}
+{
+{f(^{( t )})}
+{g(^{( t )})}
+}</p>
+<p>=
+{c ; ; ( ^{} ) L( ^{} y )}
+{c ; ; ( ^{(t)} ) L( ^{(t)} y )}
+
+</p>
+<p>=
+{
+{(^{} y)}
+{(^{})}
+}
+{
+{(^(t) y)}
+{(^{(t)})}
+}</p>
+<p>= 
+{L ( ^{} y )}
+{L ( ^{(t)} y )}</p>
+<p>$</p>
+<ul>
+<li>Mixing Properties:
+<ul>
+<li>Good Mixing: 첫번째 그림의 MC는 시작점에서 빠르게 멀어지며 <span class="math inline">\(\delta\)</span>에 대한 post에서의 모든 서포트에 해당하는 패러미터 space의 모든 부분을 훑으면서 샘플을 뽑아내는게 쉬워보인다.</li>
+<li>Bad Mixing: 두번째 그림은 starting value에서 멀어지는 것도 느리고, posterior support의 영역을 탐색하는 게 시원찮아보인다.</li>
+</ul></li>
+<li>Burn-in 이후의 실현값들을 히스토그램으로 만들어서 살펴보면 <span class="math inline">\(BETA(1,1)\)</span> proposal 덴시티를 쓴 MCMC만이 <span class="math inline">\(\delta\)</span>의 참값을 잘 모사하는듯.</li>
+</ul>
+<p><br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /></p>
+</div>
+</div>
+</div>
+<div id="random-walk-chains-most-widely-used" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Random Walk Chains (Most Widely Used)</h3>
+<p>MH method 에 해당.</p>
+<p>let $ ^{} = ^{(t)} + , h().$ 이때 $ h $는 임의의 덴시티.
+* $ h $ 로 자주 선택되는건 $ U, ,  t $.</p>
+<p>이러면 proposal 덴시티 <span class="math inline">\(g\)</span>는 어떻게 되는가? <span class="math inline">\(x^{&#39;} g \sim N( \cdot \rvert x^{(t)}, \sigma^2 )\)</span>. 가장 빈번하게 쓰이는게 <span class="math inline">\(N\)</span>이므로 <span class="math inline">\(N\)</span>으로 설명. 여기서 $ x^{(t)} $는 평균으로 사용되었고, $^2 $은 <strong>Jumping Rule</strong>에 해당한다.
+* proposal can be
+* too diffused: Jumping rule is too big
+* too focused: Jumping rule is too small
+* Random Walk
+1. generate <span class="math inline">\(x^{&#39;} g \sim N( \cdot \rvert x^{(t)}, \sigma^2 )\)</span>
+2. $ u U(0,1) $.
+3. calculate MH ratio: <span class="math inline">\(r = \dfrac {f(x&#39;)}{f(x^{(t)}} \dfrac {g(x&#39; \rightarrow x^{(t)}} {g(x^{(t)} \rightarrow x&#39;} = \dfrac {f(x&#39;)}{f(x^{(t)}}\)</span>, cause it’s <span class="math inline">\(N\)</span>.
+4. if <span class="math inline">\(u&lt;r\)</span>, <span class="math inline">\(x^{(t+1)} = x&#39;\)</span>. o.w., <span class="math inline">\(x^{(t+1)} = x^(t)\)</span>.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+<div id="example-mixture-distribution" class="section level5" number="4.2.2.0.1">
+<h5><span class="header-section-number">4.2.2.0.1</span> Example: Mixture Distribution</h5>
+<p>let proposal $^{(t+1)} = ^{(t)} + U(-a, a) $ [* random increment]. 이인즉 몇몇 proposal들은 $ [0, 1] $ 이외에서 생산된다.
+* note that $ $, post is zero,
+* Reparameterize the problem by letting $ U = $(logit). 왜? Probabilty Space is bounded: <span class="math inline">\(0 \le P(\cdot) \le 1\)</span>.</p>
+<p>Run a random walk chain on <span class="math inline">\(U\)</span> by adding <span class="math inline">\(U(-b,b)\)</span>.</p>
+<p>Two ways of Reparamaterization:
+* Run MCMC in <span class="math inline">\(\delta\)</span>-space. <span class="math inline">\(u\)</span> 값을 다시 T해와서 <span class="math inline">\(\delta\)</span>-space에서 돌림.
+* Run MCMC in <span class="math inline">\(u\)</span>-space. <span class="math inline">\(u\)</span>-space에서 돌리고 마지막에 모델 샘플들을 전부 <span class="math inline">\(\delta\)</span>-space로 환원.</p>
+<p><br /></p>
+<div id="delta-space에서-돌리는-방법" class="section level6" number="4.2.2.0.1.1">
+<h6><span class="header-section-number">4.2.2.0.1.1</span> <span class="math inline">\(\delta\)</span>-space에서 돌리는 방법</h6>
+<p>개략적으로는 $ T^{-1}: ’ u’ g( u^{(t)}) $ 와 같은 형을 띤다. 조건부 proposal <span class="math inline">\(g\)</span>에서 생산된 u를 하나하나마다 <span class="math inline">\(\delta\)</span>로 역변환해서 그 하나하나의 역변환 값으로 MH 알고리즘을 돌린다. proposal 덴시티 $ g( u^{(t)} )$ 는 <span class="math inline">\(\delta\)</span>-space에서의 proposal 덴시티로 변환되어야 한다. 이경우 MH ratio는</p>
+<p>$</p>
+<p>R (^{(t)}, ^{} )</p>
+<p>=
+{
+{f(^{})}
+{g ( logit(^{}) logit(^{(t)}) ) | J(^{})|}
+}
+{
+{f(^{(t)})}
+{g ( logit(<sup>{(t)})|logit(</sup>{}) ) | J(^{(t)})|}
+}</p>
+<p>$</p>
+<p>$J(^{(t)}) $ 는 $T: u $에 대한 <span class="math inline">\(J\)</span>를 <span class="math inline">\(\delta^{(t)}\)</span>에서 측정한 값. 주의해야 할 것이 해당 방법론에서는 <span class="math inline">\(T\)</span>한 value를 사용하였으므로 <span class="math inline">\(g\)</span>에 대한 <span class="math inline">\(J\)</span>를 구해야 한다.</p>
+<p><br /></p>
+</div>
+<div id="u-space에서-돌리는-방법" class="section level6" number="4.2.2.0.1.2">
+<h6><span class="header-section-number">4.2.2.0.1.2</span> <span class="math inline">\(u\)</span>-space에서 돌리는 방법</h6>
+<p>이 상황에서 쓰이는 proposal은 $  {g(u’ u^{(t)})}$. <span class="math inline">\(\delta\)</span>에 대한 타겟 덴시티는 <span class="math inline">\(u\)</span>에 대한 덴시티로 변형되어야 한다. 이때 <span class="math inline">\(\delta = logit^{-1}(U) = \dfrac{\exp(U)}{1+\exp(U)}\)</span> 였으므로, $ U^{} = u^{} $ 로 두었을 때 생산되는 MH ratio는</p>
+<p><br>
+<br></p>
+<p>$</p>
+<p>R (^{(t)}, ^{} )</p>
+<p>=
+{
+{f(logit^{-1} {(u^{})})}
+{g (u<sup>{}|u</sup>{(t)}) ) * | J(u^{(t)})|}
+}
+{
+{f(logit^{-1} {(u^{(t)})})}
+{g (u<sup>{(t)}|u</sup>{()}) ) * | J(u^{})|}
+}</p>
+<p>$</p>
+<p><br>
+<br></p>
+<p>우리가 transform value를 사용한데가 <span class="math inline">\(f\)</span> 덴시티이므로 <span class="math inline">\(f\)</span> 덴시티에 대한 야코비안을 붙여줘야 하는데 그 덴시티에 대한 야코비안은 <span class="math inline">\(u\)</span>에 대한 야코비안이므로 쓰인 야코비안은 위와 같다. 이때 $ J(u^{}) =  {J(^{}) }$ 이므로 위와 아래에서 만들어지는 <strong>MH ratio는 같다.</strong> 따라서 두 관점은 equivalent한 체인을 생산한다.
+* Sample paths for <span class="math inline">\(\delta\)</span> from RW chains in Ex. 7.3, run in <span class="math inline">\(u\)</span>-space iwth b=1 (top) and b=0.01 (bottom).</p>
+</div>
+</div>
+<div id="example-autocorrelation-plot-acf" class="section level5" number="4.2.2.0.2">
+<h5><span class="header-section-number">4.2.2.0.2</span> Example: Autocorrelation Plot (ACF)</h5>
+<p>배우지 않은 MCMC 방법론 중 하나.</p>
+<p><img src="2-1.png">
+<img src="2-2.png"></p>
+<p>reminder. thinning을 하더라도 거의 줄지 않아서 MCMC 샘플로서 거의 가치가 없는 케이스가 존재한다.</p>
+<p>no</p>
+<p><br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /></p>
+</div>
+</div>
+<div id="basic-gibbs-sampler" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Basic Gibbs Sampler</h3>
+<p>{:.bg-green-lighter}
+- need to derive the conditional density for all, 모든 joint density에 대해 coefficient를 1개씩 제한 상황의 <strong>모든 conditional density를 구한 후</strong> GS 제작이 가능
+- if conditional densities are not available, we can use MH algorithm when updating <span class="math inline">\(x_i\)</span> -&gt; 이런식으로 접근할 경우 이를 MH-within-Gibbs라고 부른다.
+- 1PL IRT HW</p>
+<p>let <span class="math inline">\(\textbf {X} = (X_1 , \cdots, X_p )^{&#39;}\)</span> , <span class="math inline">\(\textbf {X}_{-i} = (X_1 , \cdots, X_{i-1}, X_{i+1}, \cdots, X_p )^{&#39;}\)</span>.</p>
+<p>시작값 $^{(0)} $를 잡고, <span class="math inline">\(t=0\)</span>으로 설정한다. 이후 각각을 <span class="math inline">\(t+1\)</span> 단계의 시퀀스의 구성요소 각각을 $ X_i^{(t+1)} ; ; f ( x_1 x_2^{(t)}, , x_p^{(t)} )$ 에 따라서 생산한다.</p>
+<p>Gibbs Sampler의 stationary 분포는 <span class="math inline">\(f\)</span>.</p>
+<p><span class="math inline">\(X_i^{(t)}\)</span>의 limiting 마지널 분포는 <span class="math inline">\(i\)</span>번째 coordinate에 따른 타겟분포의 단변량 마지널化와 같다.</p>
+<p>MH 알고리즘과 마찬가지로, 우리는 <span class="math inline">\(X\)</span>의 임의의 함수 <span class="math inline">\(g(X)\)</span>에 대해 <span class="math inline">\(E \left[ g(X) \right]\)</span> 를 추정하기 위해 체인에서의 실현값을 사용할 수 있다.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+<div id="example-fur-seal-pup-capture-recapture-model" class="section level5" number="4.2.3.0.1">
+<h5><span class="header-section-number">4.2.3.0.1</span> Example: Fur Seal Pup Capture-Recapture Model</h5>
+<p>1800년대 후반 (by the late 1800s) 뉴질랜드 물범은 거의 전멸했다가 요즘 들어 폭증함 (abundance). 물범의 고름 숫자를 capture-recapture 사용해서 해보자.</p>
+<p>사이즈 불명인 모집단의 크기 파악 위에 반복 연구 실행. 각 연구마다 <strong><em>포획</em></strong>었던 개체는 표식 새기고 풀어줌. 후속 연구에서 또 포획되면 <strong><em>재포획</em></strong>으로 표기. 높은 재포획 비율은 참 모집단 사이즈값이 포획되었던 개체들의 총량을 크게 넘지 않을 것임을 암시.</p>
+<ul>
+<li><span class="math inline">\(N\)</span>: 불명인 모집단 사이즈. <span class="math inline">\(l\)</span>회의 조사 통해 얻어진 각 회의 총 <strong><em>포획</em></strong> 숫자는 각각 <span class="math inline">\(c=(c_1, \cdots, c_l)\)</span>로 저장. 모집단 사이즈는 샘플링 동안에는 변동 없다(죽음, 출생, 이주 없음 inconsequential)고 가정한다.</li>
+<li><span class="math inline">\(r\)</span>: 연구 동안에 포획되었던 이질 동물들의 총 숫자.</li>
+<li>각 연구 시도에서 상응하는 구분되고 알려지지 않은 <strong><em>포획 확률</em></strong>은 <span class="math inline">\(\alpha = (\alpha_1 , \cdots, \alpha_l )\)</span>. 이 모델은 모든 동물들이 각 1회의 포획 발생에서 잡힐 가능성 자체는 각각의 동물에 대해서 동일하나, 이 被포획 확률은 시간이 지남에 따라 변할 수 있다는 것을 말함.</li>
+</ul>
+<p>이 모델의 likelihood는</p>
+<p>$</p>
+<p>L ( N, c, r )
+
+ _{=1}^{l} _i^{c_i}</p>
+<p>$</p>
+<p>Fur Seal Data for Seven Studies in One Season on the Otago Peninsula가 주어졌으며, prior은 <span class="math inline">\(\pi(N) \propto 1\)</span>, <span class="math inline">\(\pi (\alpha_i ) = BETA(\theta_1 , \theta_2)\)</span> 이다. 계산하라.</p>
+<p>해당 모델의 conditional posterior distribution에서 시뮬레이트하는 것으로 Gibbs Sampler를 제작할 수 있다.</p>
+<p>$
+N^{(t+1)}-r Negative Binomial ( r+1, 1- _{i=1}^7 ( 1- _i^{(t)} ) )
+$</p>
+<p>$
+_i^{(t+1)} BETA ( c_i + , N^{(t+1)} - c_i +  )
+$</p>
+<p>for <span class="math inline">\(i= 1, \cdots, 7\)</span>, <span class="math inline">\(r = \sum_{i=1}^7 {m_i} =84\)</span>. 이는 unique fur seals were observed during the sampling period.
+* Split boxplots of <span class="math inline">\(\bar {\alpha}^{(t)}\)</span> against $N^{(t)} $ for the seal pup example.
+* Estimated marginal posterior probabilities for <span class="math inline">\(N\)</span> for the seal pup example.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+</div>
+<div id="mh-within-gibbs-sampler" class="section level5" number="4.2.3.0.2">
+<h5><span class="header-section-number">4.2.3.0.2</span> MH-within-Gibbs Sampler</h5>
+<p><strong>실제 implementation에 무지막지 유용하다.</strong> 이는 각각의 사이클을 GS의 사이클로 만들어놓고, conditional density는 MH 알고리즘으로 획득하는 것이다. <strong>Gibbs Sampler는 MH Sampler의 특별한 경우라고 볼 수 있다.</strong> MH 알고리즘의 proposal 분포를 시간에 따라 변화하도록 함으로써, GS와 MH 알고리즘 사이에 연결고리가 생긴다. 각 Gibbs 사이클은 <span class="math inline">\(p\)</span> 개의 MH 스텝으로 구성되어 있다. 사이클 내에서의 <span class="math inline">\(i\)</span>번째 Gibbs 스텝은, 체인의 현 상태 <span class="math inline">\((x_{1}^{(t+1)}, \cdots, x_{i-1}^{(t+1)}, x_{i+1}^{(\underline{t})}, \cdots, x_{p}^{(\underline{t})})\)</span> 가 주어졌을 때, 효과적으로 후보 벡터 <span class="math inline">\((x_{1}^{(t+1)}, \cdots, x_{i-1}^{(t+1)}, {\underline{X_i^{*}}}, x_{i+1}^{(\underline{t})}, \cdots, x_{p}^{(\underline{t})})\)</span> 를 생산한다. 밑줄 차이점에 주목.</p>
+<p><span class="math inline">\(i\)</span>번째 단변량 Gibbs 업데이트는 이하와 같이 MH 스텝 drawing으로 볼 수 있다.</p>
+<p>$
+{} (x_{1}^{(t+1)}, , x_{i-1}^{(t+1)}, x_{i+1}^{()}, , x_{p}^{()}) g_i ( (x_{1}^{(t+1)}, , x_{i-1}^{(t+1)}, x_{i+1}^{()}, , x_{p}^{()}) )
+$</p>
+<p>where</p>
+<p>$</p>
+<p>g_i ( (x_{1}^{(t+1)}, , x_{i-1}^{(t+1)}, x_{i+1}^{()}, , x_{p}^{()}))</p>
+= {
+<span class="math display">\[\begin{array}{@{}lr@{}}
+
+f(x_i^{*} \rvert x_i^{(t)} ), &amp; \text{if } \; \; \; X_i^{*} = x_i^{(t)} \\
+0 &amp;  o.w.
+\end{array}\]</span>
+<p>}</p>
+<p>$</p>
+<p>이 경우, MH ratio는 1과 같아진다. 즉슨 모든 후보들은 언제나 accept 된다. 즉슨 GS는 MH 알고리즘에서 acceptance ratio가 항상 1인 경우에 해당한다. 따라서 <strong>conditional density</strong>을 구할 수만 있으면 GS를 사용하는게 좋다. 샘플을 버릴 필요가 없고, 버려지는 샘플이 없기 때문.</p>
+<p><br /><br />
+<br /><br />
+<br /></p>
+</div>
+<div id="update-ordering" class="section level5" number="4.2.3.0.3">
+<h5><span class="header-section-number">4.2.3.0.3</span> Update Ordering</h5>
+<p><strong>Random Scan Gibbs Sampling</strong>: 기본 GS에서 $  $ 에 가해지는 업데이트의 순서는 <strong><em>한 사이클에서 다음 사이클로 넘어갈 때마다 바뀔 수 있다. 패러미터들이 높은 수준에서 상호연관되어있을 경우, 각 사이클을 랜덤하게 순서배치하는 것은 효과적일 수 있다. [^1]</em></strong> 특정 모델에 대한 전문화된 지식이 없다면, 한 이터레이션에서 다음으로 넘어갈 때 패러미터끼리 높이 상호연관되어있다면 deterministic 한 방법과 RSGS 양쪽 모두를 시도해보는 것이 권장된다.</p>
+<p>[^1] The ordering of updates made to the components of X in the basic Gibbs sampler can change from one cycle to the next. Random ordering each cycle can be effective when parameters are highly correlated. In practice without specialized knowledge for a particular model, we recommend trying both deterministic and random scan Gibbs sampling when parameters are highly correlated from one iterations to the next.</p>
+</div>
+<div id="blocking" class="section level5" number="4.2.3.0.4">
+<h5><span class="header-section-number">4.2.3.0.4</span> Blocking</h5>
+<p>with <span class="math inline">\(p=4\)</span>, e.g., 각 사이클을 다음 절차를 따르면서 업데이트:
+1. <span class="math inline">\(X_1^{(t+1)}\rvert \cdot \sim f \left(x_1 \rvert x_2^{(t)}, x_3^{(t)}, x_4^{(t)} \right)\)</span>.
+2. <span class="math inline">\(X_2^{(t+1)}, X_3^{(t+1)}\rvert \cdot \sim f \left(x_2, x_3 \rvert x_1^{(t+1)}, x_4^{(t)} \right)\)</span>.
+3. <span class="math inline">\(X_4^{(t+1)}\rvert \cdot \sim f \left(x_4 \rvert x_1^{(t+1)}, x_2^{(t+1)}, x_3^{(t+1)} \right)\)</span>.</p>
+<p><strong>Blocing</strong>은 <span class="math inline">\(X\)</span>의 구성요소들이 서로 상관관계가 있을 때 <strong><em><span class="math inline">\(X_i\)</span> 내부가 상관이라는 건가, 아니면 <span class="math inline">\(X_t, X_{t+1}\)</span> 이 상관이라는 건가?</em></strong> 유용함. 해당 알고리즘을 통해 더욱 상관된 구성요소끼리는 한 블럭 안에서 샘플링됨.</p>
+</div>
+<div id="hybrid-gibbs-sampling" class="section level5" number="4.2.3.0.5">
+<h5><span class="header-section-number">4.2.3.0.5</span> Hybrid Gibbs Sampling</h5>
+<p>하나 이상의 <span class="math inline">\(X\)</span>에 대한 조건부 분포는 대부분 closed form으로 만들 수 없음. 깁스 샘플러의 주어진 스텝에서, 적절한 조건부 분포에서 샘플링하기 위해 MH 알고리즘이 쓰인다면 <strong>Hybrid MCMC</strong> 알고리즘이 완성됨.</p>
+<p>with <span class="math inline">\(p=5\)</span>, e.g., 하이브리드 MCMC 알고리즘은 다음 절차를 따르면서 업데이트:
+1. Update $X_1^{(t+1)} ( x_2^{(t)}, x_3^{(t)}, x_4^{(t)}, x_5^{(t)} ) $ with 깁스 스텝.
+2. Update ( x_2^{(t+1)}, x_3^{(t+1)} ) $ ( x_1^{(t+1)}, x_4^{(t)}, x_5^{(t)} ) $ with MH 스텝.
+3. Update $X_4^{(t+1)} ( x_1^{(t+1)}, x_2^{(t+1)}, x_3^{(t+1)}, x_5^{(t)} ) $ with 랜덤워크.
+4. Update $X_5^{(t+1)} ( x_1^{(t+1)}, x_2^{(t+1)}, x_3^{(t+1)}, x_4^{(t+1)} ) $ with 깁스 스텝.</p>
+<div id="example-fur-seal-pup-capture-recapture-study" class="section level6" number="4.2.3.0.5.1">
+<h6><span class="header-section-number">4.2.3.0.5.1</span> Example: Fur Seal Pup Capture-Recapture Study</h6>
+<p><br>
+<br>
+<br>
+<br></p>
+</div>
+</div>
+</div>
+<div id="implementation" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Implementation</h3>
+<p>MCMC의 목적은 타겟분포 <span class="math inline">\(f\)</span>의 특징들을 알아내는 것. 모든 MCMC는 정답인 limiting 정적분포를 가지고 있음. 실전에는 체인을 얼마나 충분히 오래 돌릴지를 결정하는 게 중요함. <span class="math inline">\(X\)</span>의 dimensionality(차원)이 높다면 수렴이 엄청 느려서 엄청 긴 run을 요할 수도 있음. 이하의 요건들을 생각해서 long run을 결정해야 함.
+* Has the chain run long enough?
+* Is the first portion of the chain highly influenced by the starting value?
+* Should the chain be run from several different starting values?
+* Has the chain traversed all portions of the region of support of <span class="math inline">\(g\)</span>?
+* Are the sampled values approximate draws from <span class="math inline">\(f\)</span>?
+* How shall the chain output be used to produce estimates and assess their precision?</p>
+<p><br>
+<br></p>
+<div id="ensuring-good-mixing-and-convergence" class="section level5" number="4.2.4.0.1">
+<h5><span class="header-section-number">4.2.4.0.1</span> Ensuring Good Mixing and Convergence</h5>
+<p>MCMC 알고리즘이 대상 문제에 얼마나 쓸만한 정보를 주는지 고민해야 함. 이는 곧
+1. 체인이 얼마나 빠르게 체인의 starting value를 까먹는가
+2. 얼마나 빠르게 체인이 타겟분포 <span class="math inline">\(f\)</span>의 모든 서포트를 훑는가
+3. 체인이 그것의 정적분포에 근사적으로나마 닿는가를 고민.
+4. There is substantial overlap between the goals of diagnosing convergence to the stationary distribution and investigating the mixing properties of the chain.</p>
+<p><br>
+<br></p>
+</div>
+<div id="simple-graphical-diagnostics" class="section level5" number="4.2.4.0.2">
+<h5><span class="header-section-number">4.2.4.0.2</span> Simple Graphical Diagnostics</h5>
+<p>트레이스 플롯 (sample path)은 이터레이션 횟수 <span class="math inline">\(t\)</span>와 <span class="math inline">\(X^{(t)}\)</span>의 실현값 간의 플롯이다.
+* 체인의 mixing이 구리면 이는 장기간의 이터레이션동안 동일값 근처에서 머무르게 됨.
+* 체인의 mixing이 좋으면 시작값에서 빠르게 떠나서 <span class="math inline">\(f\)</span>의 서포트에 해당하는 영역을 열심히 훑음.</p>
+<p><br>
+<br></p>
+<p><strong>autocorrelation 플롯</strong>은 <span class="math inline">\(X^{(t)}\)</span>의 시퀀스에서 다른 <strong>이터레이션 래그</strong>에서의 상관관계를 서술한다. 래그 <span class="math inline">\(i\)</span>에서의 autocorrelation은 <span class="math inline">\(i\)</span> 이터레이션만큼 떨어진 이터레이트 간의 상관관계이다. 구린 mixing 프로퍼티를 가지는 체인은 이터레이션 간의 래그가 증가하더라도 autocorrelation의 부식(decay)이 느림.</p>
+<p>MCMC 체인에서의 첫 <span class="math inline">\(D\)</span> 개의 값은 보통 <strong>burn-in period</strong>라고 해서 버려짐. 체인의 시작점에 대한 의존이 강하게 남아있을지도 모르기 때문. 어느정도가 적절한 번인 피리어드인가는 <strong>Gelman-Rubin diagnostics</strong>에 의해 결정된다. 결정된 번인 피리어드가 제대로 된 값을 못내면 <span class="math inline">\(D\)</span>가 늘어나던가 <span class="math inline">\(L\)</span>이 늘어나던가 둘다 늘리던가 해야함.
+* Motivated by an Analysis of Variance
+* 사슬간 분산 (between-chain variance)이 사슬내 분산 (within-chain variance)보다 유의하게 크면 번인 피리어드나 MCMC 길이가 늘어나야 함
+* Difficulties
+* multimodal <span class="math inline">\(f\)</span>에서 적절한 스타팅 밸류를 찾는건 어렵고, 체인이 로컬 region이나 mode에서 갇힐수 있음
+* 이의 단일차원성 (uni-dimensionality) 때문에 타겟분포 <span class="math inline">\(f\)</span>가 멀티디멘션이면 타겟분포의 수렴에 대한 정보에 대한 잘못된 직관을 줘버릴 수 있음</p>
+<p><br>
+<br></p>
+<p>proposal <span class="math inline">\(g\)</span> 선택할 때 고려해야할 요소는? mixing은 proposal 분포 <span class="math inline">\(g\)</span>의 특질에 큰 영향을 받으며 특히 이의 스프레드(spread)에 큰 영향을 받음. 타겟분포 <span class="math inline">\(f\)</span>와 <span class="math inline">\(g\)</span>간의 닮음에 있어서, 프로포절 <span class="math inline">\(g\)</span>의 tail behavior의 닮음은 high density의 닮음보다 훨씬 중요함. <span class="math inline">\(f/g\)</span>가 bounded 라면, MC의 정적분포로의 수렴은 <strong>대체로(overall)</strong> 빠름. 실전에선 정보를 줄 수 있는 이터레이티브 프로세스를 통해 proposal 분포의 분산이 택해질 수 있음. (In practice, the variance of the proposal distribution can be selected through an informal iterative process.) 20%~50% 사이의 acceptance rate가 선호되어야 함.</p>
+<p><br>
+<br></p>
+<p>Reparameterization. 모델의 reparameterization은 MCMC 알고리즘의 mixing behavior에 상당한 기능향상을 가져올 수 있음. reparameterization은 dependence를 낮추기 위해 가장 우선되어야 할 전략 중 하나임. 서로 다른 모델들은 서로 다른 reparameterization 전략을 적용해야 함. reparameterization 접근법은 보통 특정 모델에 대한 원오프로서 채택되므로 일반화된 조언을 하기에는 어려운 부분이 있음.</p>
+<p><br>
+<br></p>
+<p>Comparing Chains. MCMC 실현값이 크게 상관관계있다면, MCMC의 각 이터레이션에서 주어지는 정보는 run length에서 주어지는 정보 대비 보잘것 없다(will be less than suggested by the run length). 여기서 reduced information은 <strong>effective sample size</strong>라고 칭해지는 더 작은 iid 샘플에 담겨있는 정보와 동등하다. 여기서 샘플의 총 숫자와 effective sample size 사이의 차이는 잃게 된 효율을 의미한다. 관심있는 변량을 확인하기 위해 우리가 MC 체인에서의 correlated 샘플들을 사용했을 때 잃게된 효율.</p>
+<p><br>
+<br></p>
+<p>Number of Chains. 모델 진단에 있어서 가장 진단을 어렵게 하는 부분은 체인이 타겟분포 <span class="math inline">\(f\)</span>의 1개 이상의 모드에 걸리냐 안걸리냐 하는 부분. 이 경우 모든 수렴진단은 체인이 수렴하긴 한다는 결론을 내리게 된다. 정작 체인이 타겟분포 <span class="math inline">\(f\)</span>의 모든 특성을 나타내지 못하는데도. 그래서 여러번 돌려보게 되는 것. 최소한 그 여러번의 run들 중 체인 1개에서라도 타겟분포 <span class="math inline">\(f\)</span>의 모든 흥미로운 특질들이 드러났으면 하니까. 이러한 특질을을 찾아내는데 실패한 개별 체인들의 경우에는 mixing을 더 좋게 만들기 위해 체인 길이가 늘어나거나 문제가 reparameterize 되어야 함.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="importance-sampling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="advanced-mcmc-wk08.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211202_MCMC.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,559 @@
+# MCMC
+## Importance Sampling
+
+
+### Independent Monte Carlo
+
+타겟분포 $f$로부터의 시뮬레이션의 랜덤 draws $ \pmb X_1 , \cdots, \pmb X_n $. 
+
+적분 범위에 걸쳐 (over) support가 펼쳐져 있는 분포로부터 무작위로 포인트를 추출해서 해당 포인트들의 적분값을 종합하여 만들어내는, 적분값에 대한 통계적 측정. 
+
+let $f$는 $X$의 density, $\mu = E_f \left[ h(X) \right]$. 이때
+
+$
+
+\hat \mu_{MC} = \dfrac {1}{n} \sum_{i=1}^n h(X_i ) \rightarrow \int h(x)f(X) dx =\mu \; \; \; \; \; \text{as } n \rightarrow \infty
+
+$
+
+let $ v(x) = \{ h(x)-\mu \}^2$, $ E_f \{ \left[ h(X) \right]^2 \} < \infty $. Then, sampling $Var$ of $ \hat \mu_{MC} $ is $\dfrac {\sigma^2}{n} = E \{ \dfrac {v(x)}{n} \}. This can be written as
+
+$
+
+\hat {Var} (\hat \mu_{MC}) = \dfrac {1} {n-1} \sum_{i=1}^n \left[ h(X_i) - \hat \mu_{MC} \right]^2
+
+$
+
+when \sigma^2 exists, by CLT, $\hat \mu_MC \overset {\cdot} {\sim} N$, for large $n$.
+
+수치해석은 다차원 문제에는 적용하기 어렵다. 하지만, MC integration은 $p$차원의 $f$의 support에 걸쳐서 $f$에서 랜덤하게 샘플링 한 후 이 영역에 대한 그 어떤 체계적인 탐색도 시도하지 않는다. 샘플링 후에는 그냥 냅둬버림. 따라서 MC는 고차원에서도 덜 피곤함.
+
+<br>
+<br>
+<br>
+
+##### Inverse-cdf
+
+$\forall F, X=F^{-1}(U) = \text{inf}\{ x:F(x) \ge U \}$는 $F$와 같은 cdf를 가짐. 이때 $F$는 continuous distribution function, $U \sim U(0, 1)$.
+
+이때, linear interpolation을 활용해, $F^{-1}$ 계산 없이 $F$만으로 난수 샘플링 가능.
+1. $f$의 supoprt를 span하는 grid $x_1 , \cdots, x_m$ 정의
+2. 각 grid point에서 $u_i = F(x_i)$ 계산하거나 approximate
+3. 가장 가까운 grid points $u_i , u_j$에 대해, $u_i \le U \le u_j$에 해당하는 영역을 이하에 따라 linearly interpotate. $X = \dfrac{u_j-U}{u_j - u_i}x_i + \dfrac{U-u_i}{u_j - u_i}x_j$. 이때 $U \sim U(0, 1)$.
+	- illustration of Rejection Sampling for a target distribution $f$ using a Rejection Sampling envelope $e$.
+
+<br>
+<br>
+<br>
+
+
+##### Rejection Sampling
+$f(x)$의 상수배 (proportionality constant) 만이라도 계산될 수 있다면, 정확한 타겟분포 $f(x)$로부터의 샘플링을 위하여 **Rejection Sampling** 사용 가능. 이는 더 간단한 후보 (candidate) 분포로부터 샘플링한 후 이렇게 샘플링한 것 중 일부를 확률에 기반하여 랜덤하게 쳐냄으로써 샘플링 확률을 보정하는 것. 
+* $g$는 우리가 분포의 형태를 정확히 알고 있고 $g(x)$ 계산도 쉬운 덴시티라고 정의.
+* $e$는 **envelope**, 이하의 성질을 갖는다. $\forall x \; \; \; \text{s.t. for a given constant } \alpha \le 1, f(x)>0 \; \; \;  : \; \; \; e(x) = \dfrac {g(x)}{\alpha} \ge f(x)$.
+
+방법은 이하와 같다.
+1. $Y \sim g$에서 샘플링.
+2. $U>\dfrac {f(y)}{e(Y)}$일 경우 $Y$를 기각. 기각된다면 $Y$값을 target random sample의 요소로 기록하지 않음. step 1으로.
+3. $U \le \dfrac {f(y)}{e(Y)}$일 경우 set $X=Y$로 한 후 $X$를 타겟 랜덤샘플의 요소로 넣음. step 1으로.
+
+여기서 $\alpha$는 채택될 후보들의 expected 비율로 해석될 수 있다.
+
+good RS envelope의 요건:
+* 간단하게 제작되거나, 모든 값에서 타겟분포를 넘김이 간단하게 확인되어야 한다.
+* 샘플링이 쉬어야 한다.
+* rejected draws가 적어야 한다.
+
+> Example: Normal From Double Exponential, Sampling a Bayesian Posterior
+
+<br>
+<br>
+<br>
+
+
+
+##### Variants of the RS: Squeeze RS
+$f$ 계산해내는 게 비용이 많이 들고 RS가 매력적인 상황이면 **Squeeze RS**에 의해 더 빠른 연산속도를 획득할 수 있음. nonnegative squeezing function $s(x)$를 정의하고 이를 사용함. 이때 $s$가 적합한 squeezing function이기 위해선 $f$의 모든 support에서 $s<f$.
+* illustration of squeezed Rs for a target distribution $f$, using envelope $e$ and squeezing function $s$. Keep First and Keep Later correspond to steps 3 and 4 of the algorithm, respectively.
+
+proceeds:
+1. $Y \sim g$에서 샘플링.
+2. if $U \le \dfrac {s(Y)}{e(Y)}$, keep $Y$. 
+3. if not, whether if $U \le \dfrac {f(Y)}{e(Y)}$, keep $Y$. 
+4. both are not, reject $Y$.
+
+2번에선 $s$, 3번에선 $f$임에 주목. 샘플링 쉬운 $s$에서 먼저 비교해서 우선권 시드 주고, 그 후에 $f$로 본선 해보는거.
+
+>Example: Lower Bound for Normal Generation
+
+<br>
+<br>
+<br>
+
+###### Variants of the RS: Adaptive RS
+적절한 envelope $e$를 어떻게 만들 것인가? squeezed RS를 위해, support의 connected region에 대해 continuous, differentiable, log-concave인 덴시티를 만드는 자동화된 envelope 생산 전략에 해당함. 패키지로 실행.
+ *  envelopes $e$ and squeezing function $s$ for adaptive RS. The target density $f$ is smooth, nearly bell-shaped curve. The first method discussed in the text, using the derivative of $l$, produces the envelope $e$ shown as upper boundary of the lighter shaded region. This correponds to Equation (6.9) and Figure 6.4. Later in the text, a derivative-free method is presented. That envelope is the upper bound of the darker shaed region and corresponds to (6.11) and Figure 6.6. The squeezing function $s$ for both approaches is given by the dotted curve.
+
+<br>
+<br>
+<br>
+
+
+##### Importance Sampling
+
+**Importance Sampling** 접근법은 $E\{h(x)\}$ w.r.t. its density는 이하처럼 alternative form으로 쓰일 수 있다는 것에 기반한다. 이때 $g$는 envelope의 importance sampling function.
+
+$
+\begin{align*}
+
+
+
+\mu &= \int h(x)f(x)dx &= \int \left( h(x) \dfrac {f(x)}{g(x)} \right)g(x)dx \tag{1} \\
+
+\\
+\\
+
+&= \dfrac {\int h(x)f(x) dx}{\int f(x) dx} &= \dfrac {\int \left( h(x) \dfrac {f(x)}{g(x)} \right) g(x) dx}{\int \left( \dfrac {f(x)}{g(x)} \right) g(x) dx} \tag{2}
+
+\end{align*}
+
+$
+
+- (1)은 $E \{ h(X) \}$를 측정하기 위한 MC 접근법이 이하임을 제시한다. $X_1 , \cdots, X_n \overset {\text{iid}}{\sim} g$처럼 $g$에서 랜덤샘플을 뽑고, 이의 (이를 활용한) estimator는 이하. 이때 $w^{\ast} (X_i)$는 **unstandardized weights**, i.e., **importance ratios**.
+
+$ 
+
+\hat \mu_{IS}^{\ast} = \dfrac {1}{n} \sum_{i=1}^n h(X_i) w^{\ast}(X_i) = \dfrac {1}{n} \sum_{i=1}^n h(X_i) \ast \dfrac {f(X_i)}{g(X_i)}
+
+$
+
+
+
+(2)는 $g$에서 $X_1 , \cdots, X_n \overset {\text{iid}}{\sim} g$의 랜덤샘플을 뽑고 이하를 계산. 이때 $w(X_i)$는 standardized weight. <br>이 (2)는 $f$의 상수배 (proportionality constant) 까지만 알 수 있더라도 적용할 수 있다는 점에서 매우 중요함. $f$의 상수배까지만 알 수 있는 상황은 베이지안 분석의 post에서 빈번하게 발생함. ***Both estimators converge by the same argument applied to the simple Monte Carlo estimator.***
+
+$ 
+
+\hat \mu_{IS} = \sum_{i=1}^n h(X_i) w(X_i) = \sum_{i=1}^n h(X_i) \dfrac {w^{\ast}(X_i)}{\sum_{i=1}^n w^{\ast}(X_i)}
+
+$ 
+
+
+
+
+
+Proceeds:
+1. Sample $X_j \sim g(\cdot)$.
+2. Calculate $w(X_j) = \dfrac {f(X_j)}{g(X_j)}$
+3. 지정 샘플 갯수까지 반복
+
+then,
+
+$
+\begin{align*}
+
+E\{\hat h(x)\} &= \dfrac {1}{n} \sum_{j=1}^n w(X_j)h(X_j) \\
+
+\hat \sigma^2 &= \dfrac {1}{n-1}  \sum_{j=1}^n \left\{ h(X_j) - E\left[ \hat h(x) \right] \right\}^2
+
+\end{align*}
+$
+
+과도한 변동성을 회피하기 위해, $\dfrac {f(x)} {g(x)}$는 bounded여야 하며 또한 $g$는 $f$보다 heavier tail을 가져야 한다. 이것이 만족되지 않는다면 standardized importance weight는 제법 커질 수 있음.
+
+함수 $g$는, $h(x)$가 매우매우 작을 경우에만 $\dfrac {f(x)} {g(x)}$가 커지게 만드는 녀석으로 잘 골라야 한다. 가령 $h$가 아주 드문 상황에서만 1을 반환하는 indicator function이라면, 우리는 $g$로 하여금 샘플링의 편의성을 위해 해당 사건을 좀 더 빈번하게 발생시키도록 하는 녀석을 고를 수도 있을 것이다. 이를 택한다면 우리는 우리의 관심사가 아닌 사건, 가령 $h(x)=0$에 대한 적절한 샘플링 power을 어느정도 희생하게 된다. ***이는 낮은 확률에 해당하는 case의 측정에 특히 잘 들어맞는 방법론이다.***
+
+$\hat \mu_{IS}^\ast $ 자체는 unbiased지만, 이를 importance weight로 standardize 하는 과정에서 $\hat \mu_{IS}$에 다소 bias가 생겨버린다.
+
+standardized weight를 쓰는 건 $w^\ast(X)$와 $h(X)w^\ast(X)$가 서로 강하게 상관관계가 있는 상황에서 더욱 우수한 estimator를 반환한다.
+
+standardized weight는 $f$의 비례상수를 요구하지 않는다. (우리가 갖고 있는 덴시티가 $f$의 얼마만큼의 상수배인지를 알지 않아도 된다)
+
+IS 방법론의 매력은 시뮬레이션의 reusability이다. 같은 sample points들과 weight들이 다양한 다른 quantity의 MC 적분 estimates를 구하는데 사용될 수 있다. (**컴퓨팅 파워가 증가한 오늘날에 와서는 유의미한 장점은 아니다.**)
+
+>Example: Small Tail Probabilities
+
+<br>
+<br>
+<br>
+
+
+##### Antithetic Sampling
+
+let $\hat \mu_1, \hat  \mu_2$. 이 둘은 identically distributed, UE, and $Corr(\hat \mu_1, \hat  \mu_2)<0$.
+
+이 estimator 둘을 평균한 $\hat \mu_{AS} = \dfrac{\hat \mu_1 + \hat  \mu_2}{2}$는 각 estimator들의 샘플을 2배 한 것보다 우월함.  **$Corr(\hat \mu_1, \hat  \mu_2)<0$이기 때문에 성립한다는 것을 유의.**
+
+$
+
+Var(\hat \mu_{AS}) = \dfrac {1}{4} \left( Var(\hat \mu_1) + Var(\hat \mu_2) \right) + \dfrac{1}{2} Cov(\hat \mu_1, \hat \mu_2) = \dfrac {1}{2} \ast \dfrac {\sigma^2} {n} (1+\rho) 
+
+$
+
+
+
+
+$\hat \mu_1 (X)$를 MC integral estimate로 잡는다면, 이는 
+
+$
+
+\hat \mu_1 (X) = \dfrac{1}{n} \sum_{i=1}^n h_1 \left\{ F_1^{-1}(U_{i1}), \cdots, F_m^{-1}(U_{im}) \right\}
+
+$
+
+이때 $h_1$은 그의 **arguments**에 monotone이며, $F_j$는 각 $X_{ij}, \; j=1,\cdots,m$의 cdf이며 $U_{ij} \sim U(0,1)$. 이에 의해 $1-U_{ij} \sim U(0,1)$이기도 하며, 이에 의해 이하도 성립.
+
+$
+
+\hat \mu_2 (X) = \dfrac{1}{n} \sum_{i=1}^n h_1 \left\{ F_1^{-1}(1-U_{i1}), \cdots, F_m^{-1}(1-U_{im}) \right\}
+
+$
+
+이는 $\mu$의 2번째 estimator이며, 이는 $\hat \mu_1 (X)$와 같은 분포를 가짐.
+
+따라서 $\hat \mu_{AS} = \dfrac{\hat \mu_1 + \hat  \mu_2}{2}$는 $\hat \mu_1$의 샘플을 2배 한 것(2n)보다 더 작은 $Var$을 가지며, 따라서 더 우월함.
+
+<br>
+<br>
+<br>
+
+
+##### Control Variates
+
+우리는 알지 못하는 quantity $\mu = E \{ h(X) \}$를 알고자 하며, 이에 연관된 quantity $\theta = E[c(Y)]$에 대해서는 알고 있음. 후자는 수치적으로 획득 가능. $(X_1 , Y_1 ) ,\cdots, (X_n , Y_n )$은 simulation outcom에서 독립적으로 관측된 pairs of rv. 
+
+이때 MC estimator는 이하와 같다. $\hat \mu_{MC}, \hat \theta_{MC}$ 간에 상호연관이 있음을 유의.
+
+$
+\begin{align*}
+
+\hat \mu_{MC} = \dfrac {1}{n} \sum_{i=1}^n h(X_i), & \; \; \; \; \; \; \; \; \; \; \hat \theta_{MC} = \dfrac {1}{n} \sum_{i=1}^n c(Y_i)
+
+\end{align*}
+$ 
+
+즉 우리는 여기서
+
+| | $\mu = E[h(x)]$ | $\theta = E[c(Y)]$|
+| :-: | :-: | :-: |
+| MC (ex. $\theta_{MC}$) | able | able |
+| itself | | able |
+
+즉 $\theta$와 $\theta_{MC}$ 간의 차이를 알아내고, 이 차이를 적당히 스케일링해서 $\mu$에 적용한다는 것이 기본 메커니즘.
+
+여기서 Control Variate Estimator는 $\hat \mu_{CV} = \hat \mu_{MC} + \lambda(\hat \theta_{MC} - \theta)$. $\lambda$는 사용자에 의해 정해지는 임의의 parameter. 이에 의해
+
+$
+
+Var(\hat \mu_{CV} ) = Var (\hat \mu_{MC}) + \lambda^2 Var (\hat \theta_{MC}) + 2 \lambda Cov(\hat \mu_{MC}, \theta_{MC})
+
+$
+
+이며 이가 최소가 된 경우의 분산은 아래와 같으며, 이를 최소로 하는 $\lambda$는 아래와 같다.
+
+when $\lambda = - \dfrac {Cov(\hat \mu_{MC}, \hat \theta_{MC})}{Var(\hat \theta_{MC})}$,			$\min_\lambda \left( Var(\hat \mu_{CV} ) \right) = Var(\hat \mu_{MC}) - \dfrac{\left[ Cov(\hat \mu_{MC}, \hat \theta_{MC}) \right]^2} {Var(\hat \theta_{MC})}$.
+
+
+
+<br>
+<br>
+<br>
+
+
+##### Rao-Blackwellizaiton
+
+rs $X_1 , \cdots, X_n \overset {\text{iid}}{\sim} f$를 활용해 $\mu = E \{ h(X) \}$를 estimation. 
+
+각각의 $X_i = (X_{i1}, X_{i2})$라고 가정하고, 조건부 기댓값 $E\{ h(X_i) \rvert x_{i2} \}$가 수치적으로 풀릴 수 있다고 가정하자. 
+
+
+
+
+$ E\{h(X_i)\} = E_{X_{i2}}\{ E \left[ h(X_i) \rvert x_{i2} \right] \}$라는 사실을 활용하여 $ \hat \mu_{MC} $ 에 대한 다른 estimator를 구축해보자.
+
+Rao-Blackwellized estimator $\hat \mu_{RB} = \dfrac 1 n \sum_{i=1}^n E \{ h(X_i) \rvert X_{i2} \}$. 이는 ordinary MC estimator $\hat \mu_{MC}$와 같은 mean을 갖는다. Note that
+
+$
+
+Var(\hat \mu_{MC}) = \dfrac {1} {n^2} Var \left\{ E\left[ E\{ h(X_i) \rvert X_{i2} \}\right] \right\} + \dfrac 1 {n^2} E \left\{ Var \left[ E\{ h(X_i) \rvert X_{i2} \}\right] \right\} \ge Var (\hat \mu_{RB})
+
+$
+
+따라서 Mean Squared Error, MSE 관점에서 $\hat \mu_{RB}$는 $\hat \mu_{MC}$ 보다 우수하다.
+
+<br>
+<br>
+<br>
+
+
+##### Sampling Importance Resampling
+
+SIR 알고리즘은 몇 타겟분포에서 실현값을 모사적으로 시뮬레이트한다. SIR은 Importance Sampling의 개념에 기초하고 있다. IS에서 우리는 IS function $g$에서 샘플링하는 식으로 진행했었다. 샘플의 각 point는 샘플링 확률을 보정 (correct)하기 위해 weighted 되었었으며, 이에 의해 weighted 샘플들은 타겟분포 $f$와 연결지어질 수 있었다. 타겟분포 $f$를 획득하기 위해 샘플링 확률 보정 목적으로 가해지는 weight는 **standardized importance weight** $w(x_i)$로 불렸으며, 
+
+$
+w(x_i) = 이 만으로 난수 샘플링 가능.
+\dfrac 
+{\dfrac {f(x_i)}{g(x_i)}}
+{\sum_{i=1}^m \dfrac {f(x_i)}{g(x_i)}}
+
+$
+
+
+이렇게 획득했던 standardized weight는 이후에 출신 density가 아닌 다른 타겟 $f$에서 다른 샘플을 생산할 때 재사용되는 것이 가능하다. 
+
+for a collection of values, $x_i , \cdots, x_m \overset {\text{iid}} {\sim} g$, 이때 $g$는 Importance Sampling Function.
+
+proceeds:
+1. sample candidates $Y_1 , \cdots, Y_m \overset {\text{iid}} {\sim}$ 타겟분포 $g$. **$g$가 타겟분포라고?????? 수업발언**
+2. caculate the standardized importance weights, $w(Y_1) , \cdots, w(Y_m)$.
+3. resample $X_1 , \cdots, X_m$ from $Y_1 , \cdots, Y_m$ with probabilities, $w(Y_1) , \cdots, w(Y_m)$.
+
+| for $n$ samples | Rejection Sampling | SIR |
+| :-: | :-: | :-: |
+| | perfect | not perfect |
+| distribution of generation draw is  | exactly $f$ | random degree of approxiamtion to $f$ |
+| required number of draws  | random | determined |
+
+It is important to consider the relative sizes of the initial sample and the resample. In principle, we require $\dfrac n m \rightarrow 0$ for distributional convergence of the sample.
+
+1만개를 생산해놓고 이 안에서 추가적으로 공정을 진행해서 목표했던 랜덤한 샘플을 뽑아내는 것이 SIR. 그러나 전 영역에서 체크하는것과 생산해놓은 1만개에 randomness를 첨가하여 만들어낸 샘플은 퍼포먼스 차이가 당연히 존재. 그러나 전 영역 대비 1만개라는 한정된 영역에서 추가공정을 진행하므로 cost down.
+
+기존에 만들어두었던 weight를 재사용하므로 시뮬레이션을 다시 할 필요가 없음. 시간 down. 
+
+| Rejection Sampling | envelope $e$를 만들고 이 안에서 뽑음. 이는 continuous point. | perfect, exact |
+| SIR | n개의 candidate point를 이미 선택해놓고 이 안에서 뽑음. discrete. | approximate sampling |
+
+candidate $m$개, 샘플 $n$개. 당연하지만 candidate $m$의 숫자가 커질수록 효율성 (approximate 성능) 은 높아짐.  The maximum tolerable ratio $\dfrac n m$ depends on the quality of the envelope, bsed on $m$ candidate samples and their weights. 이상적으로는 $m$이 무한해지면 SIR 조차도 exact sampling일 수 있다.
+
+The SIR algorithm can be sensitive to the choice of $g$.
+* The support of $g$ must include the entire support of $f$, for a reweighted sample from $g$ is to approximate a sample from $f$.
+* $g$ should have heavier tails than $f$, or more generally $g$ should be chosen to ensure that $ \dfrac {f(x)}{g(x)}$ never grows to o large.
+* If $g(x)$ is nearly zero anywhere where $g(x)$ is positive, then a draw from this region will happen only extremely rarely, but when it does it will receive a huge weight.
+* weight-degeneracy problem
+
+> Example: Slash Distribution
+> Example: Sampling a Bayesian Posterior
+
+<br>
+<br>
+<br>
+
+
+##### Sequential Monte Carlo
+
+When the target density $f$ becomes high dimensional, SIR is increasingly inefficient and can be difficult to implement. Specifying a very good high-dimensional envelope that closely approximates the target with sufficiently heavy tails but little waste can be challenging.
+
+Sequential Monte Carlo methods address the problem by splitting the high-dimensional task into a sequence of simpler steps, each of which updates the previous one.
+
+$\pmb X_{1:t} = (X_1 , \cdots, X_t )$ represents a discrete time stochastic process with $X_t$ being the observation at time $t$.
+
+$\pmb X_{1:t}$ represents the entire history of the sequence.
+
+Suppose the density of $\pmb X_{1:t}$ is $f_t$ and we wish to estimate the expected value of $h($\pmb X_{1:t}$)$ w.r.t. $f_t$.
+
+A direct application of the SIR approach would be to draw a sample $\pmb x_{1:t}$ sequences from an envelope gt and then calculate the importance weighted average of this sample of $h(\pmb X_{1:t})$ values.
+
+This SIR approach overlooks a key aspect of the problem.
+* As t increases, $\pmb X_{1:t}$ and the expected value of $h(\pmb x_{1:t})$ evlove.
+* At time $t$ it would be better to update previous inferences than to act as if we had no previous information. **Inefficient !!!**
+
+Need to develop a strategy that will simulate $X_t$ from previously simulated $\pmb X_{1:t-1}$ and adjust the previous importance weights in order to estimate the expected value of $h(\pmb X_{1:t})$ . **Sequential Importance Sampling**.
+
+<br>
+<br>
+<br>
+
+
+##### SIS for Markov Process
+Simplify assumption that $\pmb X_{1:t}$ is a Markov process.
+
+
+
+The target density $f_t (\pmb x_{1:t})$ may be expressed as
+
+$
+\begin{align*}
+
+f_t (\pmb x_{1:t}) &= f_1 (x_1) &\ast f_2 (x_2 \rvert \pmb x_{1:1}) &\ast f_3 (x_3 \rvert \pmb x_{1:2}) &\cdots &\ast f_t (x_t \rvert \pmb x_{1:t-1}) \\
+
+
+&= f_1 (x_1) &\ast f_2 (x_2 \rvert x_1) &\ast f_3 (x_3 \rvert x_2) &\cdots &\ast f_t (x_t \rvert x_{t-1})
+
+\end{align*}
+$
+
+
+
+Suppose that we adopt the same Markov form for the envelope, namely
+
+
+
+$
+
+g_t (\pmb x_{1:t})= g_1 (x_1) \ast g_2 (x_2 \rvert x_1) \ast g_3 (x_3 \rvert x_2) \cdots \ast g_t (x_t \rvert x_{t-1})
+
+$
+
+
+
+
+
+Sample from $g_t (\pmb x_{1:t})$ and reweight each $\pmb x_{1:t}$ value by $w_t = \dfrac {f_t (\pmb x_{1:t})}{g_t (\pmb x_{1:t})}$.
+
+
+The weight at time $t$ is $w_t = \dfrac {f_1 (x_1) \ast f_2 (x_2 \rvert x_1) \ast \cdots} {g_1 (x_1) \ast g_2 (x_2 \rvert x_1) \ast \cdots}$.
+
+A sample of $n$ such points and their weights can be used to approximate $f_t (\pmb x_{1:t} )$ and calculate the expected value of $h(\pmb x_{1:t} )$.
+
+The sequential Monte Carlo algorithm for generating one sample is
+1. Sample $X_1 \sim g_1 $. Let $w_1 = u_1 = \dfrac {f_1(x_1)}{g_1(x_1)}$. Set $t = 2$.
+2. Sample $X_t \rvert x_{t-1} \sim g_t (x_t \rvert x_{t-1})$.
+3. Append $x_t$ to $\pmb x_{1:t-1}$, obtaining $\pmb x_{1:t}$.
+4. $u_t = \dfrac{f_t (x_t \rvert x_{t-1})}{g_t (x_t \rvert x_{t-1})}$.
+5. let $w_t = w_{t-1}u_t$. $w_t$ is the importance weight for $\pmb x_{1:t}$ .
+6. Increment t and return to step 2.
+
+The weighted average $\sum_{i=1}^n \left( \dfrac {w_t^{(i)}}{\sum_{i=1}^n w_t^{(i)}} \right) \ast h(\pmb X_{1:t}^{(i)})$ serves as the estimate of $E_{f_T} h(\pmb X_{1:t})$.
+
+<br>
+<br>
+<br>
+
+
+##### Generalized Sequential Importance Sampling
+
+Assume that $\pmb X_{1:t}$ is not a Markov process.
+
+target density $f_t (\pmb x_{1:t})$ and envelope $g_t (\pmb x_{1:t})$ may be expressed as
+
+$
+\begin{align*}
+
+f_t (\pmb x_{1:t}) &= f_1 (x_1) \ast f_2 (x_2 \rvert \pmb x_{1:1}) \ast f_3 (x_3 \rvert \pmb x_{1:2}) &\cdots &\ast f_t (x_t \rvert \pmb x_{1:t-1}) \\
+
+g_t (\pmb x_{1:t}) &= g_1 (x_1) \ast g_2 (x_2 \rvert \pmb x_{1:1}) \ast g_3 (x_3 \rvert \pmb x_{1:2}) &\cdots &\ast g_t (x_t \rvert \pmb x_{1:t-1})
+\end{align*}
+$
+
+the importance weight at time $t$ is
+
+$
+
+w_t (\pmb x_{1:t}) = \dfrac {f_1 (x_1) \ast f_2 (x_2 \rvert \pmb x_{1:1}) \ast f_3 (x_3 \rvert \pmb x_{1:2}) \cdots \ast f_t (x_t \rvert \pmb x_{1:t-1})} {g_1 (x_1) \ast g_2 (x_2 \rvert \pmb x_{1:1}) \ast g_3 (x_3 \rvert \pmb x_{1:2}) \cdots \ast g_t (x_t \rvert \pmb x_{1:t-1})}
+$
+
+and the recursive updating expression for the importance weights is
+
+$w_t(\pmb x_{1:t}) = w_t(\pmb x_{1:t}) \dfrac {f_t (x_t \rvert \pmb x_{1:t-1})}{g_t (x_t \rvert \pmb x_{1:t-1})}, \; \; \; \; \; \; \; \; \text{for }t>1$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

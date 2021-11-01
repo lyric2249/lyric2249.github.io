@@ -1,0 +1,636 @@
+---
+sort: 2
+---
+
+
+
+
+# Introduction
+
+## What
+
+for linear model $$Y = X \beta + \epsilon$$
+
+
+
+$$
+Y_{n \times 1} = \begin{pmatrix} y_1 \\ \vdots \\ y_n \end{pmatrix}
+
+\; \; \; \; \; \; \; 
+
+
+\beta_{(p+1) \times 1} = \begin{pmatrix} \beta_0 \\ \vdots \\ \beta_p \end{pmatrix}
+
+
+\; \; \; \; \; \; \; 
+
+\epsilon_{n \times 1} = \begin{pmatrix} \epsilon_1 \\ \vdots \\ \epsilon_n \end{pmatrix}
+
+\\
+\\\
+\\\
+\\\
+
+X_{n \times (p+1)} = \begin{pmatrix} 1 & X_{11} & \cdots & X_{1p} \\ 
+
+1 & X_{21} & \cdots & X_{2p} \\ 
+
+\vdots &  & \ddots & \vdots \\ 
+
+1 & X_{n1} & \cdots & X_{np} \\ 
+
+
+\end{pmatrix}
+
+$$
+
+
+- linear regression
+
+
+$$
+\begin{alignat}{2}
+
+y_i &= \beta_0 + \beta_1 x_i &&+ \epsilon_i \tag{Simple}
+
+\\
+
+
+y_i &= \beta_0 + \sum_{j=1}^p \beta_j x_{ij} &&+ \epsilon_i \tag{Multiple}
+
+
+\end{alignat}
+$$
+
+
+- ANOVA
+
+$$
+\begin{alignat}{2}
+
+y_{ij} &= \mu + \alpha_i &&+ \epsilon_{ij} \tag{One-Way} 
+
+\\
+
+y_{ij} &= \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij} &&+ \epsilon_{ij} \tag{Two-Way with interaction}
+
+
+
+\end{alignat}
+$$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+## Random Vectors and Matrices
+
+let rv $$Y = \begin{pmatrix} y_1, & \cdots &, y_n \end{pmatrix}'$$ with $$E(y_i) = \mu_i , \; \; \; Var(y_i)=\sigma_{ii} \; \; (=\sigma_i^2), \; \; \; Cov(y_i , y_j) = \sigma_{ij}$$.
+
+- define the statistics of $$Y$$
+
+$$
+\begin{alignat}{2}
+
+
+&E(Y) &&= \begin{pmatrix} E(y_1), & \cdots & E(y_n) \end{pmatrix}' = \begin{pmatrix} \mu_1, & \cdots & \mu_n \end{pmatrix}' &&= \pmb \mu \tag{Expected Value of Y elementwise as } 
+
+\\
+
+&Cov(Y) &&= E \left[ (Y-\pmb \mu) (Y-\pmb \mu) ' \right] &&= (\sigma_{ij}) \tag{Covariance Matrix}
+
+\end{alignat}
+$$
+
+
+
+- Note:
+
+$$
+\begin{alignat}{2}
+
+
+E(AY+\pmb b) &= A \pmb \mu + \pmb b
+
+\\
+
+Cov(AY+\pmb b) &= A \ast Cov(Y) \ast A '
+
+\end{alignat}
+$$
+
+- Prove or disprove that Cov(Y) is nonnegative definite. how?
+
+----
+
+Covariance of $$W_{r \times 1}, \; Y_{s \times 1}$$ with $$E(W)=\gamma, \; E(Y) = \mu$$: 
+
+$$
+\begin{alignat}{2}
+
+Cov(W, Y) &= E \left [(W-\gamma)(Y-\mu)' \right ]_{r \times s} &&
+
+\\
+
+Cov(AW+a, NY+b) &= A \ast Cov(W,Y) \ast B ' &&
+
+\\
+
+Cov(AW+NY) &= A \ast Cov(W) \ast A' + N \ast Cov(Y) \ast B' \\
+&\; \; \; \; \; \; \; + A \ast Cov(W,Y) \ast B' + B \ast Cov(W) \ast A' \tag{why?}
+
+\end{alignat}
+$$
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+## Multivariate Normal Distributions
+
+$$
+
+Z = (z_1 , \cdots, z_n) ' \sim N_n (0, \; I_n), \; \; \; \; \; z_1 , \cdots, z_n \overset{iid}{\sim} N(0,1)
+
+
+
+
+
+$$
+
+which means $$E(Z)=\pmb 0, \; Cov(Z)=I_n$$.
+
+
+
+$$
+A_{r \times n}, \; b \in \mathbb{R}^r
+$$
+
+Y has an r-dimensional MVN distribution
+
+
+
+Definition 1.2.1. Let A be r  n and b 2 Rr . Then Y has an
+r-dimensional multivariate normal distribution :
+Y = AZ + b  Nr (b;AAT ):
+Theorem 1.2.2. Let Y  N(;V) and W  N(;V). Then Y
+and W have the same distribution (Proof: p.5)
+
+
+
+
+The density of nonsingular $$Y \sim N(\mu,V)$$ is given by
+
+$$
+
+f(y) = (2\pi)^{-\tfrac{n}{2}} \left[ \det(V)\right]^{-\tfrac{1}{2}} \exp \left[ -\dfrac{1}{2} (y-\mu) ' V^{-1} (y-\mu) \right]
+
+$$
+
+
+
+
+
+
+
+Theorem 1.2.3. Let Y  N(;V) and Y =
+ 
+Y1
+Y2
+!
+. Then
+Cov(Y1;Y2) = 0 if and only if Y1 Y2
+Corollary 1.2.4. Let Y  N(; 2I) and ABT = 0. Then
+AY BY
+
+
+
+
+
+
+
+Definition 1.3.1. Quadratic Form of Y: for n  n; A
+YTAY =
+X
+ij
+aijyiyj
+Theorem
+
+----
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+## Distributions of Quadratic Forms
+
+$$E(Y) = \mu, \; Cov(Y) = V$$. then $$E(Y'AY) = tr(AV) + \mu ' A \mu$$. prf)
+
+let's consider $$Z \sim N_n (\mu, I_n)$$. then $$ Z'Z \sim \chi^2 \left(n, \; \dfrac{\mu' \mu}{2} \right) \tag{second one is non-centrality parameter}$$
+
+
+
+<br/>
+<br/>
+
+
+
+
+
+Let $$Y \sim N(\mu , I)$$ and any orthogonal projection Matrix $$M$$. then $$Y'MY \sim \chi^2 \left(r(M), \dfrac{\mu ' M \mu}{2} \right)$$
+
+<br/>
+<br/>
+
+Let $$Y \sim N(\mu , \sigma^2 I)$$ and any orthogonal projection Matrix $$M$$. then $$Y'MY \sim \chi^2 \left(r(M), \dfrac{\mu ' M \mu}{2\sigma^2} \right)$$
+
+
+<br/>
+<br/>
+
+
+Let $$Y \sim N(\mu , M)$$with $$\mu \in \mathcal{C}(M)$$ and $$M$$ be an orthogonal projection Matrix. then $$Y'Y \sim \chi^2 \left(r(M), \dfrac{\mu ' M \mu}{2\sigma^2} \right)$$.
+
+<br/>
+<br/>
+
+let $$E(Y)=\mu, \; Cov(Y)=V$$. then $$Pr \left[ (Y-\mu) \in \mathcal{C}(V) \right]=1$$.
+
+<br/>
+<br/>
+
+- Exercise 1.6.
+Let $$Y$$ be a vector with $$E(Y) = 0$$ and $$Cov(Y) = 0$$. Then $$Pr(Y = 0) = 1$$.
+
+<br/>
+<br/>
+
+let $$Y \sim N(\mu, \; V)$$. then $$Y' A Y \sim \chi^2 \left( tr(AV), \dfrac{\mu' A \mu}{2}\right)$$, provided that
+1. $$VAVAV=VAV$$.
+2. $$\mu ' AVA \mu = \mu ' a \mu$$.
+3. $$VAVA \mu = VA \mu$$ prf)
+
+<br/>
+<br/>
+
+- Exercise 1.7.
+1. Show that if $$V$$ is nonsingular, then the three conditions in Theorem 1.3.6 reduce to $$AVA = A$$.
+2. Show that $$Y'V^{-} Y$$ has a chi-squared distribution with $$r(V)$$ degrees of freedom when $$\mu \in \mathcal{C}(V)$$. 
+
+
+<br/>
+<br/>
+
+let $$Y \sim N(\mu, \; \sigma^2 I)$$ and $$BA=0$$. then, for $$A=A'$$,
+1. $$Y'AY \perp BY$$.
+2. $$Y'AY \perp Y' BY$$ for $$B=B'$$.
+
+<br/>
+<br/>
+
+let $$Y \sim N(\mu, \; V)$$ and $$A \ge 0, \; B \ge 0$$, and $$VAVBV=0$$. then $$Y'AY \perp Y'BY$$.
+
+<br/>
+<br/>
+
+let $$Y \sim N(\mu, \; V)$$. provided that
+1. $$VAVBV=0$$.
+2. $$VAVB \mu = 0$$.
+3. $$VBVA \mu = 0$$.
+4. $$\mu ' ABV \mu = 0$$.
+
+<br/>
+<br/>
+
+and also conditions of above thm,
+1. $$VAVAV=VAV$$.
+2. $$\mu ' AVA \mu = \mu ' a \mu$$.
+3. $$VAVA \mu = VA \mu$$ prf)
+
+hold for both $$Y'AY$$ and $$Y'BY$$, then $$Y'AY \perp Y'BY$$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

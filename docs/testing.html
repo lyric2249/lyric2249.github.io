@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.7 Testing | Self-Study</title>
+  <meta name="description" content="7.7 Testing | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.7 Testing | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.7 Testing | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="one-way-anova.html"/>
+<link rel="next" href="generalized-least-squares.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Intro</a></li>
+<li class="part"><span><b>I 20-02</b></span></li>
+<li class="chapter" data-level="1" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>1</b> Categorical</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>1.1.1</b> Data Type and Statistical Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>2</b> Bayesian</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2.1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>2.1.1</b> 변수의 독립성</a></li>
+<li class="chapter" data-level="2.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>2.1.2</b> 교환가능성</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>2.2</b> Continual Aeassessment Method</a></li>
+<li class="chapter" data-level="2.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>2.3</b> Horseshoe Prior</a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01</b></span></li>
+<li class="chapter" data-level="3" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>3</b> Mathematical Stats</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>3.1</b> Inference</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>3.1.1</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="completeness.html"><a href="completeness.html"><i class="fa fa-check"></i><b>3.2</b> Completeness</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="completeness.html"><a href="completeness.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>3.2.1</b> 레만-쉐페 thm.</a></li>
+<li class="chapter" data-level="3.2.2" data-path="completeness.html"><a href="completeness.html#rao-blackwell-thm.-1"><i class="fa fa-check"></i><b>3.2.2</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Test</a></li>
+<li class="chapter" data-level="3.4" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>3.4</b> Power Fucntion</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>3.4.1</b> Significance Probability (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>3.5</b> Optimal Testing Method</a></li>
+<li class="chapter" data-level="3.6" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>3.6</b> Data Reduction</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>3.6.1</b> Sufficiency Principle</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>3.7</b> Borel Paradox</a></li>
+<li class="chapter" data-level="3.8" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>3.8</b> Neyman–Pearson lemma</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>3.8.1</b> Overview</a></li>
+<li class="chapter" data-level="3.8.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>3.8.2</b> Generalized LRT</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>3.9</b> 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>4</b> MCMC</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>4.1</b> Importance Sampling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>4.1.1</b> Independent Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.2</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>4.2.1</b> MH Algorithm</a></li>
+<li class="chapter" data-level="4.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>4.2.2</b> Random Walk Chains (Most Widely Used)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>4.2.3</b> Basic Gibbs Sampler</a></li>
+<li class="chapter" data-level="4.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>4.2.4</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> 1. Data Augmentation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> 2. Hit-and-Run Algorithm</a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> 3. Metropolis-Adjusted Langevin Algorithm</a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> 4. Multiple-Try Metropolis Algorithm</a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> 5. Reversible Jump MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>4.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Multimodal Target Distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>4.4.3</b> Doubly-intractable Normalizing Constants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>4.6.1</b> Introduction to Hamiltonian Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>4.7</b> Population Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>4.7.1</b> Adaptive Direction Sampling</a></li>
+<li class="chapter" data-level="4.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>4.7.2</b> Conjugate Gradient MC</a></li>
+<li class="chapter" data-level="4.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>4.7.3</b> Parallel Tempering</a></li>
+<li class="chapter" data-level="4.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>4.7.4</b> Evolutionary MC</a></li>
+<li class="chapter" data-level="4.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>4.7.5</b> Sequential Parallel Tempering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>4.8</b> Stochastic Approximation Monte Carlo</a></li>
+<li class="chapter" data-level="4.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>4.9</b> Review</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>4.9.1</b> Wk01</a></li>
+<li class="chapter" data-level="4.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>4.9.2</b> wk03</a></li>
+<li class="chapter" data-level="4.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>4.9.3</b> wk04, 05</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>4.10</b> Else</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>4.10.1</b> Hw4. Rasch Model</a></li>
+<li class="chapter" data-level="4.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>4.10.2</b> DA) Example: MVN</a></li>
+<li class="chapter" data-level="4.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>4.10.3</b> Bayesian adaptive clinical trial with delayed outcomes</a></li>
+<li class="chapter" data-level="4.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>4.10.4</b> NMAR의 종류</a></li>
+<li class="chapter" data-level="4.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>4.10.5</b> wk10) Bayesian Model Selection</a></li>
+<li class="chapter" data-level="4.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>4.10.6</b> Autologistic model</a></li>
+<li class="chapter" data-level="4.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>4.10.7</b> wk10) Bayesian Model Averaging</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>5</b> MVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>5.1</b> Overview of mva (not ended)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>5.1.1</b> Notation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>5.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="5.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>5.1.3</b> Statistical Inference on Correlation</a></li>
+<li class="chapter" data-level="5.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>5.1.4</b> Standardization</a></li>
+<li class="chapter" data-level="5.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>5.1.5</b> Missing Value Treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>5.2</b> Multivariate Nomral (wk2)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>5.2.2</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>5.2.3</b> Properties of MVN</a></li>
+<li class="chapter" data-level="5.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>5.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>5.2.5</b> Linear Combination of Random Vectors</a></li>
+<li class="chapter" data-level="5.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>5.2.6</b> Multivariate Normal Likelihood</a></li>
+<li class="chapter" data-level="5.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>5.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span></a></li>
+<li class="chapter" data-level="5.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>5.2.8</b> Assessing Normality</a></li>
+<li class="chapter" data-level="5.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>5.2.9</b> Power Transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>5.3</b> Inference about Mean Vector (wk3)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>5.3.2</b> 1. Confidence Region</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>5.3.3</b> 2. Simultaneous CI</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>5.3.4</b> 3. Note: Bonferroni Multiple Comparison</a></li>
+<li class="chapter" data-level="5.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>5.3.5</b> 4. Large Sample Inferences about a Mean Vector</a></li>
+<li class="chapter" data-level="5.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>5.3.6</b> 1. Profile Analysis (wk4, 5)</a></li>
+<li class="chapter" data-level="5.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>5.3.7</b> 2. Test for Linear Trend</a></li>
+<li class="chapter" data-level="5.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>5.3.8</b> 3. Inferences about a Covariance Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>5.4</b> Comparison of Several MV Means (wk5)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>5.4.1</b> Paired Comparison</a></li>
+<li class="chapter" data-level="5.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>5.4.2</b> Comparing Mean Vectors from Two Populations</a></li>
+<li class="chapter" data-level="5.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>5.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>5.4.4</b> Comparing Several Multivariate Population Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>5.5</b> Multivariate Multiple Regression (wk6)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
+<li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>5.7.1</b> Method of Estimation</a></li>
+<li class="chapter" data-level="5.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>5.7.2</b> Factor Rotation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>5.7.3</b> Varimax Criterion</a></li>
+<li class="chapter" data-level="5.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>5.7.4</b> Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>5.8</b> Discrimination and Classification</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>5.8.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="5.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>5.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations</a></li>
+<li class="chapter" data-level="5.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>5.8.3</b> Evaluating Classification Functions</a></li>
+<li class="chapter" data-level="5.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>5.8.4</b> Classification with several Populations (wk13)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>5.8.5</b> Other Discriminant Analysis Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>5.9</b> Clustering, Distance Methods, and Ordination</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>5.9.1</b> Overview</a></li>
+<li class="chapter" data-level="5.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>5.9.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="5.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>5.9.3</b> K-means Clustering</a></li>
+<li class="chapter" data-level="5.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>5.9.4</b> 군집의 평가방법</a></li>
+<li class="chapter" data-level="5.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>5.9.5</b> Clustering using Density Estimation (wk14)</a></li>
+<li class="chapter" data-level="5.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>5.9.6</b> Multidimensional Scaling (MDS)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>6</b> Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="svd.html"><a href="svd.html"><i class="fa fa-check"></i><b>6.1</b> SVD</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="svd.html"><a href="svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>6.1.1</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="6.1.2" data-path="svd.html"><a href="svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>6.1.2</b> Singular value Decomposition: General-version</a></li>
+<li class="chapter" data-level="6.1.3" data-path="svd.html"><a href="svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>6.1.3</b> Singular value Decomposition: Another-version</a></li>
+<li class="chapter" data-level="6.1.4" data-path="svd.html"><a href="svd.html#quadratic-forms"><i class="fa fa-check"></i><b>6.1.4</b> Quadratic Forms</a></li>
+<li class="chapter" data-level="6.1.5" data-path="svd.html"><a href="svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>6.1.5</b> Partitioned Matrices</a></li>
+<li class="chapter" data-level="6.1.6" data-path="svd.html"><a href="svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>6.1.6</b> Geometrical Aspects</a></li>
+<li class="chapter" data-level="6.1.7" data-path="svd.html"><a href="svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>6.1.7</b> Column, Row and Null Space</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>7</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="what.html"><a href="what.html"><i class="fa fa-check"></i><b>7.1</b> What</a></li>
+<li class="chapter" data-level="7.2" data-path="random-vectors-and-matrices.html"><a href="random-vectors-and-matrices.html"><i class="fa fa-check"></i><b>7.2</b> Random Vectors and Matrices</a></li>
+<li class="chapter" data-level="7.3" data-path="multivariate-normal-distributions.html"><a href="multivariate-normal-distributions.html"><i class="fa fa-check"></i><b>7.3</b> Multivariate Normal Distributions</a></li>
+<li class="chapter" data-level="7.4" data-path="distributions-of-quadratic-forms.html"><a href="distributions-of-quadratic-forms.html"><i class="fa fa-check"></i><b>7.4</b> Distributions of Quadratic Forms</a></li>
+<li class="chapter" data-level="7.5" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>7.5</b> Estimation</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>7.5.1</b> Identifiability and Estimability</a></li>
+<li class="chapter" data-level="7.5.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>7.5.2</b> Estimation: Least Squares</a></li>
+<li class="chapter" data-level="7.5.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>7.5.3</b> Estimation: Best Linear Unbiased</a></li>
+<li class="chapter" data-level="7.5.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>7.5.4</b> Estimation: Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>7.5.5</b> Estimation: Minimum Variance Unbiased</a></li>
+<li class="chapter" data-level="7.5.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>7.5.6</b> Sampling Distributions of Estimates</a></li>
+<li class="chapter" data-level="7.5.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>7.5.7</b> Generalized Least Squares(GLS)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>7.6</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>7.6.1</b> One-Way ANOVA</a></li>
+<li class="chapter" data-level="7.6.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>7.6.2</b> More About Models</a></li>
+<li class="chapter" data-level="7.6.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>7.6.3</b> Estimating and Testing Contrasts</a></li>
+<li class="chapter" data-level="7.6.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>7.6.4</b> Cochran’s Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>7.7</b> Testing</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>7.7.1</b> More About Models: Two approaches for linear model</a></li>
+<li class="chapter" data-level="7.7.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>7.7.2</b> Testing Models</a></li>
+<li class="chapter" data-level="7.7.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>7.7.3</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="7.7.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>7.7.4</b> Testing Linear Parametric Functions</a></li>
+<li class="chapter" data-level="7.7.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>7.7.5</b> Theoretical Complements</a></li>
+<li class="chapter" data-level="7.7.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>7.7.6</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="7.7.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>7.7.7</b> Testing Single Degrees of Freedom in a Given Subspace</a></li>
+<li class="chapter" data-level="7.7.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>7.7.8</b> Breaking SS into Independent Components</a></li>
+<li class="chapter" data-level="7.7.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>7.7.9</b> General Theory</a></li>
+<li class="chapter" data-level="7.7.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>7.7.10</b> Two-Way ANOVA</a></li>
+<li class="chapter" data-level="7.7.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>7.7.11</b> Confidence Regions</a></li>
+<li class="chapter" data-level="7.7.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>7.7.12</b> Tests for Generalized Least Squares Models</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>7.8</b> Generalized Least Squares</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>7.8.1</b> A direct solution via inner products</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>7.9</b> Flat</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>7.9.1</b> 1.Flat</a></li>
+<li class="chapter" data-level="7.9.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>7.9.2</b> 2. Solutions to systems of linear equations</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>7.10</b> Unified Approach to Balanced ANOVA Models</a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02</b></span></li>
+<li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="section.html"><a href="section.html"><i class="fa fa-check"></i><b>8.2</b> </a></li>
+<li class="chapter" data-level="8.3" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>8.3</b> </a></li>
+<li class="chapter" data-level="8.4" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>8.4</b> </a></li>
+<li class="chapter" data-level="8.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>8.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="8.6" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>8.6</b> Concepts</a></li>
+</ul></li>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>A.1</b> Tutorial</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>A.1.1</b> About</a></li>
+<li class="chapter" data-level="A.1.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>A.1.2</b> Hello bookdown</a></li>
+<li class="chapter" data-level="A.1.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>A.1.3</b> Cross-references</a></li>
+<li class="chapter" data-level="A.1.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>A.1.4</b> Parts</a></li>
+<li class="chapter" data-level="A.1.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>A.1.5</b> Footnotes and citations</a></li>
+<li class="chapter" data-level="A.1.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>A.1.6</b> Blocks</a></li>
+<li class="chapter" data-level="A.1.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>A.1.7</b> Sharing your book</a></li>
+<li class="chapter" data-level="" data-path="tutorial.html"><a href="tutorial.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>B</b> NoName</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="testing" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> Testing</h2>
+<div id="more-about-models-two-approaches-for-linear-model" class="section level3" number="7.7.1">
+<h3><span class="header-section-number">7.7.1</span> More About Models: Two approaches for linear model</h3>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+Y &amp;= E(Y) &amp;&amp;+ Y - E(Y)  \\
+
+&amp;= \mu &amp;&amp;+ \epsilon \tag{Parameter-free approach }
+
+\\
+\\
+
+Y &amp;= E(Y) &amp;&amp;+ Y - E(Y)  \\
+
+&amp;= X \beta &amp;&amp;+ \epsilon \tag{Parameter approach}
+
+
+
+
+\end{alignat}\]</span>
+$</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+E(\epsilon) &amp;= 0, \; \; \;  &amp;&amp; Cov(\epsilon) &amp;&amp;= \sigma^2 I \tag{Ordinary Least Square, OLS}
+
+\\ 
+
+E(\epsilon) &amp;= 0, &amp;&amp; Cov(\epsilon) &amp;&amp;= \sigma^2 \Sigma \tag{Generalized Least Square, GLS}
+
+
+
+\end{alignat}\]</span>
+$</p>
+<p><br/>
+<br/>
+<br/></p>
+<ul>
+<li>Consider</li>
+</ul>
+<p>$
+Y=X + , ; ; ; ; ; E()=0, ; Cov() = ^2 I
+$</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><span class="math inline">\(\mathcal{C}(X)\)</span></th>
+<th align="center"><span class="math inline">\(\mathcal{C}(X)^\perp\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">itslef</td>
+<td align="center">Estimation Space</td>
+<td align="center">Error Space</td>
+</tr>
+<tr class="even">
+<td align="center">orthogonal projection onto</td>
+<td align="center"><span class="math inline">\(M \\ = X(X&#39;X)^-X&#39;\)</span></td>
+<td align="center"><span class="math inline">\(I - M \\= I - X(X&#39;X)^-X&#39;\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"><span class="math inline">\(E(Y) = X \beta \in \mathcal{C}(X)\)</span></td>
+<td align="center"><span class="math inline">\(E(\epsilon) \in \mathcal{C}(X)^\perp\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"><span class="math inline">\(Cov(Y) = \sigma^2 I\)</span></td>
+<td align="center"><span class="math inline">\(Cov(\epsilon) = \sigma^2 I\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><br/>
+<br/>
+<br/></p>
+<ul>
+<li>One-Way ANOVA</li>
+</ul>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{4}
+
+
+
+y_{ij} &amp;= \mu_i &amp;&amp;+ \epsilon_{ij} \\
+&amp;= E(y_{ij}) &amp;&amp;+ \epsilon_{ij} \\
+
+
+&amp;= \mu + \alpha_i &amp;&amp;+ \epsilon_{ij} \\
+
+\\\
+
+\bar \mu &amp;= \mu + \bar \alpha_+ \\
+
+
+\mu_1 - \mu_2 &amp;= \alpha_1 - \alpha_2
+
+
+
+\end{alignat}\]</span>
+$</p>
+<p>the parameters in the two models are different, but they are related.</p>
+<p><br/>
+<br/>
+<br/></p>
+<ul>
+<li>Simple Linear Regression</li>
+</ul>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{4}
+y_i &amp; = \beta_0 + \beta_1 x_i &amp;&amp;+\epsilon_i
+
+\\
+
+
+&amp; = E(y_i) &amp;&amp;+\epsilon_i
+ 
+\\
+
+&amp; = \gamma_0 + \gamma_1(x_i - \bar x) &amp;&amp;+\epsilon_i
+
+
+\end{alignat}\]</span>
+$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+\mathcal{C}(X_1) = \mathcal{C}(X_2) \; \; \Longrightarrow \; \;\; \; \; X_1 &amp;= X_2 T
+
+
+\\
+
+X_1 \beta_1 &amp;= X_2 T \beta_1 &amp;&amp; = X_2 \beta_2
+
+\\
+
+&amp; &amp;&amp;= X_2 (T \beta_1 + \nu), \; \; \; \forall\nu \in \mathcal{C}(X_2&#39;)^\perp
+
+
+\end{alignat}\]</span>
+$</p>
+<p>※ Note: A unique parameterization for <span class="math inline">\(X_j, \; j=1,2\)</span> occurs <span class="math inline">\(\iff\)</span> <span class="math inline">\(X_j &#39; X_j\)</span> is nonsingular.</p>
+<ul>
+<li>Exercise: Show that a unique parameterization for <span class="math inline">\(X_j, \; j=1,2\)</span> means <span class="math inline">\(\mathcal{C}(X_2 &#39; )^\perp = \{0\}\)</span>.</li>
+</ul>
+</div>
+<div id="testing-models" class="section level3" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> Testing Models</h3>
+<p>Consider</p>
+<p>$
+Y=X + , ; ; ; ; ; N(0, ; I_n)
+$</p>
+let’s partition <span class="math inline">\(X\)</span> into $X =
+<span class="math display">\[\begin{pmatrix} X_0, &amp; X_1 \end{pmatrix}\]</span>
+<p>: ; (X_0) (X) $</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+Y &amp;= X_0 \beta_0 + X_1 \beta_1 &amp;&amp;+ \epsilon \tag{Full Model, FM}
+
+\\
+
+
+Y &amp;= X_0 \gamma &amp;&amp;+ \epsilon \tag{Reduced Model, RM}
+
+\end{alignat}\]</span>
+$</p>
+<p>이때 Hypothesis testing procedure can be described as <span class="math inline">\(H_0:\)</span> Reduced Model, <span class="math inline">\(H_1:\)</span> Full Model. (Example 3.2.0: pp. 52–54).</p>
+<p><br/>
+<br/>
+<br/></p>
+<p>Let <span class="math inline">\(M\)</span> and <span class="math inline">\(M_0\)</span> be the orthogonal projection onto <span class="math inline">\(\mathcal{C}(X)\)</span> and <span class="math inline">\(\mathcal{C}(X_0)\)</span> respectively.</p>
+<p>Note that with <span class="math inline">\(\mathcal{C}(X_0) \subset \mathcal{C}(X)\)</span>, <span class="math inline">\(M - M_0\)</span> is the orthogonal projection onto the orthogonal complement of <span class="math inline">\(\mathcal{C}(X_0)\)</span> with respect to <span class="math inline">\(\mathcal{C}(X)\)</span>, that is,</p>
+<p>$
+<span class="math display">\[\begin{align}
+
+\mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp  &amp;= \mathcal{C}(M - M_0) \\
+
+&amp;= \mathcal{C}(M \cap M_0^\perp ) \\
+
+\\\
+
+\hat\mu &amp;= \hat E(Y) = MY \tag{under FM}
+
+
+
+\\
+
+\hat\mu_0 &amp;= \hat E(Y) = M_0 Y \tag{under RM}
+
+
+
+
+
+\end{align}\]</span>
+$</p>
+<p>If RM is true, then <span class="math inline">\(MY-M_0 Y = (M - M_0)Y\)</span> should be reasonably small. Note that <span class="math inline">\(E(M-M_0)Y = 0\)</span>.</p>
+<p><br/>
+<br/>
+<br/></p>
+<p>The decision about whether RM is appropriate hinges on deciding whether the vector <span class="math inline">\((M - M_0)Y\)</span> is large.</p>
+<p>The size of <span class="math inline">\((M - M_0)Y\)</span>’s <strong>obvious measure</strong> is <span class="math inline">\([(M - M_0)Y]&#39;[(M - M_0)Y] = Y&#39;(M-M_0)Y\)</span>.</p>
+<p>The size of <span class="math inline">\((M - M_0)Y\)</span>’s <strong>reasonable measure</strong> is given by <span class="math inline">\(\dfrac{Y&#39;(M-M_0)Y}{r(M-M_0)}\)</span>.</p>
+<ul>
+<li>※ Note that $E (  ) = ^2 +  $.</li>
+</ul>
+<p><br/>
+<br/>
+<br/></p>
+<ul>
+<li>Theorem 3.2.1.</li>
+</ul>
+<p>Consider</p>
+<p>$
+Y=X + , ; ; ; ; ; N(0, ; I_n) , ; ; ; ; ; (X_0) (X) \</p>
+<p>\
+\</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+
+Y &amp;= X_0 \beta_0 + X_1 \beta_1 &amp;&amp;+ \epsilon \tag{Full Model, FM}
+
+\\
+
+
+Y &amp;= X_0 \gamma &amp;&amp;+ \epsilon \tag{Reduced Model, RM}
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+\dfrac
+{\dfrac{Y&#39;(M-M_0)Y}{r(M-M_0)}}
+{\dfrac{Y&#39;(I-M)Y}{r(I-M)}}
+
+
+
+&amp;=
+
+
+\dfrac
+{\dfrac{Y&#39;(M-M_0)Y}{df_1}}
+{\dfrac{Y&#39;(I-M)Y}{df_2}} 
+
+
+
+
+&amp;&amp;\sim 
+
+
+F \Bigg( df_1 , df_2, \dfrac{\beta&#39; X&#39; (M-M_0)X \beta }{2 \sigma^2} 
+
+
+
+&amp;&amp; \Bigg) \tag{Under the FM}
+
+\\
+
+\\\
+
+
+\\\
+
+
+
+
+\dfrac
+{\dfrac{Y&#39;(M-M_0)Y}{r(M-M_0)}}
+{\dfrac{Y&#39;(I-M)Y}{r(I-M)}}
+
+
+
+&amp;=
+
+
+\dfrac
+{\dfrac{Y&#39;(M-M_0)Y}{df_1}}
+{\dfrac{Y&#39;(I-M)Y}{df_2}}
+
+
+&amp;&amp;\sim 
+
+
+F \big( df_1 , df_2, 0 
+
+&amp;&amp; \big) 
+
+\tag{Under the RM}
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Note: Example 3.2.2.; pp. 58–59</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+M-M_0 &amp;= (I-M_0) &amp;&amp;-(I-M)
+
+\\
+
+Y&#39;(M-M_0)Y &amp;= Y&#39;(I-M_0)Y &amp;&amp;-Y&#39;(I-M)Y
+
+\\
+
+ &amp;= SSE_{RM} &amp;&amp;-SSE_{FM}
+
+
+
+
+\end{alignat}\]</span>
+$</p>
+</div>
+<div id="a-generalized-test-procedure" class="section level3" number="7.7.3">
+<h3><span class="header-section-number">7.7.3</span> A Generalized Test Procedure</h3>
+<p>Assume that <span class="math inline">\(Y = X \beta + \epsilon\)</span> is correct. Want to test the adequacy of a model <span class="math inline">\(Y = X_0 \gamma + Xb + \epsilon\)</span>, where <span class="math inline">\(\mathcal{C}(X_0) \subset \mathcal{C}(X)\)</span> and some known vector <span class="math inline">\(Xb=\)</span> offset.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Example 3.2.3.; Multiple Regression</li>
+</ul>
+<p>$
+Y = _0 J + _1 X_1 + _2 X_2 + _3 X_3 + 
+$</p>
+<p>want to test <span class="math inline">\(H_0: \beta_2 = \beta_3+5, \; beta_1 = 0, \cdots\)</span>.</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+Y &amp;= X \beta &amp;&amp; &amp;&amp;+ \epsilon \tag{FM}
+
+\\
+
+Y^\ast &amp;\equiv Y &amp;&amp; - X b &amp;&amp;
+
+\\
+
+&amp;=X \beta &amp;&amp; - Xb &amp;&amp;+ \epsilon
+
+\\
+
+&amp;=X (\beta &amp;&amp; - b) &amp;&amp;+ \epsilon
+
+
+\\
+
+&amp;=X \beta^\ast &amp;&amp; &amp;&amp;+ \epsilon \tag{FM}
+
+\\
+\\\
+\\\
+
+
+Y &amp;= X_0 \gamma &amp;&amp; + Xb &amp;&amp;+ \epsilon \tag{RM}
+
+\\
+
+Y^\ast &amp;\equiv Y &amp;&amp; &amp;&amp; &amp;&amp; - X b 
+
+\\
+
+&amp;=X \gamma &amp;&amp;  &amp;&amp;+ \epsilon \tag{RM}
+
+
+
+
+\end{alignat}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<p>In addition, when <span class="math inline">\(Y^\ast = Y_\ast\)</span>,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+\dfrac
+{\dfrac{ Y_\ast &#39; (M-M_0) Y_\ast }{ r(M-M_0)}}
+{\dfrac{ Y_\ast &#39; (I-M) Y_\ast }{r(I-M)}}
+
+&amp;\sim F \Big( r(M-M_0), r(I-M), \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &amp;=\dfrac{1}{2 \sigma^2} \Big( {\beta^\ast} &#39; X &#39; (M-M_0) X \beta^\ast \Big) \tag{non-centrality parameter}
+
+
+\end{alignat}\]</span>
+$</p>
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+0 &amp;= \beta_\ast &#39;  X&#39; &amp;&amp;(M-M_0) X \beta_\ast
+
+
+\\
+
+
+&amp;\Updownarrow   
+
+\\
+
+
+0 &amp;= &amp;&amp;(M-M_0)X \beta_\ast
+
+\\
+
+&amp;\Updownarrow   
+
+
+\\
+
+X\beta &amp; = M_0 (X &amp;&amp;\beta - X b) + Xb \tag{3}
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<ol start="3" style="list-style-type: decimal">
+<li>will hold if</li>
+</ol>
+<p>$
+<span class="math display">\[\begin{align}
+\gamma &amp;= (X_0 &#39; X_0)^- X_0(X \beta - Xb) \\
+
+&amp;= (X_0 &#39; X_0)^- X_0 X \beta_\ast 
+
+\end{align}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<p>Furthermore,</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+Y_\ast &#39; (M-M_0)Y_\ast &amp;= 
+
+
+Y_\ast &#39; (I-M_0)Y_\ast &amp;&amp;- &amp;&amp;Y_\ast &#39; (I-M)Y_\ast  \; \; \; \; \;\text{ , and }
+
+
+
+
+\\
+
+Y &#39; (I-M)Y &amp;= &amp;&amp; &amp;&amp; Y_\ast &#39; (I-M)Y_\ast  
+
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="testing-linear-parametric-functions" class="section level3" number="7.7.4">
+<h3><span class="header-section-number">7.7.4</span> Testing Linear Parametric Functions</h3>
+<p><span class="math inline">\(H_0: Y= X \beta + \epsilon, \; \; \; \; \; \Lambda&#39; \beta=0 \tag{1}\)</span></p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+\Lambda &#39; \beta = 0 \; \; \; &amp;\iff \beta &amp;&amp;\in \mathcal{N}(\Lambda &#39;) = \mathcal{C}(X)^\perp
+
+\\
+
+&amp;\iff \beta \perp \mathcal{C}(\Lambda)
+
+
+
+\\
+
+&amp;\iff \beta \perp \mathcal{C}(\Gamma) \; \; \; \; \; \; \; \; \; \; &amp;&amp;\text{ if } \exists\Gamma \; \; s.t. \; \mathcal{C}(\Gamma) = \mathcal{C}(\Lambda)
+
+\\
+
+&amp;\iff \beta \perp \mathcal{C}(U) &amp;&amp;\text{ if } \exists U \; \; s.t. \; \mathcal{C}(U) = \mathcal{C}(\Lambda)^\perp
+
+\\
+
+&amp;\iff \beta = U_\gamma &amp;&amp; \exists \gamma \tag{2}
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<p>Thus, letting <span class="math inline">\(X_0 = XU\)</span>, (in general, <span class="math inline">\(\mathcal{C}(X_0) \subset \mathcal{C}(X)\)</span>), then</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+
+Y &amp;= X \beta &amp;&amp;+ \epsilon
+
+\\
+
+&amp;= X U \gamma &amp;&amp;+ \epsilon
+
+\\
+
+&amp;= X_0 \gamma &amp;&amp;+ \epsilon \tag{3}
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<p>Suppose <span class="math inline">\(\mathcal{C}(X_0) = \mathcal{C}(X)\)</span>. Then there is nothing to test and <span class="math inline">\(\Lambda&#39; \beta = 0\)</span> involves only arbitrary side conditions that do not affect the model. (EXAMPLE 3.3.1. pp. 62–64)</p>
+<p>$
+’ ; ;  ; ; ; ; P:= X’ P
+$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{align}
+
+\mathcal{C}(MP) &amp;\equiv \mathcal{C}(M-M_0) \\
+
+
+
+
+&amp;= \mathcal{C}(X-X_0) \\
+
+
+
+&amp;= \mathcal{C}(X) \; \cap \; \mathcal{C}(X_0)^\perp\\
+
+
+&amp;= \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp
+
+
+\end{align}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<p>thus, its distribution for testing <span class="math inline">\(H_0: \Lambda &#39; \beta = 0\)</span> is given by</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+\dfrac
+{\dfrac{Y&#39;(M_{MP})Y}{r(M_{MP})}}
+{\dfrac{Y&#39;(I-M)Y}{r(I-M)}}
+
+&amp;\sim F \Big( r(M_{MP}), r(I-M), \delta^2 \Big)
+
+ \tag{5}
+
+\\
+\\\
+
+\delta^2 &amp;= \beta &#39; X&#39; M_{MP}X \beta
+
+ \tag{non-centrality parameter}
+
+
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Proposition 3.3.2</li>
+</ul>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+\mathcal{C}(M-M_0) 
+
+
+&amp;= \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp \\
+
+&amp;= \mathcal{C}(XU)_{\mathcal{C}(X)}^\perp
+
+
+= \mathcal{C}(MP) 
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; \Lambda &#39; \beta = 0
+
+\\
+
+\Updownarrow
+
+\\
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; P&#39;X \beta = 0
+
+\\
+
+\Updownarrow
+
+\\
+
+
+H_0: Y=X\beta + \epsilon, \; \; \; \; \; P&#39;MX \beta = 0 (\because MX = X)
+
+\\
+
+\Updownarrow
+
+\\
+
+E(Y) \in \mathcal{C}(X), \; \; \; \; E(Y) \perp \mathcal{C}(MP)
+
+\\
+
+\Updownarrow
+
+\\
+
+E(Y) \in \mathcal{C}(X) \; \cap \;  \mathcal{C}(MP)^\perp, \; \; \; \; 
+\mathcal{C}(X_0)=\mathcal{C}(X) \; \cap \; \mathcal{C}(MP)^\perp = \mathcal{C}(MP)^\perp_{\mathcal{C}(X)}
+
+\Longrightarrow
+
+\mathcal{C}(X_0)^\perp_{\mathcal{C}(X)} = \mathcal{C}(MP)
+
+
+
+
+
+\\
+
+\Updownarrow
+
+\\
+
+
+
+
+X_0 = (I-M_{MP})X
+
+
+
+
+
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{align}
+
+\mathcal{C} \Big[ (I-M_{MP})X \ \Big] 
+
+
+&amp;= \mathcal{C} (X) \; \cap \; \mathcal{C} (MP)^\perp \\
+
+&amp;= \mathcal{C} (X) \; \cap \; \mathcal{C} (P)^\perp \tag{EXAMPLE 3.3.4.: pp.66–67}
+
+
+\end{align}\]</span>
+$</p>
+<p>let <span class="math inline">\(\Lambda &#39; \beta\)</span> is estimable, i.e., <span class="math inline">\(\Lambda = X&#39;P\)</span>. then <span class="math inline">\(\mathcal{C}(\Lambda) = \mathcal{C}(X&#39;P) =\mathcal{C}(MP)\)</span>, and <span class="math inline">\(X \hat \beta = MY\)</span>, and <span class="math inline">\(\Lambda &#39; \hat \beta = P&#39; X \hat \beta = P&#39; M Y\)</span>. then</p>
+<p>$</p>
+<p><span class="math display">\[\begin{align}
+
+Y&#39; M_{MP}Y &amp;= Y&#39; M &amp;&amp; (P&#39;  M  P)^- &amp;&amp; MPY
+
+
+
+
+\\
+
+&amp;= \hat \beta &#39; \Lambda  &amp;&amp; [P&#39; X(X&#39;X)^-X&#39; P]^- &amp;&amp; \Lambda &#39; \hat \beta
+
+\\
+
+&amp;= \hat \beta &#39; \Lambda  &amp;&amp; [\Lambda&#39; (X&#39;X)^- \Lambda]^- &amp;&amp; \Lambda &#39; \hat \beta
+
+
+
+
+
+
+\end{align}\]</span></p>
+<p>$</p>
+<p><strong><em>이윗부분 전혀모르겠음</em></strong></p>
+<p><br/>
+<br/></p>
+<p>thus,</p>
+<p>$
+<span class="math display">\[\begin{align}
+(5) = \dfrac{\dfrac{\hat \beta &#39; \Lambda [\Lambda &#39; (X&#39;X)^- \Lambda]^- \Lambda&#39; \hat \beta}{r(\Lambda)}}{MSE} &amp;\sim F \Big( r(MP), r(I-M), \delta^2 \Big)\\
+
+
+\\\
+\\\
+
+
+
+\delta^2  &amp;= \dfrac{\hat \beta &#39; \Lambda [\Lambda &#39; (X&#39;X)^- \Lambda]^- \Lambda&#39; \hat \beta}{2 \sigma^2} \\
+
+Cov\Big(\Lambda &#39; \hat \beta \Big)  &amp;= \sigma^2 \Lambda &#39; (X&#39; X)^{-} \Lambda 
+
+
+
+\end{align}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<p>For <span class="math inline">\(H_0: \lambda &#39; \beta =0, \; \; \; \lambda \in \mathbb{R}^p\)</span>,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{align}
+
+
+Y&#39;M_{MP}Y &amp;= \hat \beta &#39; \lambda \big [\lambda &#39; (X&#39;X)^- \lambda \big]^- \lambda&#39; \hat \beta
+
+\\
+
+&amp;=\dfrac{\big( \lambda&#39; \hat \beta \big)^2}{\lambda&#39;(X&#39;X)^-\lambda}
+
+\end{align}\]</span></p>
+<p>$</p>
+<p><br/>
+<br/></p>
+<p>and, under <span class="math inline">\(H_0: \lambda &#39; \beta =0\)</span>,</p>
+<p>$
+F = (5) =  F ( 1, ; r(I-M) )
+$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Definition 3.3.5.</li>
+</ul>
+<p>The condition <span class="math inline">\(E(Y) \perp \mathcal{C}(MP)\)</span> is called the constraint by <span class="math inline">\(\Lambda &#39; \beta = 0\)</span> where <span class="math inline">\(\Lambda = X&#39; P\)</span>. in other words, <span class="math inline">\(\mathcal{C}(MP)\)</span> is the <strong>constraint</strong> by <span class="math inline">\(\Lambda &#39; \beta = 0\)</span>.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Do Exercise 3.5:</li>
+</ul>
+<p>Show that a necessary and sufficient condition for <span class="math inline">\(\rho_1 &#39; X \beta = 0\)</span> and <span class="math inline">\(\rho_2 &#39; X \beta = 0\)</span> to determine the orthogonal constraints on the model is that <span class="math inline">\(\rho_1 &#39; X \rho_2 = 0\)</span></p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="theoretical-complements" class="section level3" number="7.7.5">
+<h3><span class="header-section-number">7.7.5</span> Theoretical Complements</h3>
+<p>Consider testing <span class="math inline">\(\Lambda &#39; \beta = 0\)</span> when <span class="math inline">\(\Lambda &#39; \beta\)</span> is NOT estimable.</p>
+<p>let <span class="math inline">\(\Lambda_0 &#39; \beta\)</span> be estimable part of <span class="math inline">\(\Lambda &#39; \beta\)</span>.</p>
+<p><span class="math inline">\(\Lambda_0\)</span> is chosen, so that <span class="math inline">\(\mathcal{C}(\Lambda_0) = \mathcal{C}(\Lambda) \; \cap \; \mathcal{C}(X&#39;)\)</span>, which means that <span class="math inline">\(\Lambda &#39; \beta = 0\)</span> implies that <span class="math inline">\(\Lambda_0 &#39; \beta = 0\)</span> but <span class="math inline">\(\Lambda_0 &#39; \beta\)</span> is <strong>estimable</strong>, because <span class="math inline">\(\mathcal{C}(\Lambda_0) \subset \mathcal{C}(X&#39;)\)</span>.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Theorem 3.3.6.</li>
+</ul>
+<p>let <span class="math inline">\(\mathcal{C}(\Lambda_0) = \mathcal{C}(\Lambda) \; \cap \; \mathcal{C}(X&#39;)\)</span> and <span class="math inline">\(\mathcal{C}(U_0) = \mathcal{C}(\Lambda_0)^\perp\)</span>. Then <span class="math inline">\(\mathcal{C}(XU) = \mathcal{C}(XU_0)\)</span>. Thus <span class="math inline">\(\Lambda &#39; \beta = 0\)</span> and <span class="math inline">\(\Lambda_0 &#39; \beta = 0\)</span> induce the same RM.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Proposition 3.3.7.</li>
+</ul>
+<p>let <span class="math inline">\(\Lambda_0 &#39; \beta\)</span> be estimable and <span class="math inline">\(\Lambda \not = 0\)</span>. then <span class="math inline">\(\Lambda &#39; \beta = 0 \; \; \Longrightarrow \; \; \mathcal{C}(XU) \not = \mathcal{C}(X)\)</span>.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Corollary 3.3.8.</li>
+</ul>
+<p>$</p>
+<p>(_0) = () ; ; (X’) = {0 }</p>
+<p>\</p>
+<p>\</p>
+<p>(XU) ; ; (X)</p>
+<p>$</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="a-generalized-test-procedure-1" class="section level3" number="7.7.6">
+<h3><span class="header-section-number">7.7.6</span> A Generalized Test Procedure</h3>
+<p>Consider as below, whose column space is solvable.</p>
+<p><span class="math inline">\(H_0: \Lambda&#39; \beta = d, \; \; \; \; \; d \in \mathcal{C}(X&#39;), \; \; \; \; \Lambda&#39; b =d\)</span></p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+
+
+\Lambda &#39; \beta = 
+
+\Lambda &#39; b =  d
+
+
+
+ \; \; \; &amp;\iff \Lambda &#39; (\beta - b) &amp;&amp;= 0
+
+
+
+
+
+\\
+
+&amp;\iff (\beta - b) &amp;&amp;\perp \mathcal{C}(\Lambda)
+
+\\
+
+&amp;\iff (\beta - b) &amp;&amp;\in \mathcal{C}(U) \; \; \; \; \; \; &amp;&amp;\text{where } \; \mathcal{C}(U) = \mathcal{C}(\Lambda)^\perp
+
+\\
+
+&amp;\iff (\beta - b) &amp;&amp;= U_\gamma &amp;&amp;\exists \gamma
+
+
+\\
+
+&amp;\iff X\beta - Xb &amp;&amp;= XU_\gamma
+
+\\
+
+&amp; \; \; \; \Updownarrow
+
+\\
+
+X\beta  &amp;= XU_\gamma + Xb, \\
+
+Y &amp;= X \beta + \epsilon \\
+&amp;= X U_\gamma + Xb + \epsilon \\
+&amp;= X_0 \gamma + Xb + \epsilon, &amp;&amp; &amp;&amp; \text{where } \; X_0 = XU
+
+
+
+
+
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>if <span class="math inline">\(\Lambda = X&#39;P\)</span>, then <span class="math inline">\(\mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp = \mathcal{C}(MP)\)</span> and its test statistics is</p>
+<p>$
+<span class="math display">\[\begin{align}
+
+
+
+F = \dfrac
+{\dfrac{(Y-Xb)&#39;M_{MP}(Y-Xb)}{r \Big(M_{MP} \Big)}}
+{\dfrac{(Y-Xb)&#39;(I-M)(Y-Xb)}{r \Big(I-M \Big)}}
+
+= 
+
+
+
+
+
+
+\dfrac
+{\dfrac{(\Lambda &#39; \hat \beta - d)&#39; \Big[ \Lambda&#39;(X&#39;X)^{-}\Lambda \Big]^- (\Lambda &#39; \hat \beta - d)}{r(\Lambda)}}
+{MSE}
+
+
+\sim F(?, ?, ?)
+
+\end{align}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Remark: (EXAMPLE 3.3.9.: pp.71–72, EXAMPLE 3.4.1.: pp.75)</li>
+</ul>
+<p>If <span class="math inline">\(\Lambda &#39; \beta = d\)</span>, the same reduced model results if we take <span class="math inline">\(\Lambda &#39; \beta = d_0\)</span>, where <span class="math inline">\(d_0 = d + \Lambda &#39; \nu\)</span> and <span class="math inline">\(\nu \perp \mathcal{C}(X&#39;)\)</span>. Note that, in this construction, if <span class="math inline">\(\Lambda &#39; \beta = d\)</span> is estimable, <span class="math inline">\(d_0 = d\)</span> for any <span class="math inline">\(\nu\)</span>.</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="testing-single-degrees-of-freedom-in-a-given-subspace" class="section level3" number="7.7.7">
+<h3><span class="header-section-number">7.7.7</span> Testing Single Degrees of Freedom in a Given Subspace</h3>
+<p>$
+RM: Y=X_ 0 + ; ; ; ; ; vs. ; ; ; ; ;</p>
+<p>FM: Y=X + , ; ; ; ; ; with; ; (X_0) (X)</p>
+<p>$</p>
+<p>let <span class="math inline">\(M_\ast = M - M_0\)</span>, consider <span class="math inline">\(H_0 : \Lambda &#39; \beta = 0\)</span>.</p>
+<p>if <span class="math inline">\(\Lambda = X&#39;P\)</span>, i.e. <span class="math inline">\(\Lambda \in \mathcal{C}(X&#39;)\)</span>, then <span class="math inline">\(M_\ast = M_{MP}\)</span>.</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Proposition 3.3.2</li>
+</ul>
+<p>Since <span class="math inline">\(M M_\ast = M_\ast\)</span>,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{align}
+
+&amp;\mathcal{C}(M - M_0) = \mathcal{C}(X_0)_{\mathcal{C}(X)}^\perp \equiv \mathcal{C}(XU)_{\mathcal{C}(X)}^\perp = \mathcal{C}(MP)
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&amp;M \rho \in \mathcal{C}(M_\ast)
+
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&amp;M \rho = M_\ast M \rho =  M_\ast \rho
+
+
+\\
+
+\Longrightarrow \; \; \; 
+
+&amp;\rho &#39; \hat \beta = \rho &#39; M_\ast Y = \rho &#39; M Y 
+
+
+
+\end{align}\]</span>
+$</p>
+<p>thus the test statistic for <span class="math inline">\(H_0 : \Lambda &#39; \beta = 0\)</span> is</p>
+<p>$</p>
+<p>=</p>
+<p>$</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="breaking-ss-into-independent-components" class="section level3" number="7.7.8">
+<h3><span class="header-section-number">7.7.8</span> Breaking SS into Independent Components</h3>
+<p>Consider <span class="math inline">\(X = \begin{pmatrix} X_0, &amp; X_1 \end{pmatrix}\)</span>. set</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+&amp;SSR(X_1 \vert X_0) &amp;&amp;\equiv Y &#39; (M-M_0)Y &amp;&amp; \tag{Sum of Squares for regression X1 after X0}\\
+
+&amp;SSR(X) &amp;&amp;\equiv Y &#39; MY \\
+
+&amp;SSR(X_0) &amp;&amp;\equiv Y &#39; M_0 Y \\
+
+&amp;SSR(X) &amp;&amp;= SSR(X_0) &amp;&amp;+ SSR (X_1 \vert X_0)
+
+\end{alignat}\]</span>
+$</p>
+<ul>
+<li>Note: if <span class="math inline">\(\epsilon \sim N(0, \; \sigma I)\)</span>, then <span class="math inline">\(SSR(X_0) \perp SsR(X_1 \vert X_0)\)</span>.</li>
+</ul>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="general-theory" class="section level3" number="7.7.9">
+<h3><span class="header-section-number">7.7.9</span> General Theory</h3>
+<p>Let <span class="math inline">\(M\)</span> and <span class="math inline">\(M_\ast\)</span> be the orthogonal projection operator into <span class="math inline">\(\mathcal{C}(X)\)</span> and <span class="math inline">\(\mathcal{C}(X_\ast)\)</span> respectively. Then, with <span class="math inline">\(\mathcal{C}(X_\ast) \subset \mathcal{C}(X)\)</span>, <span class="math inline">\(M_\ast\)</span> defines a test statistic as below.</p>
+<p>$</p>
+<p>{}
+{}</p>
+<p>; ; ; :Y = X_+ </p>
+<p>$</p>
+<p>$
+<span class="math display">\[\begin{align}
+
+&amp;I-(M-M_\ast ) &amp;&amp;= (I-M) + M_\ast
+
+\\
+
+&amp;\mathcal{C}(M-M_\ast) &amp;&amp;:\tag{Estimation Space, under H0}
+
+\\
+
+&amp;\mathcal{C}(M_\ast)  &amp;&amp;:\tag{Test Space, under H0}
+
+\\
+
+
+&amp;\mathcal{C} \Big(I - (M-M_\ast)\Big)  &amp;&amp;:\tag{Error Space, under H0}
+
+
+
+
+
+\end{align}\]</span></p>
+<p>$</p>
+<p>Using Gram-Schmidt procedure, let’s construct <span class="math inline">\(M_\ast\)</span> so that</p>
+<p>$</p>
+<p>M_= RR’ = <em>{i=1}^r R_iR_i ’ = </em>{i=1}^r M_i, ; ; ; ; ; R=(R_1 , , R_r)</p>
+<p>$</p>
+<p>and <span class="math inline">\(M_i M_j=0\)</span> for <span class="math inline">\(i \not = j\)</span>. By <strong>Theorem 1.3.7</strong>,</p>
+<p>$
+Y’M_i Y Y’M_j Y ; ; ; ; ; ; M_i M_j =0
+$</p>
+<p>Next, $ Y’M Y = _{i=1}^r Y’M_i Y $, therefore when <span class="math inline">\(r(M_i)=1\)</span>,</p>
+<p>$</p>
+<p>{}
+{}</p>
+<p>F ( 1, r(I-M),  ’ X’ M_i X )</p>
+<p>$</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+&amp; &amp;&amp; &amp;&amp;   &amp;&amp;\beta &#39; X&#39; M_\ast X \beta \; \; &amp;&amp;= \; \; \sum_{i=1}^r \beta &#39; X&#39; M_i X \beta  &amp;&amp;  =0
+
+\; \; \;
+
+\\
+
+&amp;\iff &amp;&amp; &amp;&amp; \forall i \; \; : \; \; &amp;&amp; \beta &#39; X&#39; M_i X \beta &amp;&amp; &amp;&amp;=0
+
+\\
+
+&amp;\iff &amp;&amp; &amp;&amp;\forall i \; \; : \; \; &amp;&amp;R_i &#39; X \beta &amp;&amp; &amp;&amp;= 0
+
+\\
+
+&amp;\iff &amp;&amp; &amp;&amp; &amp;&amp;H_0 \text{ is true.}
+
+
+
+
+\end{alignat}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>EXAMPLE 3.6.1.: Balanced design; pp.79–80</li>
+<li>EXAMPLE 3.6.2.: Unbalanced design;pp.80–81</li>
+</ul>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="two-way-anova" class="section level3" number="7.7.10">
+<h3><span class="header-section-number">7.7.10</span> Two-Way ANOVA</h3>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+y_{ijk} &amp;= \mu + \alpha_i + \eta_j &amp;&amp;+ \epsilon_{ijk} \tag{FM}
+
+\\
+
+
+
+
+
+y_{ijk} &amp;= \mu + \alpha_i  &amp;&amp;+ \epsilon_{ijk} \tag{RM}
+
+
+\end{alignat}\]</span>
+$</p>
+<p>$
+<span class="math display">\[\begin{align}
+M &amp;= M_\mu + M_\alpha + M_\eta
+
+\\
+
+Y&#39;(M-M_0)Y &amp;= R(\eta \; \Big \vert \; \alpha, \; \mu) \tag{1}
+
+
+\end{align}\]</span>
+$</p>
+<ol style="list-style-type: decimal">
+<li>Reduction in SSE, due to fitting <span class="math inline">\(\eta_j\)</span>’s after <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\alpha_i\)</span>’s.</li>
+</ol>
+<p>Next,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+y_{ijk} &amp;= \mu + \alpha_i &amp;&amp;+ \epsilon_{ijk} \tag{FM}
+
+\\
+
+
+
+
+
+y_{ijk} &amp;= \mu &amp;&amp;+ \epsilon_{ijk} \tag{RM}
+
+
+\\
+
+\\\
+
+\\\
+
+
+Y&#39;(M_0-M_J)Y &amp;= R(\alpha \; \Big \vert \; \mu) 
+
+\\
+
+Y&#39;(M-M_J)Y &amp;= R(\alpha, \; \eta \; \Big \vert \; \mu)
+
+\\
+
+&amp;= R(\eta \; \Big \vert \; \mu, \; \alpha) &amp;&amp;+ R(\alpha \; \Big \vert \; \mu)  
+
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>In general,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) &amp;\not = R(\eta \; \Big \vert \; \mu)  
+ 
+\\
+
+R(\alpha \; \Big \vert \; \eta, \; \mu) &amp; \not = R(\alpha \; \Big \vert \; \mu)  
+ 
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<p>In paricular, for balanced design, if <span class="math inline">\(\mathcal{C}(X_\alpha) \perp \mathcal{C}(X_\eta)\)</span>,</p>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) &amp; = R(\eta \; \Big \vert \; \mu)  
+ 
+\\
+
+R(\alpha \; \Big \vert \; \eta, \; \mu) &amp; = R(\alpha \; \Big \vert \; \mu)  
+ 
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<ul>
+<li>Proposition 3.6.3.</li>
+</ul>
+<p>$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+
+
+R(\eta \; \Big \vert \; \alpha, \; \mu) &amp; = R(\eta \; \Big \vert \; \mu)  
+ 
+
+
+\; \; \; \; \; &amp;&amp;\iff \; \; \; \; \;
+
+
+\mathcal{C}(X_1 - M_j) \perp \mathcal{C}(X_0 - M_j)
+
+\\
+
+
+
+\text{that is}\; \; \; \; \; \; \; 
+
+
+M_1 - M_J&amp; = M-M_0
+ 
+
+
+\; \; \; \; \; &amp;&amp;\iff \; \; \; \; \;
+
+
+(M_1 - M_J)(M_0 - M_J) = 0, 
+
+
+\; \; \; \; \; \text{where} \; &amp;&amp;R(\eta \; \Big \vert \; \alpha, \; \mu) &amp;&amp;= Y&#39;(M-M_0)Y
+
+\\
+
+&amp; &amp;&amp; &amp;&amp; R(\eta \; \Big \vert \; \mu) &amp;&amp;= Y&#39;(M_1 -M_0)Y
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="confidence-regions" class="section level3" number="7.7.11">
+<h3><span class="header-section-number">7.7.11</span> Confidence Regions</h3>
+<p><span class="math inline">\(100(1-\alpha)\%\)</span> Confidence Region(CR) for <span class="math inline">\(\Lambda &#39; \beta\)</span> consists of all the vectors <span class="math inline">\(d\)</span> satisfying the inequality</p>
+<p>$</p>
+<p>{}
+{MSE}</p>
+<p>( 1- , ; r(), ; r(I-M) )</p>
+<p>$</p>
+<p>These vectors form an ellipsoid in <span class="math inline">\(r(\Lambda)\)</span>-dimensional space.</p>
+<p>For regression problems, if we take <span class="math inline">\(P&#39; = (X&#39;X)^{-1}X&#39;\)</span>, then <span class="math inline">\(\Lambda&#39;\beta = P&#39; X \beta = \beta = d\)</span>.</p>
+<p>The <span class="math inline">\(100(1-\alpha)\%\)</span> CR is</p>
+<p>$
+<span class="math display">\[\begin{alignat}{2}
+
+
+&amp;
+\dfrac
+{\dfrac{\Big[\Lambda &#39; \hat \beta - d\Big]&#39; \Big[\Lambda &#39; (X&#39;X)^- \Lambda\Big]^- \Big[\Lambda &#39; \hat \beta - d\Big]}{r(\Lambda)}}
+{MSE}
+
+\; \; \; 
+&amp;&amp;
+= 
+
+\; \; \; 
+&amp;
+\dfrac
+{\dfrac{\Big(\hat \beta - \beta \Big)&#39; \Big( X&#39;X \Big)\Big(\hat \beta - \beta \Big)}
+
+{p}}
+{MSE}
+
+\; \; \; 
+
+&amp;&amp;\le 
+
+\; \; \; 
+\Big( 1- \alpha, \; p, \; n-p \Big)
+
+
+\end{alignat}\]</span></p>
+<p>$</p>
+<hr />
+<p><br/>
+<br/>
+<br/>
+<br/>
+<br/></p>
+</div>
+<div id="tests-for-generalized-least-squares-models" class="section level3" number="7.7.12">
+<h3><span class="header-section-number">7.7.12</span> Tests for Generalized Least Squares Models</h3>
+<p>$
+<span class="math display">\[\begin{alignat}{4}
+
+&amp;Y &amp;&amp;= &amp;&amp;X \beta &amp;&amp;+ &amp;&amp;\epsilon \; \; \; \; \; &amp;&amp;vs. \; \; \; \; \; &amp;&amp;Y = &amp;&amp;X_0 \beta_0 &amp;&amp;+ &amp;&amp;\epsilon
+
+, \; \; \; \; \; &amp;&amp; \epsilon \sim N(0, \; \sigma^2 V)
+
+
+
+\tag{1}
+
+\\
+
+
+&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp; \Updownarrow
+
+\\
+
+
+
+
+
+
+
+Q^{-1}&amp;Y &amp;&amp;= Q^{-1} &amp;&amp;X \beta &amp;&amp;+ Q^{-1} &amp;&amp;\epsilon \; \; \; \; \; \; \; \;  \; &amp;&amp;vs. \; \; \; \; \; Q^{-1} &amp;&amp;Y = Q^{-1} &amp;&amp;X_0 \beta_0 &amp;&amp;+ Q^{-1} &amp;&amp;\epsilon
+
+
+
+, \; \; \; \; \; Q^{-1} &amp;&amp; \epsilon \sim N(0, \; \sigma^2 I)
+
+\tag{2}
+
+\end{alignat}\]</span>
+$</p>
+<p>test (1) and (2) is equal.</p>
+<ul>
+<li>Note: <span class="math inline">\(\mathcal{C}(Q^{-1}X_0) \subset \mathcal{C}(Q^{-1}X)\)</span>.</li>
+</ul>
+<p><br/>
+<br/></p>
+<p>From Section 2.7,</p>
+<p>$
+<span class="math display">\[\begin{align}
+
+
+A &amp;= X(X&#39;V^{-1}X)^- X&#39; \ast V^{-1}
+
+\\
+\\
+
+MSE &amp;= \dfrac{Y&#39; (I-A)&#39; V^{-1} (I-A)Y}{n-r(X)}
+
+\\
+\\
+
+A_0 &amp;= X_0(X_0&#39;V^{-1}X_0)^- X_0&#39; \ast V^{-1}
+
+\end{align}\]</span>
+$</p>
+<ul>
+<li>Theorem 3.8.1</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align}
+
+\dfrac{\dfrac{Y&#39; (A-A_0) V^{-1} (A-A_0)Y}{r(X) - r(X_0 )}}{MSE} &amp;\sim F \Big( r(X)-r(X_0), \; n-r(X) , \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &amp;= \dfrac{\beta &#39; X&#39; (A-A_0) V^{-1} (A-A_0)X \beta}{2\sigma^2} \tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+
+{\beta &#39; X&#39; (A-A0) V^{-1} (A-A_0)X \beta} \; \; \; \; \; &amp;\iff \; \; \; \; \; E(Y) \in \mathcal{C}(X_0) \tag{2}
+
+
+\end{align}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Theorem 3.8.2</li>
+</ul>
+<p>let <span class="math inline">\(\Lambda &#39; \beta\)</span> be estimable. then the test statistic for <span class="math inline">\(H_0 : \Lambda &#39; \beta = 0\)</span> is</p>
+<p>$
+<span class="math display">\[\begin{align}
+
+
+
+
+\dfrac{\dfrac{\hat \beta &#39; \Lambda \Big[ \Lambda &#39; (X&#39;V^{-1}X)^- \Lambda \Big]^- \Lambda &#39; \hat \beta}{r(\Lambda)}}{MSE} &amp;\sim F \Big( r(\lambda), \; n-r(X) , \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &amp;= \dfrac{\beta &#39; \Lambda \Big[ \Lambda &#39; (X&#39;V^{-1}X)^- \Lambda \Big]^- \Lambda &#39; \beta}{2\sigma^2} \tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+
+{\beta &#39; \Lambda \Big[ \Lambda &#39; (X&#39;V^{-1}X)^- \Lambda \Big]^- \Lambda &#39; \beta} \; \; \; \; \; &amp;\iff \; \; \; \; \; \Lambda &#39; \beta  = 0\tag{2}
+
+
+\end{align}\]</span>
+$</p>
+<p><br/>
+<br/></p>
+<ul>
+<li>Theorem 3.8.3</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align}
+
+\dfrac{Y&#39; (A-A_0) V^{-1} (A-A_0)Y}{\sigma^2} &amp;\sim \chi^2\Big(r(x) - r(X_0), \; \delta^2 \Big)
+
+\\
+\\
+
+\delta^2 &amp;= \dfrac{\beta &#39; X&#39; (A-A_0) V^{-1} (A-A_0)X \beta}{2\sigma^2},
+
+\\
+\\
+
+\sigma^2 = 0 \; \; \; \; \; &amp;\iff E(Y) \in \mathcal{C}(X_0)
+
+
+
+
+\tag{1}
+
+
+\\
+
+\\
+
+\\\
+
+\dfrac{\hat \beta &#39; \Lambda \Big[ \Lambda &#39; (X&#39;V^{-1}X)^- \Lambda \Big]^- \Lambda &#39; \hat \beta}{2\sigma^2} 
+
+&amp;\sim \chi^2 \Big( r(\Lambda) , \; \delta^2 \Big)
+
+
+\\
+\\
+
+\delta^2 &amp;= {\hat \beta &#39; \Lambda \Big[ \Lambda &#39; (X&#39;V^{-1}X)^- \Lambda \Big]^- \Lambda &#39; \hat \beta}, 
+
+\\
+\\
+
+\sigma^2 = 0 \; \; \; \; \; &amp;\iff \Lambda &#39; \beta = 0 \tag{2}
+
+
+\end{align}\]</span>
+$</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="one-way-anova.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generalized-least-squares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211405_Testing.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

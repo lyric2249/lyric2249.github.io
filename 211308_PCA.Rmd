@@ -1,0 +1,98 @@
+---
+sort: 8
+---
+
+## PCA
+
+PCA는 상관관계 있는 반응변수 $y$의 집합을 상관관계 없는 더 작은 집합으로 바꿈. 이 더 작은 직합들의 이름은 **principal components**. 이는 더 작은 principal components들이 어쩌면 원본 데이터에 들어있는(available) **거의** 대부분의 정보를 보유하고 있을지도 모른다는 생각에서 출발함.
+1. Outlier
+2. Cluster
+3. Discriminant: Cov 매트릭스 invert 하려면 필요. 샘플 사이즈 작으면 $(n<p)$ 문제터져서 변수 갯수를 줄임.
+4. Regression: predictors 사이에 multicollinearity 존재하는지 체크
+5. Multivariate Nomality
+
+
+semi-positive definite
+
+벡터의 매트릭스 $\textbf {X}_{1 \times p}$ 의 Cov 매트릭스 $\Sigma$, 이의 $ev$ $\lambda_1 \le \cdots \le \lambda_p \le 0$.
+
+$\textbf a'_i$는 $ p \times 1$인 열벡터. 이것이 $i=1~p$개만큼 존재. $Y_i = \textbf a'_i \textbf {X}_{i}$, 즉 $Y$는 $a$와 $X$의 선형결합.
+
+$Cov(Y_1 , Y_2) = Cov(\textbf a'_1 \textbf X , \textbf a'_2 \textbf X ) = \textbf a_1 ' \Sigma \textbf a_2 \left( = 0 \right) $
+
+벡터와 스칼라 여부 주의. Transpose 여부 주의. 0이 되는 건 $\textbf a_1 ' $과 $ \textbf a_2 $ 가 orthogonal.
+
+Var가 클수록 정보량 많음. 1번은 분산이 가장 큼. 2번은 분산이 2번째로 크되 1번째의 $\textbf {a}_{1} \textbf X $과 orthogonal 해야함. e.g. $ Cov \left( \textbf {a}_{1}' \textbf X \textbf {a}_{2}' \textbf X \right)$. 
+
+이를 반복.
+
+<br>
+
+1st principal component: $= \textbf e_1 ' \textbf X$.
+* $Var \left( \textbf e_1 ' \textbf X \right)= \textbf e_1 ' \Sigma \textbf e_1  = \lambda_1$.
+ * 이때, $e \textbf v$의 정의에 의해 $\Sigma \textbf e_1 = \lambda_1 \textbf e_1 $ .
+* $Var \left( \textbf e_1 ' \textbf X \right)$ 는 $\textbf e_1 ' \textbf e_1 $ 를 만족하는 값들 중 $Var \left( \textbf e_1 ' \textbf X \right)$를 최대화시키는 값.
+
+<br>
+
+2nd principal component: $= \textbf e_2 ' \textbf X$.
+* $Var \left( \textbf e_2 ' \textbf X \right)= \textbf e_2 ' \Sigma \textbf e_2  = \lambda_2$ 는 모든 $\textbf a_2 ' \textbf X$ 중 $Cov \left( \textbf e_1 ' \textbf X_1 \textbf a_2 ' \textbf X \right) = 0  $ 과 $\textbf e_2 ' \textbf e_2 $를 만족하는 녀석.
+
+<br>
+
+즉 PC 자체는 $\textbf e_i ' \textbf X$ 로 정해짐. ```note ***이건 proj의 일종인 모양.***``` 근데 이걸로 정해지는 이유가 상기의 조건을 만족해야 한다는 거고, 해당 체크 조건들을 $\textbf e_i ' \textbf X$ 가 모두 통과할 수 있으므로 이걸 PC로 삼는 것에 문제가 없다는 것.
+
+$
+\begin{align*}
+
+	\sum_{i=1}^p Var(\textbf X_i) &=tr(\Sigma) \\
+	&= \sigma_{11} + \sigma_{22} + \cdots + \sigma_{pp} \\
+	&= \lambda_1 + \lambda_2 + \cdots + \lambda_p \\
+	&= \sum_{i=1}^p Var(\textbf Y_i)
+
+
+\end{align*}
+$
+
+
+따라서 kth PC에 의해 유발되는 총 Var의 비율은 $\dfrac {\lambda_k}{\sum_{i=1}^p \lambda_i } = \dfrac {\lambda_k}{\sum_{i=1}^p Var(X_i) } $. 
+
+이인즉 PCA를 거쳐도 p개의 variable 갯수를 유지한다면 설명력의 총합은 동일함. 하지만 우리는 설명력을 1만큼 잃고 변수를 10만큼 줄이기를 원함. 따라서 어느정도 설명력을 잃더라도 그 이상으로 변수의 갯수를 줄이는 선이면 하꼬변수를 쳐냄. 이는 PCA 분석때 기본적으로 분산의 80% 설명을 기준으로 함. 
+
+
+Cov 매트릭스 $\Sigma$, PC $Y_i = \textbf e_i ' \textbf X$. 이때 $\rho_{Y_i , X_k } = Corr (Y_i , X_k ) = \dfrac {e_{ik} \sqrt{\lambda_i}} {\sqrt{\sigma_{kk}}}, \; \; \; i,k=1,\cdots,p$.
+
+다룰 때의 편의를 위해 PC 구성 단계에서 $Y_i =\textbf {e}_i ( \pmb {X} - \pmb {\mu} )$ 로 구성하는 경우도 잦음.
+
+PC Score. n개의 관측 중에서 r번째 관측의 variable의 벡터를 $\textbf X_r $이라고 설정하자. 그렇다면 $Y_{ri} = \textbf e_i ' (\textbf X_r - \pmb \mu_r)$. 이때 $r=1,\cdots, n$. 이때 PC Score는 $ \hat Y_{ri} = \hat { \textbf {e}_i} ' (\textbf X_r - { \hat {\pmb  \mu}_r})$ 로 추정될 수 있다.
+
+```note
+***elbow***
+```
+
+
+PCA prerequisite
+* variable들이 same unit
+* variable들이 have similar Var
+
+해결책
+* $\textbf Z $로 표준화하고 PCA. $E(\textbf Z) = 0, Cov(\textbf Z )=\rho$
+* PCA 자체를 corr 매트릭스에 적용
+
+
+$
+\begin{align*}
+
+	\sum_{i=1}^p Var(\textbf Y_i) &= \sum_{i=1}^p Var(\lambda_i) \\
+	&= tr(\pmb \rho) \\
+	&= \sum_{i=1}^p Var(\textbf Z_i) \\
+	&= p
+
+\end{align*}
+$
+
+따라서 이때의 kth PC에 의해 유발되는 총 Var의 비율은 $\dfrac {\lambda_k}{\sum_{i=1}^p \lambda_i } = \dfrac {\lambda_k}{p} $. 
+
+$Corr$을 썼을 때 PC를 어디까지 쓸지를 솎아낼 때는 scree plot이나 $ev>1$인지를 기준으로 한다. 모든 기존 변수들의 분산이 1이므로 최소한의 설명력이 1이라는건데, 1도 안되면 그냥 쓰레기들이므로.
+
+Checking Multivariate Normal: 기존 데이터가 mv normal이라면, 각 PC Score는 normal로 분포되어 있다. 각 PC들을 QQ plot 사용해서 체크하면 답나옴.
