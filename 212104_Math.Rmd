@@ -30,7 +30,7 @@ networks (such as broad degree distributions or small-world effects),
 
 1. **random graph model**이라는 용어는 collection $\mathcal G$과 $\mathcal G$에 대한 uniform probability $P(\cdot)$을 묶어 일컬음. 수학적 관점에서 가장 잘 정의된 네트워크 그래프 모델.
 
-2. 주어진 order와 size를 따르는 그래프에 대한 모든 후보군에 동일 확률 부여. $|V|=N_v$, $|E| = N_e$를 만족하는 모든 그래프 $G=(V,E)$의 collection $\mathcal G_{N_v, N_e}$을 정의하고, 각각의 $G \in \mathcal G_{N_v, N_e}$에 확률 $P(G) = {N \select N_e}^{-1}$을 부여함. 이때 $N= N_v \select 2$는 서로 다른 vertex 2개를 묶은 쌍의 총 숫자.
+2. 주어진 order와 size를 따르는 그래프에 대한 모든 후보군에 동일 확률 부여. $|V|=N_v$, $|E| = N_e$를 만족하는 모든 그래프 $G=(V,E)$의 collection $\mathcal G_{N_v, N_e}$을 정의하고, 각각의 $G \in \mathcal G_{N_v, N_e}$에 확률 $P(G) = {N \choose N_e}^{-1}$을 부여함. 이때 $N= N_v \choose 2$는 서로 다른 vertex 2개를 묶은 쌍의 총 숫자.
 
 3. $\mathcal G_{N_v, N_e}$의 변용이 실전에서는 더 자주 보임. 이 공식에서, $\mathcal G_{N_v, p}$는 order $N_v$의 모든 그래프 $G$로 구성되어 있다. 이는 서로 다른 vertex의 쌍에 $p \in (0,1)$의 확률로 edge 1개를 독립적으로 부여하는 것으로 얻어질 수 있다. 이러한 종류의 모델은 **Bernoulli random graph model**라고 불림. $p$가 $N_v$의 적절하게 정의된 함수이며, $N_e \sim p N_v^2$하면, 이 모델들의 두 클래스는 large $N_v$와 거의 동치된다. 
 
