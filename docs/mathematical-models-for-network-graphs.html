@@ -563,6 +563,9 @@ diameter(g.er)
 transitivity(g.er)</code></pre>
 <p><br>
 <br>
+<br>
+<br>
+<br>
 <br></p>
 </div>
 <div id="generalized-random-graph-models" class="section level3" number="7.4.2">
@@ -593,14 +596,17 @@ transitivity(fake.yeast)
 </code></pre>
 <p>하지만 이렇게 고삐를 풀어버리면 원본 네트워크의 직경은 시뮬레이션된 물건의 2배에 달하며 사실상 만들어두었던 clustering들도 다 날아가버렸음. 원칙적으로 class <span class="math inline">\(\mathcal G\)</span>의 정의를 제한하는 편이 훨씬 쉬우며 그렇기에 degree sequence 이외의 다른 추가적인 특성들은 그냥 고정해버림. 이러한 collection으로부터 랜덤 그래프들 <span class="math inline">\(\mathcal G\)</span>을 생산해내는데에는 MCMC 방법론이 유명하다. 이때 MC에 의해 액세스되는 상태들 그 자체 각각들이 graph <span class="math inline">\(\mathcal G\)</span>에 해당함.</p>
 <p><br>
-<br></p>
-<p><br>
+<br>
+<br>
+<br>
+<br>
 <br></p>
 </div>
 <div id="network-graph-models-based-on-mechanisms" class="section level3" number="7.4.3">
 <h3><span class="header-section-number">7.4.3</span> Network Graph Models Based on Mechanisms</h3>
 <p>모던 네트워크 그래프 모델링에서 가장 중요한 혁명 중 하나가 전통적인 랜덤 그래프 모델에서 실제 세계의 성질을 모사하는 쪽으로 옮겨갔다는 거임. 이건 그냥 간단한 몇몇 메커니즘 도입하는 것으로 성공되었음.</p>
 <p><br>
+<br>
 <br></p>
 <div id="small-world-models" class="section level4" number="7.4.3.1">
 <h4><span class="header-section-number">7.4.3.1</span> Small-World Models</h4>
@@ -640,6 +646,9 @@ apl[i] = mean(apltemp)</code></pre>
 <pre><code>plot(steps, cl/max(cl), ylim=c(0,1), lwd=3, type=&quot;l&quot;, col=&quot;blue&quot;,
 xlab=expression(log[10](p)), ylab=&quot;Clustering and Average Path Length&quot;)
 lines(steps, apl/max(apl), lwd=3, col=&quot;red&quot;)</code></pre>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="preferential-attachment-models" class="section level4" number="7.4.3.2">
 <h4><span class="header-section-number">7.4.3.2</span> Preferential Attachment Models</h4>
@@ -662,6 +671,12 @@ hist(degree(g.ba), col=&quot;lightblue&quot;, xlab=&quot;Degree&quot;, ylab=&quo
 <pre><code>average.path.length(g.ba)
 diameter(g.ba)
 transitivity(g.ba)</code></pre>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="assessing-significance-of-network-graph-characteristics" class="section level3" number="7.4.4">
@@ -673,6 +688,9 @@ transitivity(g.ba)</code></pre>
 P_{\eta, \mathcal G} (t) = \frac{\text{#}\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
 \]</span></p>
 <p><mark>만약 <span class="math inline">\(\eta(G^{obs})\)</span>가 이 분포를 따르지 않을 것 같은 확률이 높다면 <span class="math inline">\(G^{obs}\)</span>는 <span class="math inline">\(\mathcal G\)</span>로부터의 uniform draw가 아니라는 쪽에 힘이 실림.</mark> 이는 랜덤 그래프를 예쁘게 따르는 자주 발생하지 않는 상황 대비 실제 상황으로부터 서브그래프를 뽑아내게 되는 자주 마주치는 상황에 활용가능하다는 점에서 실용적.</p>
+<p><br>
+<br>
+<br></p>
 <div id="assessing-the-number-of-communities-in-a-network" class="section level4" number="7.4.4.1">
 <h4><span class="header-section-number">7.4.4.1</span> Assessing the Number of Communities in a Network</h4>
 <p>위에서 karate 데이터에 hierarchical clustering 사용했더니 clustering 3개 발견했음. 이 karate 데이터에 비추어볼 그래프로 2개의 <span class="math inline">\(G\)</span>를 생각하자.</p>
@@ -715,6 +733,9 @@ sequence.
 • Accordingly, we may conclude that there is likely an additional mechanism(s) at work in the actual
 karate club, one that goes beyond simply the density and the distribution of social interactions in
 this network.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="assessing-small-world-properties" class="section level4" number="7.4.4.2">
 <h4><span class="header-section-number">7.4.4.2</span> Assessing Small World Properties</h4>

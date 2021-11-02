@@ -70,6 +70,9 @@ transitivity(g.er)
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
 
 
 ### Generalized Random Graph Models
@@ -116,16 +119,17 @@ transitivity(fake.yeast)
 
 <br>
 <br>
-
 <br>
 <br>
-
+<br>
+<br>
 
 
 ### Network Graph Models Based on Mechanisms
 
 모던 네트워크 그래프 모델링에서 가장 중요한 혁명 중 하나가 전통적인 랜덤 그래프 모델에서 실제 세계의 성질을 모사하는 쪽으로 옮겨갔다는 거임. 이건 그냥 간단한 몇몇 메커니즘 도입하는 것으로 성공되었음.
 
+<br>
 <br>
 <br>
 
@@ -180,6 +184,10 @@ xlab=expression(log[10](p)), ylab="Clustering and Average Path Length")
 lines(steps, apl/max(apl), lwd=3, col="red")
 ```
 
+<br>
+<br>
+<br>
+
 #### Preferential Attachment Models
 
 대부분의 네트워크는 시간에 따라 변화함. 주어진 시간 $t$에 네트워크가 어떻게 변화하는지는 vertex preferences, fitness, age 등에 따라서든 다양. **Preferential attachment**는 많은 노드와 연결된 대형 노드가 추가적인 link를 확보할 가능성이 높다는 것. SNS에서의 셀럽 생각하면 됨. 
@@ -217,6 +225,15 @@ diameter(g.ba)
 transitivity(g.ba)
 ```
 
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+
 ### Assessing Significance of Network Graph Characteristics
 
 위에서 설명한 네트워크 모델들은 관측된 네트워크들로 통계적 모델링하긴 너무너무 간단함. 간단해서 현실모사를 제대로 못해서 쓸모가 없음. 그래도 중요하긴 함. 통계적 가설 검정 측면에서는 말이지. 특히 네트워크 그래프 성질의 significance를 측정(test)하는데 있어 자주 쓰임.
@@ -230,6 +247,11 @@ P_{\eta, \mathcal G} (t) = \frac{\text{#}\{ g \in \mathcal G \; : \; \eta(G) \le
 $$
 
 <mark>만약 $\eta(G^{obs})$가 이 분포를 따르지 않을 것 같은 확률이 높다면 $G^{obs}$는 $\mathcal G$로부터의 uniform draw가 아니라는 쪽에 힘이 실림.</mark> 이는 랜덤 그래프를 예쁘게 따르는 자주 발생하지 않는 상황 대비 실제 상황으로부터 서브그래프를 뽑아내게 되는 자주 마주치는 상황에 활용가능하다는 점에서 실용적.
+
+
+<br>
+<br>
+<br>
 
 
 #### Assessing the Number of Communities in a Network
@@ -292,6 +314,11 @@ sequence.
 • Accordingly, we may conclude that there is likely an additional mechanism(s) at work in the actual
 karate club, one that goes beyond simply the density and the distribution of social interactions in
 this network.
+
+<br>
+<br>
+<br>
+
 
 
 #### Assessing Small World Properties
