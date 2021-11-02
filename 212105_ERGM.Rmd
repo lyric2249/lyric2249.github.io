@@ -1,0 +1,163 @@
+## Introduction to ERGM
+
+### Exponential Random Graph Models
+
+#### What Is a Network?
+
+A representation of “relational data” in the form of a mathematical graph: A set of nodes along with a set of edges connecting some pairs of nodes.
+
+Adjacencey Matrix $X_{ij} = 1$, if node $i,j$ are connected. $0$ o.w.
+
+
+
+
+
+
+
+
+
+
+
+
+#### Exponential Random Graph Model (ERGMs)
+
+$$
+P_\theta (X=x) \frac{1}{\kappa(\theta)} \exp \Big( \theta' g(x) \Big)
+$$
+
+- $$X$$: A random network written as an adjacency Matrix, $X_{ij}$ is an indicator of an edge from node i to node j.
+- $g(x)$: A vector of network statistics of interest.
+- $\theta$: The vector of parameters measuring the **strengths of the effects** of the corresponding entries in the vector $g(x)$.
+	- $\theta >0$: There exists a tendency to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
+	- $\theta >0$: There exists a tendency **not** to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
+- $\kappa (θ)%: A normalizing constan
+
+Explain parsimoniously the local selection forces that shapes the global structure of a network.
+
+A network dataset may be considered like the response in a regression model, where the predictors are things such as “propensity for Indiv. to form triangles of partnerships.” <br>⇒ ERGM help us quantify the strength of local transitivity.
+
+The information from the use of an ERGM can be used to understand a particular phenomenon or to simulate new random realizations to networks that retain the essential properties of the original
+
+
+
+
+
+
+
+
+
+#### Network Statistics
+
+Basic Markov Network Statistics
+
+<Pics>
+
+##### Degree and Shared Partnership Distribution
+
+Degree: The number of edges the node has to other nodes.
+$D_k (x)$: The number of nodes with degree $k$. $\sum D_k(x) n$.
+
+Shared Partnership Distribution: 
+- The number of unordered pairs $(i, j)$ for which $i$ and $j$ have exactly share $k$ common neighbors and
+	- $EP_k (x)$: $X_{ij} = 1$
+	- $NP_k (x)$: $X_{ij} = 0$
+	- $DP_k (x)$: regardless of value $X_{ij}$
+- $\sum EP_k(x) = S_1(x)$ (edge counts) and $\sum DP_k (x) = {n \choose x}$ (dyad counts).
+
+
+The geometrically weighted statistics for degree and shared partnership distribution are defined by 
+
+$$
+\begin{alignat}{2}
+
+u(x | \tau) 
+&= e^\tau \sum_{i=1}^{n-2} \left \{ 1- \left ( 1-\frac{1}{e^\tau} \right)^i \right \} 
+&&\cdot D_i(x)
+
+\\
+
+v(x | \tau) 
+&= "
+&&\cdot EP_i(x)
+
+\\
+
+w(x | \tau) 
+&= "
+&&\cdot DP_i(x)
+
+\end{alignat}
+$$
+
+where the additional parameter $\tau$ specifies the decreasing rate of the weights put on the higher order terms.
+
+### Difficulty in Parameter Estimation
+
+#### Intractable Normalizing Constants
+
+The normalizing constant of ERGMs is $\kappa (\theta) \sum_{\text{all possible }x} \exp \Big \{ \theta' g(\mathbf x) \Big \}$.
+
+Since there exist $2^{n \choose x}$ networks even in the undirected case, $\kappa(\theta)$ is not directly computable.
+
+Due to the intractable normalizing constant, MCMC is key to both simulation and statistical inference.
+
+However, for the general MH algorithm, the acceptance probability involve an unknown normalizing constant ratio $\frac{\kappa(\theta)}{\kappa(\theta')}$, where $\theta '$ denotes the proposed value, and it renders its failure.
+
+
+
+#### Model Degeneracy
+
+For some configurations of $\theta$, the ERGMs produces networks that are
+either full (every tie exists) or empty (no ties exist) with probability close
+to one.
+
+Example: Basic Markovian Statistics
+When one edge is added to or removed from the network, the values of
+the basic Markovian statistics can change a lot while the values of other
+statistics do not change proportionally, so the dyadic dependence effects
+amplify quickly and the model tend to be degenerated.
+
+Current methods, MCMLE and stochastic approximation, sometimes
+produce degenerate estimates of θ if the starting value is in or close to a
+degeneracy region. ⇒ Local convergence property.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

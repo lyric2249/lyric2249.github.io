@@ -1,0 +1,205 @@
+# Network Stats
+
+## Introduction
+
+- Network = Graph: for mathematical purposes, networks are most commonly represented in a formal manner using graphs of various kinds
+
+Vertices (Vertex), Edges, directed, undirected
+
+
+
+
+### Types of Network Analysis
+
+1. Visualization
+
+2. Numerical Summaries
+
+– Transitivity (Clustering Coefficient): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
+
+– Assortativity Coefficient: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
+
+- The focus is on an attribute associated with network vertices (i.e., lawyer practice) and the network structure plays a comparatively more implicit role
+
+
+
+### Network Modeling and Inference
+
+관찰 대상 네트워크가 어떻게 생겼는지 묻고 구조를 특성화하는 것을 넘어, 보다 근본적인 수준에서 우리는 네트워크가 어떻게 발생했는지 이해하는 데 관심이 있을 수 있다. 즉, 우리는 네트워크가 복잡한 관심 시스템과 관련된 몇 가지 기본적인 프로세스에서 비롯되었다고 생각하고 이러한 프로세스의 본질적인 측면이 무엇인지 물어볼 수 있다. 네트워크가 어떤 과정을 거쳐 획득되었는지 - 사용된 measurement와 construction process - 또한 숙고될만한 부분이다.
+
+1. Network Modeling: 
+	a. Mathematical Models: 간단한 확률 규칙에 의거하여 네트워크를 생산. 규칙은 특성한 메커니즘 혹은 원칙을 파악하기 위한 시도의 일환으로 정의됨 (ex: ‘the rich get richer’)
+
+
+	b. Statistical Models: 대부분, 아니면 일부분이나마, 관측된 데이터와 맥락을 같이 하기 위해 정의되는 모델 (자주 probabilistic하기도 함, 1번의 성질도 같이 갖는다는 소리) 이며 이의 fit함은 통계적 추론의 일반적인 원칙들을 사용하여 영향을 받고, 또 평가도 받음
+
+	이러한 2개의 모델의 종류 사이에는 교집합이 존재하지만, 이 둘을 다루는 paper들 사이에는 그럼에도 불구하고 큰 차이들이 존재함
+
+
+2. Erdos-Renyi Model: 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도.
+
+3. Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 "significance" 한지를 판정하기 위한 네트워크의 **null classes**로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.
+
+4. Statistical Network Models: **Exponential Random Graph Models** 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 **Latent network models**은 **hierarchical modeling**에서의 latent 변수 사용법과 정확하게 평행하다 - 즉, ***대비된다???***. **Stochastic block models**는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.
+
+
+### Network Processes
+복잡계의 요소들간의 상호작용을 모사하기 위해, 네트워크 그래프 자체는 보통 네트워크 분석의 주된 목표가 됨. 물론 네트워크 구성 요소 중 시스템 내의 다른 모든 요소들과 상호작용하는 변량 혹은 속성이 있다면 이녀석이 최고관심의 대상이 될 것. 그러나 그럼에도 불구하고 요소들간의 상호작용이 앞에서 언급한 최고관심 대상에게 영향을 줄 것이라고 생각하는 것이 비합리적이지 않으므로 네트워크 그래프 자체는 여전히 모델링과 분석의 대상이기에 합당함. 우리는 확률과정을 네트워크에서의 "삶"이라고 해석해볼 수 있으며 네트워크 안의 vertices에 의해 첨수(indexed)됨. 이러한 과정에 관한 다양한 질문들은 정적 network process에 관한 것이든 동적 network process에 관한 것이든 이들을 예측하고자 하는 문제로 해석될 수 있음.
+
+
+#### Dynamic Processes
+
+network-based 관점에서 연구되는 많은 system들은 본질적으로 동적임. 동적이 얘들 특성과 더 잘 부합함.
+
+수학적 모델링이 여전히 이러한 과정을 모델링하는데 있어 1번째로 사용되는 툴이지만, network-based 통계적 모델들이 점차적으로 그 사용이 늘어나고 있음. 왜냐고? contact network에 대한 더욱 대량의 데이터가 사용 가능해지고 있으니까.
+
+
+
+– Statistical methods for analyzing network flows. Referring to the movement of something —
+materials, people, or commodities, for example — from origin to destination, flows are a special
+type of dynamic process fundamental to transportation networks (e.g., airlines moving people)
+and communication networks (e.g., the Internet moving packets of information), among others.
+– Dynamic network analysis, wherein the network, the process(es) on the network, or indeed
+both, are expected to be evolving in time.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

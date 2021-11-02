@@ -1,0 +1,214 @@
+## Mathematical Models for Network Graphs
+
+1. By a model for a network graph we mean effectively a collection
+
+$$
+\Big \{ 
+P_\theta (G), \; G \in \mathcal G \; \; : \; \; \theta \in \Theta
+\Big \}
+$$
+
+이때 
+
+where $G$ 는 가능한 그래프들의 collection (혹은 ‘ensemble’), $P_\theta$는 $G$의 확률분포 (간단하게 쓰면 $\cdot_\theta$ 생략하고 $P$만 씀), $\theta$는 $\Theta$ 내부에서 가능한 값들 안에서 펼쳐져있는 (ranging over) 패러미터들(패러미터값들)의 벡터.
+
+
+2. Variety of Purposes
+• The testing for ‘significance’ of a pre-defined characteristic(s) in a given network graph
+• The study of proposed mechanisms for generating certain commonly observed properties in real-world
+networks (such as broad degree distributions or small-world effects),
+• The assessment of potential predictive factors of relational ties.
+3. The richness of network graph modeling derives largely from how we choose to specify P(·), with
+methods in the literature ranging from the simple to the complex.
+4. It is useful for our purposes to distinguish, broadly speaking, between models defined more from (i)
+a mathematical perspective, versus (ii) a statistical perspective.
+• Those of the former class tend to be simpler in nature and more amendable to mathematical analysis
+yet, at the same time, do not always necessarily lend themselves well to formal statistical techniques
+of model fitting and assessment.
+• On the other hand, those of the latter class typically are designed to be fit to data, but their
+mathematical analysis can be challenging in some cases.
+• Nonetheless, both classes of network graph models have their uses for analyzing network graph
+data.
+
+### Classical Random Graph Models
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

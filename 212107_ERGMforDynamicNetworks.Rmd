@@ -1,0 +1,146 @@
+## ERGM for Dynamic Networks
+
+<pic>
+
+However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure
+
+### Temporal ERGM
+
+ERGM → TERGM → STERGM
+One-step transition probability $(t-1) → (t)$ (Markov Assumption)
+
+$$
+P_{\eta, g} \Big ( Y^t = y^t \Big | Y^{t-1} \; \; ; \; \; \theta \Big ) = \frac{\exp \Big \{ \eta(\theta) \cdot g(y^t, y^{t-1})\Big  \}}{c_{\eta, h}(\theta, y^{t-1})}
+$$
+
+
+
+TERGM: Temporal ERGM ⇒ The network at time $t$ is a single draw from an ERGM conditional on the network at time $t − 1$ (and possibly time $t − 2$)
+
+Simplify a statistical model for evolving social networks is to make a Markov assumption on the network from one time step to the next.
+
+If $A^t$ is the weight matrix representation of a single-relation social network at time $t$, then we might make the assumption that $A^t$ is independent of $A^1, \cdots, A^{t-2}$ if we given $A^{t-1}$.
+
+$$
+P\Big(A^2, A^3, \cdots, A^t \Big | A^1 \Big ) = P\Big(A^t \Big | A^{t-1} \Big ) P\Big(A^{t-1} \Big | A^{t-2} \Big ) \cdots P\Big(A^2 \Big | A^1 \Big ) \tag{Temporal ERGM}
+$$
+
+Given our Markov assumption, one natural way to generalize ERGMs for evolving networks is to assume $A^t \vert A^{t-1}$ admits an ERGM representation.
+
+
+Specify a function $\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k$, which can be understood as a temporal potential over cliques across two time-adjacent networks, and parameter vector $\theta \in \mathbb R^k$, such that the conditional pdf has the following form:
+
+$$
+P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \exp \left\{ \theta' \Psi \left ( A^t, A^{t-1} \right ) \right\}
+$$
+
+
+In particular, we will be especially interested in the special case of these models in which
+
+
+$$
+\Psi \left ( A^t, A^{t-1} \right ) = \sum_{ij}\Psi_{ij} \left ( A^t_{ij}, A^{t-1} \right )
+$$
+
+This form of the temporal potential function represents situations where the conditional distribution of $A^t | A^{t-1}$ factors over the entries $A^t_{ij}$ of $A^t$.
+
+
+##### Network Statistics for Temporal ERGM
+
+Density: The number of ties in the network as a whole.
+
+
+Stability: The tendency of a link that does exist at time $t − 1$ to continue existing at time $t$.
+
+Reciprocity: The tendency of a link from $i$ to $j$ to result in a link from $j$ to $i$ at the next time step.
+
+Transitivity: The tendency of a tie from $i$ to $j$ and from $j$ to $k$ to result in a tie from $i$ to $k$ at the next time step.
+
+
+#### Estimation
+
+Use the sequence of observed networks, $N^1  , N^2 , \cdots, N^T$, to find an estimator $\hat \theta$ that is close to the actual parameter value $\theta$.
+
+The normalizing constant is computationally intractable, often making explicit solutions of MLE difficult.
+
+Use MCMC stochastic approximation to estimate parameters.
+
+Let
+
+where expectations are taken over the **random variable $N^t$**, the network at time $t$.
+
+Note that
+
+The expectations can be approximated by Gibbs sampling from the conditional distributions.
+
+Perform an unconstrained optimization procedure akin to Newton’s method: Approximate the expectations, update parameter values in the direction that increases the likelihood, repeat until convergence.
+
+#### Degeneracy of Temporal ERGMs
+
+In the simple case where the transition distribution factors over the edges, it turns out these models avoid such problems entirely. 
+
+The intuitive reason for this is that, since the edges of $A^t$ are conditionally independent given $A^{t−1}$, as long as the individual conditional distributions for the $A^t_{ij}$ given $A^{t−1}$ are not too extreme, the conditional entropy of $A^t$ given $A^{t−1}$ should be large, and thus the entropy of $A^t$ itself must be large.
+
+Of course, this argument only works if the dependence of $A^t$ on $A^{t−1}$ is not too strong, and the strength of this dependence can be controlled by the magnitudes of the parameters.
+
+Calculate it for equivalence classes of graphs which can be analytically shown to have identical probability values, and weight each class according to its size in the entropy calculation.
+
+For the first plot, since the conditional probability of $A^2$ given $A^1$ is only a function of how many edges are present in $A^2$ and how many $ij$ values have $A^2_{ij} = A^1_{ij}$, and since the edges of $A^1$ are exchangeable, we can write the marginal distribution of $A^2$ purely in terms of the number of edges.
+
+Thus we need only calculate $n(n − 1)$ probability values, and the entropy is a weighted sum, where the weights are combinatorial quantities reflecting the number of graphs with that many edges.
+
+<pics>
+
+#### Assessing Statistic Importance and Quality of Fit
+
+Three Parameter Model
+Description of Network Statistics
+
+Reverse-Transitivity:
+Co-Supported:
+Co-Supporting:
+Popularity
+Generosity
+
+
+
+
+### Separable Temporal ERGM
+
+STERGM = A Separable Model for Dynamic Network
+
+Dynamic: social networks that evolve over time
+Time(discrete): $\cdots (t-2) → (t-1) → (t) → \cdots$
+Shows longitudinal properties based on the ERGM
+
+Separable
+	formation : new ties
+	duration : lasting ties
+
+- Temporal ERGM Interpretation
+
+However, caution must be used in interpreting their parameters.
+
+Property1: incidence of ties (the rate at which new ties are formed)
+Property2: duration of ties (how long they tend to last once they do)
+
+- Network statstic
+(ex) edge count $g(y^t , y^{t-1}) = | y^t |$
+
+coefficient on $g$ $prop$ possibility of a network with many ties
+
+But, this term simultaneously increases the weight of preservation of extant ties (fewer dissolved) ⇒ Both incidence and duration ↑
+
+The two-sided nature of these effects tends to muddle parameter interpretation. ⇒ STERGM which separates the incidence and duration of ties and allows for the separate interpretation.
+
++ : incidence/tie formation $y^+ = y^{t-1} \cup y^t$
+– : duration/tie dissolution $y^- = y^{t-1} \cap y^t \Rightarrow y^t = y^- \cup (y^+ \setminus y^{t-1})$
+
+
+
+
+
+
+#### Application Study
+
+#### Conclusion

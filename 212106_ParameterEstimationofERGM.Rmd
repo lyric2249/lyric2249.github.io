@@ -1,0 +1,506 @@
+## Parameter Estimation of ERGM
+
+
+
+Current Methods for ERGM
+
+1. Approximation-based Algorithm: Maximize the likelihood function with MCMC samples.
+	- Maximum Pseudo-likelihood Estimation (MPLE).
+	- Markov Chain Monte Carlo Maximum Likelihood Estimation (MCMCMLE).
+	- Markov Chain Monte Carlo Stochastic Approximation (MCMCSA).
+	- Varying Truncation Stochastic Approximation MCMC Method with Trajectory Averaging (VTSAMCMC).
+
+2. Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm: Introduce auxiliary variables to cancel the normalizing constant ratio $\frac{\kappa(\theta)} {\kappa(\theta')}$ or to approximate the normalizing constant. Used for the Bayesian Inference.
+	- The Exchange Algorithm.
+	- Auxiliary Variable Metropolis-Hasting Algorithm (AVMH).
+	- Adaptive Exchange Monte Carlo Algorithm (AEXMC).
+
+### Approximation-based Algorithm
+
+#### Maximum Pseudo Likelihood Estimation
+
+Approximate the likelihood function by a product of series of conditional likelihood functions by ignoring dependence within components of $X$.
+
+The conditional and pseudo likelihood of the ERGMs is
+
+$$
+\begin{align}
+\logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &= \theta ' g(x_{ij}^c)
+
+\\
+
+\log PL(\theta, x) &= \sum_{ij} \theta ' g(x_{ij}^c) \cdot x_{ij} - \sum_{ij}\log \left \{ 1+ \theta ' g(x_{ij}^c) \right \}
+
+\end{align}
+$$
+
+This method is the simplest one.
+Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.
+
+
+#### MCMC Stochastic Approximation
+The theory of exponential family implies that maximizing the ERGMs is
+equivalent to solving the system of equations
+Eθˆ{g(x)} = g(xobs)
+that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
+and it requires
+1 Independent network generation
+2 Parameter estimation update with stochastic approximation
+This method is inefficient in generating independent network samples.
+The number of iteration steps for generating each sample xk+1 is in the
+order of 100n
+2 where n is the number of nodes.
+
+
+#### MCMC Stochastic Approximation
+The theory of exponential family implies that maximizing the ERGMs is
+equivalent to solving the system of equations
+Eθˆ{g(x)} = g(xobs)
+that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
+and it requires
+1 Independent network generation
+2 Parameter estimation update with stochastic approximation
+This method is inefficient in generating independent network samples.
+The number of iteration steps for generating each sample xk+1 is in the
+order of 100n
+2 where n is the number of nodes.
+
+
+
+
+
+
+
+
+
+
+
+### Auxiliary Variable MCMC-based Approaches
+
+#### Exchange Algorithm
+Augment the distribution f(x|θ) by an auxiliary variable such that the
+normalizing constant ratio κ(θ)/κ(θ
+0
+) can be canceled in simulations.
+1 Propose a candidate point θ
+0
+from a proposal distribution denoted by
+q(θ
+0
+|θ, x).
+2 Generate an auxiliary variable y ∼ f(y|θ
+0
+) using a perfect sampler.
+3 Accept θ
+0 with probability min{1, r(θ, θ0
+|x)}, where
+r(θ, θ0
+|x) = π(θ
+0
+)
+π(θ)
+·
+f(x|θ
+0
+)
+f(x|θ)
+·
+f(y|θ)
+f(y|θ
+0)
+·
+q(θ|θ
+0
+, x)
+q(θ
+0
+|θ, x)
+
+Although the exchange algorithms work well for some discrete models,
+such as the Ising and autologistic models, they cannot be applied to
+many other models for which perfect sampling is not available.
+We can generate auxiliary variable y via MCMC samples, but there
+exists theoretical flaws on convergence issues. If the mixing of MCMC
+sample is very slow, which is a general feature of ERGMs, θ
+0
+tends to
+accept with a high probability.
+
+#### Monte Carlo MH Algorithm
+At each iteration, the MCMH algorithms replaces the unknown
+normalizing constant ratio κ(θ)/κ(θ
+0
+) by a Monte Carlo estimates and
+importance sampling approach.
+A Monte Carlo version of the Metropolis-Hastings algorithm.
+Unlike the exchange algorithms, the MCMH algorithm avoids the
+requirement for perfect sampling, and thus can be applied to many
+statistical models for which perfect sampling is not possible.
+This algorithm also suffers from a theoretical flaw on convergence, i.e.
+the importance sampling estimator might fail to converge to the true
+ratio κ(θ)/κ(θ
+0
+) with a finite number of samples.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Goodness-of-fit Plots
+
+Goodness-of-fit Plots for ERGMs
+0 1 2 3 4 5 6 7 8 9 10 12 14 16
+0.0 0.1 0.2 0.3 0.4
+degree
+proportion of nodes
+012345678
+0.0 0.1 0.2 0.3 0.4 0.5 0.6
+edge−wise shared partners
+proportion of edges
+1 2 3 4 5 6 7 8 9 11 13 15 17 19
+0.0 0.2 0.4 0.6 0.8 1.0
+minimum geodesic distance
+proportion of dyads
+Goodness−of−fit diagnostics
+Figure: GOF plots for the high school student friendship network
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Varying Trunction Stochastic Approximation MCMC
+
+The likelihood function of the ERGM is
+
+$$
+f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta' S(y)\Big \}
+$$
+
+where $\theta = (\theta_1 , \cdots, \theta_d)'$, $S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)'$.
+
+Due to 2 issues, intractability of $\kappa(θ)$ and model degeneracy, it is difficult to estimate $\theta$ well.
+
+These problem can be solved by using the varying truncation stochastic approximation MCMC
+
+
+
+
+#### Two Difficulties in Parameter Estimation
+
+Intractability of Normalizing constant $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta ' S(y)\Big\}$.
+
+MPLE
+- Assume dyadic independence
+- Highly dependent on the observed network
+
+MCMLE
+Depend on the choice of $\theta^{(0)}$
+Converge to a local optimal solution or fail to converge due to model degeneracy.
+
+##### Stochastic Approximation
+
+Solve a system of equation of the form $h(\theta) = 0$. 
+
+The classical SA algorithm is of the form
+
+$$
+\begin{align}
+\theta_{k+1} 
+&= \theta_k + a_k Y_k 
+
+\\
+
+&=\theta_k + a_k \Big \{ h(\theta_k) + \omega_k \Big \}, && k \ge 0 
+\end{align}
+$$
+
+
+
+$Y = h(\theta) + \omega$ is noisy estimate. $\omega$ is mean-zero noise.
+Under appropriate conditions (on $a_k$ , $h$, $\omgea_k$ ), the algorithm indeed can be shown to converge to a solution
+
+
+
+#### MCMC Stochastic Approximation
+
+Finding MLE of $\theta$ is equivalent to solving $E_\theta \Big \{ S(Y) \Big \} = S(y_{obs})$ in exponential families.
+
+Steps:
+1. Independence network generation: Sample $y^{(k+1)}$ from the $f(y | \theta^{(k)}$.
+	- Start with a random graph in which each arc variable $Y_{ij}$ is determined independently, with a probability 0.5 for the values 0 and 1
+	- Update the random graph using the Gibbs sampler or the MH algorithm
+
+2. Parameter estimate update with SA, 
+$$
+\theta^{(k+1)} = \theta^{(k)} - a_k D^{-1} \Big \{ U(y_{k+1}, \bar y_{k+1}) - S(y_{obs}) \Big \}
+$$
+
+where
+
+$$
+\begin{align}
+
+U(y_{k+1}, \bar y_{k+1} ) &= P(\bar y_{k+1} | y_{k+1}) \cdot S(\bar y_{k+1}) + \Big (1-P(\bar y_{k+1} | y_{k+1}) \Big ) \cdot S( y_{k+1}) 
+
+\\
+
+\bar y_{k+1} = 1-y_{k+1}
+
+\end{align}
+$$
+
+Inefficiency in generating independent network samples: Order of $100n^2$.
+
+
+#### Model Degeneracy
+For some configurations of θ, the model lumps all or most of its
+probability mass on just one or a few possible graphs.
+	Complete(fully connected) or empty(entirely unconnected)
+networks
+
+A solution to avoid this problem is to specify a model whose parameter
+space contains no or less degeneracy regions
+	But, this is often more difficult than usual.
+
+#### Varying Truncation SAMCMC for ERGMs 
+
+##### Setup
+
+($C_1$) Set
+
+$$
+\begin{align}
+
+a_k &= C_a \left( \frac{k_0}{k_0 \vee k)}\right)^\eta
+
+\\
+
+b_k &= C_b \left( \frac{k_0}{k_0 \vee k)}\right)^\ksi
+
+\end{align}
+$$
+
+for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\ksi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$.
+
+($C_2$)
+
+$\bigcup_{s \ge 0} \mathcal K_s = \Theta$, where $\mathcal K_s \subset \text{int}(\mathcal K_{s+1})$
+
+And also,
+
+$\mathcal X$: a space of social network
+$\mathcal T$: $\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0$ (reinitialization mechanism)
+
+$\sigma_k$: the number of reinitialization performed until iteration $k$. ($\sigma_0 = 0$)
+
+
+##### Varying truncation SAMCMC algorithm for ERGMs
+
+1. Draw an auxiliary network $y_{k+1}$ from the distribution $f(y | \theta^{(k)}$ using the Gibbs sampler iterating for $m$ sweeps.
+
+2. Set $\theta^{(k + \frac{1}{2})} = \theta^{(k)}  + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}$
+
+3. Let
+$$
+\begin{cases}
+
+
+\sigma_{k+1} = \sigma_k, \; \; \left( y_{k+1}, \theta^{(k + {1})} \right) =  \left( y_{k+1}, \theta^{(k + \frac{1}{2})} \right)
+&
+\| \theta^{(k + \frac{1}{2})} - \theta^{(k)} \| \le b_k, \; \; \theta^{(k + \frac{1}{2})} \in \mathcal K_{\sigma_k}
+\\
+\sigma_{k+1} = \sigma_k+1, \; \; \left( y_{k+1}, \theta^{(k + {1})} \right) =  \Tau \left( y_{k}, \theta^{(k)} \right)
+&
+o.w.
+\end{cases}
+$$
+
+
+
+##### Trajectory averaging estimator
+
+$\theta$ can be estimated by the trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}$
+
+In practice, to reduce the variation of the estimate, we often use $\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}$
+
+to estimate $\theta$, where $n_0$ denotes the number of burn-in iterations.
+
+
+- Free parameters: $\{a_k\}$, $\{b_k\}$, $\{\mathcal K_s, \; s \le 0\}$, $m$
+
+
+$k_0 = 100$, $\eta = 0.65$, $\ksi = \frac{0.5 + \eta}{2}$.
+
+$C_a$, $C_b$: adjusted for different examples
+
+choose $\mathcal K_0$ to be around MPLE.
+
+In this artical, we set $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$.
+
+$m=1$.
+
+##### Numerical Examples
+
+Methods: MCMLE, SAA (Stochastic Approximation Algorithm), Varying truncation SAMCMC
+SAMCMC: independent 5 runs(each of 200,000 iterations) (m=1, Ca = 0.01, Cb = 1000, η, ξ, κs are defalut)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

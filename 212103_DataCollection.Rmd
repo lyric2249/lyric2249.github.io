@@ -1,0 +1,455 @@
+## Data Collection and Sampling
+
+Difficulties in Network Data Collection. 뭔 분야든 통계의 근간은 데이터 수집. 데이터가 **IID**라면 이 데이터는 sample이나 실험에서 확보한 데이터. 하지만 이는 네트워크 실험에서는 사실상 불가능. 따라서 우리는 샘플을 deal with 하기가 어려우며, 이전에 해왔던 것 대비 일이 무척 어려워짐. 이러한 복잡성은 empirical networks를 다룰 때는 너무나도 자주 무시되고 있어서 안타까운 실정임.
+
+
+
+### Sampling Procedures
+
+
+Ideal Data: Network Census
+
+
+The ideal data would be a census or enumeration of the network.
+This would record every node, and every edge between nodes, with no
+spurious additional nodes or edges.
+If you are in the fortunate situation of having a complete network
+census, you can pretty much ignore the sampling process, and proceed
+to model network formation.
+4 / 30
+Sampling Procedures
+Sampling Designs
+Coping Strategies
+Big Data Solves Nothing
+Imperfections in Network Censuses
+Unfortunately, even studies which try to get a complete census may fall
+short of perfection.
+The exact failure modes depend on the nature of the network and
+indeed on the details of the measurement process; for concreteness, I
+focus here on survey-based measurements of social networks.
+These surveys often work by approaching people and asking them
+questions like “Who are your friends?” or “From whom do you seek
+advice?” or “From whom have you borrowed money?”
+5 / 30
+Sampling Procedures
+Sampling Designs
+Coping Strategies
+Big Data Solves Nothing
+Imperfections in Network Censuses
+There can be different results depending on whether are given
+suggestions, or a checklist of possibilities, or are asked to
+spontaneously recall names.
+Answers may be influenced by shame, boastfulness, or other emotions
+related to the “presentation of self in everyday life”.
+In older studies, it was common to frame the question as something like
+“name up to three colleagues you commonly go to for advice”; such
+censoring by degree necessarily prevented any recorded out-degree
+from being higher than three.
+
+
+
+
+
+
+
+
+
+### Sampling Designs
+
+우리가 **true**(참정보, 참값)를 확보하는 것이 불가능하다면, 우리는 IID 통계량에 의해 예시되었던 "population" graph $G = (V, E)$ 확보를 포기하고 "sample" graph $G^\ast = (V^\ast, E^\ast)$를 얻는 쪽으로 선회한다. 이때 $V^\ast \subset V$, $E^\ast \subset E$. 
+
+이러한 sampled subgraphs를 얻기 위한 다양한 방법들에 대응되는 서로 다른 sampling designs들이 존재한다. 우선 population으로부터의 units들에 대한 simple random sample (SRS)를 이해하는 것이 샘플링을 이해하기 위한 1단계가 된다. 네트워크에서는 단순 랜덤 샘플마저도 복잡한 이해를 거쳐야 한다.
+
+#### Induced and Incident Subgraph
+
+node $V$의 Simpl Random Sample (SRS)인 $V^\ast$로부터 시작하자. 이로부터 발생시킨 (induced) subgraph $(i, j) \in E^\ast$. 이때 $(i, j) \in E^\ast \Leftrightarrow (i,j) \in E$, $i \in V^\ast$ and $j \in V^\ast$ 여야만 함.
+
+This natural procedure, induced subgraph sampling, turns out be very
+biased for even very simple network statistics, though the biases can
+sometimes be calculated and compensated for.
+
+
+반면에 우리는 edge의 SRS에서 시작해볼 수도 있다. 이 경우 $E^\ast$는 $E$의 SRS. 이후 이 edge 양끝에 해당하는 발생을 node로서 잡는다. 이인즉슨 $\exists j\inV:(i,j) \in E^\ast \Rightarrow i \in V^\ast$.
+
+Experience with conventional surveys may make incident-subgraph
+sampling seem odd, but there are many situations where it’s actually
+quite natural.
+
+##### Example of a Bias
+
+The canonical example of how sampling can induce a bias, even when
+we’re just doing a simple random sample of nodes, is the mean degree.
+Intuitively, we don’t see any edges outside the induced subgraph, so the
+degree we record for each node is at most its real degree, and the
+mean degree in the sampled graph should be ≤ the true mean degree
+
+let $k_i = \sum_{j=1}^n A_{ij}$, 즉 $k_i$는 node $i$의 degree. 이 경우 모든 네트워크에 걸친 mean degree는 $\bar k = \frac{1}{n} \sum_{i=1}^n k_{i} \$. 여기서 $m$개의 노드를 SRS 한다면, node $i$에게 부여된 확률은 모든 각각의 node에게 부여된 확률과 같으므로, 따라서 $\pi = \frac{m}{n}$. 
+
+여기서 $Z_i$를 $i \in V^\ast$ 여부에 대한 indicator로 정의하자. 그렇다면 node $i$가 샘플 안에 있을 경우 $Z_i = 1$.
+
+또한 관측된 graph $G^\ast$는 관측된 adjacency matrix $A^\ast$를 보유하며, $A_{ij}^\ast =1$ iff $A_{ij}=1$이며 $i,j$ 양쪽 모두가 샘플에 있을 경우에만.
+
+그렇다면 plug-in estimate $\bar k$ from $G^\ast$의 기댓값 $\bar k^\ast$는 어떻게 되는가?
+
+$$
+\begin{alignat}{2}
+
+E \left( \bar k^\ast \right)
+
+
+&= E \left( \frac{1}{m} \sum_{i \in V^\ast} k_i^\ast \right)
+
+&&= E \left( \frac{1}{m} \sum_{i \in V^\ast} \sum_{j \in V^\ast} A_{ij}^\ast \right)
+
+\\
+
+
+&= E \left( \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}Z_i Z_j \right)
+
+&&= \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}  E \left(Z_i Z_j \right)
+
+\\
+
+&= \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}  \pi^2
+
+&&=\frac{1}{n \pi} \pi^2 \sum_{i=1}^n \sum_{j =1}^n A_{ij}  
+
+\\
+
+&= \frac{\pi}{n } \sum_{i=1}^n \sum_{j =1}^n A_{ij}  
+
+&&= \pi \bar k
+
+
+
+
+\end{alignat}
+$$
+
+#### Exploratory Sampling Design
+
+For both induced- and incident-subgraph sampling, the sampling frame
+is in some sense separate from the actual, realized graph. The
+population from which we draw our SRS has to include all nodes, or all
+edges, but doesn’t use the graph beyond that.
+
+In egocentric designs, we sample nodes and record information about
+their local neighborhoods, or ego networks.
+
+“ego”: Other times we record edges and non-edges among the
+neighbors of the initial node; This is sometimes called a star design.
+
+
+
+When we deal with star designs, we collect multiple local graph
+neighborhoods, and an important question is whether those overlap;
+depending on the recording process, this information might be available
+
+#### Snowball Sampling
+
+Start with a seed node, and record its immediate neighborhood.
+
+We then repeat the process for each of the neighbors, and then their
+neighbors, etc., until either no new nodes are found or we get tired, i.e.,
+a pre-selected size is reached.
+
+There can be multiple seeds; there may then be an issue of determining
+when two snowballs which have formed around different seeds have
+over-lapped.
+
+Snowball sampling leads to a different distribution over graphs than
+does either induced- or incident-subgraph sampling.
+
+Even if the seed is chosen by a simple random sample, the other nodes
+picked up by the snowball are not a random sample.
+
+Since they are nodes which can be reached by following paths from the
+seed, they must have degree at least 1, must be at least weakly
+connected to the seed, and in general tend to have higher-than-average
+degree.
+
+##### Respondent-driven Sampling
+
+An important variant on snowball sampling, for social networks, is
+respondent-driven sampling.
+
+This originated as a way of studying members of hard-to-find (“hidden”)
+sub-populations - often ones which were hidden because membership
+in them is stigmatized or illegal.
+
+The technique is to find some initial members of the group in question,
+and then persuade them to recruit other members whom they know as
+research subjects.
+
+Often, the respondents are given unique physical tokens to pass on
+those whom they recruit, so that links can be traced, and there may be
+some incentive for participation.
+
+Censoring by degree can result if, for instance, there is only a limited
+number of physical tokens per respondent.
+
+##### Trace-route Sampling
+
+
+Trace-route sampling probes a network by tracing routes through it.
+The typical procedure goes as follows:
+1. Pick a set of source nodes.
+2. Pick a set of target nodes.
+3. For each source-target combination, find a path from the source to the target, and record all nodes and edges traversed along the path.
+Clearly, a lot will depend on how, precisely, paths are found, but this is
+an application-specific issue
+
+Depending on exactly how route-tracing gets done, one may or may not
+get information from “failed” routes, i.e., ones which didn’t succeed in
+getting from source to target.
+
+Trace-route sampling systematically distorts the degree distribution,
+making all kinds of graphs look like they have heavy-tailed distributions
+whether they do or not
+
+
+
+
+
+
+
+
+
+
+### Coping Strategies
+
+#### Head in Sand
+
+That is, ignore distortions or biases due to sampling, and pretend that
+the graph we see is the whole graph. This is generally not a good idea.
+
+For induced-subgraph sampling, the mean degree is biased from the
+real degree by a calculable factor. Indeed, the sample values of motif
+counts for all motifs are also biased (again, in calculable ways). These
+would be pretty easy to compensate for.
+
+But degree distribution, for example, gets distorted in very complicated,
+hard-to-fix ways, even with induced-subgraph sampling.
+
+#### Learn Sampling Theory
+
+Classical sampling theory is a theory of statistical inference in which
+probability assumptions are only made about the sampling process.
+The true population is regarded as unknown but fixed, and no
+stochastic assumptions are made about how it is generated. (One can
+always regard this as conditioning on the unknown population.)
+Because all the probability assumptions refer to the sampling design,
+and the validity of the inference depends only on whether the design
+has been accurately modeled, this is sometimes called design-based
+inference.
+
+Try to estimate the mean $\mu$ of some quantity $X_i$ over a finite population of size $n$, using a sample of units $S$.
+A simple, classic solution is the **Horvitz-Thompson estimator**:
+
+$$
+\hat \mu_{HT} \equiv \frac{1}{n} \sum_{i \in S}\frac{X_i}{\pi_i}
+$$
+
+이때 $\pi_i$는 unit $i$의 (assumed-known) 포함확률, 즉 unit $i$가 샘플에 포함될 확률.
+
+포함 확률은 $\pi = \frac{|S|}{n}$로 모두 동일하다는 것을 notice. 즉 우리는 다시 sample mean $X$로 되돌아감. 이에 대한 직관은 곧 우리가 1개의 unit을 보았고 그 unit의 포함확률이 $\pi_i$라면, 우리가 보지 못한 $\frac{1}{\pi_i}$개의 다른 것들이 있다는 것이 골자이다. 더 이론적으로 들어가자면 우리는 이것이 **UE**임을 보일 수 있다.
+
+indicator 변수 $Z_i = I(i \in S), i \in 1:n$을 도입하자. 이를 사용하여 $\hat \mu_{HT}$의 기댓값을 구하면
+
+
+$$
+\begin{alignat}{2}
+
+E \left( \hat \mu_{HT} \right)
+
+
+&= E \left(\frac{1}{n} \sum_{i \in S} \frac{X_i}{\pi_i} \right)
+
+&&= E \left(\frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} Z_i \right)
+
+\\
+
+&= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} E \left( Z_i \right)
+
+&&= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} P \left( Z_i =1 \right)
+
+\\
+
+&= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} \pi_i
+
+&&= \frac{1}{n} \sum_{i \in 1:n} {X_i}
+
+\\
+
+&= \mu
+
+\end{alignat}
+$$
+
+또한
+
+$$
+Var \left ( \hat \mu_{HT} \right )= \frac{1}{n^2} \sum_{i \in 1:n} \sum_{j \in 1:n} X_i X_j \left( \frac{\pi_{ij}}{\pi_i \pi_j} -1 \right)
+$$
+
+이때 $\pi_{ij}$는 joint 포함확률. 즉슨 $i,j$가 한번에 샘플에 들어있을 확률. ($\pi_{ii} = \pi_i$로 취급)
+
+모든 $\pi_i \rightarrow 1$로 가게 된다면, $Var \rightarrow 0$.
+
+이 Var 참값을 정확히 계산하는 건 불가능. 우리는 population 안의 모든 unknown units의 합을 구하는건 불가능하기 때문. 그러가 empirical 대체값은 주어져 있다. 이는
+
+$$
+\hat {Var} \left ( \hat \mu_{HT} \right) = \frac{1}{n^2} \sum_{i \in 1:n} \sum_{j \in 1:n} X_i X_j \left( \frac{\pi_{ij}}{\pi_i \pi_j} -1 \right)
+$$
+
+
+
+Strengths and Weaknesses
+The sampling-theory approach works well for stuff you can express as
+averages (or totals) of population quantities, and where you can work
+out inclusion probabilities from knowledge of the sampling design.
+Many network statistics can be expressed as averages (sometimes by
+defining the “unit” as, e.g., a dyad of nodes), but exact calculation of
+inclusion probabilities is harder.
+
+#### Missing Data Tools
+Another approach is to treat the unobserved part of the network as
+missing data, and try to infer it.
+
+This can range from simple imputation strategies, to complex
+model-based strategies for inference, such as the EM algorithm.
+
+Successful imputation or EM is not design-based but model-based, and
+requires a model both of the network, and of the sampling process.
+
+It is very, very rare for anything to be “missing at random”, let alone
+“missing completely at random”.
+
+#### Model the Effective Network
+A final strategy is to model the observed network. This means modeling
+both the observation/sampling process and the actual network, but
+combining them so that we get a family of probability distributions over
+the observed graph.
+
+That observed network is (or can be) still informative about the
+parameters of the underlying generative model.
+
+If that is all that’s of interest, it may be possible to short-circuit the use of
+EM or imputation, which are more about recovering the full graph
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Big Data Solves Nothing
+
+Even when, as the promoters say, “n = all”, and the data are
+automatically recorded (voluntarily or involuntarily), almost all the
+network sampling issues we’ve gone over remain.
+After all, as the promoters do not say, you’re getting all of a biased
+convenience sample, not all of the truth.
+Three issues are particularly prominent for network
+1. Entity Resolution
+2. Diffusion
+3. Performativity
+
+#### Entity resolution
+Entity resolution, or record linkage, is a pervasive problem for data
+analysis.
+Generally speaking, it’s the problem of determining when multiple data
+points all record information about the same thing (or records which are
+apparently co-referent really are about different things).
+In networks, this is usually about determining when two (or more)
+apparent nodes really refer to the same underlying entity.
+
+#### Diffusion
+
+Diffusion refers to the way that many of the automatically-recorded
+networks which provide us with our big data have themselves spread
+over other, older social networks.
+What we see when we look at the network of (say) Facebook ties is a
+combination of the pre-Facebook social network and the results of the
+diffusion process.
+Comparatively little has been done to understand the results.
+Even if the diffusion process treats all nodes homogeneously, the
+network-as-diffused can differ radically in its properties from the
+underlying network.
+
+#### Performativity
+Performativity, the way theories can become (partially) self-fulfilling
+prophecies. The companies which run online social networks are all
+very invested in getting very big, very dense networks of users. This is
+why they all offer link suggestion or link recommendation services.
+The algorithms behind these recommendations implement theories
+about how social networks form, and what sort of link patterns they
+should have.
+To the extent that people follow these recommendations, then, the
+recorded network will seem to conform to the theory.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
