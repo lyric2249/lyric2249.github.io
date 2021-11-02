@@ -5,9 +5,9 @@ sort: 2
 
 
 
-# Introduction
+## Introduction
 
-## What
+### What
 
 for linear model $$Y = X \beta + \epsilon$$
 
@@ -89,7 +89,7 @@ $$
 
 
 
-## Random Vectors and Matrices
+### Random Vectors and Matrices
 
 let rv $$Y = \begin{pmatrix} y_1, & \cdots &, y_n \end{pmatrix}'$$ with $$E(y_i) = \mu_i , \; \; \; Var(y_i)=\sigma_{ii} \; \; (=\sigma_i^2), \; \; \; Cov(y_i , y_j) = \sigma_{ij}$$.
 
@@ -156,7 +156,7 @@ $$
 <br/>
 <br/>
 
-## Multivariate Normal Distributions
+### Multivariate Normal Distributions
 
 $$
 
@@ -235,7 +235,7 @@ Theorem
 <br/>
 
 
-## Distributions of Quadratic Forms
+### Distributions of Quadratic Forms
 
 $$E(Y) = \mu, \; Cov(Y) = V$$. then $$E(Y'AY) = tr(AV) + \mu ' A \mu$$. prf)
 

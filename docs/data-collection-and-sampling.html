@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Completeness | Self-Study</title>
-  <meta name="description" content="3.2 Completeness | Self-Study" />
+  <title>7.3 Data Collection and Sampling | Self-Study</title>
+  <meta name="description" content="7.3 Data Collection and Sampling | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Completeness | Self-Study" />
+  <meta property="og:title" content="7.3 Data Collection and Sampling | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Completeness | Self-Study" />
+  <meta name="twitter:title" content="7.3 Data Collection and Sampling | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inference.html"/>
-<link rel="next" href="hypothesis-test.html"/>
+<link rel="prev" href="descriptive-statistics-of-networks.html"/>
+<link rel="next" href="mathematical-models-for-network-graphs.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -488,79 +488,322 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="completeness" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Completeness</h2>
-<p>r<strong><em>s</em></strong> $X_1 , , X_n $의 stats $ T (X_1 , , X_n ) $에 대해, let</p>
-<p><span class="math display">\[
-\forall \theta \in \Omega: \; \; E \left[ g(T) \right]=0
-\]</span></p>
-<p>이때 이를 만족하는 <span class="math inline">\(\theta\)</span>에 무관한 함수 <span class="math inline">\(g\)</span>가 <span class="math inline">\(g(\cdot) \equiv 0\)</span> 뿐이라면, <span class="math inline">\(T\)</span>는 CS. <span class="math inline">\(T\)</span>가 <span class="math inline">\(\theta\)</span>에 대한 SS라면, 이는 CSS.</p>
-<p>stats <span class="math inline">\(Y\)</span>가 분포모임 <span class="math inline">\(\{g(y;\theta);\theta \in \Theta \}\)</span>의 한 원소를 pdf로 가진다고 하자.</p>
-<p><span class="math display">\[
-\forall \theta \in \Theta: \; \; E_{\theta} \left[ \varphi(Y) \right] \overset{\theta}{=}{0} \; \; \; \rightarrow \; \; \; \varphi(y) \overset{y}{=} 0
-\]</span></p>
-<p>위의 명제가 성립할 때 위 분포족은 completeness를 지닌다.
-* 여기서 <span class="math inline">\(\varphi\)</span>는 <span class="math inline">\(\theta\)</span>에 무관한 함수이다.
-* 피명제는 보다 엄밀히는 <span class="math inline">\(\forall \theta: P_{\theta} \{ \varphi (Y)=0 \}=1\)</span>.
-* <span class="math inline">\(\overset{\theta}{=}\)</span>는 모든 <span class="math inline">\(\theta \in \Omega\)</span>에 대해 등호가 성립함을 나타낸다.</p>
-<p>Remarks:
-1. completeness는 본질적으로 확률분포의 패러미터 <span class="math inline">\(\theta\)</span>가 통계량 <span class="math inline">\(Y\)</span>를 통해 추정될 수 있음을 보장하는 조건으로 이해될 수 있다.
-* 즉, completeness는 서로 다른 패러미터값을 지니는 두 분포는 서로 구분(distinct)됨을 보장해주는 조건이다.
-2. 통계량 <span class="math inline">\(Y\)</span>의 분포족이 completeness를 만족하면, <span class="math inline">\(Y\)</span>를 완비통계량 CS라고 부른다.
-3. 완비성은 CS의 함수로 이루어지는 UE는 unique하다는 사실을 보이는 도구로 이용된다. 레만-쉐페 thm 참조.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<div id="레만-쉐페-thm." class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> 레만-쉐페 thm.</h3>
-<p>패러미터 <span class="math inline">\(\theta\)</span>에 대해 <span class="math inline">\(T\)</span>가 CSS, <span class="math inline">\(S(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. 이때 $(T)=E $는 <span class="math inline">\(\theta\)</span>의 UMVUE.</p>
-<p><br></p>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta)\)</span>. <span class="math inline">\(\theta\)</span>에 대한 CSS <span class="math inline">\(Y=u(X_1 , \cdots, X_n)\)</span>. 이때 임의의 UE <span class="math inline">\(\hat \theta\)</span>에 대해</p>
-<p><span class="math display">\[
-\varphi (Y) = E(\hat \theta \rvert Y)
-\]</span></p>
-<p>는 <span class="math inline">\(\theta\)</span>에 대한 UMVUE. 이는 unique.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
+<div id="data-collection-and-sampling" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Data Collection and Sampling</h2>
+<p>Difficulties in Network Data Collection. 뭔 분야든 통계의 근간은 데이터 수집. 데이터가 <strong>IID</strong>라면 이 데이터는 sample이나 실험에서 확보한 데이터. 하지만 이는 네트워크 실험에서는 사실상 불가능. 따라서 우리는 샘플을 deal with 하기가 어려우며, 이전에 해왔던 것 대비 일이 무척 어려워짐. 이러한 복잡성은 empirical networks를 다룰 때는 너무나도 자주 무시되고 있어서 안타까운 실정임.</p>
+<div id="sampling-procedures" class="section level3" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Sampling Procedures</h3>
+<p>Ideal Data: Network Census</p>
+<p>The ideal data would be a census or enumeration of the network.
+This would record every node, and every edge between nodes, with no
+spurious additional nodes or edges.
+If you are in the fortunate situation of having a complete network
+census, you can pretty much ignore the sampling process, and proceed
+to model network formation.
+4 / 30
+Sampling Procedures
+Sampling Designs
+Coping Strategies
+Big Data Solves Nothing
+Imperfections in Network Censuses
+Unfortunately, even studies which try to get a complete census may fall
+short of perfection.
+The exact failure modes depend on the nature of the network and
+indeed on the details of the measurement process; for concreteness, I
+focus here on survey-based measurements of social networks.
+These surveys often work by approaching people and asking them
+questions like “Who are your friends?” or “From whom do you seek
+advice?” or “From whom have you borrowed money?”
+5 / 30
+Sampling Procedures
+Sampling Designs
+Coping Strategies
+Big Data Solves Nothing
+Imperfections in Network Censuses
+There can be different results depending on whether are given
+suggestions, or a checklist of possibilities, or are asked to
+spontaneously recall names.
+Answers may be influenced by shame, boastfulness, or other emotions
+related to the “presentation of self in everyday life.”
+In older studies, it was common to frame the question as something like
+“name up to three colleagues you commonly go to for advice”; such
+censoring by degree necessarily prevented any recorded out-degree
+from being higher than three.</p>
 </div>
-<div id="rao-blackwell-thm.-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Rao-Blackwell thm.</h3>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta), \theta \in \Theta\)</span>.
-1. <span class="math inline">\(Y= u(X_1 , \cdots, X_n)\)</span>는 <span class="math inline">\(\theta\)</span>의 CSS.
-2. <span class="math inline">\(Z= v(X_1 , \cdots, X_n)\)</span>의 분포는 <span class="math inline">\(\theta\)</span>에 의존하지 않는다.</p>
-<p>이상의 조건이 만족되면 <span class="math inline">\(Y \perp Z\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<ul>
-<li>exponentail family: <br></li>
-</ul>
-<p>pdf가 적절한 함수 <span class="math inline">\(a, b, c_i, t_i (i=1,\cdots, k)\)</span>에 대해 <span class="math inline">\(f(x;\theta) = a(\theta) b(x) \exp \left[ \sum_{i=1}^k c_i (\theta) t_i (x) \right], -\infty\)</span></p>
-<p><br>
-<br>
-<br></p>
-<p>지수족에 속하는 pdf로부터 r<strong>s</strong> $X_1 , , X_n $를 얻었다면, 통계량 $S_1 = <em>{i=1}^n t_1 (X_i), , S_k = </em>{i=1}^n t_k (X_i) $ 는 패러미터 $_1 , , _k $에 대한 joint (C) SS이다.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p><span class="math inline">\(g(\theta)\)</span>에 대한 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\forall \epsilon &gt;0: \lim_{n \rightarrow \infty} P \left( \vert \tau(\pmb X) - g(\theta) \vert \le \epsilon \right) =1\)</span>을 만족하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistency를 가진다.</p>
-<p>이는 표본의 크기가 커짐에 따라 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(g(\theta)\)</span>에 <strong>확률적으로 수렴</strong>한다는 것. 표본의 크기가 매우 클 때, est <span class="math inline">\(\tau(\pmb X)\)</span>로부터 계산된 추정값 estimates는 높은 확률로 참모수값에 매우 가까이 있다는 뜻.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>를 <span class="math inline">\(g(\theta)\)</span>의 것일 때, <span class="math inline">\(\forall \theta \in \Theta: \lim_{n \rightarrow \infty} P E \left\{ \tau(\pmb X)-g(\theta)\right\}^2 = 0\)</span>이 성립하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistent.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\theta\)</span>의 consistent이고, <span class="math inline">\(g(x)\)</span>가 <span class="math inline">\(\theta\)</span>에서 연속인 함수라면, <span class="math inline">\(g\tau(\pmb X)\)</span></p>
+<div id="sampling-designs" class="section level3" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Sampling Designs</h3>
+<p>우리가 <strong>true</strong>(참정보, 참값)를 확보하는 것이 불가능하다면, 우리는 IID 통계량에 의해 예시되었던 “population” graph <span class="math inline">\(G = (V, E)\)</span> 확보를 포기하고 “sample” graph <span class="math inline">\(G^\ast = (V^\ast, E^\ast)\)</span>를 얻는 쪽으로 선회한다. 이때 <span class="math inline">\(V^\ast \subset V\)</span>, <span class="math inline">\(E^\ast \subset E\)</span>.</p>
+<p>이러한 sampled subgraphs를 얻기 위한 다양한 방법들에 대응되는 서로 다른 sampling designs들이 존재한다. 우선 population으로부터의 units들에 대한 simple random sample (SRS)를 이해하는 것이 샘플링을 이해하기 위한 1단계가 된다. 네트워크에서는 단순 랜덤 샘플마저도 복잡한 이해를 거쳐야 한다.</p>
+<div id="induced-and-incident-subgraph" class="section level4" number="7.3.2.1">
+<h4><span class="header-section-number">7.3.2.1</span> Induced and Incident Subgraph</h4>
+<p>node <span class="math inline">\(V\)</span>의 Simpl Random Sample (SRS)인 <span class="math inline">\(V^\ast\)</span>로부터 시작하자. 이로부터 발생시킨 (induced) subgraph <span class="math inline">\((i, j) \in E^\ast\)</span>. 이때 <span class="math inline">\((i, j) \in E^\ast \Leftrightarrow (i,j) \in E\)</span>, <span class="math inline">\(i \in V^\ast\)</span> and <span class="math inline">\(j \in V^\ast\)</span> 여야만 함.</p>
+<p>This natural procedure, induced subgraph sampling, turns out be very
+biased for even very simple network statistics, though the biases can
+sometimes be calculated and compensated for.</p>
+<p>반면에 우리는 edge의 SRS에서 시작해볼 수도 있다. 이 경우 <span class="math inline">\(E^\ast\)</span>는 <span class="math inline">\(E\)</span>의 SRS. 이후 이 edge 양끝에 해당하는 발생을 node로서 잡는다. 이인즉슨 <span class="math inline">\(\exists j\inV:(i,j) \in E^\ast \Rightarrow i \in V^\ast\)</span>.</p>
+<p>Experience with conventional surveys may make incident-subgraph
+sampling seem odd, but there are many situations where it’s actually
+quite natural.</p>
+<div id="example-of-a-bias" class="section level5" number="7.3.2.1.1">
+<h5><span class="header-section-number">7.3.2.1.1</span> Example of a Bias</h5>
+<p>The canonical example of how sampling can induce a bias, even when
+we’re just doing a simple random sample of nodes, is the mean degree.
+Intuitively, we don’t see any edges outside the induced subgraph, so the
+degree we record for each node is at most its real degree, and the
+mean degree in the sampled graph should be ≤ the true mean degree</p>
+<p>let <span class="math inline">\(k_i = \sum_{j=1}^n A_{ij}\)</span>, 즉 <span class="math inline">\(k_i\)</span>는 node <span class="math inline">\(i\)</span>의 degree. 이 경우 모든 네트워크에 걸친 mean degree는 $k =  <em>{i=1}^n k</em>{i} $. 여기서 <span class="math inline">\(m\)</span>개의 노드를 SRS 한다면, node <span class="math inline">\(i\)</span>에게 부여된 확률은 모든 각각의 node에게 부여된 확률과 같으므로, 따라서 <span class="math inline">\(\pi = \frac{m}{n}\)</span>.</p>
+<p>여기서 <span class="math inline">\(Z_i\)</span>를 <span class="math inline">\(i \in V^\ast\)</span> 여부에 대한 indicator로 정의하자. 그렇다면 node <span class="math inline">\(i\)</span>가 샘플 안에 있을 경우 <span class="math inline">\(Z_i = 1\)</span>.</p>
+<p>또한 관측된 graph <span class="math inline">\(G^\ast\)</span>는 관측된 adjacency matrix <span class="math inline">\(A^\ast\)</span>를 보유하며, <span class="math inline">\(A_{ij}^\ast =1\)</span> iff <span class="math inline">\(A_{ij}=1\)</span>이며 <span class="math inline">\(i,j\)</span> 양쪽 모두가 샘플에 있을 경우에만.</p>
+<p>그렇다면 plug-in estimate <span class="math inline">\(\bar k\)</span> from <span class="math inline">\(G^\ast\)</span>의 기댓값 <span class="math inline">\(\bar k^\ast\)</span>는 어떻게 되는가?</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
 
+E \left( \bar k^\ast \right)
+
+
+&amp;= E \left( \frac{1}{m} \sum_{i \in V^\ast} k_i^\ast \right)
+
+&amp;&amp;= E \left( \frac{1}{m} \sum_{i \in V^\ast} \sum_{j \in V^\ast} A_{ij}^\ast \right)
+
+\\
+
+
+&amp;= E \left( \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}Z_i Z_j \right)
+
+&amp;&amp;= \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}  E \left(Z_i Z_j \right)
+
+\\
+
+&amp;= \frac{1}{m} \sum_{i=1}^n \sum_{j =1}^n A_{ij}  \pi^2
+
+&amp;&amp;=\frac{1}{n \pi} \pi^2 \sum_{i=1}^n \sum_{j =1}^n A_{ij}  
+
+\\
+
+&amp;= \frac{\pi}{n } \sum_{i=1}^n \sum_{j =1}^n A_{ij}  
+
+&amp;&amp;= \pi \bar k
+
+
+
+
+\end{alignat}\]</span>
+$$</p>
+</div>
+</div>
+<div id="exploratory-sampling-design" class="section level4" number="7.3.2.2">
+<h4><span class="header-section-number">7.3.2.2</span> Exploratory Sampling Design</h4>
+<p>For both induced- and incident-subgraph sampling, the sampling frame
+is in some sense separate from the actual, realized graph. The
+population from which we draw our SRS has to include all nodes, or all
+edges, but doesn’t use the graph beyond that.</p>
+<p>In egocentric designs, we sample nodes and record information about
+their local neighborhoods, or ego networks.</p>
+<p>“ego”: Other times we record edges and non-edges among the
+neighbors of the initial node; This is sometimes called a star design.</p>
+<p>When we deal with star designs, we collect multiple local graph
+neighborhoods, and an important question is whether those overlap;
+depending on the recording process, this information might be available</p>
+</div>
+<div id="snowball-sampling" class="section level4" number="7.3.2.3">
+<h4><span class="header-section-number">7.3.2.3</span> Snowball Sampling</h4>
+<p>Start with a seed node, and record its immediate neighborhood.</p>
+<p>We then repeat the process for each of the neighbors, and then their
+neighbors, etc., until either no new nodes are found or we get tired, i.e.,
+a pre-selected size is reached.</p>
+<p>There can be multiple seeds; there may then be an issue of determining
+when two snowballs which have formed around different seeds have
+over-lapped.</p>
+<p>Snowball sampling leads to a different distribution over graphs than
+does either induced- or incident-subgraph sampling.</p>
+<p>Even if the seed is chosen by a simple random sample, the other nodes
+picked up by the snowball are not a random sample.</p>
+<p>Since they are nodes which can be reached by following paths from the
+seed, they must have degree at least 1, must be at least weakly
+connected to the seed, and in general tend to have higher-than-average
+degree.</p>
+<div id="respondent-driven-sampling" class="section level5" number="7.3.2.3.1">
+<h5><span class="header-section-number">7.3.2.3.1</span> Respondent-driven Sampling</h5>
+<p>An important variant on snowball sampling, for social networks, is
+respondent-driven sampling.</p>
+<p>This originated as a way of studying members of hard-to-find (“hidden”)
+sub-populations - often ones which were hidden because membership
+in them is stigmatized or illegal.</p>
+<p>The technique is to find some initial members of the group in question,
+and then persuade them to recruit other members whom they know as
+research subjects.</p>
+<p>Often, the respondents are given unique physical tokens to pass on
+those whom they recruit, so that links can be traced, and there may be
+some incentive for participation.</p>
+<p>Censoring by degree can result if, for instance, there is only a limited
+number of physical tokens per respondent.</p>
+</div>
+<div id="trace-route-sampling" class="section level5" number="7.3.2.3.2">
+<h5><span class="header-section-number">7.3.2.3.2</span> Trace-route Sampling</h5>
+<p>Trace-route sampling probes a network by tracing routes through it.
+The typical procedure goes as follows:
+1. Pick a set of source nodes.
+2. Pick a set of target nodes.
+3. For each source-target combination, find a path from the source to the target, and record all nodes and edges traversed along the path.
+Clearly, a lot will depend on how, precisely, paths are found, but this is
+an application-specific issue</p>
+<p>Depending on exactly how route-tracing gets done, one may or may not
+get information from “failed” routes, i.e., ones which didn’t succeed in
+getting from source to target.</p>
+<p>Trace-route sampling systematically distorts the degree distribution,
+making all kinds of graphs look like they have heavy-tailed distributions
+whether they do or not</p>
+</div>
+</div>
+</div>
+<div id="coping-strategies" class="section level3" number="7.3.3">
+<h3><span class="header-section-number">7.3.3</span> Coping Strategies</h3>
+<div id="head-in-sand" class="section level4" number="7.3.3.1">
+<h4><span class="header-section-number">7.3.3.1</span> Head in Sand</h4>
+<p>That is, ignore distortions or biases due to sampling, and pretend that
+the graph we see is the whole graph. This is generally not a good idea.</p>
+<p>For induced-subgraph sampling, the mean degree is biased from the
+real degree by a calculable factor. Indeed, the sample values of motif
+counts for all motifs are also biased (again, in calculable ways). These
+would be pretty easy to compensate for.</p>
+<p>But degree distribution, for example, gets distorted in very complicated,
+hard-to-fix ways, even with induced-subgraph sampling.</p>
+</div>
+<div id="learn-sampling-theory" class="section level4" number="7.3.3.2">
+<h4><span class="header-section-number">7.3.3.2</span> Learn Sampling Theory</h4>
+<p>Classical sampling theory is a theory of statistical inference in which
+probability assumptions are only made about the sampling process.
+The true population is regarded as unknown but fixed, and no
+stochastic assumptions are made about how it is generated. (One can
+always regard this as conditioning on the unknown population.)
+Because all the probability assumptions refer to the sampling design,
+and the validity of the inference depends only on whether the design
+has been accurately modeled, this is sometimes called design-based
+inference.</p>
+<p>Try to estimate the mean <span class="math inline">\(\mu\)</span> of some quantity <span class="math inline">\(X_i\)</span> over a finite population of size <span class="math inline">\(n\)</span>, using a sample of units <span class="math inline">\(S\)</span>.
+A simple, classic solution is the <strong>Horvitz-Thompson estimator</strong>:</p>
+<p><span class="math display">\[
+\hat \mu_{HT} \equiv \frac{1}{n} \sum_{i \in S}\frac{X_i}{\pi_i}
+\]</span></p>
+<p>이때 <span class="math inline">\(\pi_i\)</span>는 unit <span class="math inline">\(i\)</span>의 (assumed-known) 포함확률, 즉 unit <span class="math inline">\(i\)</span>가 샘플에 포함될 확률.</p>
+<p>포함 확률은 <span class="math inline">\(\pi = \frac{|S|}{n}\)</span>로 모두 동일하다는 것을 notice. 즉 우리는 다시 sample mean <span class="math inline">\(X\)</span>로 되돌아감. 이에 대한 직관은 곧 우리가 1개의 unit을 보았고 그 unit의 포함확률이 <span class="math inline">\(\pi_i\)</span>라면, 우리가 보지 못한 <span class="math inline">\(\frac{1}{\pi_i}\)</span>개의 다른 것들이 있다는 것이 골자이다. 더 이론적으로 들어가자면 우리는 이것이 <strong>UE</strong>임을 보일 수 있다.</p>
+<p>indicator 변수 <span class="math inline">\(Z_i = I(i \in S), i \in 1:n\)</span>을 도입하자. 이를 사용하여 <span class="math inline">\(\hat \mu_{HT}\)</span>의 기댓값을 구하면</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+
+E \left( \hat \mu_{HT} \right)
+
+
+&amp;= E \left(\frac{1}{n} \sum_{i \in S} \frac{X_i}{\pi_i} \right)
+
+&amp;&amp;= E \left(\frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} Z_i \right)
+
+\\
+
+&amp;= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} E \left( Z_i \right)
+
+&amp;&amp;= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} P \left( Z_i =1 \right)
+
+\\
+
+&amp;= \frac{1}{n} \sum_{i \in 1:n} \frac{X_i}{\pi_i} \pi_i
+
+&amp;&amp;= \frac{1}{n} \sum_{i \in 1:n} {X_i}
+
+\\
+
+&amp;= \mu
+
+\end{alignat}\]</span>
+$$</p>
+<p>또한</p>
+<p><span class="math display">\[
+Var \left ( \hat \mu_{HT} \right )= \frac{1}{n^2} \sum_{i \in 1:n} \sum_{j \in 1:n} X_i X_j \left( \frac{\pi_{ij}}{\pi_i \pi_j} -1 \right)
+\]</span></p>
+<p>이때 <span class="math inline">\(\pi_{ij}\)</span>는 joint 포함확률. 즉슨 <span class="math inline">\(i,j\)</span>가 한번에 샘플에 들어있을 확률. (<span class="math inline">\(\pi_{ii} = \pi_i\)</span>로 취급)</p>
+<p>모든 <span class="math inline">\(\pi_i \rightarrow 1\)</span>로 가게 된다면, <span class="math inline">\(Var \rightarrow 0\)</span>.</p>
+<p>이 Var 참값을 정확히 계산하는 건 불가능. 우리는 population 안의 모든 unknown units의 합을 구하는건 불가능하기 때문. 그러가 empirical 대체값은 주어져 있다. 이는</p>
+<p><span class="math display">\[
+\hat {Var} \left ( \hat \mu_{HT} \right) = \frac{1}{n^2} \sum_{i \in 1:n} \sum_{j \in 1:n} X_i X_j \left( \frac{\pi_{ij}}{\pi_i \pi_j} -1 \right)
+\]</span></p>
+<p>Strengths and Weaknesses
+The sampling-theory approach works well for stuff you can express as
+averages (or totals) of population quantities, and where you can work
+out inclusion probabilities from knowledge of the sampling design.
+Many network statistics can be expressed as averages (sometimes by
+defining the “unit” as, e.g., a dyad of nodes), but exact calculation of
+inclusion probabilities is harder.</p>
+</div>
+<div id="missing-data-tools" class="section level4" number="7.3.3.3">
+<h4><span class="header-section-number">7.3.3.3</span> Missing Data Tools</h4>
+<p>Another approach is to treat the unobserved part of the network as
+missing data, and try to infer it.</p>
+<p>This can range from simple imputation strategies, to complex
+model-based strategies for inference, such as the EM algorithm.</p>
+<p>Successful imputation or EM is not design-based but model-based, and
+requires a model both of the network, and of the sampling process.</p>
+<p>It is very, very rare for anything to be “missing at random,” let alone
+“missing completely at random.”</p>
+</div>
+<div id="model-the-effective-network" class="section level4" number="7.3.3.4">
+<h4><span class="header-section-number">7.3.3.4</span> Model the Effective Network</h4>
+<p>A final strategy is to model the observed network. This means modeling
+both the observation/sampling process and the actual network, but
+combining them so that we get a family of probability distributions over
+the observed graph.</p>
+<p>That observed network is (or can be) still informative about the
+parameters of the underlying generative model.</p>
+<p>If that is all that’s of interest, it may be possible to short-circuit the use of
+EM or imputation, which are more about recovering the full graph</p>
+</div>
+</div>
+<div id="big-data-solves-nothing" class="section level3" number="7.3.4">
+<h3><span class="header-section-number">7.3.4</span> Big Data Solves Nothing</h3>
+<p>Even when, as the promoters say, “n = all,” and the data are
+automatically recorded (voluntarily or involuntarily), almost all the
+network sampling issues we’ve gone over remain.
+After all, as the promoters do not say, you’re getting all of a biased
+convenience sample, not all of the truth.
+Three issues are particularly prominent for network
+1. Entity Resolution
+2. Diffusion
+3. Performativity</p>
+<div id="entity-resolution" class="section level4" number="7.3.4.1">
+<h4><span class="header-section-number">7.3.4.1</span> Entity resolution</h4>
+<p>Entity resolution, or record linkage, is a pervasive problem for data
+analysis.
+Generally speaking, it’s the problem of determining when multiple data
+points all record information about the same thing (or records which are
+apparently co-referent really are about different things).
+In networks, this is usually about determining when two (or more)
+apparent nodes really refer to the same underlying entity.</p>
+</div>
+<div id="diffusion" class="section level4" number="7.3.4.2">
+<h4><span class="header-section-number">7.3.4.2</span> Diffusion</h4>
+<p>Diffusion refers to the way that many of the automatically-recorded
+networks which provide us with our big data have themselves spread
+over other, older social networks.
+What we see when we look at the network of (say) Facebook ties is a
+combination of the pre-Facebook social network and the results of the
+diffusion process.
+Comparatively little has been done to understand the results.
+Even if the diffusion process treats all nodes homogeneously, the
+network-as-diffused can differ radically in its properties from the
+underlying network.</p>
+</div>
+<div id="performativity" class="section level4" number="7.3.4.3">
+<h4><span class="header-section-number">7.3.4.3</span> Performativity</h4>
+<p>Performativity, the way theories can become (partially) self-fulfilling
+prophecies. The companies which run online social networks are all
+very invested in getting very big, very dense networks of users. This is
+why they all offer link suggestion or link recommendation services.
+The algorithms behind these recommendations implement theories
+about how social networks form, and what sort of link patterns they
+should have.
+To the extent that people follow these recommendations, then, the
+recorded network will seem to conform to the theory.</p>
+
+</div>
 </div>
 </div>
             </section>
@@ -568,8 +811,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="hypothesis-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="descriptive-statistics-of-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mathematical-models-for-network-graphs.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -600,7 +843,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211101_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212103_DataCollection.Rmd",
 "text": "Edit"
 },
 "history": {

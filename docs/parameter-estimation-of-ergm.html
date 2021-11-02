@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Completeness | Self-Study</title>
-  <meta name="description" content="3.2 Completeness | Self-Study" />
+  <title>7.6 Parameter Estimation of ERGM | Self-Study</title>
+  <meta name="description" content="7.6 Parameter Estimation of ERGM | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Completeness | Self-Study" />
+  <meta property="og:title" content="7.6 Parameter Estimation of ERGM | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Completeness | Self-Study" />
+  <meta name="twitter:title" content="7.6 Parameter Estimation of ERGM | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inference.html"/>
-<link rel="next" href="hypothesis-test.html"/>
+<link rel="prev" href="introduction-to-ergm.html"/>
+<link rel="next" href="ergm-for-dynamic-networks.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -488,79 +488,296 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="completeness" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Completeness</h2>
-<p>r<strong><em>s</em></strong> $X_1 , , X_n $의 stats $ T (X_1 , , X_n ) $에 대해, let</p>
-<p><span class="math display">\[
-\forall \theta \in \Omega: \; \; E \left[ g(T) \right]=0
-\]</span></p>
-<p>이때 이를 만족하는 <span class="math inline">\(\theta\)</span>에 무관한 함수 <span class="math inline">\(g\)</span>가 <span class="math inline">\(g(\cdot) \equiv 0\)</span> 뿐이라면, <span class="math inline">\(T\)</span>는 CS. <span class="math inline">\(T\)</span>가 <span class="math inline">\(\theta\)</span>에 대한 SS라면, 이는 CSS.</p>
-<p>stats <span class="math inline">\(Y\)</span>가 분포모임 <span class="math inline">\(\{g(y;\theta);\theta \in \Theta \}\)</span>의 한 원소를 pdf로 가진다고 하자.</p>
-<p><span class="math display">\[
-\forall \theta \in \Theta: \; \; E_{\theta} \left[ \varphi(Y) \right] \overset{\theta}{=}{0} \; \; \; \rightarrow \; \; \; \varphi(y) \overset{y}{=} 0
-\]</span></p>
-<p>위의 명제가 성립할 때 위 분포족은 completeness를 지닌다.
-* 여기서 <span class="math inline">\(\varphi\)</span>는 <span class="math inline">\(\theta\)</span>에 무관한 함수이다.
-* 피명제는 보다 엄밀히는 <span class="math inline">\(\forall \theta: P_{\theta} \{ \varphi (Y)=0 \}=1\)</span>.
-* <span class="math inline">\(\overset{\theta}{=}\)</span>는 모든 <span class="math inline">\(\theta \in \Omega\)</span>에 대해 등호가 성립함을 나타낸다.</p>
-<p>Remarks:
-1. completeness는 본질적으로 확률분포의 패러미터 <span class="math inline">\(\theta\)</span>가 통계량 <span class="math inline">\(Y\)</span>를 통해 추정될 수 있음을 보장하는 조건으로 이해될 수 있다.
-* 즉, completeness는 서로 다른 패러미터값을 지니는 두 분포는 서로 구분(distinct)됨을 보장해주는 조건이다.
-2. 통계량 <span class="math inline">\(Y\)</span>의 분포족이 completeness를 만족하면, <span class="math inline">\(Y\)</span>를 완비통계량 CS라고 부른다.
-3. 완비성은 CS의 함수로 이루어지는 UE는 unique하다는 사실을 보이는 도구로 이용된다. 레만-쉐페 thm 참조.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<div id="레만-쉐페-thm." class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> 레만-쉐페 thm.</h3>
-<p>패러미터 <span class="math inline">\(\theta\)</span>에 대해 <span class="math inline">\(T\)</span>가 CSS, <span class="math inline">\(S(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. 이때 $(T)=E $는 <span class="math inline">\(\theta\)</span>의 UMVUE.</p>
-<p><br></p>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta)\)</span>. <span class="math inline">\(\theta\)</span>에 대한 CSS <span class="math inline">\(Y=u(X_1 , \cdots, X_n)\)</span>. 이때 임의의 UE <span class="math inline">\(\hat \theta\)</span>에 대해</p>
-<p><span class="math display">\[
-\varphi (Y) = E(\hat \theta \rvert Y)
-\]</span></p>
-<p>는 <span class="math inline">\(\theta\)</span>에 대한 UMVUE. 이는 unique.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-</div>
-<div id="rao-blackwell-thm.-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Rao-Blackwell thm.</h3>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta), \theta \in \Theta\)</span>.
-1. <span class="math inline">\(Y= u(X_1 , \cdots, X_n)\)</span>는 <span class="math inline">\(\theta\)</span>의 CSS.
-2. <span class="math inline">\(Z= v(X_1 , \cdots, X_n)\)</span>의 분포는 <span class="math inline">\(\theta\)</span>에 의존하지 않는다.</p>
-<p>이상의 조건이 만족되면 <span class="math inline">\(Y \perp Z\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
+<div id="parameter-estimation-of-ergm" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Parameter Estimation of ERGM</h2>
+<p>Current Methods for ERGM</p>
+<ol style="list-style-type: decimal">
+<li>Approximation-based Algorithm: Maximize the likelihood function with MCMC samples.
 <ul>
-<li>exponentail family: <br></li>
-</ul>
-<p>pdf가 적절한 함수 <span class="math inline">\(a, b, c_i, t_i (i=1,\cdots, k)\)</span>에 대해 <span class="math inline">\(f(x;\theta) = a(\theta) b(x) \exp \left[ \sum_{i=1}^k c_i (\theta) t_i (x) \right], -\infty\)</span></p>
-<p><br>
-<br>
-<br></p>
-<p>지수족에 속하는 pdf로부터 r<strong>s</strong> $X_1 , , X_n $를 얻었다면, 통계량 $S_1 = <em>{i=1}^n t_1 (X_i), , S_k = </em>{i=1}^n t_k (X_i) $ 는 패러미터 $_1 , , _k $에 대한 joint (C) SS이다.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p><span class="math inline">\(g(\theta)\)</span>에 대한 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\forall \epsilon &gt;0: \lim_{n \rightarrow \infty} P \left( \vert \tau(\pmb X) - g(\theta) \vert \le \epsilon \right) =1\)</span>을 만족하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistency를 가진다.</p>
-<p>이는 표본의 크기가 커짐에 따라 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(g(\theta)\)</span>에 <strong>확률적으로 수렴</strong>한다는 것. 표본의 크기가 매우 클 때, est <span class="math inline">\(\tau(\pmb X)\)</span>로부터 계산된 추정값 estimates는 높은 확률로 참모수값에 매우 가까이 있다는 뜻.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>를 <span class="math inline">\(g(\theta)\)</span>의 것일 때, <span class="math inline">\(\forall \theta \in \Theta: \lim_{n \rightarrow \infty} P E \left\{ \tau(\pmb X)-g(\theta)\right\}^2 = 0\)</span>이 성립하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistent.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\theta\)</span>의 consistent이고, <span class="math inline">\(g(x)\)</span>가 <span class="math inline">\(\theta\)</span>에서 연속인 함수라면, <span class="math inline">\(g\tau(\pmb X)\)</span></p>
+<li>Maximum Pseudo-likelihood Estimation (MPLE).</li>
+<li>Markov Chain Monte Carlo Maximum Likelihood Estimation (MCMCMLE).</li>
+<li>Markov Chain Monte Carlo Stochastic Approximation (MCMCSA).</li>
+<li>Varying Truncation Stochastic Approximation MCMC Method with Trajectory Averaging (VTSAMCMC).</li>
+</ul></li>
+<li>Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm: Introduce auxiliary variables to cancel the normalizing constant ratio <span class="math inline">\(\frac{\kappa(\theta)} {\kappa(\theta&#39;)}\)</span> or to approximate the normalizing constant. Used for the Bayesian Inference.
+<ul>
+<li>The Exchange Algorithm.</li>
+<li>Auxiliary Variable Metropolis-Hasting Algorithm (AVMH).</li>
+<li>Adaptive Exchange Monte Carlo Algorithm (AEXMC).</li>
+</ul></li>
+</ol>
+<div id="approximation-based-algorithm" class="section level3" number="7.6.1">
+<h3><span class="header-section-number">7.6.1</span> Approximation-based Algorithm</h3>
+<div id="maximum-pseudo-likelihood-estimation" class="section level4" number="7.6.1.1">
+<h4><span class="header-section-number">7.6.1.1</span> Maximum Pseudo Likelihood Estimation</h4>
+<p>Approximate the likelihood function by a product of series of conditional likelihood functions by ignoring dependence within components of <span class="math inline">\(X\)</span>.</p>
+<p>The conditional and pseudo likelihood of the ERGMs is</p>
+<p>$$
+<span class="math display">\[\begin{align}
+\logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &amp;= \theta &#39; g(x_{ij}^c)
 
+\\
+
+\log PL(\theta, x) &amp;= \sum_{ij} \theta &#39; g(x_{ij}^c) \cdot x_{ij} - \sum_{ij}\log \left \{ 1+ \theta &#39; g(x_{ij}^c) \right \}
+
+\end{align}\]</span>
+$$</p>
+<p>This method is the simplest one.
+Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.</p>
+</div>
+<div id="mcmc-stochastic-approximation" class="section level4" number="7.6.1.2">
+<h4><span class="header-section-number">7.6.1.2</span> MCMC Stochastic Approximation</h4>
+<p>The theory of exponential family implies that maximizing the ERGMs is
+equivalent to solving the system of equations
+Eθˆ{g(x)} = g(xobs)
+that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
+and it requires
+1 Independent network generation
+2 Parameter estimation update with stochastic approximation
+This method is inefficient in generating independent network samples.
+The number of iteration steps for generating each sample xk+1 is in the
+order of 100n
+2 where n is the number of nodes.</p>
+</div>
+<div id="mcmc-stochastic-approximation-1" class="section level4" number="7.6.1.3">
+<h4><span class="header-section-number">7.6.1.3</span> MCMC Stochastic Approximation</h4>
+<p>The theory of exponential family implies that maximizing the ERGMs is
+equivalent to solving the system of equations
+Eθˆ{g(x)} = g(xobs)
+that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
+and it requires
+1 Independent network generation
+2 Parameter estimation update with stochastic approximation
+This method is inefficient in generating independent network samples.
+The number of iteration steps for generating each sample xk+1 is in the
+order of 100n
+2 where n is the number of nodes.</p>
+</div>
+</div>
+<div id="auxiliary-variable-mcmc-based-approaches" class="section level3" number="7.6.2">
+<h3><span class="header-section-number">7.6.2</span> Auxiliary Variable MCMC-based Approaches</h3>
+<div id="exchange-algorithm-2" class="section level4" number="7.6.2.1">
+<h4><span class="header-section-number">7.6.2.1</span> Exchange Algorithm</h4>
+<p>Augment the distribution f(x|θ) by an auxiliary variable such that the
+normalizing constant ratio κ(θ)/κ(θ
+0
+) can be canceled in simulations.
+1 Propose a candidate point θ
+0
+from a proposal distribution denoted by
+q(θ
+0
+|θ, x).
+2 Generate an auxiliary variable y ∼ f(y|θ
+0
+) using a perfect sampler.
+3 Accept θ
+0 with probability min{1, r(θ, θ0
+|x)}, where
+r(θ, θ0
+|x) = π(θ
+0
+)
+π(θ)
+·
+f(x|θ
+0
+)
+f(x|θ)
+·
+f(y|θ)
+f(y|θ
+0)
+·
+q(θ|θ
+0
+, x)
+q(θ
+0
+|θ, x)</p>
+<p>Although the exchange algorithms work well for some discrete models,
+such as the Ising and autologistic models, they cannot be applied to
+many other models for which perfect sampling is not available.
+We can generate auxiliary variable y via MCMC samples, but there
+exists theoretical flaws on convergence issues. If the mixing of MCMC
+sample is very slow, which is a general feature of ERGMs, θ
+0
+tends to
+accept with a high probability.</p>
+</div>
+<div id="monte-carlo-mh-algorithm" class="section level4" number="7.6.2.2">
+<h4><span class="header-section-number">7.6.2.2</span> Monte Carlo MH Algorithm</h4>
+<p>At each iteration, the MCMH algorithms replaces the unknown
+normalizing constant ratio κ(θ)/κ(θ
+0
+) by a Monte Carlo estimates and
+importance sampling approach.
+A Monte Carlo version of the Metropolis-Hastings algorithm.
+Unlike the exchange algorithms, the MCMH algorithm avoids the
+requirement for perfect sampling, and thus can be applied to many
+statistical models for which perfect sampling is not possible.
+This algorithm also suffers from a theoretical flaw on convergence, i.e.
+the importance sampling estimator might fail to converge to the true
+ratio κ(θ)/κ(θ
+0
+) with a finite number of samples.</p>
+</div>
+</div>
+<div id="goodness-of-fit-plots" class="section level3" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> Goodness-of-fit Plots</h3>
+<p>Goodness-of-fit Plots for ERGMs
+0 1 2 3 4 5 6 7 8 9 10 12 14 16
+0.0 0.1 0.2 0.3 0.4
+degree
+proportion of nodes
+012345678
+0.0 0.1 0.2 0.3 0.4 0.5 0.6
+edge−wise shared partners
+proportion of edges
+1 2 3 4 5 6 7 8 9 11 13 15 17 19
+0.0 0.2 0.4 0.6 0.8 1.0
+minimum geodesic distance
+proportion of dyads
+Goodness−of−fit diagnostics
+Figure: GOF plots for the high school student friendship network</p>
+</div>
+<div id="varying-trunction-stochastic-approximation-mcmc" class="section level3" number="7.6.4">
+<h3><span class="header-section-number">7.6.4</span> Varying Trunction Stochastic Approximation MCMC</h3>
+<p>The likelihood function of the ERGM is</p>
+<p><span class="math display">\[
+f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta&#39; S(y)\Big \}
+\]</span></p>
+<p>where <span class="math inline">\(\theta = (\theta_1 , \cdots, \theta_d)&#39;\)</span>, <span class="math inline">\(S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)&#39;\)</span>.</p>
+<p>Due to 2 issues, intractability of <span class="math inline">\(\kappa(θ)\)</span> and model degeneracy, it is difficult to estimate <span class="math inline">\(\theta\)</span> well.</p>
+<p>These problem can be solved by using the varying truncation stochastic approximation MCMC</p>
+<div id="two-difficulties-in-parameter-estimation" class="section level4" number="7.6.4.1">
+<h4><span class="header-section-number">7.6.4.1</span> Two Difficulties in Parameter Estimation</h4>
+<p>Intractability of Normalizing constant <span class="math inline">\(\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta &#39; S(y)\Big\}\)</span>.</p>
+<p>MPLE
+- Assume dyadic independence
+- Highly dependent on the observed network</p>
+<p>MCMLE
+Depend on the choice of <span class="math inline">\(\theta^{(0)}\)</span>
+Converge to a local optimal solution or fail to converge due to model degeneracy.</p>
+<div id="stochastic-approximation" class="section level5" number="7.6.4.1.1">
+<h5><span class="header-section-number">7.6.4.1.1</span> Stochastic Approximation</h5>
+<p>Solve a system of equation of the form <span class="math inline">\(h(\theta) = 0\)</span>.</p>
+<p>The classical SA algorithm is of the form</p>
+<p>$$
+<span class="math display">\[\begin{align}
+\theta_{k+1} 
+&amp;= \theta_k + a_k Y_k 
+
+\\
+
+&amp;=\theta_k + a_k \Big \{ h(\theta_k) + \omega_k \Big \}, &amp;&amp; k \ge 0 
+\end{align}\]</span>
+$$</p>
+<p><span class="math inline">\(Y = h(\theta) + \omega\)</span> is noisy estimate. <span class="math inline">\(\omega\)</span> is mean-zero noise.
+Under appropriate conditions (on <span class="math inline">\(a_k\)</span> , <span class="math inline">\(h\)</span>, <span class="math inline">\(\omgea_k\)</span> ), the algorithm indeed can be shown to converge to a solution</p>
+</div>
+</div>
+<div id="mcmc-stochastic-approximation-2" class="section level4" number="7.6.4.2">
+<h4><span class="header-section-number">7.6.4.2</span> MCMC Stochastic Approximation</h4>
+<p>Finding MLE of <span class="math inline">\(\theta\)</span> is equivalent to solving <span class="math inline">\(E_\theta \Big \{ S(Y) \Big \} = S(y_{obs})\)</span> in exponential families.</p>
+<p>Steps:
+1. Independence network generation: Sample <span class="math inline">\(y^{(k+1)}\)</span> from the <span class="math inline">\(f(y | \theta^{(k)}\)</span>.
+- Start with a random graph in which each arc variable <span class="math inline">\(Y_{ij}\)</span> is determined independently, with a probability 0.5 for the values 0 and 1
+- Update the random graph using the Gibbs sampler or the MH algorithm</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Parameter estimate update with SA,
+<span class="math display">\[
+\theta^{(k+1)} = \theta^{(k)} - a_k D^{-1} \Big \{ U(y_{k+1}, \bar y_{k+1}) - S(y_{obs}) \Big \}
+\]</span></li>
+</ol>
+<p>where</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+U(y_{k+1}, \bar y_{k+1} ) &amp;= P(\bar y_{k+1} | y_{k+1}) \cdot S(\bar y_{k+1}) + \Big (1-P(\bar y_{k+1} | y_{k+1}) \Big ) \cdot S( y_{k+1}) 
+
+\\
+
+\bar y_{k+1} = 1-y_{k+1}
+
+\end{align}\]</span>
+$$</p>
+<p>Inefficiency in generating independent network samples: Order of <span class="math inline">\(100n^2\)</span>.</p>
+</div>
+<div id="model-degeneracy-1" class="section level4" number="7.6.4.3">
+<h4><span class="header-section-number">7.6.4.3</span> Model Degeneracy</h4>
+<p>For some configurations of θ, the model lumps all or most of its
+probability mass on just one or a few possible graphs.
+Complete(fully connected) or empty(entirely unconnected)
+networks</p>
+<p>A solution to avoid this problem is to specify a model whose parameter
+space contains no or less degeneracy regions
+But, this is often more difficult than usual.</p>
+</div>
+<div id="varying-truncation-samcmc-for-ergms" class="section level4" number="7.6.4.4">
+<h4><span class="header-section-number">7.6.4.4</span> Varying Truncation SAMCMC for ERGMs</h4>
+<div id="setup" class="section level5" number="7.6.4.4.1">
+<h5><span class="header-section-number">7.6.4.4.1</span> Setup</h5>
+<p>(<span class="math inline">\(C_1\)</span>) Set</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+a_k &amp;= C_a \left( \frac{k_0}{k_0 \vee k)}\right)^\eta
+
+\\
+
+b_k &amp;= C_b \left( \frac{k_0}{k_0 \vee k)}\right)^\ksi
+
+\end{align}\]</span>
+$$</p>
+<p>for some constants <span class="math inline">\(k_0&gt;1\)</span>, <span class="math inline">\(\eta \in (\frac{1}{2},1)\)</span>, <span class="math inline">\(\ksi \in (\frac{1}{2},\eta)\)</span>, <span class="math inline">\(C_a &gt; 0\)</span>, <span class="math inline">\(C_b &gt;0\)</span>.</p>
+<p>(<span class="math inline">\(C_2\)</span>)</p>
+<p><span class="math inline">\(\bigcup_{s \ge 0} \mathcal K_s = \Theta\)</span>, where <span class="math inline">\(\mathcal K_s \subset \text{int}(\mathcal K_{s+1})\)</span></p>
+<p>And also,</p>
+<p><span class="math inline">\(\mathcal X\)</span>: a space of social network
+<span class="math inline">\(\mathcal T\)</span>: <span class="math inline">\(\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0\)</span> (reinitialization mechanism)</p>
+<p><span class="math inline">\(\sigma_k\)</span>: the number of reinitialization performed until iteration <span class="math inline">\(k\)</span>. (<span class="math inline">\(\sigma_0 = 0\)</span>)</p>
+</div>
+<div id="varying-truncation-samcmc-algorithm-for-ergms" class="section level5" number="7.6.4.4.2">
+<h5><span class="header-section-number">7.6.4.4.2</span> Varying truncation SAMCMC algorithm for ERGMs</h5>
+<ol style="list-style-type: decimal">
+<li><p>Draw an auxiliary network <span class="math inline">\(y_{k+1}\)</span> from the distribution <span class="math inline">\(f(y | \theta^{(k)}\)</span> using the Gibbs sampler iterating for <span class="math inline">\(m\)</span> sweeps.</p></li>
+<li><p>Set <span class="math inline">\(\theta^{(k + \frac{1}{2})} = \theta^{(k)} + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}\)</span></p></li>
+<li><p>Let
+$$
+\begin{cases}</p></li>
+</ol>
+<p><em>{k+1} = <em>k, ; ; ( y</em>{k+1}, ^{(k + {1})} ) = ( y</em>{k+1}, ^{(k + )} )
+&amp;
+| ^{(k + )} - ^{(k)} | b_k, ; ; ^{(k + )} K_{<em>k}
+\
+</em>{k+1} = <em>k+1, ; ; ( y</em>{k+1}, ^{(k + {1})} ) = ( y_{k}, ^{(k)} )
+&amp;
+o.w.
+\end{cases}
+$$</p>
+</div>
+<div id="trajectory-averaging-estimator" class="section level5" number="7.6.4.4.3">
+<h5><span class="header-section-number">7.6.4.4.3</span> Trajectory averaging estimator</h5>
+<p><span class="math inline">\(\theta\)</span> can be estimated by the trajectory averaging estimator <span class="math inline">\(\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}\)</span></p>
+<p>In practice, to reduce the variation of the estimate, we often use <span class="math inline">\(\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}\)</span></p>
+<p>to estimate <span class="math inline">\(\theta\)</span>, where <span class="math inline">\(n_0\)</span> denotes the number of burn-in iterations.</p>
+<ul>
+<li>Free parameters: <span class="math inline">\(\{a_k\}\)</span>, <span class="math inline">\(\{b_k\}\)</span>, <span class="math inline">\(\{\mathcal K_s, \; s \le 0\}\)</span>, <span class="math inline">\(m\)</span></li>
+</ul>
+<p><span class="math inline">\(k_0 = 100\)</span>, <span class="math inline">\(\eta = 0.65\)</span>, <span class="math inline">\(\ksi = \frac{0.5 + \eta}{2}\)</span>.</p>
+<p><span class="math inline">\(C_a\)</span>, <span class="math inline">\(C_b\)</span>: adjusted for different examples</p>
+<p>choose <span class="math inline">\(\mathcal K_0\)</span> to be around MPLE.</p>
+<p>In this artical, we set <span class="math inline">\(\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]\)</span>, <span class="math inline">\(\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]\)</span>.</p>
+<p><span class="math inline">\(m=1\)</span>.</p>
+</div>
+<div id="numerical-examples" class="section level5" number="7.6.4.4.4">
+<h5><span class="header-section-number">7.6.4.4.4</span> Numerical Examples</h5>
+<p>Methods: MCMLE, SAA (Stochastic Approximation Algorithm), Varying truncation SAMCMC
+SAMCMC: independent 5 runs(each of 200,000 iterations) (m=1, Ca = 0.01, Cb = 1000, η, ξ, κs are defalut)</p>
+
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -568,8 +785,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="hypothesis-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-ergm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ergm-for-dynamic-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -600,7 +817,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211101_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212106_ParameterEstimationofERGM.Rmd",
 "text": "Edit"
 },
 "history": {

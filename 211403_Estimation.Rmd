@@ -21,7 +21,7 @@ $
 
 ### Identifiability and Estimability
 
-##### Identifiable
+#### Identifiable
 
 모델에서의 무한한 갯수의 관측치를 보유한다면, 모델의 underlying 패러미터의 참값을 획득하는 것이 가능한 성질.
 
@@ -54,7 +54,7 @@ A function $g(\beta)$ is identifiable $\iff$ $g(\beta)$ is a function of $f(\bet
 <br/>
 <br/>
 
-##### Estimable
+#### Estimable
 
 The results in the last section suggest that some linear combinations of $\beta$ in the less than full rank case will not be estimable.
 

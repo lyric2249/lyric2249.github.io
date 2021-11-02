@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Completeness | Self-Study</title>
-  <meta name="description" content="3.2 Completeness | Self-Study" />
+  <title>7.4 Mathematical Models for Network Graphs | Self-Study</title>
+  <meta name="description" content="7.4 Mathematical Models for Network Graphs | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Completeness | Self-Study" />
+  <meta property="og:title" content="7.4 Mathematical Models for Network Graphs | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Completeness | Self-Study" />
+  <meta name="twitter:title" content="7.4 Mathematical Models for Network Graphs | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inference.html"/>
-<link rel="next" href="hypothesis-test.html"/>
+<link rel="prev" href="data-collection-and-sampling.html"/>
+<link rel="next" href="introduction-to-ergm.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -488,78 +488,38 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="completeness" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Completeness</h2>
-<p>r<strong><em>s</em></strong> $X_1 , , X_n $의 stats $ T (X_1 , , X_n ) $에 대해, let</p>
+<div id="mathematical-models-for-network-graphs" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Mathematical Models for Network Graphs</h2>
+<ol style="list-style-type: decimal">
+<li>By a model for a network graph we mean effectively a collection</li>
+</ol>
 <p><span class="math display">\[
-\forall \theta \in \Omega: \; \; E \left[ g(T) \right]=0
+\Big \{ 
+P_\theta (G), \; G \in \mathcal G \; \; : \; \; \theta \in \Theta
+\Big \}
 \]</span></p>
-<p>이때 이를 만족하는 <span class="math inline">\(\theta\)</span>에 무관한 함수 <span class="math inline">\(g\)</span>가 <span class="math inline">\(g(\cdot) \equiv 0\)</span> 뿐이라면, <span class="math inline">\(T\)</span>는 CS. <span class="math inline">\(T\)</span>가 <span class="math inline">\(\theta\)</span>에 대한 SS라면, 이는 CSS.</p>
-<p>stats <span class="math inline">\(Y\)</span>가 분포모임 <span class="math inline">\(\{g(y;\theta);\theta \in \Theta \}\)</span>의 한 원소를 pdf로 가진다고 하자.</p>
-<p><span class="math display">\[
-\forall \theta \in \Theta: \; \; E_{\theta} \left[ \varphi(Y) \right] \overset{\theta}{=}{0} \; \; \; \rightarrow \; \; \; \varphi(y) \overset{y}{=} 0
-\]</span></p>
-<p>위의 명제가 성립할 때 위 분포족은 completeness를 지닌다.
-* 여기서 <span class="math inline">\(\varphi\)</span>는 <span class="math inline">\(\theta\)</span>에 무관한 함수이다.
-* 피명제는 보다 엄밀히는 <span class="math inline">\(\forall \theta: P_{\theta} \{ \varphi (Y)=0 \}=1\)</span>.
-* <span class="math inline">\(\overset{\theta}{=}\)</span>는 모든 <span class="math inline">\(\theta \in \Omega\)</span>에 대해 등호가 성립함을 나타낸다.</p>
-<p>Remarks:
-1. completeness는 본질적으로 확률분포의 패러미터 <span class="math inline">\(\theta\)</span>가 통계량 <span class="math inline">\(Y\)</span>를 통해 추정될 수 있음을 보장하는 조건으로 이해될 수 있다.
-* 즉, completeness는 서로 다른 패러미터값을 지니는 두 분포는 서로 구분(distinct)됨을 보장해주는 조건이다.
-2. 통계량 <span class="math inline">\(Y\)</span>의 분포족이 completeness를 만족하면, <span class="math inline">\(Y\)</span>를 완비통계량 CS라고 부른다.
-3. 완비성은 CS의 함수로 이루어지는 UE는 unique하다는 사실을 보이는 도구로 이용된다. 레만-쉐페 thm 참조.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<div id="레만-쉐페-thm." class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> 레만-쉐페 thm.</h3>
-<p>패러미터 <span class="math inline">\(\theta\)</span>에 대해 <span class="math inline">\(T\)</span>가 CSS, <span class="math inline">\(S(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. 이때 $(T)=E $는 <span class="math inline">\(\theta\)</span>의 UMVUE.</p>
-<p><br></p>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta)\)</span>. <span class="math inline">\(\theta\)</span>에 대한 CSS <span class="math inline">\(Y=u(X_1 , \cdots, X_n)\)</span>. 이때 임의의 UE <span class="math inline">\(\hat \theta\)</span>에 대해</p>
-<p><span class="math display">\[
-\varphi (Y) = E(\hat \theta \rvert Y)
-\]</span></p>
-<p>는 <span class="math inline">\(\theta\)</span>에 대한 UMVUE. 이는 unique.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-</div>
-<div id="rao-blackwell-thm.-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Rao-Blackwell thm.</h3>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta), \theta \in \Theta\)</span>.
-1. <span class="math inline">\(Y= u(X_1 , \cdots, X_n)\)</span>는 <span class="math inline">\(\theta\)</span>의 CSS.
-2. <span class="math inline">\(Z= v(X_1 , \cdots, X_n)\)</span>의 분포는 <span class="math inline">\(\theta\)</span>에 의존하지 않는다.</p>
-<p>이상의 조건이 만족되면 <span class="math inline">\(Y \perp Z\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<ul>
-<li>exponentail family: <br></li>
-</ul>
-<p>pdf가 적절한 함수 <span class="math inline">\(a, b, c_i, t_i (i=1,\cdots, k)\)</span>에 대해 <span class="math inline">\(f(x;\theta) = a(\theta) b(x) \exp \left[ \sum_{i=1}^k c_i (\theta) t_i (x) \right], -\infty\)</span></p>
-<p><br>
-<br>
-<br></p>
-<p>지수족에 속하는 pdf로부터 r<strong>s</strong> $X_1 , , X_n $를 얻었다면, 통계량 $S_1 = <em>{i=1}^n t_1 (X_i), , S_k = </em>{i=1}^n t_k (X_i) $ 는 패러미터 $_1 , , _k $에 대한 joint (C) SS이다.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p><span class="math inline">\(g(\theta)\)</span>에 대한 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\forall \epsilon &gt;0: \lim_{n \rightarrow \infty} P \left( \vert \tau(\pmb X) - g(\theta) \vert \le \epsilon \right) =1\)</span>을 만족하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistency를 가진다.</p>
-<p>이는 표본의 크기가 커짐에 따라 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(g(\theta)\)</span>에 <strong>확률적으로 수렴</strong>한다는 것. 표본의 크기가 매우 클 때, est <span class="math inline">\(\tau(\pmb X)\)</span>로부터 계산된 추정값 estimates는 높은 확률로 참모수값에 매우 가까이 있다는 뜻.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>를 <span class="math inline">\(g(\theta)\)</span>의 것일 때, <span class="math inline">\(\forall \theta \in \Theta: \lim_{n \rightarrow \infty} P E \left\{ \tau(\pmb X)-g(\theta)\right\}^2 = 0\)</span>이 성립하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistent.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\theta\)</span>의 consistent이고, <span class="math inline">\(g(x)\)</span>가 <span class="math inline">\(\theta\)</span>에서 연속인 함수라면, <span class="math inline">\(g\tau(\pmb X)\)</span></p>
+<p>이때</p>
+<p>where <span class="math inline">\(G\)</span> 는 가능한 그래프들의 collection (혹은 ‘ensemble’), <span class="math inline">\(P_\theta\)</span>는 <span class="math inline">\(G\)</span>의 확률분포 (간단하게 쓰면 <span class="math inline">\(\cdot_\theta\)</span> 생략하고 <span class="math inline">\(P\)</span>만 씀), <span class="math inline">\(\theta\)</span>는 <span class="math inline">\(\Theta\)</span> 내부에서 가능한 값들 안에서 펼쳐져있는 (ranging over) 패러미터들(패러미터값들)의 벡터.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Variety of Purposes
+• The testing for ‘significance’ of a pre-defined characteristic(s) in a given network graph
+• The study of proposed mechanisms for generating certain commonly observed properties in real-world
+networks (such as broad degree distributions or small-world effects),
+• The assessment of potential predictive factors of relational ties.</li>
+<li>The richness of network graph modeling derives largely from how we choose to specify P(·), with
+methods in the literature ranging from the simple to the complex.</li>
+<li>It is useful for our purposes to distinguish, broadly speaking, between models defined more from (i)
+a mathematical perspective, versus (ii) a statistical perspective.
+• Those of the former class tend to be simpler in nature and more amendable to mathematical analysis
+yet, at the same time, do not always necessarily lend themselves well to formal statistical techniques
+of model fitting and assessment.
+• On the other hand, those of the latter class typically are designed to be fit to data, but their
+mathematical analysis can be challenging in some cases.
+• Nonetheless, both classes of network graph models have their uses for analyzing network graph
+data.</li>
+</ol>
+<div id="classical-random-graph-models" class="section level3" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Classical Random Graph Models</h3>
 
 </div>
 </div>
@@ -568,8 +528,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="hypothesis-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-collection-and-sampling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-ergm.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -600,7 +560,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211101_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212104_Math.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.2 Completeness | Self-Study</title>
-  <meta name="description" content="3.2 Completeness | Self-Study" />
+  <title>8.1 Introduction | Self-Study</title>
+  <meta name="description" content="8.1 Introduction | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.2 Completeness | Self-Study" />
+  <meta property="og:title" content="8.1 Introduction | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.2 Completeness | Self-Study" />
+  <meta name="twitter:title" content="8.1 Introduction | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="inference.html"/>
-<link rel="next" href="hypothesis-test.html"/>
+<link rel="prev" href="survival-analysis.html"/>
+<link rel="next" href="section.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -488,78 +488,212 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="completeness" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Completeness</h2>
-<p>r<strong><em>s</em></strong> $X_1 , , X_n $의 stats $ T (X_1 , , X_n ) $에 대해, let</p>
-<p><span class="math display">\[
-\forall \theta \in \Omega: \; \; E \left[ g(T) \right]=0
-\]</span></p>
-<p>이때 이를 만족하는 <span class="math inline">\(\theta\)</span>에 무관한 함수 <span class="math inline">\(g\)</span>가 <span class="math inline">\(g(\cdot) \equiv 0\)</span> 뿐이라면, <span class="math inline">\(T\)</span>는 CS. <span class="math inline">\(T\)</span>가 <span class="math inline">\(\theta\)</span>에 대한 SS라면, 이는 CSS.</p>
-<p>stats <span class="math inline">\(Y\)</span>가 분포모임 <span class="math inline">\(\{g(y;\theta);\theta \in \Theta \}\)</span>의 한 원소를 pdf로 가진다고 하자.</p>
-<p><span class="math display">\[
-\forall \theta \in \Theta: \; \; E_{\theta} \left[ \varphi(Y) \right] \overset{\theta}{=}{0} \; \; \; \rightarrow \; \; \; \varphi(y) \overset{y}{=} 0
-\]</span></p>
-<p>위의 명제가 성립할 때 위 분포족은 completeness를 지닌다.
-* 여기서 <span class="math inline">\(\varphi\)</span>는 <span class="math inline">\(\theta\)</span>에 무관한 함수이다.
-* 피명제는 보다 엄밀히는 <span class="math inline">\(\forall \theta: P_{\theta} \{ \varphi (Y)=0 \}=1\)</span>.
-* <span class="math inline">\(\overset{\theta}{=}\)</span>는 모든 <span class="math inline">\(\theta \in \Omega\)</span>에 대해 등호가 성립함을 나타낸다.</p>
-<p>Remarks:
-1. completeness는 본질적으로 확률분포의 패러미터 <span class="math inline">\(\theta\)</span>가 통계량 <span class="math inline">\(Y\)</span>를 통해 추정될 수 있음을 보장하는 조건으로 이해될 수 있다.
-* 즉, completeness는 서로 다른 패러미터값을 지니는 두 분포는 서로 구분(distinct)됨을 보장해주는 조건이다.
-2. 통계량 <span class="math inline">\(Y\)</span>의 분포족이 completeness를 만족하면, <span class="math inline">\(Y\)</span>를 완비통계량 CS라고 부른다.
-3. 완비성은 CS의 함수로 이루어지는 UE는 unique하다는 사실을 보이는 도구로 이용된다. 레만-쉐페 thm 참조.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<div id="레만-쉐페-thm." class="section level3" number="3.2.1">
-<h3><span class="header-section-number">3.2.1</span> 레만-쉐페 thm.</h3>
-<p>패러미터 <span class="math inline">\(\theta\)</span>에 대해 <span class="math inline">\(T\)</span>가 CSS, <span class="math inline">\(S(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. 이때 $(T)=E $는 <span class="math inline">\(\theta\)</span>의 UMVUE.</p>
-<p><br></p>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta)\)</span>. <span class="math inline">\(\theta\)</span>에 대한 CSS <span class="math inline">\(Y=u(X_1 , \cdots, X_n)\)</span>. 이때 임의의 UE <span class="math inline">\(\hat \theta\)</span>에 대해</p>
-<p><span class="math display">\[
-\varphi (Y) = E(\hat \theta \rvert Y)
-\]</span></p>
-<p>는 <span class="math inline">\(\theta\)</span>에 대한 UMVUE. 이는 unique.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-</div>
-<div id="rao-blackwell-thm.-1" class="section level3" number="3.2.2">
-<h3><span class="header-section-number">3.2.2</span> Rao-Blackwell thm.</h3>
-<p>r<strong><em>s</em></strong> <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta), \theta \in \Theta\)</span>.
-1. <span class="math inline">\(Y= u(X_1 , \cdots, X_n)\)</span>는 <span class="math inline">\(\theta\)</span>의 CSS.
-2. <span class="math inline">\(Z= v(X_1 , \cdots, X_n)\)</span>의 분포는 <span class="math inline">\(\theta\)</span>에 의존하지 않는다.</p>
-<p>이상의 조건이 만족되면 <span class="math inline">\(Y \perp Z\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
+<div id="introduction-3" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Introduction</h2>
+<ol style="list-style-type: decimal">
+<li><p>SA의 결과물은 보통 <em>time-to-event</em>, 즉슨 대부분의 경우에 nonnegative이며, 이는 곧 time domain을 한정함.</p></li>
+<li><p>time-to-event의 distribution은 보통 <em>skewed</em>.</p></li>
+<li><p>Survival data은 자주 <em>right censored</em>. 조사 대상자들은 조사 기간중에만 생존했음을 알며, 조사 기간 넘어서 죽으면 해당 시간이 정확히 기록되지 않음.</p></li>
+<li><p>tail probability. 충분한 후속연구 후에는, tail of survival curve에 해당하는 subject들이 보통 되게 적음. estimation of the tail of the survival curve can be quite difficult. tail에서 survival density는 엄청 적어짐. 따라서 총 표본 수가 많이 확보되어 있지 않으면 tail에 해당하는 분석결과는 확보하기가 어렵다.</p></li>
+<li><p>모든 연구의 시간은 finite이므로 모든 subjects들에게서 발생한 event of interest 중 일부는 육안으로 관찰 못 할수도 있다. 장기적으로 발생은 했는데, 그게 우리 손닿는 곳에서 터지지 않았음.</p></li>
+<li><p>일반적으로 관측안된 failure time 들이 포함되어 있으면 기존 통계 테크닉은 사용할 수 없음.</p></li>
+<li><p>failure time 이 관측되지 않은 subject들은 censored 되었다고 표현.</p></li>
+<li><p>censored observations를 포함한 자료에서 정보를 뽑아내는 것이 SA의 estimation methods의 목적.</p></li>
+</ol>
+<div id="censoring-sources" class="section level4" number="8.1.0.1">
+<h4><span class="header-section-number">8.1.0.1</span> Censoring Sources</h4>
+<ol style="list-style-type: decimal">
+<li>Adminisitrative censoring</li>
+</ol>
 <ul>
-<li>exponentail family: <br></li>
+<li>event 발생 전에 연구 종료
+often independent of failure time</li>
 </ul>
-<p>pdf가 적절한 함수 <span class="math inline">\(a, b, c_i, t_i (i=1,\cdots, k)\)</span>에 대해 <span class="math inline">\(f(x;\theta) = a(\theta) b(x) \exp \left[ \sum_{i=1}^k c_i (\theta) t_i (x) \right], -\infty\)</span></p>
-<p><br>
-<br>
-<br></p>
-<p>지수족에 속하는 pdf로부터 r<strong>s</strong> $X_1 , , X_n $를 얻었다면, 통계량 $S_1 = <em>{i=1}^n t_1 (X_i), , S_k = </em>{i=1}^n t_k (X_i) $ 는 패러미터 $_1 , , _k $에 대한 joint (C) SS이다.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p><span class="math inline">\(g(\theta)\)</span>에 대한 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\forall \epsilon &gt;0: \lim_{n \rightarrow \infty} P \left( \vert \tau(\pmb X) - g(\theta) \vert \le \epsilon \right) =1\)</span>을 만족하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistency를 가진다.</p>
-<p>이는 표본의 크기가 커짐에 따라 est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(g(\theta)\)</span>에 <strong>확률적으로 수렴</strong>한다는 것. 표본의 크기가 매우 클 때, est <span class="math inline">\(\tau(\pmb X)\)</span>로부터 계산된 추정값 estimates는 높은 확률로 참모수값에 매우 가까이 있다는 뜻.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>를 <span class="math inline">\(g(\theta)\)</span>의 것일 때, <span class="math inline">\(\forall \theta \in \Theta: \lim_{n \rightarrow \infty} P E \left\{ \tau(\pmb X)-g(\theta)\right\}^2 = 0\)</span>이 성립하면 est <span class="math inline">\(\tau(\pmb X)\)</span>는 consistent.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>est <span class="math inline">\(\tau(\pmb X)\)</span>가 <span class="math inline">\(\theta\)</span>의 consistent이고, <span class="math inline">\(g(x)\)</span>가 <span class="math inline">\(\theta\)</span>에서 연속인 함수라면, <span class="math inline">\(g\tau(\pmb X)\)</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Loss to follow-up</li>
+</ol>
+<ul>
+<li>subject들이 더이상 트랙 불과, 관찰 하에 있지 않음 (후속연구 개시했는데 예전에 살던 사람이 동네 떠났음)
+censoring may be related (indirectly) to the failure time</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>withdrawl from study</li>
+</ol>
+<ul>
+<li>너무 아프거나 증상이 낫던가 해서 연구에서 이탈
+dependent censoring (<em>informative drop-out</em>), censoring이 failure time에 연관되어 있다는 점이 고민해야할 거리가 된다.</li>
+</ul>
+<div id="임시방편" class="section level9" number="8.1.0.1.0.0.0.0.1">
+<p class="heading" number="8.1.0.1.0.0.0.0.1"><span class="header-section-number">8.1.0.1.0.0.0.0.1</span> 임시방편</p>
+<ol style="list-style-type: decimal">
+<li><p>censor된 시간을 failure time으로 인식. <span class="math inline">\(\bar X \le E(X)\)</span> (underestimate).</p></li>
+<li><p>censor 관측치를 전부 삭제. loss of infomration.</p></li>
+</ol>
+</div>
+<div id="notation-1" class="section level6" number="8.1.0.1.0.1">
+<h6><span class="header-section-number">8.1.0.1.0.1</span> notation</h6>
+<p><span class="math inline">\(T_i\)</span>: potential failure time for the i-th subject
+<span class="math inline">\(C_i\)</span>: potential censoring time for the i-th subject
+<span class="math inline">\(X_i = \min(T_i , C_i )\)</span> observed time
+<span class="math inline">\(\delta_i = \begin{cases} 1, &amp; T_i \le C_i &amp; \text{(uncensored)} \\ 0, &amp; T_i &gt; C_i &amp; \text{(censored)} \end{cases}\)</span></p>
+</div>
+</div>
+<div id="right-censoring-most-of-the-course" class="section level4" number="8.1.0.2">
+<h4><span class="header-section-number">8.1.0.2</span> Right Censoring (most of the course)</h4>
+<p>Fail이 확실하게 터진 경우에만 fail, 이외의 경우에는 censor. 조사기간 종료까지 발병하지 않았거나, 이외의 이유로 종료 이전에 연구 이탈하면 양쪽 모두 censored.</p>
+<div id="type-of-data-to-be-analyzed-in-survival-analysis" class="section level6" number="8.1.0.2.0.1">
+<h6><span class="header-section-number">8.1.0.2.0.1</span> Type of Data to be analyzed in survival analysis</h6>
+<ol style="list-style-type: decimal">
+<li>Type Ⅰ Censoring:
+특정 시점이 왔을 때 연구 종료. ex) 쥐한테 특정 영양소 먹이고 언제까지 생존하는지</li>
+</ol>
+<ol style="list-style-type: decimal">
+<li>Progressive Type Ⅰ Censoring: 대상들이 다른, 고정된 sacrifice time 보유 ex) 도즈 레벨 4개로 나누고 각 그룹에 다른 sacrifice 기간 적용, 비용 효율화</li>
+<li>Generalized Type Ⅰ Censoring: subject들이 각각 다른 시기에 연구에 참여개시하고 정해진 시간에 연구 종료됨. subject가 참여할 때 censoring time 다 알려짐.</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Type Ⅱ Censoring:
+reliabilty 분석에서 흔함. 특정 횟수 failure 발생시 연구 종료.</li>
+</ol>
+<p>※ Right Censoring: 개인의 정확한 survival time은 follow-up period의 우측에서는 incomplete해짐.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Random Censoring:
+Censoring times are random.</li>
+</ol>
+<p>※ let’s focus on right censoring. Suppose <span class="math inline">\(T_1 , \cdots, T_n \sim f(t)\)</span> and <span class="math inline">\(C_1 , \cdots, C_n \sim g(c)\)</span>. Then, we observe <span class="math inline">\(X_i = \min(T_i , C_i )\)</span> for <span class="math inline">\(i = 1, \cdots, n\)</span>. In type Ⅰ censoring, <span class="math inline">\(C_i\)</span> is fixed (at <span class="math inline">\(C_r\)</span> or <span class="math inline">\(C_{r_i}\)</span>). In random censoring, <span class="math inline">\(C_i\)</span> is random.</p>
+</div>
+</div>
+<div id="left-censoring" class="section level4" number="8.1.0.3">
+<h4><span class="header-section-number">8.1.0.3</span> Left Censoring</h4>
+<p>less common in practice</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda(t) S(t)&amp;= f(t) \\
+
+\lambda(t) &amp;= \dfrac{f(t)}{S(t)} \\
+
+\lambda(t) &amp;= \dfrac{f(t)}{} \dfrac{d}{dS(t)}\log S(t) \\
+
+
+\end{align}\]</span>
+$$</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda(t) &amp;= - \dfrac{d}{dt} \log S(t) \\
+
+\lambda(t) &amp;= - \dfrac {dS(t)}{dt} \dfrac{d}{dS(t)} \log S(t) \\
+
+\lambda(t) &amp;= - \dfrac {d[1-F(t)]}{dt} \dfrac{1}{S(t)} \\
+
+\lambda(t) &amp;= - (-f(t)) \dfrac{1}{S(t)} \\
+
+S(t)\lambda(t) &amp;= f(t)
+
+\end{align}\]</span>
+$$</p>
+<p><span class="math display">\[
+A = A&#39;\; \; \; \Longrightarrow \; \; \; \exists \text{basis for } C(A):\text{constisting of evec of nonzero ev&#39;s.}
+\]</span></p>
+<p>linear transformation, span, trace, nonsingular, null space</p>
+<p><span class="math display">\[
+tr(ABC) = tr(BCA)=tr(CAB)
+\]</span>
+<span class="math display">\[
+r(A_{n \times n})=r, \; \; \; r[\mathcal{N}(A)] = n-r
+\]</span></p>
+<p><span class="math inline">\(\lambda\)</span> is ev of <span class="math inline">\(A\)</span>, <span class="math inline">\(v\)</span> is evec of <span class="math inline">\(A\)</span>.</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{3}
+
+&amp;\forall \lambda_i \not = 0 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp;
+&amp;&amp; \forall v_i : 
+&amp;&amp; span(v_i) \subset \mathcal{C}(A)
+
+\\
+
+&amp;A = A&#39;, \; \lambda_i \not = \lambda_j 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; v_i \perp v_j,
+&amp;&amp;
+&amp;&amp;span(v_i, v_j) \subset \mathcal{C}(A)
+
+
+\\
+
+&amp;\exists A^{-1} 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; \prod \lambda\not = 0
+&amp;&amp;
+&amp;&amp;
+
+\\
+
+&amp;A = A&#39;
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; 
+&amp;&amp;
+&amp;&amp;\exists \text{basis for } \mathcal{C}(A) \text{ consists of } v_i \text{ of } \lambda_i \not = 0
+
+
+
+\\
+
+&amp;A_{n \times n} = A&#39;, \; \prod \lambda \not = 0 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; \mathcal C (A)=\mathbb R^n,
+&amp;&amp;
+&amp;&amp;span( v) = \mathbb{R}^n
+
+
+
+\\
+
+&amp;A_{n \times n} = A&#39;, \; \forall \lambda_i \not = 0 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; 
+&amp;&amp;
+&amp;&amp;span(\forall v_i) = \mathcal{C}(A) \subset \mathbb{R}^n
+
+
+
+
+
+
+\\
+
+&amp;A_{n \times n} = A&#39;, \; \forall \lambda_i  = 0 
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; 
+&amp;&amp;
+&amp;&amp;span(\forall v_i) = \mathcal{N}(A)
+
+\\
+
+&amp;A = A&#39;
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; 
+&amp;&amp;
+&amp;&amp;\mathcal{N}(A) = \mathcal C (A)^\perp
+
+\\
+
+&amp;A_{n \times n} = A&#39;
+&amp;&amp;\; \; \; \Longrightarrow \; \; \; 
+&amp;&amp; 
+&amp;&amp;
+&amp;&amp;
+
+
+\exists v_i : span(v_i) = \mathcal C (A), \; v_i \perp v_j 
+\; \; \tiny {\bigoplus} \; \; \normalsize \exists A^{-1} : \mathcal C(A) = \mathbb{R}^n
+\; \; \tiny {\bigoplus} \; \; \normalsize \text{if normalized, orthonormal}
+
+\end{alignat}\]</span>
+$$</p>
 
 </div>
 </div>
@@ -568,8 +702,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="hypothesis-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="survival-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -600,7 +734,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211101_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212501_Intro.Rmd",
 "text": "Edit"
 },
 "history": {
