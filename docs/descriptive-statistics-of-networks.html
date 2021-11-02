@@ -413,7 +413,13 @@ div.csl-indent {
 <li class="chapter" data-level="7.1.2" data-path="introduction-2.html"><a href="introduction-2.html#network-modeling-and-inference"><i class="fa fa-check"></i><b>7.1.2</b> Network Modeling and Inference</a></li>
 <li class="chapter" data-level="7.1.3" data-path="introduction-2.html"><a href="introduction-2.html#network-processes"><i class="fa fa-check"></i><b>7.1.3</b> Network Processes</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics of Networks</a></li>
+<li class="chapter" data-level="7.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics of Networks</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#vertex-and-edge-characteristics"><i class="fa fa-check"></i><b>7.2.1</b> Vertex and Edge Characteristics</a></li>
+<li class="chapter" data-level="7.2.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#characterizing-network-cohesion"><i class="fa fa-check"></i><b>7.2.2</b> Characterizing Network Cohesion</a></li>
+<li class="chapter" data-level="7.2.3" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#graph-partitioning"><i class="fa fa-check"></i><b>7.2.3</b> Graph Partitioning</a></li>
+<li class="chapter" data-level="7.2.4" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#assortativity-and-mixing"><i class="fa fa-check"></i><b>7.2.4</b> Assortativity and Mixing</a></li>
+</ul></li>
 <li class="chapter" data-level="7.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Data Collection and Sampling</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-procedures"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Procedures</a></li>
@@ -450,7 +456,13 @@ div.csl-indent {
 <li class="chapter" data-level="8.3" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>8.3</b> </a></li>
 <li class="chapter" data-level="8.4" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>8.4</b> </a></li>
 <li class="chapter" data-level="8.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>8.5</b> Cox Regression</a></li>
-<li class="chapter" data-level="8.6" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>8.6</b> Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>8.6</b> Filtration의 개념을 정복하자!</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>8.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약</a></li>
+<li class="chapter" data-level="8.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>8.6.2</b> Ft-measurable</a></li>
+<li class="chapter" data-level="8.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>8.6.3</b> EPILOGUE</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>8.7</b> Concepts</a></li>
 </ul></li>
 <li class="appendix"><span><b>00-00</b></span></li>
 <li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
@@ -490,7 +502,458 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="descriptive-statistics-of-networks" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Descriptive Statistics of Networks</h2>
+<p>• In the study of a given complex system, questions of interest can often be re-phrased in a useful manner as questions regarding some aspect of the structure or characteristics of a corresponding network graph.</p>
+<p>– Various types of basic social dynamics can be represented by triplets of vertices with a particular pattern of ties among them (i.e., triads).
+– Questions involving the movement of information or commodities usually can be posed in terms of paths on the network graph and flows along those paths.
+– Certain notions of the ‘importance’ of individual system elements may be captured by measures of how ‘central’ the corresponding vertex is in the network.
+– The search for ‘communities’ and analogous types of unspecified ‘groups’ within a system frequently may be addressed as a graph partitioning problem.</p>
+<p>• The structural analysis of network graphs has traditionally been treated primarily as a descriptive task, as opposed to an inferential task, and the tools commonly used for such purposes derive largely from areas outside of ‘mainstream’ statistics.
+– An overwhelming proportion of these tools are naturally graph-theoretic in nature, and thus have their origins in mathematics and computer science.
+– The field of social network analysis has been another key source, contributing tools usually aimed at least originally at capturing basic aspects of social structure and dynamics.
+– The field of physics has also been an important contributor, with the proposed tools often motivated by analogues in statistical mechanics.</p>
+<div id="vertex-and-edge-characteristics" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> Vertex and Edge Characteristics</h3>
+<p>• The fundamental elements of network graphs are their vertices and edges
+• Characterization of the Vertex and Edges
+– Characterizations based upon vertex degrees
+– Characterizations seeking to capture some more general notion of the ‘importance’ of a vertex</p>
+<div id="vertex-degree" class="section level4" number="7.2.1.1">
+<h4><span class="header-section-number">7.2.1.1</span> Vertex Degree</h4>
+<p>• The degree dv of a vertex v, in a network graph G = (V, E), counts the number of edges in E incident upon v.
+• Given a network graph G, define fd to be the fraction of vertices v ∈ V with degree dv = d.
+• The collection {fd}d≥0 is called the degree distribution of G, and is simply a rescaling of the set of degree frequencies, formed from the original degree sequence.
+Karate club network<br />
+</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="descriptive-statistics-of-networks.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sand)</span>
+<span id="cb4-2"><a href="descriptive-statistics-of-networks.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraphdata)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="descriptive-statistics-of-networks.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(karate)</span>
+<span id="cb5-2"><a href="descriptive-statistics-of-networks.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb5-3"><a href="descriptive-statistics-of-networks.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">degree</span>(karate), <span class="at">col=</span><span class="st">&quot;lightblue&quot;</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">50</span>),</span>
+<span id="cb5-4"><a href="descriptive-statistics-of-networks.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Vertex Degree&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb5-5"><a href="descriptive-statistics-of-networks.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">graph.strength</span>(karate), <span class="at">col=</span><span class="st">&quot;pink&quot;</span>,</span>
+<span id="cb5-6"><a href="descriptive-statistics-of-networks.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Vertex Strength&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>• The degree distribution
+– There are three distinct groups of vertices, as measured by degree.
+– The two most highly connected vertices correspond to actors 1 and 34 in the network, representing the instructor and administrator about whom the club eventually split.
+– The next set of vertices consists of actors 2, 3, and also 33.</p>
+<p>• Weighted Networks
+– A useful generalization of degree is the notion of vertex strength, which is obtained simply by summing up the weights of edges incident to a given vertex.
+– The distribution of strength sometimes called the weighted degree distribution is defined in analogy to the ordinary degree distribution</p>
+<p>Figure 2: The vertex strength distribution for the Karate club network
+A Network of Interactions among Protein Pairs in Yeast</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="descriptive-statistics-of-networks.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(yeast)</span>
+<span id="cb6-2"><a href="descriptive-statistics-of-networks.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(yeast)</span>
+<span id="cb6-3"><a href="descriptive-statistics-of-networks.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vcount</span>(yeast)</span></code></pre></div>
+<p>• Histogram: In particular, while there is a substantial fraction of vertices of quite low degree, of an order of magnitude similar to those of the karate network, there are also a non-trivial number of vertices with degrees at successively higher orders of magnitude.
+• There is a fairly linear decay in the log-frequency as a function of log-degree.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="descriptive-statistics-of-networks.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb7-2"><a href="descriptive-statistics-of-networks.html#cb7-2" aria-hidden="true" tabindex="-1"></a>d.yeast <span class="ot">=</span> <span class="fu">degree</span>(yeast)</span>
+<span id="cb7-3"><a href="descriptive-statistics-of-networks.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(d.yeast,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Degree&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;Degree Distribution&quot;</span>)</span>
+<span id="cb7-4"><a href="descriptive-statistics-of-networks.html#cb7-4" aria-hidden="true" tabindex="-1"></a>dd.yeast <span class="ot">=</span> <span class="fu">degree.distribution</span>(yeast)</span>
+<span id="cb7-5"><a href="descriptive-statistics-of-networks.html#cb7-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">max</span>(d.yeast)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb7-6"><a href="descriptive-statistics-of-networks.html#cb7-6" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">=</span> (dd.yeast <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb7-7"><a href="descriptive-statistics-of-networks.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d[ind], dd.yeast[ind], <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">xlab=</span><span class="fu">c</span>(<span class="st">&quot;Log-Degree&quot;</span>),</span>
+<span id="cb7-8"><a href="descriptive-statistics-of-networks.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">ylab=</span><span class="fu">c</span>(<span class="st">&quot;Log-Intensity&quot;</span>), <span class="at">main=</span><span class="st">&quot;Log-Log Degree Distribution&quot;</span>)</span></code></pre></div>
+<p>Figure 3: The degree distribution for protein interactions in Yeast
+• It can be interesting to understand the manner in which vertices of different degrees are linked with each other.
+• Useful in assessing this characteristic is the notion of the average degree of the neighbors of a given vertex.
+• While there is a tendency for vertices of higher degrees to link with similar vertices, vertices of lower degree tend to link with vertices of both lower and higher degrees.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="descriptive-statistics-of-networks.html#cb8-1" aria-hidden="true" tabindex="-1"></a>a.nn.deg.yeast <span class="ot">=</span> <span class="fu">graph.knn</span>(yeast,<span class="fu">V</span>(yeast))<span class="sc">$</span>knn</span>
+<span id="cb8-2"><a href="descriptive-statistics-of-networks.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d.yeast, a.nn.deg.yeast, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">col=</span><span class="st">&quot;goldenrod&quot;</span>,</span>
+<span id="cb8-3"><a href="descriptive-statistics-of-networks.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="fu">c</span>(<span class="st">&quot;Log Vertex Degree&quot;</span>), <span class="at">ylab=</span><span class="fu">c</span>(<span class="st">&quot;Log Average Neighbor Degree&quot;</span>))</span></code></pre></div>
+<p>Figure 4: The degree distribution for protein interactions in Yeast</p>
+</div>
+<div id="vertex-centrality" class="section level4" number="7.2.1.2">
+<h4><span class="header-section-number">7.2.1.2</span> Vertex Centrality</h4>
+<p>• Many questions that might be asked about a vertex in a network graph essentially seek to understand
+its ‘importance’ in the network.
+– Which actors in a social network seem to hold the ‘reins of power?’
+– How authoritative does a particular page in the World Wide Web seem to be considered?
+– The deletion of which genes in a gene regulatory network is likely to be lethal to the corresponding organism?
+– How critical is a given router in an Internet network to the flow of traffic?</p>
+<p>• Measures of centrality are designed to quantify such notions of ‘importance’ and thereby facilitate the answering of such questions.
+• Most widely used measure of vertex centrality: Vertex Degree.
+• Three other classic types of vertex centrality measures: Closeness, Betweenness, and Eigenvector</p>
+<ul>
+<li><strong>centrality</strong>
+• Closeness centrality measures attempt to capture the notion that a vertex is ‘central’ if it is ‘close’ to many other vertices.
+– The standard approach is to let the centrality vary inversely with a measure of the total distance of a vertex from all others,</li>
+</ul>
+<p>cCL =
+1
+P
+u∈V
+dist(u, v)
+,
+where dist(v, u) is the geodesic distance between the vertices u, v ∈ V .</p>
+<p>– Often, for comparison across graphs and with other centrality measures, this measure is normalized to lie in the interval [0, 1], through multiplication by a factor Nv1.</p>
+<p>• Betweenness centrality measures are aimed at summarizing the extent to which a vertex is located ‘between’ other pairs of vertices.
+– These centralities are based upon the perspective that ‘importance’ relates to where a vertex is located with respect to the paths in the network graph.
+– If we picture those paths as the routes by which communication of some sort or another takes place, vertices that sit on many paths are likely more critical to the communication process.
+– The most commonly used betweenness centrality is defined as</p>
+<p>CB(v) = X
+s6=t6=v∈V
+σ(s, t | v)
+σ(s, t)</p>
+<p>where σ(s, t | v) is the total number of shortest paths between s and t that pass through v, and σ(s, t) is the total number of shortest paths between S and t (regardless of whether or not they pass through v).
+– This centrality measure can be restricted to the unit interval through division by a factor of (Nv − 1)(Nv − 2)/2.</p>
+<p>• Other centrality measures are based on notions of ‘status’ or ‘prestige’ or ‘rank.’
+– Seek to capture the idea that the more central the neighbors of a vertex are, the more central that vertex itself is.
+– These measures are inherently implicit in their definition and typically can be expressed in terms of eigenvector solutions of appropriately defined linear systems of equations.
+– There are many such eigenvector centrality measures. For example,</p>
+<p>CEi
+(v) = α
+X
+{u,v}∈E
+cEi
+(u).
+The vector CEi = (CEi
+(1), · · · , CEi
+(Nv))T</p>
+<p>is the solution to the eigenvalue problem ACEi, where A is the adjacency matrix for the network graph G.</p>
+<p>– An optimal choice of α−1 is the largest eigenvalue of A, and hence cEi is the corresponding eigenvector.
+– When G is undirected and connected, the largest eigenvalue of A will be simple and its eigenvector will have entries that are all nonzero and share the same sign.
+– Convention is to report the absolute values of these entries, which will automatically lie between 0 and 1 by the orthonormality of eigenvectors.
+• An intuitively appealing way of displaying vertex centralities (for networks of small to moderate size) is to use a radial layout, with more central vertices located closer to the center.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="descriptive-statistics-of-networks.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;network&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
+<span id="cb9-2"><a href="descriptive-statistics-of-networks.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;sna&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
+<span id="cb9-3"><a href="descriptive-statistics-of-networks.html#cb9-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">get.adjacency</span>(karate, <span class="at">sparse=</span><span class="cn">FALSE</span>)</span>
+<span id="cb9-4"><a href="descriptive-statistics-of-networks.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(network)</span>
+<span id="cb9-5"><a href="descriptive-statistics-of-networks.html#cb9-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">as.network.matrix</span>(A)</span>
+<span id="cb9-6"><a href="descriptive-statistics-of-networks.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sna)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="descriptive-statistics-of-networks.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb10-2"><a href="descriptive-statistics-of-networks.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">degree</span>(g), <span class="at">main=</span><span class="st">&quot;Degree&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
+<span id="cb10-3"><a href="descriptive-statistics-of-networks.html#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>),</span>
+<span id="cb10-4"><a href="descriptive-statistics-of-networks.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb10-5"><a href="descriptive-statistics-of-networks.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">closeness</span>(g), <span class="at">main=</span><span class="st">&quot;Closeness&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
+<span id="cb10-6"><a href="descriptive-statistics-of-networks.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>),</span>
+<span id="cb10-7"><a href="descriptive-statistics-of-networks.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="descriptive-statistics-of-networks.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;network&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
+<span id="cb11-2"><a href="descriptive-statistics-of-networks.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;sna&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
+<span id="cb11-3"><a href="descriptive-statistics-of-networks.html#cb11-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">get.adjacency</span>(karate, <span class="at">sparse=</span><span class="cn">FALSE</span>)</span>
+<span id="cb11-4"><a href="descriptive-statistics-of-networks.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(network)</span>
+<span id="cb11-5"><a href="descriptive-statistics-of-networks.html#cb11-5" aria-hidden="true" tabindex="-1"></a>g <span class="ot">=</span> <span class="fu">as.network.matrix</span>(A)</span>
+<span id="cb11-6"><a href="descriptive-statistics-of-networks.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sna)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="descriptive-statistics-of-networks.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb12-2"><a href="descriptive-statistics-of-networks.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">betweenness</span>(g), <span class="at">main=</span><span class="st">&quot;Betweenness&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
+<span id="cb12-3"><a href="descriptive-statistics-of-networks.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>),</span>
+<span id="cb12-4"><a href="descriptive-statistics-of-networks.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb12-5"><a href="descriptive-statistics-of-networks.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">evcent</span>(g), <span class="at">main=</span><span class="st">&quot;Eigenvalue&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
+<span id="cb12-6"><a href="descriptive-statistics-of-networks.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>),</span>
+<span id="cb12-7"><a href="descriptive-statistics-of-networks.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span></code></pre></div>
+<p>• Extensions of these centrality measures from undirected to directed graphs are straightforward.</p>
+<p>Figure 6: Target plots showing various vertex centralities for the karate club network
+– Characterizes the importance of so-called hub vertices by how many authority vertices they
+point to, and so-called authority vertices by how many hubs point to them.
+– Given an adjacency matrix A for a directed graph, hubs are determined according to the
+eigenvector centrality of the matrix Mhub = AAT
+, and authorities, according to that of
+Mauth = AT A.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="descriptive-statistics-of-networks.html#cb13-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">=</span> <span class="fu">layout.kamada.kawai</span>(aidsblog)</span>
+<span id="cb13-2"><a href="descriptive-statistics-of-networks.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb13-3"><a href="descriptive-statistics-of-networks.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aidsblog, <span class="at">layout=</span>l, <span class="at">main=</span><span class="st">&quot;Hubs&quot;</span>, <span class="at">vertex.label=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb13-4"><a href="descriptive-statistics-of-networks.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="at">vertex.size=</span><span class="dv">10</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">hub.score</span>(aidsblog)<span class="sc">$</span>vector))</span>
+<span id="cb13-5"><a href="descriptive-statistics-of-networks.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aidsblog, <span class="at">layout=</span>l, <span class="at">main=</span><span class="st">&quot;Authorities&quot;</span>, <span class="at">vertex.label=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb13-6"><a href="descriptive-statistics-of-networks.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="at">vertex.size=</span><span class="dv">10</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">authority.score</span>(aidsblog)<span class="sc">$</span>vector))</span></code></pre></div>
+<p>Figure 7: AIDS blog network with vertex area proportional to hubs and authority centrality measures</p>
+</div>
+<div id="characterizing-edges" class="section level4" number="7.2.1.3">
+<h4><span class="header-section-number">7.2.1.3</span> Characterizing Edges</h4>
+<p>• Edge betweenness centrality which extends vertex betweenness centrality in a straightforward manner, by assigning to each edge a value that reflects the number of shortest paths traversing that edge is a natural quantity to use.</p>
+<p>• Using edge betweenness with the karate network and examining, for instance, the edges with the three largest betweenness values</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="descriptive-statistics-of-networks.html#cb14-1" aria-hidden="true" tabindex="-1"></a>eb <span class="ot">=</span> <span class="fu">edge.betweenness</span>(karate)</span>
+<span id="cb14-2"><a href="descriptive-statistics-of-networks.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(karate)[<span class="fu">order</span>(eb, <span class="at">decreasing=</span>T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]]</span></code></pre></div>
+<p>• Many other vertex centrality measures do not extend as easily. One way around this problem is to apply vertex centrality measures to the vertices in the line graph of a network graph G.
+• Line graph of G, say G0 = (V
+0
+, E0
+), is obtained essentially by changing vertices of G to edges, and
+edges, to vertices.
+• The vertices v
+0 ∈ V
+0
+represent the original edges e ∈ E, and the edges e
+0 ∈ E0
+indicate that the two corresponding original edges in G were incident to a common vertex in G.</p>
+</div>
+</div>
+<div id="characterizing-network-cohesion" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Characterizing Network Cohesion</h3>
+<p>• Questions involving network cohesion, the extent to which subsets of vertices are cohesive or ‘stuck
+together’ with respect to the relation defining edges in the network graph.
+– Do friends of a given actor in a social network tend to be friends of one another as well?
+– What collections of proteins in a cell appear to work closely together?
+– Does the structure of the pages in the World Wide Web tend to separate with respect to
+distinct types of content?
+– What portion of a measured Internet topology would seem to constitute the ‘backbone?’
+• There are many ways that we can define network cohesion, depending on the context of the question
+being asked.
+– Definitions differ, for example, in scale, ranging from local (e.g., triads) to global (e.g., giant
+components), and also in the extent to which they are specified explicitly (e.g., cliques) versus
+implicitly (e.g., ‘clusters’ or ‘communities’)</p>
+<div id="subgraphs-and-censuses" class="section level4" number="7.2.2.1">
+<h4><span class="header-section-number">7.2.2.1</span> Subgraphs and Censuses</h4>
+<ul>
+<li><strong>Cliques</strong></li>
+</ul>
+<p>Cliques are complete subgraphs and hence are subsets of vertices that are fully cohesive, in the
+sense that all vertices within the subset are connected by edges.
+• A census of cliques of all size can provide some sense of a ‘snapshot’ of how structured a graph is</p>
+<p>For the karate network a census of this sort reflects that there are 34 nodes (cliques of size one)
+and 78 edges (cliques of size two), followed by 45 triangles (cliques of size three).
+• The largest cliques are of size five, of which there are only two</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descriptive-statistics-of-networks.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(<span class="fu">cliques</span>(karate), length))</span>
+<span id="cb15-2"><a href="descriptive-statistics-of-networks.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(karate)[<span class="fu">sapply</span>(<span class="fu">cliques</span>(karate), length) <span class="sc">==</span> <span class="dv">5</span>]</span></code></pre></div>
+<p>The cliques of larger sizes necessarily include cliques of smaller sizes.
+• A maximal clique is a clique that is not a subset of a larger clique</p>
+<p>• Large cliques are relatively rare, as they necessarily require that a graph G itself be fairly dense,
+while real-world networks are often sparse</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="descriptive-statistics-of-networks.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(<span class="fu">maximal.cliques</span>(karate), length))</span>
+<span id="cb16-2"><a href="descriptive-statistics-of-networks.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clique.number</span>(yeast)</span></code></pre></div>
+<ul>
+<li><strong><span class="math inline">\(k\)</span>-core</strong></li>
+</ul>
+<p>• Weakened Notions of Cliques. A <span class="math inline">\(k\)</span>-core of a graph G is a subgraph of G for which all vertex degrees are at least k, and such that
+no other subgraph obeying the same condition contains it (i.e., it is maximal in this property).
+• The notion of cores is particularly popular in visualization, as it provides a way of decomposing a
+network into ‘layers.’</p>
+<p>Figure 8: Visual representation of the k-core decomposition of the karate network</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="descriptive-statistics-of-networks.html#cb17-1" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">=</span> <span class="fu">graph.coreness</span>(karate)</span>
+<span id="cb17-2"><a href="descriptive-statistics-of-networks.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, cores, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col=</span><span class="st">&quot;skyblue&quot;</span>,</span>
+<span id="cb17-3"><a href="descriptive-statistics-of-networks.html#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span>cores, <span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span>
+<span id="cb17-4"><a href="descriptive-statistics-of-networks.html#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="descriptive-statistics-of-networks.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:sna&quot;</span>)</span>
+<span id="cb17-6"><a href="descriptive-statistics-of-networks.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:network&quot;</span>)</span></code></pre></div>
+<p>Figure 8: Visual representation of the k-core decomposition of the karate network</p>
+<p>Vertices of coreness one (black), two (red), three (green), and four (blue) are shown at successively smaller
+distances from the center, with the same distance for vertices within each core
+Other Classes of Subgraphs in Defining Network Cohesion.
+• Dyads are pairs of vertices and, in directed graphs, may take on three possible states: null (no
+directed edges), asymmetric (one directed edge), or mutual (two directed edges).
+• Triads are triples of vertices and may take on 16 possible states, ranging from the null subgraph
+to the subgraph in which all three dyads formed by the vertices in the triad have mutual directed
+edges.
+The vast majority of the dyads are null and, of those that are non-null, almost all are asymmetric,
+indicating a decided one-sidedness to the manner in which blogs in this network reference each other.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="descriptive-statistics-of-networks.html#cb18-1" aria-hidden="true" tabindex="-1"></a>aidsblog <span class="ot">=</span> <span class="fu">simplify</span>(aidsblog)</span>
+<span id="cb18-2"><a href="descriptive-statistics-of-networks.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dyad.census</span>(aidsblog)</span></code></pre></div>
+<p>Consistent with the observations from our earlier analysis of hubs and authorities in this network
+• Small connected subgraphs of interest are commonly termed motifs.
+• The notion of motifs is particularly popular in the study of biological networks, where arguments
+often are made linking such network substructures to biological function.</p>
+</div>
+<div id="density-and-related-notions-of-relative-frequency" class="section level4" number="7.2.2.2">
+<h4><span class="header-section-number">7.2.2.2</span> Density and Related Notions of Relative Frequency</h4>
+<ul>
+<li><strong>Density</strong></li>
+</ul>
+<p>The density of a graph is the frequency of realized edges relative to potential edges. For example,
+in a (undirected) graph G with no self-loops and no multiple edges, the density of a subgraph
+H = (VH, EH) is</p>
+<p>den(H) = |EH|
+|VH|(|VH| − 1)/2</p>
+<p>The value of den(H) will lie between zero and one and provides a measure of how close H is to
+being a clique. In the case that G is a directed graph, the denominator is replaced by |VH|(|VH|1).
+• Taking H = G yields the density of the overall graph G.
+• Conversely, taking H = Hv to be the set of neighbors of a vertex v ∈ V , and the edges between
+them, yields a measure of density in the immediate neighborhood of v.
+• The subgraphs corresponding to each of the instructor and the administrator, in union with their
+immediate respective neighborhoods i.e., the ego-centric networks around vertices 1 and 34 are
+noticeably more dense than the overall network.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="descriptive-statistics-of-networks.html#cb19-1" aria-hidden="true" tabindex="-1"></a>ego.instr <span class="ot">=</span> <span class="fu">induced.subgraph</span>(karate,<span class="fu">neighborhood</span>(karate, <span class="dv">1</span>, <span class="dv">1</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb19-2"><a href="descriptive-statistics-of-networks.html#cb19-2" aria-hidden="true" tabindex="-1"></a>ego.admin <span class="ot">=</span> <span class="fu">induced.subgraph</span>(karate,<span class="fu">neighborhood</span>(karate, <span class="dv">1</span>, <span class="dv">34</span>)[[<span class="dv">1</span>]])</span>
+<span id="cb19-3"><a href="descriptive-statistics-of-networks.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(karate)</span>
+<span id="cb19-4"><a href="descriptive-statistics-of-networks.html#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="descriptive-statistics-of-networks.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(ego.instr)</span>
+<span id="cb19-6"><a href="descriptive-statistics-of-networks.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(ego.admin)</span></code></pre></div>
+<ul>
+<li><strong>Clustering Coefficients</strong></li>
+</ul>
+<p>The standard use of the term clustering coefficient typically refers to the quantity
+clT (G) = 3τ∆(G)
+τ3(G)
+,
+where τ∆(G) is the number of triangles in the graph G, and τ3(G), the number of connected triples
+(i.e., a subgraph of three vertices connected by two edges, also sometimes called a 2-star).
+• The value clT (G) is alternatively called the transitivity of the graph, and is a standard quantity of
+interest in the social network literature, where it is also referred to as the ‘fraction of transitive
+triples.’</p>
+<p>clT (G) is a measure of global clustering, summarizing the relative frequency with which connected
+triples close to form triangles.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="descriptive-statistics-of-networks.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(karate)</span>
+<span id="cb20-2"><a href="descriptive-statistics-of-networks.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(karate, <span class="st">&quot;local&quot;</span>, <span class="at">vids=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">34</span>))</span></code></pre></div>
+<ul>
+<li><strong>Reciprocity</strong>
+• A concept unique to directed graphs
+• In the case that dyads are used as units, reciprocity is defined to be the number of dyads with reciprocated (i.e., mutual) directed edges divided by the number of dyads with a single, unreciprocated
+edge.
+• Reciprocity is defined as the total number of reciprocated edges divided by the total number of
+edges.</li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="descriptive-statistics-of-networks.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reciprocity</span>(aidsblog, <span class="at">mode=</span><span class="st">&quot;default&quot;</span>)</span>
+<span id="cb21-2"><a href="descriptive-statistics-of-networks.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">reciprocity</span>(aidsblog, <span class="at">mode=</span><span class="st">&quot;ratio&quot;</span>)</span></code></pre></div>
+</div>
+<div id="connectivity-cuts-and-flows" class="section level4" number="7.2.2.3">
+<h4><span class="header-section-number">7.2.2.3</span> Connectivity, Cuts, and Flows</h4>
+<p>기본적으로 궁금한 건 주어진 그래프가 서로 다른 서브그래프로 쪼개질 수 있나 하는 것. 불가능하다면 해당 그래프가 이 쪼개질 수 있는 성질의 역치에 얼마나 가까운지를 체크하는 것이 목적이 된다.</p>
+<p>만약 모든 vertex가 다른 모든 vertex에서 접근 가능하다면, 즉 adjacency Matrix가 diag 제외하고 모두 1이면, 그래프 <span class="math inline">\(G\)</span>는 <strong>connected</strong>라고 칭해진다. 그리고 그래프의 <strong>connected component</strong>는 maximally connected 서브그래프이다.</p>
+<p>그래프 <span class="math inline">\(G\)</span>의 connected component 중 하나가 다른 모두를 위력에서 압도한다면, 이는 곧 해당 connected component가 <span class="math inline">\(G\)</span>의 대부분의 vertex를 포함하고 있다는 이야기. 이러한 component는 <strong>giant component</strong>라고 불리며 이는 random graph theory 출신 용어.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="descriptive-statistics-of-networks.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is.connected</span>(yeast)</span>
+<span id="cb22-2"><a href="descriptive-statistics-of-networks.html#cb22-2" aria-hidden="true" tabindex="-1"></a>comps <span class="ot">=</span> <span class="fu">decompose.graph</span>(yeast)</span>
+<span id="cb22-3"><a href="descriptive-statistics-of-networks.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(comps, vcount))</span></code></pre></div>
+<p>결과는 false로 나오지만 이에 대해 census 돌리면 giant component의 존재 확인 가능. 아래 예시의 경우 component 1개가 2375/2617로 90퍼 vertex랑 연결중임. 이는 현실 네트워크에서의 <strong>small world property</strong>와 연결. vertex 쌍들 collection에서의 minimum path는 보통 되게 작음. 대비되게 clustring은 상대적으로 높음. (ex) protein?</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="descriptive-statistics-of-networks.html#cb23-1" aria-hidden="true" tabindex="-1"></a>yeast.gc <span class="ot">=</span> <span class="fu">decompose.graph</span>(yeast)[[<span class="dv">1</span>]]</span>
+<span id="cb23-2"><a href="descriptive-statistics-of-networks.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">average.path.length</span>(yeast.gc)</span>
+<span id="cb23-3"><a href="descriptive-statistics-of-networks.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">diameter</span>(yeast.gc)</span>
+<span id="cb23-4"><a href="descriptive-statistics-of-networks.html#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(yeast.gc)</span></code></pre></div>
+<p>해당 네트워크에서의 shortest path는 <span class="math inline">\(N_v\)</span>보다 <span class="math inline">\(\log N_v\)</span>로 표현되는게 정확할 정도로 짧음. scales more like, thus considered small. 동시에 해당 네트워크에서의 clustering은 상대적으로 large, 이는 transitivity로 확인 가능.</p>
+<ul>
+<li><strong>Connectivity</strong></li>
+</ul>
+<p>그래프 <span class="math inline">\(G\)</span> 가
+1. <strong><span class="math inline">\(k\)</span>-vertex-connected</strong>
+- the number of vertices <span class="math inline">\(N_v &gt; k\)</span>
+- cardinality <span class="math inline">\(|X|&lt;k\)</span>이며 <span class="math inline">\(X \subseteq V\)</span>인 vertex의 subset <span class="math inline">\(X\)</span>을 지우면 connected subgraph가 아니게 됨.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong><span class="math inline">\(k\)</span>-edge-connected</strong>
+<ul>
+<li><span class="math inline">\(N_v ≥ 2\)</span></li>
+<li>cardinality <span class="math inline">\(|Y|&lt;k\)</span>이며 <span class="math inline">\(Y \subseteq E\)</span>인 edge의 subset <span class="math inline">\(Y\)</span>을 지우면 connected subgraph가 아니게 됨.</li>
+</ul></li>
+</ol>
+<p>즉 <span class="math inline">\(G\)</span>의 vertex (edge) connectivity는 <span class="math inline">\(G\)</span>의 k-vertex(k-edge-) connected가 유지되는 가장 큰 integer. <mark> 이때 vertex connectivity <span class="math inline">\(\le\)</span> edge connectivity <span class="math inline">\(\le\)</span> minimum degree among vertex in <span class="math inline">\(G\)</span> (dmin).</mark> 따라서 이 서브그래프를 추가적인 component로 분해하기 위해서는 단 1개의 엄선된 vertex나 edge를 제거하는 것으로 충분하다.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="descriptive-statistics-of-networks.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vertex.connectivity</span>(yeast.gc)</span>
+<span id="cb24-2"><a href="descriptive-statistics-of-networks.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">edge.connectivity</span>(yeast.gc)</span></code></pre></div>
+<ul>
+<li><strong>Cut</strong></li>
+</ul>
+<p>vertex (edge)의 subset <span class="math inline">\(S\)</span>를 제거하는 것으로 해당 그래프가 서브그래프로 조각난다면, <span class="math inline">\(S\)</span>는 vertex-cut (edge-cut). 여기서 vertex <span class="math inline">\(S\)</span>의 원소가 1개라면, 즉 vertex 1개만을 제거한 것으로 그래프가 조각났다면, 이는 cut vertex, 혹은 <strong>articulation point</strong>. 이러한 vertex의 여부를 식별하는 건 해당 네트워크가 외부 공격에 취약하는지를 파악하는데 도움이 됨. 해당 포인트 끊기면 네트워크 정상작동이 안되니까.</p>
+<p>• Identification of such vertices can provide a sense of where a network is vulnerable (e.g., in the sense of an attack, where disconnecting produces undesired consequences, such as a power outage in an energy network).
+• In the giant component of the yeast network, almost 15% of the vertices are cut vertices.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="descriptive-statistics-of-networks.html#cb25-1" aria-hidden="true" tabindex="-1"></a>yeast.cut.vertices <span class="ot">=</span> <span class="fu">articulation.points</span>(yeast.gc)</span>
+<span id="cb25-2"><a href="descriptive-statistics-of-networks.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(yeast.cut.vertices)</span></code></pre></div>
+<p>nontrivial 그래프 <span class="math inline">\(G\)</span>는 k-vertex (k-edge) connected <span class="math inline">\(\iff\)</span> 서로다른 vertex의 쌍 <span class="math inline">\(u, v \in V\)</span>가 k vertex-disjoint (edge-disjoint) paths에 의해 connected 가능.</p>
+<p>이 결과는 그래프에서 특정 vertex (edge)가 제거된 상황에서도 그래프 내부에서 만들어지는 서로 다른 path 들이 얼마나 많은지를 통해 평가되는 그래프의 robust함과 연결되어 있다. 낮은 vertex (edge) connectivity 를 가지는 그래프는 따라서 path들을 가질 수 있으며, 이에 의해 그 path들을 통과했던 “information”들은 작은 숫자의 vertex (edge)를 없애는 것만으로 쉽게 방해되고 만다.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="descriptive-statistics-of-networks.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shortest.paths</span>()</span>
+<span id="cb26-2"><a href="descriptive-statistics-of-networks.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.maxfow</span>()</span>
+<span id="cb26-3"><a href="descriptive-statistics-of-networks.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.mincu</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="graph-partitioning" class="section level3" number="7.2.3">
+<h3><span class="header-section-number">7.2.3</span> Graph Partitioning</h3>
+<p><strong>Partitioning</strong>은 elements의 집합을 “발생이 자연스러운” 부분집합으로 분할하는 과정. 더 이론적으로 말하자면, finite set <span class="math inline">\(S\)</span>의 partition <span class="math inline">\(C = \{ C_1, \cdots, C_K \}\)</span>는 <span class="math inline">\(S\)</span>를 <span class="math inline">\(K\)</span> 개의 disjoint로 decomposition 한 물건으로, 이인즉 <span class="math inline">\(\forall C_k \not = \emptyset: \cup_{k=1}^K C_k = S\)</span>.</p>
+<p>네트워크 그래프 분석에서, partitioning은 겉으로 드러나지 않는 관계성 측면에서 vertex의 묶음이 “cohesiveness”를 가지고 있는지를 확인하기에 유용한 방법이다. vertex의 “cohesive”한 subset은 일반적으로 이하와 같은 걸 일컬음:
+1. subset 내부에서, “동시에,” 잘 connected 되어 있어야 한다
+2. subset 외부, 즉 남아있는 vertex들과 잘 seperated - 연결성이 없음</p>
+<p>Graph partitioning algorithms 은 보통 그래프 <span class="math inline">\(G(V, E)\)</span>의 vertex set <span class="math inline">\(V\)</span> 의 partition <span class="math inline">\(C = \{ C_1, \cdots, C_K \}\)</span>를 찾는 것을 그 목표로 함. 이를 위한 방법으로 <span class="math inline">\(C_k\)</span> 안의 vertex에서 <span class="math inline">\(C_k&#39;\)</span>로의 vertex로 잇는 edge의 sets <span class="math inline">\(E(C_k, C_k &#39;)\)</span>는 <span class="math inline">\(C_k\)</span> 내에서 vertex 를 잇는 edge들의 set <span class="math inline">\(E(C_k) = E(C_k , C_k)\)</span>보다 작다는 점을 활용함.</p>
+<p>그래프 partitioning의 이 문제는 complex networks 문헌에서의 community detection에서도 동일하게 발생함. 이에 대한 해결책으로 큰 틀에서 2가지 접근법이 존재.</p>
+<div id="hierarchical-clustering-1" class="section level4" number="7.2.3.1">
+<h4><span class="header-section-number">7.2.3.1</span> Hierarchical Clustering</h4>
+<p>그래프 파티셔닝에 사용되는 대부분의 방법은 본질적으로 Hierarchical Clustering의 변용에 불과함. 여러가지 방법론이 제시되었지만, 그 차이는 결국 이하가 다를 뿐임.</p>
+<ol style="list-style-type: decimal">
+<li>proposed clusterings의 quality를 어떻게 측정하는가</li>
+<li>연구자가 찾고 있는 해당 quality를 어떻게 최적화하는가. 보통 그리디 알고리즘으로 모든 가능한 partition <span class="math inline">\(C\)</span>의 space를 탐색하는 식으로 한다. 이 과정에서 계속해서 후보 partition을 갱신하고.</li>
+</ol>
+<p>Hierarchical methods 는 다음 둘로 분류됨.
+1. agglomerative, 파티션을 합쳐나가는 것을 계속해나가는 것으로 크기를 키워가는 것에 기반 (coarsen)
+2. divisive, 파티션을 쪼개나가는 것을 계속해나가는 것으로 연속으로 다듬어나가는 것</p>
+<p>각 단계에서 현재의 후보 partition은 지정된 비용 측정값을 최소화한다는 목적으로 계속해서 정제되어 갑니다.
+1. agglomerative 방법에서는, 2개의 이전의 partition elements 중 가장 저렴한 merge 방법이 실행된다
+2. divisive 방법에서는, 1개의 이전의 partition 중 가장 저렴하게 2개로 split 할 수 있는 방법이 실행된다</p>
+<p>비용측정의 기준은 vertex의 “cohesive” subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 <strong>modularity</strong>. <span class="math inline">\(C = \{ C_1, \cdots, C_K \}\)</span>를 주어진 후보 partition으로 하고, <mark><span class="math inline">\(f_{ij} = f_{ij}(\mathcal C)\)</span>는 <span class="math inline">\(C_i\)</span>의 vertex를 to be the fraction of edges in the original network that connect vertices in Ci with vertices in Cj.</mark> 이때 <span class="math inline">\(\mathcal C\)</span>의 <strong>modularity</strong>는</p>
+<p><span class="math display">\[
+\mod(\mathcal C) = \sum_{k=1}^K \left[ f_{kk}(\mathcal C) - f_{kk}^\ast \right]
+\]</span></p>
+<p><mark>
+where <span class="math inline">\(f_{kk}^\ast\)</span>는 random edge assignment의 몇몇 모델을 두고 만들어진 <span class="math inline">\(f_{kk}\)</span>의 기댓값. <span class="math inline">\(f_{kk}^\ast\)</span>는 <span class="math inline">\(f_{k+} \cdot f_{+k}\)</span>이며 각각 <span class="math inline">\(f\)</span>의 k번째 rowsum과 colsum. 즉 <span class="math inline">\(f_{ij}\)</span>를 entry로 하는 <span class="math inline">\(K \times K\)</span> 매트릭스가 만들어짐. This choice corresponds to a model in which a graph is constructed to have the same degree distribution as <span class="math inline">\(G\)</span>, but with edges otherwise placed at random, without respect to the underlying partition elements dictated by <span class="math inline">\(C\)</span>.
+</mark></p>
+<p>In principle the optimization of the modularity requires a search over all possible partitions C, which is prohibitively expensive in networks of moderate size and larger.
+• A fast, greedy approach to optimization has been proposed, in the form of an agglomerative hierarchical clustering algorithm, and implemented in igraph as fastgreedy.community.
+• The result of this and related community detection methods in igraph is to produce an object of the class communities, which can then serve as input to various other functions.</p>
+<p>Applying this method to the karate network,</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="descriptive-statistics-of-networks.html#cb27-1" aria-hidden="true" tabindex="-1"></a>kc <span class="ot">=</span> <span class="fu">fastgreedy.community</span>(karate)</span>
+<span id="cb27-2"><a href="descriptive-statistics-of-networks.html#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(kc)</span>
+<span id="cb27-3"><a href="descriptive-statistics-of-networks.html#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sizes</span>(kc)</span>
+<span id="cb27-4"><a href="descriptive-statistics-of-networks.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">membership</span>(kc)</span></code></pre></div>
+<p>The largest community of 18 members is centered around the administrator (i.e., John A, vertex ID 34).
+• The second largest community of 11 members is centered around the head instructor (i.e., Mr Hi, vertex ID 1).</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="descriptive-statistics-of-networks.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kc, karate)</span></code></pre></div>
+<p>Figure 9: Partitioning of the Karate network obtained from hierarchical clustering</p>
+<p>• Whether agglomerative or divisive, when used for network graph partitioning, hierarchical clustering methods actually produce, as the name indicates, an entire hierarchy of nested partitions of the graph, not just a single partition.
+• The resulting hierarchy typically is represented in the form of a tree, called a dendrogram.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="descriptive-statistics-of-networks.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="descriptive-statistics-of-networks.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dendPlot</span>(kc, <span class="at">mode=</span><span class="st">&quot;phylo&quot;</span>)</span></code></pre></div>
+</div>
+<div id="spectral-partitioning" class="section level4" number="7.2.3.2">
+<h4><span class="header-section-number">7.2.3.2</span> Spectral Partitioning</h4>
+<p>spectral graph theory의 연구결과를 응용하여 그래프 <span class="math inline">\(G\)</span>의 connectivity를 특정 매트릭스의 eigen-analysis와 연관짓는 것.</p>
+<p>adjacency matrix <span class="math inline">\(A\)</span>에 대한 그래프 <span class="math inline">\(G\)</span>의 그래프 Laplacian 은 <span class="math inline">\(L = D − A\)</span>이며, 이때 <span class="math inline">\(D = diag[(D_{vv} = d_v)]\)</span>, <span class="math inline">\(d_v\)</span>는 <span class="math inline">\(G\)</span>의 entries of the degree sequences.</p>
+<p>spectral graph theory의 결과를 통해 우리는 다음을 파악 가능.</p>
+<p>그래프 <span class="math inline">\(G\)</span>는 <span class="math inline">\(K\)</span> 개의 connected components로 구성 <span class="math inline">\(\iff\)</span> <span class="math inline">\(\lambda_1 (L) = \cdots = \lambda_K(L) = 0\)</span> 이며 <span class="math inline">\(\lambda_{K+1}(L)&gt;0\)</span>, where <span class="math inline">\(\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_{N_v}\)</span>들은 L의 (not necessarily distinct) ev이며, <mark>ordered from small to large</mark>.</p>
+<p>그래프 안의 component의 숫자는 그래프 Laplacian의 non-zero ev의 숫자과 직접적으로 연관되어 있음. <span class="math inline">\(L\)</span>의 최소 ev는 0임을 바로 보일 수 있다. evec <span class="math inline">\(x_1 = (1,\cdots,1)&#39;\)</span>에 대응하므로. 따라서 우리가 그래프 <span class="math inline">\(G\)</span>가 “거의” <span class="math inline">\(K=2\)</span> 개의 component들로 구성되어 있다고 추론한다면, 즉슨 2개로 쪼개기에 적합하다고 생각한다면, 이는 곧 우리는 해당 대상에 대해 <span class="math inline">\(\lambda_2(L)\)</span>가 0에 가까울 것이라고 추론할 것이라는 것과 동치이다. 이러한 추론은 <span class="math inline">\(\lambda_2\)</span>가 그래프 connectivity와 structure의 측정치의 값과 깊은 연관이 있기에 합리적이다. 특히 이러한 관계성은 <span class="math inline">\(\lambda_2\)</span>가 0에 가까울 수록 서브그래프 A과 서브그래프 B 사이를 통과하는 edge가 적을 것이기에 이렇게 둘로 쪼개는 것이 합리적일 것임을 보여준다. <span class="math inline">\(\lambda_2\)</span>를 그래프의 connectivity와 연관지은 제언자는 대응하는 evec <span class="math inline">\(x_2\)</span> 안의 entries들의 부호에 따라 vertex들을 쪼개는 것을 주장했다. 결과는 다음과 같다:</p>
+<p><span class="math display">\[
+S = \{v \in V: x_2 (v) \ge 0 \}
+\\
+\bar S = \{v \in V: x_2 (v) &lt; 0 \}
+\]</span></p>
+<p>즉, 2개의 vertex의 subset이 생산되며 (이를 보통 <strong>cut</strong>이라고 부름), 이 벡터 <span class="math inline">\(x_2\)</span>는 보통 <strong>Fiedler Vector</strong>라고 불리며 이에 대응하는 ev <span class="math inline">\(\lambda_2\)</span>는 <strong>Fiedler Value</strong>라고 부른다.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="descriptive-statistics-of-networks.html#cb31-1" aria-hidden="true" tabindex="-1"></a>k.lap <span class="ot">=</span> <span class="fu">graph.laplacian</span>(karate)</span>
+<span id="cb31-2"><a href="descriptive-statistics-of-networks.html#cb31-2" aria-hidden="true" tabindex="-1"></a>eig.anal <span class="ot">=</span> <span class="fu">eigen</span>(k.lap)</span>
+<span id="cb31-3"><a href="descriptive-statistics-of-networks.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(eig.anal<span class="sc">$</span>values, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Eigenvalues of Graph Laplacian&quot;</span>)</span></code></pre></div>
+<p>We plot the eigenvalues of the graph Laplacian.</p>
+<ol style="list-style-type: decimal">
+<li>0인 ev는 딱 하나. (해당 네트워크는 connected이므로 예상한 결과)</li>
+<li>2번째로 작은 ev인 <span class="math inline">\(\lambda_2\)</span>는 0에 매우 가까움.</li>
+</ol>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="descriptive-statistics-of-networks.html#cb32-1" aria-hidden="true" tabindex="-1"></a>faction <span class="ot">=</span> <span class="fu">get.vertex.attribute</span>(karate, <span class="st">&quot;Faction&quot;</span>)</span>
+<span id="cb32-2"><a href="descriptive-statistics-of-networks.html#cb32-2" aria-hidden="true" tabindex="-1"></a>f.colors <span class="ot">=</span> <span class="fu">as.character</span>(<span class="fu">length</span>(faction))</span>
+<span id="cb32-3"><a href="descriptive-statistics-of-networks.html#cb32-3" aria-hidden="true" tabindex="-1"></a>f.colors[faction <span class="sc">==</span> <span class="dv">1</span>] <span class="ot">=</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb32-4"><a href="descriptive-statistics-of-networks.html#cb32-4" aria-hidden="true" tabindex="-1"></a>f.colors[faction <span class="sc">==</span> <span class="dv">2</span>] <span class="ot">=</span> <span class="st">&quot;cyan&quot;</span></span>
+<span id="cb32-5"><a href="descriptive-statistics-of-networks.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f.vec, <span class="at">pch=</span><span class="dv">16</span>, <span class="at">xlab=</span><span class="st">&quot;Actor Number&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Fiedler Vector Entry&quot;</span>, <span class="at">col=</span>f.colors)</span>
+<span id="cb32-6"><a href="descriptive-statistics-of-networks.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<p>Fiedler vector를 생산하고 해당 vector의 요소들을 실제 actor number에 따라 배정한 그래프를 보면 이 spectral 방법이 faction label에 의해 네트워크 partitioning 을 획득할 수 있다는 것을 확인된다.</p>
+<p>보통 우리는 네트워크가 서브그래프 2개보다는 더 잘게 쪼개질 수 있으리라고 예상 가능. spectral 방법을 iterative하게 적용하는 것으로 2개 이상으로 쪼갤 수 있음. 하지만 이러한 반복이 특정 목적 함수를 최적화할 수 있도록 목표하는 것이 바람직함. Newman은 spectral bisection method와 논리적 흐름이 유사하나 Laplacian <span class="math inline">\(L\)</span>이 아니라 이를 대체해서 modularity와 연관된 매트릭스를 사용하는 방법을 제안했다.(leading.eigenvector.community)</p>
+</div>
+<div id="validation-of-graph-partitioning" class="section level4" number="7.2.3.3">
+<h4><span class="header-section-number">7.2.3.3</span> Validation of Graph Partitioning</h4>
+<p>validation 문제는 그래프 partitioning에 항상 중요하지만, 대부분의 경우 nontrivial 문제이다. 네트워크 그래프에 vertex의 cohesive subset 이 존재한다면, 이러한 subset의 기저에는 vertex에게 있어 vertex 간에 특정한 연관적인 특성 (또는 속성)에 일부 공통성이 있을 것으로 일반적으로 예상한다. 그래프 partitioning은 이러한 성질에 대한 지식이 없을때 그러한 subset을 발견하기 위한 도구로 인식될 수도 있다. 우리가 그래프 외부에서 정의된 클래스 멤버쉽에 대한 subset 정의를 알고 있다면, 그래프 내부에서의 partitioning으로 얻은 분절들과 비교하는 것도 흥미로움.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="descriptive-statistics-of-networks.html#cb33-1" aria-hidden="true" tabindex="-1"></a>func.class <span class="ot">=</span> <span class="fu">get.vertex.attribute</span>(yeast.gc, <span class="st">&quot;Class&quot;</span>)</span>
+<span id="cb33-2"><a href="descriptive-statistics-of-networks.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(func.class)</span></code></pre></div>
+<p>해당 예시는 cell 구축에 있어 protein이 역할하는 바로 분절했음. 단백질들이 서로 다른 단백질들과 얼마나 유사한지는 특정 세포 역할에 해당 단백질이 무슨 일을 하는지와 연관되어 있다고 알려져 있음. 그래프 외부에서 이러한 단백질들을 분류하려는 시도는 분류된 결과가 그래프 내부에서 합리적은 partitioning 과정을 걸쳐 나온 결과물과 어느정도는 연관이 있는게 맞다. 아니면 partitioning이 잘못됐던가 그래프 외부 분절이 잘못됐던가.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="descriptive-statistics-of-networks.html#cb34-1" aria-hidden="true" tabindex="-1"></a>yc <span class="ot">=</span> <span class="fu">fastgreedy.community</span>(yeast.gc)</span>
+<span id="cb34-2"><a href="descriptive-statistics-of-networks.html#cb34-2" aria-hidden="true" tabindex="-1"></a>c.m <span class="ot">=</span> <span class="fu">membership</span>(yc)</span>
+<span id="cb34-3"><a href="descriptive-statistics-of-networks.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(c.m, func.class, <span class="at">useNA=</span><span class="fu">c</span>(<span class="st">&quot;no&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="assortativity-and-mixing" class="section level3" number="7.2.4">
+<h3><span class="header-section-number">7.2.4</span> Assortativity and Mixing</h3>
+<ul>
+<li><strong>Assortative mixing</strong></li>
+</ul>
+<p>특정 성질에 따라서 vertex 중에 선별적으로 연결.</p>
+<ul>
+<li>Assortativity coefficients</li>
+</ul>
+<p>assortative mixing의 정도를 량화하는 측도. 이는 correlation coefficients의 변용. vertex 특성은 categorical, ordinal, or continuous 다 가능. categorical 케이스를 가정하고, 그래프 <span class="math inline">\(G\)</span>의 각 vertex가 <span class="math inline">\(M\)</span>개의 카테고리 중에 label 될 수 있다고 생각하자. 이 세팅에서의 Assortativity coefficients <span class="math inline">\(r_a\)</span>는 아래와 같다.</p>
+<p><span class="math display">\[
+r_a = \frac{\sum_{i}f_{ii} - \sum_i f_{x+}f_{+y}}{1 - \sum_if_{x+}f_{+y}}
+\]</span></p>
+<p><mark>where fij is the fraction of edges in G that join a vertex in the i-th category with a vertex in the jth category, and fi+ and f+i denote the ith marginal row and column sums, respectively, of the resulting matrix f.</mark></p>
+<p>이때 <span class="math inline">\(-1 \le r_a \le 1\)</span></p>
+<p>– It is equal to zero when the mixing in the graph is no different from that obtained through a random assignment of edges that preserves the marginal degree distribution.
+– It is equal to one when there is perfect assortative mixing (i.e., when edges only connect vertices of the same category).
+– However, in the event that the mixing is perfectly disassortative, in the sense that every edge in the graph connects vertices of two different categories, the coefficient need not take the value −1.
+• The fact that physical binding of proteins is known to be directly relevant to functional classes suggests that there will frequently be strong assortative mixing in protein-protein interaction networks with respective to these classes as attributes.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="descriptive-statistics-of-networks.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assortativity.nominal</span>(yeast, (<span class="fu">V</span>(yeast)<span class="sc">$</span>Class<span class="sc">==</span><span class="st">&quot;P&quot;</span>)<span class="sc">+</span><span class="dv">1</span>, <span class="at">directed=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<p>• When the vertex characteristic of interest is continuous, rather than discrete, denote by (xe, ye) the
+values of that characteristic for the vertices joined by an edge e ∈ E.
+• A natural candidate for quantifying the assortativity in this characteristic is just the Pearson correlation coefficient of the pairs (xe, ye),</p>
+<p><span class="math display">\[
+r = \frac{\sum_{x,y}xy(f_{xy} - f_{x+}f_{+y}}{\sigma_x \sigma_y}
+\]</span></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="descriptive-statistics-of-networks.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assortativity.degree</span>(yeast)</span></code></pre></div>
 
+</div>
 </div>
             </section>
 

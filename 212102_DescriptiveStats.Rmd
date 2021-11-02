@@ -1,3 +1,723 @@
 ## Descriptive Statistics of Networks
 
 
+• In the study of a given complex system, questions of interest can often be re-phrased in a useful manner as questions regarding some aspect of the structure or characteristics of a corresponding network graph.
+
+- Various types of basic social dynamics can be represented by triplets of vertices with a particular pattern of ties among them (i.e., triads).
+- Questions involving the movement of information or commodities usually can be posed in terms of paths on the network graph and flows along those paths.
+- Certain notions of the ‘importance’ of individual system elements may be captured by measures of how ‘central’ the corresponding vertex is in the network.
+- The search for ‘communities’ and analogous types of unspecified ‘groups’ within a system frequently may be addressed as a graph partitioning problem.
+
+• The structural analysis of network graphs has traditionally been treated primarily as a descriptive task, as opposed to an inferential task, and the tools commonly used for such purposes derive largely from areas outside of ‘mainstream’ statistics.
+– An overwhelming proportion of these tools are naturally graph-theoretic in nature, and thus have their origins in mathematics and computer science.
+– The field of social network analysis has been another key source, contributing tools usually aimed at least originally at capturing basic aspects of social structure and dynamics.
+– The field of physics has also been an important contributor, with the proposed tools often motivated by analogues in statistical mechanics.
+
+### Vertex and Edge Characteristics
+• The fundamental elements of network graphs are their vertices and edges
+• Characterization of the Vertex and Edges
+– Characterizations based upon vertex degrees
+– Characterizations seeking to capture some more general notion of the ‘importance’ of a vertex
+
+#### Vertex Degree
+• The degree dv of a vertex v, in a network graph G = (V, E), counts the number of edges in E incident upon v.
+• Given a network graph G, define fd to be the fraction of vertices v ∈ V with degree dv = d.
+• The collection {fd}d≥0 is called the degree distribution of G, and is simply a rescaling of the set of degree frequencies, formed from the original degree sequence.
+Karate club network\
+
+```{r, eval=FALSE}
+library(sand)
+library(igraphdata)
+```
+
+```{r, eval=FALSE}
+data(karate)
+par(mfrow=c(1,2))
+hist(degree(karate), col="lightblue", xlim=c(0,50),
+xlab="Vertex Degree", ylab="Frequency", main="")
+hist(graph.strength(karate), col="pink",
+xlab="Vertex Strength", ylab="Frequency", main="")
+```
+
+• The degree distribution
+– There are three distinct groups of vertices, as measured by degree.
+– The two most highly connected vertices correspond to actors 1 and 34 in the network, representing the instructor and administrator about whom the club eventually split.
+– The next set of vertices consists of actors 2, 3, and also 33.
+
+• Weighted Networks
+– A useful generalization of degree is the notion of vertex strength, which is obtained simply by summing up the weights of edges incident to a given vertex.
+– The distribution of strength sometimes called the weighted degree distribution is defined in analogy to the ordinary degree distribution
+
+
+Figure 2: The vertex strength distribution for the Karate club network
+A Network of Interactions among Protein Pairs in Yeast
+
+
+
+```{r, eval=FALSE}
+data(yeast)
+ecount(yeast)
+vcount(yeast)
+```
+
+• Histogram: In particular, while there is a substantial fraction of vertices of quite low degree, of an order of magnitude similar to those of the karate network, there are also a non-trivial number of vertices with degrees at successively higher orders of magnitude.
+• There is a fairly linear decay in the log-frequency as a function of log-degree.
+
+
+```{r, eval=FALSE}
+
+par(mfrow=c(1,2))
+d.yeast = degree(yeast)
+hist(d.yeast,col="blue", xlab="Degree", ylab="Frequency", main="Degree Distribution")
+dd.yeast = degree.distribution(yeast)
+d = 1:max(d.yeast)-1
+ind = (dd.yeast != 0)
+plot(d[ind], dd.yeast[ind], log="xy", col="blue", xlab=c("Log-Degree"),
+ylab=c("Log-Intensity"), main="Log-Log Degree Distribution")
+
+
+```
+
+Figure 3: The degree distribution for protein interactions in Yeast
+• It can be interesting to understand the manner in which vertices of different degrees are linked with each other.
+• Useful in assessing this characteristic is the notion of the average degree of the neighbors of a given vertex.
+• While there is a tendency for vertices of higher degrees to link with similar vertices, vertices of lower degree tend to link with vertices of both lower and higher degrees.
+
+
+
+
+```{r, eval=FALSE}
+
+a.nn.deg.yeast = graph.knn(yeast,V(yeast))$knn
+plot(d.yeast, a.nn.deg.yeast, log="xy", col="goldenrod",
+xlab=c("Log Vertex Degree"), ylab=c("Log Average Neighbor Degree"))
+
+```
+
+Figure 4: The degree distribution for protein interactions in Yeast
+
+#### Vertex Centrality
+• Many questions that might be asked about a vertex in a network graph essentially seek to understand
+its ‘importance’ in the network.
+– Which actors in a social network seem to hold the ‘reins of power’?
+– How authoritative does a particular page in the World Wide Web seem to be considered?
+– The deletion of which genes in a gene regulatory network is likely to be lethal to the corresponding organism?
+– How critical is a given router in an Internet network to the flow of traffic?
+
+• Measures of centrality are designed to quantify such notions of ‘importance’ and thereby facilitate the answering of such questions.
+• Most widely used measure of vertex centrality: Vertex Degree.
+• Three other classic types of vertex centrality measures: Closeness, Betweenness, and Eigenvector 
+
+- **centrality**
+• Closeness centrality measures attempt to capture the notion that a vertex is ‘central’ if it is ‘close’ to many other vertices.
+– The standard approach is to let the centrality vary inversely with a measure of the total distance of a vertex from all others,
+
+cCL =
+1
+P
+u∈V
+dist(u, v)
+,
+where dist(v, u) is the geodesic distance between the vertices u, v ∈ V .
+
+– Often, for comparison across graphs and with other centrality measures, this measure is normalized to lie in the interval [0, 1], through multiplication by a factor Nv1.
+
+• Betweenness centrality measures are aimed at summarizing the extent to which a vertex is located ‘between’ other pairs of vertices.
+– These centralities are based upon the perspective that ‘importance’ relates to where a vertex is located with respect to the paths in the network graph.
+– If we picture those paths as the routes by which communication of some sort or another takes place, vertices that sit on many paths are likely more critical to the communication process.
+– The most commonly used betweenness centrality is defined as
+
+CB(v) = X
+s6=t6=v∈V
+σ(s, t | v)
+σ(s, t)
+
+where σ(s, t | v) is the total number of shortest paths between s and t that pass through v, and σ(s, t) is the total number of shortest paths between S and t (regardless of whether or not they pass through v).
+– This centrality measure can be restricted to the unit interval through division by a factor of (Nv − 1)(Nv − 2)/2.
+
+• Other centrality measures are based on notions of ‘status’ or ‘prestige’ or ‘rank.’
+– Seek to capture the idea that the more central the neighbors of a vertex are, the more central that vertex itself is.
+– These measures are inherently implicit in their definition and typically can be expressed in terms of eigenvector solutions of appropriately defined linear systems of equations.
+– There are many such eigenvector centrality measures. For example,
+
+CEi
+(v) = α
+X
+{u,v}∈E
+cEi
+(u).
+The vector CEi = (CEi
+(1), · · · , CEi
+(Nv))T
+
+is the solution to the eigenvalue problem ACEi, where A is the adjacency matrix for the network graph G.
+
+– An optimal choice of α−1 is the largest eigenvalue of A, and hence cEi is the corresponding eigenvector.
+– When G is undirected and connected, the largest eigenvalue of A will be simple and its eigenvector will have entries that are all nonzero and share the same sign.
+– Convention is to report the absolute values of these entries, which will automatically lie between 0 and 1 by the orthonormality of eigenvectors.
+• An intuitively appealing way of displaying vertex centralities (for networks of small to moderate size) is to use a radial layout, with more central vertices located closer to the center.
+
+```{r, eval=FALSE}
+#install.packages("network", repos="http://cran.us.r-project.org")
+#install.packages("sna", repos="http://cran.us.r-project.org")
+A = get.adjacency(karate, sparse=FALSE)
+library(network)
+g = as.network.matrix(A)
+library(sna)
+```
+
+
+
+```{r, eval=FALSE}
+par(mfrow=c(1,2))
+gplot.target(g, degree(g), main="Degree", circ.lab = FALSE, circ.col = "skyblue",
+usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+edge.col="darkgray")
+gplot.target(g, closeness(g), main="Closeness", circ.lab = FALSE, circ.col = "skyblue",
+usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+edge.col="darkgray")
+
+
+```
+
+
+
+
+```{r, eval=FALSE}
+#install.packages("network", repos="http://cran.us.r-project.org")
+#install.packages("sna", repos="http://cran.us.r-project.org")
+A = get.adjacency(karate, sparse=FALSE)
+library(network)
+g = as.network.matrix(A)
+library(sna)
+
+
+```
+
+
+
+
+```{r, eval=FALSE}
+par(mfrow=c(1,2))
+gplot.target(g, betweenness(g), main="Betweenness", circ.lab = FALSE, circ.col = "skyblue",
+usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+edge.col="darkgray")
+gplot.target(g, evcent(g), main="Eigenvalue", circ.lab = FALSE, circ.col = "skyblue",
+usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+edge.col="darkgray")
+
+
+```
+
+• Extensions of these centrality measures from undirected to directed graphs are straightforward.
+
+Figure 6: Target plots showing various vertex centralities for the karate club network
+– Characterizes the importance of so-called hub vertices by how many authority vertices they
+point to, and so-called authority vertices by how many hubs point to them.
+– Given an adjacency matrix A for a directed graph, hubs are determined according to the
+eigenvector centrality of the matrix Mhub = AAT
+, and authorities, according to that of
+Mauth = AT A.
+
+
+
+```{r, eval=FALSE}
+l = layout.kamada.kawai(aidsblog)
+par(mfrow=c(1,2))
+plot(aidsblog, layout=l, main="Hubs", vertex.label="",
+vertex.size=10 * sqrt(hub.score(aidsblog)$vector))
+plot(aidsblog, layout=l, main="Authorities", vertex.label="",
+vertex.size=10 * sqrt(authority.score(aidsblog)$vector))
+
+
+
+```
+Figure 7: AIDS blog network with vertex area proportional to hubs and authority centrality measures
+
+#### Characterizing Edges
+• Edge betweenness centrality which extends vertex betweenness centrality in a straightforward manner, by assigning to each edge a value that reflects the number of shortest paths traversing that edge is a natural quantity to use.
+
+• Using edge betweenness with the karate network and examining, for instance, the edges with the three largest betweenness values
+
+
+
+
+
+
+```{r, eval=FALSE}
+eb = edge.betweenness(karate)
+E(karate)[order(eb, decreasing=T)[1:3]]
+
+
+```
+
+• Many other vertex centrality measures do not extend as easily. One way around this problem is to apply vertex centrality measures to the vertices in the line graph of a network graph G.
+• Line graph of G, say G0 = (V
+0
+, E0
+), is obtained essentially by changing vertices of G to edges, and
+edges, to vertices.
+• The vertices v
+0 ∈ V
+0
+represent the original edges e ∈ E, and the edges e
+0 ∈ E0
+indicate that the two corresponding original edges in G were incident to a common vertex in G.
+
+
+
+
+### Characterizing Network Cohesion
+
+
+
+• Questions involving network cohesion, the extent to which subsets of vertices are cohesive or ‘stuck
+together’ with respect to the relation defining edges in the network graph.
+– Do friends of a given actor in a social network tend to be friends of one another as well?
+– What collections of proteins in a cell appear to work closely together?
+– Does the structure of the pages in the World Wide Web tend to separate with respect to
+distinct types of content?
+– What portion of a measured Internet topology would seem to constitute the ‘backbone’?
+• There are many ways that we can define network cohesion, depending on the context of the question
+being asked.
+– Definitions differ, for example, in scale, ranging from local (e.g., triads) to global (e.g., giant
+components), and also in the extent to which they are specified explicitly (e.g., cliques) versus
+implicitly (e.g., ‘clusters’ or ‘communities’)
+
+
+#### Subgraphs and Censuses
+
+- **Cliques**
+
+Cliques are complete subgraphs and hence are subsets of vertices that are fully cohesive, in the
+sense that all vertices within the subset are connected by edges.
+• A census of cliques of all size can provide some sense of a ‘snapshot’ of how structured a graph is
+
+For the karate network a census of this sort reflects that there are 34 nodes (cliques of size one)
+and 78 edges (cliques of size two), followed by 45 triangles (cliques of size three).
+• The largest cliques are of size five, of which there are only two
+
+```{r, eval=FALSE}
+table(sapply(cliques(karate), length))
+cliques(karate)[sapply(cliques(karate), length) == 5]
+
+
+```
+The cliques of larger sizes necessarily include cliques of smaller sizes.
+• A maximal clique is a clique that is not a subset of a larger clique
+
+
+• Large cliques are relatively rare, as they necessarily require that a graph G itself be fairly dense,
+while real-world networks are often sparse
+
+
+
+```{r, eval=FALSE}
+table(sapply(maximal.cliques(karate), length))
+clique.number(yeast)
+
+
+
+```
+
+
+- **$k$-core**
+
+• Weakened Notions of Cliques. A $k$-core of a graph G is a subgraph of G for which all vertex degrees are at least k, and such that
+no other subgraph obeying the same condition contains it (i.e., it is maximal in this property).
+• The notion of cores is particularly popular in visualization, as it provides a way of decomposing a
+network into ‘layers’.
+
+Figure 8: Visual representation of the k-core decomposition of the karate network
+
+
+```{r, eval=FALSE}
+cores = graph.coreness(karate)
+gplot.target(g, cores, circ.lab = FALSE, circ.col="skyblue",
+usearrows = FALSE, vertex.col=cores, edge.col="darkgray")
+
+detach("package:sna")
+detach("package:network")
+
+
+```
+
+Figure 8: Visual representation of the k-core decomposition of the karate network
+
+
+Vertices of coreness one (black), two (red), three (green), and four (blue) are shown at successively smaller
+distances from the center, with the same distance for vertices within each core
+Other Classes of Subgraphs in Defining Network Cohesion.
+• Dyads are pairs of vertices and, in directed graphs, may take on three possible states: null (no
+directed edges), asymmetric (one directed edge), or mutual (two directed edges).
+• Triads are triples of vertices and may take on 16 possible states, ranging from the null subgraph
+to the subgraph in which all three dyads formed by the vertices in the triad have mutual directed
+edges.
+The vast majority of the dyads are null and, of those that are non-null, almost all are asymmetric,
+indicating a decided one-sidedness to the manner in which blogs in this network reference each other.
+
+
+
+```{r, eval=FALSE}
+
+aidsblog = simplify(aidsblog)
+dyad.census(aidsblog)
+
+```
+
+Consistent with the observations from our earlier analysis of hubs and authorities in this network
+• Small connected subgraphs of interest are commonly termed motifs.
+• The notion of motifs is particularly popular in the study of biological networks, where arguments
+often are made linking such network substructures to biological function.
+
+
+#### Density and Related Notions of Relative Frequency
+
+- **Density**
+
+The density of a graph is the frequency of realized edges relative to potential edges. For example,
+in a (undirected) graph G with no self-loops and no multiple edges, the density of a subgraph
+H = (VH, EH) is
+
+den(H) = |EH|
+|VH|(|VH| − 1)/2
+
+The value of den(H) will lie between zero and one and provides a measure of how close H is to
+being a clique. In the case that G is a directed graph, the denominator is replaced by |VH|(|VH|1).
+• Taking H = G yields the density of the overall graph G.
+• Conversely, taking H = Hv to be the set of neighbors of a vertex v ∈ V , and the edges between
+them, yields a measure of density in the immediate neighborhood of v.
+• The subgraphs corresponding to each of the instructor and the administrator, in union with their
+immediate respective neighborhoods i.e., the ego-centric networks around vertices 1 and 34 are
+noticeably more dense than the overall network.
+
+```{r, eval=FALSE}
+ego.instr = induced.subgraph(karate,neighborhood(karate, 1, 1)[[1]])
+ego.admin = induced.subgraph(karate,neighborhood(karate, 1, 34)[[1]])
+graph.density(karate)
+
+graph.density(ego.instr)
+graph.density(ego.admin)
+
+```
+
+- **Clustering Coefficients**
+
+The standard use of the term clustering coefficient typically refers to the quantity
+clT (G) = 3τ∆(G)
+τ3(G)
+,
+where τ∆(G) is the number of triangles in the graph G, and τ3(G), the number of connected triples
+(i.e., a subgraph of three vertices connected by two edges, also sometimes called a 2-star).
+• The value clT (G) is alternatively called the transitivity of the graph, and is a standard quantity of
+interest in the social network literature, where it is also referred to as the ‘fraction of transitive
+triples’.
+
+clT (G) is a measure of global clustering, summarizing the relative frequency with which connected
+triples close to form triangles.
+
+```{r, eval=FALSE}
+transitivity(karate)
+transitivity(karate, "local", vids=c(1,34))
+```
+
+- **Reciprocity**
+• A concept unique to directed graphs
+• In the case that dyads are used as units, reciprocity is defined to be the number of dyads with reciprocated (i.e., mutual) directed edges divided by the number of dyads with a single, unreciprocated
+edge.
+• Reciprocity is defined as the total number of reciprocated edges divided by the total number of
+edges.
+
+```{r, eval=FALSE}
+reciprocity(aidsblog, mode="default")
+reciprocity(aidsblog, mode="ratio")
+```
+
+#### Connectivity, Cuts, and Flows
+
+기본적으로 궁금한 건 주어진 그래프가 서로 다른 서브그래프로 쪼개질 수 있나 하는 것. 불가능하다면 해당 그래프가 이 쪼개질 수 있는 성질의 역치에 얼마나 가까운지를 체크하는 것이 목적이 된다. 
+
+만약 모든 vertex가 다른 모든 vertex에서 접근 가능하다면, 즉 adjacency Matrix가 diag 제외하고 모두 1이면, 그래프 $G$는 **connected**라고 칭해진다. 그리고 그래프의 **connected component**는 maximally connected 서브그래프이다.
+
+그래프 $G$의 connected component 중 하나가 다른 모두를 위력에서 압도한다면, 이는 곧 해당 connected component가 $G$의 대부분의 vertex를 포함하고 있다는 이야기. 이러한 component는 **giant component**라고 불리며 이는 random graph theory 출신 용어.
+
+```{r, eval=FALSE}
+is.connected(yeast)
+comps = decompose.graph(yeast)
+table(sapply(comps, vcount))
+```
+
+결과는 false로 나오지만 이에 대해 census 돌리면 giant component의 존재 확인 가능. 아래 예시의 경우 component 1개가 2375/2617로 90퍼 vertex랑 연결중임. 이는 현실 네트워크에서의 **small world property**와 연결. vertex 쌍들 collection에서의 minimum path는 보통 되게 작음. 대비되게 clustring은 상대적으로 높음. (ex) protein?
+
+
+```{r, eval=FALSE}
+yeast.gc = decompose.graph(yeast)[[1]]
+average.path.length(yeast.gc)
+diameter(yeast.gc)
+transitivity(yeast.gc)
+```
+
+해당 네트워크에서의 shortest path는 $N_v$보다 $\log N_v$로 표현되는게 정확할 정도로 짧음. scales more like, thus considered small. 동시에 해당 네트워크에서의 clustering은 상대적으로 large, 이는 transitivity로 확인 가능.
+
+
+
+
+- **Connectivity**
+
+그래프 $G$ 가 
+1. **$k$-vertex-connected**
+	- the number of vertices $N_v > k$
+	- cardinality $|X|<k$이며 $X \subseteq V$인 vertex의 subset $X$을 지우면 connected subgraph가 아니게 됨.
+	
+2. **$k$-edge-connected**
+	- $N_v ≥ 2$
+	- cardinality $|Y|<k$이며 $Y \subseteq E$인 edge의 subset $Y$을 지우면 connected subgraph가 아니게 됨.
+
+즉 $G$의 vertex (edge) connectivity는 $G$의 k-vertex(k-edge-) connected가 유지되는 가장 큰 integer. <mark> 이때 vertex connectivity $\le$ edge connectivity $\le$ minimum degree among vertex in $G$ (dmin).</mark> 따라서 이 서브그래프를 추가적인 component로 분해하기 위해서는 단 1개의 엄선된 vertex나 edge를 제거하는 것으로 충분하다.
+
+```{r, eval=FALSE}
+vertex.connectivity(yeast.gc)
+edge.connectivity(yeast.gc)
+
+```
+
+- **Cut**
+
+vertex (edge)의 subset $S$를 제거하는 것으로 해당 그래프가 서브그래프로 조각난다면, $S$는 vertex-cut (edge-cut). 여기서 vertex $S$의 원소가 1개라면, 즉 vertex 1개만을 제거한 것으로 그래프가 조각났다면, 이는 cut vertex, 혹은 **articulation point**. 이러한 vertex의 여부를 식별하는 건 해당 네트워크가 외부 공격에 취약하는지를 파악하는데 도움이 됨. 해당 포인트 끊기면 네트워크 정상작동이 안되니까. 
+
+• Identification of such vertices can provide a sense of where a network is vulnerable (e.g., in the sense of an attack, where disconnecting produces undesired consequences, such as a power outage in an energy network).
+• In the giant component of the yeast network, almost 15% of the vertices are cut vertices.
+
+
+```{r, eval=FALSE}
+yeast.cut.vertices = articulation.points(yeast.gc)
+length(yeast.cut.vertices)
+```
+
+
+nontrivial 그래프 $G$는 k-vertex (k-edge) connected $\iff$ 서로다른 vertex의 쌍 $u, v \in V$가 k vertex-disjoint (edge-disjoint) paths에 의해 connected 가능.
+
+이 결과는 그래프에서 특정 vertex (edge)가 제거된 상황에서도 그래프 내부에서 만들어지는 서로 다른 path 들이 얼마나 많은지를 통해 평가되는 그래프의 robust함과 연결되어 있다. 낮은 vertex (edge) connectivity 를 가지는 그래프는 따라서 path들을 가질 수 있으며, 이에 의해 그 path들을 통과했던 "information"들은 작은 숫자의 vertex (edge)를 없애는 것만으로 쉽게 방해되고 만다.
+
+
+```{r, eval=FALSE}
+shortest.paths()
+graph.maxfow()
+graph.mincu()
+```
+
+### Graph Partitioning
+
+**Partitioning**은 elements의 집합을 "발생이 자연스러운" 부분집합으로 분할하는 과정. 더 이론적으로 말하자면, finite set $S$의 partition $C = \{ C_1, \cdots, C_K \}$는 $S$를 $K$ 개의 disjoint로 decomposition 한 물건으로, 이인즉 $\forall C_k \not = \emptyset: \cup_{k=1}^K C_k = S$.
+
+네트워크 그래프 분석에서, partitioning은 겉으로 드러나지 않는 관계성 측면에서 vertex의 묶음이 "cohesiveness"를 가지고 있는지를 확인하기에 유용한 방법이다. vertex의 "cohesive"한 subset은 일반적으로 이하와 같은 걸 일컬음:
+1. subset 내부에서, "동시에", 잘 connected 되어 있어야 한다
+2. subset 외부, 즉 남아있는 vertex들과 잘 seperated - 연결성이 없음 
+
+Graph partitioning algorithms 은 보통 그래프 $G(V, E)$의 vertex set $V$ 의 partition $C = \{ C_1, \cdots, C_K \}$를 찾는 것을 그 목표로 함. 이를 위한 방법으로 $C_k$ 안의 vertex에서 $C_k'$로의 vertex로 잇는 edge의 sets $E(C_k, C_k ')$는 $C_k$ 내에서 vertex 를 잇는 edge들의 set $E(C_k) = E(C_k , C_k)$보다 작다는 점을 활용함.
+
+그래프 partitioning의 이 문제는 complex networks 문헌에서의 community detection에서도 동일하게 발생함. 이에 대한 해결책으로 큰 틀에서 2가지 접근법이 존재.
+
+
+#### Hierarchical Clustering
+
+그래프 파티셔닝에 사용되는 대부분의 방법은 본질적으로 Hierarchical Clustering의 변용에 불과함. 여러가지 방법론이 제시되었지만, 그 차이는 결국 이하가 다를 뿐임.
+
+1. proposed clusterings의 quality를 어떻게 측정하는가
+2. 연구자가 찾고 있는 해당 quality를 어떻게 최적화하는가. 보통 그리디 알고리즘으로 모든 가능한 partition $C$의 space를 탐색하는 식으로 한다. 이 과정에서 계속해서 후보 partition을 갱신하고.
+
+Hierarchical methods 는 다음 둘로 분류됨.
+1. agglomerative, 파티션을 합쳐나가는 것을 계속해나가는 것으로 크기를 키워가는 것에 기반 (coarsen)
+2. divisive, 파티션을 쪼개나가는 것을 계속해나가는 것으로 연속으로 다듬어나가는 것
+
+각 단계에서 현재의 후보 partition은 지정된 비용 측정값을 최소화한다는 목적으로 계속해서 정제되어 갑니다.
+1. agglomerative 방법에서는, 2개의 이전의 partition elements 중 가장 저렴한 merge 방법이 실행된다
+2. divisive 방법에서는, 1개의 이전의 partition 중 가장 저렴하게 2개로 split 할 수 있는 방법이 실행된다
+
+비용측정의 기준은 vertex의 "cohesive" subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 **modularity**. $C = \{ C_1, \cdots, C_K \}$를 주어진 후보 partition으로 하고, <mark>$f_{ij} = f_{ij}(\mathcal C)$는 $C_i$의 vertex를  to be the fraction of edges in the original network that connect vertices in Ci with vertices in Cj.</mark> 이때 $\mathcal C$의 **modularity**는
+
+$$
+\mod(\mathcal C) = \sum_{k=1}^K \left[ f_{kk}(\mathcal C) - f_{kk}^\ast \right]
+$$
+
+<mark>
+where $f_{kk}^\ast$는 random edge assignment의 몇몇 모델을 두고 만들어진 $f_{kk}$의 기댓값. $f_{kk}^\ast$는 $f_{k+} \cdot f_{+k}$이며 각각 $f$의 k번째 rowsum과 colsum. 즉 $f_{ij}$를 entry로 하는 $K \times K$ 매트릭스가 만들어짐. This choice corresponds to a model in which a graph is constructed to have the same degree distribution as $G$, but with edges otherwise placed at random, without respect to the underlying partition elements dictated by $C$.
+</mark>
+
+In principle the optimization of the modularity requires a search over all possible partitions C, which is prohibitively expensive in networks of moderate size and larger.
+• A fast, greedy approach to optimization has been proposed, in the form of an agglomerative hierarchical clustering algorithm, and implemented in igraph as fastgreedy.community.
+• The result of this and related community detection methods in igraph is to produce an object of the class communities, which can then serve as input to various other functions.
+
+Applying this method to the karate network,
+
+
+```{r, eval=FALSE}
+kc = fastgreedy.community(karate)
+length(kc)
+sizes(kc)
+membership(kc)
+```
+
+
+The largest community of 18 members is centered around the administrator (i.e., John A, vertex ID 34).
+• The second largest community of 11 members is centered around the head instructor (i.e., Mr Hi, vertex ID 1).
+
+
+```{r, eval=FALSE}
+plot(kc, karate)
+```
+
+Figure 9: Partitioning of the Karate network obtained from hierarchical clustering
+
+• Whether agglomerative or divisive, when used for network graph partitioning, hierarchical clustering methods actually produce, as the name indicates, an entire hierarchy of nested partitions of the graph, not just a single partition.
+• The resulting hierarchy typically is represented in the form of a tree, called a dendrogram.
+
+```{r, eval=FALSE}
+library(ape)
+```
+
+```{r, eval=FALSE}
+dendPlot(kc, mode="phylo")
+```
+
+#### Spectral Partitioning
+
+spectral graph theory의 연구결과를 응용하여 그래프 $G$의 connectivity를 특정 매트릭스의 eigen-analysis와 연관짓는 것.
+
+
+adjacency matrix $A$에 대한 그래프 $G$의 그래프 Laplacian 은 $L = D − A$이며, 이때 $D = diag[(D_{vv} = d_v)]$, $d_v$는 $G$의 entries of the degree sequences.
+
+spectral graph theory의 결과를 통해 우리는 다음을 파악 가능.
+
+그래프 $G$는 $K$ 개의 connected components로 구성 $\iff$ $\lambda_1 (L) = \cdots = \lambda_K(L) = 0$ 이며 $\lambda_{K+1}(L)>0$, where $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_{N_v}$들은 L의 (not necessarily distinct) ev이며, <mark>ordered from small to large</mark>.
+
+그래프 안의 component의 숫자는 그래프 Laplacian의 non-zero ev의 숫자과 직접적으로 연관되어 있음. $L$의 최소 ev는 0임을 바로 보일 수 있다. evec $x_1 = (1,\cdots,1)'$에 대응하므로. 따라서 우리가 그래프 $G$가 "거의" $K=2$ 개의 component들로 구성되어 있다고 추론한다면, 즉슨 2개로 쪼개기에 적합하다고 생각한다면, 이는 곧 우리는 해당 대상에 대해 $\lambda_2(L)$가 0에 가까울 것이라고 추론할 것이라는 것과 동치이다. 이러한 추론은 $\lambda_2$가 그래프 connectivity와 structure의 측정치의 값과 깊은 연관이 있기에 합리적이다. 특히 이러한 관계성은 $\lambda_2$가 0에 가까울 수록 서브그래프 A과 서브그래프 B 사이를 통과하는 edge가 적을 것이기에 이렇게 둘로 쪼개는 것이 합리적일 것임을 보여준다. $\lambda_2$를 그래프의 connectivity와 연관지은 제언자는 대응하는 evec $x_2$ 안의 entries들의 부호에 따라 vertex들을 쪼개는 것을 주장했다. 결과는 다음과 같다:
+
+$$
+S = \{v \in V: x_2 (v) \ge 0 \}
+\\
+\bar S = \{v \in V: x_2 (v) < 0 \}
+$$
+
+즉, 2개의 vertex의 subset이 생산되며 (이를 보통 **cut**이라고 부름), 이 벡터 $x_2$는 보통 **Fiedler Vector**라고 불리며 이에 대응하는 ev $\lambda_2$는 **Fiedler Value**라고 부른다.
+
+```{r, eval=FALSE}
+k.lap = graph.laplacian(karate)
+eig.anal = eigen(k.lap)
+plot(eig.anal$values, col="blue", ylab="Eigenvalues of Graph Laplacian")
+```
+
+We plot the eigenvalues of the graph Laplacian.
+
+1. 0인 ev는 딱 하나. (해당 네트워크는 connected이므로 예상한 결과)
+2. 2번째로 작은 ev인 $\lambda_2$는 0에 매우 가까움.
+
+```{r, eval=FALSE}
+faction = get.vertex.attribute(karate, "Faction")
+f.colors = as.character(length(faction))
+f.colors[faction == 1] = "red"
+f.colors[faction == 2] = "cyan"
+plot(f.vec, pch=16, xlab="Actor Number", ylab="Fiedler Vector Entry", col=f.colors)
+abline(0, 0, lwd=2, col="lightgray")
+```
+
+Fiedler vector를 생산하고 해당 vector의 요소들을 실제 actor number에 따라 배정한 그래프를 보면 이 spectral 방법이 faction label에 의해 네트워크 partitioning 을 획득할 수 있다는 것을 확인된다.
+
+보통 우리는 네트워크가 서브그래프 2개보다는 더 잘게 쪼개질 수 있으리라고 예상 가능. spectral 방법을 iterative하게 적용하는 것으로 2개 이상으로 쪼갤 수 있음. 하지만 이러한 반복이 특정 목적 함수를 최적화할 수 있도록 목표하는 것이 바람직함. Newman은 spectral bisection method와 논리적 흐름이 유사하나 Laplacian $L$이 아니라 이를 대체해서 modularity와 연관된 매트릭스를 사용하는 방법을 제안했다.(leading.eigenvector.community)
+
+
+
+#### Validation of Graph Partitioning
+
+validation 문제는 그래프 partitioning에 항상 중요하지만, 대부분의 경우 nontrivial 문제이다. 네트워크 그래프에 vertex의 cohesive subset 이 존재한다면, 이러한 subset의 기저에는 vertex에게 있어 vertex 간에 특정한 연관적인 특성 (또는 속성)에 일부 공통성이 있을 것으로 일반적으로 예상한다. 그래프 partitioning은 이러한 성질에 대한 지식이 없을때 그러한 subset을 발견하기 위한 도구로 인식될 수도 있다. 우리가 그래프 외부에서 정의된 클래스 멤버쉽에 대한 subset 정의를 알고 있다면, 그래프 내부에서의 partitioning으로 얻은 분절들과 비교하는 것도 흥미로움.
+
+
+```{r, eval=FALSE}
+func.class = get.vertex.attribute(yeast.gc, "Class")
+table(func.class)
+```
+
+해당 예시는 cell 구축에 있어 protein이 역할하는 바로 분절했음. 단백질들이 서로 다른 단백질들과 얼마나 유사한지는 특정 세포 역할에 해당 단백질이 무슨 일을 하는지와 연관되어 있다고 알려져 있음. 그래프 외부에서 이러한 단백질들을 분류하려는 시도는 분류된 결과가 그래프 내부에서 합리적은 partitioning 과정을 걸쳐 나온 결과물과 어느정도는 연관이 있는게 맞다. 아니면 partitioning이 잘못됐던가 그래프 외부 분절이 잘못됐던가.
+
+```{r, eval=FALSE}
+yc = fastgreedy.community(yeast.gc)
+c.m = membership(yc)
+table(c.m, func.class, useNA=c("no"))
+```
+
+### Assortativity and Mixing
+
+
+
+- **Assortative mixing**
+
+특정 성질에 따라서 vertex 중에 선별적으로 연결. 
+
+- Assortativity coefficients
+
+assortative mixing의 정도를 량화하는 측도. 이는 correlation coefficients의 변용. vertex 특성은 categorical, ordinal, or continuous 다 가능. categorical 케이스를 가정하고, 그래프 $G$의 각 vertex가 $M$개의 카테고리 중에 label 될 수 있다고 생각하자. 이 세팅에서의 Assortativity coefficients $r_a$는 아래와 같다.
+
+
+
+$$
+r_a = \frac{\sum_{i}f_{ii} - \sum_i f_{x+}f_{+y}}{1 - \sum_if_{x+}f_{+y}}
+$$
+
+<mark>where fij is the fraction of edges in G that join a vertex in the i-th category with a vertex in the jth category, and fi+ and f+i denote the ith marginal row and column sums, respectively, of the resulting matrix f.</mark>
+
+이때 $-1 \le r_a \le 1$
+
+– It is equal to zero when the mixing in the graph is no different from that obtained through a random assignment of edges that preserves the marginal degree distribution.
+– It is equal to one when there is perfect assortative mixing (i.e., when edges only connect vertices of the same category).
+– However, in the event that the mixing is perfectly disassortative, in the sense that every edge in the graph connects vertices of two different categories, the coefficient need not take the value −1.
+• The fact that physical binding of proteins is known to be directly relevant to functional classes suggests that there will frequently be strong assortative mixing in protein-protein interaction networks with respective to these classes as attributes.
+
+```{r, eval=FALSE}
+assortativity.nominal(yeast, (V(yeast)$Class=="P")+1, directed=FALSE)
+```
+
+• When the vertex characteristic of interest is continuous, rather than discrete, denote by (xe, ye) the
+values of that characteristic for the vertices joined by an edge e ∈ E.
+• A natural candidate for quantifying the assortativity in this characteristic is just the Pearson correlation coefficient of the pairs (xe, ye),
+
+
+$$
+r = \frac{\sum_{x,y}xy(f_{xy} - f_{x+}f_{+y}}{\sigma_x \sigma_y}
+$$
+
+
+
+
+
+```{r, eval=FALSE}
+assortativity.degree(yeast)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
