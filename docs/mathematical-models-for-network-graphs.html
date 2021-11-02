@@ -534,6 +534,12 @@ networks (such as broad degree distributions or small-world effects),</li>
 • On the other hand, those of the latter class typically are designed to be fit to data, but their mathematical analysis can be challenging in some cases.
 • Nonetheless, both classes of network graph models have their uses for analyzing network graph data.</p></li>
 </ol>
+<p><br>
+<br>
+<br>
+<br>
+<br>
+<br></p>
 <div id="classical-random-graph-models" class="section level3" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Classical Random Graph Models</h3>
 <ol style="list-style-type: decimal">
@@ -555,6 +561,9 @@ table(sapply(decompose.graph(g.er),vcount))</code></pre>
 <pre><code>average.path.length(g.er)
 diameter(g.er)
 transitivity(g.er)</code></pre>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="generalized-random-graph-models" class="section level3" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Generalized Random Graph Models</h3>
@@ -583,10 +592,16 @@ transitivity(yeast)
 transitivity(fake.yeast)
 </code></pre>
 <p>하지만 이렇게 고삐를 풀어버리면 원본 네트워크의 직경은 시뮬레이션된 물건의 2배에 달하며 사실상 만들어두었던 clustering들도 다 날아가버렸음. 원칙적으로 class <span class="math inline">\(\mathcal G\)</span>의 정의를 제한하는 편이 훨씬 쉬우며 그렇기에 degree sequence 이외의 다른 추가적인 특성들은 그냥 고정해버림. 이러한 collection으로부터 랜덤 그래프들 <span class="math inline">\(\mathcal G\)</span>을 생산해내는데에는 MCMC 방법론이 유명하다. 이때 MC에 의해 액세스되는 상태들 그 자체 각각들이 graph <span class="math inline">\(\mathcal G\)</span>에 해당함.</p>
+<p><br>
+<br></p>
+<p><br>
+<br></p>
 </div>
 <div id="network-graph-models-based-on-mechanisms" class="section level3" number="7.4.3">
 <h3><span class="header-section-number">7.4.3</span> Network Graph Models Based on Mechanisms</h3>
 <p>모던 네트워크 그래프 모델링에서 가장 중요한 혁명 중 하나가 전통적인 랜덤 그래프 모델에서 실제 세계의 성질을 모사하는 쪽으로 옮겨갔다는 거임. 이건 그냥 간단한 몇몇 메커니즘 도입하는 것으로 성공되었음.</p>
+<p><br>
+<br></p>
 <div id="small-world-models" class="section level4" number="7.4.3.1">
 <h4><span class="header-section-number">7.4.3.1</span> Small-World Models</h4>
 <ul>
@@ -633,7 +648,7 @@ lines(steps, apl/max(apl), lwd=3, col=&quot;red&quot;)</code></pre>
 <ol style="list-style-type: decimal">
 <li><p>시작 vertex <span class="math inline">\(N_v^{(0)}\)</span>, 시작 edge <span class="math inline">\(N_e^{(0)}\)</span> 가지는 시작 그래프 <span class="math inline">\(G^{(0)}\)</span>로 시작.</p></li>
 <li><p>각 시간 <span class="math inline">\(t = 1, 2, \cdots\)</span>에서 <span class="math inline">\(G^{(t-1)}\)</span> 기반으로 <span class="math inline">\(G^{(t)}\)</span> 생산. 추가적인 vertex 를 넣되 이 추가되는 vertex들의 degree는 <span class="math inline">\(m \ge 1\)</span>이고, <span class="math inline">\(m\)</span>개의 새로운 edge들이 <span class="math inline">\(m\)</span>개의 서로 다른 vertex에 들러붙음. 이때 새로운 vertex가 기존의 vertex에 들러붙을 확률은 <span class="math inline">\(\frac{d_v}{\sum_{v&#39; \in V}d_{v&#39;}}\)</span> 을 따름. 즉 기존 그래프에서 높은 degree를 가지고 있던 vertex가 새 vertex와도 들러붙을 확률 높음.</p></li>
-<li><p>t번의 이터레이션 후에 결과값 그래프 <span class="math inline">\(G(t)\)</span>는 <span class="math inline">\(N_v^{(t)} = N_v^{(0)} + t\)</span> 개의 vertex와 $N_e^{(t)} = N_e^{(0)} + tm $ 개의 edge 를 가진다.</p></li>
+<li><p>t번의 이터레이션 후에 결과값 그래프 <span class="math inline">\(G(t)\)</span>는 <span class="math inline">\(N_v^{(t)} = N_v^{(0)} + t\)</span> 개의 vertex와 <span class="math inline">\(N_e^{(t)} = N_e^{(0)} + tm\)</span> 개의 edge 를 가진다.</p></li>
 </ol>
 <p>이런 preferential attachment 경향성 때문에 이터레이션이 쌓일수록 높은 degree를 보유하는 vertex가 많아질 것을 기대할 수 있다.</p>
 <pre><code>g.ba = barabasi.game(100, directed=FALSE)
@@ -655,7 +670,7 @@ transitivity(g.ba)</code></pre>
 <p>우리가 observations으로부터 얻은 그래프 <span class="math inline">\(G^{obs}\)</span>를 가지고 있다고 가정하자. 우리는 이때 임의의 structural 특성인 <span class="math inline">\(\eta(\cdot)\)</span>에 관심있음. 이 경우 <span class="math inline">\(\eta(G^{obs})\)</span>가 unusual 이든 unexpected 이든 significant 한지를 체크하는 것은 중요함. 지금까지 위에서 언급해온 네트워크 모델들에 대한 이론은 바로 이 경우에 기준으로서 동작한다는 점에서 중요. 이인즉 우리가 가지고 있는 그래프들의 collection <span class="math inline">\(\mathcal G\)</span> 에 대해 <span class="math inline">\(\eta(G^{obs})\)</span>를 각 그래프들을 넣어본 값들의 collection <span class="math inline">\(\{ \eta(G): G \in \mathcal(G)\}\)</span> 과 비교해본다는 것이다. 이때 해당 collection에 들어있는 값들 대비 <span class="math inline">\(\eta(G^{obs})\)</span>가 극단적이라고 판정되면 <span class="math inline">\(\eta(G^{obs})\)</span>가 보유한 값이 unusual하다는 것을 판정내릴 수 있는 재료가 됨.</p>
 <p>랜덤 그래프 모델을 사용할 경우 척도가 될 수 있는 distribution을 개발하고자 하는 움직임은 지극히 정상적임. 이는 <span class="math inline">\(\mathcal G\)</span> 안에 있는 각 그래프들 <span class="math inline">\(G\)</span> 각각에 uniform 확률을 부여해서 만들어보는 게 합리적. 이는 곧</p>
 <p><span class="math display">\[
-P_{\eta, \mathcal G} (t) = \frac{#\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
+P_{\eta, \mathcal G} (t) = \frac{\text{#}\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
 \]</span></p>
 <p><mark>만약 <span class="math inline">\(\eta(G^{obs})\)</span>가 이 분포를 따르지 않을 것 같은 확률이 높다면 <span class="math inline">\(G^{obs}\)</span>는 <span class="math inline">\(\mathcal G\)</span>로부터의 uniform draw가 아니라는 쪽에 힘이 실림.</mark> 이는 랜덤 그래프를 예쁘게 따르는 자주 발생하지 않는 상황 대비 실제 상황으로부터 서브그래프를 뽑아내게 되는 자주 마주치는 상황에 활용가능하다는 점에서 실용적.</p>
 <div id="assessing-the-number-of-communities-in-a-network" class="section level4" number="7.4.4.1">
@@ -665,18 +680,7 @@ P_{\eta, \mathcal G} (t) = \frac{#\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{
 <li>karate 네트워크와 동일하게 same order <span class="math inline">\(N_v = 34\)</span>, size <span class="math inline">\(N_e = 78\)</span></li>
 <li>1번에 더해서 원본과 동일한 degree distribution 따름</li>
 </ol>
-<p>MCMC 써서 생산.</p>
-<p>• Our use of , through the function fastgreedy.community, resulted in the
-discovery of three communities in the karate network.
-• In defining our frame of reference we will use two choices of G: (i) graphs of the same order Nv = 34
-and size Ne = 78 as the karate network, and (ii) graphs that obey the further restriction that they
-have the same degree distribution as the original.
-• Monte Carlo methods, using some of the same R functions encountered above, allow us to quickly
-generate approximations to the corresponding reference distributions. In order to do so, we need
-the order, size, and degree sequence of the original karate network.
-– Monte Carlo methods, or Monte Carlo experiments, are a broad class of computational
-algorithms that rely on repeated random sampling to obtain numerical results. The underlying
-concept is to use randomness to solve problems that might be deterministic in principle</p>
+<p>MCMC 써서 생산. <mark>뭐 deterministic 관점이었던 물건에 시뮬레이션을 통한 랜덤 관점으로 접근하는 거라는 이야기? 단점이란 소리인가?</mark></p>
 <pre><code>data(karate)
 nv = vcount(karate)
 ne = ecount(karate)
@@ -722,7 +726,7 @@ summary(macaque)</code></pre>
 - A는 adjacency Matrix
 - <span class="math inline">\(d_v^{tot}\)</span>는 vertex <span class="math inline">\(v\)</span>의 총 degree (i.e., in-degree plus out-degree)</p>
 <p><span class="math display">\[
-cl(v) = \frac{\left( A+ A&#39; \right)^3_{vv}}{ 2 \left [ d_v^{tot}(d_v^{tot} - 1) - 2 (A^2)_vv \right]}
+cl(v) = \frac{\left( A+ A&#39; \right)^3_{vv}}{ 2 \left [ d_v^{tot}(d_v^{tot} - 1) - 2 (A^2)_{vv} \right]}
 \]</span></p>
 <pre><code>clust.coef.dir &lt;- function(graph){
 A = as.matrix(get.adjacency(graph))

@@ -24,6 +24,14 @@ networks (such as broad degree distributions or small-world effects),
 • On the other hand, those of the latter class typically are designed to be fit to data, but their mathematical analysis can be challenging in some cases.
 • Nonetheless, both classes of network graph models have their uses for analyzing network graph data.
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
 ### Classical Random Graph Models
 
 
@@ -58,6 +66,11 @@ average.path.length(g.er)
 diameter(g.er)
 transitivity(g.er)
 ```
+
+<br>
+<br>
+<br>
+
 
 ### Generalized Random Graph Models
 
@@ -101,9 +114,20 @@ transitivity(fake.yeast)
 하지만 이렇게 고삐를 풀어버리면 원본 네트워크의 직경은 시뮬레이션된 물건의 2배에 달하며 사실상 만들어두었던 clustering들도 다 날아가버렸음. 원칙적으로 class $\mathcal G$의 정의를 제한하는 편이 훨씬 쉬우며 그렇기에 degree sequence 이외의 다른 추가적인 특성들은 그냥 고정해버림. 이러한 collection으로부터 랜덤 그래프들 $\mathcal G$을 생산해내는데에는 MCMC 방법론이 유명하다. 이때 MC에 의해 액세스되는 상태들 그 자체 각각들이 graph $\mathcal G$에 해당함.
 
 
+<br>
+<br>
+
+<br>
+<br>
+
+
+
 ### Network Graph Models Based on Mechanisms
 
 모던 네트워크 그래프 모델링에서 가장 중요한 혁명 중 하나가 전통적인 랜덤 그래프 모델에서 실제 세계의 성질을 모사하는 쪽으로 옮겨갔다는 거임. 이건 그냥 간단한 몇몇 메커니즘 도입하는 것으로 성공되었음.
+
+<br>
+<br>
 
 #### Small-World Models
 - **small-world network**
@@ -166,7 +190,7 @@ undirected 네트워크의 **Barabasi-Albert (BA) model** 은 다음과 같음.
 
 2. 각 시간 $t = 1, 2, \cdots$에서 $G^{(t-1)}$ 기반으로 $G^{(t)}$ 생산. 추가적인 vertex 를 넣되 이 추가되는 vertex들의 degree는 $m \ge 1$이고, $m$개의 새로운 edge들이 $m$개의 서로 다른 vertex에 들러붙음. 이때 새로운 vertex가 기존의 vertex에 들러붙을 확률은 $\frac{d_v}{\sum_{v' \in V}d_{v'}}$ 을 따름. 즉 기존 그래프에서 높은 degree를 가지고 있던 vertex가 새 vertex와도 들러붙을 확률 높음.
 
-3. t번의 이터레이션 후에 결과값 그래프 $G(t)$는 $N_v^{(t)} = N_v^{(0)} + t$ 개의 vertex와 $N_e^{(t)} = N_e^{(0)} + tm $ 개의 edge 를 가진다.
+3. t번의 이터레이션 후에 결과값 그래프 $G(t)$는 $N_v^{(t)} = N_v^{(0)} + t$ 개의 vertex와 $N_e^{(t)} = N_e^{(0)} + tm$ 개의 edge 를 가진다.
 
 이런 preferential attachment 경향성 때문에 이터레이션이 쌓일수록 높은 degree를 보유하는 vertex가 많아질 것을 기대할 수 있다.
 
@@ -202,7 +226,7 @@ transitivity(g.ba)
 랜덤 그래프 모델을 사용할 경우 척도가 될 수 있는 distribution을 개발하고자 하는 움직임은 지극히 정상적임. 이는 $\mathcal G$ 안에 있는 각 그래프들 $G$ 각각에 uniform 확률을 부여해서 만들어보는 게 합리적. 이는 곧
 
 $$
-P_{\eta, \mathcal G} (t) = \frac{#\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
+P_{\eta, \mathcal G} (t) = \frac{\text{#}\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
 $$
 
 <mark>만약 $\eta(G^{obs})$가 이 분포를 따르지 않을 것 같은 확률이 높다면 $G^{obs}$는 $\mathcal G$로부터의 uniform draw가 아니라는 쪽에 힘이 실림.</mark> 이는 랜덤 그래프를 예쁘게 따르는 자주 발생하지 않는 상황 대비 실제 상황으로부터 서브그래프를 뽑아내게 되는 자주 마주치는 상황에 활용가능하다는 점에서 실용적.
@@ -215,19 +239,8 @@ $$
 1. karate 네트워크와 동일하게 same order $N_v = 34$, size $N_e = 78$
 2. 1번에 더해서 원본과 동일한 degree distribution 따름
 
-MCMC 써서 생산.
+MCMC 써서 생산. <mark>뭐 deterministic 관점이었던 물건에 시뮬레이션을 통한 랜덤 관점으로 접근하는 거라는 이야기? 단점이란 소리인가?</mark>
 
-• Our use of , through the function fastgreedy.community, resulted in the
-discovery of three communities in the karate network.
-• In defining our frame of reference we will use two choices of G: (i) graphs of the same order Nv = 34
-and size Ne = 78 as the karate network, and (ii) graphs that obey the further restriction that they
-have the same degree distribution as the original.
-• Monte Carlo methods, using some of the same R functions encountered above, allow us to quickly
-generate approximations to the corresponding reference distributions. In order to do so, we need
-the order, size, and degree sequence of the original karate network.
-– Monte Carlo methods, or Monte Carlo experiments, are a broad class of computational
-algorithms that rely on repeated random sampling to obtain numerical results. The underlying
-concept is to use randomness to solve problems that might be deterministic in principle
 
 ```
 data(karate)
@@ -297,7 +310,7 @@ summary(macaque)
 - $d_v^{tot}$는 vertex $v$의 총 degree (i.e., in-degree plus out-degree)
 
 $$
-cl(v) = \frac{\left( A+ A' \right)^3_{vv}}{ 2 \left [ d_v^{tot}(d_v^{tot} - 1) - 2 (A^2)_vv \right]}
+cl(v) = \frac{\left( A+ A' \right)^3_{vv}}{ 2 \left [ d_v^{tot}(d_v^{tot} - 1) - 2 (A^2)_{vv} \right]}
 $$
 
 ```
