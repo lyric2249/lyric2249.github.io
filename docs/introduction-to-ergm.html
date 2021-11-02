@@ -507,29 +507,39 @@ div.csl-indent {
 <h2><span class="header-section-number">7.5</span> Introduction to ERGM</h2>
 <div id="exponential-random-graph-models" class="section level3" number="7.5.1">
 <h3><span class="header-section-number">7.5.1</span> Exponential Random Graph Models</h3>
+<p><br>
+<br>
+<br></p>
 <div id="what-is-a-network" class="section level4" number="7.5.1.1">
 <h4><span class="header-section-number">7.5.1.1</span> What Is a Network?</h4>
-<p>A representation of “relational data” in the form of a mathematical graph: A set of nodes along with a set of edges connecting some pairs of nodes.</p>
+<p>:= “relational data” 를 수학적 그래프로 나타낸 것. node의 set과 edge set의 복합이며, edge는 일부 node를 이음.</p>
 <p>Adjacencey Matrix <span class="math inline">\(X_{ij} = 1\)</span>, if node <span class="math inline">\(i,j\)</span> are connected. <span class="math inline">\(0\)</span> o.w.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="exponential-random-graph-model-ergms" class="section level4" number="7.5.1.2">
 <h4><span class="header-section-number">7.5.1.2</span> Exponential Random Graph Model (ERGMs)</h4>
 <p><span class="math display">\[
-P_\theta (X=x) \frac{1}{\kappa(\theta)} \exp \Big( \theta&#39; g(x) \Big)
+P_\theta (X=x) = \frac{1}{\kappa(\theta)} \exp \Big( \theta&#39; g(x) \Big)
 \]</span></p>
 <ul>
-<li><span class="math display">\[X\]</span>: A random network written as an adjacency Matrix, <span class="math inline">\(X_{ij}\)</span> is an indicator of an edge from node i to node j.</li>
+<li><span class="math inline">\(X\)</span>: A random network written as an adjacency Matrix
+<ul>
+<li><span class="math inline">\(X_{ij}\)</span> is an indicator of an edge from node i to node j.</li>
+</ul></li>
 <li><span class="math inline">\(g(x)\)</span>: A vector of network statistics of interest.</li>
 <li><span class="math inline">\(\theta\)</span>: The vector of parameters measuring the <strong>strengths of the effects</strong> of the corresponding entries in the vector <span class="math inline">\(g(x)\)</span>.
 <ul>
 <li><span class="math inline">\(\theta &gt;0\)</span>: There exists a tendency to form <span class="math inline">\(g(x)\)</span> when changing <span class="math inline">\(X_{ij}\)</span> value from 0 to 1.</li>
 <li><span class="math inline">\(\theta &gt;0\)</span>: There exists a tendency <strong>not</strong> to form <span class="math inline">\(g(x)\)</span> when changing <span class="math inline">\(X_{ij}\)</span> value from 0 to 1.</li>
 </ul></li>
-<li>$(θ)%: A normalizing constan</li>
+<li><span class="math inline">\(\kappa (θ)\)</span>: A normalizing constant</li>
 </ul>
-<p>Explain parsimoniously the local selection forces that shapes the global structure of a network.</p>
-<p>A network dataset may be considered like the response in a regression model, where the predictors are things such as “propensity for Indiv. to form triangles of partnerships.” <br>⇒ ERGM help us quantify the strength of local transitivity.</p>
-<p>The information from the use of an ERGM can be used to understand a particular phenomenon or to simulate new random realizations to networks that retain the essential properties of the original</p>
+<p>네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 “파트너십에서 개인들이 삼각형을 형성하는 성향” 과 같은 것임. <strong>즉, ERGM은 local transtivity의 정도, 위력을 양화하는데 도움을 줌.</strong> EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="network-statistics" class="section level4" number="7.5.1.3">
 <h4><span class="header-section-number">7.5.1.3</span> Network Statistics</h4>
@@ -537,15 +547,23 @@ P_\theta (X=x) \frac{1}{\kappa(\theta)} \exp \Big( \theta&#39; g(x) \Big)
 <p><Pics></p>
 <div id="degree-and-shared-partnership-distribution" class="section level5" number="7.5.1.3.1">
 <h5><span class="header-section-number">7.5.1.3.1</span> Degree and Shared Partnership Distribution</h5>
-<p>Degree: The number of edges the node has to other nodes.
-<span class="math inline">\(D_k (x)\)</span>: The number of nodes with degree <span class="math inline">\(k\)</span>. <span class="math inline">\(\sum D_k(x) n\)</span>.</p>
-<p>Shared Partnership Distribution:
-- The number of unordered pairs <span class="math inline">\((i, j)\)</span> for which <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> have exactly share <span class="math inline">\(k\)</span> common neighbors and
-- <span class="math inline">\(EP_k (x)\)</span>: <span class="math inline">\(X_{ij} = 1\)</span>
-- <span class="math inline">\(NP_k (x)\)</span>: <span class="math inline">\(X_{ij} = 0\)</span>
-- <span class="math inline">\(DP_k (x)\)</span>: regardless of value <span class="math inline">\(X_{ij}\)</span>
-- <span class="math inline">\(\sum EP_k(x) = S_1(x)\)</span> (edge counts) and <span class="math inline">\(\sum DP_k (x) = {n \choose x}\)</span> (dyad counts).</p>
-<p>The geometrically weighted statistics for degree and shared partnership distribution are defined by</p>
+<ul>
+<li><strong>Degree</strong>: The number of edges the node has to other nodes.
+<ul>
+<li><span class="math inline">\(D_k (x)\)</span>: The number of nodes with degree <span class="math inline">\(k\)</span>. 이때 <span class="math inline">\(\sum D_k(x) = n\)</span>.</li>
+</ul></li>
+<li>Shared Partnership Distribution:
+<ul>
+<li>The number of unordered pairs <span class="math inline">\((i, j)\)</span> for which <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> have exactly share <span class="math inline">\(k\)</span> common neighbors and
+<ul>
+<li><span class="math inline">\(EP_k (x)\)</span>: <span class="math inline">\(X_{ij} = 1\)</span></li>
+<li><span class="math inline">\(NP_k (x)\)</span>: <span class="math inline">\(X_{ij} = 0\)</span></li>
+<li><span class="math inline">\(DP_k (x)\)</span>: regardless of value <span class="math inline">\(X_{ij}\)</span></li>
+</ul></li>
+<li><span class="math inline">\(\sum EP_k(x) = S_1(x)\)</span> (edge counts) and <span class="math inline">\(\sum DP_k (x) = {n \choose x}\)</span> (dyad counts).</li>
+</ul></li>
+</ul>
+<p><strong>geometrically weighted statistics</strong> for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 <span class="math inline">\(\tau\)</span>는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄.</p>
 <p>$$
 <span class="math display">\[\begin{alignat}{2}
 
@@ -556,43 +574,44 @@ u(x | \tau)
 \\
 
 v(x | \tau) 
-&amp;= &quot;
+&amp;= \begin{gather} &#39;&#39; \end{gather}
 &amp;&amp;\cdot EP_i(x)
 
 \\
 
 w(x | \tau) 
-&amp;= &quot;
+&amp;= \begin{gather} &#39;&#39; \end{gather}
 &amp;&amp;\cdot DP_i(x)
 
 \end{alignat}\]</span>
 $$</p>
-<p>where the additional parameter <span class="math inline">\(\tau\)</span> specifies the decreasing rate of the weights put on the higher order terms.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 </div>
 <div id="difficulty-in-parameter-estimation" class="section level3" number="7.5.2">
 <h3><span class="header-section-number">7.5.2</span> Difficulty in Parameter Estimation</h3>
+<p><br>
+<br>
+<br></p>
 <div id="intractable-normalizing-constants" class="section level4" number="7.5.2.1">
 <h4><span class="header-section-number">7.5.2.1</span> Intractable Normalizing Constants</h4>
-<p>The normalizing constant of ERGMs is <span class="math inline">\(\kappa (\theta) \sum_{\text{all possible }x} \exp \Big \{ \theta&#39; g(\mathbf x) \Big \}\)</span>.</p>
-<p>Since there exist <span class="math inline">\(2^{n \choose x}\)</span> networks even in the undirected case, <span class="math inline">\(\kappa(\theta)\)</span> is not directly computable.</p>
-<p>Due to the intractable normalizing constant, MCMC is key to both simulation and statistical inference.</p>
-<p>However, for the general MH algorithm, the acceptance probability involve an unknown normalizing constant ratio <span class="math inline">\(\frac{\kappa(\theta)}{\kappa(\theta&#39;)}\)</span>, where <span class="math inline">\(\theta &#39;\)</span> denotes the proposed value, and it renders its failure.</p>
+<p><span class="math inline">\(\kappa (\theta) =\sum_{\text{all possible }x} \exp \Big \{ \theta&#39; g(\mathbf x) \Big \}\)</span> 는 ERGMs의 normalizing constant.</p>
+<p>undirected 인 경우에조차도 <span class="math inline">\(2^{n \choose x}\)</span> 개의 네트워크가 존재하므로, <span class="math inline">\(\kappa(\theta)\)</span> 를 직접 계산하는건 불가능함. 이렇게 직접 계산하는게 불가능하기 때문에 MCMC 가 시뮬레이션과 통계적 추론 양쪽에 있어서 핵심이 된다. 하지만 일반적은 MH 알고리즘에 있어서는 acceptance probability에 알려지지 않은 constant ratio 인 <span class="math inline">\(\frac{\kappa(\theta)}{\kappa(\theta&#39;)}\)</span> 가 끼어있으므로 이를 직접적으로 계산하는 것 또한 실패하게 됨. 이때 <span class="math inline">\(\theta &#39;\)</span> denotes the proposed value.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="model-degeneracy" class="section level4" number="7.5.2.2">
 <h4><span class="header-section-number">7.5.2.2</span> Model Degeneracy</h4>
-<p>For some configurations of <span class="math inline">\(\theta\)</span>, the ERGMs produces networks that are
-either full (every tie exists) or empty (no ties exist) with probability close
-to one.</p>
-<p>Example: Basic Markovian Statistics
-When one edge is added to or removed from the network, the values of
-the basic Markovian statistics can change a lot while the values of other
-statistics do not change proportionally, so the dyadic dependence effects
-amplify quickly and the model tend to be degenerated.</p>
-<p>Current methods, MCMLE and stochastic approximation, sometimes
-produce degenerate estimates of θ if the starting value is in or close to a
-degeneracy region. ⇒ Local convergence property.</p>
+<p><span class="math inline">\(\theta\)</span>를 어떻게 설정하느냐에 따라서 ERGM은 full (모든 연결이 존재하는, <span class="math inline">\(J\)</span>) 혹은 empty (연결이 없는, <span class="math inline">\(\mathbf 0\)</span>) 네트워크를 거의 1에 가까운 확률로 생산하기도 한다.</p>
+<p>Example: <strong>Basic Markovian Statistics</strong>. 네트워크에서 하나의 edge가 추가되거나 제거될때, 다른 통계량들이 비교적 크게 변하지 않을 때 basic Markovian 통계량만 엄청나게 요동치는 상황 발생할 수 있음. 따라서 dyadic dependence effects만 빠르게 뻥튀기되어서 모델이 degenerate 될 수 있음.</p>
+<p>현재 사용되는 방법인 <strong>MCMLE</strong> and <strong>stochastic approximation</strong> 는 시작값이 degeneracy 영역에 있었다면 <span class="math inline">\(\theta\)</span>의 degenerate 추정값을 생산하기도 한다. 이러한 문제점을 일컫는 용어가 <strong>Local convergence property</strong>.</p>
 
 </div>
 </div>

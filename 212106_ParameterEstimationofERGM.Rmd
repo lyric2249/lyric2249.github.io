@@ -1,7 +1,5 @@
 ## Parameter Estimation of ERGM
 
-
-
 Current Methods for ERGM
 
 1. Approximation-based Algorithm: Maximize the likelihood function with MCMC samples.
@@ -15,6 +13,12 @@ Current Methods for ERGM
 	- Auxiliary Variable Metropolis-Hasting Algorithm (AVMH).
 	- Adaptive Exchange Monte Carlo Algorithm (AEXMC).
 
+<br>
+<br>
+<br>
+
+
+
 ### Approximation-based Algorithm
 
 #### Maximum Pseudo Likelihood Estimation
@@ -25,7 +29,7 @@ The conditional and pseudo likelihood of the ERGMs is
 
 $$
 \begin{align}
-\logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &= \theta ' g(x_{ij}^c)
+logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &= \theta ' g(x_{ij}^c)
 
 \\
 
@@ -38,18 +42,9 @@ This method is the simplest one.
 Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.
 
 
-#### MCMC Stochastic Approximation
-The theory of exponential family implies that maximizing the ERGMs is
-equivalent to solving the system of equations
-Eθˆ{g(x)} = g(xobs)
-that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
-and it requires
-1 Independent network generation
-2 Parameter estimation update with stochastic approximation
-This method is inefficient in generating independent network samples.
-The number of iteration steps for generating each sample xk+1 is in the
-order of 100n
-2 where n is the number of nodes.
+<br>
+<br>
+<br>
 
 
 #### MCMC Stochastic Approximation
@@ -65,6 +60,35 @@ The number of iteration steps for generating each sample xk+1 is in the
 order of 100n
 2 where n is the number of nodes.
 
+
+<br>
+<br>
+<br>
+
+
+#### MCMC Stochastic Approximation
+The theory of exponential family implies that maximizing the ERGMs is
+equivalent to solving the system of equations
+Eθˆ{g(x)} = g(xobs)
+that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
+and it requires
+1 Independent network generation
+2 Parameter estimation update with stochastic approximation
+This method is inefficient in generating independent network samples.
+The number of iteration steps for generating each sample xk+1 is in the
+order of 100n
+2 where n is the number of nodes.
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
 
 
 
@@ -126,6 +150,11 @@ sample is very slow, which is a general feature of ERGMs, θ
 tends to
 accept with a high probability.
 
+<br>
+<br>
+<br>
+
+
 #### Monte Carlo MH Algorithm
 At each iteration, the MCMH algorithms replaces the unknown
 normalizing constant ratio κ(θ)/κ(θ
@@ -161,6 +190,16 @@ ratio κ(θ)/κ(θ
 
 
 
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
 
 
 
@@ -190,6 +229,16 @@ Figure: GOF plots for the high school student friendship network
 
 
 
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
 
 
 
@@ -222,6 +271,11 @@ where $\theta = (\theta_1 , \cdots, \theta_d)'$, $S(y) = \Big( S_1 (y), \cdots, 
 Due to 2 issues, intractability of $\kappa(θ)$ and model degeneracy, it is difficult to estimate $\theta$ well.
 
 These problem can be solved by using the varying truncation stochastic approximation MCMC
+
+
+<br>
+<br>
+<br>
 
 
 
@@ -261,6 +315,11 @@ $Y = h(\theta) + \omega$ is noisy estimate. $\omega$ is mean-zero noise.
 Under appropriate conditions (on $a_k$ , $h$, $\omgea_k$ ), the algorithm indeed can be shown to converge to a solution
 
 
+<br>
+<br>
+<br>
+
+
 
 #### MCMC Stochastic Approximation
 
@@ -293,6 +352,11 @@ $$
 Inefficiency in generating independent network samples: Order of $100n^2$.
 
 
+<br>
+<br>
+<br>
+
+
 #### Model Degeneracy
 For some configurations of θ, the model lumps all or most of its
 probability mass on just one or a few possible graphs.
@@ -302,6 +366,11 @@ networks
 A solution to avoid this problem is to specify a model whose parameter
 space contains no or less degeneracy regions
 	But, this is often more difficult than usual.
+
+<br>
+<br>
+<br>
+
 
 #### Varying Truncation SAMCMC for ERGMs 
 

@@ -2,13 +2,19 @@
 
 ### Exponential Random Graph Models
 
+<br>
+<br>
+<br>
+
 #### What Is a Network?
 
-A representation of “relational data” in the form of a mathematical graph: A set of nodes along with a set of edges connecting some pairs of nodes.
+:= “relational data” 를 수학적 그래프로 나타낸 것. node의 set과 edge set의 복합이며, edge는 일부 node를 이음.
 
 Adjacencey Matrix $X_{ij} = 1$, if node $i,j$ are connected. $0$ o.w.
 
-
+<br>
+<br>
+<br>
 
 
 
@@ -22,23 +28,25 @@ Adjacencey Matrix $X_{ij} = 1$, if node $i,j$ are connected. $0$ o.w.
 #### Exponential Random Graph Model (ERGMs)
 
 $$
-P_\theta (X=x) \frac{1}{\kappa(\theta)} \exp \Big( \theta' g(x) \Big)
+P_\theta (X=x) = \frac{1}{\kappa(\theta)} \exp \Big( \theta' g(x) \Big)
 $$
 
-- $$X$$: A random network written as an adjacency Matrix, $X_{ij}$ is an indicator of an edge from node i to node j.
+- $X$: A random network written as an adjacency Matrix
+	- $X_{ij}$ is an indicator of an edge from node i to node j.
 - $g(x)$: A vector of network statistics of interest.
 - $\theta$: The vector of parameters measuring the **strengths of the effects** of the corresponding entries in the vector $g(x)$.
 	- $\theta >0$: There exists a tendency to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
 	- $\theta >0$: There exists a tendency **not** to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
-- $\kappa (θ)%: A normalizing constan
+- $\kappa (θ)$: A normalizing constant
 
-Explain parsimoniously the local selection forces that shapes the global structure of a network.
-
-A network dataset may be considered like the response in a regression model, where the predictors are things such as “propensity for Indiv. to form triangles of partnerships.” <br>⇒ ERGM help us quantify the strength of local transitivity.
-
-The information from the use of an ERGM can be used to understand a particular phenomenon or to simulate new random realizations to networks that retain the essential properties of the original
+네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 "파트너십에서 개인들이 삼각형을 형성하는 성향" 과 같은 것임. **즉, ERGM은 local transtivity의 정도, 위력을 양화하는데 도움을 줌.** EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.
 
 
+
+
+<br>
+<br>
+<br>
 
 
 
@@ -54,18 +62,18 @@ Basic Markov Network Statistics
 
 ##### Degree and Shared Partnership Distribution
 
-Degree: The number of edges the node has to other nodes.
-$D_k (x)$: The number of nodes with degree $k$. $\sum D_k(x) n$.
+- **Degree**: The number of edges the node has to other nodes.
+	- $D_k (x)$: The number of nodes with degree $k$. 이때 $\sum D_k(x) = n$.
 
-Shared Partnership Distribution: 
-- The number of unordered pairs $(i, j)$ for which $i$ and $j$ have exactly share $k$ common neighbors and
-	- $EP_k (x)$: $X_{ij} = 1$
-	- $NP_k (x)$: $X_{ij} = 0$
-	- $DP_k (x)$: regardless of value $X_{ij}$
-- $\sum EP_k(x) = S_1(x)$ (edge counts) and $\sum DP_k (x) = {n \choose x}$ (dyad counts).
+- Shared Partnership Distribution: 
+	- The number of unordered pairs $(i, j)$ for which $i$ and $j$ have exactly share $k$ common neighbors and
+		- $EP_k (x)$: $X_{ij} = 1$
+		- $NP_k (x)$: $X_{ij} = 0$
+		- $DP_k (x)$: regardless of value $X_{ij}$
+	- $\sum EP_k(x) = S_1(x)$ (edge counts) and $\sum DP_k (x) = {n \choose x}$ (dyad counts).
 
 
-The geometrically weighted statistics for degree and shared partnership distribution are defined by 
+**geometrically weighted statistics** for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 $\tau$는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄.
 
 $$
 \begin{alignat}{2}
@@ -77,50 +85,58 @@ u(x | \tau)
 \\
 
 v(x | \tau) 
-&= "
+&= \begin{gather} '' \end{gather}
 &&\cdot EP_i(x)
 
 \\
 
 w(x | \tau) 
-&= "
+&= \begin{gather} '' \end{gather}
 &&\cdot DP_i(x)
 
 \end{alignat}
 $$
 
-where the additional parameter $\tau$ specifies the decreasing rate of the weights put on the higher order terms.
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
 
 ### Difficulty in Parameter Estimation
 
+<br>
+<br>
+<br>
+
 #### Intractable Normalizing Constants
 
-The normalizing constant of ERGMs is $\kappa (\theta) \sum_{\text{all possible }x} \exp \Big \{ \theta' g(\mathbf x) \Big \}$.
+$\kappa (\theta) =\sum_{\text{all possible }x} \exp \Big \{ \theta' g(\mathbf x) \Big \}$ 는 ERGMs의 normalizing constant.
 
-Since there exist $2^{n \choose x}$ networks even in the undirected case, $\kappa(\theta)$ is not directly computable.
+undirected 인 경우에조차도 $2^{n \choose x}$ 개의 네트워크가 존재하므로, $\kappa(\theta)$ 를 직접 계산하는건 불가능함. 이렇게 직접 계산하는게 불가능하기 때문에 MCMC 가 시뮬레이션과 통계적 추론 양쪽에 있어서 핵심이 된다. 하지만 일반적은 MH 알고리즘에 있어서는 acceptance probability에 알려지지 않은 constant ratio 인 $\frac{\kappa(\theta)}{\kappa(\theta')}$ 가 끼어있으므로 이를 직접적으로 계산하는 것 또한 실패하게 됨. 이때 $\theta '$ denotes the proposed value.
 
-Due to the intractable normalizing constant, MCMC is key to both simulation and statistical inference.
-
-However, for the general MH algorithm, the acceptance probability involve an unknown normalizing constant ratio $\frac{\kappa(\theta)}{\kappa(\theta')}$, where $\theta '$ denotes the proposed value, and it renders its failure.
-
+<br>
+<br>
+<br>
 
 
 #### Model Degeneracy
 
-For some configurations of $\theta$, the ERGMs produces networks that are
-either full (every tie exists) or empty (no ties exist) with probability close
-to one.
+$\theta$를 어떻게 설정하느냐에 따라서 ERGM은 full (모든 연결이 존재하는, $J$) 혹은 empty (연결이 없는, $\mathbf 0$) 네트워크를 거의 1에 가까운 확률로 생산하기도 한다.
 
-Example: Basic Markovian Statistics
-When one edge is added to or removed from the network, the values of
-the basic Markovian statistics can change a lot while the values of other
-statistics do not change proportionally, so the dyadic dependence effects
-amplify quickly and the model tend to be degenerated.
 
-Current methods, MCMLE and stochastic approximation, sometimes
-produce degenerate estimates of θ if the starting value is in or close to a
-degeneracy region. ⇒ Local convergence property.
 
+
+
+
+
+Example: **Basic Markovian Statistics**. 네트워크에서 하나의 edge가 추가되거나 제거될때, 다른 통계량들이 비교적 크게 변하지 않을 때 basic Markovian 통계량만 엄청나게 요동치는 상황 발생할 수 있음. 따라서 dyadic dependence effects만 빠르게 뻥튀기되어서 모델이 degenerate 될 수 있음.
+
+
+현재 사용되는 방법인 **MCMLE** and **stochastic approximation** 는 시작값이 degeneracy 영역에 있었다면 $\theta$의 degenerate 추정값을 생산하기도 한다. 이러한 문제점을 일컫는 용어가 **Local convergence property**.
 
 
 

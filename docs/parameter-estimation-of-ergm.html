@@ -521,6 +521,9 @@ div.csl-indent {
 <li>Adaptive Exchange Monte Carlo Algorithm (AEXMC).</li>
 </ul></li>
 </ol>
+<p><br>
+<br>
+<br></p>
 <div id="approximation-based-algorithm" class="section level3" number="7.6.1">
 <h3><span class="header-section-number">7.6.1</span> Approximation-based Algorithm</h3>
 <div id="maximum-pseudo-likelihood-estimation" class="section level4" number="7.6.1.1">
@@ -529,7 +532,7 @@ div.csl-indent {
 <p>The conditional and pseudo likelihood of the ERGMs is</p>
 <p>$$
 <span class="math display">\[\begin{align}
-\logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &amp;= \theta &#39; g(x_{ij}^c)
+logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &amp;= \theta &#39; g(x_{ij}^c)
 
 \\
 
@@ -539,6 +542,9 @@ div.csl-indent {
 $$</p>
 <p>This method is the simplest one.
 Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="mcmc-stochastic-approximation" class="section level4" number="7.6.1.2">
 <h4><span class="header-section-number">7.6.1.2</span> MCMC Stochastic Approximation</h4>
@@ -553,6 +559,9 @@ This method is inefficient in generating independent network samples.
 The number of iteration steps for generating each sample xk+1 is in the
 order of 100n
 2 where n is the number of nodes.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="mcmc-stochastic-approximation-1" class="section level4" number="7.6.1.3">
 <h4><span class="header-section-number">7.6.1.3</span> MCMC Stochastic Approximation</h4>
@@ -567,6 +576,12 @@ This method is inefficient in generating independent network samples.
 The number of iteration steps for generating each sample xk+1 is in the
 order of 100n
 2 where n is the number of nodes.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="auxiliary-variable-mcmc-based-approaches" class="section level3" number="7.6.2">
@@ -619,6 +634,9 @@ sample is very slow, which is a general feature of ERGMs, θ
 0
 tends to
 accept with a high probability.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="monte-carlo-mh-algorithm" class="section level4" number="7.6.2.2">
 <h4><span class="header-section-number">7.6.2.2</span> Monte Carlo MH Algorithm</h4>
@@ -636,6 +654,12 @@ the importance sampling estimator might fail to converge to the true
 ratio κ(θ)/κ(θ
 0
 ) with a finite number of samples.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="goodness-of-fit-plots" class="section level3" number="7.6.3">
@@ -655,6 +679,12 @@ minimum geodesic distance
 proportion of dyads
 Goodness−of−fit diagnostics
 Figure: GOF plots for the high school student friendship network</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="varying-trunction-stochastic-approximation-mcmc" class="section level3" number="7.6.4">
 <h3><span class="header-section-number">7.6.4</span> Varying Trunction Stochastic Approximation MCMC</h3>
@@ -665,6 +695,9 @@ f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta&#39; S(y)\Big \}
 <p>where <span class="math inline">\(\theta = (\theta_1 , \cdots, \theta_d)&#39;\)</span>, <span class="math inline">\(S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)&#39;\)</span>.</p>
 <p>Due to 2 issues, intractability of <span class="math inline">\(\kappa(θ)\)</span> and model degeneracy, it is difficult to estimate <span class="math inline">\(\theta\)</span> well.</p>
 <p>These problem can be solved by using the varying truncation stochastic approximation MCMC</p>
+<p><br>
+<br>
+<br></p>
 <div id="two-difficulties-in-parameter-estimation" class="section level4" number="7.6.4.1">
 <h4><span class="header-section-number">7.6.4.1</span> Two Difficulties in Parameter Estimation</h4>
 <p>Intractability of Normalizing constant <span class="math inline">\(\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta &#39; S(y)\Big\}\)</span>.</p>
@@ -690,6 +723,9 @@ Converge to a local optimal solution or fail to converge due to model degeneracy
 $$</p>
 <p><span class="math inline">\(Y = h(\theta) + \omega\)</span> is noisy estimate. <span class="math inline">\(\omega\)</span> is mean-zero noise.
 Under appropriate conditions (on <span class="math inline">\(a_k\)</span> , <span class="math inline">\(h\)</span>, <span class="math inline">\(\omgea_k\)</span> ), the algorithm indeed can be shown to converge to a solution</p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="mcmc-stochastic-approximation-2" class="section level4" number="7.6.4.2">
@@ -718,6 +754,9 @@ U(y_{k+1}, \bar y_{k+1} ) &amp;= P(\bar y_{k+1} | y_{k+1}) \cdot S(\bar y_{k+1})
 \end{align}\]</span>
 $$</p>
 <p>Inefficiency in generating independent network samples: Order of <span class="math inline">\(100n^2\)</span>.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="model-degeneracy-1" class="section level4" number="7.6.4.3">
 <h4><span class="header-section-number">7.6.4.3</span> Model Degeneracy</h4>
@@ -728,6 +767,9 @@ networks</p>
 <p>A solution to avoid this problem is to specify a model whose parameter
 space contains no or less degeneracy regions
 But, this is often more difficult than usual.</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="varying-truncation-samcmc-for-ergms" class="section level4" number="7.6.4.4">
 <h4><span class="header-section-number">7.6.4.4</span> Varying Truncation SAMCMC for ERGMs</h4>
