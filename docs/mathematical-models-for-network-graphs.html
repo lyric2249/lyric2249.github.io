@@ -430,6 +430,9 @@ div.csl-indent {
 <li class="chapter" data-level="7.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>7.4</b> Mathematical Models for Network Graphs</a>
 <ul>
 <li class="chapter" data-level="7.4.1" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#classical-random-graph-models"><i class="fa fa-check"></i><b>7.4.1</b> Classical Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#generalized-random-graph-models"><i class="fa fa-check"></i><b>7.4.2</b> Generalized Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.3" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#network-graph-models-based-on-mechanisms"><i class="fa fa-check"></i><b>7.4.3</b> Network Graph Models Based on Mechanisms</a></li>
+<li class="chapter" data-level="7.4.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#assessing-significance-of-network-graph-characteristics"><i class="fa fa-check"></i><b>7.4.4</b> Assessing Significance of Network Graph Characteristics</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html"><i class="fa fa-check"></i><b>7.5</b> Introduction to ERGM</a>
 <ul>
@@ -503,36 +506,252 @@ div.csl-indent {
 <div id="mathematical-models-for-network-graphs" class="section level2" number="7.4">
 <h2><span class="header-section-number">7.4</span> Mathematical Models for Network Graphs</h2>
 <ol style="list-style-type: decimal">
-<li>By a model for a network graph we mean effectively a collection</li>
+<li>By a model for a network graph we mean effectively a collection
+<ul>
+<li><span class="math inline">\(G\)</span> 는 가능한 그래프들의 collection (혹은 ‘ensemble’)</li>
+<li><span class="math inline">\(P_\theta\)</span>는 <span class="math inline">\(G\)</span>의 확률분포 (간단하게 쓰면 <span class="math inline">\(\cdot_\theta\)</span> 생략하고 <span class="math inline">\(P\)</span>만 씀)</li>
+<li><span class="math inline">\(\theta\)</span>는 <span class="math inline">\(\Theta\)</span> 내부에서 가능한 값들 안에서 펼쳐져있는 (ranging over) 패러미터들(패러미터값들)의 벡터</li>
+</ul></li>
 </ol>
 <p><span class="math display">\[
 \Big \{ 
 P_\theta (G), \; G \in \mathcal G \; \; : \; \; \theta \in \Theta
 \Big \}
 \]</span></p>
-<p>이때</p>
-<p>where <span class="math inline">\(G\)</span> 는 가능한 그래프들의 collection (혹은 ‘ensemble’), <span class="math inline">\(P_\theta\)</span>는 <span class="math inline">\(G\)</span>의 확률분포 (간단하게 쓰면 <span class="math inline">\(\cdot_\theta\)</span> 생략하고 <span class="math inline">\(P\)</span>만 씀), <span class="math inline">\(\theta\)</span>는 <span class="math inline">\(\Theta\)</span> 내부에서 가능한 값들 안에서 펼쳐져있는 (ranging over) 패러미터들(패러미터값들)의 벡터.</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Variety of Purposes
-• The testing for ‘significance’ of a pre-defined characteristic(s) in a given network graph
-• The study of proposed mechanisms for generating certain commonly observed properties in real-world
-networks (such as broad degree distributions or small-world effects),
-• The assessment of potential predictive factors of relational ties.</li>
-<li>The richness of network graph modeling derives largely from how we choose to specify P(·), with
-methods in the literature ranging from the simple to the complex.</li>
-<li>It is useful for our purposes to distinguish, broadly speaking, between models defined more from (i)
-a mathematical perspective, versus (ii) a statistical perspective.
-• Those of the former class tend to be simpler in nature and more amendable to mathematical analysis
-yet, at the same time, do not always necessarily lend themselves well to formal statistical techniques
-of model fitting and assessment.
-• On the other hand, those of the latter class typically are designed to be fit to data, but their
-mathematical analysis can be challenging in some cases.
-• Nonetheless, both classes of network graph models have their uses for analyzing network graph
-data.</li>
+<li>Variety of Purposes</li>
+</ol>
+<ul>
+<li>The testing for ‘significance’ of a pre-defined characteristic(s) in a given network graph</li>
+<li>The study of proposed mechanisms for generating certain commonly observed properties in real-world
+networks (such as broad degree distributions or small-world effects),</li>
+<li>The assessment of potential predictive factors of relational ties.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>The richness of network graph modeling derives largely from how we choose to specify P(·), with methods in the literature ranging from the simple to the complex.</p></li>
+<li><p>It is useful for our purposes to distinguish, broadly speaking, between models defined more from (i) a mathematical perspective, versus (ii) a statistical perspective.
+• Those of the former class tend to be simpler in nature and more amendable to mathematical analysis yet, at the same time, do not always necessarily lend themselves well to formal statistical techniques of model fitting and assessment.
+• On the other hand, those of the latter class typically are designed to be fit to data, but their mathematical analysis can be challenging in some cases.
+• Nonetheless, both classes of network graph models have their uses for analyzing network graph data.</p></li>
 </ol>
 <div id="classical-random-graph-models" class="section level3" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Classical Random Graph Models</h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>random graph model</strong>이라는 용어는 collection <span class="math inline">\(\mathcal G\)</span>과 <span class="math inline">\(\mathcal G\)</span>에 대한 uniform probability <span class="math inline">\(P(\cdot)\)</span>을 묶어 일컬음. 수학적 관점에서 가장 잘 정의된 네트워크 그래프 모델.</p></li>
+<li><p>주어진 order와 size를 따르는 그래프에 대한 모든 후보군에 동일 확률 부여. <span class="math inline">\(|V|=N_v\)</span>, <span class="math inline">\(|E| = N_e\)</span>를 만족하는 모든 그래프 <span class="math inline">\(G=(V,E)\)</span>의 collection <span class="math inline">\(\mathcal G_{N_v, N_e}\)</span>을 정의하고, 각각의 <span class="math inline">\(G \in \mathcal G_{N_v, N_e}\)</span>에 확률 <span class="math inline">\(P(G) = {N \select N_e}^{-1}\)</span>을 부여함. 이때 <span class="math inline">\(N= N_v \select 2\)</span>는 서로 다른 vertex 2개를 묶은 쌍의 총 숫자.</p></li>
+<li><p><span class="math inline">\(\mathcal G_{N_v, N_e}\)</span>의 변용이 실전에서는 더 자주 보임. 이 공식에서, <span class="math inline">\(\mathcal G_{N_v, p}\)</span>는 order <span class="math inline">\(N_v\)</span>의 모든 그래프 <span class="math inline">\(G\)</span>로 구성되어 있다. 이는 서로 다른 vertex의 쌍에 <span class="math inline">\(p \in (0,1)\)</span>의 확률로 edge 1개를 독립적으로 부여하는 것으로 얻어질 수 있다. 이러한 종류의 모델은 <strong>Bernoulli random graph model</strong>라고 불림. <span class="math inline">\(p\)</span>가 <span class="math inline">\(N_v\)</span>의 적절하게 정의된 함수이며, <span class="math inline">\(N_e \sim p N_v^2\)</span>하면, 이 모델들의 두 클래스는 large <span class="math inline">\(N_v\)</span>와 거의 동치된다.</p></li>
+<li><p>The function erdos.renyi.game in igraph can be used to simulate classical random graphs of either type. The choice of Nv = 100 vertices and a probability of p = 0.02 of an edge between any pair of vertices.</p></li>
+</ol>
+<pre><code>library(sand)
+g.er = erdos.renyi.game(100, 0.02)
+par(mfrow=c(1,2))
+plot(g.er, layout=layout.circle, vertex.label=NA)
+hist(degree(g.er), col=&quot;lightblue&quot;, xlab=&quot;Degree&quot;, ylab=&quot;Frequency&quot;, main=&quot;&quot;)
+is.connected(g.er)
+table(sapply(decompose.graph(g.er),vcount))</code></pre>
+<p><span class="math inline">\(\exists c&gt;1:p = \frac{c}{N_v}\)</span>가 성립한다면, classical random graph <span class="math inline">\(G\)</span>는 giant component를 보유할 확률이 높다.</p>
+<p>위와 <span class="math inline">\(p\)</span>를 동일하게 정의한다면, <span class="math inline">\(c&gt;0\)</span>에 대해, degree distribution은 large <span class="math inline">\(N_v\)</span>에 대해 <span class="math inline">\(POI(c)\)</span>로 잘 모사된다. 이게 사실이라는 건 직관적으로 보이기도 쉽다. 아무 vertex나 하나 뽑았을 때 이의 degree가 <span class="math inline">\(B(N_v-1, p)\)</span>를 따르기 때문이다. 이는 곧 mean degree는 <span class="math inline">\(p(N_v-1)\)</span>에 근접한다는 소리.</p>
+<p>classical random graph의 다른 성질은 vertex 쌍 사이에서 shortest path 위에는 상대적으로 적은 숫자의 vertex가 존재한다는 것이며 이로 인해 clustering도 low하다는 것이다. path가 길어야 상대적으로 공간이 넉넉해서 여러개의 vertex가 그 위에 안착할 가능성이 높은데 짧으면 그만큼 공간 좁아서 없는게 정상일테니까.</p>
+<pre><code>average.path.length(g.er)
+diameter(g.er)
+transitivity(g.er)</code></pre>
+</div>
+<div id="generalized-random-graph-models" class="section level3" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Generalized Random Graph Models</h3>
+<ol style="list-style-type: decimal">
+<li><p>이하의 성질을 갖고, fixed order <span class="math inline">\(N_v\)</span>를 따르는 모든 그래프의 collection <span class="math inline">\(\mathcal G\)</span>를 정의한다. 각 그래프 <span class="math inline">\(G \in \mathcal G\)</span>에 동일 확률 부여</p></li>
+<li><p>가장 자주 부여되는 성질은 fixed degree sequence의 그것. <span class="math inline">\(\mathcal G\)</span>를 모든 그래프 <span class="math inline">\(G\)</span>의 collection으로 정의, 이때 이는 미리 정해진 degree sequence를 따름. 이를 ordered form으로 적으면 <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)}\)</span>. 이 조건을 따르면서도 다른 모양의 그래프는 얼마든지 그려지며 따라서 isomorphic이 아님.</p></li>
+</ol>
+<pre><code>degs = c(2, 2, 2, 2, 3, 3, 3, 3)
+g1 = degree.sequence.game(degs, method=&quot;vl&quot;)
+g2 = degree.sequence.game(degs, method=&quot;vl&quot;)
+par(mfrow=c(1,2))
+plot(g1, vertex.label=NA)
+plot(g2, vertex.label=NA)
+#해당 케이스에선 N_v=8 vertex, 이중 절반은 degree=2, 나머지 절반은 3.</code></pre>
+<pre><code>graph.isomorphic(g1, g2)
+c(ecount(g1), ecount(g2))</code></pre>
+<p>고정된 숫자의 vertex <span class="math inline">\(N_v\)</span>에서 fixed degree sequence를 따르는 랜덤 그래프들의 collection들은 모두 egde 숫자 <span class="math inline">\(N_e\)</span>로 동일하다. 이는 mean degree of sqeuence <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)}\)</span>는 <span class="math inline">\(\tilde d = \frac{2N_e}{N_v}\)</span>이니까.</p>
+<p>따라서 이 collection은 랜덤 그래프의 collection <span class="math inline">\(\mathcal G_{N_v , N_e}\)</span> 안에 strictly 들어있음. 따라서 degree sequence의 가정된 형태의 추가는 원본 collection <span class="math inline">\(\mathcal G_{N_v , N_e}\)</span>에 조건부 분포를 걸어 우리의 모델을 특정짓은 것과 동일함. 다른말로 이는 degree sequence에 의해 제약되지 않은 부분은 얼마든지 vary 가능하다는 것을 의미.</p>
+<pre><code>data(yeast)
+degs = degree(yeast)
+fake.yeast = degree.sequence.game(degs, method=c(&quot;vl&quot;))
+all(degree(yeast) == degree(fake.yeast))
+diameter(yeast)
+diameter(fake.yeast)
+transitivity(yeast)
+transitivity(fake.yeast)
+</code></pre>
+<p>하지만 이렇게 고삐를 풀어버리면 원본 네트워크의 직경은 시뮬레이션된 물건의 2배에 달하며 사실상 만들어두었던 clustering들도 다 날아가버렸음. 원칙적으로 class <span class="math inline">\(\mathcal G\)</span>의 정의를 제한하는 편이 훨씬 쉬우며 그렇기에 degree sequence 이외의 다른 추가적인 특성들은 그냥 고정해버림. 이러한 collection으로부터 랜덤 그래프들 <span class="math inline">\(\mathcal G\)</span>을 생산해내는데에는 MCMC 방법론이 유명하다. 이때 MC에 의해 액세스되는 상태들 그 자체 각각들이 graph <span class="math inline">\(\mathcal G\)</span>에 해당함.</p>
+</div>
+<div id="network-graph-models-based-on-mechanisms" class="section level3" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Network Graph Models Based on Mechanisms</h3>
+<p>모던 네트워크 그래프 모델링에서 가장 중요한 혁명 중 하나가 전통적인 랜덤 그래프 모델에서 실제 세계의 성질을 모사하는 쪽으로 옮겨갔다는 거임. 이건 그냥 간단한 몇몇 메커니즘 도입하는 것으로 성공되었음.</p>
+<div id="small-world-models" class="section level4" number="7.4.3.1">
+<h4><span class="header-section-number">7.4.3.1</span> Small-World Models</h4>
+<ul>
+<li><strong>small-world network</strong></li>
+</ul>
+<p>대부분의 node가 다른 node들과 이웃이 아닌 케이스. 그러나 다른 node를 작은 횟수 거치면 모든 노드에 액세스 가능한 케이스. 해당하는 케이스 생산하는 방법으로 lattice 구조로 우선 잔 후에 적은 확률 부여해서 무작위로 각 node로 rewiring.</p>
+<p><mark>We begin with a set of Nv vertices, arranged in a periodic faction, and join each vertex to r of its neighbors to each side. For each edge, independently and with probability p, one end of that edge will be moved to be incident to another vertex, where that new vertex is chosen uniformly, but with attention to avoid the construction of loops and multi-edges.</p>
+<p>추가적인 조치 없이 lattice만 단독으로 있으면 (<span class="math inline">\(p=0\)</span> 상황에서 생산됨) 이 경우에는 clustering의 양이 상당하게 나오지만, vertex간의 거리는 non-trivial해짐. 이런 lattice에 상대적으로 적은 숫장 edge 대상으로 rewiring을 거치는 것만으로 vertex 사이의 거리를 극적으로 줄일 수 있다. 이때 clustering level은 높게 유지된다는 것이 포인트. 이 효과는 <span class="math inline">\(p\)</span>가 극적으로 작더라도 여전히 얻어질 수 있다.</p>
+<pre><code>g.ws = watts.strogatz.game(1, 25, 5, 0.05)
+plot(g.ws, layout=layout.circle, vertex.label=NA)
+g.lat100 = watts.strogatz.game(1, 100, 5, 0)
+transitivity(g.lat100)
+plot(g.lat100, layout=layout.reingold.tilford, vertex.label=NA)
+diameter(g.lat100)
+average.path.length(g.lat100)
+g.ws100 = watts.strogatz.game(1, 100, 5, 0.05)
+diameter(g.ws100)
+average.path.length(g.ws100)
+transitivity(g.ws100)</code></pre>
+<pre><code>steps = seq(-4, -0.5, 0.1)
+len = length(steps)
+cl = numeric(len)
+apl = numeric(len)
+ntrials = 100
+for(i in 1:len){
+cltemp = numeric(ntrials)
+apltemp = numeric(ntrials)
+for(j in 1:ntrials){
+g = watts.strogatz.game(1, 1000, 10, 10ˆsteps[i])
+cltemp[j] = transitivity(g)
+apltemp[j] = average.path.length(g)
+}
+cl[i] = mean(cltemp)
+apl[i] = mean(apltemp)</code></pre>
+<p>이 결과는 (normalized 평균적인 path의 길이들과 clustering coefficient들의) 개략적인 기댓값을 p 대비로 plot한 것으로, p가 엄청나게 극단적인 값으로 가지 않은 이상 네트워크가 계속 높은 수준의 clustering을 유지하면서 작은 평균 거리를 보이는 것이 확인된다.</p>
+<pre><code>plot(steps, cl/max(cl), ylim=c(0,1), lwd=3, type=&quot;l&quot;, col=&quot;blue&quot;,
+xlab=expression(log[10](p)), ylab=&quot;Clustering and Average Path Length&quot;)
+lines(steps, apl/max(apl), lwd=3, col=&quot;red&quot;)</code></pre>
+</div>
+<div id="preferential-attachment-models" class="section level4" number="7.4.3.2">
+<h4><span class="header-section-number">7.4.3.2</span> Preferential Attachment Models</h4>
+<p>대부분의 네트워크는 시간에 따라 변화함. 주어진 시간 <span class="math inline">\(t\)</span>에 네트워크가 어떻게 변화하는지는 vertex preferences, fitness, age 등에 따라서든 다양. <strong>Preferential attachment</strong>는 많은 노드와 연결된 대형 노드가 추가적인 link를 확보할 가능성이 높다는 것. SNS에서의 셀럽 생각하면 됨.</p>
+<p>undirected 네트워크의 <strong>Barabasi-Albert (BA) model</strong> 은 다음과 같음.</p>
+<ol style="list-style-type: decimal">
+<li><p>시작 vertex <span class="math inline">\(N_v^{(0)}\)</span>, 시작 edge <span class="math inline">\(N_e^{(0)}\)</span> 가지는 시작 그래프 <span class="math inline">\(G^{(0)}\)</span>로 시작.</p></li>
+<li><p>각 시간 <span class="math inline">\(t = 1, 2, \cdots\)</span>에서 <span class="math inline">\(G^{(t-1)}\)</span> 기반으로 <span class="math inline">\(G^{(t)}\)</span> 생산. 추가적인 vertex 를 넣되 이 추가되는 vertex들의 degree는 <span class="math inline">\(m \ge 1\)</span>이고, <span class="math inline">\(m\)</span>개의 새로운 edge들이 <span class="math inline">\(m\)</span>개의 서로 다른 vertex에 들러붙음. 이때 새로운 vertex가 기존의 vertex에 들러붙을 확률은 <span class="math inline">\(\frac{d_v}{\sum_{v&#39; \in V}d_{v&#39;}}\)</span> 을 따름. 즉 기존 그래프에서 높은 degree를 가지고 있던 vertex가 새 vertex와도 들러붙을 확률 높음.</p></li>
+<li><p>t번의 이터레이션 후에 결과값 그래프 <span class="math inline">\(G(t)\)</span>는 <span class="math inline">\(N_v^{(t)} = N_v^{(0)} + t\)</span> 개의 vertex와 $N_e^{(t)} = N_e^{(0)} + tm $ 개의 edge 를 가진다.</p></li>
+</ol>
+<p>이런 preferential attachment 경향성 때문에 이터레이션이 쌓일수록 높은 degree를 보유하는 vertex가 많아질 것을 기대할 수 있다.</p>
+<pre><code>g.ba = barabasi.game(100, directed=FALSE)
+par(mfrow=c(1,2))
+plot(g.ba, layout=layout.circle, vertex.label=NA)
+hist(degree(g.ba), col=&quot;lightblue&quot;, xlab=&quot;Degree&quot;, ylab=&quot;Frequency&quot;, main=&quot;&quot;)</code></pre>
+<p>고전적인 랜덤 그래프 대비 vertex 쌍 사이의 edge가 uniform 분포를 따르지 않음을 유의. 이런 경향에 의해 edge를 다수 끌어모으고 있는 “hub”라 불릴만한 vertex가 있는 것으로 사료됨. 여기서 전체 분포는 꽤 heterogeneous한 감이 있는데, 대부분의 vertex는 degree가 2를 넘지도 못함.</p>
+<pre><code>summary(degree(g.ba))</code></pre>
+<p>이러한 <strong>preferential attachment</strong> 모델에서 특필될만한 특징은 <span class="math inline">\(t \rightarrow \infty\)</span> 따라서 그래프 <span class="math inline">\(G^{(t)}\)</span>의 degree distribution이 <span class="math inline">\(d^{-\alpha}\)</span>, <span class="math inline">\(\alpha = 3\)</span>의 형을 갖는 경향을 보인다는 것이다. 이러한 경향은 고전적인 랜덤 그래프와 큰 차이점임.</p>
+<p>반면에 BA 모델에 의해 생성된 네트워크 그래프는 vertex 쌍 사이의 shotest path 위에 위치하는 vertex 숫자가 점점 적어지며 또한 low clustering이라는 고전적인 랜덤 그래프의 특징을 어느정도 공유한다. <mark>뭔소리야 BA가 preferential attachment 모델을 생산하려고 고안된게 아냐? BA가 preferential attachment 모사하려고 고안되긴 했는데 preferential attachment의 특성을 모두 복사하진 못했고 BA의 한계상 asymptotic 상황에서 고전적 랜덤 그래프 성질을 가져버렸다는건가?</mark></p>
+<pre><code>average.path.length(g.ba)
+diameter(g.ba)
+transitivity(g.ba)</code></pre>
+</div>
+</div>
+<div id="assessing-significance-of-network-graph-characteristics" class="section level3" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> Assessing Significance of Network Graph Characteristics</h3>
+<p>위에서 설명한 네트워크 모델들은 관측된 네트워크들로 통계적 모델링하긴 너무너무 간단함. 간단해서 현실모사를 제대로 못해서 쓸모가 없음. 그래도 중요하긴 함. 통계적 가설 검정 측면에서는 말이지. 특히 네트워크 그래프 성질의 significance를 측정(test)하는데 있어 자주 쓰임.</p>
+<p>우리가 observations으로부터 얻은 그래프 <span class="math inline">\(G^{obs}\)</span>를 가지고 있다고 가정하자. 우리는 이때 임의의 structural 특성인 <span class="math inline">\(\eta(\cdot)\)</span>에 관심있음. 이 경우 <span class="math inline">\(\eta(G^{obs})\)</span>가 unusual 이든 unexpected 이든 significant 한지를 체크하는 것은 중요함. 지금까지 위에서 언급해온 네트워크 모델들에 대한 이론은 바로 이 경우에 기준으로서 동작한다는 점에서 중요. 이인즉 우리가 가지고 있는 그래프들의 collection <span class="math inline">\(\mathcal G\)</span> 에 대해 <span class="math inline">\(\eta(G^{obs})\)</span>를 각 그래프들을 넣어본 값들의 collection <span class="math inline">\(\{ \eta(G): G \in \mathcal(G)\}\)</span> 과 비교해본다는 것이다. 이때 해당 collection에 들어있는 값들 대비 <span class="math inline">\(\eta(G^{obs})\)</span>가 극단적이라고 판정되면 <span class="math inline">\(\eta(G^{obs})\)</span>가 보유한 값이 unusual하다는 것을 판정내릴 수 있는 재료가 됨.</p>
+<p>랜덤 그래프 모델을 사용할 경우 척도가 될 수 있는 distribution을 개발하고자 하는 움직임은 지극히 정상적임. 이는 <span class="math inline">\(\mathcal G\)</span> 안에 있는 각 그래프들 <span class="math inline">\(G\)</span> 각각에 uniform 확률을 부여해서 만들어보는 게 합리적. 이는 곧</p>
+<p><span class="math display">\[
+P_{\eta, \mathcal G} (t) = \frac{#\{ g \in \mathcal G \; : \; \eta(G) \le t \}}{| \mathcal G |}
+\]</span></p>
+<p><mark>만약 <span class="math inline">\(\eta(G^{obs})\)</span>가 이 분포를 따르지 않을 것 같은 확률이 높다면 <span class="math inline">\(G^{obs}\)</span>는 <span class="math inline">\(\mathcal G\)</span>로부터의 uniform draw가 아니라는 쪽에 힘이 실림.</mark> 이는 랜덤 그래프를 예쁘게 따르는 자주 발생하지 않는 상황 대비 실제 상황으로부터 서브그래프를 뽑아내게 되는 자주 마주치는 상황에 활용가능하다는 점에서 실용적.</p>
+<div id="assessing-the-number-of-communities-in-a-network" class="section level4" number="7.4.4.1">
+<h4><span class="header-section-number">7.4.4.1</span> Assessing the Number of Communities in a Network</h4>
+<p>위에서 karate 데이터에 hierarchical clustering 사용했더니 clustering 3개 발견했음. 이 karate 데이터에 비추어볼 그래프로 2개의 <span class="math inline">\(G\)</span>를 생각하자.</p>
+<ol style="list-style-type: decimal">
+<li>karate 네트워크와 동일하게 same order <span class="math inline">\(N_v = 34\)</span>, size <span class="math inline">\(N_e = 78\)</span></li>
+<li>1번에 더해서 원본과 동일한 degree distribution 따름</li>
+</ol>
+<p>MCMC 써서 생산.</p>
+<p>• Our use of , through the function fastgreedy.community, resulted in the
+discovery of three communities in the karate network.
+• In defining our frame of reference we will use two choices of G: (i) graphs of the same order Nv = 34
+and size Ne = 78 as the karate network, and (ii) graphs that obey the further restriction that they
+have the same degree distribution as the original.
+• Monte Carlo methods, using some of the same R functions encountered above, allow us to quickly
+generate approximations to the corresponding reference distributions. In order to do so, we need
+the order, size, and degree sequence of the original karate network.
+– Monte Carlo methods, or Monte Carlo experiments, are a broad class of computational
+algorithms that rely on repeated random sampling to obtain numerical results. The underlying
+concept is to use randomness to solve problems that might be deterministic in principle</p>
+<pre><code>data(karate)
+nv = vcount(karate)
+ne = ecount(karate)
+degs = degree(karate)
+ntrials = 1000</code></pre>
+<p>• We then generate classical random graphs of this same order and size and, for each one, we use the
+same community detection algorithm to determine the number of communities.</p>
+<pre><code>num.comm.rg = numeric(ntrials)
+for(i in 1:ntrials){
+g.rg = erdos.renyi.game(nv, ne, type=&quot;gnm&quot;)
+c.rg = fastgreedy.community(g.rg)
+num.comm.rg[i] = length(c.rg)
+}</code></pre>
+<p>• Similarly, we do the same using generalized random graphs constrained to have the required degree
+sequence.</p>
+<pre><code>num.comm.grg = numeric(ntrials)
+for(i in 1:ntrials){
+g.grg = degree.sequence.game(degs, method=&quot;vl&quot;)
+c.grg = fastgreedy.community(g.grg)
+num.comm.grg[i] = length(c.grg)
+}</code></pre>
+<p>• The results may be summarized and compared using side by side bar plots.</p>
+<pre><code>rslts = c(num.comm.rg,num.comm.grg)
+indx = c(rep(0, ntrials), rep(1, ntrials))
+counts = table(indx, rslts)/ntrials
+barplot(counts, beside=TRUE, col=c(&quot;blue&quot;, &quot;red&quot;),
+xlab=&quot;Number of Communities&quot;, ylab=&quot;Relative Frequency&quot;,
+legend=c(&quot;Fixed Size&quot;, &quot;Fixed Degree Sequence&quot;))</code></pre>
+<p>• Clearly the actual number of communities detected in the original karate network (i.e., three) would
+be considered unusual from the perspective of random graphs of both fixed size and fixed degree
+sequence.
+• Accordingly, we may conclude that there is likely an additional mechanism(s) at work in the actual
+karate club, one that goes beyond simply the density and the distribution of social interactions in
+this network.</p>
+</div>
+<div id="assessing-small-world-properties" class="section level4" number="7.4.4.2">
+<h4><span class="header-section-number">7.4.4.2</span> Assessing Small World Properties</h4>
+<p>small-world 여부를 확인하는 일반적인 방법론은 대상 네트워크의 clustering coefficient와 average (shortest) path 길이를 보정된 고전적 랜덤 그래프에서 확인할 수 있는 그것들과 비교하는 것이다. 고전적 랜덤 그래프의 그것과 비교했을 때, 만약 대상 네트워크가 small-world라면, clsutering coefficient는 고전적 랜덤 그래프보다 크되, average path 길이는 대충 비슷할 것으로 예상함.</p>
+<pre><code>library(igraphdata)
+data(macaque)
+summary(macaque)</code></pre>
+<p>해당 네트워크에서 clustering을 평가하기 위해 directed 네트워크에 해당하는 clustering coefficient 의 변형 사용. 이 변량은 모든 vertex <span class="math inline">\(v\)</span>에 대해 vertex 각각의 clsutering coefficient를 평균낸 것이 된다.
+- A는 adjacency Matrix
+- <span class="math inline">\(d_v^{tot}\)</span>는 vertex <span class="math inline">\(v\)</span>의 총 degree (i.e., in-degree plus out-degree)</p>
+<p><span class="math display">\[
+cl(v) = \frac{\left( A+ A&#39; \right)^3_{vv}}{ 2 \left [ d_v^{tot}(d_v^{tot} - 1) - 2 (A^2)_vv \right]}
+\]</span></p>
+<pre><code>clust.coef.dir &lt;- function(graph){
+A = as.matrix(get.adjacency(graph))
+S = A + t(A)
+deg = degree(graph, mode=c(&quot;total&quot;))
+num = diag(S %*% S %*% S)
+denom = diag(A %*% A)
+denom = 2 * (deg * (deg - 1) - 2 * denom)
+cl = mean(num / denom)
+return(cl)
+}</code></pre>
+<p>비교하려면 고전적 랜덤 그래프를 생산하고 이의 각각의 clustering과 평균 path length를 계산하는 과정 필요.</p>
+<pre><code>ntrials = 1000
+nv = vcount(macaque)
+ne = ecount(macaque)
+cl.rg = numeric(ntrials)
+apl.rg = numeric(ntrials)
+for(i in 1:ntrials){
+g.rg = erdos.renyi.game(nv, ne, type=&quot;gnm&quot;, directed=TRUE)
+cl.rg[i] = clust.coef.dir(g.rg)
+apl.rg[i] = average.path.length(g.rg)
+}</code></pre>
+<pre><code>summary(cl.rg)
+summary(apl.rg)
+clust.coef.dir(macaque)
+average.path.length(macaque)</code></pre>
+<p>위 예시에서 랜덤 네트워크에서 계산된 것 대비 clustering 숫자가 엄청 크지만, 동시에 vertex 쌍 사이의 shortest path들의 평균적인 길이 또한 눈에 띄게 길다. 따라서 small-world 여부는 명확하지 않으며, 이 결과는 분석 대상 네트워크가 고전적 랜덤 그래프보다도 훨씬 lattice에 가깝다는 것을 보여준다.</p>
 
+</div>
 </div>
 </div>
             </section>

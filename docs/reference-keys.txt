@@ -323,6 +323,13 @@ diffusion
 performativity
 mathematical-models-for-network-graphs
 classical-random-graph-models
+generalized-random-graph-models
+network-graph-models-based-on-mechanisms
+small-world-models
+preferential-attachment-models
+assessing-significance-of-network-graph-characteristics
+assessing-the-number-of-communities-in-a-network
+assessing-small-world-properties
 introduction-to-ergm
 exponential-random-graph-models
 what-is-a-network
