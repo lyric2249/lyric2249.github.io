@@ -443,13 +443,17 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
 <li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
-<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#goodness-of-fit-plots"><i class="fa fa-check"></i><b>7.6.3</b> Goodness-of-fit Plots</a></li>
-<li class="chapter" data-level="7.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.4</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
 <li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
 <li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
@@ -528,8 +532,7 @@ div.csl-indent {
 <h3><span class="header-section-number">7.6.1</span> Approximation-based Algorithm</h3>
 <div id="maximum-pseudo-likelihood-estimation" class="section level4" number="7.6.1.1">
 <h4><span class="header-section-number">7.6.1.1</span> Maximum Pseudo Likelihood Estimation</h4>
-<p>Approximate the likelihood function by a product of series of conditional likelihood functions by ignoring dependence within components of <span class="math inline">\(X\)</span>.</p>
-<p>The conditional and pseudo likelihood of the ERGMs is</p>
+<p><span class="math inline">\(A\)</span> 내부의 성분 간의 의존성을 무시한 채로 조건부 likelihood 함수들의 series를 곱하는 것으로 likelihood 함수를 근사함. ERGMS 의 조건부이며 pseudo Likelihood 는 아래와 같음. 물론 이건 어디까지나 가장 간단한 방법으로서 제시되었을 뿐이고, 이 방법론은 의존성 구조를 완전히 무시했기 때문에 퍼포먼스가 구림.</p>
 <p>$$
 <span class="math display">\[\begin{align}
 logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &amp;= \theta &#39; g(x_{ij}^c)
@@ -540,42 +543,46 @@ logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &a
 
 \end{align}\]</span>
 $$</p>
-<p>This method is the simplest one.
-Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.</p>
 <p><br>
 <br>
 <br></p>
 </div>
-<div id="mcmc-stochastic-approximation" class="section level4" number="7.6.1.2">
-<h4><span class="header-section-number">7.6.1.2</span> MCMC Stochastic Approximation</h4>
-<p>The theory of exponential family implies that maximizing the ERGMs is
-equivalent to solving the system of equations
-Eθˆ{g(x)} = g(xobs)
-that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
-and it requires
-1 Independent network generation
-2 Parameter estimation update with stochastic approximation
-This method is inefficient in generating independent network samples.
-The number of iteration steps for generating each sample xk+1 is in the
-order of 100n
-2 where n is the number of nodes.</p>
+<div id="mcmcmle" class="section level4" number="7.6.1.2">
+<h4><span class="header-section-number">7.6.1.2</span> MCMCMLE</h4>
+<p>Approximate κ(θ) using Monte Carlo samples generated from a
+distribution f(x|θ
+(0)
+), where θ
+(0)
+is an initial estimate of θ.
+Draw x1, · · · , xm denote random samples drawn from f(xobs|θ
+(0)
+) via
+MCMC simulations, the log-ratio of likelihood can be approximated by</p>
+<p><span class="math display">\[
+I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) &#39; g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )&#39;\right g(x_i) \}\right ]
+\]</span></p>
+<p>) via θ will approximate θˆ (MLE).
+The performance of MCMLE depends on the choice of θ
+(0)
+. If θ
+(0)
+does
+not lie in the attraction region of true MLE, the method may converge to
+a suboptimal solution or fail to converge.</p>
 <p><br>
 <br>
 <br></p>
 </div>
-<div id="mcmc-stochastic-approximation-1" class="section level4" number="7.6.1.3">
+<div id="mcmc-stochastic-approximation" class="section level4" number="7.6.1.3">
 <h4><span class="header-section-number">7.6.1.3</span> MCMC Stochastic Approximation</h4>
-<p>The theory of exponential family implies that maximizing the ERGMs is
-equivalent to solving the system of equations
-Eθˆ{g(x)} = g(xobs)
-that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
-and it requires
-1 Independent network generation
-2 Parameter estimation update with stochastic approximation
-This method is inefficient in generating independent network samples.
-The number of iteration steps for generating each sample xk+1 is in the
-order of 100n
-2 where n is the number of nodes.</p>
+<p>exponential family 에 대한 이론을 통해, 우리는 ERGMs을 maximize 하는 것은 <span class="math inline">\(E_{\hat \theta} \Big \{ g(X) \Big \} = g(x_{obs})\)</span> 라는 system 을 푸는 것과 동일하다는 것을 알 수 있다. 이 system 의 성립 여부는 이하와 iff (<span class="math inline">\(\iff\)</span>).</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\hat \theta = \hat \theta_{MLE}\)</span></li>
+<li>Independent network generation</li>
+<li>Parameter estimation update with stochastic approximation</li>
+</ol>
+<p>이 방법론은 independent 네트워크 샘플을 생산하는데에는 비효율적이다. 각 샘플 <span class="math inline">\(x_{k+1}\)</span>을 생산하기 위해 요구되는 이터레이션 스텝의 갯수는 order of <span class="math inline">\(100 n^2\)</span>. 이때 <span class="math inline">\(n\)</span>은 node 의 갯수.</p>
 <p><br>
 <br>
 <br></p>
@@ -588,129 +595,60 @@ order of 100n
 <h3><span class="header-section-number">7.6.2</span> Auxiliary Variable MCMC-based Approaches</h3>
 <div id="exchange-algorithm-2" class="section level4" number="7.6.2.1">
 <h4><span class="header-section-number">7.6.2.1</span> Exchange Algorithm</h4>
-<p>Augment the distribution f(x|θ) by an auxiliary variable such that the
-normalizing constant ratio κ(θ)/κ(θ
-0
-) can be canceled in simulations.
-1 Propose a candidate point θ
-0
-from a proposal distribution denoted by
-q(θ
-0
-|θ, x).
-2 Generate an auxiliary variable y ∼ f(y|θ
-0
-) using a perfect sampler.
-3 Accept θ
-0 with probability min{1, r(θ, θ0
-|x)}, where
-r(θ, θ0
-|x) = π(θ
-0
-)
-π(θ)
-·
-f(x|θ
-0
-)
-f(x|θ)
-·
-f(y|θ)
-f(y|θ
-0)
-·
-q(θ|θ
-0
-, x)
-q(θ
-0
-|θ, x)</p>
-<p>Although the exchange algorithms work well for some discrete models,
-such as the Ising and autologistic models, they cannot be applied to
-many other models for which perfect sampling is not available.
-We can generate auxiliary variable y via MCMC samples, but there
-exists theoretical flaws on convergence issues. If the mixing of MCMC
-sample is very slow, which is a general feature of ERGMs, θ
-0
-tends to
-accept with a high probability.</p>
+<p>normalizing constant ratio <span class="math inline">\(\frac{\kappa(\theta)}{\kappa(\theta&#39;)}\)</span> 따위의 auxiliary 변수로 분포 <span class="math inline">\(f(x | \theta)\)</span> 를 augment. 이는 시뮬레이션 중에 canceled.</p>
+<ol style="list-style-type: decimal">
+<li>후보 point <span class="math inline">\(\theta &#39; \sim q(\theta &#39; | \theta, x)\)</span> 를 생산</li>
+<li>perfect sampler 사용해서 auxiliary 변수 <span class="math inline">\(y \sim f(y | \theta &#39;)\)</span> 를 생산</li>
+<li><span class="math inline">\(\theta&#39;\)</span>를 with probability <span class="math inline">\(1 \wedge r(\theta, \theta &#39; \Big | x)\)</span>로 채택. 이때</li>
+</ol>
+<p>$$
+r(, ’ | x) =</p>
+<p>$$</p>
+<p>exchange 알고리즘은 <strong>Ising</strong> 이나 <strong>autologistic</strong> 과 같은 일부 discrete 모델에는 잘 작동. 하지만 <strong>perfect sampling</strong> 이 적용되지 않는 많은 다른 모델에는 적용할 수 없다. 우리는 MCMC 샘플을 통해 auxiliary 변수 <span class="math inline">\(y\)</span>를 생산할 수 있지만, 수렴 문제 부분에서 이론적인 흠결이 있음. 만약 MCMC 샘플의 mixing이 매우 느리다면 딴놈이 아니라 <span class="math inline">\(\theta_0\)</span> 가 매우 높은 확률로 채택되어버림. 그리고 이 MCMC 샘플의 mixing 이 느린 것 자체가 ERGMs 의 일반적인 특징임. 이래서 문제.</p>
 <p><br>
 <br>
 <br></p>
 </div>
 <div id="monte-carlo-mh-algorithm" class="section level4" number="7.6.2.2">
 <h4><span class="header-section-number">7.6.2.2</span> Monte Carlo MH Algorithm</h4>
-<p>At each iteration, the MCMH algorithms replaces the unknown
-normalizing constant ratio κ(θ)/κ(θ
-0
-) by a Monte Carlo estimates and
-importance sampling approach.
-A Monte Carlo version of the Metropolis-Hastings algorithm.
-Unlike the exchange algorithms, the MCMH algorithm avoids the
-requirement for perfect sampling, and thus can be applied to many
-statistical models for which perfect sampling is not possible.
-This algorithm also suffers from a theoretical flaw on convergence, i.e.
-the importance sampling estimator might fail to converge to the true
-ratio κ(θ)/κ(θ
-0
-) with a finite number of samples.</p>
+<p>MH 알고리즘의 MC 버전. 각 이터레이션에서 <strong>MCMH 알고리즘</strong>은 unknown normalizing constant ratio <span class="math inline">\(\frac{\kappa(\theta)}{\kappa(\theta&#39;)}\)</span> 를 MC estimate와 importance 샘플링 접근법으로 대체한다.</p>
+<p>exchange 알고리즘과 다르게, MCMH 알고리즘은 perfect sampler 요구조건을 빗겨간다. 따라서 perfect sampler 를 못 쓰는 다수의 통계문제에 대해서도 얘를 쓸 수 있음. 하지만 얘도 여전히 수렴 문제가 존재함. 얘의 경우에는 importance sampling estimator 가 유한한 숫자의 샘플로는 ratio의 참값 <span class="math inline">\(\frac{\kappa(\theta)}{\kappa(\theta&#39;)}\)</span> 에 수렴하지 못할 수도 있음.</p>
 <p><br>
 <br>
 <br></p>
+<pre><code>r pressure-plot, fig.asp=.7, fig.width=6, fig.cap=&#39;A figure example with the specified aspect ratio, width, and alignment.&#39;, fig.align=&#39;center&#39;, out.width=&#39;90%&#39;
+par(mar = c(4, 4, .1, .1))
+plot(pressure, pch = 19, type = &#39;b&#39;)</code></pre>
+<pre><code>r knitr-logo, out.width=&#39;32.8%&#39;, fig.show=&#39;hold&#39;, fig.cap=&#39;Goodness-of-fit Plots, for ERGMs&#39;
+knitr::include_graphics(rep(&#39;images/knit-logo.png&#39;, 3))</code></pre>
 <p><br>
 <br>
 <br></p>
 </div>
 </div>
-<div id="goodness-of-fit-plots" class="section level3" number="7.6.3">
-<h3><span class="header-section-number">7.6.3</span> Goodness-of-fit Plots</h3>
-<p>Goodness-of-fit Plots for ERGMs
-0 1 2 3 4 5 6 7 8 9 10 12 14 16
-0.0 0.1 0.2 0.3 0.4
-degree
-proportion of nodes
-012345678
-0.0 0.1 0.2 0.3 0.4 0.5 0.6
-edge−wise shared partners
-proportion of edges
-1 2 3 4 5 6 7 8 9 11 13 15 17 19
-0.0 0.2 0.4 0.6 0.8 1.0
-minimum geodesic distance
-proportion of dyads
-Goodness−of−fit diagnostics
-Figure: GOF plots for the high school student friendship network</p>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="varying-trunction-stochastic-approximation-mcmc" class="section level3" number="7.6.4">
-<h3><span class="header-section-number">7.6.4</span> Varying Trunction Stochastic Approximation MCMC</h3>
-<p>The likelihood function of the ERGM is</p>
+<div id="varying-trunction-stochastic-approximation-mcmc" class="section level3" number="7.6.3">
+<h3><span class="header-section-number">7.6.3</span> Varying Trunction Stochastic Approximation MCMC</h3>
+<p>ERGM 의 likelihood 함수는</p>
 <p><span class="math display">\[
-f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta&#39; S(y)\Big \}
+\begin{align}
+&amp;f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta&#39; S(y)\Big \},
+&amp;&amp;\theta = (\theta_1 , \cdots, \theta_d)&#39;$, 
+&amp;&amp;$S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)&#39;
+\end{align}
 \]</span></p>
-<p>where <span class="math inline">\(\theta = (\theta_1 , \cdots, \theta_d)&#39;\)</span>, <span class="math inline">\(S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)&#39;\)</span>.</p>
-<p>Due to 2 issues, intractability of <span class="math inline">\(\kappa(θ)\)</span> and model degeneracy, it is difficult to estimate <span class="math inline">\(\theta\)</span> well.</p>
-<p>These problem can be solved by using the varying truncation stochastic approximation MCMC</p>
+<p>이때 <strong><span class="math inline">\(\kappa(θ)\)</span>를 특정할 수 없다</strong> (intractability)는 점과 <strong>모델 degeneracy</strong> 때문에, <span class="math inline">\(\theta\)</span>를 정확하게 추정하는 것은 어렵다. 이 문제는 <strong>varying truncation stochastic approximation MCMC</strong> 를 사용하는 것으로 해결 가능.</p>
+<p>Normalizing constant <span class="math inline">\(\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta &#39; S(y)\Big\}\)</span>.</p>
+<p>이로 인해 촉발되는 문제는?</p>
+<ol style="list-style-type: decimal">
+<li>MPLE: dyadic 독립을 가정하는 것으로 해결해보고자 함. 이건 observed 네트워크가 무엇이냐에 대해 과하게 의존.</li>
+<li>MCMLE: <span class="math inline">\(\theta^{(0)}\)</span> 을 어떻게 고르느냐에 대해 과하게 의존. local 최적해로 수렴해버리거나 모델 degeneracy 로 수렴 자체가 실패하기도.</li>
+</ol>
 <p><br>
 <br>
 <br></p>
-<div id="two-difficulties-in-parameter-estimation" class="section level4" number="7.6.4.1">
-<h4><span class="header-section-number">7.6.4.1</span> Two Difficulties in Parameter Estimation</h4>
-<p>Intractability of Normalizing constant <span class="math inline">\(\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta &#39; S(y)\Big\}\)</span>.</p>
-<p>MPLE
-- Assume dyadic independence
-- Highly dependent on the observed network</p>
-<p>MCMLE
-Depend on the choice of <span class="math inline">\(\theta^{(0)}\)</span>
-Converge to a local optimal solution or fail to converge due to model degeneracy.</p>
-<div id="stochastic-approximation" class="section level5" number="7.6.4.1.1">
-<h5><span class="header-section-number">7.6.4.1.1</span> Stochastic Approximation</h5>
-<p>Solve a system of equation of the form <span class="math inline">\(h(\theta) = 0\)</span>.</p>
-<p>The classical SA algorithm is of the form</p>
+<div id="mcmc-stochastic-approximation-1" class="section level4" number="7.6.3.1">
+<h4><span class="header-section-number">7.6.3.1</span> MCMC Stochastic Approximation</h4>
+<p><span class="math inline">\(h(\theta) = 0\)</span> 형의 system 을 풀자. 고전적인 <strong>SA 알고리즘</strong>은 이하와 같은 형태를 띈다. (<span class="math inline">\(a_k\)</span> , <span class="math inline">\(h\)</span>, <span class="math inline">\(\omgea_k\)</span> 에 대한) 적절한 조건 하에서, 이 알고리즘은 해로 수렴한다는 것을 실제로 보이는 것이 가능하다.</p>
 <p>$$
 <span class="math display">\[\begin{align}
 \theta_{k+1} 
@@ -721,82 +659,73 @@ Converge to a local optimal solution or fail to converge due to model degeneracy
 &amp;=\theta_k + a_k \Big \{ h(\theta_k) + \omega_k \Big \}, &amp;&amp; k \ge 0 
 \end{align}\]</span>
 $$</p>
-<p><span class="math inline">\(Y = h(\theta) + \omega\)</span> is noisy estimate. <span class="math inline">\(\omega\)</span> is mean-zero noise.
-Under appropriate conditions (on <span class="math inline">\(a_k\)</span> , <span class="math inline">\(h\)</span>, <span class="math inline">\(\omgea_k\)</span> ), the algorithm indeed can be shown to converge to a solution</p>
-<p><br>
-<br>
-<br></p>
-</div>
-</div>
-<div id="mcmc-stochastic-approximation-2" class="section level4" number="7.6.4.2">
-<h4><span class="header-section-number">7.6.4.2</span> MCMC Stochastic Approximation</h4>
-<p>Finding MLE of <span class="math inline">\(\theta\)</span> is equivalent to solving <span class="math inline">\(E_\theta \Big \{ S(Y) \Big \} = S(y_{obs})\)</span> in exponential families.</p>
-<p>Steps:
-1. Independence network generation: Sample <span class="math inline">\(y^{(k+1)}\)</span> from the <span class="math inline">\(f(y | \theta^{(k)}\)</span>.
-- Start with a random graph in which each arc variable <span class="math inline">\(Y_{ij}\)</span> is determined independently, with a probability 0.5 for the values 0 and 1
-- Update the random graph using the Gibbs sampler or the MH algorithm</p>
-<ol start="2" style="list-style-type: decimal">
-<li>Parameter estimate update with SA,
-<span class="math display">\[
-\theta^{(k+1)} = \theta^{(k)} - a_k D^{-1} \Big \{ U(y_{k+1}, \bar y_{k+1}) - S(y_{obs}) \Big \}
-\]</span></li>
+<ul>
+<li><span class="math inline">\(Y = h(\theta) + \omega\)</span> 는 noisy estimate</li>
+<li><span class="math inline">\(\omega\)</span> 는 mean-zero noise.</li>
+</ul>
+<p><span class="math inline">\(\theta_{MLE}\)</span> 를 찾는 것은 exponential family 안에서 <span class="math inline">\(E_\theta \{ S(Y) \} = S(\mathbf y_{obs})\)</span> 의 해를 찾는 것과 equivalent. 이는 이하의 단계를 거친다. 다만 이는 independent 네트워크 샘플을 생산하는데 있어 비효율적일 수밖에 없음. order of <span class="math inline">\(100n^2\)</span> 이라 연산을 엄청 먹으니까.</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\mathbf y^{k+1} \sim f(\mathbf y | \theta^{(k)}\)</span>를 샘플링 (independence 네트워크 생산)</li>
 </ol>
-<p>where</p>
+<p>각 arc 변수 <span class="math inline">\(Y_{ij}\)</span>가 독립적으로 정해지는 랜덤 그래프에서 시작. 이 변수에는 0 혹은 1이 0.5 확률로 할당. 이 랜덤 그래프를 Gibbs 샘플러든 MH 알고리즘이든 써서 업데이트.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>SA</strong> 를 통해 패러미터 estimate 업데이트.</li>
+</ol>
 <p>$$
 <span class="math display">\[\begin{align}
+\theta^{(k+1)} &amp;= \theta^{(k)} - a_k D^{-1} \Big \{ U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big \},
+\\
+\\
+\\
+U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big 
+\} &amp;= P(\bar {\mathbf y}_{k+1} \Big | \mathbf y_{k+1} ) \cdot \mathbf S (\mathbf {\bar y}_{k+1} ) 
 
-U(y_{k+1}, \bar y_{k+1} ) &amp;= P(\bar y_{k+1} | y_{k+1}) \cdot S(\bar y_{k+1}) + \Big (1-P(\bar y_{k+1} | y_{k+1}) \Big ) \cdot S( y_{k+1}) 
+\Big \{ 1-P(\mathbf {\bar y}_{k+1} \Big | \mathbf y_{k+1} ) \Big \} \cdot \mathbf S (\mathbf {\bar y}_{k+1} ) 
 
 \\
 
-\bar y_{k+1} = 1-y_{k+1}
+\mathbf {\bar y}_{k+1} &amp;= 1- \mathbf y_{k+1} 
 
 \end{align}\]</span>
 $$</p>
-<p>Inefficiency in generating independent network samples: Order of <span class="math inline">\(100n^2\)</span>.</p>
+<p><br>
+<br>
+<br></p>
+<div id="model-degeneracy-1" class="section level5" number="7.6.3.1.1">
+<h5><span class="header-section-number">7.6.3.1.1</span> Model Degeneracy</h5>
+<p><span class="math inline">\(\theta\)</span>을 어떻게 정하느냐에 따라 모델은 그것의 확률을 (Complete (fully connected) 거나 empty (entirely unconnected) 네트워크와 같은) 1개 혹은 소수의 그래프에만 한정시켜서 부어버릴 수도 있다. (탐색 효율 쓰레기됨) 이 문제를 해결하기 위해선 탐색 전에 degeneracy 리전을 거의 포함하지 않는 패러미터 스페이스를 가지는 모델로 특정할 필요가 있다. 근데 이게 진짜 드럽게 어려움.</p>
 <p><br>
 <br>
 <br></p>
 </div>
-<div id="model-degeneracy-1" class="section level4" number="7.6.4.3">
-<h4><span class="header-section-number">7.6.4.3</span> Model Degeneracy</h4>
-<p>For some configurations of θ, the model lumps all or most of its
-probability mass on just one or a few possible graphs.
-Complete(fully connected) or empty(entirely unconnected)
-networks</p>
-<p>A solution to avoid this problem is to specify a model whose parameter
-space contains no or less degeneracy regions
-But, this is often more difficult than usual.</p>
-<p><br>
-<br>
-<br></p>
 </div>
-<div id="varying-truncation-samcmc-for-ergms" class="section level4" number="7.6.4.4">
-<h4><span class="header-section-number">7.6.4.4</span> Varying Truncation SAMCMC for ERGMs</h4>
-<div id="setup" class="section level5" number="7.6.4.4.1">
-<h5><span class="header-section-number">7.6.4.4.1</span> Setup</h5>
+<div id="varying-truncation-samcmc-for-ergms" class="section level4" number="7.6.3.2">
+<h4><span class="header-section-number">7.6.3.2</span> Varying Truncation SAMCMC for ERGMs</h4>
+<div id="setup" class="section level5" number="7.6.3.2.1">
+<h5><span class="header-section-number">7.6.3.2.1</span> Setup</h5>
 <p>(<span class="math inline">\(C_1\)</span>) Set</p>
 <p>$$
 <span class="math display">\[\begin{align}
 
-a_k &amp;= C_a \left( \frac{k_0}{k_0 \vee k)}\right)^\eta
+&amp;a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &amp;&amp;b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1}
 
 \\
 
-b_k &amp;= C_b \left( \frac{k_0}{k_0 \vee k)}\right)^\ksi
-
+&amp;\bigcup_{s \ge 0} \mathcal K_s = \Theta$, &amp;&amp;\text{where } $\mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
 \end{align}\]</span>
 $$</p>
-<p>for some constants <span class="math inline">\(k_0&gt;1\)</span>, <span class="math inline">\(\eta \in (\frac{1}{2},1)\)</span>, <span class="math inline">\(\ksi \in (\frac{1}{2},\eta)\)</span>, <span class="math inline">\(C_a &gt; 0\)</span>, <span class="math inline">\(C_b &gt;0\)</span>.</p>
-<p>(<span class="math inline">\(C_2\)</span>)</p>
-<p><span class="math inline">\(\bigcup_{s \ge 0} \mathcal K_s = \Theta\)</span>, where <span class="math inline">\(\mathcal K_s \subset \text{int}(\mathcal K_{s+1})\)</span></p>
+<ul>
+<li>for some constants <span class="math inline">\(k_0&gt;1\)</span>, <span class="math inline">\(\eta \in (\frac{1}{2},1)\)</span>, <span class="math inline">\(\xi \in (\frac{1}{2},\eta)\)</span>, <span class="math inline">\(C_a &gt; 0\)</span>, <span class="math inline">\(C_b &gt;0\)</span>.</li>
+</ul>
 <p>And also,</p>
-<p><span class="math inline">\(\mathcal X\)</span>: a space of social network
-<span class="math inline">\(\mathcal T\)</span>: <span class="math inline">\(\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0\)</span> (reinitialization mechanism)</p>
-<p><span class="math inline">\(\sigma_k\)</span>: the number of reinitialization performed until iteration <span class="math inline">\(k\)</span>. (<span class="math inline">\(\sigma_0 = 0\)</span>)</p>
+<ul>
+<li><p><span class="math inline">\(\mathcal X\)</span>: a space of social network</p></li>
+<li><p><span class="math inline">\(\mathcal T\)</span>: <span class="math inline">\(\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0\)</span> (reinitialization mechanism)</p></li>
+<li><p><span class="math inline">\(\sigma_k\)</span>: the number of reinitialization performed until iteration <span class="math inline">\(k\)</span>. (<span class="math inline">\(\sigma_0 = 0\)</span>)</p></li>
+</ul>
 </div>
-<div id="varying-truncation-samcmc-algorithm-for-ergms" class="section level5" number="7.6.4.4.2">
-<h5><span class="header-section-number">7.6.4.4.2</span> Varying truncation SAMCMC algorithm for ERGMs</h5>
+<div id="varying-truncation-samcmc-algorithm-for-ergms" class="section level5" number="7.6.3.2.2">
+<h5><span class="header-section-number">7.6.3.2.2</span> Varying truncation SAMCMC algorithm for ERGMs</h5>
 <ol style="list-style-type: decimal">
 <li><p>Draw an auxiliary network <span class="math inline">\(y_{k+1}\)</span> from the distribution <span class="math inline">\(f(y | \theta^{(k)}\)</span> using the Gibbs sampler iterating for <span class="math inline">\(m\)</span> sweeps.</p></li>
 <li><p>Set <span class="math inline">\(\theta^{(k + \frac{1}{2})} = \theta^{(k)} + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}\)</span></p></li>
@@ -814,22 +743,22 @@ o.w.
 \end{cases}
 $$</p>
 </div>
-<div id="trajectory-averaging-estimator" class="section level5" number="7.6.4.4.3">
-<h5><span class="header-section-number">7.6.4.4.3</span> Trajectory averaging estimator</h5>
+<div id="trajectory-averaging-estimator" class="section level5" number="7.6.3.2.3">
+<h5><span class="header-section-number">7.6.3.2.3</span> Trajectory averaging estimator</h5>
 <p><span class="math inline">\(\theta\)</span> can be estimated by the trajectory averaging estimator <span class="math inline">\(\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}\)</span></p>
 <p>In practice, to reduce the variation of the estimate, we often use <span class="math inline">\(\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}\)</span></p>
 <p>to estimate <span class="math inline">\(\theta\)</span>, where <span class="math inline">\(n_0\)</span> denotes the number of burn-in iterations.</p>
 <ul>
 <li>Free parameters: <span class="math inline">\(\{a_k\}\)</span>, <span class="math inline">\(\{b_k\}\)</span>, <span class="math inline">\(\{\mathcal K_s, \; s \le 0\}\)</span>, <span class="math inline">\(m\)</span></li>
 </ul>
-<p><span class="math inline">\(k_0 = 100\)</span>, <span class="math inline">\(\eta = 0.65\)</span>, <span class="math inline">\(\ksi = \frac{0.5 + \eta}{2}\)</span>.</p>
+<p><span class="math inline">\(k_0 = 100\)</span>, <span class="math inline">\(\eta = 0.65\)</span>, <span class="math inline">\(\xi = \frac{0.5 + \eta}{2}\)</span>.</p>
 <p><span class="math inline">\(C_a\)</span>, <span class="math inline">\(C_b\)</span>: adjusted for different examples</p>
 <p>choose <span class="math inline">\(\mathcal K_0\)</span> to be around MPLE.</p>
 <p>In this artical, we set <span class="math inline">\(\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]\)</span>, <span class="math inline">\(\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]\)</span>.</p>
 <p><span class="math inline">\(m=1\)</span>.</p>
 </div>
-<div id="numerical-examples" class="section level5" number="7.6.4.4.4">
-<h5><span class="header-section-number">7.6.4.4.4</span> Numerical Examples</h5>
+<div id="numerical-examples" class="section level5" number="7.6.3.2.4">
+<h5><span class="header-section-number">7.6.3.2.4</span> Numerical Examples</h5>
 <p>Methods: MCMLE, SAA (Stochastic Approximation Algorithm), Varying truncation SAMCMC
 SAMCMC: independent 5 runs(each of 200,000 iterations) (m=1, Ca = 0.01, Cb = 1000, η, ξ, κs are defalut)</p>
 

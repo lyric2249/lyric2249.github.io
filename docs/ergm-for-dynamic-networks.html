@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="parameter-estimation-of-ergm.html"/>
-<link rel="next" href="survival-analysis.html"/>
+<link rel="next" href="latent-network-models.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -443,13 +443,17 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
 <li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
-<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#goodness-of-fit-plots"><i class="fa fa-check"></i><b>7.6.3</b> Goodness-of-fit Plots</a></li>
-<li class="chapter" data-level="7.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.4</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
 <li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
 <li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
@@ -507,6 +511,12 @@ div.csl-indent {
 <h2><span class="header-section-number">7.7</span> ERGM for Dynamic Networks</h2>
 <p><pic></p>
 <p>However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 <div id="temporal-ergm" class="section level3" number="7.7.1">
 <h3><span class="header-section-number">7.7.1</span> Temporal ERGM</h3>
 <p>ERGM → TERGM → STERGM
@@ -530,15 +540,21 @@ P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \
 \Psi \left ( A^t, A^{t-1} \right ) = \sum_{ij}\Psi_{ij} \left ( A^t_{ij}, A^{t-1} \right )
 \]</span></p>
 <p>This form of the temporal potential function represents situations where the conditional distribution of <span class="math inline">\(A^t | A^{t-1}\)</span> factors over the entries <span class="math inline">\(A^t_{ij}\)</span> of <span class="math inline">\(A^t\)</span>.</p>
-<div id="network-statistics-for-temporal-ergm" class="section level5" number="7.7.1.0.1">
-<h5><span class="header-section-number">7.7.1.0.1</span> Network Statistics for Temporal ERGM</h5>
+<p><br>
+<br>
+<br></p>
+<div id="network-statistics-for-temporal-ergm" class="section level4" number="7.7.1.1">
+<h4><span class="header-section-number">7.7.1.1</span> Network Statistics for Temporal ERGM</h4>
 <p>Density: The number of ties in the network as a whole.</p>
 <p>Stability: The tendency of a link that does exist at time <span class="math inline">\(t − 1\)</span> to continue existing at time <span class="math inline">\(t\)</span>.</p>
 <p>Reciprocity: The tendency of a link from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> to result in a link from <span class="math inline">\(j\)</span> to <span class="math inline">\(i\)</span> at the next time step.</p>
 <p>Transitivity: The tendency of a tie from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span> and from <span class="math inline">\(j\)</span> to <span class="math inline">\(k\)</span> to result in a tie from <span class="math inline">\(i\)</span> to <span class="math inline">\(k\)</span> at the next time step.</p>
+<p><br>
+<br>
+<br></p>
 </div>
-<div id="estimation-1" class="section level4" number="7.7.1.1">
-<h4><span class="header-section-number">7.7.1.1</span> Estimation</h4>
+<div id="estimation-1" class="section level4" number="7.7.1.2">
+<h4><span class="header-section-number">7.7.1.2</span> Estimation</h4>
 <p>Use the sequence of observed networks, <span class="math inline">\(N^1 , N^2 , \cdots, N^T\)</span>, to find an estimator <span class="math inline">\(\hat \theta\)</span> that is close to the actual parameter value <span class="math inline">\(\theta\)</span>.</p>
 <p>The normalizing constant is computationally intractable, often making explicit solutions of MLE difficult.</p>
 <p>Use MCMC stochastic approximation to estimate parameters.</p>
@@ -547,9 +563,12 @@ P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \
 <p>Note that</p>
 <p>The expectations can be approximated by Gibbs sampling from the conditional distributions.</p>
 <p>Perform an unconstrained optimization procedure akin to Newton’s method: Approximate the expectations, update parameter values in the direction that increases the likelihood, repeat until convergence.</p>
+<p><br>
+<br>
+<br></p>
 </div>
-<div id="degeneracy-of-temporal-ergms" class="section level4" number="7.7.1.2">
-<h4><span class="header-section-number">7.7.1.2</span> Degeneracy of Temporal ERGMs</h4>
+<div id="degeneracy-of-temporal-ergms" class="section level4" number="7.7.1.3">
+<h4><span class="header-section-number">7.7.1.3</span> Degeneracy of Temporal ERGMs</h4>
 <p>In the simple case where the transition distribution factors over the edges, it turns out these models avoid such problems entirely.</p>
 <p>The intuitive reason for this is that, since the edges of <span class="math inline">\(A^t\)</span> are conditionally independent given <span class="math inline">\(A^{t−1}\)</span>, as long as the individual conditional distributions for the <span class="math inline">\(A^t_{ij}\)</span> given <span class="math inline">\(A^{t−1}\)</span> are not too extreme, the conditional entropy of <span class="math inline">\(A^t\)</span> given <span class="math inline">\(A^{t−1}\)</span> should be large, and thus the entropy of <span class="math inline">\(A^t\)</span> itself must be large.</p>
 <p>Of course, this argument only works if the dependence of <span class="math inline">\(A^t\)</span> on <span class="math inline">\(A^{t−1}\)</span> is not too strong, and the strength of this dependence can be controlled by the magnitudes of the parameters.</p>
@@ -557,9 +576,12 @@ P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \
 <p>For the first plot, since the conditional probability of <span class="math inline">\(A^2\)</span> given <span class="math inline">\(A^1\)</span> is only a function of how many edges are present in <span class="math inline">\(A^2\)</span> and how many <span class="math inline">\(ij\)</span> values have <span class="math inline">\(A^2_{ij} = A^1_{ij}\)</span>, and since the edges of <span class="math inline">\(A^1\)</span> are exchangeable, we can write the marginal distribution of <span class="math inline">\(A^2\)</span> purely in terms of the number of edges.</p>
 <p>Thus we need only calculate <span class="math inline">\(n(n − 1)\)</span> probability values, and the entropy is a weighted sum, where the weights are combinatorial quantities reflecting the number of graphs with that many edges.</p>
 <p><pics></p>
+<p><br>
+<br>
+<br></p>
 </div>
-<div id="assessing-statistic-importance-and-quality-of-fit" class="section level4" number="7.7.1.3">
-<h4><span class="header-section-number">7.7.1.3</span> Assessing Statistic Importance and Quality of Fit</h4>
+<div id="assessing-statistic-importance-and-quality-of-fit" class="section level4" number="7.7.1.4">
+<h4><span class="header-section-number">7.7.1.4</span> Assessing Statistic Importance and Quality of Fit</h4>
 <p>Three Parameter Model
 Description of Network Statistics</p>
 <p>Reverse-Transitivity:
@@ -567,6 +589,12 @@ Co-Supported:
 Co-Supporting:
 Popularity
 Generosity</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="separable-temporal-ergm" class="section level3" number="7.7.2">
@@ -595,8 +623,14 @@ Property2: duration of ties (how long they tend to last once they do)</p>
 <li>: incidence/tie formation <span class="math inline">\(y^+ = y^{t-1} \cup y^t\)</span>
 – : duration/tie dissolution <span class="math inline">\(y^- = y^{t-1} \cap y^t \Rightarrow y^t = y^- \cup (y^+ \setminus y^{t-1})\)</span></li>
 </ul>
+<p><br>
+<br>
+<br></p>
 <div id="application-study" class="section level4" number="7.7.2.1">
 <h4><span class="header-section-number">7.7.2.1</span> Application Study</h4>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="conclusion" class="section level4" number="7.7.2.2">
 <h4><span class="header-section-number">7.7.2.2</span> Conclusion</h4>
@@ -604,14 +638,13 @@ Property2: duration of ties (how long they tend to last once they do)</p>
 </div>
 </div>
 </div>
-<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
 <a href="parameter-estimation-of-ergm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="survival-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="latent-network-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

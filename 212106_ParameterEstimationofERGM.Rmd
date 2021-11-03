@@ -158,12 +158,14 @@ exchange 알고리즘과 다르게, MCMH 알고리즘은 perfect sampler 요구�
 
 
 
-```{r pressure-plot, fig.asp=.7, fig.width=6, fig.cap='A figure example with the specified aspect ratio, width, and alignment.', fig.align='center', out.width='90%'}
+```
+r pressure-plot, fig.asp=.7, fig.width=6, fig.cap='A figure example with the specified aspect ratio, width, and alignment.', fig.align='center', out.width='90%'
 par(mar = c(4, 4, .1, .1))
 plot(pressure, pch = 19, type = 'b')
 ```
 
-```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Goodness-of-fit Plots, for ERGMs'}
+```
+r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Goodness-of-fit Plots, for ERGMs'
 knitr::include_graphics(rep('images/knit-logo.png', 3))
 ```
 

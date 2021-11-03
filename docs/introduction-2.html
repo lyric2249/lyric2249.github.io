@@ -443,13 +443,17 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
 <li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
-<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#goodness-of-fit-plots"><i class="fa fa-check"></i><b>7.6.3</b> Goodness-of-fit Plots</a></li>
-<li class="chapter" data-level="7.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.4</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
 <li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
 <li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
@@ -509,6 +513,9 @@ div.csl-indent {
 <li>Network = Graph: for mathematical purposes, networks are most commonly represented in a formal manner using graphs of various kinds</li>
 </ul>
 <p>Vertices (Vertex), Edges, directed, undirected</p>
+<p><br>
+<br>
+<br></p>
 <div id="types-of-network-analysis" class="section level3" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> Types of Network Analysis</h3>
 <ol style="list-style-type: decimal">
@@ -520,6 +527,12 @@ div.csl-indent {
 <ul>
 <li>The focus is on an attribute associated with network vertices (i.e., lawyer practice) and the network structure plays a comparatively more implicit role</li>
 </ul>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="network-modeling-and-inference" class="section level3" number="7.1.2">
 <h3><span class="header-section-number">7.1.2</span> Network Modeling and Inference</h3>
@@ -535,10 +548,19 @@ div.csl-indent {
 <li><p>Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 “significance” 한지를 판정하기 위한 네트워크의 <strong>null classes</strong>로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.</p></li>
 <li><p>Statistical Network Models: <strong>Exponential Random Graph Models</strong> 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 <strong>Latent network models</strong>은 <strong>hierarchical modeling</strong>에서의 latent 변수 사용법과 정확하게 평행하다 - 즉, <strong><em>대비된다???</em></strong>. <strong>Stochastic block models</strong>는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.</p></li>
 </ol>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="network-processes" class="section level3" number="7.1.3">
 <h3><span class="header-section-number">7.1.3</span> Network Processes</h3>
 <p>복잡계의 요소들간의 상호작용을 모사하기 위해, 네트워크 그래프 자체는 보통 네트워크 분석의 주된 목표가 됨. 물론 네트워크 구성 요소 중 시스템 내의 다른 모든 요소들과 상호작용하는 변량 혹은 속성이 있다면 이녀석이 최고관심의 대상이 될 것. 그러나 그럼에도 불구하고 요소들간의 상호작용이 앞에서 언급한 최고관심 대상에게 영향을 줄 것이라고 생각하는 것이 비합리적이지 않으므로 네트워크 그래프 자체는 여전히 모델링과 분석의 대상이기에 합당함. 우리는 확률과정을 네트워크에서의 “삶”이라고 해석해볼 수 있으며 네트워크 안의 vertices에 의해 첨수(indexed)됨. 이러한 과정에 관한 다양한 질문들은 정적 network process에 관한 것이든 동적 network process에 관한 것이든 이들을 예측하고자 하는 문제로 해석될 수 있음.</p>
+<p><br>
+<br>
+<br></p>
 <div id="dynamic-processes" class="section level4" number="7.1.3.1">
 <h4><span class="header-section-number">7.1.3.1</span> Dynamic Processes</h4>
 <p>network-based 관점에서 연구되는 많은 system들은 본질적으로 동적임. 동적이 얘들 특성과 더 잘 부합함.</p>

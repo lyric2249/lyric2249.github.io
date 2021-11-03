@@ -443,13 +443,17 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
 <li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
-<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#goodness-of-fit-plots"><i class="fa fa-check"></i><b>7.6.3</b> Goodness-of-fit Plots</a></li>
-<li class="chapter" data-level="7.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.4</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
 <li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
 <li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>8</b> Survival Analysis</a>
@@ -536,7 +540,7 @@ P_\theta (X=x) = \frac{1}{\kappa(\theta)} \exp \Big( \theta&#39; g(x) \Big)
 </ul></li>
 <li><span class="math inline">\(\kappa (θ)\)</span>: A normalizing constant</li>
 </ul>
-<p>네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 “파트너십에서 개인들이 삼각형을 형성하는 성향” 과 같은 것임. <strong>즉, ERGM은 local transtivity의 정도, 위력을 양화하는데 도움을 줌.</strong> EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.</p>
+<p>네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 “파트너십에서 개인들이 삼각형을 형성하는 성향” 과 같은 것임. <strong>즉, ERGM은 local transtivity의 정도, 위력을 량화하는데 도움을 줌.</strong> EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.</p>
 <p><br>
 <br>
 <br></p>
@@ -574,13 +578,13 @@ u(x | \tau)
 \\
 
 v(x | \tau) 
-&amp;= \begin{gather} &#39;&#39; \end{gather}
+&amp;= \ditto
 &amp;&amp;\cdot EP_i(x)
 
 \\
 
 w(x | \tau) 
-&amp;= \begin{gather} &#39;&#39; \end{gather}
+&amp;= \ditto
 &amp;&amp;\cdot DP_i(x)
 
 \end{alignat}\]</span>
