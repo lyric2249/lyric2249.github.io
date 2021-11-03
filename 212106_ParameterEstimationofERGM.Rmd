@@ -292,19 +292,17 @@ $\theta$을 어떻게 정하느냐에 따라 모델은 그것의 확률을 (Comp
 
 ##### Setup
 
-($C_1$) Set
-
 $$
 \begin{align}
 
-&a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &&b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1}
+&a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &&b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1, set}
 
-\\
-
-&\bigcup_{s \ge 0} \mathcal K_s = \Theta$, &&\text{where } $\mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
 \end{align}
 $$
 
+$$
+\bigcup_{s \ge 0} \mathcal K_s = \Theta, \; \; \; \text{where } \mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
+$$
 
 - for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\xi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$.
 
@@ -316,22 +314,28 @@ And also,
 - $\sigma_k$: the number of reinitialization performed until iteration $k$. ($\sigma_0 = 0$)
 
 
+<br>
+<br>
+<br>
+
 ##### Varying truncation SAMCMC algorithm for ERGMs
 
-1. Draw an auxiliary network $y_{k+1}$ from the distribution $f(y | \theta^{(k)}$ using the Gibbs sampler iterating for $m$ sweeps.
+1. Gibbs 샘플러 사용해 $m$ sweeps 번 interate 해서 auxiliary network $y_{k+1} \sim f(y | \theta^{(k)}$ 생산
 
 2. Set $\theta^{(k + \frac{1}{2})} = \theta^{(k)}  + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}$
 
-3. Let
+3. Set
+
 $$
 \begin{cases}
 
+\sigma_{k+1} = \sigma_k \; \text{ and } \left( y_{k+1}, \theta^{(k + {1})} \right) =  \left( y_{k+1}, \theta^{(k + \frac{1}{2})} \right)
+\; \; \; \; \; \; \; \; \; \; 
 
-\sigma_{k+1} = \sigma_k, \; \; \left( y_{k+1}, \theta^{(k + {1})} \right) =  \left( y_{k+1}, \theta^{(k + \frac{1}{2})} \right)
-&
+& 
 \| \theta^{(k + \frac{1}{2})} - \theta^{(k)} \| \le b_k, \; \; \theta^{(k + \frac{1}{2})} \in \mathcal K_{\sigma_k}
 \\
-\sigma_{k+1} = \sigma_k+1, \; \; \left( y_{k+1}, \theta^{(k + {1})} \right) =  \Tau \left( y_{k}, \theta^{(k)} \right)
+\sigma_{k+1} = \sigma_k+1 \; \text{ and } \left( y_{k+1}, \theta^{(k + {1})} \right) =  \mathcal T \left( y_{k}, \theta^{(k)} \right)
 &
 o.w.
 \end{cases}
@@ -341,25 +345,16 @@ $$
 
 ##### Trajectory averaging estimator
 
-$\theta$ can be estimated by the trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}$
+trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}$ 에 의해 $\theta$ 를 estimate 가능.
 
-In practice, to reduce the variation of the estimate, we often use $\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}$
-
-to estimate $\theta$, where $n_0$ denotes the number of burn-in iterations.
-
+실전에서는 estimate 의 variation 을 줄이기 위해 대신 $\theta$ estimate 에 $\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}$ 을 자주 사용함. 이 때 $n_0$ 는 burn-in 이터레이션의 숫자.
 
 - Free parameters: $\{a_k\}$, $\{b_k\}$, $\{\mathcal K_s, \; s \le 0\}$, $m$
-
-
-$k_0 = 100$, $\eta = 0.65$, $\xi = \frac{0.5 + \eta}{2}$.
-
-$C_a$, $C_b$: adjusted for different examples
-
-choose $\mathcal K_0$ to be around MPLE.
-
-In this artical, we set $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$.
-
-$m=1$.
+- $k_0 = 100$, $\eta = 0.65$, $\xi = \frac{0.5 + \eta}{2}$.
+- $C_a$, $C_b$: adjusted for different examples
+- choose $\mathcal K_0$ to be around MPLE.
+- In this artical, we set $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$.
+- $m=1$.
 
 ##### Numerical Examples
 
