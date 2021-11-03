@@ -657,7 +657,7 @@ R (\textbf {x}^{(t)}, \textbf X^{\ast} )
 <br /></p>
 <div id="example-bayesian-inference-mixture-distribution" class="section level5" number="4.2.1.1.1">
 <h5><span class="header-section-number">4.2.1.1.1</span> Example: Bayesian Inference, Mixture Distribution</h5>
-<p>MCMC 알고리즘은 <span class="math inline">\(p(\theta \rvert y ) = c \ast p(\theta) L(\theta \rvert y)\)</span> 로 표현될 수 있는 베이지안 추론에서 특히 강력하다. 베이지안 추론에서 <span class="math inline">\(c\)</span>의 계산이 드럽게 어렵다는 것이 이것 이상의 다른 추론전략을 방해하기 때문이다.</p>
+<p>MCMC 알고리즘은 <span class="math inline">\(p(\theta \rvert y ) = c \cdot p(\theta) L(\theta \rvert y)\)</span> 로 표현될 수 있는 베이지안 추론에서 특히 강력하다. 베이지안 추론에서 <span class="math inline">\(c\)</span>의 계산이 드럽게 어렵다는 것이 이것 이상의 다른 추론전략을 방해하기 때문이다.</p>
 <p>보유하는 stationary 분포가 타겟 post인 MCMC에서 생산된 샘플들은 post 모먼트, tail 확률, 그리고 다른 유용한 quantity 계산에 쓰일 수 있다.</p>
 <p>independent 체인에서 prior를 proposal 분포(<span class="math inline">\(g\)</span>)로 쓰자. 즉 <span class="math inline">\(f\)</span>가 post, <span class="math inline">\(g\)</span>가 prior다. 이런다면</p>
 <p><span class="math display">\[
@@ -672,9 +672,9 @@ R ({\theta}^{(t)}, \theta^{\ast} )
 {g(\theta^{( t )})}
 }
 =\dfrac
-{c \; \ast \; \pi( \theta^{\ast} ) L( \theta^{\ast} \rvert y )}
-{c \; \ast \; \pi( \theta^{(t)} ) L( \theta^{(t)} \rvert y )}
-\ast
+{c \; \cdot \; \pi( \theta^{\ast} ) L( \theta^{\ast} \rvert y )}
+{c \; \cdot \; \pi( \theta^{(t)} ) L( \theta^{(t)} \rvert y )}
+\cdot
 \dfrac { \pi (\theta^{(t)} )}{ \pi (\theta^{\ast})}
 =\dfrac
 {\dfrac
@@ -722,7 +722,7 @@ R ({\theta}^{(t)}, \theta^{\ast} )
 <li>Random Walk
 <ol style="list-style-type: decimal">
 <li>generate <span class="math inline">\(x^{&#39;} g \sim N( \cdot \rvert x^{(t)}, \sigma^2 )\)</span></li>
-<li>$ u U(0,1) $.</li>
+<li><span class="math inline">\(u \sim U(0,1)\)</span>.</li>
 <li>calculate MH ratio: <span class="math inline">\(r = \dfrac {f(x&#39;)}{f(x^{(t)}} \dfrac {g(x&#39; \rightarrow x^{(t)}} {g(x^{(t)} \rightarrow x&#39;} = \dfrac {f(x&#39;)}{f(x^{(t)}}\)</span>, cause it’s <span class="math inline">\(N\)</span>.</li>
 <li>if <span class="math inline">\(u&lt;r\)</span>, <span class="math inline">\(x^{(t+1)} = x&#39;\)</span>. o.w., <span class="math inline">\(x^{(t+1)} = x^(t)\)</span>.</li>
 </ol></li>
@@ -752,11 +752,11 @@ R (\textbf {x}^{(t)}, \textbf X^{\ast} )
 =\dfrac
 {\dfrac
 {f(\delta^{\ast})}
-{g \left( logit(\delta^{\ast}) \rvert logit(\delta^{(t)}) \right) \ast \left| J(\delta^{\ast})\right|}
+{g \left( logit(\delta^{\ast}) \rvert logit(\delta^{(t)}) \right) \cdot \left| J(\delta^{\ast})\right|}
 }
 {\dfrac
 {f(\delta^{(t)})}
-{g \left( logit(\delta^{(t)})|logit(\delta^{\ast}) \right) \ast \left| J(\delta^{(t)})\right|}
+{g \left( logit(\delta^{(t)})|logit(\delta^{\ast}) \right) \cdot \left| J(\delta^{(t)})\right|}
 }
 \]</span></p>
 <p>$J(^{(t)}) $ 는 $T: u $에 대한 <span class="math inline">\(J\)</span>를 <span class="math inline">\(\delta^{(t)}\)</span>에서 측정한 값. 주의해야 할 것이 해당 방법론에서는 <span class="math inline">\(T\)</span>한 value를 사용하였으므로 <span class="math inline">\(g\)</span>에 대한 <span class="math inline">\(J\)</span>를 구해야 한다.</p>

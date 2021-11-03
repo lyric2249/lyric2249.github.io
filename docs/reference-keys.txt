@@ -362,6 +362,7 @@ estimation-1
 degeneracy-of-temporal-ergms
 assessing-statistic-importance-and-quality-of-fit
 separable-temporal-ergm
+temporal-ergm-interpretation
 application-study
 conclusion
 latent-network-models

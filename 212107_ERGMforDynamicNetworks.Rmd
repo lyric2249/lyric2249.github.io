@@ -17,7 +17,8 @@ However, a need for statistical models representing the evolving phenomena ⇒ �
 
 ### Temporal ERGM
 
-ERGM → TERGM → STERGM
+- **ERGM → TERGM → STERGM**
+
 One-step transition probability $(t-1) → (t)$ (Markov Assumption)
 
 $$
@@ -26,32 +27,36 @@ $$
 
 
 
-TERGM: Temporal ERGM ⇒ The network at time $t$ is a single draw from an ERGM conditional on the network at time $t − 1$ (and possibly time $t − 2$)
+- **TERGM: Temporal ERGM**
 
-Simplify a statistical model for evolving social networks is to make a Markov assumption on the network from one time step to the next.
-
-If $A^t$ is the weight matrix representation of a single-relation social network at time $t$, then we might make the assumption that $A^t$ is independent of $A^1, \cdots, A^{t-2}$ if we given $A^{t-1}$.
+시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 **Markov assumption** 적용. 이는 곧, $A^t$가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 $A^{t-1}$ 의 값이 주어져 있다면, $A^t$ 는 $A^1, \cdots, A^{t-2}$ 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.
 
 $$
 P\Big(A^2, A^3, \cdots, A^t \Big | A^1 \Big ) = P\Big(A^t \Big | A^{t-1} \Big ) P\Big(A^{t-1} \Big | A^{t-2} \Big ) \cdots P\Big(A^2 \Big | A^1 \Big ) \tag{Temporal ERGM}
 $$
 
-Given our Markov assumption, one natural way to generalize ERGMs for evolving networks is to assume $A^t \vert A^{t-1}$ admits an ERGM representation.
+마르코프 가정이 주어져 있음을 고려하면, evolving 네트워크 전반에 대해 ERGM 을 일반화하는 방법이란 $A^t \vert A^{t-1}$ 가 ERGM 표현법을 채택했음을 가정하는 것. <mark>to assume $A^t \vert A^{t-1}$ admits an ERGM representation.</mark>
 
 
-Specify a function $\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k$, which can be understood as a temporal potential over cliques across two time-adjacent networks, and parameter vector $\theta \in \mathbb R^k$, such that the conditional pdf has the following form:
+
+함수 $\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k$ 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 ($t$, $t-1$ 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 $\theta \in \mathbb R^k$ 는 이하와 같은 conditional pdf를 갖는다.
 
 $$
 P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \exp \left\{ \theta' \Psi \left ( A^t, A^{t-1} \right ) \right\}
 $$
 
-
-In particular, we will be especially interested in the special case of these models in which
+특히 우리는 해당 모델에서 이하와 같은 특수한 경우에 관심이 있다.
 
 
 $$
 \Psi \left ( A^t, A^{t-1} \right ) = \sum_{ij}\Psi_{ij} \left ( A^t_{ij}, A^{t-1} \right )
 $$
+
+이 형의 temporal potential 함수는 
+
+
+
+$A^t | A^{t-1}$의 조건부 분포의 
 
 This form of the temporal potential function represents situations where the conditional distribution of $A^t | A^{t-1}$ factors over the entries $A^t_{ij}$ of $A^t$.
 
@@ -64,14 +69,61 @@ This form of the temporal potential function represents situations where the con
 
 #### Network Statistics for Temporal ERGM
 
-Density: The number of ties in the network as a whole.
+
+$$
+\begin{align}
+\Psi_D \left ( A^t , A^{t-1}\right)
+
+&=
+
+\frac{1}{n-1} \sum_{ij} A^t_{ij}
+
+\tag{Density}
+
+\\
+
+\Psi_S \left ( A^t , A^{t-1}\right)
+
+&=
+
+\frac{1}{n-1} \sum_{ij}
+
+\left \{ A^t_{ij} A^{t-1}_{ij} + \left (1-A^t_{ij} \right) \left (1-A^{t-1}_{ij} \right)
+\right \}
+\\
+
+\Psi_R \left ( A^t , A^{t-1}\right)
+
+\tag{Stability}
+
+&=
+
+n \left ( \frac{\sum_\limits{ij} A_{ij}^t A_{ij}^{t-1}}{\sum_\limits{ij}A_{ij}^{t-1}}\right )
+
+\tag{Reciprocity}
+
+\\
+
+\Psi_T \left ( A^t , A^{t-1}\right)
+
+&=
+
+n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
+{\sum_\limits{ijk}A_{ij}^{t-1}A_{jk}^{t-1}}\right )
 
 
-Stability: The tendency of a link that does exist at time $t − 1$ to continue existing at time $t$.
 
-Reciprocity: The tendency of a link from $i$ to $j$ to result in a link from $j$ to $i$ at the next time step.
+\tag{Transitivity}
 
-Transitivity: The tendency of a tie from $i$ to $j$ and from $j$ to $k$ to result in a tie from $i$ to $k$ at the next time step.
+\end{align}
+
+$$
+
+1. **Density**		: 전체 네트워크에 들어있는 총 tie의 숫자. 
+2. **Stability**	: t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성
+3. **Reciprocity**	: t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j에서 i로 향하는 링크가 생겨날 경향
+4. **Transitivity**	: t-1 시점에 i에서 j, j에서 k로 향하는 tie가 존재한다면 t 시점에 i에서 k로의 tie가 생겨나는 것으로 이어지는 경향
+
 
 <br>
 <br>
@@ -82,21 +134,15 @@ Transitivity: The tendency of a tie from $i$ to $j$ and from $j$ to $k$ to resul
 
 #### Estimation
 
-Use the sequence of observed networks, $N^1  , N^2 , \cdots, N^T$, to find an estimator $\hat \theta$ that is close to the actual parameter value $\theta$.
+- Notation <mark>& Algorithm & Convergence</mark>
 
-The normalizing constant is computationally intractable, often making explicit solutions of MLE difficult.
+observed 네트워크의 sequence $N^1  , N^2 , \cdots, N^T$ 를 사용하자. 무엇을 위해? 실제 패러미터값 $\theta$ 에 가까운 estimator $\hat \theta$ 을 찾기 위해. normalizing constant 는 보통 계산해내는 것이 불가능하여 MLE 방법론의 도입은 불가. 따라서 MCMC stochastic approximation 를 사용해 패러미터 estimate. 이하와 같이 notation 한다. 이때 t 시점의 네트워크인 랜덤변수 $\underline N^t$ 에 대해 기댓값들이 계산되었음을 notice.
 
-Use MCMC stochastic approximation to estimate parameters.
+<mark>LATEX</mark>
 
-Let
+이때 이하의 기댓값들은 조건부 분포로부터 Gibbs 샘플링을 돌리는 것으로 근사 가능. Newton 방법론과 유사한 과정을 통해 unconstrained optimization 을 하자. 기댓값을 근사하고, Likelihood를 증가시키는 방향으로 패러미터값을 업데이트. 이 과정을 수렴하기까지 반복.
 
-where expectations are taken over the **random variable $N^t$**, the network at time $t$.
-
-Note that
-
-The expectations can be approximated by Gibbs sampling from the conditional distributions.
-
-Perform an unconstrained optimization procedure akin to Newton’s method: Approximate the expectations, update parameter values in the direction that increases the likelihood, repeat until convergence.
+<mark>LATEX</mark>
 
 <br>
 <br>
@@ -106,17 +152,18 @@ Perform an unconstrained optimization procedure akin to Newton’s method: Appro
 
 #### Degeneracy of Temporal ERGMs
 
-In the simple case where the transition distribution factors over the edges, it turns out these models avoid such problems entirely. 
+간단한 케이스에는, <mark>where the transition distribution factors over the edges</mark>, 이 모델들은 그러한 문제들에서 완전히 자유롭다는 것이 알려져 있음.
 
-The intuitive reason for this is that, since the edges of $A^t$ are conditionally independent given $A^{t−1}$, as long as the individual conditional distributions for the $A^t_{ij}$ given $A^{t−1}$ are not too extreme, the conditional entropy of $A^t$ given $A^{t−1}$ should be large, and thus the entropy of $A^t$ itself must be large.
+이는 직관적으로도 와닿음. $A^t_{ij} | A^{t−1}$ 의 개개의 조건부 분포가 과하게 극단적이지 않은 한, $A^{t-1}$이 주어졌을 때 $A^t$의 edge는 조건부 독립이기 때문이지. 따라서 $A^t | A^{t−1}$ 의 조건부 엔트로피는 커야 하며, 이에 의해 $A^t$의 조건부 엔트로피도 커야 할테니까.
 
-Of course, this argument only works if the dependence of $A^t$ on $A^{t−1}$ is not too strong, and the strength of this dependence can be controlled by the magnitudes of the parameters.
+물론 이 명제는 $A^{t−1}$ 에 대한 $A^t$ 의 의존이 그렇게 강하지 않을 때만 성립하는 것임. 이때 이 의존의 위력은 패러미터들의 위력에 의해 결정되지. 그러니까 패러미터가 이상하게 잡히면 해당 명제의 전제가 깨진다는 거. 
 
-Calculate it for equivalence classes of graphs which can be analytically shown to have identical probability values, and weight each class according to its size in the entropy calculation.
+동일한 확률값을 가진다는 것을 analytic 하게 보일 수 있는 그래프들의 class들, 즉 equivalence 클래스들에 대해서 이를 계산해보고, 엔트로피 계산에서 각각의 클래스의 크기에 따라서 weight를 부여하자.
 
-For the first plot, since the conditional probability of $A^2$ given $A^1$ is only a function of how many edges are present in $A^2$ and how many $ij$ values have $A^2_{ij} = A^1_{ij}$, and since the edges of $A^1$ are exchangeable, we can write the marginal distribution of $A^2$ purely in terms of the number of edges.
+첫 플랏의 경우를 생각해보자. $A^2 | A^1$ 의 조건부 분포는 결국 $A^2$ 에 존재하는 edge의 갯수와, 얼마나 많은 $ij$ 값들에게서 $A^2_{ij} = A^1_{ij}$가 성립하고 있느냐, 의 2개의 값에 대한 함수일 뿐이다. 이에 더해 $A^1$의 edge들은 exchangeable 하다는 점도 있다. 이들을 모두 생각해보면 결국 우리는 $A^2$의 marginal 분포를 순수하게 edge의 숫자를 통해서만 서술하는 것이 가능하다.
 
-Thus we need only calculate $n(n − 1)$ probability values, and the entropy is a weighted sum, where the weights are combinatorial quantities reflecting the number of graphs with that many edges.
+따라서 우리는 $n(n − 1)$의 확률값만 계산해내면 되며, 따라서 엔트로피는 weighted sum이다. 이때 weight는 각각의 edge 숫자에 대해, that many edges 를 가지고 있는 그래프의 숫자가 반영된 combinatorial quantities 가 된다.
+
 
 <pics>
 
@@ -164,17 +211,22 @@ Separable
 	formation : new ties
 	duration : lasting ties
 
-- Temporal ERGM Interpretation
+####  Temporal ERGM Interpretation
 
-However, caution must be used in interpreting their parameters.
+하지만 이때 패러미터 해석할 때 주의해야할 부분이 있음.
 
 Property1: incidence of ties (the rate at which new ties are formed)
 Property2: duration of ties (how long they tend to last once they do)
 
 - Network statstic
+
 (ex) edge count $g(y^t , y^{t-1}) = | y^t |$
 
-coefficient on $g$ $prop$ possibility of a network with many ties
+coefficient on $g$ $prop$ possibility of a network with many ties. 따라서 $g$의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.
+
+
+
+
 
 But, this term simultaneously increases the weight of preservation of extant ties (fewer dissolved) ⇒ Both incidence and duration ↑
 

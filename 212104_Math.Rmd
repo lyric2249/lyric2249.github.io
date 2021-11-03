@@ -79,7 +79,7 @@ transitivity(g.er)
 
 1. 이하의 성질을 갖고, fixed order $N_v$를 따르는 모든 그래프의 collection $\mathcal G$를 정의한다. 각 그래프 $G \in \mathcal G$에 동일 확률 부여
 
-2. 가장 자주 부여되는 성질은 fixed degree sequence의 그것. $\mathcal G$를 모든 그래프 $G$의 collection으로 정의, 이때 이는 미리 정해진 degree sequence를 따름. 이를 ordered form으로 적으면 $\{d_{(1)}, \cdots, d_{(N_v)}$. 이 조건을 따르면서도 다른 모양의 그래프는 얼마든지 그려지며 따라서 isomorphic이 아님.
+2. 가장 자주 부여되는 성질은 fixed degree sequence의 그것. $\mathcal G$를 모든 그래프 $G$의 collection으로 정의, 이때 이는 미리 정해진 degree sequence를 따름. 이를 ordered form으로 적으면 $\{d_{(1)}, \cdots, d_{(N_v)} \}$. 이 조건을 따르면서도 다른 모양의 그래프는 얼마든지 그려지며 따라서 isomorphic이 아님.
 
 
 ```
@@ -97,7 +97,7 @@ graph.isomorphic(g1, g2)
 c(ecount(g1), ecount(g2))
 ```
 
-고정된 숫자의 vertex $N_v$에서 fixed degree sequence를 따르는 랜덤 그래프들의 collection들은 모두 egde 숫자 $N_e$로 동일하다. 이는 mean degree of sqeuence $\{d_{(1)}, \cdots, d_{(N_v)}$는 $\tilde d = \frac{2N_e}{N_v}$이니까. 
+고정된 숫자의 vertex $N_v$에서 fixed degree sequence를 따르는 랜덤 그래프들의 collection들은 모두 egde 숫자 $N_e$로 동일하다. 이는 mean degree of sqeuence $\{d_{(1)}, \cdots, d_{(N_v)}\}$는 $\tilde d = \frac{2N_e}{N_v}$이니까. 
 
 따라서 이 collection은 랜덤 그래프의 collection $\mathcal G_{N_v , N_e}$ 안에 strictly 들어있음. 따라서 degree sequence의 가정된 형태의 추가는 원본 collection $\mathcal G_{N_v , N_e}$에 조건부 분포를 걸어 우리의 모델을 특정짓은 것과 동일함. 다른말로 이는 degree sequence에 의해 제약되지 않은 부분은 얼마든지 vary 가능하다는 것을 의미.
 

@@ -576,7 +576,7 @@ transitivity(g.er)</code></pre>
 <h3><span class="header-section-number">7.4.2</span> Generalized Random Graph Models</h3>
 <ol style="list-style-type: decimal">
 <li><p>이하의 성질을 갖고, fixed order <span class="math inline">\(N_v\)</span>를 따르는 모든 그래프의 collection <span class="math inline">\(\mathcal G\)</span>를 정의한다. 각 그래프 <span class="math inline">\(G \in \mathcal G\)</span>에 동일 확률 부여</p></li>
-<li><p>가장 자주 부여되는 성질은 fixed degree sequence의 그것. <span class="math inline">\(\mathcal G\)</span>를 모든 그래프 <span class="math inline">\(G\)</span>의 collection으로 정의, 이때 이는 미리 정해진 degree sequence를 따름. 이를 ordered form으로 적으면 <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)}\)</span>. 이 조건을 따르면서도 다른 모양의 그래프는 얼마든지 그려지며 따라서 isomorphic이 아님.</p></li>
+<li><p>가장 자주 부여되는 성질은 fixed degree sequence의 그것. <span class="math inline">\(\mathcal G\)</span>를 모든 그래프 <span class="math inline">\(G\)</span>의 collection으로 정의, 이때 이는 미리 정해진 degree sequence를 따름. 이를 ordered form으로 적으면 <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)} \}\)</span>. 이 조건을 따르면서도 다른 모양의 그래프는 얼마든지 그려지며 따라서 isomorphic이 아님.</p></li>
 </ol>
 <pre><code>degs = c(2, 2, 2, 2, 3, 3, 3, 3)
 g1 = degree.sequence.game(degs, method=&quot;vl&quot;)
@@ -587,7 +587,7 @@ plot(g2, vertex.label=NA)
 #해당 케이스에선 N_v=8 vertex, 이중 절반은 degree=2, 나머지 절반은 3.</code></pre>
 <pre><code>graph.isomorphic(g1, g2)
 c(ecount(g1), ecount(g2))</code></pre>
-<p>고정된 숫자의 vertex <span class="math inline">\(N_v\)</span>에서 fixed degree sequence를 따르는 랜덤 그래프들의 collection들은 모두 egde 숫자 <span class="math inline">\(N_e\)</span>로 동일하다. 이는 mean degree of sqeuence <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)}\)</span>는 <span class="math inline">\(\tilde d = \frac{2N_e}{N_v}\)</span>이니까.</p>
+<p>고정된 숫자의 vertex <span class="math inline">\(N_v\)</span>에서 fixed degree sequence를 따르는 랜덤 그래프들의 collection들은 모두 egde 숫자 <span class="math inline">\(N_e\)</span>로 동일하다. 이는 mean degree of sqeuence <span class="math inline">\(\{d_{(1)}, \cdots, d_{(N_v)}\}\)</span>는 <span class="math inline">\(\tilde d = \frac{2N_e}{N_v}\)</span>이니까.</p>
 <p>따라서 이 collection은 랜덤 그래프의 collection <span class="math inline">\(\mathcal G_{N_v , N_e}\)</span> 안에 strictly 들어있음. 따라서 degree sequence의 가정된 형태의 추가는 원본 collection <span class="math inline">\(\mathcal G_{N_v , N_e}\)</span>에 조건부 분포를 걸어 우리의 모델을 특정짓은 것과 동일함. 다른말로 이는 degree sequence에 의해 제약되지 않은 부분은 얼마든지 vary 가능하다는 것을 의미.</p>
 <pre><code>data(yeast)
 degs = degree(yeast)

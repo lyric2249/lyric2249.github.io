@@ -47,8 +47,11 @@ $$
 
 #### MCMCMLE
 
-Approximate κ(θ) using Monte Carlo samples generated from a
-distribution f(x|θ
+Approximate $\kappa(θ)$ using Monte Carlo samples generated from a
+distribution 
+
+
+f(x|θ
 (0)
 ), where θ
 (0)
@@ -59,7 +62,7 @@ Draw x1, · · · , xm denote random samples drawn from f(xobs|θ
 MCMC simulations, the log-ratio of likelihood can be approximated by
 
 $$
-I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) ' g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )'\right g(x_i) \}\right ]
+I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) ' g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )' g(x_i) \right \} \right ]
 $$
 
 ) via θ will approximate θˆ (MLE).
@@ -343,6 +346,10 @@ $$
 
 
 
+<br>
+<br>
+<br>
+
 ##### Trajectory averaging estimator
 
 trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}$ 에 의해 $\theta$ 를 estimate 가능.
@@ -355,6 +362,10 @@ trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{
 - choose $\mathcal K_0$ to be around MPLE.
 - In this artical, we set $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$.
 - $m=1$.
+
+<br>
+<br>
+<br>
 
 ##### Numerical Examples
 

@@ -549,8 +549,9 @@ $$</p>
 </div>
 <div id="mcmcmle" class="section level4" number="7.6.1.2">
 <h4><span class="header-section-number">7.6.1.2</span> MCMCMLE</h4>
-<p>Approximate κ(θ) using Monte Carlo samples generated from a
-distribution f(x|θ
+<p>Approximate <span class="math inline">\(\kappa(θ)\)</span> using Monte Carlo samples generated from a
+distribution</p>
+<p>f(x|θ
 (0)
 ), where θ
 (0)
@@ -560,7 +561,7 @@ Draw x1, · · · , xm denote random samples drawn from f(xobs|θ
 ) via
 MCMC simulations, the log-ratio of likelihood can be approximated by</p>
 <p><span class="math display">\[
-I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) &#39; g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )&#39;\right g(x_i) \}\right ]
+I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) &#39; g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )&#39; g(x_i) \right \} \right ]
 \]</span></p>
 <p>) via θ will approximate θˆ (MLE).
 The performance of MCMLE depends on the choice of θ
@@ -747,6 +748,9 @@ $$
 o.w.
 \end{cases}\]</span>
 <p>$$</p>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="trajectory-averaging-estimator" class="section level5" number="7.6.3.2.3">
 <h5><span class="header-section-number">7.6.3.2.3</span> Trajectory averaging estimator</h5>
@@ -760,6 +764,9 @@ o.w.
 <li>In this artical, we set <span class="math inline">\(\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]\)</span>, <span class="math inline">\(\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]\)</span>.</li>
 <li><span class="math inline">\(m=1\)</span>.</li>
 </ul>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="numerical-examples" class="section level5" number="7.6.3.2.4">
 <h5><span class="header-section-number">7.6.3.2.4</span> Numerical Examples</h5>
