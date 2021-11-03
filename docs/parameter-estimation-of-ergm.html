@@ -703,17 +703,16 @@ $$</p>
 <h4><span class="header-section-number">7.6.3.2</span> Varying Truncation SAMCMC for ERGMs</h4>
 <div id="setup" class="section level5" number="7.6.3.2.1">
 <h5><span class="header-section-number">7.6.3.2.1</span> Setup</h5>
-<p>(<span class="math inline">\(C_1\)</span>) Set</p>
 <p>$$
 <span class="math display">\[\begin{align}
 
-&amp;a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &amp;&amp;b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1}
+&amp;a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &amp;&amp;b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1, set}
 
-\\
-
-&amp;\bigcup_{s \ge 0} \mathcal K_s = \Theta$, &amp;&amp;\text{where } $\mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
 \end{align}\]</span>
 $$</p>
+<p><span class="math display">\[
+\bigcup_{s \ge 0} \mathcal K_s = \Theta, \; \; \; \text{where } \mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
+\]</span></p>
 <ul>
 <li>for some constants <span class="math inline">\(k_0&gt;1\)</span>, <span class="math inline">\(\eta \in (\frac{1}{2},1)\)</span>, <span class="math inline">\(\xi \in (\frac{1}{2},\eta)\)</span>, <span class="math inline">\(C_a &gt; 0\)</span>, <span class="math inline">\(C_b &gt;0\)</span>.</li>
 </ul>
@@ -723,39 +722,44 @@ $$</p>
 <li><p><span class="math inline">\(\mathcal T\)</span>: <span class="math inline">\(\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0\)</span> (reinitialization mechanism)</p></li>
 <li><p><span class="math inline">\(\sigma_k\)</span>: the number of reinitialization performed until iteration <span class="math inline">\(k\)</span>. (<span class="math inline">\(\sigma_0 = 0\)</span>)</p></li>
 </ul>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="varying-truncation-samcmc-algorithm-for-ergms" class="section level5" number="7.6.3.2.2">
 <h5><span class="header-section-number">7.6.3.2.2</span> Varying truncation SAMCMC algorithm for ERGMs</h5>
 <ol style="list-style-type: decimal">
-<li><p>Draw an auxiliary network <span class="math inline">\(y_{k+1}\)</span> from the distribution <span class="math inline">\(f(y | \theta^{(k)}\)</span> using the Gibbs sampler iterating for <span class="math inline">\(m\)</span> sweeps.</p></li>
+<li><p>Gibbs 샘플러 사용해 <span class="math inline">\(m\)</span> sweeps 번 interate 해서 auxiliary network <span class="math inline">\(y_{k+1} \sim f(y | \theta^{(k)}\)</span> 생산</p></li>
 <li><p>Set <span class="math inline">\(\theta^{(k + \frac{1}{2})} = \theta^{(k)} + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}\)</span></p></li>
-<li><p>Let
-$$
-\begin{cases}</p></li>
+<li><p>Set</p></li>
 </ol>
-<p><em>{k+1} = <em>k, ; ; ( y</em>{k+1}, ^{(k + {1})} ) = ( y</em>{k+1}, ^{(k + )} )
-&amp;
-| ^{(k + )} - ^{(k)} | b_k, ; ; ^{(k + )} K_{<em>k}
-\
-</em>{k+1} = <em>k+1, ; ; ( y</em>{k+1}, ^{(k + {1})} ) = ( y_{k}, ^{(k)} )
+$$
+<span class="math display">\[\begin{cases}
+
+\sigma_{k+1} = \sigma_k \; \text{ and } \left( y_{k+1}, \theta^{(k + {1})} \right) =  \left( y_{k+1}, \theta^{(k + \frac{1}{2})} \right)
+\; \; \; \; \; \; \; \; \; \; 
+
+&amp; 
+\| \theta^{(k + \frac{1}{2})} - \theta^{(k)} \| \le b_k, \; \; \theta^{(k + \frac{1}{2})} \in \mathcal K_{\sigma_k}
+\\
+\sigma_{k+1} = \sigma_k+1 \; \text{ and } \left( y_{k+1}, \theta^{(k + {1})} \right) =  \mathcal T \left( y_{k}, \theta^{(k)} \right)
 &amp;
 o.w.
-\end{cases}
-$$</p>
+\end{cases}\]</span>
+<p>$$</p>
 </div>
 <div id="trajectory-averaging-estimator" class="section level5" number="7.6.3.2.3">
 <h5><span class="header-section-number">7.6.3.2.3</span> Trajectory averaging estimator</h5>
-<p><span class="math inline">\(\theta\)</span> can be estimated by the trajectory averaging estimator <span class="math inline">\(\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}\)</span></p>
-<p>In practice, to reduce the variation of the estimate, we often use <span class="math inline">\(\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}\)</span></p>
-<p>to estimate <span class="math inline">\(\theta\)</span>, where <span class="math inline">\(n_0\)</span> denotes the number of burn-in iterations.</p>
+<p>trajectory averaging estimator <span class="math inline">\(\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}\)</span> 에 의해 <span class="math inline">\(\theta\)</span> 를 estimate 가능.</p>
+<p>실전에서는 estimate 의 variation 을 줄이기 위해 대신 <span class="math inline">\(\theta\)</span> estimate 에 <span class="math inline">\(\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}\)</span> 을 자주 사용함. 이 때 <span class="math inline">\(n_0\)</span> 는 burn-in 이터레이션의 숫자.</p>
 <ul>
 <li>Free parameters: <span class="math inline">\(\{a_k\}\)</span>, <span class="math inline">\(\{b_k\}\)</span>, <span class="math inline">\(\{\mathcal K_s, \; s \le 0\}\)</span>, <span class="math inline">\(m\)</span></li>
+<li><span class="math inline">\(k_0 = 100\)</span>, <span class="math inline">\(\eta = 0.65\)</span>, <span class="math inline">\(\xi = \frac{0.5 + \eta}{2}\)</span>.</li>
+<li><span class="math inline">\(C_a\)</span>, <span class="math inline">\(C_b\)</span>: adjusted for different examples</li>
+<li>choose <span class="math inline">\(\mathcal K_0\)</span> to be around MPLE.</li>
+<li>In this artical, we set <span class="math inline">\(\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]\)</span>, <span class="math inline">\(\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]\)</span>.</li>
+<li><span class="math inline">\(m=1\)</span>.</li>
 </ul>
-<p><span class="math inline">\(k_0 = 100\)</span>, <span class="math inline">\(\eta = 0.65\)</span>, <span class="math inline">\(\xi = \frac{0.5 + \eta}{2}\)</span>.</p>
-<p><span class="math inline">\(C_a\)</span>, <span class="math inline">\(C_b\)</span>: adjusted for different examples</p>
-<p>choose <span class="math inline">\(\mathcal K_0\)</span> to be around MPLE.</p>
-<p>In this artical, we set <span class="math inline">\(\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]\)</span>, <span class="math inline">\(\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]\)</span>.</p>
-<p><span class="math inline">\(m=1\)</span>.</p>
 </div>
 <div id="numerical-examples" class="section level5" number="7.6.3.2.4">
 <h5><span class="header-section-number">7.6.3.2.4</span> Numerical Examples</h5>
