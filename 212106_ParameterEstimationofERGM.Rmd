@@ -23,9 +23,9 @@ Current Methods for ERGM
 
 #### Maximum Pseudo Likelihood Estimation
 
-Approximate the likelihood function by a product of series of conditional likelihood functions by ignoring dependence within components of $X$.
 
-The conditional and pseudo likelihood of the ERGMs is
+$A$ 내부의 성분 간의 의존성을 무시한 채로 조건부 likelihood 함수들의 series를 곱하는 것으로 likelihood 함수를 근사함. ERGMS 의 조건부이며 pseudo Likelihood 는 아래와 같음. 물론 이건 어디까지나 가장 간단한 방법으로서 제시되었을 뿐이고, 이 방법론은 의존성 구조를 완전히 무시했기 때문에 퍼포먼스가 구림.
+
 
 $$
 \begin{align}
@@ -38,9 +38,38 @@ logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &=
 \end{align}
 $$
 
-This method is the simplest one.
-Since this method totally ignores certain dependent structures within data, the performance is not generally satisfactory.
 
+
+<br>
+<br>
+<br>
+
+
+#### MCMCMLE
+
+Approximate κ(θ) using Monte Carlo samples generated from a
+distribution f(x|θ
+(0)
+), where θ
+(0)
+is an initial estimate of θ.
+Draw x1, · · · , xm denote random samples drawn from f(xobs|θ
+(0)
+) via
+MCMC simulations, the log-ratio of likelihood can be approximated by
+
+$$
+I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) ' g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )'\right g(x_i) \}\right ]
+$$
+
+) via θ will approximate θˆ (MLE).
+The performance of MCMLE depends on the choice of θ
+(0)
+. If θ
+(0)
+does
+not lie in the attraction region of true MLE, the method may converge to
+a suboptimal solution or fail to converge.
 
 <br>
 <br>
@@ -48,36 +77,15 @@ Since this method totally ignores certain dependent structures within data, the 
 
 
 #### MCMC Stochastic Approximation
-The theory of exponential family implies that maximizing the ERGMs is
-equivalent to solving the system of equations
-Eθˆ{g(x)} = g(xobs)
-that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
-and it requires
-1 Independent network generation
-2 Parameter estimation update with stochastic approximation
-This method is inefficient in generating independent network samples.
-The number of iteration steps for generating each sample xk+1 is in the
-order of 100n
-2 where n is the number of nodes.
 
 
-<br>
-<br>
-<br>
+exponential family 에 대한 이론을 통해, 우리는 ERGMs을 maximize 하는 것은 $E_{\hat \theta} \Big \{ g(X) \Big \} = g(x_{obs})$ 라는 system 을 푸는 것과 동일하다는 것을 알 수 있다. 이 system 의 성립 여부는 이하와 iff ($\iff$).
 
+1. $\hat \theta = \hat \theta_{MLE}$
+2. Independent network generation
+3. Parameter estimation update with stochastic approximation
 
-#### MCMC Stochastic Approximation
-The theory of exponential family implies that maximizing the ERGMs is
-equivalent to solving the system of equations
-Eθˆ{g(x)} = g(xobs)
-that is satisfied if and only if θˆ is the maximum likelihood estimator of θ
-and it requires
-1 Independent network generation
-2 Parameter estimation update with stochastic approximation
-This method is inefficient in generating independent network samples.
-The number of iteration steps for generating each sample xk+1 is in the
-order of 100n
-2 where n is the number of nodes.
+이 방법론은 independent 네트워크 샘플을 생산하는데에는 비효율적이다. 각 샘플 $x_{k+1}$을 생산하기 위해 요구되는 이터레이션 스텝의 갯수는 order of $100 n^2$. 이때 $n$은 node 의 갯수.
 
 
 
@@ -102,53 +110,32 @@ order of 100n
 ### Auxiliary Variable MCMC-based Approaches
 
 #### Exchange Algorithm
-Augment the distribution f(x|θ) by an auxiliary variable such that the
-normalizing constant ratio κ(θ)/κ(θ
-0
-) can be canceled in simulations.
-1 Propose a candidate point θ
-0
-from a proposal distribution denoted by
-q(θ
-0
-|θ, x).
-2 Generate an auxiliary variable y ∼ f(y|θ
-0
-) using a perfect sampler.
-3 Accept θ
-0 with probability min{1, r(θ, θ0
-|x)}, where
-r(θ, θ0
-|x) = π(θ
-0
-)
-π(θ)
-·
-f(x|θ
-0
-)
-f(x|θ)
-·
-f(y|θ)
-f(y|θ
-0)
-·
-q(θ|θ
-0
-, x)
-q(θ
-0
-|θ, x)
 
-Although the exchange algorithms work well for some discrete models,
-such as the Ising and autologistic models, they cannot be applied to
-many other models for which perfect sampling is not available.
-We can generate auxiliary variable y via MCMC samples, but there
-exists theoretical flaws on convergence issues. If the mixing of MCMC
-sample is very slow, which is a general feature of ERGMs, θ
-0
-tends to
-accept with a high probability.
+normalizing constant ratio $\frac{\kappa(\theta)}{\kappa(\theta')}$ 따위의 auxiliary 변수로 분포 $f(x | \theta)$ 를 augment. 이는 시뮬레이션 중에 canceled.
+
+1. 후보 point $\theta ' \sim q(\theta ' | \theta, x)$ 를 생산
+2. perfect sampler 사용해서 auxiliary 변수 $y \sim f(y | \theta ')$ 를 생산
+3. $\theta'$를 with probability $1 \wedge r(\theta, \theta ' \Big | x)$로 채택. 이때
+
+$$
+r(\theta, \theta ' \Big | x) = 
+
+
+\frac{\pi(theta')}{\pi(theta)}
+\cdot
+\frac{f(x \Big | \theta ' )}{f(x \Big | \theta )}
+\cdot
+\frac{f(y \Big \theta)}{f(y \Big \theta')}
+\cdot
+\frac{q(\theta \Big | \theta ' , x)}{q(\theta ' \Big | \theta , x)}
+
+
+$$
+
+exchange 알고리즘은 **Ising** 이나 **autologistic** 과 같은 일부 discrete 모델에는 잘 작동. 하지만 **perfect sampling** 이 적용되지 않는 많은 다른 모델에는 적용할 수 없다. 우리는 MCMC 샘플을 통해 auxiliary 변수 $y$를 생산할 수 있지만, 수렴 문제 부분에서 이론적인 흠결이 있음. 만약 MCMC 샘플의 mixing이 매우 느리다면 딴놈이 아니라 $\theta_0$ 가 매우 높은 확률로 채택되어버림. 그리고 이 MCMC 샘플의 mixing 이 느린 것 자체가 ERGMs 의 일반적인 특징임. 이래서 문제.
+
+
+
 
 <br>
 <br>
@@ -156,30 +143,29 @@ accept with a high probability.
 
 
 #### Monte Carlo MH Algorithm
-At each iteration, the MCMH algorithms replaces the unknown
-normalizing constant ratio κ(θ)/κ(θ
-0
-) by a Monte Carlo estimates and
-importance sampling approach.
-A Monte Carlo version of the Metropolis-Hastings algorithm.
-Unlike the exchange algorithms, the MCMH algorithm avoids the
-requirement for perfect sampling, and thus can be applied to many
-statistical models for which perfect sampling is not possible.
-This algorithm also suffers from a theoretical flaw on convergence, i.e.
-the importance sampling estimator might fail to converge to the true
-ratio κ(θ)/κ(θ
-0
-) with a finite number of samples.
+
+MH 알고리즘의 MC 버전. 각 이터레이션에서 **MCMH 알고리즘**은 unknown normalizing constant ratio $\frac{\kappa(\theta)}{\kappa(\theta')}$ 를 MC estimate와 importance 샘플링 접근법으로 대체한다. 
+
+exchange 알고리즘과 다르게, MCMH 알고리즘은 perfect sampler 요구조건을 빗겨간다. 따라서 perfect sampler 를 못 쓰는 다수의 통계문제에 대해서도 얘를 쓸 수 있음. 하지만 얘도 여전히 수렴 문제가 존재함. 얘의 경우에는 importance sampling estimator 가 유한한 숫자의 샘플로는 ratio의 참값 $\frac{\kappa(\theta)}{\kappa(\theta')}$ 에 수렴하지 못할 수도 있음.
 
 
 
 
+<br>
+<br>
+<br>
 
 
 
 
+```{r pressure-plot, fig.asp=.7, fig.width=6, fig.cap='A figure example with the specified aspect ratio, width, and alignment.', fig.align='center', out.width='90%'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, pch = 19, type = 'b')
+```
 
-
+```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Goodness-of-fit Plots, for ERGMs'}
+knitr::include_graphics(rep('images/knit-logo.png', 3))
+```
 
 
 
@@ -193,61 +179,6 @@ ratio κ(θ)/κ(θ
 <br>
 <br>
 <br>
-
-
-<br>
-<br>
-<br>
-
-
-
-
-
-
-### Goodness-of-fit Plots
-
-Goodness-of-fit Plots for ERGMs
-0 1 2 3 4 5 6 7 8 9 10 12 14 16
-0.0 0.1 0.2 0.3 0.4
-degree
-proportion of nodes
-012345678
-0.0 0.1 0.2 0.3 0.4 0.5 0.6
-edge−wise shared partners
-proportion of edges
-1 2 3 4 5 6 7 8 9 11 13 15 17 19
-0.0 0.2 0.4 0.6 0.8 1.0
-minimum geodesic distance
-proportion of dyads
-Goodness−of−fit diagnostics
-Figure: GOF plots for the high school student friendship network
-
-
-
-
-
-
-
-
-
-
-<br>
-<br>
-<br>
-
-
-<br>
-<br>
-<br>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -260,17 +191,26 @@ Figure: GOF plots for the high school student friendship network
 
 ### Varying Trunction Stochastic Approximation MCMC
 
-The likelihood function of the ERGM is
+ERGM 의 likelihood 함수는
 
 $$
-f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta' S(y)\Big \}
+\begin{align}
+&f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta' S(y)\Big \},
+&&\theta = (\theta_1 , \cdots, \theta_d)'$, 
+&&$S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)'
+\end{align}
 $$
 
-where $\theta = (\theta_1 , \cdots, \theta_d)'$, $S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)'$.
+이때 **$\kappa(θ)$를 특정할 수 없다** (intractability)는 점과 **모델 degeneracy** 때문에, $\theta$를 정확하게 추정하는 것은 어렵다. 이 문제는 **varying truncation stochastic approximation MCMC** 를 사용하는 것으로 해결 가능.
 
-Due to 2 issues, intractability of $\kappa(θ)$ and model degeneracy, it is difficult to estimate $\theta$ well.
+Normalizing constant $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta ' S(y)\Big\}$.
 
-These problem can be solved by using the varying truncation stochastic approximation MCMC
+이로 인해 촉발되는 문제는?
+
+1. MPLE: dyadic 독립을 가정하는 것으로 해결해보고자 함. 이건 observed 네트워크가 무엇이냐에 대해 과하게 의존.
+2. MCMLE: $\theta^{(0)}$ 을 어떻게 고르느냐에 대해 과하게 의존. local 최적해로 수렴해버리거나 모델 degeneracy 로 수렴 자체가 실패하기도.
+
+
 
 
 <br>
@@ -280,23 +220,10 @@ These problem can be solved by using the varying truncation stochastic approxima
 
 
 
-#### Two Difficulties in Parameter Estimation
 
-Intractability of Normalizing constant $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta ' S(y)\Big\}$.
+#### MCMC Stochastic Approximation
 
-MPLE
-- Assume dyadic independence
-- Highly dependent on the observed network
-
-MCMLE
-Depend on the choice of $\theta^{(0)}$
-Converge to a local optimal solution or fail to converge due to model degeneracy.
-
-##### Stochastic Approximation
-
-Solve a system of equation of the form $h(\theta) = 0$. 
-
-The classical SA algorithm is of the form
+$h(\theta) = 0$ 형의 system 을 풀자. 고전적인 **SA 알고리즘**은 이하와 같은 형태를 띈다. ($a_k$ , $h$, $\omgea_k$ 에 대한) 적절한 조건 하에서, 이 알고리즘은 해로 수렴한다는 것을 실제로 보이는 것이 가능하다.
 
 $$
 \begin{align}
@@ -309,47 +236,35 @@ $$
 \end{align}
 $$
 
+- $Y = h(\theta) + \omega$ 는 noisy estimate
+- $\omega$ 는 mean-zero noise.
 
+$\theta_{MLE}$ 를 찾는 것은 exponential family 안에서 $E_\theta \{ S(Y) \} = S(\mathbf y_{obs})$ 의 해를 찾는 것과 equivalent. 이는 이하의 단계를 거친다. 다만 이는 independent 네트워크 샘플을 생산하는데 있어 비효율적일 수밖에 없음. order of $100n^2$ 이라 연산을 엄청 먹으니까.
 
-$Y = h(\theta) + \omega$ is noisy estimate. $\omega$ is mean-zero noise.
-Under appropriate conditions (on $a_k$ , $h$, $\omgea_k$ ), the algorithm indeed can be shown to converge to a solution
+1. $\mathbf y^{k+1} \sim f(\mathbf y | \theta^{(k)}$를 샘플링 (independence 네트워크 생산)
 
+각 arc 변수 $Y_{ij}$가 독립적으로 정해지는 랜덤 그래프에서 시작. 이 변수에는 0 혹은 1이 0.5 확률로 할당. 이 랜덤 그래프를 Gibbs 샘플러든 MH 알고리즘이든 써서 업데이트.
 
-<br>
-<br>
-<br>
-
-
-
-#### MCMC Stochastic Approximation
-
-Finding MLE of $\theta$ is equivalent to solving $E_\theta \Big \{ S(Y) \Big \} = S(y_{obs})$ in exponential families.
-
-Steps:
-1. Independence network generation: Sample $y^{(k+1)}$ from the $f(y | \theta^{(k)}$.
-	- Start with a random graph in which each arc variable $Y_{ij}$ is determined independently, with a probability 0.5 for the values 0 and 1
-	- Update the random graph using the Gibbs sampler or the MH algorithm
-
-2. Parameter estimate update with SA, 
-$$
-\theta^{(k+1)} = \theta^{(k)} - a_k D^{-1} \Big \{ U(y_{k+1}, \bar y_{k+1}) - S(y_{obs}) \Big \}
-$$
-
-where
+2. **SA** 를 통해 패러미터 estimate 업데이트.
 
 $$
 \begin{align}
+\theta^{(k+1)} &= \theta^{(k)} - a_k D^{-1} \Big \{ U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big \},
+\\
+\\
+\\
+U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big 
+\} &= P(\bar {\mathbf y}_{k+1} \Big | \mathbf y_{k+1} ) \cdot \mathbf S (\mathbf {\bar y}_{k+1} ) 
 
-U(y_{k+1}, \bar y_{k+1} ) &= P(\bar y_{k+1} | y_{k+1}) \cdot S(\bar y_{k+1}) + \Big (1-P(\bar y_{k+1} | y_{k+1}) \Big ) \cdot S( y_{k+1}) 
+\Big \{ 1-P(\mathbf {\bar y}_{k+1} \Big | \mathbf y_{k+1} ) \Big \} \cdot \mathbf S (\mathbf {\bar y}_{k+1} ) 
 
 \\
 
-\bar y_{k+1} = 1-y_{k+1}
+\mathbf {\bar y}_{k+1} &= 1- \mathbf y_{k+1} 
 
 \end{align}
 $$
 
-Inefficiency in generating independent network samples: Order of $100n^2$.
 
 
 <br>
@@ -357,15 +272,14 @@ Inefficiency in generating independent network samples: Order of $100n^2$.
 <br>
 
 
-#### Model Degeneracy
-For some configurations of θ, the model lumps all or most of its
-probability mass on just one or a few possible graphs.
-	Complete(fully connected) or empty(entirely unconnected)
-networks
+##### Model Degeneracy
 
-A solution to avoid this problem is to specify a model whose parameter
-space contains no or less degeneracy regions
-	But, this is often more difficult than usual.
+$\theta$을 어떻게 정하느냐에 따라 모델은 그것의 확률을 (Complete (fully connected) 거나 empty (entirely unconnected) 네트워크와 같은) 1개 혹은 소수의 그래프에만 한정시켜서 부어버릴 수도 있다. (탐색 효율 쓰레기됨) 이 문제를 해결하기 위해선 탐색 전에 degeneracy 리전을 거의 포함하지 않는 패러미터 스페이스를 가지는 모델로 특정할 필요가 있다. 근데 이게 진짜 드럽게 어려움.
+
+
+
+
+
 
 <br>
 <br>
@@ -381,27 +295,23 @@ space contains no or less degeneracy regions
 $$
 \begin{align}
 
-a_k &= C_a \left( \frac{k_0}{k_0 \vee k)}\right)^\eta
+&a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &&b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1}
 
 \\
 
-b_k &= C_b \left( \frac{k_0}{k_0 \vee k)}\right)^\ksi
-
+&\bigcup_{s \ge 0} \mathcal K_s = \Theta$, &&\text{where } $\mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
 \end{align}
 $$
 
-for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\ksi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$.
 
-($C_2$)
-
-$\bigcup_{s \ge 0} \mathcal K_s = \Theta$, where $\mathcal K_s \subset \text{int}(\mathcal K_{s+1})$
+- for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\xi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$.
 
 And also,
 
-$\mathcal X$: a space of social network
-$\mathcal T$: $\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0$ (reinitialization mechanism)
+- $\mathcal X$: a space of social network
+- $\mathcal T$: $\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0$ (reinitialization mechanism)
 
-$\sigma_k$: the number of reinitialization performed until iteration $k$. ($\sigma_0 = 0$)
+- $\sigma_k$: the number of reinitialization performed until iteration $k$. ($\sigma_0 = 0$)
 
 
 ##### Varying truncation SAMCMC algorithm for ERGMs
@@ -439,7 +349,7 @@ to estimate $\theta$, where $n_0$ denotes the number of burn-in iterations.
 - Free parameters: $\{a_k\}$, $\{b_k\}$, $\{\mathcal K_s, \; s \le 0\}$, $m$
 
 
-$k_0 = 100$, $\eta = 0.65$, $\ksi = \frac{0.5 + \eta}{2}$.
+$k_0 = 100$, $\eta = 0.65$, $\xi = \frac{0.5 + \eta}{2}$.
 
 $C_a$, $C_b$: adjusted for different examples
 

@@ -1,0 +1,268 @@
+## Latent Network Models
+
+### Latent Position Model
+
+
+ERGMs 와 다르게, 이 모델은 소셜 스페이스의 개념을 도입함. 이 소셜 스페이스에서는, 네트워크 관계에 있어 unobserved latent 특성이 potential transitive 경향을 represent, 즉 위력? 을 나타낼 수 있음. 이때 이 소셜 스페이스에서 각 actor (혹은 node) $i$는 알려지지 않은 포지션 $z_i$를 각각 차지하게 됨. 우리는 이를 **latent position** 이라고 부름.
+
+여기서 우리는 주된 가정으로 ties 간의 **조건부 독립**을 가정한다. latent position이 주어진다면, 네트워크 안의 ties들은 조건부 독립임이 가정된다. 두 개인들 간의 특정한 tie의 확률은 그들의 positions 들의 함수로 모델링된다. 가령 소셜 스페이스 안에서의 두 actor 사이의 거리라던가.
+
+
+이때 이를 노테이션으로 표기하자면 다음과 같다.
+
+$$
+P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)
+$$
+
+- sociomatrix $Y_{n \times n}$, 이때 요소 $y_{i,j}$는 actor $i$로부터 $j$로의 관계를 의미하는 값.
+- additional covariate information $X$
+- 이때 $X$와 $x_{i,j}$는 unobserved 성질이며, $\theta$는 estimate되어야 하는 패러미터, $Z$는 estimate 되어야 하는 포지션.
+
+
+<br>
+<br>
+<br>
+
+
+#### Methods
+
+##### Distance Models
+
+$P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)$는 로지스틱 회귀모형을 쓰면 편하게 패러미터化 할 수 있다. 이렇게 패러미터化 할 때 tie의 확률은 $z_i , z_j \in \mathbb R$ 인 $z_i , z_j$ 사이의 유클리디안 거리에 의존한다. 수식은 아래와 같다.
+
+$$
+\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta ' x_{i,j} - |z_i - z_j |
+$$
+
+- 이때 $|z_i - z_j |'$ 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 $d_{i,j} \le d_{i,k} + d_{k,j}$만 만족하면 됨. 
+
+latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 $i \rightarrow j$ 이고 $j \rightarrow k$ 이라면, $d_{i,j}$ 와 $d_{j,k}$ 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark>
+1. events $j \rightarrow i$ (reciprocity)
+2. 그리고 $i \rightarrow k$ (transitivity)
+
+
+
+##### Projection Models
+
+distance 모델은 본질적으로 symmetric 임. 즉 $p(i → j) = p(j → i)$. 하지만 많은 (**directed**) 모델에서 이런 symmetry 는 성립을 안함. 예를 들어 actor $i$ 가 대량의 ties 들을 보내는 반면 $j$ 가 $i$ 에게서 ties 들을 받은 actors 전체 중 작은 subset 에게만 보낸다면? 따라서 행위의 변수 레벨은 관계에서 확률의 transitivity 를 allow하는 latent 포지션 모델의 맥락 속에서 모델링될 필요가 있다. 개개인의 소셜 활동의 특정한 수준도 고려되어야 함은 물론이다.
+
+actor $i$의 특성의 벡터 $v_i$를 **unit** $k$-dim 이라고 가정. $i,j$ 사이의 angle이 작으면 우리는 둘 사이에 tie가 존재할 가능성이 높다고 생각하자. 직각이면 중립, 둔각이면 낮다. actor $i$ 의 활동 레벨 $a_i >0$ 를 설정한 후, $i→j$의 tie의 존재 확률을 $a_i v_i ' v_i = \frac{z_i' z_j}{| z_j |}$ (이때 $z_i = a_i v_i$) 라고 설정한다면 이하의 등식이 성립.
+
+
+$$
+\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta ' x_{i,j} + \frac{z_i' z_j}{| z_j |}
+$$
+
+#### Estimation
+
+**Distance** 모델 상황을 생각해보자. 유클리드 공간에서 set points 간의 거리는 회전, 반사, 이동에 불변 (invariant). 따라서 모든 각각의 latent postion의 행렬 $Z_{k \times n}$ 에 대해 같은 log-likelihood 를 갖는 다른 positions 을 표상하는 행렬이 존재한다.  
+
+$\mathcal Z$ 를 회전, 반사, 이동에 불변한 $Z$와 equivalent 한 postions들의 class 라고 하자. 각각의 $\mathcal Z$에 대해 node 들 간의 거리를 모아 set 1개가 나옴. 이러한 positions 들의 class를 **configuration** 이라고 부름. 
+
+마찬가지로 Projection 모델에서의 $Z$ 에 대해서도 Projection 모델들은 positions 들의 회전과 반사에는 불변하지만, <mark>이동에 대해서는 불변이 아님.</mark>
+
+조건부 독립 모델의 log-likelihood 모델은 다음과 같다:
+
+$$
+\log P(Y | \eta ) = \sum_{i \not = j} \Big \{  \eta_{i,j}y_{i,j} - \log (1+\exp(\eta_{i,j})
+\Big \}
+$$
+
+※ Steps:
+
+1. 각 j 에서 $z_j ' $ 샘플링하기 위해 MH 스텝 거침. proposal 분포 $\varphi(\cdot)$ 으로부터 $z_j'$ 생산하고 이를 이하의 확률 $r_z \left ( z_j ' , z_j^{(t)} \right)$ 로 채택. 비슷환 과정을 따라서 $\alpha, \beta$ 도 MH 이용해서 생산.
+
+$$
+r_z \left ( z_j ' , z_j^{(t)} \right)
+
+
+
+
+
+= \frac{\pi \Big (z_j '  \Big \vert Y, \alpha , \beta \Big )}{\pi \Big (z_j^{(t)}  \Big \vert Y, \alpha , \beta \Big )}
+
+\frac{\varphi \Big (z_j ' \rightarrow z_j^{(t)} \Big )}{\varphi \Big ( z_j^{(t)}\rightarrow z_j ' \Big )}
+
+$$
+
+
+2. **Procrustes** 매칭 사용해서 MCMC 샘플 후처리.
+
+	a. latent positions 들의 reference set 을 찾기 위해, MCMC 샘플로부터 latent positions들 중 full log posterior density가 가장 높은 latent positions들 $Z_0$를 하나 뽑아서 쟁여둠
+	b. $Z_0$를 사용해서 각각의 MCMC 샘플에 Procrustes 매칭 적용
+
+$$
+Z^\ast  = argmin_{TZ} \tr \Big \{ (Z_0 - TZ) ' (Z_0 - TZ) \Big \}
+$$
+
+
+<br>
+<br>
+<br>
+
+
+
+#### Advantages
+
+네트워크 관계에 대한 시각적이고 모델에 기반한 공간적인 표현을 제공. 해석 용이함. 
+
+It is flexible and can be easily generalized to allow for multiple
+relationships, ties with varying strengths, and time-varying relations
+
+deal easily with missing data, at least if information on ties is missing at
+random
+
+the model is inherently transitive, and so we can expect an improved fit
+over models lacking such structure when the relations are transitive in
+nature
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Latent Position Cluster Model
+
+$$
+\begin{align}
+
+
+\log \frac{P(y_{i, j} = 1\Big | z_i , z_j , x_{i,j}, \beta)}{1 - P(y_{i, j} = 1 \Big | z_i , z_j , x_{i,j}, \beta)} &= \beta_0 ' x_{i,j} - \beta_1 |z_i - z_j |
+
+\\
+
+P(Y | Z, X, \beta) &= \prod_{i \not = j} P(y_{i, j} \Big | z_i , z_j , x_{i,j}, \beta) \tag{Likelihood}
+
+
+\end{align}
+$$
+
+- $z_i \sim \sum\limits_{g=1}^G \lambda_g \cdot MVN_d )\mu_g , \sigma^2_g I_d )$, where $\sqrt{\frac{1}{n} \sum_i |z_i|^2} = 1$.
+- $\lambda_g$는 individual distribution의 비율
+
+
+
+<br>
+<br>
+<br>
+
+
+
+#### Bayesian Estimation
+
+
+
+※ Fully Bayesian Estimation Procedure
+1. 모델 패러미터 $\beta, \lambda_g, \mu_g, \sigma_g^2$ 들의 prior 분포 특정
+
+$$
+\begin{align}
+
+\beta &\sim MVN_p \left( \ksi , \Psi \right)
+
+\\
+
+\lambda &\sim Dirichlet(\nu)
+
+\\
+
+\sigma^2_g &\sim \sigma_0^2 Inv- \chi_\alpha^2 && g = 1, \cdots, G
+
+\\
+
+\mu_g &\sim MVN_d \left( 0, \omega^2 \cdot I_d \right) && g = 1, \cdots, G
+
+
+\end{align}
+$$
+
+2. $\mathbf z_i , \beta, \lambda, \mu_g  ,\sigma^2_g, K_i$의 full 조건부 posterior 분포 특정
+
+$$
+\begin{alignat}
+
+
+
+\end{alignat}
+$$
+
+
+
+3. MCMC Algorithm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

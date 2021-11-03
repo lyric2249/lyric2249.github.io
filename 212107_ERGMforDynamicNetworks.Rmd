@@ -4,6 +4,17 @@
 
 However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure
 
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+
+
+
 ### Temporal ERGM
 
 ERGM → TERGM → STERGM
@@ -44,8 +55,14 @@ $$
 
 This form of the temporal potential function represents situations where the conditional distribution of $A^t | A^{t-1}$ factors over the entries $A^t_{ij}$ of $A^t$.
 
+<br>
+<br>
+<br>
 
-##### Network Statistics for Temporal ERGM
+
+
+
+#### Network Statistics for Temporal ERGM
 
 Density: The number of ties in the network as a whole.
 
@@ -55,6 +72,12 @@ Stability: The tendency of a link that does exist at time $t − 1$ to continue 
 Reciprocity: The tendency of a link from $i$ to $j$ to result in a link from $j$ to $i$ at the next time step.
 
 Transitivity: The tendency of a tie from $i$ to $j$ and from $j$ to $k$ to result in a tie from $i$ to $k$ at the next time step.
+
+<br>
+<br>
+<br>
+
+
 
 
 #### Estimation
@@ -75,6 +98,12 @@ The expectations can be approximated by Gibbs sampling from the conditional dist
 
 Perform an unconstrained optimization procedure akin to Newton’s method: Approximate the expectations, update parameter values in the direction that increases the likelihood, repeat until convergence.
 
+<br>
+<br>
+<br>
+
+
+
 #### Degeneracy of Temporal ERGMs
 
 In the simple case where the transition distribution factors over the edges, it turns out these models avoid such problems entirely. 
@@ -91,6 +120,12 @@ Thus we need only calculate $n(n − 1)$ probability values, and the entropy is 
 
 <pics>
 
+<br>
+<br>
+<br>
+
+
+
 #### Assessing Statistic Importance and Quality of Fit
 
 Three Parameter Model
@@ -101,6 +136,18 @@ Co-Supported:
 Co-Supporting:
 Popularity
 Generosity
+
+
+
+<br>
+<br>
+<br>
+
+
+
+<br>
+<br>
+<br>
 
 
 
@@ -138,9 +185,21 @@ The two-sided nature of these effects tends to muddle parameter interpretation. 
 
 
 
+<br>
+<br>
+<br>
+
+
+
 
 
 
 #### Application Study
+
+<br>
+<br>
+<br>
+
+
 
 #### Conclusion

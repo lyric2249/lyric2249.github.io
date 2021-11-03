@@ -333,6 +333,7 @@ summary(macaque)
 ```
 
 해당 네트워크에서 clustering을 평가하기 위해 directed 네트워크에 해당하는 clustering coefficient 의 변형 사용. 이 변량은 모든 vertex $v$에 대해 vertex 각각의 clsutering coefficient를 평균낸 것이 된다.
+
 - A는 adjacency Matrix
 - $d_v^{tot}$는 vertex $v$의 총 degree (i.e., in-degree plus out-degree)
 

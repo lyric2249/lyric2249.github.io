@@ -7,6 +7,11 @@
 Vertices (Vertex), Edges, directed, undirected
 
 
+<br>
+<br>
+<br>
+
+
 
 
 ### Types of Network Analysis
@@ -20,6 +25,22 @@ Vertices (Vertex), Edges, directed, undirected
 – Assortativity Coefficient: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
 
 - The focus is on an attribute associated with network vertices (i.e., lawyer practice) and the network structure plays a comparatively more implicit role
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
 
 
 
@@ -43,8 +64,32 @@ Vertices (Vertex), Edges, directed, undirected
 4. Statistical Network Models: **Exponential Random Graph Models** 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 **Latent network models**은 **hierarchical modeling**에서의 latent 변수 사용법과 정확하게 평행하다 - 즉, ***대비된다???***. **Stochastic block models**는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.
 
 
+
+<br>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
 ### Network Processes
 복잡계의 요소들간의 상호작용을 모사하기 위해, 네트워크 그래프 자체는 보통 네트워크 분석의 주된 목표가 됨. 물론 네트워크 구성 요소 중 시스템 내의 다른 모든 요소들과 상호작용하는 변량 혹은 속성이 있다면 이녀석이 최고관심의 대상이 될 것. 그러나 그럼에도 불구하고 요소들간의 상호작용이 앞에서 언급한 최고관심 대상에게 영향을 줄 것이라고 생각하는 것이 비합리적이지 않으므로 네트워크 그래프 자체는 여전히 모델링과 분석의 대상이기에 합당함. 우리는 확률과정을 네트워크에서의 "삶"이라고 해석해볼 수 있으며 네트워크 안의 vertices에 의해 첨수(indexed)됨. 이러한 과정에 관한 다양한 질문들은 정적 network process에 관한 것이든 동적 network process에 관한 것이든 이들을 예측하고자 하는 문제로 해석될 수 있음.
+
+
+
+<br>
+<br>
+<br>
+
+
 
 
 #### Dynamic Processes

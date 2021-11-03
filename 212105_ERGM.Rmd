@@ -39,7 +39,7 @@ $$
 	- $\theta >0$: There exists a tendency **not** to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
 - $\kappa (θ)$: A normalizing constant
 
-네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 "파트너십에서 개인들이 삼각형을 형성하는 성향" 과 같은 것임. **즉, ERGM은 local transtivity의 정도, 위력을 양화하는데 도움을 줌.** EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.
+네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 "파트너십에서 개인들이 삼각형을 형성하는 성향" 과 같은 것임. **즉, ERGM은 local transtivity의 정도, 위력을 량화하는데 도움을 줌.** EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.
 
 
 
@@ -85,13 +85,13 @@ u(x | \tau)
 \\
 
 v(x | \tau) 
-&= \begin{gather} '' \end{gather}
+&= \ditto
 &&\cdot EP_i(x)
 
 \\
 
 w(x | \tau) 
-&= \begin{gather} '' \end{gather}
+&= \ditto
 &&\cdot DP_i(x)
 
 \end{alignat}

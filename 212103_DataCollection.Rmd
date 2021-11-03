@@ -4,6 +4,14 @@ Difficulties in Network Data Collection. 뭔 분야든 통계의 근간은 데�
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
+
 ### Sampling Procedures
 
 
@@ -51,6 +59,22 @@ from being higher than three.
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
 
 
 
@@ -59,6 +83,14 @@ from being higher than three.
 우리가 **true**(참정보, 참값)를 확보하는 것이 불가능하다면, 우리는 IID 통계량에 의해 예시되었던 "population" graph $G = (V, E)$ 확보를 포기하고 "sample" graph $G^\ast = (V^\ast, E^\ast)$를 얻는 쪽으로 선회한다. 이때 $V^\ast \subset V$, $E^\ast \subset E$. 
 
 이러한 sampled subgraphs를 얻기 위한 다양한 방법들에 대응되는 서로 다른 sampling designs들이 존재한다. 우선 population으로부터의 units들에 대한 simple random sample (SRS)를 이해하는 것이 샘플링을 이해하기 위한 1단계가 된다. 네트워크에서는 단순 랜덤 샘플마저도 복잡한 이해를 거쳐야 한다.
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Induced and Incident Subgraph
 
@@ -74,6 +106,9 @@ sometimes be calculated and compensated for.
 Experience with conventional surveys may make incident-subgraph
 sampling seem odd, but there are many situations where it’s actually
 quite natural.
+
+
+
 
 ##### Example of a Bias
 
@@ -126,6 +161,14 @@ E \left( \bar k^\ast \right)
 \end{alignat}
 $$
 
+
+<br>
+<br>
+<br>
+
+
+
+
 #### Exploratory Sampling Design
 
 For both induced- and incident-subgraph sampling, the sampling frame
@@ -144,6 +187,14 @@ neighbors of the initial node; This is sometimes called a star design.
 When we deal with star designs, we collect multiple local graph
 neighborhoods, and an important question is whether those overlap;
 depending on the recording process, this information might be available
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Snowball Sampling
 
@@ -212,6 +263,22 @@ whether they do or not
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
 
 
 
@@ -230,6 +297,14 @@ would be pretty easy to compensate for.
 
 But degree distribution, for example, gets distorted in very complicated,
 hard-to-fix ways, even with induced-subgraph sampling.
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Learn Sampling Theory
 
@@ -312,6 +387,14 @@ Many network statistics can be expressed as averages (sometimes by
 defining the “unit” as, e.g., a dyad of nodes), but exact calculation of
 inclusion probabilities is harder.
 
+
+<br>
+<br>
+<br>
+
+
+
+
 #### Missing Data Tools
 Another approach is to treat the unobserved part of the network as
 missing data, and try to infer it.
@@ -324,6 +407,14 @@ requires a model both of the network, and of the sampling process.
 
 It is very, very rare for anything to be “missing at random”, let alone
 “missing completely at random”.
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Model the Effective Network
 A final strategy is to model the observed network. This means modeling
@@ -355,6 +446,22 @@ EM or imputation, which are more about recovering the full graph
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
 ### Big Data Solves Nothing
 
 Even when, as the promoters say, “n = all”, and the data are
@@ -367,6 +474,14 @@ Three issues are particularly prominent for network
 2. Diffusion
 3. Performativity
 
+
+<br>
+<br>
+<br>
+
+
+
+
 #### Entity resolution
 Entity resolution, or record linkage, is a pervasive problem for data
 analysis.
@@ -375,6 +490,14 @@ points all record information about the same thing (or records which are
 apparently co-referent really are about different things).
 In networks, this is usually about determining when two (or more)
 apparent nodes really refer to the same underlying entity.
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Diffusion
 
@@ -388,6 +511,14 @@ Comparatively little has been done to understand the results.
 Even if the diffusion process treats all nodes homogeneously, the
 network-as-diffused can differ radically in its properties from the
 underlying network.
+
+
+<br>
+<br>
+<br>
+
+
+
 
 #### Performativity
 Performativity, the way theories can become (partially) self-fulfilling
