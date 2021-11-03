@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.7 ERGM for Dynamic Networks | Self-Study</title>
-  <meta name="description" content="7.7 ERGM for Dynamic Networks | Self-Study" />
+  <title>C ABSTRACT | Self-Study</title>
+  <meta name="description" content="C ABSTRACT | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.7 ERGM for Dynamic Networks | Self-Study" />
+  <meta property="og:title" content="C ABSTRACT | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.7 ERGM for Dynamic Networks | Self-Study" />
+  <meta name="twitter:title" content="C ABSTRACT | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="parameter-estimation-of-ergm.html"/>
-<link rel="next" href="latent-network-models.html"/>
+<link rel="prev" href="noname.html"/>
+
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -508,197 +508,117 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ergm-for-dynamic-networks" class="section level2" number="7.7">
-<h2><span class="header-section-number">7.7</span> ERGM for Dynamic Networks</h2>
-<p><pic></p>
-<p>However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure</p>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-<div id="temporal-ergm" class="section level3" number="7.7.1">
-<h3><span class="header-section-number">7.7.1</span> Temporal ERGM</h3>
-<ul>
-<li><strong>ERGM → TERGM → STERGM</strong></li>
-</ul>
-<p>One-step transition probability <span class="math inline">\((t-1) → (t)\)</span> (Markov Assumption)</p>
-<p><span class="math display">\[
-P_{\eta, g} \Big ( Y^t = y^t \Big | Y^{t-1} \; \; ; \; \; \theta \Big ) = \frac{\exp \Big \{ \eta(\theta) \cdot g(y^t, y^{t-1})\Big  \}}{c_{\eta, h}(\theta, y^{t-1})}
-\]</span></p>
-<ul>
-<li><strong>TERGM: Temporal ERGM</strong></li>
-</ul>
-<p>시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 <strong>Markov assumption</strong> 적용. 이는 곧, <span class="math inline">\(A^t\)</span>가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 <span class="math inline">\(A^{t-1}\)</span> 의 값이 주어져 있다면, <span class="math inline">\(A^t\)</span> 는 <span class="math inline">\(A^1, \cdots, A^{t-2}\)</span> 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.</p>
-<p><span class="math display">\[
-P\Big(A^2, A^3, \cdots, A^t \Big | A^1 \Big ) = P\Big(A^t \Big | A^{t-1} \Big ) P\Big(A^{t-1} \Big | A^{t-2} \Big ) \cdots P\Big(A^2 \Big | A^1 \Big ) \tag{Temporal ERGM}
-\]</span></p>
-<p>마르코프 가정이 주어져 있음을 고려하면, evolving 네트워크 전반에 대해 ERGM 을 일반화하는 방법이란 <span class="math inline">\(A^t \vert A^{t-1}\)</span> 가 ERGM 표현법을 채택했음을 가정하는 것. <mark>to assume <span class="math inline">\(A^t \vert A^{t-1}\)</span> admits an ERGM representation.</mark></p>
-<p>함수 <span class="math inline">\(\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k\)</span> 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 (<span class="math inline">\(t\)</span>, <span class="math inline">\(t-1\)</span> 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 <span class="math inline">\(\theta \in \mathbb R^k\)</span> 는 이하와 같은 conditional pdf를 갖는다.</p>
-<p><span class="math display">\[
-P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \exp \left\{ \theta&#39; \Psi \left ( A^t, A^{t-1} \right ) \right\}
-\]</span></p>
-<p>특히 우리는 해당 모델에서 이하와 같은 특수한 경우에 관심이 있다.</p>
-<p><span class="math display">\[
-\Psi \left ( A^t, A^{t-1} \right ) = \sum_{ij}\Psi_{ij} \left ( A^t_{ij}, A^{t-1} \right )
-\]</span></p>
-<p>이 형의 temporal potential 함수는</p>
-<p><span class="math inline">\(A^t | A^{t-1}\)</span>의 조건부 분포의</p>
-<p>This form of the temporal potential function represents situations where the conditional distribution of <span class="math inline">\(A^t | A^{t-1}\)</span> factors over the entries <span class="math inline">\(A^t_{ij}\)</span> of <span class="math inline">\(A^t\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<div id="network-statistics-for-temporal-ergm" class="section level4" number="7.7.1.1">
-<h4><span class="header-section-number">7.7.1.1</span> Network Statistics for Temporal ERGM</h4>
-<p>$$
-<span class="math display">\[\begin{align}
-\Psi_D \left ( A^t , A^{t-1}\right)
-
-&amp;=
-
-\frac{1}{n-1} \sum_{ij} A^t_{ij}
-
-\tag{Density}
-
-\\
-
-\Psi_S \left ( A^t , A^{t-1}\right)
-
-&amp;=
-
-\frac{1}{n-1} \sum_{ij}
-
-\left \{ A^t_{ij} A^{t-1}_{ij} + \left (1-A^t_{ij} \right) \left (1-A^{t-1}_{ij} \right)
-\right \}
-\\
-
-\Psi_R \left ( A^t , A^{t-1}\right)
-
-\tag{Stability}
-
-&amp;=
-
-n \left ( \frac{\sum_\limits{ij} A_{ij}^t A_{ij}^{t-1}}{\sum_\limits{ij}A_{ij}^{t-1}}\right )
-
-\tag{Reciprocity}
-
-\\
-
-\Psi_T \left ( A^t , A^{t-1}\right)
-
-&amp;=
-
-n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
-{\sum_\limits{ijk}A_{ij}^{t-1}A_{jk}^{t-1}}\right )
-
-
-
-\tag{Transitivity}
-
-\end{align}\]</span></p>
-<p>$$</p>
-<ol style="list-style-type: decimal">
-<li><strong>Density</strong> : 전체 네트워크에 들어있는 총 tie의 숫자.</li>
-<li><strong>Stability</strong> : t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성</li>
-<li><strong>Reciprocity</strong> : t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j에서 i로 향하는 링크가 생겨날 경향</li>
-<li><strong>Transitivity</strong> : t-1 시점에 i에서 j, j에서 k로 향하는 tie가 존재한다면 t 시점에 i에서 k로의 tie가 생겨나는 것으로 이어지는 경향</li>
+<div id="abstract-1" class="section level1" number="11">
+<h1><span class="header-section-number">C</span> ABSTRACT</h1>
+<p>Graph convolutional network (GCN) has been successfully applied to many graph-based applications; however, training a large-scale GCN remains challenging. Current SGD-based algorithms suffer from either a high computational cost that exponentially grows with number of GCN layers, or a large space requirement for keeping the entire graph and the embedding of each node in memory. In this paper, we propose Cluster-GCN, a novel GCN algorithm that is suitable for SGD-based training by exploiting the graph clustering structure. Cluster-GCN works as the following: at each step, it samples a block of nodes that associate with a dense subgraph identified by a graph clustering algorithm, and restricts the neighborhood search within this subgraph. This simple but effective strategy leads to significantly improved memory and computational efficiency while being able to achieve comparable test accuracy with previous algorithms. To test the scalability of our algorithm, we create a new Amazon2M data with 2 million nodes and 61 million edges which is more than 5 times larger than the previous largest publicly available dataset (Reddit). For training a 3-layer GCN on this data, Cluster-GCN is faster than the previous state-of-the-art VR-GCN (1523 seconds vs 1961 seconds) and using much less memory (2.2GB vs 11.2GB). Furthermore, for training 4 layer GCN on this data, our algorithm can finish in around 36 minutes while all the existing GCN training algorithms fail to train due to the out-of-memory issue. Furthermore, Cluster-GCN allows us to train much deeper GCN without much time and memory overhead, which leads to improved prediction accuracy—using a 5-layer Cluster-GCN, we achieve state-of-the-art test F1 score 99.36 on the PPI dataset, while the previous best result was 98.71 by [16]. Our codes are publicly available at <a href="https://github.com/google-research/google-research/" class="uri">https://github.com/google-research/google-research/</a> tree/master/cluster_gcn</p>
+<p>1 INTRODUCTION</p>
+<p>Graph convolutional network (GCN) [9] has become increasingly popular in addressing many graph-based applications, including semi-supervised node classification [9], link prediction [17] and recommender systems [15]. Given a graph, GCN uses a graph convolution operation to obtain node embeddings layer by layer—at each layer, the embedding of a node is obtained by gathering the embeddings of its neighbors, followed by one or a few layers of linear transformations and nonlinear activations. The final layer embedding is then used for some end tasks. For instance, in node classification problems, the final layer embedding is passed to a classifier to predict node labels, and thus the parameters of GCN can be trained in an end-to-end manner.</p>
+<p>Since the graph convolution operator in GCN needs to propagate embeddings using the interaction between nodes in the graph, this makes training quite challenging. Unlike other neural networks that the training loss can be perfectly decomposed into individual terms on each sample, the loss term in GCN (e.g., classification loss on a single node) depends on a huge number of other nodes, especially when GCN goes deep. Due to the node dependence, GCN’s training is very slow and requires lots of memory – backpropagation needs to store all the embeddings in the computation graph in GPU memory</p>
+<p>Previous GCN Training Algorithms: To demonstrate the need of developing a scalable GCN training algorithm, we first discuss the pros and cons of existing approaches, in terms of 1) memory requirement1 , 2) time per epoch2 and 3) convergence speed (loss reduction) per epoch. These three factors are crucial for evaluating a training algorithm. Note that memory requirement directly restricts the scalability of algorithm, and the later two factors combined together will determine the training speed. In the following discussion we denote N to be the number of nodes in the graph, F the embedding dimension, and L the number of layers to analyze classic GCN training algorithm.</p>
+<p>• Full-batch gradient descent is proposed in the first GCN paper [9]. To compute the full gradient, it requires storing all the intermediate embeddings, leading to O(N F L) memory requirement, which is not scalable. Furthermore, although the time per epoch is efficient, the convergence of gradient descent is slow since the parameters are updated only once per epoch. [memory: bad; time per epoch: good; convergence: bad]</p>
+<p>Mini-batch SGD is proposed in [5]. Since each update is only based on a mini-batch gradient, it can reduce the memory requirement and conduct many updates per epoch, leading to a faster convergence. However, mini-batch SGD introduces a significant computational overhead due to the neighborhood expansion problem—to compute the loss on a single node at layer L, it requires that node’s neighbor nodes’ embeddings at layer L − 1, which again requires their neighbors’ embeddings at layer L − 2 and recursive ones in the downstream layers. This leads to time complexity exponential to the GCN depth. GraphSAGE [5] proposed to use a fixed size of neighborhood samples during back-propagation through layers and FastGCN [1] proposed importance sampling, but the overhead of these methods is still large and will become worse when GCN goes deep. [memory: good; time per epoch: bad; convergence: good]</p>
+<p>Mini-batch SGD is proposed in [5]. Since each update is only based on a mini-batch gradient, it can reduce the memory requirement and conduct many updates per epoch, leading to a faster convergence. However, mini-batch SGD introduces a significant computational overhead due to the neighborhood expansion problem—to compute the loss on a single node at layer L, it requires that node’s neighbor nodes’ embeddings at layer L − 1, which again requires their neighbors’ embeddings at layer L − 2 and recursive ones in the downstream layers. This leads to time complexity exponential to the GCN depth. GraphSAGE [5] proposed to use a fixed size of neighborhood samples during back-propagation through layers and FastGCN [1] proposed importance sampling, but the overhead of these methods is still large and will become worse when GCN goes deep. [memory: good; time per epoch: bad; convergence: good]</p>
+<p>loiting the graph clustering structure. We find that the efficiency of a mini-batch algorithm can be characterized by the notion of “embedding utilization,” which is proportional to the number of links between nodes in one batch or within-batch links. This finding motivates us to design the batches using graph clustering algorithms that aims to construct partitions of nodes so that there are more graph links between nodes in the same partition than nodes in different partitions. Based on the graph clustering idea, we proposed Cluster-GCN, an algorithm to design the batches based on efficient graph clustering algorithms (e.g., METIS [8]). We take this idea further by proposing a stochastic multi-clustering framework to improve the convergence of Cluster-GCN. Our strategy leads to huge memory and computational benefits. In terms of memory, we only need to store the node embeddings within the current batch, which is O(bF L) with the batch size b. This is significantly better than VR-GCN and full gradient decent, and slightly better than other SGD-based approaches. In terms of computational complexity, our algorithm achieves the same time cost per epoch with gradient descent and is much faster than neighborhood searching approaches. In terms of the convergence speed, our algorithm is competitive with other SGD-based approaches. Finally, our algorithm is simple to implement since we only compute matrix multiplication and no neighborhood sampling is needed. Therefore for Cluster-GCN, we have [memory: good; time per epoch: good; convergence: good].</p>
+<p>We conducted comprehensive experiments on several large-scale graph datasets and made the following contributions:</p>
+<p>• Cluster-GCN achieves the best memory usage on large-scale graphs, especially on deep GCN. For example, Cluster-GCN uses 5x less memory than VRGCN in a 3-layer GCN model on Amazon2M. Amazon2M is a new graph dataset that we construct to demonstrate the scalablity of the GCN algorithms. This dataset contains a amazon product co-purchase graph with more than 2 millions nodes and 61 millions edges.</p>
+<p>• Cluster-GCN achieves a similar training speed with VR-GCN for shallow networks (e.g., 2 layers) but can be faster than VRGCN when the network goes deeper (e.g., 4 layers), since our complexity is linear to the number of layers L while VR-GCN’s complexity is exponential to L.</p>
+<p>• Cluster-GCN is able to train a very deep network that has a large embedding size. Although several previous works show that deep GCN does not give better performance, we found that with proper optimization, deeper GCN could help the accuracy. For example, with a 5-layer GCN, we obtain a new benchmark accuracy 99.36 for PPI dataset, comparing with the highest reported one 98.71 by [16].</p>
+<p>Implementation of our proposed method is publicly available.3</p>
+<ol start="2" style="list-style-type: decimal">
+<li>BACKGROUND</li>
 </ol>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="estimation-1" class="section level4" number="7.7.1.2">
-<h4><span class="header-section-number">7.7.1.2</span> Estimation</h4>
-<ul>
-<li>Notation <mark>&amp; Algorithm &amp; Convergence</mark></li>
-</ul>
-<p>observed 네트워크의 sequence <span class="math inline">\(N^1 , N^2 , \cdots, N^T\)</span> 를 사용하자. 무엇을 위해? 실제 패러미터값 <span class="math inline">\(\theta\)</span> 에 가까운 estimator <span class="math inline">\(\hat \theta\)</span> 을 찾기 위해. normalizing constant 는 보통 계산해내는 것이 불가능하여 MLE 방법론의 도입은 불가. 따라서 MCMC stochastic approximation 를 사용해 패러미터 estimate. 이하와 같이 notation 한다. 이때 t 시점의 네트워크인 랜덤변수 <span class="math inline">\(\underline N^t\)</span> 에 대해 기댓값들이 계산되었음을 notice.</p>
-<p><mark>LATEX</mark></p>
-<p>이때 이하의 기댓값들은 조건부 분포로부터 Gibbs 샘플링을 돌리는 것으로 근사 가능. Newton 방법론과 유사한 과정을 통해 unconstrained optimization 을 하자. 기댓값을 근사하고, Likelihood를 증가시키는 방향으로 패러미터값을 업데이트. 이 과정을 수렴하기까지 반복.</p>
-<p><mark>LATEX</mark></p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="degeneracy-of-temporal-ergms" class="section level4" number="7.7.1.3">
-<h4><span class="header-section-number">7.7.1.3</span> Degeneracy of Temporal ERGMs</h4>
-<p>간단한 케이스에는, <mark>where the transition distribution factors over the edges</mark>, 이 모델들은 그러한 문제들에서 완전히 자유롭다는 것이 알려져 있음.</p>
-<p>이는 직관적으로도 와닿음. <span class="math inline">\(A^t_{ij} | A^{t−1}\)</span> 의 개개의 조건부 분포가 과하게 극단적이지 않은 한, <span class="math inline">\(A^{t-1}\)</span>이 주어졌을 때 <span class="math inline">\(A^t\)</span>의 edge는 조건부 독립이기 때문이지. 따라서 <span class="math inline">\(A^t | A^{t−1}\)</span> 의 조건부 엔트로피는 커야 하며, 이에 의해 <span class="math inline">\(A^t\)</span>의 조건부 엔트로피도 커야 할테니까.</p>
-<p>물론 이 명제는 <span class="math inline">\(A^{t−1}\)</span> 에 대한 <span class="math inline">\(A^t\)</span> 의 의존이 그렇게 강하지 않을 때만 성립하는 것임. 이때 이 의존의 위력은 패러미터들의 위력에 의해 결정되지. 그러니까 패러미터가 이상하게 잡히면 해당 명제의 전제가 깨진다는 거.</p>
-<p>동일한 확률값을 가진다는 것을 analytic 하게 보일 수 있는 그래프들의 class들, 즉 equivalence 클래스들에 대해서 이를 계산해보고, 엔트로피 계산에서 각각의 클래스의 크기에 따라서 weight를 부여하자.</p>
-<p>첫 플랏의 경우를 생각해보자. <span class="math inline">\(A^2 | A^1\)</span> 의 조건부 분포는 결국 <span class="math inline">\(A^2\)</span> 에 존재하는 edge의 갯수와, 얼마나 많은 <span class="math inline">\(ij\)</span> 값들에게서 <span class="math inline">\(A^2_{ij} = A^1_{ij}\)</span>가 성립하고 있느냐, 의 2개의 값에 대한 함수일 뿐이다. 이에 더해 <span class="math inline">\(A^1\)</span>의 edge들은 exchangeable 하다는 점도 있다. 이들을 모두 생각해보면 결국 우리는 <span class="math inline">\(A^2\)</span>의 marginal 분포를 순수하게 edge의 숫자를 통해서만 서술하는 것이 가능하다.</p>
-<p>따라서 우리는 <span class="math inline">\(n(n − 1)\)</span>의 확률값만 계산해내면 되며, 따라서 엔트로피는 weighted sum이다. 이때 weight는 각각의 edge 숫자에 대해, that many edges 를 가지고 있는 그래프의 숫자가 반영된 combinatorial quantities 가 된다.</p>
-<p><pics></p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="assessing-statistic-importance-and-quality-of-fit" class="section level4" number="7.7.1.4">
-<h4><span class="header-section-number">7.7.1.4</span> Assessing Statistic Importance and Quality of Fit</h4>
-<p>Three Parameter Model
-Description of Network Statistics</p>
-<p>Reverse-Transitivity:
-Co-Supported:
-Co-Supporting:
-Popularity
-Generosity</p>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-</div>
-</div>
-<div id="separable-temporal-ergm" class="section level3" number="7.7.2">
-<h3><span class="header-section-number">7.7.2</span> Separable Temporal ERGM</h3>
-<p>STERGM = A Separable Model for Dynamic Network</p>
-<p>Dynamic: social networks that evolve over time
-Time(discrete): <span class="math inline">\(\cdots (t-2) → (t-1) → (t) → \cdots\)</span>
-Shows longitudinal properties based on the ERGM</p>
-<p>Separable
-formation : new ties
-duration : lasting ties</p>
-<div id="temporal-ergm-interpretation" class="section level4" number="7.7.2.1">
-<h4><span class="header-section-number">7.7.2.1</span> Temporal ERGM Interpretation</h4>
-<p>하지만 이때 패러미터 해석할 때 주의해야할 부분이 있음.</p>
-<p>Property1: incidence of ties (the rate at which new ties are formed)
-Property2: duration of ties (how long they tend to last once they do)</p>
-<ul>
-<li>Network statstic</li>
-</ul>
-<p>(ex) edge count <span class="math inline">\(g(y^t , y^{t-1}) = | y^t |\)</span></p>
-<p>coefficient on <span class="math inline">\(g\)</span> <span class="math inline">\(prop\)</span> possibility of a network with many ties. 따라서 <span class="math inline">\(g\)</span>의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.</p>
-<p>But, this term simultaneously increases the weight of preservation of extant ties (fewer dissolved) ⇒ Both incidence and duration ↑</p>
-<p>The two-sided nature of these effects tends to muddle parameter interpretation. ⇒ STERGM which separates the incidence and duration of ties and allows for the separate interpretation.</p>
-<ul>
-<li>: incidence/tie formation <span class="math inline">\(y^+ = y^{t-1} \cup y^t\)</span>
-– : duration/tie dissolution <span class="math inline">\(y^- = y^{t-1} \cap y^t \Rightarrow y^t = y^- \cup (y^+ \setminus y^{t-1})\)</span></li>
-</ul>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="application-study" class="section level4" number="7.7.2.2">
-<h4><span class="header-section-number">7.7.2.2</span> Application Study</h4>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="conclusion" class="section level4" number="7.7.2.3">
-<h4><span class="header-section-number">7.7.2.3</span> Conclusion</h4>
+<p>Suppose we are given a graph G = (V, E,A), which consists of N = |V | vertices and |E | edges such that an edge between any two vertices i and j represents their similarity. The corresponding adjacency matrix A is an N ×N sparse matrix with (i, j) entry equaling to 1 if there is an edge between i and j and 0 otherwise. Also, each node is associated with an F -dimensional feature vector and X ∈ R N ×F denotes the feature matrix for all N nodes. An L-layer GCN [9] consists of L graph convolution layers and each of them constructs embeddings for each node by mixing the embeddings of the node’s neighbors in the graph from the previous layer:</p>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<p>where X (l) ∈ R N ×Fl is the embedding at the l-th layer for all the N nodes and X (0) = X; A ′ is the normalized and regularized adjacency matrix andW (l) ∈ R Fl ×Fl+1 is the feature transformation matrix which will be learnt for the downstream tasks. Note that for simplicity we assume the feature dimensions are the same for all layers (F1 = · · · = FL = F ). The activation function σ(·) is usually set to be the element-wise ReLU. Semi-supervised node classification is a popular application of GCN. When using GCN for this application, the goal is to learn weight matrices in (1) by minimizing the loss function</p>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
+<p>where YL contains all the labels for the labeled nodes; z (L) i is the i-th row of Z (L) with the ground-truth label to be yi , indicating the final layer prediction of node i. In practice, a cross-entropy loss is commonly used for node classification in multi-class or multi-label problems.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>PROPOSED ALGORITHM</li>
+</ol>
+<p>We first discuss the bottleneck of previous training methods to motivate the proposed algorithm.</p>
+<p>In the original paper [9], full gradient descent is used for training GCN, but it suffers from high computational and memory cost. In terms of memory, computing the full gradient of (2) by backpropagation requires storing all the embedding matrices {Z (l) } L l=1 which needs O(N F L) space. In terms of convergence speed, since the model is only updated once per epoch, the training requires more epochs to converge.</p>
+<p>It has been shown that mini-batch SGD can improve the training speed and memory requirement of GCN in some recent works [1, 2, 5]. Instead of computing the full gradient, SGD only needs to calculate the gradient based on a mini-batch for each update. In this paper, we use B ⊆ [N] with size b = |B| to denote a batch of node indices, and each SGD step will compute the g</p>
+<p>to perform an update. Despite faster convergence in terms of epochs, SGD will introduce another computational overhead on GCN training (as explained in the following), which makes it having much slower per-epoch time compared with full gradient descent.</p>
+<p>Why does vanilla mini-batch SGD have slow per-epoch time?: We consider the computation of the gradient associated with one node i : ∇loss(yi , z (L) i ). Clearly, this requires the embedding of node i, which depends on its neighbors’ embeddings in the previous layer. To fetch each node i’s neighbor nodes’ embeddings, we need to further aggregate each neighbor node’s neighbor nodes’ embeddings as well. Suppose a GCN has L + 1 layers and each node has an average degree of d, to get the gradient for node i, we need to aggregate features fromO(d L ) nodes in the graph for one node. That is, we need to fetch information for a node’s hop-k (k = 1, · · · , L) neighbors in the graph to perform one update. Computing each embedding requires O(F 2 ) time due to the multiplication withW (l) , so in average computing the gradient associated with one node requires O(d L F 2 ) time.</p>
+<p>Embedding utilization can reflect computational efficiency.: If a batch has more than one node, the time complexity is less straightforward since different nodes can have overlapped hopk neighbors, and the number of embedding computation can be less than the worst case O(bdL ). To reflect the computational efficiency of mini-batch SGD, we define the concept of “embedding utilization” to characterize the computational efficiency. During</p>
+<p>the algorithm, if the node i’s embedding at l-th layer z (l) i is computed and is reused u times for the embedding computations at layer l + 1, then we say the embedding utilization of z (l) i is u. For mini-batch SGD with random sampling, u is very small since the graph is usually large and sparse. Assume u is a small constant (almost no overlaps between hop-k neighbors), then mini-batch SGD needs to compute O(bdL ) embeddings per batch, which leads to O(bdL F 2 ) time per update and O(NdL F 2 ) time per epoch.</p>
+<p>We illustrate the neighborhood expansion problem in the left panel of Fig. 1. In contrary, full-batch gradient descent has the maximal embedding utilization—each embedding will be reused d (average degree) times in the upper layer. As a consequence, the original full gradient descent [9] only needs to compute O(N L) embeddings per epoch, which means on average only O(L) embedding computation is needed to acquire the gradient of one node.</p>
+<p>To make mini-batch SGD work, previous approaches try to restrict the neighborhood expansion size, which however do not improve embedding utilization. GraphSAGE [5] uniformly samples a fixed-size set of neighbors, instead of using a full-neighborhood set. We denote the sample size as r. This leads to O(r L ) embedding computations for each loss term but also makes gradient estimation less accurate. FastGCN [1] proposed an important sampling strategy to improve the gradient estimation. VR-GCN [2] proposed a strategy to store the previous computed embeddings for all the N nodes and L layers and reuse them for unsampled neighbors. Despite the high memory usage for storing all the N L embeddings, we find their strategy very useful and in practice, even for a small r (e.g., 2) can lead to good convergence.</p>
+<p>We summarize the time and space complexity in Table 1. Clearly, all the SGD-based algorithms suffer from exponential complexity with respect to the number of layers, and for VR-GCN, even though r can be small, they incur huge space complexity that could go beyond a GPU’s memory capacity. In the following, we introduce our Cluster-GCN algorithm, which achieves the best of two worlds— the same time complexity per epoch with full gradient descent and the same memory complexity with vanilla SGD.</p>
+<p>3.1 Vanilla Cluster-GCN</p>
+<p>Our Cluster-GCN technique is motivated by the following question: In mini-batch SGD updates, can we design a batch and the corresponding computation subgraph to maximize the embedding utilization? We answer this affirmative by connecting the concept of embedding utilization to a clustering objective.</p>
+<p>Consider the case that in each batch we compute the embeddings for a set of nodes B from layer 1 to L. Since the same subgraph AB, B (links within B) is used for each layer of computation, we can then see that embedding utilization is the number of edges within this batch ∥AB, B ∥0. Therefore, to maximize embedding utilization, we should design a batch B to maximize the within-batch edges, by which we connect the efficiency of SGD updates with graph clustering algorithms.</p>
+<p>Now we formally introduce Cluster-GCN. For a graph G, we partition its nodes into c groups: V = [V1, · · · Vc ] where Vt consists of the nodes in the t-th partition. Thus we have c subgraphs as</p>
+<p>where each Et only consists of the links between nodes in Vt . After reorganizing nodes, the adjacency matrix is partitioned into c 2 submatrices as</p>
+<p>where each diagonal block At t is a |Vt | × |Vt | adjacency matrix containing the links within Gt . A¯ is the adjacency matrix for graph G¯; Ast contains the links between two partitions Vs and Vt ; ∆ is the matrix consisting of all off-diagonal blocks of A. Similarly, we can partition the feature matrix X and training labels Y according to the partition [V1, · · · , Vc ] as [X1, · · · ,Xc ] and [Y1, · · · ,Yc ] where Xt and Yt consist of the features and labels for the nodes in Vt respectively.</p>
+<p>The benefit of this block-diagonal approximation G¯ is that the objective function of GCN becomes decomposible into different batches (clusters). Let A¯′ denotes the normalized version of A¯, the final embedding matrix becomes</p>
+<p>due to the block-diagonal form ofA¯(note thatA¯′ t t is the corresponding diagonal block of A¯′ ). The loss function can also be decomposed into</p>
+<p>The Cluster-GCN is then based on the decomposition form in (6) and (7). At each step, we sample a cluster Vt and then conduct SGD to update based on the gradient of LA¯′ t t , and this only requires the sub-graph At t , the Xt , Yt on the current batch and the models {W (l) } L l=1 . The implementation only requires forward and backward propagation of matrix products (one block of (6)) that is much easier to implement than the neighborhood search procedure used in previous SGD-based training methods.</p>
+<p>We use graph clustering algorithms to partition the graph. Graph clustering methods such as Metis [8] and Graclus [4] aim to construct the partitions over the vertices in the graph such that withinclusters links are much more than between-cluster links to better capture the clustering and community structure of the graph. These are exactly what we need because: 1) As mentioned before, the embedding utilization is equivalent to the within-cluster links for each batch. Intuitively, each node and its neighbors are usually located in the same cluster, therefore after a few hops, neighborhood nodes with a high chance are still in the same cluster. 2) Since we replace A by its block diagonal approximation A¯ and the error is proportional to between-cluster links ∆, we need to find a partition to minimize number of between-cluster links.</p>
+<p>In Figure 1, we illustrate the neighborhood expansion with full graph G and the graph with clustering partition G¯. We can see that cluster-GCN can avoid heavy neighborhood search and focus on the neighbors within each cluster. In Table 2, we show two different node partition strategies: random partition versus clustering partition. We partition the graph into 10 parts by using random partition and METIS. Then use one partition as a batch to perform a SGD update. We can see that with the same number of epochs, using clustering partition can achieve higher accuracy. This shows using graph clustering is important and partitions should not be formed randomly.</p>
+<p>Time and space complexity.: Since each node in Vt only links to nodes inside Vt , each node does not need to perform neighborhoods searching outside At t . The computation for each batch will purely be matrix products A¯′ t tX (l) t W (l) and some element-wise operations, so the overall time complexity per batch isO(∥At t ∥0F + bF 2 ). Thus the overall time complexity per epoch becomesO(∥A∥0F+ N F 2 ). In average, each batch only requires computingO(bL) embeddings, which is linear instead of exponential to L. In terms of space complexity, in each batch, we only need to load b samples and store their embeddings on each layer, resulting in O(bLF ) memory for storing embeddings. Therefore our algorithm is also more efficient than all the previous algorithms. Moreover, our algorithm only requires loading a subgraph into GPU memory instead of the full graph (though graph is usually not the memory bottleneck). The detailed time and memory complexity are summarized in Table 1.</p>
+<p>3.2 Stochastic Multiple Partitions</p>
+<p>Although vanilla Cluster-GCN achieves good computational and memory complexity, there are still two potential issues:</p>
+<p>• After the graph is partitioned, some links (the ∆ part in Eq. (4)) are removed. Thus the performance could be affected.
+• Graph clustering algorithms tend to bring similar nodes together. Hence the distribution of a cluster could be different from the original data set, leading to a biased estimation of the full gradient while performing SGD updates.</p>
+<p>In Figure 2, we demonstrate an example of unbalanced label distribution by using the Reddit data with clusters formed by Metis. We calculate the entropy value of each cluster based on its label distribution. Comparing with random partitioning, we clearly see that entropy of most clusters are smaller, indicating that the label distributions of clusters are biased towards some specific labels. This increases the variance across different batches and may affect the convergence of SGD.</p>
+<p>To address the above issues, we propose a stochastic multiple clustering approach to incorporate between-cluster links and reduce variance across batches. We first partition the graph into p clusters V1, · · · , Vp with a relatively large p. When constructing a batch B for an SGD update, instead of considering only one cluster, we randomly choose q clusters, denoted as t1, . . . ,tq and include their nodes {Vt1 ∪ · · · ∪Vtq } into the batch. Furthermore, the links between the chosen clusters,</p>
+<p>are added back. In this way, those between-cluster links are reincorporated and the combinations of clusters make the variance across batches smaller. Figure 3 illustrates our algorithm—for each epochs, different combinations of clusters are chosen as a batch. We conduct an experiment on Reddit to demonstrate the effectiveness of the proposed approach. In Figure 4, we can observe that using multiple clusters as one batch could improve the convergence. Our final Cluster-GCN algorithm is presented in Algorithm 1.</p>
+<p>3.3 Issues of training deeper GCNs</p>
+<p>Previous attempts of training deeper GCNs [9] seem to suggest that adding more layers is not helpful. However, the datasets used in the experiments may be too small to make a proper justification. For example, [9] considered a graph with only a few hundreds of training nodes for which overfitting can be an issue. Moreover, we observe that the optimization of deep GCN models becomes difficult as it may impede the information from the first few layers being passed through. In [9], they adopt a technique similar to residual connections [6] to enable the model to carry the information from a previous layer to a next layer. Specifically, they modify (1) to add the hidden representations of layer l into the next layer.</p>
+<p>Here we propose another simple technique to improve the training of deep GCNs. In the original GCN settings, each node aggregates the representation of its neighbors from the previous layer. However, under the setting of deep GCNs, the strategy may not be suitable as it does not take the number of layers into account. Intuitively, neighbors nearby should contribute more than distant nodes. We thus propose a technique to better address this issue. The idea is to amplify the diagonal parts of the adjacency matrix A used in each GCN layer. In this way, we are putting more weights on the representation from the previous layer in the aggregation of each GCN layer. An example is to add an identity to A¯ as follows.</p>
+<p>While (9) seems to be reasonable, using the same weight for all the nodes regardless of their numbers of neighbors may not be suitable. Moreover, it may suffer from numerical instability as values can grow exponentially when more layers are used. Hence we propose a modified version of (9) to better maintain the neighborhoods information and numerical ranges. We first add an identity to the original A and perform the normalization, (10)</p>
+<p>and then consider</p>
+<p>Experimental results of adopting the “diagonal enhancement” techniques are presented in Section 4.3 where we show that this new normalization strategy can help to build deep GCN and achieve SOTA performance.</p>
+<p>4 EXPERIMENTS</p>
+<p>We evaluate our proposed method for training GCN on two tasks: multi-label and multi-class classification on four public datasets. The statistic of the data sets are shown in Table 3. Note that the Reddit dataset is the largest public dataset we have seen so far for GCN, and the Amazon2M dataset is collected by ourselves and is much larger than Reddit (see more details in Section 4.2). We include the following state-of-the-art GCN training algorithms in our comparisons:</p>
+<p>• Cluster-GCN (Our proposed algorithm): the proposed fast GCN training method.
+• VRGCN4 [2]: It maintains the historical embedding of all the nodes in the graph and expands to only a few neighbors to speedup training. The number of sampled neighbors is set to be 2 as suggested in [2]5 .
+• GraphSAGE6 [5]: It samples a fixed number of neighbors per node. We use the default settings of sampled sizes for each layer (S1 = 25, S2 = 10) in GraphSAGE.</p>
+<p>We implement our method in PyTorch [13]. For the other methods, we use all the original papers’ code from their github pages. Since [9] has difficulty to scale to large graphs, we do not compare with it here. Also as shown in [2] that VRGCN is faster than FastGCN, so we do not compare with FastGCN here. For all the methods we use the Adam optimizer with learning rate as 0.01, dropout rate as 20%, weight decay as zero. The mean aggregator proposed by [5] is adopted and the number of hidden units is the same for all methods. Note that techniques such as (11) is not considered here. In each experiment, we consider the same GCN architecture for all methods. For VRGCN and GraphSAGE, we follow the settings provided by the original papers and set the batch sizes as 512. For Cluster-GCN, the number of partitions and clusters per batch for each dataset are listed in Table 4. Note that clustering is seen as a preprocessing step and its running time is not taken into account in training. In Section 6, we show that graph clustering only takes a small portion of preprocessing time. All the experiments are conducted on a machine with a NVIDIA Tesla V100 GPU (16 GB memory), 20-core Intel Xeon CPU (2.20 GHz), and 192 GB of RAM.</p>
+<p>4.1 Training Performance for median size datasets</p>
+<p>Training Time vs Accuracy: First we compare our proposed method with other methods in terms of training speed. In Figure 6, the x-axis shows the training time in seconds, and y-axis shows the accuracy (F1 score) on the validation sets. We plot the training time versus accuracy for three datasets with 2,3,4 layers of GCN. Since GraphSAGE is slower than VRGCN and our method, the curves for GraphSAGE only appear for PPI and Reddit datasets. We can see that our method is the fastest for both PPI and Reddit datasets for GCNs with different numbers of layers.</p>
+<p>For Amazon data, since nodes’ features are not available, an identity matrix is used as the feature matrix X. Under this setting, the shape of parameter matrix W (0) becomes 334863x128. Therefore, the computation is dominated by sparse matrix operations such as AW (0) . Our method is still faster than VRGCN for 3-layer case, but slower for 2-layer and 4-layer ones. The reason may come from the speed of sparse matrix operations from different frameworks. VRGCN is implemented in TensorFlow, while Cluster-GCN is implemented in PyTorch whose sparse tensor support are still in its very early stage. In Table 6, we show the time for TensorFlow and PyTorch to do forward/backward operations on Amazon data, and a simple two-layer network are used for benchmarking both frameworks. We can clearly see that TensorFlow is faster than PyTorch. The difference is more significant when the number of hidden units increases. This may explain why Cluster-GCN has longer training time in Amazon dataset.</p>
+<p>Memory usage comparison: For training large-scale GCNs, besides training time, memory usage needed for training is often more important and will directly restrict the scalability. The memory usage includes the memory needed for training the GCN for many epochs. As discussed in Section 3, to speedup training, VRGCN needs to save historical embeddings during training, so it needs much more memory for training than Cluster-GCN. GraphSAGE also has higher memory requirement than Cluster-GCN due to the exponential neighborhood growing problem. In Table 5, we compare our memory usage with VRGCN’s memory usage for GCN with different layers. When increasing the number of layers, Cluster-GCN’s memory usage does not increase a lot. The reason is that when increasing one layer, the extra variable introduced is the weight matrix W (L) , which is relatively small comparing to the sub-graph and node features. While VRGCN needs to save each layer’s history embeddings, and the embeddings are usually dense and will soon dominate the memory usage. We can see from Table 5 that Cluster-GCN is much more memory efficient than VRGCN. For instance, on Reddit data to train a 4-layer GCN with hidden dimension to be 512, VRGCN needs 2064MB memory, while Cluster-GCN only uses 308MB memory.</p>
+<p>4.2 Experimental results on Amazon2M</p>
+<p>A new GCN dataset: Amazon2M. By far the largest public data for testing GCN is Reddit dataset with the statistics shown in Table 3, which contains about 200K nodes. As shown in Figure 6 GCN training on this data can be finished within a few hundreds seconds. To test the scalability of GCN training algorithms, we constructed a much larger graph with over 2 millions of nodes and 61 million edges based on Amazon co-purchasing networks [11, 12]. The raw co-purchase data is from Amazon-3M7 . In the graph, each node is a product, and the graph link represents whether two products are purchased together. Each node feature is generated by extracting bag-of-word features from the product descriptions followed by Principal Component Analysis [7] to reduce the dimension to be 100. In addition, we use the top-level categories as the labels for that product/node (see Table 7 for the most common categories). The detailed statistics of the data set are listed in Table 3.</p>
+<p>In Table 8, we compare with VRGCN for GCNs with a different number of layers in terms of training time, memory usage, and test accuracy (F1 score). As can be seen from the table that 1) VRGCN is faster than Cluster-GCN with 2-layer GCN but slower than ClusterGCN when increasing one layer while achieving similar accuracy. 2) In terms of memory usage, VRGCN is using much more memory than Cluster-GCN (5 times more for 3-layer case), and it is running out of memory when training 4-layer GCN, while Cluster-GCN does not need much additional memory when increasing the number of layers, and achieves the best accuracy for this data when training a 4-layer GCN.</p>
+<p>4.3 Training Deeper GCN</p>
+<p>In this section we consider GCNs with more layers. We first show the timing comparisons of Cluster-GCN and VRGCN in Table 9. PPI is used for benchmarking and we run 200 epochs for both methods. We observe that the running time of VRGCN grows exponentially because of its expensive neighborhood finding, while the running time of Cluster-GCN only grows linearly.</p>
+<p>Next we investigate whether using deeper GCNs obtains better accuracy. In Section 4.3, we discuss different strategies of modifying the adjacency matrix A to facilitate the training of deep GCNs. We apply the diagonal enhancement techniques to deep GCNs and run experiments on PPI. Results are shown in Table 11. For the case of 2 to 5 layers, the accuracy of all methods increases with more layers added, suggesting that deeper GCNs may be useful. However, when 7 or 8 GCN layers are used, the first three methods fail to converge within 200 epochs and get a dramatic loss of accuracy. A possible reason is that the optimization for deeper GCNs becomes more difficult. We show a detailed convergence of a 8-layer GCN in Figure 5. With the proposed diagonal enhancement technique (11), the convergence can be improved significantly and similar accuracy can be achieved.</p>
+<p>State-of-the-art results by training deeper GCNs.: With the design of Cluster-GCN and the proposed normalization approach, we now have the ability for training much deeper GCNs to achieve better accuracy (F1 score). We compare the testing accuracy with other existing methods in Table 10. For PPI, Cluster-GCN can achieve the state-of-art result by training a 5-layer GCN with 2048 hidden units. For Reddit, a 4-layer GCN with 128 hidden units is used.</p>
+<p>5 CONCLUSION</p>
+<p>We present ClusterGCN, a new GCN training algorithm that is fast and memory efficient. Experimental results show that this method can train very deep GCN on large-scale graph, for instance on a graph with over 2 million nodes, the training time is less than an hour using around 2G memory and achieves accuracy of 90.41 (F1 score). Using the proposed approach, we are able to successfully train much deeper GCNs, which achieve state-of-the-art test F1 score on PPI and Reddit datasets.</p>
+<p>Acknowledgement: CJH acknowledges the support of NSF via IIS-1719097, Intel faculty award, Google Cloud and Nvidia.</p>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+<div class="csl-entry">
+———. 2021. <em>Bookdown: Authoring Books and Technical Documents with r Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.
 </div>
 </div>
 </div>
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="parameter-estimation-of-ergm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="latent-network-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="noname.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -729,7 +649,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212107_ERGMforDynamicNetworks.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/990102_Abs.Rmd",
 "text": "Edit"
 },
 "history": {
