@@ -13,11 +13,32 @@
 – The field of social network analysis has been another key source, contributing tools usually aimed at least originally at capturing basic aspects of social structure and dynamics.
 – The field of physics has also been an important contributor, with the proposed tools often motivated by analogues in statistical mechanics.
 
+
+<br>
+<br>
+<br>
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
 ### Vertex and Edge Characteristics
 • The fundamental elements of network graphs are their vertices and edges
 • Characterization of the Vertex and Edges
 – Characterizations based upon vertex degrees
 – Characterizations seeking to capture some more general notion of the ‘importance’ of a vertex
+
+
+<br>
+<br>
+<br>
+
+
 
 #### Vertex Degree
 • The degree dv of a vertex v, in a network graph G = (V, E), counts the number of edges in E incident upon v.
@@ -95,6 +116,13 @@ xlab=c("Log Vertex Degree"), ylab=c("Log Average Neighbor Degree"))
 ```
 
 Figure 4: The degree distribution for protein interactions in Yeast
+
+
+<br>
+<br>
+<br>
+
+
 
 #### Vertex Centrality
 • Many questions that might be asked about a vertex in a network graph essentially seek to understand
@@ -234,6 +262,13 @@ vertex.size=10 * sqrt(authority.score(aidsblog)$vector))
 ```
 Figure 7: AIDS blog network with vertex area proportional to hubs and authority centrality measures
 
+
+<br>
+<br>
+<br>
+
+
+
 #### Characterizing Edges
 • Edge betweenness centrality which extends vertex betweenness centrality in a straightforward manner, by assigning to each edge a value that reflects the number of shortest paths traversing that edge is a natural quantity to use.
 
@@ -266,6 +301,20 @@ indicate that the two corresponding original edges in G were incident to a commo
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
 
 ### Characterizing Network Cohesion
 
@@ -283,6 +332,13 @@ being asked.
 – Definitions differ, for example, in scale, ranging from local (e.g., triads) to global (e.g., giant
 components), and also in the extent to which they are specified explicitly (e.g., cliques) versus
 implicitly (e.g., ‘clusters’ or ‘communities’)
+
+
+<br>
+<br>
+<br>
+
+
 
 
 #### Subgraphs and Censuses
@@ -371,6 +427,13 @@ Consistent with the observations from our earlier analysis of hubs and authoriti
 often are made linking such network substructures to biological function.
 
 
+
+<br>
+<br>
+<br>
+
+
+
 #### Density and Related Notions of Relative Frequency
 
 - **Density**
@@ -432,6 +495,13 @@ edges.
 reciprocity(aidsblog, mode="default")
 reciprocity(aidsblog, mode="ratio")
 ```
+
+
+<br>
+<br>
+<br>
+
+
 
 #### Connectivity, Cuts, and Flows
 
@@ -506,6 +576,20 @@ graph.maxfow()
 graph.mincu()
 ```
 
+
+<br>
+<br>
+<br>
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
 ### Graph Partitioning
 
 **Partitioning**은 elements의 집합을 "발생이 자연스러운" 부분집합으로 분할하는 과정. 더 이론적으로 말하자면, finite set $S$의 partition $C = \{ C_1, \cdots, C_K \}$는 $S$를 $K$ 개의 disjoint로 decomposition 한 물건으로, 이인즉 $\forall C_k \not = \emptyset: \cup_{k=1}^K C_k = S$.
@@ -517,6 +601,13 @@ graph.mincu()
 Graph partitioning algorithms 은 보통 그래프 $G(V, E)$의 vertex set $V$ 의 partition $C = \{ C_1, \cdots, C_K \}$를 찾는 것을 그 목표로 함. 이를 위한 방법으로 $C_k$ 안의 vertex에서 $C_k'$로의 vertex로 잇는 edge의 sets $E(C_k, C_k ')$는 $C_k$ 내에서 vertex 를 잇는 edge들의 set $E(C_k) = E(C_k , C_k)$보다 작다는 점을 활용함.
 
 그래프 partitioning의 이 문제는 complex networks 문헌에서의 community detection에서도 동일하게 발생함. 이에 대한 해결책으로 큰 틀에서 2가지 접근법이 존재.
+
+
+
+<br>
+<br>
+<br>
+
 
 
 #### Hierarchical Clustering
@@ -580,6 +671,13 @@ library(ape)
 dendPlot(kc, mode="phylo")
 ```
 
+
+<br>
+<br>
+<br>
+
+
+
 #### Spectral Partitioning
 
 spectral graph theory의 연구결과를 응용하여 그래프 $G$의 connectivity를 특정 매트릭스의 eigen-analysis와 연관짓는 것.
@@ -627,6 +725,13 @@ Fiedler vector를 생산하고 해당 vector의 요소들을 실제 actor number
 
 
 
+<br>
+<br>
+<br>
+
+
+
+
 #### Validation of Graph Partitioning
 
 validation 문제는 그래프 partitioning에 항상 중요하지만, 대부분의 경우 nontrivial 문제이다. 네트워크 그래프에 vertex의 cohesive subset 이 존재한다면, 이러한 subset의 기저에는 vertex에게 있어 vertex 간에 특정한 연관적인 특성 (또는 속성)에 일부 공통성이 있을 것으로 일반적으로 예상한다. 그래프 partitioning은 이러한 성질에 대한 지식이 없을때 그러한 subset을 발견하기 위한 도구로 인식될 수도 있다. 우리가 그래프 외부에서 정의된 클래스 멤버쉽에 대한 subset 정의를 알고 있다면, 그래프 내부에서의 partitioning으로 얻은 분절들과 비교하는 것도 흥미로움.
@@ -644,6 +749,20 @@ yc = fastgreedy.community(yeast.gc)
 c.m = membership(yc)
 table(c.m, func.class, useNA=c("no"))
 ```
+
+
+<br>
+<br>
+<br>
+
+
+
+
+<br>
+<br>
+<br>
+
+
 
 ### Assortativity and Mixing
 
@@ -682,7 +801,7 @@ values of that characteristic for the vertices joined by an edge e ∈ E.
 
 
 $$
-r = \frac{\sum_{x,y}xy(f_{xy} - f_{x+}f_{+y}}{\sigma_x \sigma_y}
+r = \frac{\sum_{x,y}xy(f_{xy} - f_{x+}f_{+y})}{\sigma_x \sigma_y}
 $$
 
 

@@ -422,10 +422,9 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Data Collection and Sampling</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-procedures"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Procedures</a></li>
-<li class="chapter" data-level="7.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>7.3.2</b> Sampling Designs</a></li>
-<li class="chapter" data-level="7.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>7.3.3</b> Coping Strategies</a></li>
-<li class="chapter" data-level="7.3.4" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>7.3.4</b> Big Data Solves Nothing</a></li>
+<li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Designs</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>7.3.2</b> Coping Strategies</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>7.3.3</b> Big Data Solves Nothing</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>7.4</b> Mathematical Models for Network Graphs</a>
 <ul>
@@ -571,11 +570,14 @@ P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \
 
 \left \{ A^t_{ij} A^{t-1}_{ij} + \left (1-A^t_{ij} \right) \left (1-A^{t-1}_{ij} \right)
 \right \}
+
+
+\tag{Stability}
+
 \\
 
 \Psi_R \left ( A^t , A^{t-1}\right)
 
-\tag{Stability}
 
 &amp;=
 
@@ -601,8 +603,8 @@ n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
 <ol style="list-style-type: decimal">
 <li><strong>Density</strong> : 전체 네트워크에 들어있는 총 tie의 숫자.</li>
 <li><strong>Stability</strong> : t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성</li>
-<li><strong>Reciprocity</strong> : t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j에서 i로 향하는 링크가 생겨날 경향</li>
-<li><strong>Transitivity</strong> : t-1 시점에 i에서 j, j에서 k로 향하는 tie가 존재한다면 t 시점에 i에서 k로의 tie가 생겨나는 것으로 이어지는 경향</li>
+<li><strong>Reciprocity</strong> : t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j→i 링크가 생겨날 경향</li>
+<li><strong>Transitivity</strong> : t-1 시점에 i→j와 j→k인 tie가 존재한다면, t에 i→k tie의 발생으로 이어지는 경향</li>
 </ol>
 <p><br>
 <br>
@@ -669,7 +671,7 @@ Property2: duration of ties (how long they tend to last once they do)</p>
 <li>Network statstic</li>
 </ul>
 <p>(ex) edge count <span class="math inline">\(g(y^t , y^{t-1}) = | y^t |\)</span></p>
-<p>coefficient on <span class="math inline">\(g\)</span> <span class="math inline">\(prop\)</span> possibility of a network with many ties. 따라서 <span class="math inline">\(g\)</span>의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.</p>
+<p>coefficient on <span class="math inline">\(g\)</span> <span class="math inline">\(\prop\)</span> possibility of a network with many ties. 따라서 <span class="math inline">\(g\)</span>의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.</p>
 <p>But, this term simultaneously increases the weight of preservation of extant ties (fewer dissolved) ⇒ Both incidence and duration ↑</p>
 <p>The two-sided nature of these effects tends to muddle parameter interpretation. ⇒ STERGM which separates the incidence and duration of ties and allows for the separate interpretation.</p>
 <ul>

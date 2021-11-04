@@ -90,11 +90,14 @@ $$
 
 \left \{ A^t_{ij} A^{t-1}_{ij} + \left (1-A^t_{ij} \right) \left (1-A^{t-1}_{ij} \right)
 \right \}
+
+
+\tag{Stability}
+
 \\
 
 \Psi_R \left ( A^t , A^{t-1}\right)
 
-\tag{Stability}
 
 &=
 
@@ -119,10 +122,11 @@ n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
 
 $$
 
+
 1. **Density**		: 전체 네트워크에 들어있는 총 tie의 숫자. 
 2. **Stability**	: t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성
-3. **Reciprocity**	: t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j에서 i로 향하는 링크가 생겨날 경향
-4. **Transitivity**	: t-1 시점에 i에서 j, j에서 k로 향하는 tie가 존재한다면 t 시점에 i에서 k로의 tie가 생겨나는 것으로 이어지는 경향
+3. **Reciprocity**	: t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j→i 링크가 생겨날 경향
+4. **Transitivity**	: t-1 시점에 i→j와 j→k인 tie가 존재한다면, t에 i→k tie의 발생으로 이어지는 경향
 
 
 <br>
@@ -222,7 +226,7 @@ Property2: duration of ties (how long they tend to last once they do)
 
 (ex) edge count $g(y^t , y^{t-1}) = | y^t |$
 
-coefficient on $g$ $prop$ possibility of a network with many ties. 따라서 $g$의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.
+coefficient on $g$ $\prop$ possibility of a network with many ties. 따라서 $g$의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.
 
 
 

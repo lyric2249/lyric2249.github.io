@@ -304,7 +304,6 @@ spectral-partitioning
 validation-of-graph-partitioning
 assortativity-and-mixing
 data-collection-and-sampling
-sampling-procedures
 sampling-designs
 induced-and-incident-subgraph
 example-of-a-bias

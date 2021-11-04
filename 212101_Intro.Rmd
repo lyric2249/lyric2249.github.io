@@ -2,6 +2,7 @@
 
 ## Introduction
 
+
 - Network = Graph: for mathematical purposes, networks are most commonly represented in a formal manner using graphs of various kinds
 
 Vertices (Vertex), Edges, directed, undirected
@@ -20,11 +21,12 @@ Vertices (Vertex), Edges, directed, undirected
 
 2. Numerical Summaries
 
-– Transitivity (Clustering Coefficient): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
+- **Transitivity** (**Clustering Coefficient**): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
 
-– Assortativity Coefficient: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
+- **Assortativity Coefficient**: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
 
-- The focus is on an attribute associated with network vertices (i.e., lawyer practice) and the network structure plays a comparatively more implicit role
+- 주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편
+
 
 
 
@@ -61,7 +63,7 @@ Vertices (Vertex), Edges, directed, undirected
 
 3. Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 "significance" 한지를 판정하기 위한 네트워크의 **null classes**로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.
 
-4. Statistical Network Models: **Exponential Random Graph Models** 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 **Latent network models**은 **hierarchical modeling**에서의 latent 변수 사용법과 정확하게 평행하다 - 즉, ***대비된다???***. **Stochastic block models**는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.
+4. Statistical Network Models: **Exponential Random Graph Models** 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 **Latent network models**은 **hierarchical modeling**에서의 latent 변수 사용법과 정확하게 평행하다 <mark>즉, ***대비된다???***.</mark> **Stochastic block models**는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.
 
 
 
@@ -98,14 +100,7 @@ network-based 관점에서 연구되는 많은 system들은 본질적으로 동�
 
 수학적 모델링이 여전히 이러한 과정을 모델링하는데 있어 1번째로 사용되는 툴이지만, network-based 통계적 모델들이 점차적으로 그 사용이 늘어나고 있음. 왜냐고? contact network에 대한 더욱 대량의 데이터가 사용 가능해지고 있으니까.
 
-
-
-– Statistical methods for analyzing network flows. Referring to the movement of something —
-materials, people, or commodities, for example — from origin to destination, flows are a special
-type of dynamic process fundamental to transportation networks (e.g., airlines moving people)
-and communication networks (e.g., the Internet moving packets of information), among others.
-– Dynamic network analysis, wherein the network, the process(es) on the network, or indeed
-both, are expected to be evolving in time.
+네트워크 flow 를 분석하기 위한 통계적 방법론들. 시작점으로부터 도착점까지의 material, 사람, 상품 등의 움직임 등을 생각해보면, flow들은 커뮤니케이션 네트워크 (인터넷 패킷 등), transportation 네트워크에 필수불가결한 동적 프로세스 이며 이외에도 그러함. 이러한 동적 프로세스들은 기본적으로 특이점이 없다면 시간의 흐름에 따라 evolve 될 것이 기대되고 있음.
 
 
 
