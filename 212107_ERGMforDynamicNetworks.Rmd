@@ -226,7 +226,7 @@ Property2: duration of ties (how long they tend to last once they do)
 
 (ex) edge count $g(y^t , y^{t-1}) = | y^t |$
 
-coefficient on $g$ $\prop$ possibility of a network with many ties. 따라서 $g$의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.
+coefficient on $g$ $\propto$ possibility of a network with many ties. 따라서 $g$의 계수가 올라가면 tie가 많은 네트워크의 발생 확률 올라감.
 
 
 

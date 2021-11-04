@@ -58,7 +58,7 @@ node $V$의 Simpl Random Sample (SRS)인 $V^\ast$로부터 시작하자. 이로�
 
 
 
-반면에 우리는 edge의 SRS에서 시작해볼 수도 있다. 이 경우 $E^\ast$는 $E$의 SRS. 이후 이 edge 양끝에 해당하는 발생을 node로서 잡는다. 이인즉슨 $\exists j \inV:(i,j) \in E^\ast \Rightarrow i \in V^\ast$. 고전적 survey 에 대해 쌓인 경험에 비추어볼 때 **incident-subgraph sampling** 는 꽤 괴상해보이지만, 그럼에도 이쪽이 natural 한 경우가 꽤 있기는 함.
+반면에 우리는 edge의 SRS에서 시작해볼 수도 있다. 이 경우 $E^\ast$는 $E$의 SRS. 이후 이 edge 양끝에 해당하는 발생을 node로서 잡는다. 이인즉슨 $\exists j \in V:(i,j) \in E^\ast \Rightarrow i \in V^\ast$. 고전적 survey 에 대해 쌓인 경험에 비추어볼 때 **incident-subgraph sampling** 는 꽤 괴상해보이지만, 그럼에도 이쪽이 natural 한 경우가 꽤 있기는 함.
 
 
 
@@ -138,11 +138,17 @@ seed node 로 부터 시작. 이의 직접적인 이웃을 바로 기록. 이후
 
 **snowball 샘플링**은 그래프에 대해, incuded 나 incident 에 의해 얻어지는 것 그 어느것과도 다른 분포를 얻게 되는 결과를 초래함. seed 가 SRS에 의해 정해졌더라도 snowball 에 의해 골라지는 다른 node 들은 랜덤샘플이 아님. initial node 이외의 node 들은 seed 로부터 길을 따라서 도착할 수 있는 node 다 보니, 그들은 적어도 degree 가 1은 보장되어야 하고, 약하게나마 seed 에 연결은 되어 있어야 하마, 일반적으로 평균보다는 높은 degree 를 갖는 경향성을 보임.
 
+<br>
+<br>
 
 
 ##### Respondent-driven Sampling
 
 **Respondent-driven** 샘플링은 소셜네트워크 상황에서 snowball 샘플링의 유의한 변주. 이는 낙인되었거나 혹은 불법적이라 그들의 존재를 관계적으로 잘 발견해내기 어려운 **sub-populations** 을 찾아내기 위한 방법으로서 태초의 목적은 이것이었음. 이건 연구중인 문제에 해당하는 그룹 안의 멤버를 한둘 골라내서 이들을 이니셜 멤버로 한 뒤 걔들한테 주위 사람들 좀 여기 참가시켜보라고 설득하는 거. 때때로는 이 이니셜 멤버들한테 물리적 토큰(표식)을 준 뒤 이 물리적 표식을 여기 참가하라고 꼬실 대상들한테 뿌리라고 하는 식으로 link 를 트랙하기도 함. 이 물리적 토큰 자체가 인센티브일 수도 있고. 이때 응답자 별로 줄 수 있는 (허락되는) 토큰의 총량이 정해져 있다면 이건 곧 degree 의 censoring 으로 기능함.
+
+
+<br>
+<br>
 
 
 ##### Trace-route Sampling
