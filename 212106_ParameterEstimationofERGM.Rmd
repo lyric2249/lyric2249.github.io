@@ -160,7 +160,7 @@ exchange 알고리즘과 다르게, MCMH 알고리즘은 perfect sampler 요구�
 
 
 
-```{r ERGMs, fig.align='center', fig.cap='Goodness-of-fit Plots, for ERGMs - for the high school student friendship network'}
+```{r ERGMs, echo=FALSE, fig.align='center', fig.cap='Goodness-of-fit Plots, for ERGMs - for the high school student friendship network'}
 knitr::include_graphics('pics/survival/06/01.png')
 ```
 
