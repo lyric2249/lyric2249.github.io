@@ -1,0 +1,118 @@
+## Metric entropy and its uses
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Metric space
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Covering numbers and metric entropy
+
+
+
+:::{.def "Covering number"}
+
+set $\mathcal X$ 의 metric $d$ 에 비춘 $\delta$-cover는 이하와 같다.
+
+
+$set \{\theta_1, \cdots, \theta_N\} \in \mathcal X$ s.t. $\forall \theta \in \mathcal X, \exists i \in \{1 , \cdots, N \} : d(\theta, \theta_i) \le \delta$.
+
+이때 $\delta$-covering number $N(\delta; \mathcal X , d) 는 가장 작은 $delta$-cover 의 cardinality.
+
+
+:::
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Packing numbers
+
+
+:::{.def "Packing number"}
+
+set $\mathcal X$ 의 metric $d$ 에 비춘 $\delta$-packing은 이하와 같다.
+
+
+
+
+$set \{\theta_1, \cdots, \theta_M\} \in \mathcal X$ s.t. $\forall i \not = j \in \{1, 2, \cdots, M\}: d(\theta_i, \theta_j) \ge \delta$
+
+이때 $\delta$-packing number $M(\delta; \mathcal X , d) 는 가장 큰 $delta$-packing 의 cardinality.
+
+
+:::
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### 
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### 
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### 

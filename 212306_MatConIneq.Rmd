@@ -1,0 +1,257 @@
+## Matrix concentration inequalities
+
+이전 강의에서는 샘플 Cov Matrix의 tail bound를 discretization argument 를 통해 탐색했음. 여기선 Matrix Chernoff 테크닉을 통해 탐색한 후 랜덤 매트릭스에 Hoeffding bound 와 Bernstein bound 를 제시할거임.
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Matrix calculus
+
+symmetric Matrix 의 set $\mathcal S^{d \times d} = \{ X \in \mathbb R^{d \times d} : X = X' \}$ 와 ev 가 non-negative 인 PSD Matrix의 subset $\mathcal S^{d \times d}_+$ 를 사용할 것.
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Matrix Chernoff
+
+independent symmetric 랜덤 매트릭스의 collection $X_1 ,  \cdots, X_n \in \mathcal S^{d \times d}$ 가 주어졌고 $E(X_1) = 0$. 이때 $\bar X$의 maximum ev를 $P(\lambda_{max} (\hat X) \ge T) 와 같이 bound하고 싶다. Chernoff argument 를 쓰는 것이 일반적. 적용하면:
+
+$$
+\begin{align}
+
+\forall s >0 :
+
+P[\lambda_{max}(\bar X) \ge t]
+
+
+&=
+P[\exp \Big[ \lambda_{max}(s \bar X) \Big] \ge \exp(st)]
+\\
+
+&=
+P[ \lambda_{max}(\exp \Big[s \bar X \Big]) \ge \exp(st)]
+\\
+
+
+
+&le
+\exp(-st) \cdot E \Big [ \lambda_{max}(\exp \Big[s \bar X \Big]) \Big ]
+\\
+
+
+&le
+\exp(-st) \cdot E \Big [ \tr (\exp \Big[s \bar X \Big]) \Big ]
+
+
+\end{align}
+$$
+
+- 2번째 등식에선 exponential 함수의 spectral mapping property 과 monotonicity 사용
+function
+- standard Markov 부등식
+- $\exp(s \bar X)$ 가 PSD Matrix 라는 사실 활용
+- trace 가 linear operator이며,  it can commute with expectation
+
+
+위의 전개에서 모든 $s>0$ 에 inf를 적용하면 Chernoff argument 완성. 이제 $tr(E[exp(sX)])$ 를 bound 해야 함. 일반적인 스칼라 케이스에서 평균의 exponential 은 그냥 prod 로 쓰일 수 있음. 이를 연장하여 우리는 개별 랜덤변수들의 mgf 생산까지도 끌고갈 수 있음. 하지만 매트릭스 exponential 에서 $e^{X+Y} = e^X e^Y$ 려면 $XY=YX$ 여야 함. 따라서 우리는 $X_1 , \cdots, X_n$의 임의의 실현값에 직접적으로 factorization 적용하는 건 불가능함. 이때 **Lieb’s inequality** 적용하면 이 난점 돌파 가능.
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+
+### Sub-Gaussian and sub-exponential matrices
+
+실값 랜덤변수의 케이스와 같이, 우리는 랜덤 매트릭스의 class 를 이들의 mgf 사용해서 특성을 드러내는 것이 가능.
+
+
+:::{..def "Sub-Gaussian random matrices"}
+
+symmetric Matrix $X \in \mathcal S^{d \times d}$, 이때 $E(X) = 0$, 는 이하를 만족할 경우 matrix 패러미터 $V \in \mathcal S^{d \times d}_+$ 를 가지는 sub-Gaussian.
+
+$$
+\forall t \in \mathbb R: E \Big [\exp(tX) \Big ] \le \exp \left( \frac{t^2 V}{2} \right)
+$$
+:::
+
+- ※Remark: 패러미터 $V$ 를 가지는 Sub-Gaussian 랜덤 매트릭스는 패러미터 $(V , 0)$을 가지는 sub-exponential이기도 하다.
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+
+
+### 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds
+
+<br>
+<br>
+<br>
+
+
+#### Hoeffding bound
+
+:::{..def "Hoeffding bound for random matrices"}
+
+
+
+Let independent 한 zero-mean symmetric 랜덤 매트릭스의 sequence $\{ X_i \}^n_{i=1}$, 이에 더해 이 랜덤 매트릭스들은 패러미터 $\{ V_i \}^n_{i=1} \in S_+^{d \times d}$ 를 가지는 sub-Gaussian 조건을 만족한다. 이때 우리는 이하와 같은 upper tail bound 를 얻는다. 
+
+$$
+\begin{align}
+&P \Big [ \lambda_{max}(\bar X) \ge t \Big ] \le d \exp \left( - \frac{nt^2}{2\sigma^2}\right), &&\sigma^2 = 
+
+\textstyle
+
+\| \tfrac{1}{n} \sum_{i=1}^n V_i \|_{op}
+\end{align}
+$$
+
+
+:::
+
+
+<br>
+<br>
+<br>
+
+
+
+
+#### Bernstein bound
+
+
+:::{..def "Variance of random matrices"}
+
+랜덤 매트릭스 $X \in S^{d \times d}$에 대해, 이의 Var을 아래와 같이 정의한다. 이때 Var(X)는 자연스럽게 PSD.
+
+$$
+Var(X) = E(X^2 ) - \left[ E(X) \right]^2
+$$
+
+:::
+
+
+
+:::{..def "Bernstein bound for random matrices"}
+
+bounded operator norm 을 가지는, zero-mean independent symmetric 랜덤 매트릭스의 sequence 를 $\{ X_i \}^n_{i=1}$ 로 하자. 이에 더해 $\exists b>0, \forall i : \| X_i \|_{op}$. 이때
+
+
+
+
+
+
+:::
+
+
+
+
+Let independent 한 zero-mean symmetric 랜덤 매트릭스의 sequence $\{ X_i \}^n_{i=1}$, 이에 더해 이 랜덤 매트릭스들은 패러미터 $\{ V_i \}^n_{i=1} \in S^{d \times d}$ 를 가지는 sub-Gaussian 조건을 만족한다. 이때 우리는 이하와 같은 upper tail bound 를 얻는다. 
+
+$$
+\begin{align}
+&P \Big [ \lambda_{max}(\bar X) \ge t \Big ] \le d \exp \left( - \frac{nt^2}{2\sigma^2}\right), &&\sigma^2 = 
+
+\textstyle
+
+\| \tfrac{1}{n} \sum_{i=1}^n V_i \|_{op}
+\end{align}
+$$
+
+
+:::
+
+
+
+
+$$
+\begin{align}
+&P \Big [ \lambda_{max}(\bar X) \ge t \Big ] \le 2d \exp \left( - \frac{nt^2}{2(\sigma^2  bt)}\right), &&\sigma^2 = 
+
+\textstyle
+
+\| \tfrac{1}{n} \sum_{i=1}^n Var(X_i) \|_{op}
+\end{align}
+$$
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+#### Generalization to non-symmetric/rectangular matrices
+
+이렇게 symmetric (그리고 당연히 square) 매트릭스의 concentration bounds 를 살펴봤음. 하지만 이 bounds는 non-symmetric 에도, 그리고 nonsquare 에도 적용할 수 있도록 확장 가능함. 바로 **self-adjoint dilation** 을 사용해서.
+
+랜덤 매트릭스 $X_i \in \mathbb R^{d_1 \times d_2}$ 가 주어졌음. 이제 다음과 같은 매트릭스 생산:
+
+$$
+Y_i = \begin{bmatrix} 0_{d_1 \times d_1} & X_i \\ X_i ' & 0_{d_2 \times d_2}\end{bmatrix} \in \mathbb R^{(d_1 + d_2) \times (d_1 + d_2)}
+$$
+
+$Y_i$ 가 symmetric 임을 보이는 건 쉬움. 더욱 중요한 것은, $\|X_i \|_{op} = \|Y_i \|_{op}$ 임을 보이는 것도 가능.^[Tropp, Joel A. ”User-friendly tail bounds for sums of random matrices.” Foundations of computational mathematics 12.4 (2012): 389-434] 따라서 이하와 같으며, $Y_i$의 mgf 에 특정한 조건을 부여하는 것으로 위에서 진행해온 프로세스를 그대로 적용할 수 있다.
+
+$$
+P(\| \bar X \|_{op} \ge t)= P(\| \bar Y \|_{op} \ge t) 
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

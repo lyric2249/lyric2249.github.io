@@ -1,0 +1,196 @@
+## Covariance estimation
+
+### Matrix algebra review
+
+### Covariance matrix estimation in the operator norm
+
+::: {.theorem name="Covariance estimation"}
+
+$X_1 , \cdots, X_n \overset {iid}\sim SG(\sigma)$ s.t. $E(X_1) = 0, Var(X_1) = \Sigma_{d \times d}$.
+
+Let sample Cov matrix $\hat \Sigma = \frac{1}{n} \sum X_i X_i '$ based on $X_1 , \cdots, X_n$.
+
+Then there exists a universal constant $C >0$ s.t. below holds with probabilty at least $1-\sigma$.
+
+$$
+\forall \sigma \in (0,1): \frac{\|\hat \Sigma - \Sigma \|_{op}}{\sigma^2} \le C \max \left \{ \sqrt{\frac{d + \log(\frac{2}{\sigma})}{n}}, \; {\frac{d + \log(\frac{2}{\sigma})}{n}}\right \}
+$$
+
+:::
+
+
+- 이건 결국 $\lim_{n \rightarrow \infty \frac{d}{n} \rightarrow 0}$ 일 때operator norm 안의 $\Sigma$를 계속해서 estimate 할 수 있다는 것을 말함. 실제로 추가적인 가정 없이는 이 rate 이상으로 측정을 정밀화할 수 없음.
+
+증명을 2단계로 분할.
+
+1. discretization argument 를 써서 문제를 finitely 많은 랜덤변수의 maximum 을 제어하는 문제로 변경. 이하의 정보와 함께 finite maximum 라는 사실 사용해서 $\|\hat \Sigma - \Sigma \|_{op}$ 에 대한 상한 생산.
+
+let $A = A' \in \mathbb R^{d \times d}$ 로 하고, $N_\epsilon = \{ y_1 , \cdots, y_N \}$ 을 $\mathbb S^{d-1}$ 의 $\epsilon$-covering 으로 함.
+
+이때 $\| A \|_{op} \le \frac{1}{1-2\epsilon} \cdot \max_{y \in N_\epsilon} | y' A y |$.
+
+이를 증명하자. $x \in \mathbb S^{d-1}$ 에 대해 $\| x-y \|_2 \le \epsilon$ 만족하는 $y \in N_\epsilon$ 선택. 이때 $A$는 symmetric Matrix 이므로,
+
+$$
+
+$$
+
+
+
+여기서 $\hat \Sigma - \Sigma$ 는 symmetric Matrix 이므로, $\|\hat \Sigma - \Sigma \|_{op} \le \frac{1}{1-2\epsilon} \max_{y \in N_\epsilon} | y' (\hat \Sigma - \Sigma) y |$.
+
+y choosing  = 1/4, inequality (5.2) becomes
+kΣb − Σkop ≤ 2 max
+y∈N1/4
+|y
+>(Σb − Σ)y|.
+Therefore by the union bound
+P(kΣb − Σkop ≥ t) ≤ P
+
+2 max
+y∈N1/4
+|y
+>(Σb − Σ)y| ≥ t
+
+≤
+X
+y∈N1/4
+P(|y
+>(Σb − Σ)y| ≥ t/2).
+Note that we can write
+y
+>(Σb − Σ)y =
+1
+n
+Xn
+i=1
+
+(y
+
+
+
+2. standard concentration inequality 사용.
+
+
+y choosing  = 1/4, inequality (5.2) becomes
+kΣb − Σkop ≤ 2 max
+y∈N1/4
+|y
+>(Σb − Σ)y|.
+Therefore by the union bound
+P(kΣb − Σkop ≥ t) ≤ P
+
+2 max
+y∈N1/4
+|y
+>(Σb − Σ)y| ≥ t
+
+≤
+X
+y∈N1/4
+P(|y
+>(Σb − Σ)y| ≥ t/2).
+Note that we can write
+y
+>(Σb − Σ)y =
+1
+n
+Xn
+i=1
+
+(y
+
+
+###  Bounds for structured covariance matrices
+
+우리의 주된 목적은 샘플 Cov를 경유하여 unstructured Cov Matrix를 estimate 하는 것. Cov Matrix 가 추가적인 structure 를 품고 있다면, 샘플 Cov 가 아니라 다른 estimator 를 사용해서 좀더 연산이 빠른 estimate 가 가능.
+
+- **Diagonal matrix**
+
+**Cov Matrix 가 diagonal이라는 정보**를 가지고 있다고 해보자. 이때 $\hat \Sigma_{diag} = diag \{ \hat \Sigma_{11}, \cdots, \hat \Sigma_{dd}$ 로 estimate 하는 것은 자연스럽다. 이 경우 sub-Gaussinianity 를 가정한다면 어떻게 될까? unstructured 케이스에서 order 가 $\sqrt{\frac{d}{n}}$ rates (단, $d \le n$) 였던 것과 대비되게 estimation error of the order $\sqrt{\frac{\log d}{n}} 가 생산된다.
+
+좀 더 자세히 살펴보자. diagonal 케이스에서,  $\hat \Sigma_{diag} - \Sigma$ 의 operator norm 은 본질적으로 $d$ 개의 entry값 $\{| \hat \Sigma_{diag,11} - \Sigma_{11} |, \cdots, | \hat \Sigma_{diag,dd} - \Sigma_{dd} |\}$ 중의 maximum 이다. 그렇다면 여기서 the union bound argument along with an exponential tail bound 를 통해 우리는 $\sqrt{\frac{\log d}{n}} → 0$ 일 때 operator norm 이 0로 decay 된다는 것을 파악할 수 있다. <mark> See Theorem 2.11 for a similar argument.</mark>
+
+- **Unknown sparsity and thresholding**
+
+좀더 일반적인 케이스를 생각해보자. Cov Matrix가 상대적으로 sparse 하다는 사실이 알려져 있지만, 어느 entry가 non-zero인지는 알려져있지 않다. 이때 estimator가 thresholding 에 기반하고 있다고 생가가흔 넉승 나젼스럽다. 이때 $\lambda >0$ 라는 패러미터가 주어져 있다고 생각할 때, hard-thresholding 을 통해 얻어지는 Cov estimator 의 $(i,j)$ entry 는 $[T_\lambda (\hat \Sigma)]_{ij} = \hat \Sigma_{ij} \cdot I(|\hat \Sigma_{ij}>\lambda)$.
+
+let $\Sigma $의 adjacency matrix $A \in \mathbb R^{d \times d}$, $A_{ij} = I(\Sigma_{ij}) \not = 0$. adjacency matrix 의 operator norm $\| A \|_{op}$ 는 sparsity 에 대한 natural measure 를 제공한다. 이때 우리는 $\Sigma$ 가 row 별로 $s$ 개의 non-zero entry를 갖고 있다면 $\| A \|_{op} \le s$ 임을 보일 수 있다. 또한 thresholded 샘플 Cov Matrix 는 다음과 같은 concentration bound를 가짐.
+
+
+::: {..theorem name="Thresholding-based covariance estimation"}
+
+$X_1 , \cdots, X_n \overset {iid} \sim$, s.t. $E(X_1) = 0, Var(X_1) = \Sigma_{d \times d}$, and suppose each component $X_{ij}$ is sub-Gaussinian with 패러미터 at most $\sigma$.
+
+만약 $n > 16 \log d$ 라면, $\forall \delta>0$에 대해, thresholded 샘플 Cov Matrix $T_{\lambda_n} (\hat \Sigma)$ with $\frac{\lambda_n}{\sigma^2} = 8 \sqrt{\frac{\log d}{n}} + \delta$ 는 이하를 만족한다.
+
+$$
+P \Big (
+
+\| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \ge 2 \| A \|_{op} \cdot \lambda_n
+
+ \Big)
+
+\le 8 \exp \Big( -\frac{n}{16} (\delta \wedge \delta^2)\Big)
+
+$$
+
+:::
+
+- 위의 부등식은 높은 확률로 $\| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \lesssim \| A \|_{op} \sqrt{\log d}{n}$ 임을 보여줌. 이에 더해서 $\sigma$ 가 row 당 최대 $s$ 개의 non-zero entry 를 가진다는 조건을 생각하자. 이는 곧 $\|A\|_2 \le s$ 라는 의미가 됨. 그렇다면 thresholded Cov Matrix는 $s\sqrt{\frac{\log d}{n}}→0$ 일 때 consistent 하며, 이는 곧 특히 $s$ 가 작을 때 $\sqrt{\frac{d}{n}}$ 보다 훨씬 빠르다.
+
+- thresholding 패러미터는 sub-Gaussian 패러미터 $\sigma$에 의존하는데, 이는 실전 상황에서는 대부분 unknown.
+
+
+
+Proof: Let us denote the elementwise infinity norm of the error matrix ∆ = b Σb − Σ by
+k∆bk∞ = max1≤i,j≤d |∆bij |. The proof of the theorem is based on two intermediate results:
+1. Under the assumptions of the theorem,
+P(k∆bk∞/σ2 ≥ t) ≤ 8e
+− n
+16 min{t,t2}+2 log d
+for all t > 0. (5.3)
+2. For any choice of λn such that k∆bk∞ ≤ λn, we are guaranteed that
+kΣb − Σkop ≤ 2kAkopλn. (5.4)
+Having these results in place, the theorem follows by taking t = λn/σ2 = 8p
+(log d)/n + δ
+in inequality (5.3) and see
+8e
+− n
+16 min{t,t2}+2 log d ≤ 8e
+− n
+16 min{δ,δ2}
+,
+when n > 16 log d. Thus
+P(kTλn
+(Σ) b − Σkop ≥ 2kAkopλn) ≤ P(k∆bk∞ ≥ λn) ≤ 8e
+− n
+16 min{δ,δ2}
+.
+It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see
+Section 6.5 of Martin’s book)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

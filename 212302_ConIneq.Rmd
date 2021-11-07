@@ -1,0 +1,152 @@
+## Concentration inequalities
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Motivation
+
+$$
+\forall t \ge 0 : P( | \bar X - \mu | \ge t) \le 2 \exp \left( - \frac{nt^2}{2\sigma^2}\right)
+$$
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+###
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+###  sub-Gaussian random variables
+
+:::{.def "sub-Gaussian"}
+
+평균이 $\mu = E(X)$ 인 랜덤변수 X에 대해 $\exists \sigma >0$ 에 대해 이하가 성립하면 이는 sub-Gaussian 이며 $X \in SG(\sigma^2)$.
+
+
+:::
+
+- $sigma$ 는 sub-Gaussian 패러미터
+- $sigma^2$ 는 variance proxy
+
+symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$. 
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Properties of sub-Gaussian random variables
+
+1. $X \in SG(\cdot)$ 일 경우 $Var(X) \le \sigma^2$
+2. **Hoeffding’s lemma**: almost surely 하게 $a \le X-\mu \le b$ 한 실수 $a, b$가 있다면, $X \in SG \Big ( (\frac{b-a}{2})^2\Big )$.
+3. $X \in SG(\sigma^2)$ 이며 $Y \in SG(\tau^2)$ 일 경우,
+	- $\forall a \in \mathbb R: aX \in SG \Big ( a^2 \sigma^2 \Big )
+	- $X+Y \in SG \Big ( (\sigma + \gamma)^2\Big )$
+	- if $X \perp Y$, then $X + Y \in SG \Big ( \sigma^2 + \gamma^2 \Big )
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Equivalent definitions
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+###  Sub-Gaussian random vectors
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Hoeffding’s inequality
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### 
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Maximal inequalities
