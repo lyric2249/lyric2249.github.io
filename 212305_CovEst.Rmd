@@ -1,6 +1,20 @@
 ## Covariance estimation
 
+<br>
+<br>
+<br>
+
+
 ### Matrix algebra review
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
 
 ### Covariance matrix estimation in the operator norm
 
@@ -39,66 +53,22 @@ $$
 
 여기서 $\hat \Sigma - \Sigma$ 는 symmetric Matrix 이므로, $\|\hat \Sigma - \Sigma \|_{op} \le \frac{1}{1-2\epsilon} \max_{y \in N_\epsilon} | y' (\hat \Sigma - \Sigma) y |$.
 
-y choosing  = 1/4, inequality (5.2) becomes
-kΣb − Σkop ≤ 2 max
-y∈N1/4
-|y
->(Σb − Σ)y|.
-Therefore by the union bound
-P(kΣb − Σkop ≥ t) ≤ P
-
-2 max
-y∈N1/4
-|y
->(Σb − Σ)y| ≥ t
-
-≤
-X
-y∈N1/4
-P(|y
->(Σb − Σ)y| ≥ t/2).
-Note that we can write
-y
->(Σb − Σ)y =
-1
-n
-Xn
-i=1
-
-(y
 
 
 
 2. standard concentration inequality 사용.
 
 
-y choosing  = 1/4, inequality (5.2) becomes
-kΣb − Σkop ≤ 2 max
-y∈N1/4
-|y
->(Σb − Σ)y|.
-Therefore by the union bound
-P(kΣb − Σkop ≥ t) ≤ P
-
-2 max
-y∈N1/4
-|y
->(Σb − Σ)y| ≥ t
-
-≤
-X
-y∈N1/4
-P(|y
->(Σb − Σ)y| ≥ t/2).
-Note that we can write
-y
->(Σb − Σ)y =
-1
-n
-Xn
-i=1
-
-(y
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
 
 
 ###  Bounds for structured covariance matrices
@@ -115,7 +85,7 @@ i=1
 
 좀더 일반적인 케이스를 생각해보자. Cov Matrix가 상대적으로 sparse 하다는 사실이 알려져 있지만, 어느 entry가 non-zero인지는 알려져있지 않다. 이때 estimator가 thresholding 에 기반하고 있다고 생가가흔 넉승 나젼스럽다. 이때 $\lambda >0$ 라는 패러미터가 주어져 있다고 생각할 때, hard-thresholding 을 통해 얻어지는 Cov estimator 의 $(i,j)$ entry 는 $[T_\lambda (\hat \Sigma)]_{ij} = \hat \Sigma_{ij} \cdot I(|\hat \Sigma_{ij}>\lambda)$.
 
-let $\Sigma $의 adjacency matrix $A \in \mathbb R^{d \times d}$, $A_{ij} = I(\Sigma_{ij}) \not = 0$. adjacency matrix 의 operator norm $\| A \|_{op}$ 는 sparsity 에 대한 natural measure 를 제공한다. 이때 우리는 $\Sigma$ 가 row 별로 $s$ 개의 non-zero entry를 갖고 있다면 $\| A \|_{op} \le s$ 임을 보일 수 있다. 또한 thresholded 샘플 Cov Matrix 는 다음과 같은 concentration bound를 가짐.
+let $\Sigma$의 adjacency matrix $A \in \mathbb R^{d \times d}$, $A_{ij} = I(\Sigma_{ij}) \not = 0$. adjacency matrix 의 operator norm $\| A \|_{op}$ 는 sparsity 에 대한 natural measure 를 제공한다. 이때 우리는 $\Sigma$ 가 row 별로 $s$ 개의 non-zero entry를 갖고 있다면 $\| A \|_{op} \le s$ 임을 보일 수 있다. 또한 thresholded 샘플 Cov Matrix 는 다음과 같은 concentration bound를 가짐.
 
 
 ::: {..theorem name="Thresholding-based covariance estimation"}
@@ -132,7 +102,6 @@ P \Big (
  \Big)
 
 \le 8 \exp \Big( -\frac{n}{16} (\delta \wedge \delta^2)\Big)
-
 $$
 
 :::
