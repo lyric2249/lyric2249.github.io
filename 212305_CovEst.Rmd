@@ -33,7 +33,24 @@ $$
 :::
 
 
-- 이건 결국 $\lim_{n \rightarrow \infty \frac{d}{n} \rightarrow 0}$ 일 때operator norm 안의 $\Sigma$를 계속해서 estimate 할 수 있다는 것을 말함. 실제로 추가적인 가정 없이는 이 rate 이상으로 측정을 정밀화할 수 없음.
+
+
+
+<br>
+
+
+
+
+- 이건 결국 $\lim_{n \rightarrow \infty \frac{d}{n} \rightarrow 0}$ 일 때 operator norm 안의 $\Sigma$를 계속해서 estimate 할 수 있다는 것을 말함. 실제로 추가적인 가정 없이는 이 rate 이상으로 측정을 정밀화할 수 없음.
+
+
+
+
+<br>
+<br>
+
+
+
 
 증명을 2단계로 분할.
 
@@ -45,18 +62,113 @@ let $A = A' \in \mathbb R^{d \times d}$ 로 하고, $N_\epsilon = \{ y_1 , \cdot
 
 이를 증명하자. $x \in \mathbb S^{d-1}$ 에 대해 $\| x-y \|_2 \le \epsilon$ 만족하는 $y \in N_\epsilon$ 선택. 이때 $A$는 symmetric Matrix 이므로,
 
-$$
-
-$$
-
-
 
 여기서 $\hat \Sigma - \Sigma$ 는 symmetric Matrix 이므로, $\|\hat \Sigma - \Sigma \|_{op} \le \frac{1}{1-2\epsilon} \max_{y \in N_\epsilon} | y' (\hat \Sigma - \Sigma) y |$.
 
+\tag{5.1}
+
+
+$$
+\vert x^{\textsf{T}}A x-y^{\textsf{T}}A y\vert\ =\ \vert x^{\textsf{T}}A(x-y)-y^{\textsf{T}}A(y-x)\vert
+\leq\;\left|x^{\textsf{T}}A(x-y)\right|+\left|y^{\textsf{T}}A(y-x)\right| \tag{triangle ineq.}
+$$
+
+
+$$
+|x^{\textsf{T}}A(x-y)|\ \stackrel{(1)}{\le}\ ||A(x-y)||_{2}||x||_{2} \tag{Cauchy–Schwarz inequality}
+\\
+\overset{(2)}{\le} {{||A||_{\mathrm{op}}||x-y||_{2}}}
+\\
+\overset{(3)}{\le} \epsilon\|A\|_{\mathrm{op}}
+$$
+
+2. $|| x||_2 = 1$, and $\forall v \in \mathbb R^d:||A v ||_2 \le ||A||_{op} ||v||_2$
+3. $||x-y||_2 \le \epsilon$
+
+Applying the same argument to $|y^T A(y-x)|$ then gives $|x^T Ax - y^T Ay| \le 2 \epsilon ||A||_{op}$.
+
+To complete the proof of inequality (5.1), note that
+
+
+$$
+|x^{\textsf{T}}A x|=|x^{\textsf{T}}A x-y^{\textsf{T}}A y+y^{\textsf{T}}A y| \leq\ \left|x^{\top}A x-y^{\top}A y\right|+\left|y^{\top}A y\right|
+\leq 2\epsilon || A||_{\mathrm{op}}+|y^{T}A y \rvert
+$$
+
+This implies that $||A||_{op} \le 2 \epsilon ||A||_{op} + \max_{y \in N_\epsilon} |y^T A y|$ and rearranging the terms yields inequality (5.1).
+
+
+
+
+<br>
+<br>
+ 
 
 
 
 2. standard concentration inequality 사용.
+
+
+Step 2. By choosing  = 1/4, inequality (5.2) becomes
+
+
+
+
+$$
+||\hat{\Sigma} - \Sigma||_\mathrm{op} \leq 
+2 \max_{y\in{N_{1/4}}}
+|\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}|
+$$
+
+Therefore by the union bound
+
+
+$$
+P(||\hat{\Sigma} - \Sigma||_\mathrm{op} \ge t) \leq 
+P \left ( 2 \max_{y\in{N_{1/4}}}
+|\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}|
+\ge t \right )
+ \leq 
+\sum_{y\in{ N_{1/4}}} P \left( |\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}| \ge \frac{t}{2} \right)
+$$
+Note that we can write
+
+
+$y^{\top}(\hat{\Sigma}-\Sigma)y=\frac{1}{n}\sum_{i=1}^{n}\left\{(y^{\top}X_{i})^{2}-\mathbb{E}[(y^{\top}X_{i})^{2}]\right\}$
+
+
+We saw earlier in Lemma 3.3 that the square of a sub-Gaussian random variable is sub-exponential with parameters $(\nu, \alpha) = (16 \sigma^2, 16 \sigma^2)$. This property implies that $\left\{(y^{\top}X_{i})^{2}-\mathbb{E}[(y^{\top}X_{i})^{2}]\right\}$ is sub-exponential with $(16\sigma^2 , 16\sigma^2)$. Applying the sub-exponential tail bound, especially inequality (3.2), yields
+
+
+
+
+
+
+
+$$
+\mathbb{P}(\|\widehat\Sigma-\Sigma\|_{\mathrm{lop}}\geq t)\ \leq\ 2\ \underbrace{\mathrm{l}N_{1/4}}_{\mathrm{extrianitv}}
+\times 
+\exp\Biggl(-{\frac{1}{2}}\operatorname{min}\Biggl\{{\frac{n t}{16\sigma^{2}}},\ {\frac{n t^{2}}{16^{2}\sigma^{4}}}\Biggr\}\Biggr)
+\\
+\leq\ 2\times9^{d}\times\exp\biggl(-\frac{1}{2}\operatorname*{min}\Biggl\{\frac{n t}{16\sigma^{2}},\ \frac{n t^{2}}{16^{2}\sigma^{4}}\Biggr\}\biggr)
+$$
+
+
+
+where the last step uses the result in Lecture 4, which shows that the cardinality of $N_{1/4}$ is
+bounded by $|N_{1/4}| ≤ 9$. (here note that $\mathbb{S}^{d-1}\subset\mathbb{B}=\{\theta\in\mathbb{R}^{d}:||\theta||_{2}\leq1\}\})$). Finally, inverting the bound gives the desired result.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -75,11 +187,21 @@ $$
 
 우리의 주된 목적은 샘플 Cov를 경유하여 unstructured Cov Matrix를 estimate 하는 것. Cov Matrix 가 추가적인 structure 를 품고 있다면, 샘플 Cov 가 아니라 다른 estimator 를 사용해서 좀더 연산이 빠른 estimate 가 가능.
 
+
+
+
+<br>
+
 - **Diagonal matrix**
 
 **Cov Matrix 가 diagonal이라는 정보**를 가지고 있다고 해보자. 이때 $\hat \Sigma_{diag} = diag \{ \hat \Sigma_{11}, \cdots, \hat \Sigma_{dd}$ 로 estimate 하는 것은 자연스럽다. 이 경우 sub-Gaussinianity 를 가정한다면 어떻게 될까? unstructured 케이스에서 order 가 $\sqrt{\frac{d}{n}}$ rates (단, $d \le n$) 였던 것과 대비되게 estimation error of the order $\sqrt{\frac{\log d}{n}} 가 생산된다.
 
 좀 더 자세히 살펴보자. diagonal 케이스에서,  $\hat \Sigma_{diag} - \Sigma$ 의 operator norm 은 본질적으로 $d$ 개의 entry값 $\{| \hat \Sigma_{diag,11} - \Sigma_{11} |, \cdots, | \hat \Sigma_{diag,dd} - \Sigma_{dd} |\}$ 중의 maximum 이다. 그렇다면 여기서 the union bound argument along with an exponential tail bound 를 통해 우리는 $\sqrt{\frac{\log d}{n}} → 0$ 일 때 operator norm 이 0로 decay 된다는 것을 파악할 수 있다. <mark> See Theorem 2.11 for a similar argument.</mark>
+
+
+
+
+<br>
 
 - **Unknown sparsity and thresholding**
 
@@ -88,7 +210,13 @@ $$
 let $\Sigma$의 adjacency matrix $A \in \mathbb R^{d \times d}$, $A_{ij} = I(\Sigma_{ij}) \not = 0$. adjacency matrix 의 operator norm $\| A \|_{op}$ 는 sparsity 에 대한 natural measure 를 제공한다. 이때 우리는 $\Sigma$ 가 row 별로 $s$ 개의 non-zero entry를 갖고 있다면 $\| A \|_{op} \le s$ 임을 보일 수 있다. 또한 thresholded 샘플 Cov Matrix 는 다음과 같은 concentration bound를 가짐.
 
 
-::: {..theorem name="Thresholding-based covariance estimation"}
+
+
+
+<br>
+<br>
+
+::: {.theorem name="Thresholding-based covariance estimation"}
 
 $X_1 , \cdots, X_n \overset {iid} \sim$, s.t. $E(X_1) = 0, Var(X_1) = \Sigma_{d \times d}$, and suppose each component $X_{ij}$ is sub-Gaussinian with 패러미터 at most $\sigma$.
 
@@ -96,15 +224,17 @@ $X_1 , \cdots, X_n \overset {iid} \sim$, s.t. $E(X_1) = 0, Var(X_1) = \Sigma_{d 
 
 $$
 P \Big (
-
 \| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \ge 2 \| A \|_{op} \cdot \lambda_n
-
  \Big)
-
 \le 8 \exp \Big( -\frac{n}{16} (\delta \wedge \delta^2)\Big)
 $$
 
 :::
+
+
+
+
+<br>
 
 - 위의 부등식은 높은 확률로 $\| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \lesssim \| A \|_{op} \sqrt{\log d}{n}$ 임을 보여줌. 이에 더해서 $\sigma$ 가 row 당 최대 $s$ 개의 non-zero entry 를 가진다는 조건을 생각하자. 이는 곧 $\|A\|_2 \le s$ 라는 의미가 됨. 그렇다면 thresholded Cov Matrix는 $s\sqrt{\frac{\log d}{n}}→0$ 일 때 consistent 하며, 이는 곧 특히 $s$ 가 작을 때 $\sqrt{\frac{d}{n}}$ 보다 훨씬 빠르다.
 
@@ -112,37 +242,52 @@ $$
 
 
 
-Proof: Let us denote the elementwise infinity norm of the error matrix ∆ = b Σb − Σ by
-k∆bk∞ = max1≤i,j≤d |∆bij |. The proof of the theorem is based on two intermediate results:
+
+
+<br>
+<br>
+
+
+
+
+**Proof**: Let us denote the elementwise infinity norm of the error matrix $\hat \Delta = \hat \Sigma - \Sigma$ by $|| \hat \Delta ||_\infty = \max_{1\le j , \; \; j \le d} |\hat \Delta_{ij}|$. The proof of the theorem is based on two intermediate results:
+
+
+
+\
+
+
 1. Under the assumptions of the theorem,
-P(k∆bk∞/σ2 ≥ t) ≤ 8e
-− n
-16 min{t,t2}+2 log d
-for all t > 0. (5.3)
-2. For any choice of λn such that k∆bk∞ ≤ λn, we are guaranteed that
-kΣb − Σkop ≤ 2kAkopλn. (5.4)
-Having these results in place, the theorem follows by taking t = λn/σ2 = 8p
-(log d)/n + δ
-in inequality (5.3) and see
-8e
-− n
-16 min{t,t2}+2 log d ≤ 8e
-− n
-16 min{δ,δ2}
-,
-when n > 16 log d. Thus
-P(kTλn
-(Σ) b − Σkop ≥ 2kAkopλn) ≤ P(k∆bk∞ ≥ λn) ≤ 8e
-− n
-16 min{δ,δ2}
-.
-It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see
-Section 6.5 of Martin’s book)
+
+$\mathbb{P}(||\widehat{\Delta}||_{\infty}/\sigma^{2}\geq t)\leq8e^{-{\frac{n}{16}}\operatorname*{min}\{t,t^{2}\}+2\log d}\quad\mathrm{for~all~}t\gt 0 \tag{5.3}$
+
+2. For any choice of $\lambda_n$ such that $|| \hat \Delta ||_\infty \le \lambda_n$ we are guaranteed that
+
+$||\widehat{\Sigma}-\Sigma||_{\mathrm{lop}}\leq\ 2||A||_{\mathrm{op}}\lambda_{n} \tag{5.4}$
+
+
+\
+
+
+Having these results in place, the theorem follows by taking $t = \frac{\lambda_n}{\sigma^2} = 8 \sqrt{\frac{\log d}{n}} + \delta$in inequality (5.3) and see
+
+
+$8e^{-\frac{n}{16}\operatorname*{min}\{t,t^{2}\}+2\log d}\lt 8e^{-\frac{n}{16}\operatorname*{min}\{\delta,\delta^{2}\}},$
+
+
+, when $n > 16 log d$. Thus
 
 
 
+It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see Section 6.5 of Martin’s book)
+
+$$
+|\mathbb{P} \Bigg (||T_{\lambda_{n}}(\hat{\Sigma})\to\Sigma||_{\mathrm{op}}\geq\ 2||{A}||_{\mathrm{op}}\lambda_{n} \Bigg)
+ \le P (||\widehat\Delta||_{\infty}\ge\,\lambda_{n})\le8e^{-\frac n{16}\it\ m i n}\{\delta,\delta^{2}\}_{.}
+$$
 
 
+It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see Section 6.5 of Martin’s book)
 
 
 

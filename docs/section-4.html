@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.2 Multivariate Nomral (wk2) | Self-Study</title>
-  <meta name="description" content="5.2 Multivariate Nomral (wk2) | Self-Study" />
+  <title>9.2  | Self-Study</title>
+  <meta name="description" content="9.2  | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.2 Multivariate Nomral (wk2) | Self-Study" />
+  <meta property="og:title" content="9.2  | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Multivariate Nomral (wk2) | Self-Study" />
+  <meta name="twitter:title" content="9.2  | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="overview-of-mva-not-ended.html"/>
-<link rel="next" href="inference-about-mean-vector-wk3.html"/>
+<link rel="prev" href="introduction-4.html"/>
+<link rel="next" href="section-5.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -554,426 +554,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="multivariate-nomral-wk2" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Multivariate Nomral (wk2)</h2>
-<div id="overview-2" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Overview</h3>
-<p>let rvec <span class="math inline">\(Z=(Z_1 , \cdots, Z_p)&#39;, Z_i \overset {iid}{\sim} N(0,1)\)</span>.</p>
-<p>then <span class="math inline">\(X=(X_1 , \cdots, X_p)&#39; = A_{k \times p} Z + \pmb \mu_{k \times 1}\)</span> follows MVN.</p>
-<p>at here, if <span class="math inline">\(rank(A)=p(\le k), AA&#39; = \Sigma\)</span>, then <span class="math inline">\(X \sim N_p (0, \Sigma)\)</span>.</p>
-<hr />
-<p>notation: <span class="math inline">\(\pmb y \sim N_p (\pmb \mu , \Sigma)\)</span></p>
-<p>rvec <span class="math inline">\(\pmb y &#39; = [y_1 , \cdots , y_p ]\)</span> have <strong>Multivariate Normal Distribution</strong>, if <span class="math inline">\(\sum_{i=1}^p a_i y_u = \pmb a&#39; y\)</span> has Univariate Normal Distribution, for every possible set of values for the elements in <span class="math inline">\(\pmb a\)</span>.</p>
-<p>pdf for <span class="math inline">\(f(\pmb y) = \dfrac{1}{(2\pi)^p {\vert \Sigma \vert}^{1/2}} \exp \left\{ -\dfrac{1}{2} (\pmb y - \pmb \mu)&#39; \Sigma^{-1} (\pmb y - \pmb \mu) \right\}\)</span>.</p>
-<hr />
-<p>Ellipsoid:
-- path of <span class="math inline">\(\pmb y\)</span> values yielding a constant height for the density, <br> i.e., all <span class="math inline">\(\pmb y\)</span> s.t. <span class="math inline">\(\{ (\pmb y - \pmb \mu)&#39; \Sigma^{-1} (\pmb y - \pmb \mu)=c^2 \}\)</span>.</p>
-<p><br></p>
-<p>Standard Normal Distribtion:
-- <span class="math inline">\(\pmb z = \left( {\Sigma^{1/2}}\right)^{-1} (\pmb y -\pmb \mu) \sim N_p (\pmb 0, I_p)\)</span>, <br>where <span class="math inline">\(\left( {\Sigma^{1/2}}\right)^{-1}\)</span> satiesfy $ = ( {<sup>{1/2}})</sup>{-1} ( {<sup>{1/2}})</sup>{-1}$.</p>
-<p><br></p>
-<p>Property of <span class="math inline">\(\Sigma\)</span>:
-1. symmetric Matrix
-2. positive definite Matrix
-3. $Cov(A y + b) = A A’ $.</p>
-<p>※ if <span class="math inline">\(A\)</span> is symmetric and non-singular, then <span class="math inline">\(A=CC&#39;\)</span>, where <span class="math inline">\(C\)</span> is lower triangular Matrix. This is called <strong>Cholesky Decomposition</strong> of <span class="math inline">\(A\)</span>.</p>
-<hr />
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(E(X)=\mu, Cov(X)=AA&#39; = \Sigma\)</span></li>
-<li><span class="math inline">\(M_X (t) = \exp (t&#39; \mu + \dfrac {1}{2} t&#39; \Sigma t\)</span></li>
-<li>if <span class="math inline">\(\Sigma=AA&#39;\)</span> is non-singular Matrix <span class="math inline">\(\iff rank(A)=p\)</span></li>
-<li><span class="math inline">\(\Sigma = Cov(X)\)</span>는 symmetric, n.n.d.</li>
-</ol>
-<p>이상의 <span class="math inline">\(X\)</span>에 대해 이하는 TFAE.
-1. <span class="math inline">\(X \sim N_p (0, \Sigma)\)</span>.
-2.
-3.
-4.
-5.</p>
-</div>
-<div id="spectral-decomposition" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Spectral Decomposition</h3>
-<p>if <span class="math inline">\(A\)</span> is symmetric, non-singular, then <span class="math inline">\(A=E \Lambda E&#39;\)</span>, where <span class="math inline">\(\lambda_i\)</span> are ev (<span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_n\)</span>), and <span class="math inline">\(\pmb e_i\)</span> are evec (<span class="math inline">\(E&#39;E = I_p)\)</span>. This is called <strong>Spectral Decomposition</strong> of <span class="math inline">\(A\)</span>.</p>
-<p>$</p>
-<p>=</p>
-<span class="math display">\[\begin{bmatrix}
+<div id="section-4" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> </h2>
 
-\lambda_1 &amp; &amp; \pmb 0 \\  
-&amp; \ddots &amp; \\ 
-\pmb 0 &amp; &amp; \lambda_n 
-
-\end{bmatrix}\]</span>
-<p>, ; ; ; ; ; E=</p>
-<p>$</p>
-<p>이때 <span class="math inline">\(\Sigma = E \Lambda E&#39; = E \Lambda \Lambda^{1/2} E&#39; = E \Lambda E&#39; E \Lambda^{1/2} E&#39; = \Sigma^{1/2} \Sigma^{1/2}\)</span>.</p>
-<p>Center &amp; Axis of ellipsoids of <span class="math inline">\(\{ (\pmb y - \mu)&#39; \Sigma^{-1} (\pmb y - \mu)=c^2 \}\)</span>:
-* center: <span class="math inline">\(\pmb \mu\)</span>
-* axis : <span class="math inline">\(\pm c \sqrt{\lambda_i \pmb e_i}\)</span></p>
-<p><br>
-<br></p>
-<p>Square root Matrix:</p>
-<p>let symmetric non-negative Matrix <span class="math inline">\(A_{p \times p}\)</span>. the square root matrix of <span class="math inline">\(A\)</span> is defined as <span class="math inline">\(A^{1/2} = E \Lambda^{1/2} E&#39;\)</span>, where</p>
-<p>$
-^{1/2} =</p>
-<span class="math display">\[\begin{bmatrix}
-
-\sqrt{\lambda_1} &amp; &amp; \pmb 0 \\  
-&amp; \ddots &amp; \\ 
-\pmb 0 &amp; &amp; \sqrt{\lambda_n }
-
-\end{bmatrix}\]</span>
-<p>$</p>
-<p><br>
-<br></p>
-<p>Negative Square Root Matrix:</p>
-<p>Let <span class="math inline">\(A\)</span> be of <strong>full rank</strong> and all of its <strong><span class="math inline">\(\lambda_i\)</span> are positive</strong>, in addition to symmetry. <span class="math inline">\(A^{-1/2} = E \Lambda^{-1/2} E&#39;\)</span>, where</p>
-<p>$
-^{-1/2} =</p>
-<span class="math display">\[\begin{bmatrix}
-
-\dfrac{1}{\sqrt{\lambda_1}} &amp; &amp; \pmb 0 \\  
-&amp; \ddots &amp; \\ 
-\pmb 0 &amp; &amp; \dfrac{1}{\sqrt{\lambda_n }}
-
-\end{bmatrix}\]</span>
-<p>$</p>
-<p><br>
-<br></p>
-<p>Generalized Inverse:</p>
-<p>let <span class="math inline">\(A\)</span> be a non-negative M. if <span class="math inline">\(\lambda_1&gt; \lambda_2 &gt; \cdots &gt; \lambda_r &gt; 0 = \lambda_{r+1} = \cdots = \lambda_{p}\)</span>, i.e., not full rank, then the <strong>Moore-Penrose generalized inverse of <span class="math inline">\(A\)</span></strong> is given by</p>
-<p>$</p>
-<p>A^{-} =</p>
-<p> e_1 e_1 ’ + +
- e_r e_r ’</p>
-<p>$</p>
-<p>where</p>
-<p>$
-^{-} =</p>
-<span class="math display">\[\begin{bmatrix}
-
-
-
-\dfrac{1}{\lambda_1} &amp; &amp; &amp; &amp; \pmb 0 \\  
-&amp; \ddots &amp; &amp; &amp; \\ 
-&amp; &amp; \dfrac{1}{\lambda_n } &amp; &amp; &amp; \\
-&amp; &amp; &amp; 0 &amp; &amp;  \\
-&amp; &amp; &amp; &amp; \ddots &amp;  \\
-\pmb 0 &amp; &amp; &amp; &amp; &amp; 0  \\
-\end{bmatrix}\]</span>
-<p>$</p>
-<p><br>
-<br></p>
-<p>Marginal Distribtion:</p>
-<p>$
-<span class="math display">\[\begin{align*}
-\pmb y \sim N_p (\pmb \mu , \Sigma)
-
-&amp;\Longrightarrow
-
-y_i \sim N(\mu_i, \sigma^{ii}), \; \; \; i= 1, \cdots, p \\
-
-&amp;\not \Longleftarrow
-
-\end{align*}\]</span>
-$</p>
-</div>
-<div id="properties-of-mvn" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> Properties of MVN</h3>
-<ol style="list-style-type: decimal">
-<li>linear combination of the components of <span class="math inline">\(\pmb y\)</span> are normally distributed.</li>
-<li>any subset of <span class="math inline">\(\pmb y\)</span> have MVN.</li>
-<li>conditional distribution of the components of <span class="math inline">\(\pmb y\)</span> are MVN:</li>
-<li></li>
-<li></li>
-<li></li>
-</ol>
-<p>$ y N_p(, ) a ’ y N( a ’ , a ’ a ) $</p>
-<p>$ y N_p(, ) , ; ;</p>
-<p>A_{n times p} =</p>
-<span class="math display">\[\begin{bmatrix}
-
-a_{11} &amp; \cdots &amp; a_{1p} \\
-\vdots &amp; \ddots &amp; \vdots \\
-a_{n1} &amp; \cdots &amp; a_{np}
-
-\end{bmatrix}\]</span>
-<p>A y N_n(A , A A’)
-$
-즉슨 dimension 변화</p>
-<p>if $ y N_p(, )$, and cvec <span class="math inline">\(\pmb d\)</span>, then $ y + d N_p(+ d , )$.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>If we partition y, μ, S
-! !
-as follows</li>
-</ol>
-<p>Let
-1
-11
-2
-~ ( , ) p
-y
-y N
-y
-μ
-é ù
-ê ú
-= ê ú S
-ê ú
-ë û
-!"
-! !
-!
-with</p>
-</div>
-<div id="chi2-distribution" class="section level3" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> <span class="math inline">\(\Chi^2\)</span> distribution</h3>
-<p>if <span class="math inline">\(\pmb z \sim N_p ( \pmb 0 , I_p )\)</span>, then <span class="math inline">\(\pmb z &#39; \pmb z = \sum_{i=1}^p z_i^2 \sim \Chi_p^2\)</span>.</p>
-<p>if $ y N_p(, )$, then $(y - )’ ^{-1} (y - ) _p^2 $</p>
-<p>the <span class="math inline">\(N_p(\pmb \mu , \Sigma)\)</span> distribution assigns probability <span class="math inline">\(1-\alpha\)</span> to the solid ellipsoid <span class="math inline">\(\left \{ \pmb y : (\pmb y - \pmb \mu)&#39; \Sigma^{-1} (\pmb y - \pmb \mu) \le \chi_p^2 (\alpha) \right \}\)</span>, where <span class="math inline">\(\chi_p^2 (\alpha)\)</span> denotes upper <span class="math inline">\((100 \ast \alpha)\)</span> th percentile of the <span class="math inline">\(\chi_p^2\)</span> distribution.</p>
-</div>
-<div id="linear-combination-of-random-vectors" class="section level3" number="5.2.5">
-<h3><span class="header-section-number">5.2.5</span> Linear Combination of Random Vectors</h3>
-</div>
-<div id="multivariate-normal-likelihood" class="section level3" number="5.2.6">
-<h3><span class="header-section-number">5.2.6</span> Multivariate Normal Likelihood</h3>
-</div>
-<div id="sampling-distribtion-of-bar-pmb-y-s" class="section level3" number="5.2.7">
-<h3><span class="header-section-number">5.2.7</span> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span></h3>
-<p>let rvec $ y_1, y_n N_p(, )$.</p>
-<p><span class="math inline">\(\bar {\pmb y} \sim N_p (\pmb \mu , \dfrac{1}{n} \Sigma)\)</span></p>
-<p>(n-1) S $ Wishart distribution, with <span class="math inline">\(df=n-1\)</span>
-* <span class="math inline">\(S\)</span> is random Matrix, e.g., Wishart is distribution of rM.</p>
-<p><span class="math inline">\(\bar {\pmb y} \perp S\)</span>.</p>
-<div id="wishart-distribtion" class="section level5" number="5.2.7.0.1">
-<h5><span class="header-section-number">5.2.7.0.1</span> Wishart Distribtion</h5>
-<p>※ <span class="math inline">\(\dfrac {\sum (x_i - \barx )^2}{\sigma^2} = \dfrac {S^2} {\dfrac{\sigma^2}{n-1}} \sim \chi_{n-1}^2\)</span>, i.e., <span class="math inline">\(\sum (x_i - \barx )^2 = (n-1)S^2 \sim \sigma^2 \ast \chi_{n-1}^\)</span></p>
-<p>for let rvec $ y_1, y_n N_p(, )$,</p>
-<p>$
-<span class="math display">\[\begin{align*}
-
-\sum_{i=1}^n(\pmb y - \pmb \mu)(\pmb y - \pmb \mu)&#39; &amp;\sim W_p (n, \Sigma) \\
-\\
-
-(n-1)S^2 = \sum_{i=1}^n(\pmb y - \bar {\pmb y} )(\pmb y - \bar {\pmb y} )&#39; &amp;\sim W_p (n-1, \Sigma)
-\end{align*}\]</span>
-$</p>
-<p>if <span class="math inline">\(A \sim W_p (n, \Sigma), B \sim W_p (m, \Sigma)\)</span>, and <span class="math inline">\(A \perp B:\)</span> <span class="math inline">\(A+B \sim W_p (n+m, \Sigma)\)</span></p>
-<p>if <span class="math inline">\(A \sim W_p (n, \Sigma)\)</span>, then <span class="math inline">\(CAC&#39; \sim W_p (n, C \Sigma C&#39;)\)</span></p>
-<p><strong><em>if <span class="math inline">\(A \sim W_p (n-1, \Sigma)\)</span>, <span class="math inline">\(f(A)\)</span>, where gamma function.</em></strong></p>
-<p><br>
-<br></p>
-</div>
-<div id="mv-t-distribtion" class="section level5" number="5.2.7.0.2">
-<h5><span class="header-section-number">5.2.7.0.2</span> MV t-Distribtion</h5>
-<p>※ univariate t-Distribtion <span class="math inline">\(t=\tfrac{\tfrac{U}{\sigma}}{\sqrt{\tfrac{V}{nu}}} \sim t_{\nu}\)</span>, where <span class="math inline">\(U \sim N(0, \sigma^2), V \sim \chi_{\nu}^2\)</span>, and <span class="math inline">\(U \perp V\)</span>.</p>
-<p>let $ y = (y_1, , y_n)’ N_p(, )$, and <span class="math inline">\(V \sim \chi_{\nu}^2\)</span>, and <span class="math inline">\(\pmb y \perp V\)</span>.</p>
-<p>assume rvec <span class="math inline">\(\pmb t = (t_1 , \cdots, t_p)&#39;\)</span>,<span class="math inline">\(t_i = \tfrac {\tfrac{y_i - \mu_I}{\sigma_i}{\sqrt{V/\nu}}, i=1, \cdots, p\)</span>
-* Note that each <span class="math inline">\(t_i \sim t\)</span>.</p>
-<p>at here, joint distribution of <span class="math inline">\(\pmb t\)</span> is called MV t-distribution, with <span class="math inline">\(df=\nu\)</span> and matrix parameter <span class="math inline">\(\Sigma\)</span>.</p>
-<p><strong><em>denote this distribution by </em></strong></p>
-<p><br>
-<br></p>
-</div>
-<div id="dirichlet-distribution" class="section level5" number="5.2.7.0.3">
-<h5><span class="header-section-number">5.2.7.0.3</span> Dirichlet Distribution</h5>
-<p>※ is MV generalization of <span class="math inline">\(BETA\)</span>.</p>
-<p>let $ y D_p(<em>1 , </em>{p+1})$
-* parameters: <span class="math inline">\(\{\nu_i, i=1, \cdots, p+1\}\)</span>
-* pdf: f(y) =  _{i=1}^p y_i^{v_i - 1}$</p>
-<p>?????????????????????????????????????????????????</p>
-<p><br>
-<br></p>
-</div>
-<div id="clt" class="section level5" number="5.2.7.0.4">
-<h5><span class="header-section-number">5.2.7.0.4</span> CLT</h5>
-<p>let</p>
-<p>$ y_1 , , y_n  {} , &lt; $. then</p>
-<p>$
-<span class="math display">\[\begin{align*}
-
-\sqrt {n} (\hat {\pmb y} - \pmb \mu) &amp;\overset {d} {\rightarrow} N_p (\pmb 0 , \Sigma) \\
-
-n (\hat {\pmb y} - \pmb \mu)&#39; S^{-1} (\hat {\pmb y} - \pmb \mu)
-&amp;\overset {d} {\rightarrow} \chi_p^2
-
-\end{align*}\]</span>
-$</p>
-<p><br>
-<br>
-<br></p>
-</div>
-</div>
-<div id="assessing-normality" class="section level3" number="5.2.8">
-<h3><span class="header-section-number">5.2.8</span> Assessing Normality</h3>
-<div id="univariate-marginal-distribtion" class="section level5" number="5.2.8.0.1">
-<h5><span class="header-section-number">5.2.8.0.1</span> 1. Univariate Marginal Distribtion</h5>
-<div id="a.-q-q-plot" class="section level6" number="5.2.8.0.1.1">
-<h6><span class="header-section-number">5.2.8.0.1.1</span> a. Q-Q Plot</h6>
-<p>※ Sample quantile vs. quantile of N distribution</p>
-<p>let order statitics, or sample quantiles <span class="math inline">\(x_{(1)} \le \cdots \le x_{(n)}\)</span>.</p>
-<p>the proportion of sample below <span class="math inline">\(x_{(j)}\)</span> is approximated by <span class="math inline">\(\tfrac{j-\tfrac{1}{2}}{n}\)</span>.</p>
-<p>the quantiles <span class="math inline">\(q_{(j)}\)</span> for std. N are defined as</p>
-<p>$
-P(z q_{j)}) = <em>{-}^{q</em>{(j)}}  ( - z^2 ) dz  
-$</p>
-<p>if the data arise from a N population, then <span class="math inline">\((\sigma \ast q_{(j)} + \mu \congruent x_{(j)}\)</span>.</p>
-<p>Similarly, the pairs <span class="math inline">\((q_{(j)}, x_{(j)})\)</span> will be linearly related.</p>
-<p>Proceeds:
-1. get <span class="math inline">\(x_{(1)} \le \cdots \le x_{(n)}\)</span> from original obs.
-2. calculate probability values <span class="math inline">\(\tfrac{j-1/2}{n}, \; \; j= 1, \cdots, n\)</span>
-3. calculate standard normal quantities <span class="math inline">\(q_{(1)}, \cdots, q_{(n)}\)</span>
-4. plot the pairs of observations $(q_{(1)}, x_{(1)}), , <span class="math inline">\((q_{(n)}, x_{(n)})\)</span></p>
-<p><br></p>
-<p>Checking the straightness of Q-Q plot:
-* using corr coef
-* Hypothesis tesiting: <span class="math inline">\(H_0: \rho=0\)</span>, $T=  t_{n-2}</p>
-<p><br>
-<br></p>
-</div>
-<div id="b.-others" class="section level6" number="5.2.8.0.1.2">
-<h6><span class="header-section-number">5.2.8.0.1.2</span> b. others</h6>
-<ul>
-<li><ol style="list-style-type: decimal">
-<li>Shapiro-Wilks Test:</li>
-</ol></li>
-</ul>
-<p>Test of correlation coefficient b/w <span class="math inline">\(x_{(j)}, r_{(j)}\)</span>. <span class="math inline">\(r_{(j)}\)</span> is function of the expected value of standard normal order statistics, and their <span class="math inline">\(Cov\)</span>.</p>
-<p><br></p>
-<ul>
-<li><ol start="2" style="list-style-type: decimal">
-<li>Kolmogorov-Smirnov Test</li>
-</ol></li>
-</ul>
-<p>Compare cdf’s:</p>
-<p>If the data arise from a normal population, the differences are small.</p>
-<p>$
-T = _x F(x) - S(x) 
-$</p>
-<p>where cdf <span class="math inline">\(F(x)\)</span>, empirical cdf <span class="math inline">\(S(x)\)</span>.</p>
-<p><br></p>
-<ul>
-<li><ol start="3" style="list-style-type: decimal">
-<li>Skewness Test</li>
-</ol></li>
-</ul>
-<p>skewness <span class="math inline">\(\sqrt{b_1} = \tfrac{\sqrt{n} \sum_{i=1}^n (x_i - \bar x)^3} {\left[ \sum_{i=1}^n (x_i - \bar x)^2 \right]^{\tfrac{3}{2}}}\)</span></p>
-<p>When the population is normal, the skewness = 0.</p>
-<p><br></p>
-<ul>
-<li><ol start="4" style="list-style-type: decimal">
-<li>Kurtosis Test:</li>
-</ol></li>
-</ul>
-<p>kurtosis <span class="math inline">\({b_2} = \tfrac{n \sum_{i=1}^n (x_i - \bar x)^4} {\left[ \sum_{i=1}^n (x_i - \bar x)^2 \right]^{3}}\)</span></p>
-<p>When the population is normal, the kurtosis is 3.</p>
-<p><br></p>
-<ul>
-<li><ol start="5" style="list-style-type: decimal">
-<li>Lin and Mudholkar (1980):</li>
-</ol></li>
-</ul>
-<p>$</p>
-<p>Z = ^{-1}(r) =  (  )
-$</p>
-<p>where <span class="math inline">\(r\)</span> is the sample <span class="math inline">\(corr\)</span> of <span class="math inline">\(n\)</span> pair <span class="math inline">\((x_i , q_i), \; \; i=1, \cdots, n\)</span> with <span class="math inline">\(q_i = \tfrac {1}{n} \left( \sum_{i \not = j} x_j^2 - \tfrac{1}{n-1} \left( \sum_{i \not = j} x_j\right)^2 \right)^{\tfrac{1}{3}}\)</span>.</p>
-<p>if the data arise from a normal population, <span class="math inline">\(Z \sim N(0, \tfrac 3 n)\)</span>.</p>
-</div>
-</div>
-<div id="bivariate-normality" class="section level5" number="5.2.8.0.2">
-<h5><span class="header-section-number">5.2.8.0.2</span> 2. Bivariate Normality</h5>
-<p>※ If the data are generated from a multivariate normal, <strong>each bivariate distribution</strong> would be normal.</p>
-<ul>
-<li><ol style="list-style-type: decimal">
-<li>Scatter Plot</li>
-</ol></li>
-</ul>
-<p>the contours of bivariate normal density are ellipses. The pattern of the scatter plot must be near elliptical.</p>
-<p><br></p>
-<ul>
-<li><ol start="2" style="list-style-type: decimal">
-<li>Squared Generalized Distances</li>
-</ol></li>
-</ul>
-<p>※ <span class="math inline">\(\pmb y \sim N_p (\pmb \mu, \Sigma) \; \; \; \Longrightarrow \; \; \; (\pmb y - \pmb \mu)&#39; \Sigma^{-1} (\pmb y - \pmb \mu) \sim \chi_p^2\)</span>.</p>
-<p>it means, for bivariate cases, <strong>Squared Generalized Distances</strong> <span class="math inline">\(d_j^2 = (\pmb x_j - \hat {\pmb x})&#39; S^{-1} (\pmb x_j - \hat {\pmb x}) \sim \chi_2^2\)</span>.</p>
-<p><br></p>
-<ul>
-<li><ol start="3" style="list-style-type: decimal">
-<li>Chi2 Plot (Gamma Plot)</li>
-</ol></li>
-</ul>
-<p><span class="math inline">\(d_1^2 , \cdots, d_n^2\)</span> should behave like <span class="math inline">\(\chi_2^2\)</span> rv.
-1. order the squared distances <span class="math inline">\(d_{(1)}^2 \le \cdots \le d_{(n)}^2\)</span>
-2. calculate the probabilitt values <span class="math inline">\(\tfrac{j-1/2}{n}\)</span>, <span class="math inline">\(j=1,\cdots, n\)</span>
-3. Calculate quantiles of <span class="math inline">\(\chi_2^2\)</span> distribution <span class="math inline">\(q_{(1)}, \cdots, q_{(n)}\)</span>.
-4. Plot the pairs <span class="math inline">\((q_{(j)}, d_{(j)}^2 ), \; \; j=1, \cdots, n\)</span> where <span class="math inline">\(q_{(j)} = \chi_2^2 \left( \tfrac{j-1/2}{n} \right)\)</span></p>
-<p><img src></p>
-<p>The plot should resemble a straight line through the origin having slope 1.</p>
-<p><br>
-<br></p>
-</div>
-<div id="multivariate-normality" class="section level5" number="5.2.8.0.3">
-<h5><span class="header-section-number">5.2.8.0.3</span> 2. Multivariate Normality</h5>
-<p>Practically, it is usually sufficient to investigate the univariate and bivariate distributions.</p>
-<p>Chi-square plot is still useful. When the parent population is multivariate normal, and both <span class="math inline">\(n\)</span> and <span class="math inline">\(n-p\)</span> are greater than 25 or 30, the squared generalized distance <span class="math inline">\(d_{1}^2 \le \cdots \le d_{n}^2\)</span> should behave like <span class="math inline">\(\chi_p^2\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-</div>
-</div>
-<div id="power-transformation" class="section level3" number="5.2.9">
-<h3><span class="header-section-number">5.2.9</span> Power Transformation</h3>
-<p>$
-x^=</p>
-<span class="math display">\[\begin{cases}
-
-\tfrac{1}{x},                   &amp; \lambda = -1                              \tag{\text{Reciprocal Transformation}}\\
-\tfrac{1}{\sqrt{x}},            &amp; \lambda = -\tfrac{1}{2} \\
-\ln(x),                             &amp; \lambda = 0 \\
-\sqrt{x},                       &amp; \lambda = \tfrac{1}{2} \\
-x,                                  &amp; \lambda = 1                   \tag{\text{No Transformation}}
-
-\end{cases}\]</span>
-<p>$</p>
-<p>Examine Q-Q plot to see whether the normal assumption is satisfactory after power transformation.</p>
-<p><br>
-<br></p>
-<div id="power-transformation-1" class="section level5" number="5.2.9.0.1">
-<h5><span class="header-section-number">5.2.9.0.1</span> Power Transformation</h5>
-<p>$
-x^() =</p>
-<span class="math display">\[\begin{cases}
-
-\tfrac{x^\lambda - 1}{\lambda},                     &amp; \lambda \not = 0 \\
-\ln(x),                             &amp; \lambda = 0
-
-\end{cases}\]</span>
-<p>$</p>
-<p>at here, find <span class="math inline">\(\lambda\)</span> that maximizes</p>
-<p>$</p>
-<p>l() = - ln+ () _{j=1}^n x_j</p>
-<p>$</p>
-<p>where <span class="math inline">\(\hat{x_j}^{(\lambda)} = \tfrac{1}{n} \sum_{j=1}^n x_j^{(\lambda)}\)</span></p>
-<p>x^{()} is the most feasible values for normal distribution, but not guaranteed to follow normal distribution.
-* Transformation (Box-Cox) usually improves the approximation to normality.
-* Trial-and-error calculations may be necessary to find <span class="math inline">\(\lambda\)</span> that maximizes <span class="math inline">\(l(\lambda)\)</span>
-* Usually, change <span class="math inline">\(\lambda\)</span> values from -1 to 1 with increment 0.1.
-* Examine Q-Q plot after the Box-Cox transformation.</p>
-</div>
-<div id="nqplot-contour-plot-cqplot-cqplot-and-box-cox-plot" class="section level5" number="5.2.9.0.2">
-<h5><span class="header-section-number">5.2.9.0.2</span> nqplot, contour plot, cqplot, cqplot and box-cox plot</h5>
-<p><img src></p>
-
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="overview-of-mva-not-ended.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="inference-about-mean-vector-wk3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1004,7 +595,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211302_MVN.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212502.Rmd",
 "text": "Edit"
 },
 "history": {

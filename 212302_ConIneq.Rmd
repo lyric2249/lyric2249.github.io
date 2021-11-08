@@ -1,5 +1,8 @@
 ## Concentration inequalities
 
+다양한 경우에 랜덤변수의 tails의 bound, 혹응 랜덤변수가 mean이나 median에 close 임을 보이기 위한 쌍방향 부등식의 획득은 괘 매력적임. 
+
+
 <br>
 <br>
 <br>
@@ -13,21 +16,79 @@
 
 ### Motivation
 
+$X_1 , \cdots, X_n \overset{iid}{\sim}N(\mu, \sigma^2)$ 일 경우에 $\bar X \sim N(\mu, \frac{\sigma^2}{n})$ 이며, 노멀분포의 tail bound (혹은 Chernoff bound 에 의해) 는 이하를 생산함:
+
 $$
 \forall t \ge 0 : P( | \bar X - \mu | \ge t) \le 2 \exp \left( - \frac{nt^2}{2\sigma^2}\right)
 $$
 
 
-<br>
-<br>
-<br>
+따라서 샘플평균 $\bar X$가 population 평균 $\mu$와 크게 떨어져있을 확률은 빠르게 decay. 이를 응용해 finite 숫자의 샘플에 대해 과하게 많은 수의 가정 없이도 랜덤 샘플에 대한 bound 를 획득해보자.
 
 
 <br>
 <br>
 <br>
 
-###
+
+<br>
+<br>
+<br>
+
+### From Markov to Chernoff
+
+1. Markov's Inequality
+
+given $X \ge 0$ (nonnegative) 이며 $|E(X)| < \infty$ (finite mean), 이하가 성립한다.
+
+$$
+\forall t \ge 0: P(X\ge t) \le\frac{E(X)}{t}
+$$
+
+
+
+2. Chebyshev’s inequality
+
+$Var(X) < \infty)$ (finite variance) 일 때 이하가 성립. 이는 Markov 부등식을 nonnegative 랜덤변수 $(X-\mu)^2$ 에 적용한것.
+
+$$
+\forall t \ge 0: P(|X - \mu| \ge t) \le\frac{Var(X)}{t^2}
+$$
+
+이는 즉 $Var$ 가 작을 때 $X$ 가 $\mu$ 와 가깝다는 것을 보장한다는 점에서 가장 기초적인 **contentration ineqaulity**. Markov 와 Chebyshev 는 **sharp** 이며, 이는 곧 이 둘이 일반적으로는 imporve 될 수 없다는 것을 뜻함.
+
+3. Polynomial Markov
+
+$X$가 order $k$의 central moment 를 가진다면, 랜덤변수 $|X-\mu|^k$ 에 Markov 부등식 적용하면 이하를 생산한다. 모든 integer $k=1,2,\cdots$에 대해 order $k$ 의 central moment 가 존재한다면 2번째 ineq 도 성립.
+
+$$
+\begin{alignat}{2}
+
+\forall t \ge 0: P(|X-\mu| \ge t) &\le &&\frac{E \Big [ |X-\mu|^k \Big]}{t^k}
+
+\\
+
+&\le \lim_{k=0,1,2…} &&\frac{E \Big [ |X-\mu|^k \Big]}{t^k} \tag{2.1}
+
+\end{alignat}
+$$
+
+
+4. Chernoff bound
+
+랜덤변수 $X$ 가 0의 neighborhood 에서 mgf 를 가진다면, 즉 $\exists b>0,  \forall \lambda\le|b|: \varphi(\lambda) = E \Big\{ e^{\lambda(X-\mu)}\Big \}$ 라고 가정하자. 이때 $\forall \lambda \in [0, b]$ 에서 랜덤변수 $Y = e^{\lambda(X-\mu)}$ 에 대해 Markov 부등식을 적용할 수 있으며, 이에 의해 upper bound 를 획득할 수 있다. 우리가 선택하는 $\lambda$를 Chernoff bound 에 최적화 시키면 (2.2)와 같이 나온다.
+
+$$
+\begin{alignat}{2}
+&P(X-\mu > t) = P(e^{\lambda(X-\mu)} \ge e^{\lambda t}) &&\le \frac{E(e^{\lambda(X-\mu)})}{e^{\lambda t}}
+
+\\
+
+\log &P(X-\mu > t)  &&\le \inf_{\lambda \in [0, b]} \left \{ {\log E(e^{\lambda(X-\mu)})} - {{\lambda t}}
+\right\}
+\end{alignat}
+$$
+
 
 
 <br>
@@ -41,18 +102,44 @@ $$
 
 ###  sub-Gaussian random variables
 
-:::{.def "sub-Gaussian"}
+모든 랜덤변수 $X$에 대해 그것의 mgf 가 $\forall \lambda \in \mathbb R : E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }$ 를 만족하면 특정 tail bound 가 성립된다. 이를 응용하면 아래의 개념을 얻을 수 있다.
+
+
+
+:::{.definition name="sub-Gaussian"}
 
 평균이 $\mu = E(X)$ 인 랜덤변수 X에 대해 $\exists \sigma >0$ 에 대해 이하가 성립하면 이는 sub-Gaussian 이며 $X \in SG(\sigma^2)$.
 
+$$
+\forall \lambda \in \mathbb R : E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }
+$$
 
 :::
 
 - $sigma$ 는 sub-Gaussian 패러미터
 - $sigma^2$ 는 variance proxy
 
-symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$. 
+symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 
+
+이하의 값은 Example 2.1 과 동일하며, 따라서 모든 SG 랜덤변수는 이하의 ineq 를 만족한다.
+
+$$
+\forall t \ge 0: P(|X-\mu| \ge t) \le 2 e^{-\frac{t^2}{2 \sigma^2}} \tag{2.4}
+$$
+
+
+- Jensen's Ineq
+
+convex 함수 $g: \mathbb R \mapsto \mathbb R$ 에 대해 $E \Big \{ g(X) \Big \} \ge g \Big \{ E(X) \Big \}$. g가 concave 면 逆.
+
+**Proof:** 
+
+$\mu = E(X)$ 로 하고, $L_\mu (x) = a + bx$ 가 $\mu$ 에서의 $g$ 에 대한 tangent line, i.e. $L_\mu (\mu) = g(\mu)$. convexity 에 의해 $\forall x:g(x) \ge L_\mu (x)$. 따라서
+
+$$
+E[g(X)] \ge E[L_\mu (X)] = E(a+bX) =a+b\mu= L_\mu (\mu) = g(\mu)
+$$
 
 <br>
 <br>
@@ -75,9 +162,89 @@ symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 
 
 
+- (1)
+$\forall \lambda \in \mathbb R: E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }$, Taylor's thm 에 의해 이하가 성립. 쌍방을 $\labmda^2 >0$ 으로 나누고 $\labmda \rightarrow 0$ 를 취하는 것으로 (1) 성립.
+
+$$
+1 + \lambda \underbrace{E[(X - \mu)]}_{=0}
+
++ \frac{\lambda^2}{2} \underbrace{E[(X - \mu)^2]}_{=Var(X)}
+
++ o(\lambda^2) \le 1 + \frac{\lambda^2 \sigma^2}{2} + o(\lambda^2 )
+$$
+
+- (2)
+
+$\forall  \lambda \in \mathbb{R}:E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$ 인 것만 보이면 됨. WLOG, $\mu=0$ 임을 가정. $\forall \lambda \in \mathbb R :e^{\lambda x}$ 는 x의 convex 이므로,
 
 
 
+$ a \le \forall x \le b :e^{\lambda x}\leq\frac{b-x}{b-a}e^{\lambda a}+\frac{x-a}{b-a}e^{\lambda b}$
+
+따라서 $\mu=0$ 를 가정하면,
+
+
+$\mathbb{R}[e^{\lambda X}]\leq\frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}.$
+
+이때 $h = \lambda(b-a)$ 와 $p = -\frac{a}{b-a}$ 라고 하고, $L(h) = -hp \log(1-p + pe^h)$ 라고 하자. 이때 우리는 이하가 증명된다.
+
+
+
+${\frac{b}{b-a}}e^{\lambda a}-{\frac{a}{b-a}}e^{\lambda b}\equiv e^{L(h)}.$
+
+
+이에 더해 $L(0) = L'(0) = 0$ 이며 $\forall h: L''(h) \le \frac{1}{4}$. 따라서 Taylor expansion 에 의해 
+
+
+$L(h)\le\frac{1}{8}h^{2}=\frac{1}{8}\lambda^{2}(b-a)^{2}$ 이며 따라서 $E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$.
+
+
+- (3)
+
+(a) 는 SG 랜덤변수의 정의에 의해 trivial.
+
+(b) 를 증명하자. $E(X) = E(Y)=0$ 임을 가정. 이때 이하가 도출된다.
+
+
+
+
+$$
+\mathbb{E}[e^{\lambda(X+Y)}]=\mathbb{E}[e^{\lambda X}e^{\lambda Y}]\stackrel{(\mathrm{i})}\leq\ \left(\mathbb{E}[e^{\lambda p X}]\right)^{1/p}\left(\mathbb{E}[e^{\lambda q Y}]\right)^{1/q}
+\\
+\stackrel{(ii)}{\le}\,e^{\frac{\lambda^{2}p^{2}\sigma^{2}}{2}\times\frac{1}{p}+\frac{\lambda^{2}q^{2}\tau^{2}}{2}\times\frac{1}{q}}
+
+\\=
+e^{\frac{\lambda^{2}}{2}(p\sigma^{2}+q\tau^{2})}\
+
+\\
+\stackrel{({iii})}{=}\,e^{\frac{\lambda^{2}}{2}(\sigma+\tau)^{2}}
+$$
+
+1. Holder 부등식
+2. by condition $X\in SG(\sigma^2)$, $Y\in SG(\tau^2)$
+3. by letting $p = \frac{\tau}{\sigma}+1$, $q = \frac{\sigma}{\tau}+1$.
+
+(c) 를 증명하다. $X \perp Y$ 이므로, $E(X) = E(Y)=0$ 을 가정하는 것으로, 이하에 의해 성립.
+
+
+$$
+\mathbb{E}[e^{\lambda(X+Y)}]=\mathbb{E}[e^{\lambda X}]\times\mathbb{E}[e^{\lambda Y}]\leq e^{\frac{\lambda^{2}(\sigma^{2}+\tau^{2})}{2}},
+$$
+
+
+
+
+
+
+
+- **Holder's Inquality**
+
+$\forall p, q >0$ with $\frac 1 p + \frac 1 q = 1$, it holds that
+
+$\mathbb{E}[|X Y|]\leq||X||p||Y||_{q} = \{\mathbb{E}[|X|^{p}]\}^{1/p} \cdot \{\mathbb{E}[|Y|^{q}]\}^{1/q}$
+
+
+Proof. Observe that $\forall a, b \ge 0: a b=e^{\log(a b)}=e^{\frac{1}{p}p\log a+\frac{1}{q}q\log b}\le\frac{1}{p}e^{p\log a}+\frac{1}{q}e^{q\log b}=\frac{1}{p}a^{p}+\frac{1}{q}b^{q}$, 이는 Jensen 에 의해 성립. 이제 $a = \frac{X}{||X||_p}$, $b=\frac{Y}{||Y||_q}$ 로 하고 양쪽에 expectation 취하는 것으로 ineq 성립.
 <br>
 <br>
 <br>
@@ -89,8 +256,44 @@ symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 
 ### Equivalent definitions
 
+이하는 $SG(\sigma>0)$ 여부에 대해 equivalent. <mark>(up to multiplicative constants).</mark>
+
+:::{.theorem}
+
+zero-mean 인 모든 랜덤변수 $X$ 에 대해 이하의 성질은 equiv.
 
 
+$$
+\begin{align}
+
+&\exists \sigma >0:
+&&\forall \lambda\in\mathbb{E}:
+&&\mathbb{E}[e^{\lambda X}]\leq e^{\frac{\lambda^{2}\sigma^{2}}{2}}
+
+\\
+
+\iff
+&\exists c \ge 0, \exists Z \sim N(0, \tau^2):
+&&\forall s \ge 0:
+&&\mathbb{P}(|X|\geq s) \le c\mathbb{P}(|Z|\geq s)
+
+\\
+
+\iff
+&\exists \theta \ge 0:
+&&\forall  k = 1, 2, \cdots:
+&&\mathbb{E}[X^{2k}]\leq{\frac{(2k)!}{2^{k}k!}}\theta^{2k}
+
+\\
+
+\iff
+&\exists \sigma \ge 0:
+&&\forall \lambda \in [0, 1):
+&&\mathbb{E}\left[e^{\frac{\lambda X^{2}}{2\sigma^{2}}}\right]\leq{\frac{1}{\sqrt{1-\lambda}}}
+\end{align}
+
+$$
+:::
 
 
 
@@ -105,7 +308,14 @@ symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 
 ###  Sub-Gaussian random vectors
 
+:::{.definition}
 
+이하가 성립할 때 랜덤벡터 $X$ 는 **sub-Gaussian** with variance proxy $\sigma^2$.
+
+1. 랜덤벡터 $\mathbf X \in \mathbb R^d$ 가 centered 
+2. $\forall u \in \mathbb R^d, \; ||u||_2 = 1:$ 랜덤변수 $u'X \in SG(\sigma^2)$.
+
+:::
 
 
 
@@ -120,7 +330,69 @@ symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 
 ### Hoeffding’s inequality
 
+독립인 SG 랜덤변수의 샘플 평균은 **Hoeffding’s inequality** 라는 exponential tail bound 를 갖는다. 
 
+:::{.theorem name="Hoeffding’s inequality"}
+
+independent $X_i \in SG(\sigma_i^2)$, $i = 1, \cdots, n$ 들이 각각 $E(X_i) = \mu_i$ 라고 하자. 그러면 이하가 성립한다.
+
+$$
+\forall t \ge 0:
+\mathbb{P}\left(\left|{\frac{1}{n}}\sum_{i=1}^{n}X_{i}-\mu_{i}\right|\geq t\right)\leq2\exp\left(-{\frac{n^{2}t^{2}}{2\sum_{i=1}^{n}\sigma_{i}^{2}}}\right)
+$$
+
+이는 Section 2.4의 property 3 과 inequality (2.4)에 의해 바로 구해진다.
+
+:::
+
+
+Hoeffding bound 는 보통
+
+bounded 랜덤변수의 특별한 경우로서만 논해진다.
+
+
+$\forall i = 1, \cdots, n: X_i \in [a,b]$ 를 가정하자. 
+
+이 경우 Hoeffding’s lemma (property 2 in Section 2.4) 에 의해 $X_i \in \Bigg \{ \left( \frac{b-a}{2}\right )^2 \Bigg \}$, i.e., $\forall i = 1, \cdots, n: \sigma_i^2 = \frac{(b-a)^2}{4}$. 따라서 위의 thm에 의해
+
+$$
+\mathbb{P}\biggl(\left|{\frac{1}{n}}\sum_{i=1}^{n}X_{i}-\mu_{i}\right|\geq t\biggr)\leq2\exp\biggl(-{\frac{2n t^{2}}{(b-a)^{2}}}\biggr)
+$$
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Maximal inequalities
+
+finite 숫자의 SG 랜덤변수의 maximum 에 대한 tail / expectation bound 를 구할 수 있다.
+
+:::{.theorem}
+let independent $X_1 , \cdots, X_n \in SG(\sigma^2)$, $E(X_i) = 0$. Then
+
+$$
+\begin{align}
+\mathbb{E}\ \Big[\operatorname*{max}_{i=1,\cdots,n}X_{i} \Big] &\leq\sigma{\sqrt{2\log n}}
+
+\\
+
+
+\forall t \ge 0: \mathbb{P}\Bigl(\max\limits_{i=1,\cdots, n}X_{i}\geq t\Bigr) &\leq n e^{-{\frac{t^{2}}{2\sigma^{2}}}}
+
+\end{align}
+$$
+
+:::
+
+**Proof**:
+
+$$
+
+$$
 
 
 
@@ -137,16 +409,91 @@ symmetry 해보면 $X \in SG(\cdot)$ 일 경우에만 $-X \in SG(\cdot)$.
 ### 
 
 
+$$
+\begin{align}
+
+
+\mathbb{E}{\biggl[}\operatorname*{max}_{i=1,\dots,n}X_{i}{\biggr]}\ 
+
+&=\ \frac{1}{s}{\bf E}{\biggl[}\log{\biggl\{}\exp{\biggl(}s{\max_{i = 1, \cdots, n}}\,X_{i}{\biggr)}\Biggr\}
+
+\\
+
+&\stackrel{(i)]}{\leq}~\frac{1}{s}\log\left\{\mathbb{E}\Big[\exp\left(s\operatorname*{max}_{i=1\ldots n}X_{i}\right)\Big]\right\}
+
+&&= \frac{1}{s}\log\left\{\mathbb{E}\Big[\operatorname*{max}_{i=1\ldots n}e^{sX_{i}}\Big]\right\}
+
+\tag{Jensen's inequality}
+
+\\
+
+&\leq\ {\frac{1}{s}}\log\left\{\mathbb{E}\left[\sum_{i=1}^{n}e^{s X_{i}}\right]\right\}
+
+\\
+
+&\stackrel{\mathrm{(ii)}}{\leq}\;\frac{1}{s}\log{\Big\{n e^{\frac{s^{2}\sigma^{2}}{2}}{\Big\}}}
+
+&&=\frac{\log n}{s}+\frac{s\sigma^{2}}{2} \tag{2}
+
+
+\end{align}
+$$
+
+
+- (2): $\forall i = 1, \cdots, n: \; E \Big( e^{s X_i}\Big) \le e^{\frac{s^2 \sigma^2}{2}}$ condition 을 사용하면, 1번째는 $s=\sqrt{\frac{2 \log n}{\sigma^2}}$, 2번째는 union bound 로 성립.
+
+
+위를 응용하면 이하로 이어짐. 이는 위의 thm에서 abs 씌우고 n 을 2n 으로 바꾼 형. 
+
+:::{.exercise}
+
+$$
+\begin{align}
+\mathbb{E} \Big[\max \limits_{i=1\ldots n}|X_{i}|{\Big\rbrack} 
+& \leq\sigma{\sqrt{2\log(2n)}}
+\\
+\forall t \ge0: \mathbb{P}{\Biggl(}\operatorname*{max}\limits_{i=1, \cdots, n}|X_{i}|\geq t{\Biggr)} 
+& \leq2n e^{-{\frac{t^{2}}{2\sigma^{2}}}}
+\end{align}
+$$
+:::
 
 
 
-<br>
-<br>
-<br>
 
 
-<br>
-<br>
-<br>
 
-### Maximal inequalities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

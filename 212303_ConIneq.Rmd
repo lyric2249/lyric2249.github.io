@@ -1,0 +1,285 @@
+## Concentration inequalities
+
+SG 는 꽤 빡빡한 strict 개념. mgf 여부에 기반한 sub-Exponential 은 좀 느슨함.
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Sub-exponential random variables
+
+:::{.definition name="sub-Exponential rv"}
+
+$E(X) = \mu$, 패러미터 $\exists (\nu, \alpha) \ge 0$ 에 대해 이하가 성립하면 랜덤변수 $X$는 **sub-exponential**. 
+
+$$
+\forall |\lambda| < \frac{1}{\alpha}: \mathbb{E}[e^{\lambda(X-\mu)}]\leq e^{\frac{\nu^{2}\lambda^{2}}{2}}
+$$
+**SG** 또한 $1/0 = +\infty$ 로 해석할 경우 $\nu = \sigma$, $\alpha=0$ 인 sub-exponential.
+:::
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Bernstein’s condition
+
+$X$의 polynomial moment를 조작하는 것으로 $X$의 sub-exponential 성질을 증명할 수 있다.
+
+:::{.definition name="Bernstein’s Condition"}
+
+let $E(X) = \mu$, $Var(X) = \sigma^2 = E(X^2) - \mu^2$ 인 랜덤변수 $X$. 이하의 경우와 패러미터 $b$ 에 대해 Bernstein’s Condition 이 성립한다.
+
+$$
+\begin{align}
+
+&\Bigg | E \Big [ (X-\mu)^k \Big ] \Bigg | \le \frac{1}{2} k! \sigma^2 b^{k-2}, && k = 2, 3, 4, \cdots
+
+\end{align}
+$$
+
+이때, 모든 bounded 랜덤변수 (즉 $|X-\mu| \le b$) 에 대해 Bernstein’s Condition 이 성립한다는 것을 파악해라.
+:::
+
+
+<br>
+<br>
+
+
+$X$가 Bernstein’s condition 을 만족할 경우, X는 패러미터 $(\sqrt 2 \sigma, 2b)$ 인 sub-exponential.
+
+
+
+:::{.theorem name="Bernstein-type inequality"}
+
+Bernstein’s Condition 을 만족하는 모든 랜덤변수에 대해 이하가 성립한다.
+
+<br>
+<br>
+
+
+$$
+\begin{align}
+
+
+
+&\forall |\lambda|< \tfrac{1}{b}: &&E \Big [ e^{\lambda(X-\mu)}\Big ] &&\le \exp \left( \frac{\frac{\lambda^2 \sigma^2}{2}}{1-b|\lambda|}\right)
+
+\\
+
+&\forall t \ge 0:
+
+&&P \Big( |X-\mu| \ge t \Big) &&\le 2 \exp \left( - \frac{t^2}{2(\sigma^2 + bt)}\right)
+
+\end{align}
+
+$$
+:::
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### McDiarmid’s inequality
+
+
+:::{.theorem name="McDiarmid’s inequality"}
+
+이하의 조건을 만족한다고 하자.
+
+1. 랜덤변수 $X_1 , \cdots, X_n$ 이 independent 
+2. 함수 $f: \mathbb R^n \mapsto \mathbb R$: $\Big | f(x_1, \cdots, x_n) - f(x_1 , \cdots, x_{k-1} , x_k ' , x_{k+1} , \cdots, x_n) \Big | \le L_k$ (bounded condition)
+
+위 둘이 성립하면 이하가 성립한다.
+
+$$
+\forall t \ge 0: P \left( \Big | f(X_1 , \cdots, X_n) - E \big[ f(X_1 , \cdots, X_n) \big]\Big | \ge t \right) \le 2 \exp \left( - \frac{2 t^2}{\sum_{k=1}^n L_k^2}\right)
+$$
+
+:::
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### Levy’s inequality
+
+충분히 smooth 한 Gaussian 랜덤변수에 대해, 유사한 concentration inequality 가 존재한다. 이때는 다른 가정이 필요. $X_1 , \cdots, X_n \overset{iid}{\sim} N(0,1)$ 에 대해
+
+
+$$
+\begin{align}
+
+&\forall x_{1},\cdot\cdot\cdot,x_{n},y_{1},\cdot\cdot\cdot,y_{n}\in\mathbb{R}
+&&: 
+&&\Bigg |f(x_{1},\ldots,x_{n})-f(y_{1},\ldots,y_{n}) \Bigg | 
+&&\leq L{\sqrt{\sum_{i=1}^{n}(x_{i}-y_{i})^{2}}}
+
+\\
+\\
+
+\Longrightarrow
+
+&\forall t \ge 0
+&&:
+&&\mathbb{P} \left( \Bigg| f(X_{1},\cdot\cdot\cdot,X_{n})-\mathbb{E} \Big [f(X_{1},\cdot\cdot\cdot,X_{n}) \Big] \Bigg |\geq t \right )
+&&\leq2\exp\left(-{\frac{t^{2}}{2L^{2}}}\right)
+
+\end{align}
+$$
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+###  Quadratic form
+
+$Q$ 가 symmetric Matrix 일 때 이하를 정의할 수 있다.
+
+$$
+\begin{align}
+
+\|Q\|_{\mathrm{{op}}}&=\operatorname*{sup}_{\|u\|_{2}=1}\|Q u\|_{2} \tag{l2-operator norm}
+\\
+\|Q\|_{\mathrm{{F}}}&={\sqrt{\sum_{i=1}^{n}\sum_{j=1}^{n}Q_{i j}^{2}}} \tag{Frobenius norm}
+
+\end{align}
+$$
+
+:::{.theorem name="Hanson–Wright inequality"}
+
+independent, zero-mean, $X \in SG(\sigma^2)$ 인 랜덤벡터 $X = (X_1 , \cdots, X_n)' \in \mathbb R^n$ 를 정의하자. 그러면 **Hanson–Wright inequality** 에 의해 이하와 같이 quadratic form $X'QX$ 의 tail bound 가 정의된다.
+
+$$
+\forall t \ge 0: \mathbb{P}\left( \Bigg|X^{\top}Q X-\mathbb{E}\Big [X^{\top}Q X \Big] \Bigg|\geq t\right)\leq2\exp\left(-\operatorname*{min}\left\{{\frac{c_{1}t^{2}}{\|Q\|_{\mathrm{F}}}},{\frac{c_{2}t}{\|Q\|_{\mathrm{op}}}}\right\}\right)
+$$
+
+이때 $c_1 , c_2$는 SG 패러미터 $\sigma$ 에 의존하는 some constant. 증명 개어려움. decoupling 테크닉을 다수 쓰는데 궁금하면 Vershynin 책 찾아보던가.
+
+:::
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+
+### The Johnson–Lindenstrauss Lemma
+
+Example 3.5 에서 확인한 $\chi^2$ 의 tail bound 의 응용으로서 유명한 것 중 하나는 **"random projection"**. $d$ 가 충분히 큰 데이터셋 $X_1 , \cdots, X_n \in \mathbb R^d$ 을 가지고 있다고 치자. 이러한 데이터셋을 보관하는 것은 과한 비용을 요구하므로, 이를 해결하기 위해 우리는 이때 우리는 $m \ll d$ 인 map $F: \mathbb R^d \mapsto \mathbb R^m$ 을 만든 것이 목적인 **"sketching"**, 혹은 **"random projection"** 을 사용한다. 이를 적용한 이후에 우리는 앞서 말한 대용량 데이터셋을 저장하는 대신 $\Big \{ F(X_1) , \cdots, F(X_n) \Big \}$ 를 보관하게 된다. 여기서 관건은 오리지널 데이터셋의 본질을 해치지 않는 map $F$ 를 만들어내는 것이다. 특히, 우리는 모든 pair $(X_i , X_j)$ 에 대해 이하가 성립하는 것을 목표로 하며, i.e., map 은 모든 pair-wise distance 를 $(1 \pm \epsilon)$ factor 에 bound 되게 보존한다.
+
+$$
+(1-\epsilon)\Vert X_{i}-X_{j}\Vert_{2}^{2}\le\Vert F(X_{i})-F(X_{j})\Vert_{2}^{2}\le(1+\epsilon)\Vert X_{i}-X_{j}\Vert_{2}^{2}
+$$
+
+이때 **Johnson-Lindenstrauss lemma** 은 실로 놀라운 결과를 보여준다. $m \ge \frac{16 \log \left(\frac{n}{\delta}\right)}{\epsilon^2}$ 라는 조건이 주어져 있다면, simple randomized construction 만으로 그러한 map 을 with probability $\max(c, 1-\delta)$ 로 생산할 수 있다는 것이다.
+
+이 결과는 원본 데이터셋의 dim $d$ 와는 완전히 독립이며 
+
+points 의 숫자 $n$ 에만 logarithmical 하게 의존한다는 것에 notice. 이 map 은 핵심적으로 모든 pairwise 거리를 보존하면서도 보관 비용을 획기적으로 줄일 수 있다.
+
+map 그 자체의 방법론은 매우 간단하다. matrix $\mathbf Z \in \mathbb R^{m \times d}$, $Z_{jk} \overset{iid}{\sim} N(0,1)$ 이 되도록 설계하고, map 이 $F(X_i) = \frac{\mathbf Z X_i}{\sqrt m}$ 되도록 정의한다.
+
+이제 pair 중에 $(X_j , X_k)$ 하나를 고르고 이하를 생각하자.
+
+
+
+
+
+
+
+
+
+$$
+\frac
+{\Bigg\|F\left(X_{j}\right)-F\left(X_{k}\right)\Bigg\|^2_2}
+{\Bigg\|X_{j}-X_{k}\Bigg \|^2_2
+}
+=
+\left\|
+\frac
+{{\mathbf Z}(X_{j}-X_{k})}
+{\sqrt{m}\Bigg\|X_{j}-X_{k} \Bigg\|_{2}}
+\right\|^2_2
+={\frac{1}{m}}\sum_{i=1}^{m}
+\underbrace{\left \langle \mathbf Z_{i}, \; \; {\frac{X_{j}-X_{k}}{\Bigg\|X_{j}-X_{k}\Bigg\|_{2}}}\right\rangle^{2}}_{T_i}
+$$
+
+이때 $\mathbf Z_i$ 는 $\mathbf Z$ 의 i-th row. 이제, for some fixed numbers $a_j$ 에 대해, $\sum\limits_{j=1}^d a_j Z_{ij} \sim N \left(0, \; \sum\limits_{j=1}^d a_j \right)$. 따라서 이에 의해 $T_i \sim \chi^2$ 이며 각각은 independent. 이제 $\chi^2$ 의 tail bound 를 적용하는 것으로 우리는 이하를 얻는다.
+
+
+
+
+
+
+
+
+$$
+\mathbb{P}\left(\left|{\frac{\bigg\|F(X_{j})-F(X_{k})\bigg\|_{2}^{2}}{\bigg\|X_{j}-X_{k}\bigg\|_{2}^{2}}}-1\right|\geq\epsilon\right)\leq2\exp \left (\frac{-m\epsilon^{2}}{8} \right)
+$$
+
+
+따라서 fixed pair $(X_i , X_j)$ 에 대해, 우리의 map 이 distance 를 보존 (preserve) 하는데에 실패할 확률은 exponentially small, i.e., 최대로 해봐야 $2 \exp \left (\frac{-m\epsilon^{2}}{8} \right)$. 이제 우리의 map 이 $n \choose 2$ 중 **무엇 하나라도** 보전에 실패할 확률은 단순히 union bound 적용해보면 해결됨. 이 계산을 통하면 $P(\text{Failure}) \le 2 {n \choose 2} \exp \left (\frac{-m\epsilon^{2}}{8} \right)$.
+
+따라서 $m \ge \frac{16 \log \left(\frac{n}{\delta}\right)}{\epsilon^2}$ 일때 위에서 이야기했던 확률이 최대로 해봐야 $\delta$ 임을 증명하는 건 쉽다. 여기서 note 해야 할 것은 $m$ 을 그러한 작은 값으로 이끄는  **exponential concentration** 이라는 개념이다. (i.e., 이는 그냥 sample size 에 맞춰서 logarithmically 하게 grow 하기만 하면 된다)
+
+
+
+
+
+
+
+
+
+
+

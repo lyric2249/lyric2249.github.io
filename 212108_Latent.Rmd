@@ -73,16 +73,10 @@ $$
 1. 각 j 에서 $z_j ' $ 샘플링하기 위해 MH 스텝 거침. proposal 분포 $\varphi(\cdot)$ 으로부터 $z_j'$ 생산하고 이를 이하의 확률 $r_z \left ( z_j ' , z_j^{(t)} \right)$ 로 채택. 비슷환 과정을 따라서 $\alpha, \beta$ 도 MH 이용해서 생산.
 
 $$
-r_z \left ( z_j ' , z_j^{(t)} \right)
-
-
-
-
-
+r_z \left ( z_j ' , .z_j^{(t)} \right)
 = \frac{\pi \Big (z_j '  \Big \vert Y, \alpha , \beta \Big )}{\pi \Big (z_j^{(t)}  \Big \vert Y, \alpha , \beta \Big )}
-
+\cdot
 \frac{\varphi \Big (z_j ' \rightarrow z_j^{(t)} \Big )}{\varphi \Big ( z_j^{(t)}\rightarrow z_j ' \Big )}
-
 $$
 
 
@@ -92,7 +86,7 @@ $$
 	b. $Z_0$를 사용해서 각각의 MCMC 샘플에 Procrustes 매칭 적용
 
 $$
-Z^\ast  = argmin_{TZ} \tr \Big \{ (Z_0 - TZ) ' (Z_0 - TZ) \Big \}
+Z^\ast  = \arg \min_{TZ} tr \Big \{ (Z_0 - TZ) ' (Z_0 - TZ) \Big \}
 $$
 
 
@@ -106,15 +100,11 @@ $$
 
 네트워크 관계에 대한 시각적이고 모델에 기반한 공간적인 표현을 제공. 해석 용이함. 
 
-It is flexible and can be easily generalized to allow for multiple
-relationships, ties with varying strengths, and time-varying relations
+It is flexible and can be easily generalized to allow for multiple relationships, ties with varying strengths, and time-varying relations
 
-deal easily with missing data, at least if information on ties is missing at
-random
+deal easily with missing data, at least if information on ties is missing at random
 
-the model is inherently transitive, and so we can expect an improved fit
-over models lacking such structure when the relations are transitive in
-nature
+the model is inherently transitive, and so we can expect an improved fit over models lacking such structure when the relations are transitive in nature
 
 
 
@@ -179,12 +169,13 @@ $$
 
 
 ※ Fully Bayesian Estimation Procedure
+
 1. 모델 패러미터 $\beta, \lambda_g, \mu_g, \sigma_g^2$ 들의 prior 분포 특정
 
 $$
 \begin{align}
 
-\beta &\sim MVN_p \left( \ksi , \Psi \right)
+\beta &\sim MVN_p \left( \xi , \Psi \right)
 
 \\
 
@@ -204,59 +195,140 @@ $$
 
 2. $\mathbf z_i , \beta, \lambda, \mu_g  ,\sigma^2_g, K_i$의 full 조건부 posterior 분포 특정
 
-$$
-\begin{alignat}
+
+
+${\bf z}_{i}\mid K_{i}=g,\mathrm{others}\sim\phi_{d}\bigl({\bf z}_{i};\mu_{g},\sigma_{g}^{2}I_{d}\bigr)P\bigl(\bf V\mid Z,X,\beta\bigr),\quad i=1,\cdots\cdot,n,$
+
+$\beta\mid\mathbb{Z},\mathrm{others}\sim\phi_{p}\Bigl(\beta;\xi,\Psi\Bigr)P\Bigl(\not{Y}\mid\mathbb{Z},\mathrm{X},\beta\Bigr),$
+
+
+$\lambda\mid{\mathrm{Ot}}|{\mathrm{erS}}\sim{\mathrm{Diticl}}|{\mathrm{let}}\Bigl(p\!\!\!/+\nu\Bigr),$
+
+$\mu_{g}\mid\mathrm{others}\sim\mathrm{MWN}_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}|\right),\quad g=1,\cdot\cdot\cdot\cdot\cdot,G,$
+
+
+$\sigma_{g}^{2}\mid\mathrm{Ot}|\Re\mathrm{S}\sim\left(\sigma_{0}^{2}+Q S_{g}^{2}\right)|\mathrm{\eta}\mathrm{W}-\chi_{\alpha+m_{s}}^{2}d,\quad g=1\,,\cdot\cdot\cdot\,,\,\bar{G},$
+
+
+$P\Bigl(K_{i}=g\mid\mathrm{others}\Bigr)=\frac{\lambda_{g}\phi_{d}\Bigl(Z_{i};\mu_{g},\sigma_{g}^{2}\vert_{d}\Bigr)}{\sum_{r=1}^{G}\lambda_{r}\phi_{d}\Bigl(Z_{i};\mu_{r},\sigma_{r}^{2}\vert_{d}\Bigr)},\quad g=1,\cdot\cdot\cdot,G.$
 
 
 
-\end{alignat}
-$$
 
+Steps.
+
+  1. Update Zt+1 using Metropolis-Hastings steps
+    1. proposal $2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})$, $g=1, \cdots, G$
+    2. accept $Z_i^\ast$ as the i-th element of $z_{t+1}$ with probability $\frac{P\big(\mathbf{V}|\mathbf{Z}^{*},\mathbf{X},\beta_{t}\big)\phi_{d}\big(\mathbf{Z}_{i}^{*},\mu K_{i},\sigma_{K}^{2}|_{d}\big)}{P\big(\mathbf{V}|\mathbf{Z}_{t},\mathbf{X},\beta_{t}\big)\phi_{d}\big(\mathbf{Z}_{i i};\mu K_{i},\sigma_{K}^{2}|_{d}\big)}$
+  
+  2. update $\beta_{t+1}$ using Metropolis-Hastings steps
+    1. $2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})$, $g=1, \cdots, G$
+    2. accept $Z_i^\ast$ as the i-th element of $z_{t+1}$ with probability $\frac{{\cal P}\big(\mit{W}\lbrack\mathbf{Z}_{t+1},\mit{X},\beta^{*}\big)\phi_{\rho}\big(\beta^{*};\xi,\mit{\mit\Psi}\big)}{{\cal P}\Big(\mit{\bf V}\lbrack\Z_{t+1},\mit{\bf X},\beta_{t}\big)\phi_{\rho}\big(\beta_{t};\xi,\mit{\mit\Psi}\Big)}.$
+
+
+  3. Update λ, µg, σ, g, Ki using full conditional posterior distributions
+
+
+
+
+
+Pros and Cons
+
+- Advantage: Perform better
+- Disadvantage: More Complicated
 
 
 3. MCMC Algorithm
 
 
 
+- Identifiability of Positions and Cluster Labels
+
+
+
+
+
+Problem: Non-identifiabilities of positions and cluster labels
+
+Likelihood is invariant to
+1 Reflections, rotations, translations of the latent positions
+2 Relabelling of the clusters → Label switching problem
+
+
+Label switching problem
+Permuting the cluster labels does not change the likelihood but we have a
+problem in clustering the observations into groups
+
+
+How to resolve? → Minimizing Bayes risk
+
+
+
+1 Find the positions of the actors that minimize the estimated Bayes risk
+2 Procrustes transform the posterior draws of latent positions and using
+the same transformation matrix, transform the cluster means and
+covariances
+3 Find the cluster membership probabilities of the actors that minimize
+the estimated Bayes risk
+
+
+
+Bayes risk = Expecation of loss function
+Use a Kullback-Leibler loss as a loss function
 
 
 
 
 
 
+Choosing the Number of Clusters
+Bayesian estimation
+Select the model with the highest posterior probability
 
 
 
 
 
 
+$$
+\begin{array}
 
 
+&P(Y,{\hat{Z}}|G)
 
+&=
+&&\underbrace
+{\int P(Y|{\hat{Z}},X,\beta)p(\beta)d\beta}
+_{\substack{\text{integrated likelihood for the logistic regression} 
+\\ \approx BIC_{lr}(\text{logistic regression})}}
 
+&&\cdot 
 
+&&\underbrace
+{\int P({\hat{Z}}|\theta)p(\theta)d\theta}
+_{\substack{\text{integrated likelihood for the mixture model} 
+\\ \approx BIC_{mbc}(\text{mixture model})}}
 
+\\
 
+BIC &= &&BIC_{lr} &&+ &&BIC_{mbc}
 
+\\
 
+&= && \left \{ 2 \log \Big [ P \Big \{ Y \Big | \hat Z , X, \hat \beta ( \hat Z ) \Big \} \Big ] - d_{logit} \log (n_{logit}) \right \}
 
+&& +
 
+&& 
 
+\left\{ 2 \log \Big [ P \Big \{ \hat Z \Big | \hat \theta ( \hat Z ) \Big \} \Big ] - d_{mbc} \log (n) \right \}
 
+\end{array}
+$$
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+- $d_{logit} = $ # of parameters in the logistic regression
+- $n_{logit} = $ # of ties in data
+- $d_{mbc} = $ # of parameters in the clustering model
 
 
 
