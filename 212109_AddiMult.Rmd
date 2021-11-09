@@ -1,0 +1,72 @@
+## Additive and Multiplicative Effects Network Models
+
+### Introduction
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+### Social Relations Regression
+
+<br>
+<br>
+<br>
+
+#### Addictive Effect Model (iid model)
+
+
+$$
+y_{i,j}=\mu+a_{i}+b_{j}+\epsilon_{i,j}
+$$
+- $a_i$: sender effect (row means of the sociomatrix),
+- $b_j$: receiver effect (column means of the sociomatrix)
+
+목표: dependency 고려
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Multiplicative Effects Models
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Inference via Posterior Approximation
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Discussion and Example with R

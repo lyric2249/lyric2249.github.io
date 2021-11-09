@@ -1,5 +1,13 @@
 ## Metric entropy and its uses
 
+set $\mathcal I$ 에 의해 index 된 랜덤변수의 collection $\{X_i \}_{i \in \mathcal I}$ 를 생각해보자. 이 경우, 우리는 보통 $\max\limits_{i \in \mathcal I}X_i$ 혹은 $E \Big \{ \max\limits_{i \in \mathcal I}X_i \Big \}$ 를 제어하는 것이 목적이 된다.
+
+예를 들어 $||X||_{2}=\operatorname*{max}\limits_{\alpha\in\mathbb{R}^{d}:\|\alpha\|_{2}=1}\alpha^{\top}X$ 로 표기될 수 있는 랜덤벡터 $X \in \mathbb R^d$ 의 $L_2$ norm 을 제어하는데에 관심이 있다고 예를 들어보자. set $\mathcal I$ 의 크기가 무한하다면, uniform bound 를 구성하는 건 꽤나 빡센 일임. (e.g., Chapter 2 에서 논했던 maximal ineq. 등이 사용 불가.) 
+
+이를 해결하기 위해 $\mathcal I$ 의 finite subset $\mathcal I_{sub}$ 를 구하여 $\mathcal I$ 를 분절 (discrete) 하고 $\max\limits_{i \in \mathcal I}X_i$ 를 $\max\limits_{i \in \mathcal I_{sub}}X_i$ 로 모사 (approximate).
+
+
+
 <br>
 <br>
 <br>
@@ -10,6 +18,79 @@
 <br>
 
 ### Metric space
+
+:::{.definition name="Metric Space"}
+
+이하가 성립할 때, ordered pair $(\mathcal X, \; d)$ 는 **metric space**.
+
+- set $\mathcal X \not = \varnothing$ 
+- $d$ 는 $d: \mathcal X \times \mathcal X \rightarrow \mathbb R$ 을 따르는 $\mathcal X$ 에 대한 metric
+- $x, y, z \in \mathcal X$ 에 대해 이하가 성립:
+
+$$
+\begin{align}
+d(x,y) &\ge 0 &&\text{ and } d(x,y) = 0 \iff x=y \tag{non-negative}
+
+\\
+d(x,y) &= d(y,x) \tag{symmetric}
+
+\\
+
+d(x,z) &\le d(x,y) + d(y,z) \tag{triangel ineq. holds}
+
+\end{align}
+$$
+
+:::
+
+
+
+
+
+:::
+
+※ Remark:
+The $p$-norms (often denoteed by $l_p$-norm) are nested: for $1 \le p_1 < p_2$, we have $||x||_{p_2} \le ||x||_{p_1}$. 
+
+
+<br>
+<br>
+<br>
+
+
+마지막으로 <mark>$L_p$ function space</mark> 를 살펴보자.
+
+$\mathcal X = \{ f: [0,1] \rightarrow \mathbb R \}$ 을 함수의 set 이라고 하자. 
+
+
+$[0,1]$ 에 대한 $L_p$ function space 는 $\mathcal X$ 의 함수들 중에서도 절대값의 $p$-th power 가 $\mu$-integrable 한 함수들을 엄선하여 담고 있다.
+
+
+즉
+
+$$
+||f||_p = \left( \int_0^1 |f|^p d \mu \right)^{\frac{1}{p}} < \infty
+$$
+
+이때 $\mu$ 는 $[0,1]$ 에서의 측도 (measure) 이며 $p \ge 1$. (일반적으로 르베그 측도 사용 typically the Lebesgue measure) 보통 $p=2$ 를 $p$ 로 사용. 이 경우에 이론이 좀더 풍성하고 탄탄해짐.
+
+$$
+\begin{align}
+|| f-g||_p &= \left( \int_0^1 \Bigg | f(x) - g(x) \Bigg |^p d \mu \right)^{\frac{1}{p}}
+
+\tag{L_p distance b/w f and g}
+
+\\
+
+|| f-g||_\infty &= \sup_{x \in [0,1]} \Bigg | f(x) - g(x) \Bigg |
+
+\tag{when p = infty}
+
+\end{align}
+$$
+
+
+
 
 
 <br>
@@ -25,19 +106,41 @@
 
 ### Covering numbers and metric entropy
 
+metric space $\mathcal X$ 가 있을 때 해당 space 의 크기가 궁금함. metric space 의 크기를 구하는 방법은 보통 space 를 덮는데 필요한 radius $\delta$ 인 구의 크기로 보통 구함. 이게 covering.
 
-
-:::{.def "Covering number"}
+:::{.definition "Covering number"}
 
 set $\mathcal X$ 의 metric $d$ 에 비춘 $\delta$-cover는 이하와 같다.
 
 
 $set \{\theta_1, \cdots, \theta_N\} \in \mathcal X$ s.t. $\forall \theta \in \mathcal X, \exists i \in \{1 , \cdots, N \} : d(\theta, \theta_i) \le \delta$.
 
-이때 $\delta$-covering number $N(\delta; \mathcal X , d) 는 가장 작은 $delta$-cover 의 cardinality.
+이때 $\delta$-covering number $N(\delta; \mathcal X , d)$ 는 가장 작은 $delta$-cover 의 cardinality.
 
 
 :::
+
+:::{.definition name="Metric Entropy"}
+
+$(\mathcal X, d)$ 의 **metric entropy** 는 $\log N(\delta; \; \mathcal X, d)$.
+
+
+
+:::
+
+보통 $l_2$-norm $||\cdot||_2$ 을 가지는 p-차원 real space $\mathbb R^p$ 의 bounded subset 에 대해, metric entorpy 는 $C \cdot p\log\left(\frac{1}{\delta} \right)$ 로 scale 됨.
+
+보통 $\mathbb R^p$ 의 bounded subset 은 **"small"** space 로 간주됨. (metric entropy 가 $p$ 에 대해 linearly 선형적으로 scale)
+
+non-Euclindean space 에 대해 (e.g., function space), metric entropy 는 다른 식으로 salce 됨. 이들은 보통 **"large"** space 로 간주됨.
+
+
+
+
+
+
+
+
 
 
 
