@@ -18,12 +18,83 @@
 <br>
 <br>
 
+
+$$
+\begin{alignat}{2}
+
+
+y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
+\\
+y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
+\\
+y_{i,j} &= \beta' \mathbf x_{i,j} && +\mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
+\\
+y_{i,j} &=\beta^{T} \mathbf x_{i,j} && +\mathbf u_{i}^{T} \mathbf v_{j}  && +{a}_{i}+b_{j}+\epsilon_{i,j}, \; \; \; \; \; \; \; \; \; \; \; \; \; \; 
+
+
+&& \forall i<j: &&\left(\epsilon_{i,j},\epsilon_{j,i}\right) &&\overset{iid}{\sim} 
+
+
+N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix} \Bigg) \tag{AMEM}
+
+\\
+
+
+& && && && &&(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
+&&\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
+
+\\
+
+& && && && &&(a_1 , b_1), \cdots, (a_n , b_n) 
+&&\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AMEM}
+
+\\
+
+V &=M(X,\beta)+U V^{T} &&  && +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
+
+
+\end{alignat}
+$$
+
+$$
+
+P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i} \Bigg\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
+
+$$
+
+
+
+
+
+| | $$ | $$ | [^Combines a linear regression model with the covariance structure of the SRM as follows, where $\mathbf x_{i,j}$ is $p$−dimensional vector of regressors and $\beta$ is a vector of regression coefficient to be estimated.] |
+
+
 #### Addictive Effect Model (iid model)
 
 
+
+
+| | Addictive Effect Model (iid model) | Social Relations Model (SRM) | Social Relations Regression Model |
+| :-: | :-: | :-: | :-: |
+| Goal | Consider Dependency | Social Relations Model | Quantify the association between a particular dyadic variable and some other dyadic or nodal variables |
+| $a_i$ | sender effect (row means of the sociomatrix) | zero-mean rv | |
+| $b_j$ | receiver effect (column means of the sociomatrix) | zero-mean rv | |
+| $\epsilon_{i,j}$ | - | zero-mean rv | |
+| | | (2) | Limitation: Unable to represent higher-order network patterns (lack of fit) |
+
+
+
+
+
+2. with effects otherwise being independent
+
 $$
-y_{i,j}=\mu+a_{i}+b_{j}+\epsilon_{i,j}
+V a r\left[\begin{pmatrix}a_i \\ b_j\end{pmatrix}\right]=\Sigma={\left(\begin{array}{l l}{\sigma_{a}^{2}}&{\sigma_{a b}}\\ {\sigma_{a b}}&{\sigma_{b}^{2}}\end{array}\right)}
+\\
+V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\sigma^{2} \begin{pmatrix}1 & \rho \\ \rho & 1\end{pmatrix}
 $$
+
+
 - $a_i$: sender effect (row means of the sociomatrix),
 - $b_j$: receiver effect (column means of the sociomatrix)
 
