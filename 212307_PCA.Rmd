@@ -18,7 +18,7 @@ let $E(X)=0$, $Cov(X) = \Sigma$ 인 랜덤벡터 $X \in \mathbb R^d$. ev Decompo
 
 PCA 에 던지는 질문은 결국 이거다. unit norm vector $v$, 즉 $v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}$ 에 대해, 어떤 $v$ 를 골라야 랜덤변수 $v'X$ 의 Var 이 최대화되는가?
 
-더 이론적인 이야기를 해보자. 우리는 $v_1 =  \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v'X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle$ 를 만족하는 direction $v_1$ 을 찾는 것에 목적을 둔다. 이를 **first principal component** 라고 부르자. 이를 일반화하면 $\Sigma$ 의 top $k$ principal component $\{v_1 , \cdots, v_k \}$ 를 구성할 수 있다. 이때 각각은 $for 2 \le j \le k: v_j = \arg \max\limits_{v \in \mathbb S^{d-1}, \langle v, \Sigma v_i \rangle = 0, 1 \le \forall i \le j} \langle v, \Sigma \rangle$ 를 만족해야 한다.
+더 이론적인 이야기를 해보자. 우리는 $v_1 =  \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v'X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle$ 를 만족하는 direction $v_1$ 을 찾는 것에 목적을 둔다. 이를 **first principal component** 라고 부르자. 이를 일반화하면 $\Sigma$ 의 top $k$ principal component $\{v_1 , \cdots, v_k \}$ 를 구성할 수 있다. 이때 각각은 for $2 \le j \le k: v_j = \arg \max\limits_{\substack{v \in \mathbb S^{d-1},\\ \langle v, \Sigma v_i \rangle = 0,\\ 1 \le \forall i \le j}} \langle v, \Sigma \rangle$ 를 만족해야 한다.
 
 
 이 principal component 들은 단순히 $\Sigma$ 의 top $k$ evec, 즉, $V$의 first $k$ 개의 column 이 된다. PCA 는 보통 $k$ 를 작게 잡고 노는 걸 좋아함.
@@ -26,7 +26,7 @@ PCA 에 던지는 질문은 결국 이거다. unit norm vector $v$, 즉 $v \in \
 
 - **Best rank k approximation**
 
-PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 $k$ 인 $Z^\ast_{d \times d} = \arg \min_{rank(Z) \le k} ||\Sigma Z||_F$ 를 찾는다고 하자. 이에 대한 optimal solution 이 $Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i'$ 이며 $||\Sigma - Z^\ast ||^2_F = \sum\limits^d_{i=k+1}\lambda_i^2$ 임을 알 수 있다.
+PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 $k$ 인 $Z^\ast_{d \times d} = \arg \min\limits_{rank(Z) \le k} ||\Sigma Z||_F$ 를 찾는다고 하자. 이에 대한 optimal solution 이 $Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i'$ 이며 $\Bigg\|\Sigma - Z^\ast \Bigg\|^2_F = \sum\limits^d_{i=k+1}\lambda_i^2$ 임을 알 수 있다.
 
 
 <br>
@@ -72,7 +72,7 @@ $$
 where $\hat \lambda_1, \cdots, \hat \lambda_d$ are the ordered ev of $\hat \Sigma$.
 :::
 
-이것이 의미하는 바는 명확함. $\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow$ $\hat \lambda_i$ 는 $\lambda_i$ 의 consistent estimator 라는 이야기. 실제로 SG assumption 하에서, $|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)$ with high probability. 따라서 개별 empirical ev 값은 이 경우에 $\frac{d}{n} \rightarrow 0$ 일 경우 consistent.
+이것이 의미하는 바는 명확함. $\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow$ $\{\hat \lambda_i$ 는 $\lambda_i$ 의 consistent estimator $\}$라는 이야기. 실제로 SG assumption 하에서, $|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)$ with high probability. 따라서 개별 empirical ev 값은 이 경우에 $\frac{d}{n} \rightarrow 0$ 일 경우 consistent.
 
 <br>
 <br>
@@ -146,6 +146,10 @@ $$
 2&\mathrm{sin}^{2} \Big (\angle(u_{1},v_{1}) \Big )
 \end{align}
 $$
+
+:::
+
+- **Proof:**
 
 여기서 Matrix 에 대한 Holder ineq. 를 적용하자. 이때 $u_1 ' A u_1 = \lambda_1$, i.e. maxiumum ev. 여기서
 
@@ -243,7 +247,7 @@ $$
 $$
 
 
-:::
+
 
 <br>
 <br>
@@ -261,8 +265,7 @@ $$
 $$
 
 이때 
-$\forall p, q \text{ s.t. }\frac1p + \frac1q = 1$ 이며 $p,q \in [1, \infty]
-\langle A, B \rangle = tr(A'B) = tr(B'A) \le ||A||_{p} ||B||_{q}$.
+$\forall p, q \; \; \text{ s.t. } \; \; \frac1p + \frac1q = 1, p,q \in [1, \infty]: \; \; \langle A, B \rangle = tr(A'B) = tr(B'A) \le ||A||_{p} ||B||_{q}$.
 
 
 
