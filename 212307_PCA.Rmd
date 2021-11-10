@@ -14,7 +14,7 @@ Principal Component Analysis (PCA) 는 차원축소에 가장 유명한 방법�
 
 ### PCA
 
-let $E(X)=0$, $Cov(X) = \Sigma$ 인 랜덤벡터 $X \in \mathbb R^d$. ev Decompostion 을 고려하자. 즉 $\Sigma = V \Lambda V'$^[V_{d \times d} V' = V'V = I]^[diagonal Matrix $\lambda_{d \times d}$, entries with ev $\lambda_1 \ge \cdots \ge \lambda_d \ge 0$].
+let $E(X)=0$, $Cov(X) = \Sigma$ 인 랜덤벡터 $X \in \mathbb R^d$. ev Decompostion 을 고려하자. 즉 $\Sigma = V \Lambda V'$.^[$V_{d \times d} V' s= V'V = I$] ^[diagonal Matrix $\lambda_{d \times d}$, entries with ev $\lambda_1 \ge \cdots \ge \lambda_d \ge 0$]
 
 PCA 에 던지는 질문은 결국 이거다. unit norm vector $v$, 즉 $v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}$ 에 대해, 어떤 $v$ 를 골라야 랜덤변수 $v'X$ 의 Var 이 최대화되는가?
 
@@ -50,7 +50,7 @@ let $\hat \Sigma = \Sigma + \underbrace{E}_{\text{noise matrix}}$. 이때 maimum
 $$
 \begin{align}
 
-\lambda_{max} (\hat \Sigma) &= \max_{v \in \mathbb^{d-1}} v'(\Sigma + E)v
+\lambda_{max} (\hat \Sigma) &= \max_{v \in \mathbb R^{d-1}} v'(\Sigma + E)v
 
 \\
 
@@ -59,7 +59,7 @@ $$
 \end{align}
 $$
 
-$\hat \Sigma$ 와 $\Sigma$ 의 역할이 뒤바뀌었을 때도 동일한 argument 가 성립하므로 동시에 $\lambda_{max} (\Sigma) &\le \lambda_{max}(\hat \Sigma) + ||E||_{op}$ 이기도 하다. 이 둘을 합하면 결국 $\Big | \lambda_{max} (\Sigma) - \lambda_{max}(\hat \Sigma) \Big |&\le ||E||_{op}$.
+$\hat \Sigma$ 와 $\Sigma$ 의 역할이 뒤바뀌었을 때도 동일한 argument 가 성립하므로 동시에 $\lambda_{max} (\Sigma) \le \lambda_{max}(\hat \Sigma) + ||E||_{op}$ 이기도 하다. 이 둘을 합하면 결국 $\Big | \lambda_{max} (\Sigma) - \lambda_{max}(\hat \Sigma) \Big |\le ||E||_{op}$.
 
 이를 더 일반화시키면 이하와 같다.
 
@@ -170,7 +170,7 @@ $$
 \end{align}
 $$
 
-1. $x = \sum\lmimits_{i=1}^d u_u(u_i ' x)$ 이며 $x'x = \sum\limits_{i=1}^d(u_i ' x)^2 =1$ 이라는 사실 사용
+1. $x = \sum\limits_{i=1}^d u_u(u_i ' x)$ 이며 $x'x = \sum\limits_{i=1}^d(u_i ' x)^2 =1$ 이라는 사실 사용
 2. trigonometric identity $\cos^2 + \sin^2 = 1$
 
 따라서 여기에 $x = v_1$ 으로 잡는 것으로
@@ -261,17 +261,22 @@ $$
 $$
 
 이때 
-$$
-\forall p, q \text{ s.t. }\frac1p + \frac1q = 1$ 이며 $p,q \in [1, \infty]
-\langle A, B \rangle = tr(A'B) = tr(B'A) \le ||A||_{p} ||B||_{q}
-$$
+$\forall p, q \text{ s.t. }\frac1p + \frac1q = 1$ 이며 $p,q \in [1, \infty]
+\langle A, B \rangle = tr(A'B) = tr(B'A) \le ||A||_{p} ||B||_{q}$.
 
 
 
 
 :::
 
+<br>
+<br>
+
+
 "Davis–Kahan sin(θ) theorem" 을 thm 5.1 과 조합하는 것으로 이하의 결과를 얻을 수 있음.
+
+<br>
+<br>
 
 :::{.corollary name="Empirical principal component"}
 
@@ -309,7 +314,9 @@ $$
 
 evec 에 sparsity 개념을 도입하자. leading evec $v$ 가 $k$-sparse^[vector 안에 들어있는 non-zero elements 의 갯수가 $k$], 즉 $||v||_0 = \sum\limits^d_{i=1}|v_i|^0 = k$^[이때 $0^0 = 0$이라고 정의]. 
 
-이 경우 $v$ 를 추정하기 위한 natural candidate 는 $\hat v_{sp} = \arg \max\limits_{u \in \mathbb S^{d-1}, ||u||_0 = k} u' \hat \Sigma u$. 이 estimator 는 이하를 통해 타당화.
+이 경우 $v$ 를 추정하기 위한 natural candidate 는 $\hat v_{sp} = \arg \max\limits_{u \in \mathbb S^{d-1}, ||u||_0 = k} u' \hat \Sigma u$. 
+
+이 estimator 는 이하를 통해 타당화.
 
 :::{.theorem name="Sparse PCA"}
 
