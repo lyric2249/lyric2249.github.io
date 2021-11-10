@@ -1,0 +1,414 @@
+## Principal Component Analysis
+
+Principal Component Analysis (PCA) 는 차원축소에 가장 유명한 방법론 중 하나. 데이터의 저차원 표현을 통해 데이터를 보여주고 또 해석하는 것이 가능. 이는 Var 의 대부분을 포착 (capture, 설명가능) 한 저차원 subspace 를 탐색해내거나, 혹은 equivalent 하게 분포의 maximal Var component 를 탐색해내는 것으로 성립. 샘플의 finite collection 이 주어졌을 때 PCA 의 empirical form 은 샘플 Cov Matrix 의 상위 evec 의 subset 을 계산해내는 것으로 작동함. 관심대상은 언제 이 evec 들이 population Cov Matrix 의 상위 evec 들에 의해 span 되는 subspace 를 잘 모사해내는가, 그 condition. 초기형 tool 들을 사용해 고차원 상황이랑 non-asymptotic framework 에서 해당 이슈를 살펴보자.
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### PCA
+
+let $E(X)=0$, $Cov(X) = \Sigma$ 인 랜덤벡터 $X \in \mathbb R^d$. ev Decompostion 을 고려하자. 즉 $\Sigma = V \Lambda V'$[^V_{d \times d} V' = V'V = I][^diagonal Matrix $\lambda_{d \times d}$, entries with ev $\lambda_1 \ge \cdots \ge \lambda_d \ge 0$].
+
+PCA 에 던지는 질문은 결국 이거다. unit norm vector $v$, 즉 $v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}$ 에 대해, 어떤 $v$ 를 골라야 랜덤변수 $v'X$ 의 Var 이 최대화되는가?
+
+더 이론적인 이야기를 해보자. 우리는 $v_1 =  \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v'X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle$ 를 만족하는 direction $v_1$ 을 찾는 것에 목적을 둔다. 이를 **first principal component** 라고 부르자. 이를 일반화하면 $\Sigma$ 의 top $k$ principal component $\{v_1 , \cdots, v_k \}$ 를 구성할 수 있다. 이때 각각은 $for 2 \le j \le k: v_j = \arg \max\limits_{v \in \mathbb S^{d-1}, \langle v, \Sigma v_i \rangle = 0, 1 \le \forall i \le j} \langle v, \Sigma \rangle$ 를 만족해야 한다.
+
+
+이 principal component 들은 단순히 $\Sigma$ 의 top $k$ evec, 즉, $V$의 first $k$ 개의 column 이 된다. PCA 는 보통 $k$ 를 작게 잡고 노는 걸 좋아함.
+
+
+- **Best rank k approximation**
+
+PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 $k$ 인 $Z^\ast_{d \times d} = \arg \min_{rank(Z) \le k} ||\Sigma Z||_F$ 를 찾는다고 하자. 이에 대한 optimal solution 이 $Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i'$ 이며 $||\Sigma - Z^\ast ||^2_F = \sum\limits^d_{i=k+1}\lambda_i^2$ 임을 알 수 있다.
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Matrix Perturbation
+
+실전에서 $\Sigma$ 는 불명이며 PCA 가 적용되는건 언제나 샘플 Cov $\hat \Sigma$ 이다. 이때 주된 질문은 샘플에서 얻은 ev 와 evec 들이 그들의 population Cov 를 얼마나 잘 근사하는지 하는 것이다. 이 질문에 답하기 위한 tool 들은 아래와 같다.
+
+#### ev 의 estimation
+
+let $\hat \Sigma = \Sigma + \underbrace{E}_{\text{noise matrix}}$. 이때 maimum ev 의 정의에 의해
+
+$$
+\begin{align}
+
+\lambda_{max} (\hat \Sigma) &= \max_{v \in \mathbb^{d-1}} v'(\Sigma + E)v
+
+\\
+
+&\le \lambda_{max}(\Sigma) + ||E||_{op}
+
+\end{align}
+$$
+
+$\hat \Sigma$ 와 $\Sigma$ 의 역할이 뒤바뀌었을 때도 동일한 argument 가 성립하므로 동시에 $\lambda_{max} (\Sigma) &\le \lambda_{max}(\hat \Sigma) + ||E||_{op}$ 이기도 하다. 이 둘을 합하면 결국 $\Big | \lambda_{max} (\Sigma) - \lambda_{max}(\hat \Sigma) \Big |&\le ||E||_{op}$.
+
+이를 더 일반화시키면 이하와 같다.
+
+:::{.theorem name="Weyl’s inequality"}
+
+$$
+\max\limits_{i=1, \cdots, d} \Big | \hat \lambda_i - \lambda_i \Big | \le ||E||_{op} = ||\hat Sigma - \Sigma ||_{op}
+$$
+
+where $\hat \lambda_1, \cdots, \hat \lambda_d$ are the ordered ev of $\hat \Sigma$.
+:::
+
+이것이 의미하는 바는 명확함. $\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow$ $\hat \lambda_i$ 는 $\lambda_i$ 의 consistent estimator 라는 이야기. 실제로 SG assumption 하에서, $|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)$ with high probability. 따라서 개별 empirical ev 값은 이 경우에 $\frac{d}{n} \rightarrow 0$ 일 경우 consistent.
+
+<br>
+<br>
+<br>
+
+
+#### evec 의 estimation
+
+ev 는 일반적으로 stable 하지만 evec 의 경우에는 그렇지 않음.
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Spiked Cov Model
+
+:::{.definition name="Spiked Cov model"}
+
+
+
+
+Cov matrix $\Sigma \in \mathbb R^{d \times d}$ 가 이하의 형을 만족하면 이는 **Spiked Covariance Model 를 만족한다** 고 불림. 이때 vector $v$ 는 **spike** 라고 명명.
+
+$$
+\exists \theta > 0, \exists v \in \mathbb S^{d-1}: \Sigma = \theta v v' + I_d
+$$
+
+:::
+
+이러한 spiked Cov model 에 있어, $\max(ev) = \theta + 1$, corresponding evec (largest evec) $=v$ 이라는 관점이 성립하는 것을 note. $v$ 의 natural estimate 는 empirical Cov Matrix 의 largest evec $\hat v$. 우리의 목적은 고차원 setting에서 $\hat v$와 $v$ 가 얼마나 가까운지 보는 것.
+
+이때 $u$ 가 symmetric Matrix 의 evec 이라고 하면, $-u$ 또한 같은 ev 에 묶인 evec. <mark>따라서 우리가 $v$ 를 estimate 해봐야 최대로 estimate 가능한 종착지는 참값의 sign flip 까지가 한계. This means that we can only estimate $v$ up to a sign flip.</mark> 이 문제를 해결하기 위해 우리는 2개의 벡터 $u, v$ 사이가 얼마나 가까운지 proximity 를 그들 각각의 linear span 사이의 **principal angle** 이라는 개념을 이용하여 설명한다.
+
+$$
+\angle(u,v) = \arccos \left( \Bigg | u'v \Bigg | \right)
+$$
+
+Davis–Kahan $\sin(\theta)$ thm 은 eigenspace 들 사이의 principal angle 의 $\sin$ 에 대한 bound 를 생산함. 이하는 1차원 eigenspace 들 사이의 principal angle 에 대해 사용되는 Davis–Kahan $\sin(\theta)$ thm 의 간단한 버전.
+
+
+:::{.theorem name="Davis–Kahan sin(θ) theorem"}
+
+let $A_{d \times d}, B_{d \times d} \in PSD$. 
+
+
+$\lambda_{1} \ge {\lambda}_{2} \ge \cdots: \; (\lambda_{1},u_{1}),\cdots,(\lambda_{d,}^{\cdot}\,u_{d})$ is pairs of ev and evec of $A$.
+
+$\mu_{1} \ge {\mu}_{2} \ge \cdots: \; \; (\mu_{1},v_{1}),\cdots,(\mu_{d,}^{\cdot}\,v_{d})$ is pairs of ev and evec of $B$.
+
+이때
+
+
+
+$$
+\begin{align}
+&\sin \Big (\angle(u_{1},v_{1}) \Big )\leq{\frac{2}{\operatorname*{max} \Big (\lambda_{1}-\lambda_{2},\mu_{1}-\mu_{2} \Big )}}\|A-B\|_{\mathrm{op}}
+
+\\
+
+\operatorname*{min}\limits_{\epsilon\in\{\pm1\}} \Big \|\epsilon \cdot u_{1}-v_{1} \Big \|_{2}^{2}\le
+
+2&\mathrm{sin}^{2} \Big (\angle(u_{1},v_{1}) \Big )
+\end{align}
+$$
+
+여기서 Matrix 에 대한 Holder ineq. 를 적용하자. 이때 $u_1 ' A u_1 = \lambda_1$, i.e. maxiumum ev. 여기서
+
+$$
+\begin{align}
+\forall x \in \mathbb S^{d-1}: x^{\textsf{T}}A x\ =\ x^{\textsf{T}}\!\left(\sum_{i=1}^{d}\lambda_{i}u_{i}u_{i}^{\top}\right)\!x
+&=\sum_{i=1}^{d}\lambda_{i}(u_{i}^{\top}x)^{2}
+
+
+
+\\
+
+&\leq\;\ \lambda_{1}(u_{1}^{\top}x)^{2}+\lambda_{2}\sum_{i=2}^{d}(u_{i}^{\top}x)^{2}
+
+\\
+
+&\overset{(\mathrm{i})}{=}~\lambda_{1}\big(u_{1}^{\top}x\big)^{2}\,+\,\lambda_{2}\big(1\,-\,\big(u_{1}^{\textsf{T}}x\big)^{2}\big)
+
+\\
+
+&\overset{(\mathrm{ii})}{=} \lambda_{1}\cos^{2}\Big(\angle(u_{1},x)\Big)+\lambda_{2}\sin^{2}\Big(\angle(u_{1},x)\Big),
+\end{align}
+$$
+
+1. $x = \sum\lmimits_{i=1}^d u_u(u_i ' x)$ 이며 $x'x = \sum\limits_{i=1}^d(u_i ' x)^2 =1$ 이라는 사실 사용
+2. trigonometric identity $\cos^2 + \sin^2 = 1$
+
+따라서 여기에 $x = v_1$ 으로 잡는 것으로
+
+$$
+\begin{align}
+
+u_{1}^{\top}A u_{1}-v_{1}^{\top}A v_{1}\ &\geq\ \lambda_{1}-\lambda_{1}\mathrm{cos}^{2}\Big(\angle(u_{1},x) \Big)-\lambda_{2}\mathrm{sin}^{2} \Big (\angle(u_{1},x) \Big )
+
+\\
+
+&=\;(\lambda_{1}-\lambda_{2}){\sin}^{2} \Big (\angle(u_{1},x) \Big )
+
+\end{align}
+$$
+
+On the other hand,
+
+$$
+\begin{align}
+
+u_{1}^{\textsf{T}}A u_{1}-v_{1}^{\textsf{T}}A v_{1}\ \ &=\ \ u_{1}^{\textsf{T}}B u_{1}-v_{1}^{\textsf{T}}A v_{1}+u_{1}^{\textsf{T}}(A-B)u_{1}
+
+\\
+
+&\overset{\mathrm{(i)}}{\leq}~v_{1}^{\top}B v_{1}-v_{1}^{\top}A v_{1}+u_{1}^{\top}(A-B)u_{1}
+
+\\
+
+&=\;\Big\langle A-B, \; u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top} \Big \rangle
+
+\\
+
+&\overset{(ii)}\le \left|\right|A-B||_{\infty}||u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top}||_{1}
+
+\\
+
+&\overset{(iii)}\le \vert\vert A-B\vert\vert_{\mathrm{op}}\sqrt{2}\vert\vert u_{1}u_{1}^{\textsf{T}}-v_{1}v_{1}^{\textsf{T}}\vert\vert_{2},
+
+\end{align}
+$$
+
+1. $v_1$ 이 $B$ 의 leading evec 이므로
+2. Holder ineq.
+3. $||A-B||_\infty = ||A-B||_{op}$ 이며, $rank(u_1u_1' - v_1v_1' )\le 2$ 와 함께 CS ineq. 사용.
+
+
+이하는 명확함.
+
+$$
+||u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top}||_{2}^{2}=2-2(u_{1}^{\top}v_{1})^{2}=2\mathrm{sin}^{2}(\angle(u_{1},v_{1}))
+$$
+
+이제 모든 조각을 모으면 이하가 성립.
+
+
+$$
+\left(\lambda_{1}-\lambda_{2}\right)\mathrm{sin}^{2} \bigg(\angle(u_{1},v_{1}) \bigg)\leq2\|A-B\|_{\mathrm{op}} \mathrm{sin}\bigg(\angle(u_{1},v_{1}) \bigg)
+$$
+
+이는 곧 thm 의 첫번째 부분을 보여줌. $A$와 $B$ 에 대해 결과가 완벽하게 symmetric 이므로 $\lambda_1 - \lambda_2$ 를 $\mu_1 - \mu_2$ 로 대체할 수 있음을 note.
+
+이제 thm 의 2번째 부분만 보이면 됨. 이는 이하의 ineq. 를 통해 성립함이 분명. 이하의 ineq. 는 $|u_{1}^{\top}v_{1}|\leq\|u_{1}\|_{2}\|v_{1}\|_{2}=1.$ 이므로 성립함.
+
+
+
+
+$$
+\operatorname*{min}_{\epsilon\in\{\pm1\}}||\epsilon u_{1}-v_{1}||_{2}^{2}=2-2|u_{1}^{\top}v_{1}|\le2-2|u_{1}^{\top}v_{1}|^{2}=\sin^{2}(2(u_{1},v_{1})
+$$
+
+
+:::
+
+<br>
+<br>
+
+:::{.theorem name="Holder’s inequality for matrices"}
+
+let $A_{d \times d}, B_{d \times d} \in PSD$, 그리고 각각의 ev들을 $\lambda_1 , \cdots, \lambda_d$, $\mu_1 , \cdots, \mu_d$. 이를 이하와 같이 쓸 수 있다.
+
+
+$$
+||A||_{p}=\left(\sum_{i=1}^{d} \Big |\lambda_{i} \Big |^{p}\right)^{\frac1p}
+\; \; \; \; \; 
+\; \; \; \; \; 
+||B||_{q}=\left(\sum_{i=1}^{d} \Big |\mu_{i} \Big |^{q}\right)^{\frac1q}
+$$
+
+이때 
+$$
+\forall p, q \text{ s.t. }\frac1p + \frac1q = 1$ 이며 $p,q \in [1, \infty]
+\langle A, B \rangle = tr(A'B) = tr(B'A) \le ||A||_{p} ||B||_{q}
+$$
+
+
+
+
+:::
+
+"Davis–Kahan sin(θ) theorem" 을 thm 5.1 과 조합하는 것으로 이하의 결과를 얻을 수 있음.
+
+:::{.corollary name="Empirical principal component"}
+
+$E(X_1) = 0$, $Var(X_1) = \Sigma_{d \times d}$ 인 랜덤벡터의 sequence $X_1 , \cdots, X_n \overset{iid}{\sim} \in SG(\sigma^2)$, i.e., sequnce of $\sigma$-sub-Gaussian random vectors.
+
+let 샘플 Cov Matrix $\hat \Sigma = \frac{1}{n} \sum_{i=1}^n X_i X_i '$.
+
+assume $\Sigma = \theta v v' + I_d$ **spiked Cov model** 만족. 그렇다면 $\hat \Sigma$ 의 largest evec $\hat v$ 는 이하를 with probability $1-\delta$ 로 만족.
+
+
+$$
+\operatorname*{min}_{\epsilon\in\{\pm1\}}\left|\right|\epsilon \cdot \widehat{v}-v||_{2} 
+\lesssim 
+\frac{1}{\theta}\,\mathrm{max}\left\{\sqrt{\frac{d+\log(\frac2\delta)}{n}},\;\frac{d+\log(\frac2\delta)}{n}\right\}
+$$
+
+:::
+
+이 결과를 통해 저차원 상황 ($d \ll n$) 에서의 PCA 를 진행할 때 population Cov $\Sigma$ 를 샘플 Cov $\hat \Sigma$ 로 대체하는 것이 정당화된다.
+
+고차원 상황 ($d \gg n$) 일 때는 $\hat \Sigma$ 를 써서 PCA 를 진행하면 결과값이 구리다는 것이 증명되어 있다. 실제로 $\frac dn$ 이 0에서 bounded away 되어있는 한, population evec 에 대한 consistent estimator 를 생산할 수 있는 **방법 자체가 아예 없다** 는 것을 보이는 것이 가능하다. 하지만 evec 에 대해 certain structure 가 존재한다면 고차원에서도 population evec 을 consistently estimate 하는 것이 가능하긴 하다.
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### sparse PCA
+
+evec 에 sparsity 개념을 도입하자. leading evec $v$ 가 $k$-sparse[^vector 안에 들어있는 non-zero elements 의 갯수가 $k$], 즉 $||v||_0 = \sum\limits^d_{i=1}|v_i|^0 = k$[^이때 $0^0 = 0$이라고 정의]. 
+
+이 경우 $v$ 를 추정하기 위한 natural candidate 는 $\hat v_{sp} = \arg \max\limits_{u \in \mathbb S^{d-1}, ||u||_0 = k} u' \hat \Sigma u$. 이 estimator 는 이하를 통해 타당화.
+
+:::{.theorem name="Sparse PCA"}
+
+Corollary 7.4 와 같은 setting 을 생각하자. 여기에 추가로 leading evec $v$ 가 $\forall k \le \frac d 2: ||v||_0 \le k $ 를 만족한다고 assume. 이때 $\hat \Sigma$ 의 k-sparse largest evec $\hat v_{sp}$ 는 with probability $1-\delta$ 로 이하를 만족.
+
+
+$$
+\operatorname*{min}_{\epsilon\in\{\pm1\}}
+\|\epsilon \cdot \widehat{v}_{\mathrm{sp}}-v\|_{2}
+\lesssim
+\frac{1}{\theta}\operatorname*{max}\left\{
+\sqrt{\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}},\;
+\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}\right\},
+$$
+
+- ※ REMARK. 일반적인 PCA 와 달리, k-sparcity 가 만족되었다면, $d \gg n$ 상황에서도 $\hat v_{sp}$ 는 consistent 가능.
+
+:::
+
+- Detour: $1 \le \forall k \in \mathbb Z \le n : {n \choose k} \le \left( \frac{en}{k}\right)^k$
+
+
+Proof:
+
+thm 7.3 과 동일한 과정을 거쳐 
+
+
+
+
+
+
+
+
+
+
+
+
+
+$v^{\top}\Sigma v-\widehat{v}_{\mathrm{sp}}^{\top}\Sigma\widehat{v}_{\mathrm{sp}}\leq \Big \langle\widehat{\Sigma}-\Sigma, \; \widehat{v}_{\mathrm{sp}}\widehat{v}_{\mathrm{sp}}^{\top}-v v^{\top} \Big \rangle$
+
+$v$ 와 $\hat v_{sp}$ 양쪽 모두가 k-sparse 이므로, cardinality $|S| \le 2k$ 이며, $(i,j) \not = S \times S$ 일 때 $\{\hat v_{sp} \hat v_{sp}' - vv'\}_{ij}=0$ 를 만족하는 랜덤 set $S \subset \{1, \cdots, d\}$ 가 존재한다. 이는 곧 이하를 생산한다.
+
+$$
+\Big \langle\widehat\Sigma-\Sigma,\; \widehat{v}_{\mathrm{sp}}\widehat{v}_{\mathrm{sp}}^{\intercal}-v v^{\top}  \Big \rangle= \Big \langle\widehat{\Sigma}(S)-\Sigma(S), \;  \widehat{v}_{\mathrm{sp}}(S)\widehat{v}_{\mathrm{sp}}(S)^{\intercal}-v(S)v(S)^{\intercal} \Big \rangle
+$$
+
+이때 $\forall M_{d \times d}$ 에 대해, 우리는 $S$ 에 의해 row 와 col 이 index 되도록 구성된 $M$ 의 submatrix $M(S)_{|S| \times |S|}$ 를 정의하자. 또 $\forall \in \mathbb R^d$ 에 대해, $S$ 로 그것의 coordinate 가 index 된 x의 sub-vector $x(S) \in \mathbb R^{|S|}$ 를 정의하자. 여기서 Matrix 에 대한 Holder ineq. 를 적용하는 것으로 이하가 생산된다.
+
+$$
+v^{\top}\Sigma v-\widehat{v}_{\mathrm{sp}}^{\top}\Sigma\widehat{v}_{\mathrm{sp}}\leq  \Big \|\widehat{\Sigma}(S)-\Sigma(S) \Big \|_{\mathrm{op}}  \Big \|\widehat{v}_{\mathrm{sp}}(S)\widehat{v}_{\mathrm{sp}}(S)^{\top}-v(S)v(S)^{\top} \Big \|_{1}
+$$
+
+이제 thm 7.3 과 동일한 과정을 거치는 것으로 이하의 관계를 얻는다.
+
+$$
+\sin \bigg (\angle(\hat{v}_{\mathrm{sp}},v) \bigg)\leq\frac{2}{\theta}\operatorname*{sup}\limits_{S:|S\vert=2k}  \Big  \|\hat{\Sigma}(S)-\Sigma(S) \Big \|_{\mathrm{op}}
+$$
+
+증명을 마무리하기 위해 $\sup_{S:|S|=2k} \Bigg \| \hat \Sigma(S) - \Sigma(S) \Bigg \|_{op}$ 를 control 하는 일이 남아있다. 이를 위해 이하를 보이자.
+
+
+$$
+\begin{align}
+
+\forall t\ge0:\mathbb{P}{\Biggl(}\operatorname*{sup}_{S:\mathbf{|}S|=2k} \bigg \|{\hat{\Sigma}}(S)-\Sigma(S) \bigg \|_{\mathrm{op}}\geq t{\Biggr)}
+
+&\leq\ \sum_{S:|S|=2k}\mathbb{P}{\Bigg(} \bigg \|{\hat{\boldsymbol{\Sigma}}}(S)-\Sigma(S) \bigg \|\log\geq t{\Bigg)}
+
+\\
+
+&\stackrel{(i)}{\leq}~{d \choose {2k}} \times2\times9^{2k}\times\exp\Biggl(-\frac{1}{2}\operatorname*{min}\biggl\{\frac{n t}{16\sigma^{2}},~\frac{n t^{2}}{16^{2}\sigma^{4}}\biggr\}\Biggr)
+
+
+\\
+
+&\stackrel{(ii)}{\leq}~{d \choose {2k}}
+2 \exp\Biggl(-\frac{1}{2}\operatorname*{min}\biggl\{\frac{n t}{16\sigma^{2}},~\frac{n t^{2}}{16^{2}\sigma^{4}}\biggr\}+ 2k \log 9 + k \log\left( \frac{en}{k} \right) \Biggr  )
+
+\end{align}
+$$
+
+
+
+1. thm 5.1. 의 증명을 사용.
+2. ineq. (7.2) 에 의해 증명.
+
+이제 충분히 큰 $C>0$ 에 대해서, 이하의 식에 의해 $t$ 에 대해 with probabilty at least $1-\delta$ 로 desired bound 가 성립하며, 그러한 $t$ 를 고르면 된다.
+
+$$
+t\geq C\sigma^{2}\operatorname*{max}\left\{\sqrt{\frac{k\log(\frac{ed}k)+\log(\frac2\delta)}{n}},\;\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}\right\}
+$$
+
+
+
+
+
+
+
+
+
+
+

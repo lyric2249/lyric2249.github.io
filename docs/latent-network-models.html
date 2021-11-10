@@ -508,6 +508,13 @@ div.csl-indent {
 <li class="chapter" data-level="8.6.3" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#sub-gaussian-and-sub-exponential-matrices"><i class="fa fa-check"></i><b>8.6.3</b> Sub-Gaussian and sub-exponential matrices</a></li>
 <li class="chapter" data-level="8.6.4" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#랜덤-매트릭스에-대한-hoeffding-and-bernstein-bounds"><i class="fa fa-check"></i><b>8.6.4</b> 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds</a></li>
 </ul></li>
+<li class="chapter" data-level="8.7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8.7</b> Principal Component Analysis</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-1"><i class="fa fa-check"></i><b>8.7.1</b> PCA</a></li>
+<li class="chapter" data-level="8.7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#matrix-perturbation"><i class="fa fa-check"></i><b>8.7.2</b> Matrix Perturbation</a></li>
+<li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model</a></li>
+<li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis</a>
 <ul>
@@ -704,52 +711,97 @@ $$</p>
 <ol start="2" style="list-style-type: decimal">
 <li><span class="math inline">\(\mathbf z_i , \beta, \lambda, \mu_g ,\sigma^2_g, K_i\)</span>의 full 조건부 posterior 분포 특정</li>
 </ol>
-<p><span class="math inline">\({\bf z}_{i}\mid K_{i}=g,\mathrm{others}\sim\phi_{d}\bigl({\bf z}_{i};\mu_{g},\sigma_{g}^{2}I_{d}\bigr)P\bigl(\bf V\mid Z,X,\beta\bigr),\quad i=1,\cdots\cdot,n,\)</span></p>
-<p><span class="math inline">\(\beta\mid\mathbb{Z},\mathrm{others}\sim\phi_{p}\Bigl(\beta;\xi,\Psi\Bigr)P\Bigl(\not{Y}\mid\mathbb{Z},\mathrm{X},\beta\Bigr),\)</span></p>
-<p><span class="math inline">\(\lambda\mid{\mathrm{Ot}}|{\mathrm{erS}}\sim{\mathrm{Diticl}}|{\mathrm{let}}\Bigl(p\!\!\!/+\nu\Bigr),\)</span></p>
-<p><span class="math inline">\(\mu_{g}\mid\mathrm{others}\sim\mathrm{MWN}_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}|\right),\quad g=1,\cdot\cdot\cdot\cdot\cdot,G,\)</span></p>
-<p><span class="math inline">\(\sigma_{g}^{2}\mid\mathrm{Ot}|\Re\mathrm{S}\sim\left(\sigma_{0}^{2}+Q S_{g}^{2}\right)|\mathrm{\eta}\mathrm{W}-\chi_{\alpha+m_{s}}^{2}d,\quad g=1\,,\cdot\cdot\cdot\,,\,\bar{G},\)</span></p>
-<p><span class="math inline">\(P\Bigl(K_{i}=g\mid\mathrm{others}\Bigr)=\frac{\lambda_{g}\phi_{d}\Bigl(Z_{i};\mu_{g},\sigma_{g}^{2}\vert_{d}\Bigr)}{\sum_{r=1}^{G}\lambda_{r}\phi_{d}\Bigl(Z_{i};\mu_{r},\sigma_{r}^{2}\vert_{d}\Bigr)},\quad g=1,\cdot\cdot\cdot,G.\)</span></p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+{\bf z}_{i}\mid K_{i}=g,\mathrm{others}
+&amp;\sim
+\phi_{d}\bigl({\bf z}_{i};\mu_{g},\sigma_{g}^{2}I_{d}\bigr)
+\cdot
+P\bigl(\bf V\mid Z,X,\beta\bigr),\quad 
+
+&amp;&amp;i=1,\cdots\cdot,n,
+
+\\
+
+\beta\mid \bf{Z},\mathrm{others}
+&amp;\sim
+\phi_{p}\Bigl(\beta;\xi,\Psi\Bigr)
+\cdot
+P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
+
+\\
+
+\lambda\mid{\mathrm{others}}
+&amp;\sim
+{Dirichlet\Big (m + \nu \Big)}
+
+\\
+
+\mu_{g}\mid\mathrm{others}
+&amp;\sim
+MVN_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}  \cdot I\right),\quad 
+
+&amp;&amp;g=1,\cdot\cdot\cdot\cdot\cdot,G,
+
+
+\\
+
+\sigma_{g}^{2}\mid\mathrm{others}
+&amp;\sim
+\left(\sigma_{0}^{2}+d s_{g}^{2}\right) \cdot \mathrm{Inv-}\chi^2_{\alpha + m_s d},
+
+&amp;&amp;g=1\,,\cdot\cdot\cdot\,,\,\bar{G},
+
+
+\\
+
+P\Bigl(K_{i}=g \bigg | \mathrm{others}\Bigr)
+&amp;=
+\frac{\lambda_{g}\phi_{d}\Bigl(z_{i};\mu_{g},\;\sigma_{g}^{2} \cdot I_{d}\Bigr)}
+{\sum_{r=1}^{G}\lambda_{r}\phi_{d}\Bigl(z_{i};\mu_{r}, \; \sigma_{r}^{2} \cdot I_{d}\Bigr)},\quad 
+
+&amp;&amp;g=1,\cdot\cdot\cdot,G.
+
+
+
+
+
+\end{align}\]</span>
+$$</p>
 <p>Steps.</p>
 <ol style="list-style-type: decimal">
-<li><p>Update Zt+1 using Metropolis-Hastings steps
+<li><p>MH 스텝 이용해서 <span class="math inline">\(Z_{t+1}\)</span> 업데이트
 1. proposal <span class="math inline">\(2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})\)</span>, <span class="math inline">\(g=1, \cdots, G\)</span>
 2. accept <span class="math inline">\(Z_i^\ast\)</span> as the i-th element of <span class="math inline">\(z_{t+1}\)</span> with probability <span class="math inline">\(\frac{P\big(\mathbf{V}|\mathbf{Z}^{*},\mathbf{X},\beta_{t}\big)\phi_{d}\big(\mathbf{Z}_{i}^{*},\mu K_{i},\sigma_{K}^{2}|_{d}\big)}{P\big(\mathbf{V}|\mathbf{Z}_{t},\mathbf{X},\beta_{t}\big)\phi_{d}\big(\mathbf{Z}_{i i};\mu K_{i},\sigma_{K}^{2}|_{d}\big)}\)</span></p></li>
-<li><p>update <span class="math inline">\(\beta_{t+1}\)</span> using Metropolis-Hastings steps
+<li><p>MH 스텝 이용해서 <span class="math inline">\(\beta_{t+1}\)</span> 업데이트
 1. <span class="math inline">\(2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})\)</span>, <span class="math inline">\(g=1, \cdots, G\)</span>
 2. accept <span class="math inline">\(Z_i^\ast\)</span> as the i-th element of <span class="math inline">\(z_{t+1}\)</span> with probability <span class="math inline">\(\frac{{\cal P}\big(\mit{W}\lbrack\mathbf{Z}_{t+1},\mit{X},\beta^{*}\big)\phi_{\rho}\big(\beta^{*};\xi,\mit{\mit\Psi}\big)}{{\cal P}\Big(\mit{\bf V}\lbrack\Z_{t+1},\mit{\bf X},\beta_{t}\big)\phi_{\rho}\big(\beta_{t};\xi,\mit{\mit\Psi}\Big)}.\)</span></p></li>
 <li><p>Update λ, µg, σ, g, Ki using full conditional posterior distributions</p></li>
 </ol>
 <p>Pros and Cons</p>
 <ul>
-<li>Advantage: Perform better</li>
-<li>Disadvantage: More Complicated</li>
+<li>장점: 성능이 더 나음</li>
+<li>단점: 더 복잡함</li>
 </ul>
-<ol start="3" style="list-style-type: decimal">
-<li>MCMC Algorithm</li>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="identifiability-of-positions-and-cluster-labels" class="section level4" number="7.8.2.2">
+<h4><span class="header-section-number">7.8.2.2</span> Identifiability of Positions and Cluster Labels</h4>
+<p>Likelihood 에만 의존해서 cluster化 성능 평가하면 문제생김. positions 과 cluster labels 들의 Non-identifiabilities 문제. Likelihood 는 이하에 불변.</p>
+<ol style="list-style-type: decimal">
+<li>latent positions 들의 반사, 회전, translation</li>
+<li>cluster 들의 relabeling. 이는 <strong>Label switching problem</strong>[^cluster 의 label 을 permute 하는 것은 Likelihood 에 변화를 가져오지 않지만, obs 들을 그룹에 넣는 과정에서 우리가 문제를 겪게 됨. Likelihood 는 같지만 label 이 다른 순간 이건 cluster 의 구성이 다른 것과 동일하니까.] 으로 이어짐.</li>
 </ol>
-<ul>
-<li>Identifiability of Positions and Cluster Labels</li>
-</ul>
-<p>Problem: Non-identifiabilities of positions and cluster labels</p>
-<p>Likelihood is invariant to
-1 Reflections, rotations, translations of the latent positions
-2 Relabelling of the clusters → Label switching problem</p>
-<p>Label switching problem
-Permuting the cluster labels does not change the likelihood but we have a
-problem in clustering the observations into groups</p>
-<p>How to resolve? → Minimizing Bayes risk</p>
-<p>1 Find the positions of the actors that minimize the estimated Bayes risk
-2 Procrustes transform the posterior draws of latent positions and using
-the same transformation matrix, transform the cluster means and
-covariances
-3 Find the cluster membership probabilities of the actors that minimize
-the estimated Bayes risk</p>
-<p>Bayes risk = Expecation of loss function
-Use a Kullback-Leibler loss as a loss function</p>
-<p>Choosing the Number of Clusters
-Bayesian estimation
-Select the model with the highest posterior probability</p>
+<p>이를 해결하기 위한 방법으로 <strong>Minimizing Bayes risk</strong> 가 제시.</p>
+<ol style="list-style-type: decimal">
+<li>estimate 되는 Bayes risk[^Bayes risk = Expecation of loss function. 이때 loss function 으로는 Kullback-Leibler loss 를 사용한다.] 를 최소화하는 actor 들의 position 탐색</li>
+<li>latent position 의 posterior 추출값 (draw) 를 Procrustes Transform 하고 동일한 Transformation Matrix 를 사용하여, cluster mean 와 Cov 를 transform</li>
+<li>Estimate 된 Bayes risk 를 최소화하는 cluster membership 의 확률을 탐색</li>
+</ol>
+<p>이제 이하의 과정을 거쳐서 cluster 의 갯수를 정한다. Bayesian estimation - 이하의 equation, 즉 higehest posterior probability 를 가지는 model 을 선택.</p>
 $$
 <span class="math display">\[\begin{array}
 
@@ -786,9 +838,9 @@ BIC &amp;= &amp;&amp;BIC_{lr} &amp;&amp;+ &amp;&amp;BIC_{mbc}
 \end{array}\]</span>
 <p>$$</p>
 <ul>
-<li>$d_{logit} = $ # of parameters in the logistic regression</li>
-<li>$n_{logit} = $ # of ties in data</li>
-<li>$d_{mbc} = $ # of parameters in the clustering model</li>
+<li><span class="math inline">\(d_{logit} =\)</span> # of parameters in the logistic regression</li>
+<li><span class="math inline">\(n_{logit} =\)</span> # of ties in data</li>
+<li><span class="math inline">\(d_{mbc} =\)</span> # of parameters in the clustering model</li>
 </ul>
 
 </div>

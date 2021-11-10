@@ -14,6 +14,12 @@ def:unlabeled-div-12
 def:unlabeled-div-13
 thm:unlabeled-div-14
 thm:unlabeled-div-15
+thm:unlabeled-div-16
+def:unlabeled-div-17
+thm:unlabeled-div-18
+thm:unlabeled-div-19
+cor:unlabeled-div-20
+thm:unlabeled-div-21
 fig:nice-fig
 tab:nice-tab
 categorical
@@ -386,6 +392,7 @@ estimation-2
 advantages
 latent-position-cluster-model
 bayesian-estimation
+identifiability-of-positions-and-cluster-labels
 additive-and-multiplicative-effects-network-models
 introduction-3
 social-relations-regression
@@ -431,6 +438,13 @@ sub-gaussian-and-sub-exponential-matrices
 hoeffding-bound
 bernstein-bound
 generalization-to-non-symmetricrectangular-matrices
+principal-component-analysis
+pca-1
+matrix-perturbation
+ev-의-estimation
+evec-의-estimation
+spiked-cov-model
+sparse-pca
 survival-analysis
 introduction-5
 censoring-sources

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Categorical | Self-Study</title>
-  <meta name="description" content="Chapter 1 Categorical | Self-Study" />
+  <title>8.7 Principal Component Analysis | Self-Study</title>
+  <meta name="description" content="8.7 Principal Component Analysis | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Categorical | Self-Study" />
+  <meta property="og:title" content="8.7 Principal Component Analysis | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Categorical | Self-Study" />
+  <meta name="twitter:title" content="8.7 Principal Component Analysis | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="overview.html"/>
+<link rel="prev" href="matrix-concentration-inequalities.html"/>
+<link rel="next" href="survival-analysis.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -568,16 +568,294 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="categorical" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Categorical</h1>
+<div id="principal-component-analysis" class="section level2" number="8.7">
+<h2><span class="header-section-number">8.7</span> Principal Component Analysis</h2>
+<p>Principal Component Analysis (PCA) 는 차원축소에 가장 유명한 방법론 중 하나. 데이터의 저차원 표현을 통해 데이터를 보여주고 또 해석하는 것이 가능. 이는 Var 의 대부분을 포착 (capture, 설명가능) 한 저차원 subspace 를 탐색해내거나, 혹은 equivalent 하게 분포의 maximal Var component 를 탐색해내는 것으로 성립. 샘플의 finite collection 이 주어졌을 때 PCA 의 empirical form 은 샘플 Cov Matrix 의 상위 evec 의 subset 을 계산해내는 것으로 작동함. 관심대상은 언제 이 evec 들이 population Cov Matrix 의 상위 evec 들에 의해 span 되는 subspace 를 잘 모사해내는가, 그 condition. 초기형 tool 들을 사용해 고차원 상황이랑 non-asymptotic framework 에서 해당 이슈를 살펴보자.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+<div id="pca-1" class="section level3" number="8.7.1">
+<h3><span class="header-section-number">8.7.1</span> PCA</h3>
+<p>let <span class="math inline">\(E(X)=0\)</span>, <span class="math inline">\(Cov(X) = \Sigma\)</span> 인 랜덤벡터 <span class="math inline">\(X \in \mathbb R^d\)</span>. ev Decompostion 을 고려하자. 즉 <span class="math inline">\(\Sigma = V \Lambda V&#39;\)</span>[^V_{d d} V’ = V’V = I][^diagonal Matrix <span class="math inline">\(\lambda_{d \times d}\)</span>, entries with ev <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_d \ge 0\)</span>].</p>
+<p>PCA 에 던지는 질문은 결국 이거다. unit norm vector <span class="math inline">\(v\)</span>, 즉 <span class="math inline">\(v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}\)</span> 에 대해, 어떤 <span class="math inline">\(v\)</span> 를 골라야 랜덤변수 <span class="math inline">\(v&#39;X\)</span> 의 Var 이 최대화되는가?</p>
+<p>더 이론적인 이야기를 해보자. 우리는 <span class="math inline">\(v_1 = \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v&#39;X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle\)</span> 를 만족하는 direction <span class="math inline">\(v_1\)</span> 을 찾는 것에 목적을 둔다. 이를 <strong>first principal component</strong> 라고 부르자. 이를 일반화하면 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> principal component <span class="math inline">\(\{v_1 , \cdots, v_k \}\)</span> 를 구성할 수 있다. 이때 각각은 <span class="math inline">\(for 2 \le j \le k: v_j = \arg \max\limits_{v \in \mathbb S^{d-1}, \langle v, \Sigma v_i \rangle = 0, 1 \le \forall i \le j} \langle v, \Sigma \rangle\)</span> 를 만족해야 한다.</p>
+<p>이 principal component 들은 단순히 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> evec, 즉, <span class="math inline">\(V\)</span>의 first <span class="math inline">\(k\)</span> 개의 column 이 된다. PCA 는 보통 <span class="math inline">\(k\)</span> 를 작게 잡고 노는 걸 좋아함.</p>
+<ul>
+<li><strong>Best rank k approximation</strong></li>
+</ul>
+<p>PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 <span class="math inline">\(k\)</span> 인 <span class="math inline">\(Z^\ast_{d \times d} = \arg \min_{rank(Z) \le k} ||\Sigma Z||_F\)</span> 를 찾는다고 하자. 이에 대한 optimal solution 이 <span class="math inline">\(Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i&#39;\)</span> 이며 <span class="math inline">\(||\Sigma - Z^\ast ||^2_F = \sum\limits^d_{i=k+1}\lambda_i^2\)</span> 임을 알 수 있다.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
+<div id="matrix-perturbation" class="section level3" number="8.7.2">
+<h3><span class="header-section-number">8.7.2</span> Matrix Perturbation</h3>
+<p>실전에서 <span class="math inline">\(\Sigma\)</span> 는 불명이며 PCA 가 적용되는건 언제나 샘플 Cov <span class="math inline">\(\hat \Sigma\)</span> 이다. 이때 주된 질문은 샘플에서 얻은 ev 와 evec 들이 그들의 population Cov 를 얼마나 잘 근사하는지 하는 것이다. 이 질문에 답하기 위한 tool 들은 아래와 같다.</p>
+<div id="ev-의-estimation" class="section level4" number="8.7.2.1">
+<h4><span class="header-section-number">8.7.2.1</span> ev 의 estimation</h4>
+<p>let <span class="math inline">\(\hat \Sigma = \Sigma + \underbrace{E}_{\text{noise matrix}}\)</span>. 이때 maimum ev 의 정의에 의해</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\lambda_{max} (\hat \Sigma) &amp;= \max_{v \in \mathbb^{d-1}} v&#39;(\Sigma + E)v
+
+\\
+
+&amp;\le \lambda_{max}(\Sigma) + ||E||_{op}
+
+\end{align}\]</span>
+$$</p>
+<p><span class="math inline">\(\hat \Sigma\)</span> 와 <span class="math inline">\(\Sigma\)</span> 의 역할이 뒤바뀌었을 때도 동일한 argument 가 성립하므로 동시에 <span class="math inline">\(\lambda_{max} (\Sigma) &amp;\le \lambda_{max}(\hat \Sigma) + ||E||_{op}\)</span> 이기도 하다. 이 둘을 합하면 결국 <span class="math inline">\(\Big | \lambda_{max} (\Sigma) - \lambda_{max}(\hat \Sigma) \Big |&amp;\le ||E||_{op}\)</span>.</p>
+<p>이를 더 일반화시키면 이하와 같다.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-16" class="theorem"><strong>Theorem 8.9  (Weyl’s inequality) </strong></span><span class="math display">\[
+\max\limits_{i=1, \cdots, d} \Big | \hat \lambda_i - \lambda_i \Big | \le ||E||_{op} = ||\hat Sigma - \Sigma ||_{op}
+\]</span></p>
+<p>where <span class="math inline">\(\hat \lambda_1, \cdots, \hat \lambda_d\)</span> are the ordered ev of <span class="math inline">\(\hat \Sigma\)</span>.</p>
+</div>
+<p>이것이 의미하는 바는 명확함. <span class="math inline">\(\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow\)</span> <span class="math inline">\(\hat \lambda_i\)</span> 는 <span class="math inline">\(\lambda_i\)</span> 의 consistent estimator 라는 이야기. 실제로 SG assumption 하에서, <span class="math inline">\(|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)\)</span> with high probability. 따라서 개별 empirical ev 값은 이 경우에 <span class="math inline">\(\frac{d}{n} \rightarrow 0\)</span> 일 경우 consistent.</p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="evec-의-estimation" class="section level4" number="8.7.2.2">
+<h4><span class="header-section-number">8.7.2.2</span> evec 의 estimation</h4>
+<p>ev 는 일반적으로 stable 하지만 evec 의 경우에는 그렇지 않음.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+</div>
+<div id="spiked-cov-model" class="section level3" number="8.7.3">
+<h3><span class="header-section-number">8.7.3</span> Spiked Cov Model</h3>
+<div class="definition">
+<p><span id="def:unlabeled-div-17" class="definition"><strong>Definition 8.7  (Spiked Cov model) </strong></span>Cov matrix <span class="math inline">\(\Sigma \in \mathbb R^{d \times d}\)</span> 가 이하의 형을 만족하면 이는 <strong>Spiked Covariance Model 를 만족한다</strong> 고 불림. 이때 vector <span class="math inline">\(v\)</span> 는 <strong>spike</strong> 라고 명명.</p>
+<p><span class="math display">\[
+\exists \theta &gt; 0, \exists v \in \mathbb S^{d-1}: \Sigma = \theta v v&#39; + I_d
+\]</span></p>
+</div>
+<p>이러한 spiked Cov model 에 있어, <span class="math inline">\(\max(ev) = \theta + 1\)</span>, corresponding evec (largest evec) <span class="math inline">\(=v\)</span> 이라는 관점이 성립하는 것을 note. <span class="math inline">\(v\)</span> 의 natural estimate 는 empirical Cov Matrix 의 largest evec <span class="math inline">\(\hat v\)</span>. 우리의 목적은 고차원 setting에서 <span class="math inline">\(\hat v\)</span>와 <span class="math inline">\(v\)</span> 가 얼마나 가까운지 보는 것.</p>
+<p>이때 <span class="math inline">\(u\)</span> 가 symmetric Matrix 의 evec 이라고 하면, <span class="math inline">\(-u\)</span> 또한 같은 ev 에 묶인 evec. <mark>따라서 우리가 <span class="math inline">\(v\)</span> 를 estimate 해봐야 최대로 estimate 가능한 종착지는 참값의 sign flip 까지가 한계. This means that we can only estimate <span class="math inline">\(v\)</span> up to a sign flip.</mark> 이 문제를 해결하기 위해 우리는 2개의 벡터 <span class="math inline">\(u, v\)</span> 사이가 얼마나 가까운지 proximity 를 그들 각각의 linear span 사이의 <strong>principal angle</strong> 이라는 개념을 이용하여 설명한다.</p>
+<p><span class="math display">\[
+\angle(u,v) = \arccos \left( \Bigg | u&#39;v \Bigg | \right)
+\]</span></p>
+<p>Davis–Kahan <span class="math inline">\(\sin(\theta)\)</span> thm 은 eigenspace 들 사이의 principal angle 의 <span class="math inline">\(\sin\)</span> 에 대한 bound 를 생산함. 이하는 1차원 eigenspace 들 사이의 principal angle 에 대해 사용되는 Davis–Kahan <span class="math inline">\(\sin(\theta)\)</span> thm 의 간단한 버전.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-18" class="theorem"><strong>Theorem 8.10  (Davis–Kahan sin(θ) theorem) </strong></span>let <span class="math inline">\(A_{d \times d}, B_{d \times d} \in PSD\)</span>.</p>
+<p><span class="math inline">\(\lambda_{1} \ge {\lambda}_{2} \ge \cdots: \; (\lambda_{1},u_{1}),\cdots,(\lambda_{d,}^{\cdot}\,u_{d})\)</span> is pairs of ev and evec of <span class="math inline">\(A\)</span>.</p>
+<p><span class="math inline">\(\mu_{1} \ge {\mu}_{2} \ge \cdots: \; \; (\mu_{1},v_{1}),\cdots,(\mu_{d,}^{\cdot}\,v_{d})\)</span> is pairs of ev and evec of <span class="math inline">\(B\)</span>.</p>
+<p>이때</p>
+<p>$$
+<span class="math display">\[\begin{align}
+&amp;\sin \Big (\angle(u_{1},v_{1}) \Big )\leq{\frac{2}{\operatorname*{max} \Big (\lambda_{1}-\lambda_{2},\mu_{1}-\mu_{2} \Big )}}\|A-B\|_{\mathrm{op}}
+
+\\
+
+\operatorname*{min}\limits_{\epsilon\in\{\pm1\}} \Big \|\epsilon \cdot u_{1}-v_{1} \Big \|_{2}^{2}\le
+
+2&amp;\mathrm{sin}^{2} \Big (\angle(u_{1},v_{1}) \Big )
+\end{align}\]</span>
+$$</p>
+<p>여기서 Matrix 에 대한 Holder ineq. 를 적용하자. 이때 <span class="math inline">\(u_1 &#39; A u_1 = \lambda_1\)</span>, i.e. maxiumum ev. 여기서</p>
+<p>$$
+<span class="math display">\[\begin{align}
+\forall x \in \mathbb S^{d-1}: x^{\textsf{T}}A x\ =\ x^{\textsf{T}}\!\left(\sum_{i=1}^{d}\lambda_{i}u_{i}u_{i}^{\top}\right)\!x
+&amp;=\sum_{i=1}^{d}\lambda_{i}(u_{i}^{\top}x)^{2}
+
+
+
+\\
+
+&amp;\leq\;\ \lambda_{1}(u_{1}^{\top}x)^{2}+\lambda_{2}\sum_{i=2}^{d}(u_{i}^{\top}x)^{2}
+
+\\
+
+&amp;\overset{(\mathrm{i})}{=}~\lambda_{1}\big(u_{1}^{\top}x\big)^{2}\,+\,\lambda_{2}\big(1\,-\,\big(u_{1}^{\textsf{T}}x\big)^{2}\big)
+
+\\
+
+&amp;\overset{(\mathrm{ii})}{=} \lambda_{1}\cos^{2}\Big(\angle(u_{1},x)\Big)+\lambda_{2}\sin^{2}\Big(\angle(u_{1},x)\Big),
+\end{align}\]</span>
+$$</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(x = \sum\lmimits_{i=1}^d u_u(u_i &#39; x)\)</span> 이며 <span class="math inline">\(x&#39;x = \sum\limits_{i=1}^d(u_i &#39; x)^2 =1\)</span> 이라는 사실 사용</li>
+<li>trigonometric identity <span class="math inline">\(\cos^2 + \sin^2 = 1\)</span></li>
+</ol>
+<p>따라서 여기에 <span class="math inline">\(x = v_1\)</span> 으로 잡는 것으로</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+u_{1}^{\top}A u_{1}-v_{1}^{\top}A v_{1}\ &amp;\geq\ \lambda_{1}-\lambda_{1}\mathrm{cos}^{2}\Big(\angle(u_{1},x) \Big)-\lambda_{2}\mathrm{sin}^{2} \Big (\angle(u_{1},x) \Big )
+
+\\
+
+&amp;=\;(\lambda_{1}-\lambda_{2}){\sin}^{2} \Big (\angle(u_{1},x) \Big )
+
+\end{align}\]</span>
+$$</p>
+<p>On the other hand,</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+u_{1}^{\textsf{T}}A u_{1}-v_{1}^{\textsf{T}}A v_{1}\ \ &amp;=\ \ u_{1}^{\textsf{T}}B u_{1}-v_{1}^{\textsf{T}}A v_{1}+u_{1}^{\textsf{T}}(A-B)u_{1}
+
+\\
+
+&amp;\overset{\mathrm{(i)}}{\leq}~v_{1}^{\top}B v_{1}-v_{1}^{\top}A v_{1}+u_{1}^{\top}(A-B)u_{1}
+
+\\
+
+&amp;=\;\Big\langle A-B, \; u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top} \Big \rangle
+
+\\
+
+&amp;\overset{(ii)}\le \left|\right|A-B||_{\infty}||u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top}||_{1}
+
+\\
+
+&amp;\overset{(iii)}\le \vert\vert A-B\vert\vert_{\mathrm{op}}\sqrt{2}\vert\vert u_{1}u_{1}^{\textsf{T}}-v_{1}v_{1}^{\textsf{T}}\vert\vert_{2},
+
+\end{align}\]</span>
+$$</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(v_1\)</span> 이 <span class="math inline">\(B\)</span> 의 leading evec 이므로</li>
+<li>Holder ineq.</li>
+<li><span class="math inline">\(||A-B||_\infty = ||A-B||_{op}\)</span> 이며, <span class="math inline">\(rank(u_1u_1&#39; - v_1v_1&#39; )\le 2\)</span> 와 함께 CS ineq. 사용.</li>
+</ol>
+<p>이하는 명확함.</p>
+<p><span class="math display">\[
+||u_{1}u_{1}^{\top}-v_{1}v_{1}^{\top}||_{2}^{2}=2-2(u_{1}^{\top}v_{1})^{2}=2\mathrm{sin}^{2}(\angle(u_{1},v_{1}))
+\]</span></p>
+<p>이제 모든 조각을 모으면 이하가 성립.</p>
+<p><span class="math display">\[
+\left(\lambda_{1}-\lambda_{2}\right)\mathrm{sin}^{2} \bigg(\angle(u_{1},v_{1}) \bigg)\leq2\|A-B\|_{\mathrm{op}} \mathrm{sin}\bigg(\angle(u_{1},v_{1}) \bigg)
+\]</span></p>
+<p>이는 곧 thm 의 첫번째 부분을 보여줌. <span class="math inline">\(A\)</span>와 <span class="math inline">\(B\)</span> 에 대해 결과가 완벽하게 symmetric 이므로 <span class="math inline">\(\lambda_1 - \lambda_2\)</span> 를 <span class="math inline">\(\mu_1 - \mu_2\)</span> 로 대체할 수 있음을 note.</p>
+<p>이제 thm 의 2번째 부분만 보이면 됨. 이는 이하의 ineq. 를 통해 성립함이 분명. 이하의 ineq. 는 <span class="math inline">\(|u_{1}^{\top}v_{1}|\leq\|u_{1}\|_{2}\|v_{1}\|_{2}=1.\)</span> 이므로 성립함.</p>
+<p><span class="math display">\[
+\operatorname*{min}_{\epsilon\in\{\pm1\}}||\epsilon u_{1}-v_{1}||_{2}^{2}=2-2|u_{1}^{\top}v_{1}|\le2-2|u_{1}^{\top}v_{1}|^{2}=\sin^{2}(2(u_{1},v_{1})
+\]</span></p>
+</div>
+<p><br>
+<br></p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-19" class="theorem"><strong>Theorem 8.11  (Holder’s inequality for matrices) </strong></span>let <span class="math inline">\(A_{d \times d}, B_{d \times d} \in PSD\)</span>, 그리고 각각의 ev들을 <span class="math inline">\(\lambda_1 , \cdots, \lambda_d\)</span>, <span class="math inline">\(\mu_1 , \cdots, \mu_d\)</span>. 이를 이하와 같이 쓸 수 있다.</p>
+<p><span class="math display">\[
+||A||_{p}=\left(\sum_{i=1}^{d} \Big |\lambda_{i} \Big |^{p}\right)^{\frac1p}
+\; \; \; \; \; 
+\; \; \; \; \; 
+||B||_{q}=\left(\sum_{i=1}^{d} \Big |\mu_{i} \Big |^{q}\right)^{\frac1q}
+\]</span></p>
+<p>이때
+<span class="math display">\[
+\forall p, q \text{ s.t. }\frac1p + \frac1q = 1$ 이며 $p,q \in [1, \infty]
+\langle A, B \rangle = tr(A&#39;B) = tr(B&#39;A) \le ||A||_{p} ||B||_{q}
+\]</span></p>
+</div>
+<p>“Davis–Kahan sin(θ) theorem” 을 thm 5.1 과 조합하는 것으로 이하의 결과를 얻을 수 있음.</p>
+<div class="corollary">
+<p><span id="cor:unlabeled-div-20" class="corollary"><strong>Corollary 8.1  (Empirical principal component) </strong></span><span class="math inline">\(E(X_1) = 0\)</span>, <span class="math inline">\(Var(X_1) = \Sigma_{d \times d}\)</span> 인 랜덤벡터의 sequence <span class="math inline">\(X_1 , \cdots, X_n \overset{iid}{\sim} \in SG(\sigma^2)\)</span>, i.e., sequnce of <span class="math inline">\(\sigma\)</span>-sub-Gaussian random vectors.</p>
+<p>let 샘플 Cov Matrix <span class="math inline">\(\hat \Sigma = \frac{1}{n} \sum_{i=1}^n X_i X_i &#39;\)</span>.</p>
+<p>assume <span class="math inline">\(\Sigma = \theta v v&#39; + I_d\)</span> <strong>spiked Cov model</strong> 만족. 그렇다면 <span class="math inline">\(\hat \Sigma\)</span> 의 largest evec <span class="math inline">\(\hat v\)</span> 는 이하를 with probability <span class="math inline">\(1-\delta\)</span> 로 만족.</p>
+<p><span class="math display">\[
+\operatorname*{min}_{\epsilon\in\{\pm1\}}\left|\right|\epsilon \cdot \widehat{v}-v||_{2} 
+\lesssim 
+\frac{1}{\theta}\,\mathrm{max}\left\{\sqrt{\frac{d+\log(\frac2\delta)}{n}},\;\frac{d+\log(\frac2\delta)}{n}\right\}
+\]</span></p>
+</div>
+<p>이 결과를 통해 저차원 상황 (<span class="math inline">\(d \ll n\)</span>) 에서의 PCA 를 진행할 때 population Cov <span class="math inline">\(\Sigma\)</span> 를 샘플 Cov <span class="math inline">\(\hat \Sigma\)</span> 로 대체하는 것이 정당화된다.</p>
+<p>고차원 상황 (<span class="math inline">\(d \gg n\)</span>) 일 때는 <span class="math inline">\(\hat \Sigma\)</span> 를 써서 PCA 를 진행하면 결과값이 구리다는 것이 증명되어 있다. 실제로 <span class="math inline">\(\frac dn\)</span> 이 0에서 bounded away 되어있는 한, population evec 에 대한 consistent estimator 를 생산할 수 있는 <strong>방법 자체가 아예 없다</strong> 는 것을 보이는 것이 가능하다. 하지만 evec 에 대해 certain structure 가 존재한다면 고차원에서도 population evec 을 consistently estimate 하는 것이 가능하긴 하다.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="sparse-pca" class="section level3" number="8.7.4">
+<h3><span class="header-section-number">8.7.4</span> sparse PCA</h3>
+<p>evec 에 sparsity 개념을 도입하자. leading evec <span class="math inline">\(v\)</span> 가 <span class="math inline">\(k\)</span>-sparse[^vector 안에 들어있는 non-zero elements 의 갯수가 <span class="math inline">\(k\)</span>], 즉 <span class="math inline">\(||v||_0 = \sum\limits^d_{i=1}|v_i|^0 = k\)</span>[^이때 <span class="math inline">\(0^0 = 0\)</span>이라고 정의].</p>
+<p>이 경우 <span class="math inline">\(v\)</span> 를 추정하기 위한 natural candidate 는 <span class="math inline">\(\hat v_{sp} = \arg \max\limits_{u \in \mathbb S^{d-1}, ||u||_0 = k} u&#39; \hat \Sigma u\)</span>. 이 estimator 는 이하를 통해 타당화.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-21" class="theorem"><strong>Theorem 8.12  (Sparse PCA) </strong></span>Corollary 7.4 와 같은 setting 을 생각하자. 여기에 추가로 leading evec <span class="math inline">\(v\)</span> 가 $k d 2: ||v||_0 k $ 를 만족한다고 assume. 이때 <span class="math inline">\(\hat \Sigma\)</span> 의 k-sparse largest evec <span class="math inline">\(\hat v_{sp}\)</span> 는 with probability <span class="math inline">\(1-\delta\)</span> 로 이하를 만족.</p>
+<p><span class="math display">\[
+\operatorname*{min}_{\epsilon\in\{\pm1\}}
+\|\epsilon \cdot \widehat{v}_{\mathrm{sp}}-v\|_{2}
+\lesssim
+\frac{1}{\theta}\operatorname*{max}\left\{
+\sqrt{\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}},\;
+\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}\right\},
+\]</span></p>
+<ul>
+<li>※ REMARK. 일반적인 PCA 와 달리, k-sparcity 가 만족되었다면, <span class="math inline">\(d \gg n\)</span> 상황에서도 <span class="math inline">\(\hat v_{sp}\)</span> 는 consistent 가능.</li>
+</ul>
+</div>
+<ul>
+<li>Detour: <span class="math inline">\(1 \le \forall k \in \mathbb Z \le n : {n \choose k} \le \left( \frac{en}{k}\right)^k\)</span></li>
+</ul>
+<p>Proof:</p>
+<p>thm 7.3 과 동일한 과정을 거쳐</p>
+<p><span class="math inline">\(v^{\top}\Sigma v-\widehat{v}_{\mathrm{sp}}^{\top}\Sigma\widehat{v}_{\mathrm{sp}}\leq \Big \langle\widehat{\Sigma}-\Sigma, \; \widehat{v}_{\mathrm{sp}}\widehat{v}_{\mathrm{sp}}^{\top}-v v^{\top} \Big \rangle\)</span></p>
+<p><span class="math inline">\(v\)</span> 와 <span class="math inline">\(\hat v_{sp}\)</span> 양쪽 모두가 k-sparse 이므로, cardinality <span class="math inline">\(|S| \le 2k\)</span> 이며, <span class="math inline">\((i,j) \not = S \times S\)</span> 일 때 <span class="math inline">\(\{\hat v_{sp} \hat v_{sp}&#39; - vv&#39;\}_{ij}=0\)</span> 를 만족하는 랜덤 set <span class="math inline">\(S \subset \{1, \cdots, d\}\)</span> 가 존재한다. 이는 곧 이하를 생산한다.</p>
+<p><span class="math display">\[
+\Big \langle\widehat\Sigma-\Sigma,\; \widehat{v}_{\mathrm{sp}}\widehat{v}_{\mathrm{sp}}^{\intercal}-v v^{\top}  \Big \rangle= \Big \langle\widehat{\Sigma}(S)-\Sigma(S), \;  \widehat{v}_{\mathrm{sp}}(S)\widehat{v}_{\mathrm{sp}}(S)^{\intercal}-v(S)v(S)^{\intercal} \Big \rangle
+\]</span></p>
+<p>이때 <span class="math inline">\(\forall M_{d \times d}\)</span> 에 대해, 우리는 <span class="math inline">\(S\)</span> 에 의해 row 와 col 이 index 되도록 구성된 <span class="math inline">\(M\)</span> 의 submatrix <span class="math inline">\(M(S)_{|S| \times |S|}\)</span> 를 정의하자. 또 <span class="math inline">\(\forall \in \mathbb R^d\)</span> 에 대해, <span class="math inline">\(S\)</span> 로 그것의 coordinate 가 index 된 x의 sub-vector <span class="math inline">\(x(S) \in \mathbb R^{|S|}\)</span> 를 정의하자. 여기서 Matrix 에 대한 Holder ineq. 를 적용하는 것으로 이하가 생산된다.</p>
+<p><span class="math display">\[
+v^{\top}\Sigma v-\widehat{v}_{\mathrm{sp}}^{\top}\Sigma\widehat{v}_{\mathrm{sp}}\leq  \Big \|\widehat{\Sigma}(S)-\Sigma(S) \Big \|_{\mathrm{op}}  \Big \|\widehat{v}_{\mathrm{sp}}(S)\widehat{v}_{\mathrm{sp}}(S)^{\top}-v(S)v(S)^{\top} \Big \|_{1}
+\]</span></p>
+<p>이제 thm 7.3 과 동일한 과정을 거치는 것으로 이하의 관계를 얻는다.</p>
+<p><span class="math display">\[
+\sin \bigg (\angle(\hat{v}_{\mathrm{sp}},v) \bigg)\leq\frac{2}{\theta}\operatorname*{sup}\limits_{S:|S\vert=2k}  \Big  \|\hat{\Sigma}(S)-\Sigma(S) \Big \|_{\mathrm{op}}
+\]</span></p>
+<p>증명을 마무리하기 위해 <span class="math inline">\(\sup_{S:|S|=2k} \Bigg \| \hat \Sigma(S) - \Sigma(S) \Bigg \|_{op}\)</span> 를 control 하는 일이 남아있다. 이를 위해 이하를 보이자.</p>
+<p>$$
+<span class="math display">\[\begin{align}
+
+\forall t\ge0:\mathbb{P}{\Biggl(}\operatorname*{sup}_{S:\mathbf{|}S|=2k} \bigg \|{\hat{\Sigma}}(S)-\Sigma(S) \bigg \|_{\mathrm{op}}\geq t{\Biggr)}
+
+&amp;\leq\ \sum_{S:|S|=2k}\mathbb{P}{\Bigg(} \bigg \|{\hat{\boldsymbol{\Sigma}}}(S)-\Sigma(S) \bigg \|\log\geq t{\Bigg)}
+
+\\
+
+&amp;\stackrel{(i)}{\leq}~{d \choose {2k}} \times2\times9^{2k}\times\exp\Biggl(-\frac{1}{2}\operatorname*{min}\biggl\{\frac{n t}{16\sigma^{2}},~\frac{n t^{2}}{16^{2}\sigma^{4}}\biggr\}\Biggr)
+
+
+\\
+
+&amp;\stackrel{(ii)}{\leq}~{d \choose {2k}}
+2 \exp\Biggl(-\frac{1}{2}\operatorname*{min}\biggl\{\frac{n t}{16\sigma^{2}},~\frac{n t^{2}}{16^{2}\sigma^{4}}\biggr\}+ 2k \log 9 + k \log\left( \frac{en}{k} \right) \Biggr  )
+
+\end{align}\]</span>
+$$</p>
+<ol style="list-style-type: decimal">
+<li>thm 5.1. 의 증명을 사용.</li>
+<li>ineq. (7.2) 에 의해 증명.</li>
+</ol>
+<p>이제 충분히 큰 <span class="math inline">\(C&gt;0\)</span> 에 대해서, 이하의 식에 의해 <span class="math inline">\(t\)</span> 에 대해 with probabilty at least <span class="math inline">\(1-\delta\)</span> 로 desired bound 가 성립하며, 그러한 <span class="math inline">\(t\)</span> 를 고르면 된다.</p>
+<p><span class="math display">\[
+t\geq C\sigma^{2}\operatorname*{max}\left\{\sqrt{\frac{k\log(\frac{ed}k)+\log(\frac2\delta)}{n}},\;\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}\right\}
+\]</span></p>
+
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="overview.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="matrix-concentration-inequalities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survival-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -608,7 +886,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/202206_Overview.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212307_PCA.Rmd",
 "text": "Edit"
 },
 "history": {
