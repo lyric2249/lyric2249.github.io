@@ -19,9 +19,14 @@
 <br>
 
 
+<div class="math-left-align">
+$$a+b=c$$
+</div>
+
+<div class="math-left-align">
+
 $$
 \begin{alignat}{2}
-
 
 y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
 \\
@@ -54,12 +59,12 @@ V &=M(X,\beta)+U V^{T} &&  && +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME
 
 
 \end{alignat}
-$$
 
 $$
+</div>
 
+$$
 P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i} \Bigg\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
-
 $$
 
 

@@ -30,7 +30,9 @@ pre code {
   /*box-shadow: 5px 10px 8px #888888;*/
 }
 
-
+.math-left-align .mjx-chtml.MJXc-display{
+    text-align: left !important;
+ }
 
 
 /*

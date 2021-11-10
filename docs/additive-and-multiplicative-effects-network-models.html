@@ -577,9 +577,12 @@ div.csl-indent {
 <p><br>
 <br>
 <br></p>
+<div class="math-left-align">
+<p><span class="math display">\[a+b=c\]</span></p>
+</div>
+<div class="math-left-align">
 <p>$$
 <span class="math display">\[\begin{alignat}{2}
-
 
 y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
 \\
@@ -611,11 +614,12 @@ N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 &amp; \rho \\ \rho &amp; 
 V &amp;=M(X,\beta)+U V^{T} &amp;&amp;  &amp;&amp; +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
 
 
-\end{alignat}\]</span>
-$$</p>
+\end{alignat}\]</span></p>
 <p>$$</p>
-<p>P(Y) (<em>{i,j}y</em>{i,j}+<em>{i} { a</em>{i}<em>{j}y</em>{i,j}+b_{i}<em>{j}y</em>{j,i} }+<em>{i,j}y</em>{i,j}y_{j,i})</p>
-<p>$$</p>
+</div>
+<p><span class="math display">\[
+P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i} \Bigg\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
+\]</span></p>
 <div class="line-block">| <span class="math display">\[ | \]</span> | [^Combines a linear regression model with the covariance structure of the SRM as follows, where <span class="math inline">\(\mathbf x_{i,j}\)</span> is <span class="math inline">\(p\)</span>−dimensional vector of regressors and <span class="math inline">\(\beta\)</span> is a vector of regression coefficient to be estimated.] |</div>
 <div id="addictive-effect-model-iid-model" class="section level4" number="7.9.2.1">
 <h4><span class="header-section-number">7.9.2.1</span> Addictive Effect Model (iid model)</h4>
