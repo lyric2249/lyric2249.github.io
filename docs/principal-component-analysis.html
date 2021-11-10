@@ -579,7 +579,7 @@ div.csl-indent {
 <br></p>
 <div id="pca-1" class="section level3" number="8.7.1">
 <h3><span class="header-section-number">8.7.1</span> PCA</h3>
-<p>let <span class="math inline">\(E(X)=0\)</span>, <span class="math inline">\(Cov(X) = \Sigma\)</span> 인 랜덤벡터 <span class="math inline">\(X \in \mathbb R^d\)</span>. ev Decompostion 을 고려하자. 즉 <span class="math inline">\(\Sigma = V \Lambda V&#39;\)</span>[^V_{d d} V’ = V’V = I][^diagonal Matrix <span class="math inline">\(\lambda_{d \times d}\)</span>, entries with ev <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_d \ge 0\)</span>].</p>
+<p>let <span class="math inline">\(E(X)=0\)</span>, <span class="math inline">\(Cov(X) = \Sigma\)</span> 인 랜덤벡터 <span class="math inline">\(X \in \mathbb R^d\)</span>. ev Decompostion 을 고려하자. 즉 <span class="math inline">\(\Sigma = V \Lambda V&#39;\)</span><sup>[V_{d d} V’ = V’V = I]</sup>[diagonal Matrix <span class="math inline">\(\lambda_{d \times d}\)</span>, entries with ev <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_d \ge 0\)</span>].</p>
 <p>PCA 에 던지는 질문은 결국 이거다. unit norm vector <span class="math inline">\(v\)</span>, 즉 <span class="math inline">\(v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}\)</span> 에 대해, 어떤 <span class="math inline">\(v\)</span> 를 골라야 랜덤변수 <span class="math inline">\(v&#39;X\)</span> 의 Var 이 최대화되는가?</p>
 <p>더 이론적인 이야기를 해보자. 우리는 <span class="math inline">\(v_1 = \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v&#39;X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle\)</span> 를 만족하는 direction <span class="math inline">\(v_1\)</span> 을 찾는 것에 목적을 둔다. 이를 <strong>first principal component</strong> 라고 부르자. 이를 일반화하면 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> principal component <span class="math inline">\(\{v_1 , \cdots, v_k \}\)</span> 를 구성할 수 있다. 이때 각각은 <span class="math inline">\(for 2 \le j \le k: v_j = \arg \max\limits_{v \in \mathbb S^{d-1}, \langle v, \Sigma v_i \rangle = 0, 1 \le \forall i \le j} \langle v, \Sigma \rangle\)</span> 를 만족해야 한다.</p>
 <p>이 principal component 들은 단순히 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> evec, 즉, <span class="math inline">\(V\)</span>의 first <span class="math inline">\(k\)</span> 개의 column 이 된다. PCA 는 보통 <span class="math inline">\(k\)</span> 를 작게 잡고 노는 걸 좋아함.</p>
@@ -783,7 +783,7 @@ $$</p>
 </div>
 <div id="sparse-pca" class="section level3" number="8.7.4">
 <h3><span class="header-section-number">8.7.4</span> sparse PCA</h3>
-<p>evec 에 sparsity 개념을 도입하자. leading evec <span class="math inline">\(v\)</span> 가 <span class="math inline">\(k\)</span>-sparse[^vector 안에 들어있는 non-zero elements 의 갯수가 <span class="math inline">\(k\)</span>], 즉 <span class="math inline">\(||v||_0 = \sum\limits^d_{i=1}|v_i|^0 = k\)</span>[^이때 <span class="math inline">\(0^0 = 0\)</span>이라고 정의].</p>
+<p>evec 에 sparsity 개념을 도입하자. leading evec <span class="math inline">\(v\)</span> 가 <span class="math inline">\(k\)</span>-sparse<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, 즉 <span class="math inline">\(||v||_0 = \sum\limits^d_{i=1}|v_i|^0 = k\)</span><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>.</p>
 <p>이 경우 <span class="math inline">\(v\)</span> 를 추정하기 위한 natural candidate 는 <span class="math inline">\(\hat v_{sp} = \arg \max\limits_{u \in \mathbb S^{d-1}, ||u||_0 = k} u&#39; \hat \Sigma u\)</span>. 이 estimator 는 이하를 통해 타당화.</p>
 <div class="theorem">
 <p><span id="thm:unlabeled-div-21" class="theorem"><strong>Theorem 8.12  (Sparse PCA) </strong></span>Corollary 7.4 와 같은 setting 을 생각하자. 여기에 추가로 leading evec <span class="math inline">\(v\)</span> 가 $k d 2: ||v||_0 k $ 를 만족한다고 assume. 이때 <span class="math inline">\(\hat \Sigma\)</span> 의 k-sparse largest evec <span class="math inline">\(\hat v_{sp}\)</span> 는 with probability <span class="math inline">\(1-\delta\)</span> 로 이하를 만족.</p>
@@ -849,6 +849,13 @@ t\geq C\sigma^{2}\operatorname*{max}\left\{\sqrt{\frac{k\log(\frac{ed}k)+\log(\f
 </div>
 </div>
 <!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>vector 안에 들어있는 non-zero elements 의 갯수가 <span class="math inline">\(k\)</span><a href="principal-component-analysis.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>이때 <span class="math inline">\(0^0 = 0\)</span>이라고 정의<a href="principal-component-analysis.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
