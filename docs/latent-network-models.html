@@ -590,9 +590,11 @@ P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta
 <ul>
 <li>이때 <span class="math inline">\(|z_i - z_j |&#39;\)</span> 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 <span class="math inline">\(d_{i,j} \le d_{i,k} + d_{k,j}\)</span>만 만족하면 됨.</li>
 </ul>
-<p>latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 <span class="math inline">\(i \rightarrow j\)</span> 이고 <span class="math inline">\(j \rightarrow k\)</span> 이라면, <span class="math inline">\(d_{i,j}\)</span> 와 <span class="math inline">\(d_{j,k}\)</span> 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark>
-1. events <span class="math inline">\(j \rightarrow i\)</span> (reciprocity)
-2. 그리고 <span class="math inline">\(i \rightarrow k\)</span> (transitivity)</p>
+<p>latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 <span class="math inline">\(i \rightarrow j\)</span> 이고 <span class="math inline">\(j \rightarrow k\)</span> 이라면, <span class="math inline">\(d_{i,j}\)</span> 와 <span class="math inline">\(d_{j,k}\)</span> 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark></p>
+<ol style="list-style-type: decimal">
+<li>events <span class="math inline">\(j \rightarrow i\)</span> (reciprocity)</li>
+<li>그리고 <span class="math inline">\(i \rightarrow k\)</span> (transitivity)</li>
+</ol>
 </div>
 <div id="projection-models" class="section level5" number="7.8.1.1.2">
 <h5><span class="header-section-number">7.8.1.1.2</span> Projection Models</h5>
