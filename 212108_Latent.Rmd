@@ -37,6 +37,7 @@ $$
 - 이때 $|z_i - z_j |'$ 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 $d_{i,j} \le d_{i,k} + d_{k,j}$만 만족하면 됨. 
 
 latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 $i \rightarrow j$ 이고 $j \rightarrow k$ 이라면, $d_{i,j}$ 와 $d_{j,k}$ 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark>
+
 1. events $j \rightarrow i$ (reciprocity)
 2. 그리고 $i \rightarrow k$ (transitivity)
 
