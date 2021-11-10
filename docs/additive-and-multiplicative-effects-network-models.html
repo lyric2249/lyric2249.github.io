@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.1 Overview of mva (not ended) | Self-Study</title>
-  <meta name="description" content="5.1 Overview of mva (not ended) | Self-Study" />
+  <title>7.9 Additive and Multiplicative Effects Network Models | Self-Study</title>
+  <meta name="description" content="7.9 Additive and Multiplicative Effects Network Models | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.1 Overview of mva (not ended) | Self-Study" />
+  <meta property="og:title" content="7.9 Additive and Multiplicative Effects Network Models | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.1 Overview of mva (not ended) | Self-Study" />
+  <meta name="twitter:title" content="7.9 Additive and Multiplicative Effects Network Models | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mva.html"/>
-<link rel="next" href="multivariate-nomral-wk2.html"/>
+<link rel="prev" href="latent-network-models.html"/>
+<link rel="next" href="high-dimension.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -561,100 +561,164 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="overview-of-mva-not-ended" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Overview of mva (not ended)</h2>
-<p>Find relationships b/w <span class="math inline">\(\pmb x_p, \pmb y_q\)</span>, e.g.,
-* Response variables (variable directed)
-* PCA
-* Factor Analysis
-* mv Regression
-* Cannonical Correlation Analysis
-* Experiment units (individual directed)
-* Discriminant Analysis
-* Cluster Analysis
-* MANOVA</p>
-<p>Multivariate techniques tend to be exploratory.
-* i.e. not hypothesis testing type</p>
-<p>Experimental units <strong>must be independent</strong>. Time series data are not appropriate for this course.</p>
+<div id="additive-and-multiplicative-effects-network-models" class="section level2" number="7.9">
+<h2><span class="header-section-number">7.9</span> Additive and Multiplicative Effects Network Models</h2>
+<div id="introduction-3" class="section level3" number="7.9.1">
+<h3><span class="header-section-number">7.9.1</span> Introduction</h3>
 <p><br>
 <br>
 <br></p>
-<div id="notation" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Notation</h3>
-<p>Variable <span class="math inline">\(y_1 , \cdots, y_p\)</span></p>
-<p>One observation <span class="math inline">\(\pmb y &#39; = (y_1 , \cdots, y_p )\)</span></p>
-<p>Data Matrix <span class="math inline">\(Y_{n \times p} = \begin{bmatrix} \pmb y &#39; = (y_1 , \cdots, y_p ) \\ \vdots \\ \pmb y &#39; = (y_1 , \cdots, y_p ) \end{bmatrix}\)</span></p>
-<p>Random Samples: Suppose we intend to collect n sets of measurements on p variables, but not been observed yet. If $x_1 ‘, , x_n’ $ are independent observation from pdf <span class="math inline">\(f(\pmb x) = f(x_1, \cdots, x_p)\)</span>, then $x_1 ‘, , x_n’ $ are said to be rs from <span class="math inline">\(f(\pmb x)\)</span>.</p>
-<p>rvec <span class="math inline">\(\pmb X = X_{p \times n} = \begin{bmatrix} \pmb x_1 \\ \vdots \\ \pmb x_p \end{bmatrix}\)</span></p>
-<p>mean vector <span class="math inline">\(\pmb \mu = E (\pmb x) = \begin{bmatrix} \mu1 \\ \vdots \\ \mup \end{bmatrix}\)</span></p>
-<p>Covariance Matrix <span class="math inline">\(\Sigma\)</span></p>
-<p>Correlation Matrix <span class="math inline">\(\rho\)</span>, <span class="math inline">\(\rho_{ij} = \tfrac{\sigma_{ij}}{\sigma_{ii}\sigma_{jj}}\)</span>
-* Correlation measures linear association.
-* Correlation is 0 if <strong>symmetric</strong> non-linear association exists.</p>
 <p><br>
 <br>
 <br></p>
 </div>
-<div id="summary-statistics" class="section level3" number="5.1.2">
-<h3><span class="header-section-number">5.1.2</span> Summary Statistics</h3>
-<ol style="list-style-type: decimal">
-<li>Sample Mean Vector <span class="math inline">\(\bar X=\)</span> estimate of <span class="math inline">\(\pmb \mu\)</span></li>
-<li>Sample Covariance Matrix</li>
-<li>Sample Correlation Matrix</li>
-</ol>
+<div id="social-relations-regression" class="section level3" number="7.9.2">
+<h3><span class="header-section-number">7.9.2</span> Social Relations Regression</h3>
 <p><br>
 <br>
 <br></p>
-</div>
-<div id="statistical-inference-on-correlation" class="section level3" number="5.1.3">
-<h3><span class="header-section-number">5.1.3</span> Statistical Inference on Correlation</h3>
-<p>$
-H_0: = 0
-$</p>
-<p>test stat <span class="math inline">\(T=\dfrac {r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2}\)</span>, where <span class="math inline">\(r=Corr(x,y)\)</span> and <span class="math inline">\(x \sim N_2, y \sim N_2\)</span>
-Notes:
-1. Correlation measures a linear relationships
-2. it is still difficult to get a CI for <span class="math inline">\(\rho\)</span>.</p>
-<p><br>
-<br></p>
-<div id="ci-for-rho" class="section level5" number="5.1.3.0.1">
-<h5><span class="header-section-number">5.1.3.0.1</span> CI for <span class="math inline">\(\rho\)</span></h5>
-<ol style="list-style-type: decimal">
-<li>Fisher’s Method:</li>
-</ol>
-<p><span class="math inline">\(100(1-\alpha)%\)</span> CI for <span class="math inline">\(\rho\)</span> $=((r)  )</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+
+
+y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
+\\
+y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
+\\
+y_{i,j} &amp;= \beta&#39; \mathbf x_{i,j} &amp;&amp; +\mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
+\\
+y_{i,j} &amp;=\beta^{T} \mathbf x_{i,j} &amp;&amp; +\mathbf u_{i}^{T} \mathbf v_{j}  &amp;&amp; +{a}_{i}+b_{j}+\epsilon_{i,j}, \; \; \; \; \; \; \; \; \; \; \; \; \; \; 
+
+
+&amp;&amp; \forall i&lt;j: &amp;&amp;\left(\epsilon_{i,j},\epsilon_{j,i}\right) &amp;&amp;\overset{iid}{\sim} 
+
+
+N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 &amp; \rho \\ \rho &amp; 1 \end{pmatrix} \Bigg) \tag{AMEM}
+
+\\
+
+
+&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp;(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
+&amp;&amp;\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
+
+\\
+
+&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp;(a_1 , b_1), \cdots, (a_n , b_n) 
+&amp;&amp;\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AMEM}
+
+\\
+
+V &amp;=M(X,\beta)+U V^{T} &amp;&amp;  &amp;&amp; +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
+
+
+\end{alignat}\]</span>
+$$</p>
+<p>$$</p>
+<p>P(Y) (<em>{i,j}y</em>{i,j}+<em>{i} { a</em>{i}<em>{j}y</em>{i,j}+b_{i}<em>{j}y</em>{j,i} }+<em>{i,j}y</em>{i,j}y_{j,i})</p>
+<p>$$</p>
+<div class="line-block">| <span class="math display">\[ | \]</span> | [^Combines a linear regression model with the covariance structure of the SRM as follows, where <span class="math inline">\(\mathbf x_{i,j}\)</span> is <span class="math inline">\(p\)</span>−dimensional vector of regressors and <span class="math inline">\(\beta\)</span> is a vector of regression coefficient to be estimated.] |</div>
+<div id="addictive-effect-model-iid-model" class="section level4" number="7.9.2.1">
+<h4><span class="header-section-number">7.9.2.1</span> Addictive Effect Model (iid model)</h4>
+<table>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">Addictive Effect Model (iid model)</th>
+<th align="center">Social Relations Model (SRM)</th>
+<th align="center">Social Relations Regression Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Goal</td>
+<td align="center">Consider Dependency</td>
+<td align="center">Social Relations Model</td>
+<td align="center">Quantify the association between a particular dyadic variable and some other dyadic or nodal variables</td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(a_i\)</span></td>
+<td align="center">sender effect (row means of the sociomatrix)</td>
+<td align="center">zero-mean rv</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><span class="math inline">\(b_j\)</span></td>
+<td align="center">receiver effect (column means of the sociomatrix)</td>
+<td align="center">zero-mean rv</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(\epsilon_{i,j}\)</span></td>
+<td align="center">-</td>
+<td align="center">zero-mean rv</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">(2)</td>
+<td align="center">Limitation: Unable to represent higher-order network patterns (lack of fit)</td>
+</tr>
+</tbody>
+</table>
 <ol start="2" style="list-style-type: decimal">
-<li>Ruben’s Method</li>
+<li>with effects otherwise being independent</li>
 </ol>
-<p>let <span class="math inline">\(u=z_{\alpha/2}, r^\ast = \dfrac {r}{\sqrt{1-r^2}\)</span></p>
-<p>$
-<span class="math display">\[\begin{align*}
-a &amp;= 2n-3-u^2
-b &amp;= r^\ast \ast \sqrt{(2n-3)(2n-5)}
-c &amp;= (2n-5-u^2} \ast (r^\ast)^2 - 2u^2
+<p><span class="math display">\[
+V a r\left[\begin{pmatrix}a_i \\ b_j\end{pmatrix}\right]=\Sigma={\left(\begin{array}{l l}{\sigma_{a}^{2}}&amp;{\sigma_{a b}}\\ {\sigma_{a b}}&amp;{\sigma_{b}^{2}}\end{array}\right)}
+\\
+V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\sigma^{2} \begin{pmatrix}1 &amp; \rho \\ \rho &amp; 1\end{pmatrix}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(a_i\)</span>: sender effect (row means of the sociomatrix),</li>
+<li><span class="math inline">\(b_j\)</span>: receiver effect (column means of the sociomatrix)</li>
+</ul>
+<p>목표: dependency 고려</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+</div>
+<div id="multiplicative-effects-models" class="section level3" number="7.9.3">
+<h3><span class="header-section-number">7.9.3</span> Multiplicative Effects Models</h3>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="inference-via-posterior-approximation" class="section level3" number="7.9.4">
+<h3><span class="header-section-number">7.9.4</span> Inference via Posterior Approximation</h3>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="discussion-and-example-with-r" class="section level3" number="7.9.5">
+<h3><span class="header-section-number">7.9.5</span> Discussion and Example with R</h3>
 
-\end{align*}\]</span>
-$</p>
-<p>set <span class="math inline">\(ay^2 - 2by +c =0\)</span>, then root of this equation will be <span class="math inline">\(y_1, y_2 = \dfrac{b}{a} \pm \dfrac {\sqrt{b^2-ac}}{a}\)</span>.</p>
-<p>이때 <span class="math inline">\(100(1-\alpha)%\)</span> CI for <span class="math inline">\(\rho\)</span> <span class="math inline">\(=\left[ \dfrac{y_1}{\sqrt{1+y_1^2}, \dfrac{y_2}{\sqrt{1+y_2^2}, \right]\)</span>
-* 이때, input은 <span class="math inline">\(n, \alpha, r\)</span>, output은 <span class="math inline">\(\rho\)</span>의 CI.</p>
 </div>
 </div>
-<div id="standardization" class="section level3" number="5.1.4">
-<h3><span class="header-section-number">5.1.4</span> Standardization</h3>
-</div>
-<div id="missing-value-treatment" class="section level3" number="5.1.5">
-<h3><span class="header-section-number">5.1.5</span> Missing Value Treatment</h3>
-
-</div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="mva.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="multivariate-nomral-wk2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="latent-network-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="high-dimension.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -685,7 +749,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211301_Overview.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212109_AddiMult.Rmd",
 "text": "Edit"
 },
 "history": {
