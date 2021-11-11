@@ -313,7 +313,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
 <li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
-<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
 <li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
@@ -657,193 +658,148 @@ $</p>
 <p>$
 Y_{(i)} = Z <em>{(i)} + </em>{(i)}, ; ; ; ; ;  Corr(<em>{(i)}) = </em>{ii}I ,  = (Z ’ Z )^{-1} Z ’ Y_{(i)}</p>
 <p>$</p>
-<table style="width:7%;">
-<colgroup>
-<col width="6%" />
-</colgroup>
-<tbody>
-<tr class="odd">
-<td>##### Least Square</td>
-</tr>
-<tr class="even">
-<td>- Collecting Univariate Least Squares Estimates (LSE)
-- Errors</td>
-</tr>
-<tr class="odd">
-<td>$</td>
-</tr>
-<tr class="even">
-<td>Y - Z  =</td>
-</tr>
-<tr class="odd">
-<td>$</td>
-</tr>
-<tr class="even">
-<td>- Error Sum of Squares (SSE)
-- diagonal elements: Error SS for univariate least squares <span class="math inline">\((\pmb Y_{(i)}-\pmb Z \pmb \beta_{(i)})&#39; (\pmb Y_{(i)}-\pmb Z \pmb \beta_{(i)})\)</span> is minimized.
-- the generalized <span class="math inline">\(Var\)</span> <span class="math inline">\(\lvert (\pmb Y-\pmb Z \pmb \beta)&#39; (\pmb Y-\pmb Z \pmb \beta) \rvert\)</span> is also minimized.</td>
-</tr>
-<tr class="odd">
-<td>- Properties</td>
-</tr>
-<tr class="even">
-<td>$
-\begin{align*}</td>
-</tr>
-<tr class="odd">
-<td> &amp;= Z = Z(Z’Z)^{-1} Z’ Y \
-&amp;= HY \</td>
-</tr>
-<tr class="even">
-<td> &amp;= Y - Y = Y \
-&amp;= (I-H)Y  \</td>
-</tr>
-<tr class="odd">
-<td>Z’  &amp;= Z’ Y \
-&amp;= [Z-Z’] Y = </td>
-</tr>
-<tr class="even">
-<td>Y’  &amp;=  ’ Z’ Y \
-&amp;= [ ’ Z-  ’ Z’] Y = </td>
-</tr>
-<tr class="odd">
-<td>\end{align*}
+<hr />
+<div id="least-square" class="section level5" number="5.5.2.0.1">
+<h5><span class="header-section-number">5.5.2.0.1</span> Least Square</h5>
+<ul>
+<li>Collecting Univariate Least Squares Estimates (LSE)</li>
+<li>Errors</li>
+</ul>
+<p>$</p>
+<p>Y - Z  =</p>
+<p>$</p>
+<ul>
+<li>Error Sum of Squares (SSE)
+<ul>
+<li>diagonal elements: Error SS for univariate least squares <span class="math inline">\((\pmb Y_{(i)}-\pmb Z \pmb \beta_{(i)})&#39; (\pmb Y_{(i)}-\pmb Z \pmb \beta_{(i)})\)</span> is minimized.</li>
+<li>the generalized <span class="math inline">\(Var\)</span> <span class="math inline">\(\lvert (\pmb Y-\pmb Z \pmb \beta)&#39; (\pmb Y-\pmb Z \pmb \beta) \rvert\)</span> is also minimized.</li>
+</ul></li>
+<li>Properties</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align*}
+
+
+\hat {Y} &amp;= Z \hat \beta = Z(Z&#39;Z)^{-1} Z&#39; Y \\
+&amp;= HY \tag{Predicted Values}\\
+
+\hat {\pmb \epsilon} &amp;=  Y - \hat Y = \left[ I - Z(Z&#39;Z)^{-1} Z&#39; \right] Y \\
+&amp;= (I-H)Y \tag{residuals} \\
+
+Z&#39; \hat {\pmb \epsilon} &amp;=  Z&#39; \left[ I - Z(Z&#39;Z)^{-1} Z&#39; \right] Y \\
+&amp;=  [Z-Z&#39;] Y =\pmb 0 \tag{3}
+
+
+\hat Y&#39; \hat {\pmb \epsilon} &amp;=  \hat {\beta} &#39; Z&#39; \left[ I - Z(Z&#39;Z)^{-1} Z&#39; \right] Y \\
+&amp;=  [\hat {\beta} &#39;  Z- \hat {\beta} &#39;  Z&#39;] Y =\pmb 0 \tag{4}
+
+\end{align*}\]</span>
 $
 - - by (3), residuals are orthogonal to <span class="math inline">\(Z\)</span>
-- by (4), residuals are orthogonal to <span class="math inline">\(\hat Y\)</span></td>
-</tr>
-<tr class="even">
-<td>- Error Sum of Squares</td>
-</tr>
-<tr class="odd">
-<td>$
-\begin{align*}</td>
-</tr>
-<tr class="even">
-<td>Y’Y &amp;= (Y  ) ’ (Y  ) \
-&amp;= Y ’ Y + ’  \</td>
-</tr>
-<tr class="odd">
-<td>\</td>
-</tr>
-<tr class="even">
-<td>’ &amp;= Y’Y - Y ’ Y \</td>
-</tr>
-<tr class="odd">
-<td>&amp;= Y ’ Y - ’ Z’ Z </td>
-</tr>
-<tr class="even">
-<td>\end{align*}
-$</td>
-</tr>
-<tr class="odd">
-<td>- Results 1
+- by (4), residuals are orthogonal to <span class="math inline">\(\hat Y\)</span></p>
+<ul>
+<li>Error Sum of Squares</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align*}
+
+Y&#39;Y &amp;= (\hat Y \hat {\pmb \epsilon} ) &#39; (\hat Y \hat {\pmb \epsilon} ) \\
+&amp;= \hat Y &#39; \hat Y  + \hat{\pmb \epsilon}&#39; \hat{\pmb \epsilon} \\
+
+\\  
+
+\hat {\pmb \epsilon}&#39; \hat {\pmb \epsilon}&amp;= Y&#39;Y - \hat Y &#39; \hat Y \\
+
+&amp;= \hat Y &#39; \hat Y - \hat \beta &#39; Z&#39; Z \hat \beta 
+
+
+\end{align*}\]</span>
+$</p>
+<ul>
+<li>Results 1
 $
-\begin{alignat*}{2}</td>
-</tr>
-<tr class="even">
-<td>E() &amp;= , ; ; ; ; ; Cov(, ) &amp;= _{il} (Z’Z)^{-1} \
-\
-E() = , ; ; ; ; ;E ( ’ ) = </td>
-</tr>
-<tr class="odd">
-<td>\end{alignat*}
+\begin{alignat*}{2}</li>
+</ul>
+<p>E() &amp;= , ; ; ; ; ; Cov(, ) &amp;= _{il} (Z’Z)^{-1} \
+\<br />
+E() = , ; ; ; ; ;E ( ’ ) = </p>
+<p>\end{alignat*}
 $
-- - at here, <span class="math inline">\(\hat {\pmb \epsilon}\)</span> and <span class="math inline">\(\hat {\pmb \beta}\)</span> are correlated.</td>
-</tr>
-<tr class="even">
-<td>- Results 2
-- If <span class="math inline">\(\pmb \epsilon_j\)</span> has a <span class="math inline">\(N_m (\pmb 0 , \Sigma)\)</span>, then <span class="math inline">\(\hat {\pmb \beta}= (\pmb Z &#39; \pmb Z )^{-1}\pmb Z &#39;Y\)</span> is MLE of <span class="math inline">\(\pmb \beta\)</span></td>
-</tr>
-<tr class="odd">
-<td>$
-\begin{align*}</td>
-</tr>
-<tr class="even">
-<td> &amp;N_{r+1} ({<em>{(i)}}, </em>{ii} (Z ’ Z )^{-1}) \</td>
-</tr>
-<tr class="odd">
-<td>&amp;=   ’  \
-&amp;=  (Y - Z ) ’ (Y - Z ) </td>
-</tr>
-<tr class="even">
-<td>\end{align*}
-$</td>
-</tr>
-<tr class="odd">
-<td>- - (5) is MLE of <span class="math inline">\(\Sigma\)</span>
-- <span class="math inline">\(n \hat \Sigma \sim W_{p,n-r-1} (\Sigma)\)</span>.</td>
-</tr>
-<tr class="even">
-<td>- Comment
-- Multivariate regression requires no new computational problems.
-- Univariate least squares <span class="math inline">\(\hat {\pmb \beta_{(i)}}\)</span> are computed individually for each response variable.
-- Diagnostics check must be done as in univariate regression.
-- Residual vectors <span class="math inline">\([ \pmb \epsilon_{j1}, \cdots, \pmb \epsilon_{jm} ]\)</span> can be examined for multivariate normality.</td>
-</tr>
-<tr class="odd">
-<td>### Hypothesis Testing</td>
-</tr>
-<tr class="even">
-<td>- Note:</td>
-</tr>
-<tr class="odd">
-<td>$
-\begin{align*}</td>
-</tr>
-<tr class="even">
-<td>&amp;H_0:  Z_{q+1}, Z_{q+2}, , Z_{r} \</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>&amp;H_0:</td>
-</tr>
-<tr class="odd">
-<td></td>
-</tr>
-<tr class="even">
-<td>&amp;H_0:  = , ; ; ; ; ;  =</td>
-</tr>
-<tr class="odd">
-<td>\end{align*}
-$</td>
-</tr>
-<tr class="even">
-<td>##### Full Model vs. Reduced Model</td>
-</tr>
-<tr class="odd">
-<td>let <span class="math inline">\(Z = \begin{bmatrix} Z_1 &amp; \vdots Z_2 \end{bmatrix}\)</span>, then <span class="math inline">\(Z \beta = Z_1 \beta_{(1)} + Z_2 \beta_{(2)}\)</span>.</td>
-</tr>
-<tr class="even">
-<td>under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(Y = Z \beta_{(1)} + \epsilon\)</span>,</td>
-</tr>
-<tr class="odd">
-<td>let</td>
-</tr>
-<tr class="even">
-<td>$
-\begin{align*}</td>
-</tr>
-<tr class="odd">
-<td>E &amp;= n &amp;\
-&amp;= (Y - Z )’(Y - Z )&amp; \
-\
-H &amp;= n(_1 - ), &amp; E_1 = n(_1) = (Y - Z )’(Y - Z ) </td>
-</tr>
-<tr class="even">
-<td>\end{align*}
-$</td>
-</tr>
-<tr class="odd">
-<td>- $ E=n $. 여기서 E라는 것은 오차행렬이기 때문에, 즉 univariate 를 4번 반복해서 나온 오차를 모은 것이 바로 이 <span class="math inline">\(E\)</span>라는 행렬.</td>
-</tr>
-<tr class="even">
-<td>let <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_s\)</span> be non-zero ev of <span class="math inline">\(HE^{-1}\)</span>, <span class="math inline">\(s=min(m, r-q)\)</span>.</td>
-</tr>
-</tbody>
-</table>
+- - at here, <span class="math inline">\(\hat {\pmb \epsilon}\)</span> and <span class="math inline">\(\hat {\pmb \beta}\)</span> are correlated.</p>
+<ul>
+<li>Results 2
+<ul>
+<li>If <span class="math inline">\(\pmb \epsilon_j\)</span> has a <span class="math inline">\(N_m (\pmb 0 , \Sigma)\)</span>, then <span class="math inline">\(\hat {\pmb \beta}= (\pmb Z &#39; \pmb Z )^{-1}\pmb Z &#39;Y\)</span> is MLE of <span class="math inline">\(\pmb \beta\)</span></li>
+</ul></li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align*}
+
+\hat {\pmb \beta_{(i)}} &amp;\sim N_{r+1} ({\pmb \beta_{(i)}}, \sigma_{ii} (\pmb Z &#39; \pmb Z )^{-1}) \\
+
+\hat \Sigma &amp;= \dfrac{1}{n} \hat {\pmb \epsilon} &#39; \hat {\pmb \epsilon} \\
+&amp;= \dfrac{1}{n} (\pmb Y - \pmb Z \hat {\pmb \beta}) &#39; (\pmb Y - \pmb Z \hat {\pmb \beta}) \tag{5}
+
+\end{align*}\]</span>
+$</p>
+<ul>
+<li><ul>
+<li><ol start="5" style="list-style-type: decimal">
+<li>is MLE of <span class="math inline">\(\Sigma\)</span></li>
+</ol></li>
+<li><span class="math inline">\(n \hat \Sigma \sim W_{p,n-r-1} (\Sigma)\)</span>.</li>
+</ul></li>
+<li>Comment
+<ul>
+<li>Multivariate regression requires no new computational problems.</li>
+<li>Univariate least squares <span class="math inline">\(\hat {\pmb \beta_{(i)}}\)</span> are computed individually for each response variable.</li>
+<li>Diagnostics check must be done as in univariate regression.</li>
+<li>Residual vectors <span class="math inline">\([ \pmb \epsilon_{j1}, \cdots, \pmb \epsilon_{jm} ]\)</span> can be examined for multivariate normality.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="hypothesis-testing" class="section level3" number="5.5.3">
+<h3><span class="header-section-number">5.5.3</span> Hypothesis Testing</h3>
+<ul>
+<li>Note:</li>
+</ul>
+<p>$
+<span class="math display">\[\begin{align*}
+
+&amp;H_0: \text{ responses do not depend on } Z_{q+1}, Z_{q+2}, \cdots, Z_{r} \\
+
+\iff
+
+&amp;H_0: \begin{bmatrix} \beta_{(q+1)1} &amp; \beta_{(q+2)1} &amp; \cdots &amp; \beta_{(q+1)m} \\ \vdots &amp;&amp;&amp; \vdots \\ \beta_{r1} &amp; \beta_{r1} &amp; \cdots &amp; \beta_{rm} \end{bmatrix} = 0 \\
+
+\iff
+
+&amp;H_0: \pmb{\beta_{(2)}} = \pmb 0, \; \; \; \; \; \ \pmb \beta = \begin{bmatrix} \pmb{\beta_{(1)}}_{(q+1) \times m} \\ cdots \\ \pmb{\beta_{(2)}}_{(r-q) \times m} \end{bmatrix}
+
+
+\end{align*}\]</span>
+$</p>
+<div id="full-model-vs.-reduced-model" class="section level5" number="5.5.3.0.1">
+<h5><span class="header-section-number">5.5.3.0.1</span> Full Model vs. Reduced Model</h5>
+<p>let <span class="math inline">\(Z = \begin{bmatrix} Z_1 &amp; \vdots Z_2 \end{bmatrix}\)</span>, then <span class="math inline">\(Z \beta = Z_1 \beta_{(1)} + Z_2 \beta_{(2)}\)</span>.</p>
+<p>under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(Y = Z \beta_{(1)} + \epsilon\)</span>,</p>
+<p>let</p>
+<p>$
+<span class="math display">\[\begin{align*}
+
+E &amp;= n \hat \Sigma &amp;\\
+&amp;= (\pmb Y - \pmb Z \hat{\pmb \beta})&#39;(\pmb Y - \pmb Z \hat{\pmb \beta})&amp; \tag{Full Model}\\
+\\  
+H &amp;= n(\hat \Sigma_1 - \hat \Sigma), &amp;\text{ where } E_1 = n(\hat \Sigma_1) = (\pmb Y - \pmb Z \hat{\pmb \beta_{(1)}})&#39;(\pmb Y - \pmb Z \hat{\pmb \beta_{(1)}}) \tag{under H0}
+
+\end{align*}\]</span>
+$</p>
+<ul>
+<li>$ E=n $. 여기서 E라는 것은 오차행렬이기 때문에, 즉 univariate 를 4번 반복해서 나온 오차를 모은 것이 바로 이 <span class="math inline">\(E\)</span>라는 행렬.</li>
+</ul>
+<p>let <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_s\)</span> be non-zero ev of <span class="math inline">\(HE^{-1}\)</span>, <span class="math inline">\(s=min(m, r-q)\)</span>.</p>
+<hr />
 <ul>
 <li>Four Test Stat:</li>
 </ul>
@@ -873,8 +829,9 @@ $</p>
 </ol>
 <hr />
 </div>
-<div id="example" class="section level3" number="5.5.3">
-<h3><span class="header-section-number">5.5.3</span> Example)</h3>
+</div>
+<div id="example" class="section level3" number="5.5.4">
+<h3><span class="header-section-number">5.5.4</span> Example)</h3>
 <p>fit FM <span class="math inline">\(Y = Z \beta + \epsilon\)</span>.</p>
 <p>fit <span class="math inline">\(Y_1 , Y_2 , Y_3 , Y_4 = X_1,X_2,X_3\)</span>, then we acquire <span class="math inline">\(E=n \hat \Sigma\)</span>.</p>
 <pre><code>
@@ -895,15 +852,15 @@ _{(1)} =
 <p>now, fit <span class="math inline">\(Y_1 , Y_2 , Y_3 , Y_4 = X_1\)</span> (X_2, X_3 excluded), then we acquire <span class="math inline">\(E_1 =n \hat \Sigma_1, H = n \hat \Sigma_1 - n \hat \Sigma = E_1 - E\)</span>.</p>
 <p>let’s calculate ev of <span class="math inline">\(HE^{-1}\)</span>, and compute Wilk’s Lambda <span class="math inline">\(\Lambda^\ast = \dfrac{\vert E \vert }{\vert E+H\vert }\)</span>.</p>
 <hr />
-<div id="sampling-distribution-of-the-wilks-lambda" class="section level5" number="5.5.3.0.1">
-<h5><span class="header-section-number">5.5.3.0.1</span> Sampling Distribution of the Wilk’s Lambda</h5>
+<div id="sampling-distribution-of-the-wilks-lambda" class="section level5" number="5.5.4.0.1">
+<h5><span class="header-section-number">5.5.4.0.1</span> Sampling Distribution of the Wilk’s Lambda</h5>
 <p>let Z be full rank of <span class="math inline">\(r+1\)</span>, and <span class="math inline">\((r+1) + m \le n\)</span>.</p>
 <p>let <span class="math inline">\(\epsilon\)</span> be normally distributed.</p>
 <p>under <span class="math inline">\(H_0\)</span>, $ - (^) ^2_{m(r-q)}$.</p>
 <hr />
 </div>
-<div id="prediction" class="section level5" number="5.5.3.0.2">
-<h5><span class="header-section-number">5.5.3.0.2</span> Prediction</h5>
+<div id="prediction" class="section level5" number="5.5.4.0.2">
+<h5><span class="header-section-number">5.5.4.0.2</span> Prediction</h5>
 <p>$</p>
 <p><em>{n m} = Z </em>{(r+1) m}</p>
 <p>$</p>

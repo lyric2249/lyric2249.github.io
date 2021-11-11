@@ -313,7 +313,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
 <li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
-<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
 <li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
@@ -581,12 +582,12 @@ div.csl-indent {
 <h3><span class="header-section-number">8.7.1</span> PCA</h3>
 <p>let <span class="math inline">\(E(X)=0\)</span>, <span class="math inline">\(Cov(X) = \Sigma\)</span> 인 랜덤벡터 <span class="math inline">\(X \in \mathbb R^d\)</span>. ev Decompostion 을 고려하자. 즉 <span class="math inline">\(\Sigma = V \Lambda V&#39;\)</span>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <p>PCA 에 던지는 질문은 결국 이거다. unit norm vector <span class="math inline">\(v\)</span>, 즉 <span class="math inline">\(v \in \mathbb S^{d-1} = \Big \{ v \in \mathbb R^d : || v ||_2 =1 \Big \}\)</span> 에 대해, 어떤 <span class="math inline">\(v\)</span> 를 골라야 랜덤변수 <span class="math inline">\(v&#39;X\)</span> 의 Var 이 최대화되는가?</p>
-<p>더 이론적인 이야기를 해보자. 우리는 <span class="math inline">\(v_1 = \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v&#39;X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle\)</span> 를 만족하는 direction <span class="math inline">\(v_1\)</span> 을 찾는 것에 목적을 둔다. 이를 <strong>first principal component</strong> 라고 부르자. 이를 일반화하면 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> principal component <span class="math inline">\(\{v_1 , \cdots, v_k \}\)</span> 를 구성할 수 있다. 이때 각각은 <span class="math inline">\(for 2 \le j \le k: v_j = \arg \max\limits_{\substack{v \in \mathbb S^{d-1},\\ \langle v, \Sigma v_i \rangle = 0,\\ 1 \le \forall i \le j}} \langle v, \Sigma \rangle\)</span> 를 만족해야 한다.</p>
+<p>더 이론적인 이야기를 해보자. 우리는 <span class="math inline">\(v_1 = \arg \max\limits_{v \in \mathbb S^{d-1}} Var(v&#39;X) = \arg \max\limits_{v \in \mathbb S^{d-1}} \langle v, \Sigma \rangle\)</span> 를 만족하는 direction <span class="math inline">\(v_1\)</span> 을 찾는 것에 목적을 둔다. 이를 <strong>first principal component</strong> 라고 부르자. 이를 일반화하면 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> principal component <span class="math inline">\(\{v_1 , \cdots, v_k \}\)</span> 를 구성할 수 있다. 이때 각각은 for <span class="math inline">\(2 \le j \le k: v_j = \arg \max\limits_{\substack{v \in \mathbb S^{d-1},\\ \langle v, \Sigma v_i \rangle = 0,\\ 1 \le \forall i \le j}} \langle v, \Sigma \rangle\)</span> 를 만족해야 한다.</p>
 <p>이 principal component 들은 단순히 <span class="math inline">\(\Sigma\)</span> 의 top <span class="math inline">\(k\)</span> evec, 즉, <span class="math inline">\(V\)</span>의 first <span class="math inline">\(k\)</span> 개의 column 이 된다. PCA 는 보통 <span class="math inline">\(k\)</span> 를 작게 잡고 노는 걸 좋아함.</p>
 <ul>
 <li><strong>Best rank k approximation</strong></li>
 </ul>
-<p>PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 <span class="math inline">\(k\)</span> 인 <span class="math inline">\(Z^\ast_{d \times d} = \arg \min_{rank(Z) \le k} ||\Sigma Z||_F\)</span> 를 찾는다고 하자. 이에 대한 optimal solution 이 <span class="math inline">\(Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i&#39;\)</span> 이며 <span class="math inline">\(||\Sigma - Z^\ast ||^2_F = \sum\limits^d_{i=k+1}\lambda_i^2\)</span> 임을 알 수 있다.</p>
+<p>PCA 는 low-rank 근사 (approximation) 의 관점으로도 해석될 수 있다. 우리가 rank 가 커봐야 <span class="math inline">\(k\)</span> 인 <span class="math inline">\(Z^\ast_{d \times d} = \arg \min\limits_{rank(Z) \le k} ||\Sigma Z||_F\)</span> 를 찾는다고 하자. 이에 대한 optimal solution 이 <span class="math inline">\(Z^\ast = \sum\limits^k_{i=1} \lambda_1 v_i v_i&#39;\)</span> 이며 <span class="math inline">\(\Bigg\|\Sigma - Z^\ast \Bigg\|^2_F = \sum\limits^d_{i=k+1}\lambda_i^2\)</span> 임을 알 수 있다.</p>
 <p><br>
 <br>
 <br></p>
@@ -619,7 +620,7 @@ $$</p>
 \]</span></p>
 <p>where <span class="math inline">\(\hat \lambda_1, \cdots, \hat \lambda_d\)</span> are the ordered ev of <span class="math inline">\(\hat \Sigma\)</span>.</p>
 </div>
-<p>이것이 의미하는 바는 명확함. <span class="math inline">\(\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow\)</span> <span class="math inline">\(\hat \lambda_i\)</span> 는 <span class="math inline">\(\lambda_i\)</span> 의 consistent estimator 라는 이야기. 실제로 SG assumption 하에서, <span class="math inline">\(|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)\)</span> with high probability. 따라서 개별 empirical ev 값은 이 경우에 <span class="math inline">\(\frac{d}{n} \rightarrow 0\)</span> 일 경우 consistent.</p>
+<p>이것이 의미하는 바는 명확함. <span class="math inline">\(\forall i = 1,\cdots,d: ||\hat \lambda - \lambda||_{op} \Longrightarrow\)</span> <span class="math inline">\(\{\hat \lambda_i\)</span> 는 <span class="math inline">\(\lambda_i\)</span> 의 consistent estimator <span class="math inline">\(\}\)</span>라는 이야기. 실제로 SG assumption 하에서, <span class="math inline">\(|| \hat \Sigma - \Sigma || \lesssim \max \left( \sqrt{\frac{d}{n}}, \frac{d}{n} \right)\)</span> with high probability. 따라서 개별 empirical ev 값은 이 경우에 <span class="math inline">\(\frac{d}{n} \rightarrow 0\)</span> 일 경우 consistent.</p>
 <p><br>
 <br>
 <br></p>
@@ -665,6 +666,10 @@ $$</p>
 2&amp;\mathrm{sin}^{2} \Big (\angle(u_{1},v_{1}) \Big )
 \end{align}\]</span>
 $$</p>
+</div>
+<ul>
+<li><strong>Proof:</strong></li>
+</ul>
 <p>여기서 Matrix 에 대한 Holder ineq. 를 적용하자. 이때 <span class="math inline">\(u_1 &#39; A u_1 = \lambda_1\)</span>, i.e. maxiumum ev. 여기서</p>
 <p>$$
 <span class="math display">\[\begin{align}
@@ -744,7 +749,6 @@ $$</p>
 <p><span class="math display">\[
 \operatorname*{min}_{\epsilon\in\{\pm1\}}||\epsilon u_{1}-v_{1}||_{2}^{2}=2-2|u_{1}^{\top}v_{1}|\le2-2|u_{1}^{\top}v_{1}|^{2}=\sin^{2}(2(u_{1},v_{1})
 \]</span></p>
-</div>
 <p><br>
 <br></p>
 <div class="theorem">
@@ -756,7 +760,7 @@ $$</p>
 ||B||_{q}=\left(\sum_{i=1}^{d} \Big |\mu_{i} \Big |^{q}\right)^{\frac1q}
 \]</span></p>
 <p>이때
-<span class="math inline">\(\forall p, q \text{ s.t. }\frac1p + \frac1q = 1\)</span> 이며 <span class="math inline">\(p,q \in [1, \infty] \langle A, B \rangle = tr(A&#39;B) = tr(B&#39;A) \le ||A||_{p} ||B||_{q}\)</span>.</p>
+<span class="math inline">\(\forall p, q \; \; \text{ s.t. } \; \; \frac1p + \frac1q = 1, p,q \in [1, \infty]: \; \; \langle A, B \rangle = tr(A&#39;B) = tr(B&#39;A) \le ||A||_{p} ||B||_{q}\)</span>.</p>
 </div>
 <p><br>
 <br></p>
