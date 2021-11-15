@@ -1,0 +1,521 @@
+## Linear Regression
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Problem formulation
+
+unknown vector 인 **regression vector** $\theta^\ast \in \mathbb R^d$ 설정. 
+
+벡터 $Y = (Y_1 , \cdots, Y_n)' \in \mathbb R^n$ 를 관측했으며, linear model $Y=X\theta^{*}+\epsilon$ 를 통해 이와 관계되어 있는 $X \in \mathbb R^{n \times d}$ 를 가정하자. 이때 $\epsilon\;=\;\left(\epsilon_{1},\cdot\cdot\cdot,\epsilon_{n}\right)^{\top}~\in~\mathbb{R}^{n}\;$ 이며, 각각은 independent zero-mean $\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)$.
+
+
+
+
+이제 $\hat \theta$ 를 $\theta^\ast$ 의 estimator 로 잡는다. 이하의 2가지가 주된 관심사.
+
+1. Prediction
+
+
+$X \theta^\ast + \tilde \epsilon = \tilde Y \overset{iid} \sim Y$ 라고 설정하자. 우리의 목적은 $\theta^\ast$ 에 대한 우리의 estimate $\hat \theta$ 의 구현값을 사용해서 $\tilde Y$ 를 predict. performance 에 대한 natural measure 는 이하와 같다. 이때 unavoidable error 는 말 그대로 unavoidable 이므로, 우리는 후자인 MSE, 즉 $\mathbb{E}\left [\Bigg \|X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]$, 를 조사하고자 한다.
+
+
+
+$$
+\frac{1}{n}\mathbb{E}\left [\Bigg \|{\tilde{Y}}-X{\widehat{\theta}}\Bigg \|_{2}^{2}\right ]
+=
+\frac{1}{n}\mathbb{E}\left [\Bigg \|{\tilde{\epsilon}}+X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]
+=
+\underbrace{\frac{1}{n}\mathbb{E}\left [\Bigg \|\tilde \epsilon\Bigg \|_{2}^{2}\right ]}_{\text{unavoidable error}}
++
+\underbrace{\frac{1}{n}\mathbb{E}\left [\Bigg \|X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]}_{\text{Mean Squared Error}}
+$$
+
+2. Parameter Estimation
+
+위와는 다른 케이스로, 몇몇 경우에 우리는 regression vector $\theta*\ast$ 를 조사하고 싶어하는 경우가 있으며, 이 경우에 관심사 (조사대상) 는
+
+$$
+\mathbb{E}\left [\Bigg \|\theta^{*}-{\widehat{\theta}}\Bigg \|_{2}^{2}\right ]
+$$
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Least Squares Estimator in high dimensions
+
+고전적인 LR 은 LS 문제를 풀어내는 것과 같다. 이하의 형을 구한다는 것과 equivalent 이며, 이는 보통 **Ordinary Least Squares (OLS) estimator** 로 통칭됨.
+
+${\widehat{\theta}}_{\mathrm{LS}}=(X^{\top}X)^{-1}X^{\top}Y=\arg \min\limits_{\theta \in \mathbb R^d}\|Y-X\theta\|_{2}^{2}$
+
+
+Gauss–Markov thm 에 의해 우리는 OLS Estimator 가 Best Linear Unbiased Estimator (BLUE) 임을 알고 있음. 왜냐고 특정 condition 하에서의 Linear Unbiased Estimator 들의 class 내에서 OLS Estimator 가 가장 작은 Var 을 가지고 있으니까. 하지만 이 estimator 는 $X'X$ 가 uninvertible 하면 존재할 수 없음. 다른 말로, $n \ge d$ 인 경우에만 존재할 수 있다는 거임. $d>n$ 라도, $\operatorname*{min}_{\theta\in\mathbb{R}^{d}}\|Y-X\theta\|_{2}^{2}$ 라는 문제에 대한 해를 찾아내는 건 가능함. 다음과 같이 매핑하는 function $\theta\mapsto\|Y=X\theta\|_{2}^{2}$ 는 convex 이므로, 1차 optimality condition 인 $\nabla_{\theta}\|Y-X\theta\|_{2}^{2}=0\quad\Longleftrightarrow\quad X^{\top}X\theta=X^{\top}Y$ 를 체크하는 것만으로 충분함. 이의 해는 이하에 제시된 MP-pseudo Inverse $X'X$ 의 형으로 서술될 수 있음.
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+#### Mean Squared Error of the Least Squares Estimator
+
+:::{.theorem name="Least Squares Estimator"}
+
+let linear model $Y=X\theta^{*}+\epsilon$, 이때 $\epsilon$ 의 elements 각각은 independent zero-mean $\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)$.
+
+이때 $\hat \theta_{LS}$ 는 이하를 만족하며, 2번째 ineq는 with probability at least $1-\delta$ 로 만족.
+
+
+
+
+$$
+\begin{alignat}{2}
+& &&\frac{1}{n}E \Bigg ( && \Bigg \| X\bigl(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\bigr) \Bigg \|_{2}^{2} \Bigg) &&\lesssim \sigma^{2}\frac{r}{m} && \; \; \; \; \; \; \; \; \;\;r= rank(X'X)
+
+\\
+
+&\forall \delta>0: && {\frac{1}{n}} &&\|X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}^{2} &&\lesssim\sigma^{2} \left({\frac{r+\log(\frac 1 \delta)}{n}} \right) 
+\end{alignat}
+$$
+
+
+
+
+:::
+
+- Remark
+
+$d \le n$ 이며 $rank(B) = rank \left( \frac{X'X}{n}\right) =d$ 일 때, 이하가 성립한다. 이때 $\lambda_{\mathrm{min}}(B)$ 는 $B$ 의 ev 중 최소인 값이며, 따라서 이에 $\|\hat \theta_{LS} - \theta^\ast \|^2_2$ 를 탐색하기 위해 thm 8.2. 를 바로 적용하는 것이 가능하다.
+
+그러나 고차원 케이스에서는 $d>n$ 일 때 $\lambda_{\mathrm{min}}(B) = 0$ 이므로 이 방법론을 쓸 수 없다. 따라서 MSE 의 형으로 $\lambda_{\mathrm{min}}(B)$ 의 bound 를 설정할 필요가 있기 때문에 가정이 추가적으로 필요하다.
+
+$$
+\begin{alignat}{2}
+& && \lambda_{\mathrm{min}}(B) &&\Bigg \|\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\Bigg \|_{2}^{2} &&\leq\left(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\right)^{\top}B&&(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})
+\\
+& && \lambda_{\mathrm{min}}(B) &&\Bigg \|\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\Bigg \|_{2}^{2} &&\leq\left(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\right)^{\top}\frac{X'X}{n}&&(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})
+\\
+&\iff && && \Bigg \|{\widehat\theta}_{\mathrm{LS}}-\theta^{*} \Bigg \|_{2}^{2} &&\leq{\frac{1}{\lambda_{\mathrm{min}}(B)}}\cdot\frac{1}{n} &&\Bigg \|X({\widehat\theta}_{\mathrm{LS}}-\theta^{*}) \Bigg \|_{2}^{2}
+\end{alignat}
+$$
+
+- Proof
+
+8.2 의 증명은 **basic inequality** 와 **sup-out** 테크닉에 의존.
+
+1. Basic ineq. 
+
+첫줄의 ineq. 는  의 정의에 의해 성립. 이때 $\epsilon$ 과 $\hat \theta_{LS}$ 는 dependent 하기 때문에 $\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})}{||X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})||_{2}}$ 를 control 하기가 어렵다는 것을 note. dependence structure 가 complicated 하다면 더더욱 그럴 것. 이 dependence 를 지워 없애기 위해 sup-out tachnique 를 사용. 이의 maximal ineq. 를 적용하는 것이 해당 문제 해결의 열쇠가 된다.
+
+
+$$
+\begin{array}
+&
+&
+&\|Y-X{\widehat{\theta}}_{\mathrm{LS}}\|_{2}^{2}
+&\leq
+&\|Y-X\theta^{*}\|_{2}^{2} 
+&=
+\|\epsilon\|_{2}^{2}
+
+\\
+&=
+& \| \epsilon + X(\theta^\ast - \hat \theta_{LS})\| &
+\\
+&=
+&\|\epsilon\|_{2}^{2}+2\epsilon^{\mathsf{T}}X(\theta^{*}-{\widehat{\theta}}_{\mathsf{L S}})+\|X(\theta^{*}-{\widehat{\theta}}_{\mathsf{L S}})\|_{2}^{2} &&
+
+\\
+
+\iff
+&
+&\|X(\theta^{*}-\hat{\theta}_{\mathrm{LS}})\|_{2}^{2}\;
+&\leq
+&\;2\epsilon^{\top}X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})
+&
+&=
+&2\|X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}\times\frac{\epsilon^{\top}X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})}{\|X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}}
+
+
+
+\end{array}
+$$
+
+
+2. Sup-Out
+
+
+
+$X$의 column span 의 orthonormal basis 를 $\Psi = [\psi_1, \cdots, \psi_r] \in \mathbb R^{n \times r}$ 라고 하자. (SVD 를 생각하자.) 특히, $\exists \nu \in \mathbb R^r : X(\hat \theta_{LS} - \theta^\ast) = \Psi \nu$. 이때 이 $\nu$ 에 대해
+
+$$
+\begin{alignat}{2}
+&
+&&\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})}{||X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})||_{2}}
+=\frac{\epsilon^{\top}\Psi\nu}{||\Psi \nu||_{2}}
+&&=\frac{\epsilon^{\top}\Psi\nu}{||\nu||_{2}}
+
+\\
+&
+&&
+&&=\frac{\tilde \epsilon^{\top}\Psi}{||\nu||_{2}}
+&&\le&&\sup\limits_{u\in\mathbb{R}^{r}:||u||_{2}=1}\tilde{\epsilon}^{\top}u
+
+\\
+& \iff
+&&
+&&||X(\theta^{*}-\widehat{\theta}_{\mathrm{LS}})||_{2}^{2}
+&&\leq4 \cdot &&\sup\limits_{u\in\mathrm{R}^{r}:\|u\|_{2}=1}(\tilde{\epsilon}^{\mathsf{T}}u)^{2}
+\end{alignat}
+$$
+
+since $\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1$,^[$\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}$] $\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}$.
+
+이는 곧 $\tilde \epsilon \in SG(\sigma^2)$ 이라는 소리. 이때 $X\sim SG(\sigma^2) \Longrightarrow Var(X) \le \sigma^2$ (Lecture 2). 따라서 CS ineq. 에 의해 $\mathbb{E}\left[\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} ({\tilde{\epsilon}}^{\mathsf{T}}u)^{2}\right] \leq\sum\limits_{i=1}^{r}\mathbb{E}\left[{\widetilde{\epsilon}}_{i}^{2}\right]\leq r\sigma^{2}$. 이것이 thm 8.2. 의 첫번째 claim 을 증명.
+
+bound in Probability 를 보이기 위해, 우리는 standard discretization argument 를 사용. $N_{\frac12}$ 를 $\mathbb S^{r-1}$ 의 $\frac12$-covering 이라고 하자. 그러면 Lecture 4 에서의 결과물을 사용하는 것으로 $\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} \widetilde{\epsilon}^{\top}u\le2\operatorname*{max}_{u\in{N}_{\frac12}}\widetilde{\epsilon}^{\top}u$ 가 얻어진다.
+
+따라서 이하가 성립하며 이를 만족시키는 임의의 $\delta$ 를 잡았을때 이에서 파생되는 임의의 $t$ 를 얻는다.
+
+$$
+\begin{alignat}{2}
+\mathbb{P}(\|X(\theta^{*}-{\widehat{\theta}}_{LS})\|_{2}^{2}\geq t)&\leq\mathbb{P}{\Big(}\max\limits_{u\in{ N}_{\frac12}}({\tilde{\epsilon}}^{T}u)^{2}\geq \frac t {16}{\Big)}
+\\
+&\leq \Bigg|{ N}_{\frac 12} \Bigg|e^{-{\frac{t}{32 \sigma^2}}}
+\\
+&\leq5^{r}e^{-{\frac{t}{32 \sigma^2}}}
+
+\\
+
+\exists \delta: &\le \delta &&\iff \exists t: t \ge 32 \sigma^2 \left \{ r \log 5 + \log \left( \frac {1} {\delta} \right) \right \}
+\end{alignat}
+$$
+
+따라서 with probability at least $1-\delta$, $||X(\theta^{*}-\hat{\theta}_{\mathrm{LS}})||_{2}^{2}\lesssim \sigma^{2}\{r+\log \left (\frac1 \delta \right)\}$.
+
+<br>
+<br>
+<br>
+
+
+<br>
+<br>
+<br>
+
+
+### Sparse linear regression
+
+이상을 통해 우리는 $\frac d n \righarrow 0$ 일 때 $\hat \theta_{LS}$ 가 consistent 함을 확인. 따라서 $\frac d n \righarrow 0$ 가 우리가 바랄 수 있는 최적의 condition. 특히 $\frac d n$ 이 0에서 bounded away 된 채로 남는다면 consistent estimator 를 획득하는 건 **불가능**함. (minimax point of view 에서는.) 이러한 이유로 $d > n$ 상황에서 작업을 할 때는 unknown regression vector $\theta^\ast$ 에 추가적인 structure 을 얹는 게 필수가 됨. 이제 $\theta^\ast$ 의 대다수가 0이라는 조건인 **sparse condition** 에 대해서 논해보자.
+
+
+
+
+
+<br>
+<br>
+<br>
+
+#### Lasso
+
+linear model (8.1)에서 $\theta$ 의 support set $S(\theta^{*})=\{j\in\{1,\ldots, d\}:\theta_{j}^{*}\not=0\}$ 이 cardinality $s=|S(\theta^\ast)| \overset{substantially}{<} d$, 즉 s-sparse 인 상황 가정. regularized estimator 로서, **lasso estimator** $\widehat{\theta}_{\mathrm{lasso}}=\arg\min\limits_{\theta\in\mathbb{R}^{d}}\left\{\frac{1}{2n}\|Y-X\theta\|_{2}^{2}+\lambda_{n}\|\theta\|_{1}\right\}$ 는 이러한 sparse structural assumption 에 대한 설명력을 가진다. lasso esimator 는 for many $j \in \{1, \cdots, d\}:\hat_{lasso, \; j} = 0$ 라는 **sparcity property** 를 가지며 이건 $\lambda_n$ 을 무엇으로 골랐는지에 의존한다. 위의 등식 (8.3)은 **lasso problem** 이라고 불리며, 이는 convex optimization problem 이고, computationally tractable.
+
+:::{.lemma name="Basic inequality"}
+
+lasso estimator 에 대한 basic ineq.
+
+$$
+{\frac{1}{2n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\ \leq\ {\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})}{n}}+\lambda_{n}(\|\theta^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1})
+$$
+
+:::
+
+- Proof.
+
+Lasso 의 정의에 의해,
+
+$$
+\frac{1}{2n}\Vert Y-X\widehat{\theta}_{\mathrm{lasso}}\Vert_{2}^{2}+\lambda_{n}\Vert\widehat{\theta}_{\mathrm{lasso}}\Vert_{1}\ \leq\ \frac{1}{2n}\Vert Y-X\theta^{*}\Vert_{2}^{2}+\lambda_{n}\Vert\theta^{*}\Vert_{1} = \frac{1}{2n} ||\epsilon||_2^2 + \lambda_n ||\theta^\ast ||_1
+$$
+
+그리고 MSE 를 확장하는 것으로
+
+$$
+{\frac{1}{2n}}\|Y-X{\widehat{\theta}}_{\mathrm{lasso}}\|_{2}^{2}\ =\ {\frac{1}{2n}}\|\epsilon\|_{2}^{2}+{\frac{1}{2n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}+{\frac{\epsilon^{\top}X(\theta^{*}-{\widehat{\theta}}_{\mathrm{laaso}})}{n}}
+$$
+
+둘을 복합.
+
+<br>
+<br>
+<br>
+
+
+#### Slow convergence rate
+
+위에서의 basic inequality (lemma 8.3) 이 주어졌을 때, 우리는 lasso estimator $\hat \theta_{lasso}$ 의 consistency 를 보장하는 sufficient condition 생성 가능. 이는 deterministic bound 를 구하는 것부터 시작함. 
+
+:::{.theorem name="Slow Convergence Rate"}
+
+$X_j$ 를 $X$ 의 j-th column 이라고 하고, $\lambda_{n}\,\geq\,\left|\left|\frac{X^{\top}\epsilon}{n}\right|\right|_{\infty}\ = \max_{i \le j \le d}\left|\frac{X_{j}^{\textsf{T}}\epsilon}{n}\right|$ 라고 가정하자. 이 때 lasso estimator 는 이하를 만족.
+
+
+
+$$
+\frac{1}{n} \Bigg\| X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}) \Bigg\| _{2}^{2}\leq4\lambda_{n} \Bigg\| \theta^{*} \Bigg\| _{1}
+$$
+:::
+
+- Proof:
+
+
+$$
+\begin{align}
+\frac{1}{2n}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\ &\leq\ \frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})}{n}
+&&+\lambda_{n}(||\theta^{*}||_{1}-||\widehat{\theta}_{\mathrm{lasso}}||_{1})
+
+\\
+
+&\overset{(i)}{\le} {\frac{1}{n}}\|\epsilon^{\mathsf{T}}X\|_{\infty}\|\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}\|_{1}
+&&+\lambda_{n}(\|\theta^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1})
+
+\\
+
+&\overset{(ii)}{\le}\frac{1}{n}||\epsilon^{\top}X||_{\infty}(||\widehat{\theta}_{\mathrm{lasso}}||_{1}+||\theta^{*}||_{1})
+&&+\lambda_{n}(||\theta^{*}||_{1}-||\widehat{\theta}_{\mathrm{lasso}}||_{1})
+
+\\
+
+&= \|\widehat\theta_{\mathrm{lasso}}\|_{1}\left(\frac{1}{n}\|\epsilon^{\mathsf{T}}X\|_{\infty}-\lambda_{n}\right)
+&&+\|\theta^{*}\|_{1}\left(\frac{1}{n}\|\epsilon^{\mathsf{T}}X\|_{\infty}+\lambda_{n}\right)
+
+\\
+
+&\stackrel{(iii)}{\le}2\lambda_{n}\vert\vert\theta^{*}\|_{1}
+\end{align}
+$$
+
+1. 휠더 부등식
+2. triangle ineq.
+3. (8.4) 의 $\lambda_n$ 에 대해 걸었던 condition.
+
+th, 8.4. 의 error bound 는 (8.4) 에서 $\lambda_n$ 에 대해 걸었던 condition 에 의존. 이제 좀 더 자세히 살펴보자.
+
+
+- $lambda_n$ 의 good choice 는 무엇인가?
+
+랜덤벡터 $\epsilon \in SG(\sigma^2)$ 이었음을 상기. 이제 $\exists C>0:\max\limits_{1\le j\le d} \|X_i\|_2 \le C\sqrt n$ 라고 가정 assume 하자. 이때 $\forall n, d:\max\limits_{ 1 \le j \le d}\left\{\frac{1}{n}\sum_{i=1}^{n}X_{i j}^{2}\right\}\le C$ 가 성립한다. 이를 통해 standard argument 를 만들수 있다:
+
+$$
+\begin{alignat}{2}
+\mathbb{P}\!\left(\frac{1}{n}||\epsilon^{\textsf{T}}X||_{\infty}\geq t\right)\ 
+&= \mathbb{P}\!\left(\max\limits_{1\le j \le d} |X_{j}^{\textsf{T}}\epsilon|\geq\,t n\right)
+
+\\
+&\leq\mathrm{~}\sum_{j=1}^{d}\mathbb{P}(|X_{j}^{\top}\epsilon|\geq\,t n)
+
+
+
+\\
+
+&=\;\sum_{j=1}^{d}\mathbb{P}\left({\frac{|X_{j}^{\top}\epsilon|}{||X_{j}||_{2}}}\geq\,{\frac{t n}{||X_{j}||_{2}}}\right)
+
+
+\\
+&\leq\ 2d\exp\left(-\,\frac{n^{2}t^{2}}{2\sigma^{2}\,\max\limits_{1\le j\le d}\,||X_{j}||^{2}}\right)
+
+
+
+\\
+&\leq\ 2d\exp\left(-\,\frac{n t^{2}}{2C^{2}\sigma^{2}}\right) &&=\delta
+
+\end{alignat}
+$$
+
+마지막 ineq. 는 시작 전 더해둔 assumption $\max\limits_{1\leq j\leq d}\|X_{j}\|_{2}\leq C{\sqrt{n}}.$ 에 의해서 성립. 이제 $t=\lambda_{n}^{*}=\sqrt{\frac{2\sigma^{2}C^{2}}{n} \left \{\log(\frac 1 \delta)+\log(\frac 2d) \right\}}$ 를 하나 고르는 것으로, 우리는 with probability $1-\delta$ 에 의해 ${\frac{1}{n}}\|\epsilon^{\mathsf{T}}X\|_{\infty}\leq\lambda_{n}^{*}$ 가 성립한다는 사실을 파악할 수 있다.
+
+따라서 $\delta = \frac 1n$ 으로 잡는 것으로, thm 8.4 를 적용하는 것으로 $\lambda_n^\ast$ 가 주어진 lasso estimator 는 이하를 보장한다.
+
+$$
+{\frac{1}{n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim \|\theta^{*}\|_{1} \cdot \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}
+$$
+
+여기에 추가로 $\max\limits_{1\leq j\leq d}\left|\theta_{j}^{\ast}\right|$ 가 uniformly bounded 되어 있다고 suppose 한다면? 그 경우 $\theta^\ast$ 의 $s$-sparcity 하에서, $s \sqrt{\frac {\log(d)} n} \rightarrow 0$ 이 1번이라도 발생한 순간 MSE 는 0으로 간다.
+
+
+- Parameter Estimation
+
+위에서 언급되었 듯이, $\d \le n$ 이며 $\lambda_{\mathrm{min}} \left(\frac{X^{\textsf{T}}X}n \right)\;\geq\;C_{\mathrm{min}}\;\gt \;0,$ 일 경우, 앞의 결과는 이하를 보장한다. 안타깝게도 이 전략은 $d>n$ 인 경우에는 작동하지 않는다. $X'X$ 가 rank-deficient 가 되어 버리므로.
+
+
+$$
+||{\widehat\theta}_{\mathrm{lasso}}-\theta^{*}||_{2}^{2} \lesssim {\frac{||\theta^{*}||_1}{C_{\mathrm{min}}}} \cdot \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}
+$$
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+#### Fast Convergence Rate
+
+디자인 매트릭스 $X$ 에 추가적인 assumption 을 붙이는 것으로 좀 더 빠른 convergence rate 를 얻는 것이 가능. 여기선 Restricted Ev (RE) condition 을 사용할 것. $\{ 1, \cdots, d\}$ 의 subset $S$ 에 대해 $Z_S = (Z_{S,1}, \cdots, Z_{S, d}) \in \mathbb R^d)$ 이며 $\forall j \in S:Z_{S,j} = Z_j$, o.w. $Z_{S, j} = 0$ 으로 정의.
+
+$S^c$ 를 $S$ 의 complement 로 잡자. 즉슨 $Z_{S^c}$ 도 $Z_S$ 와 유사하게 정의. 이때 $\forall \alpha\ge1:C(\alpha,S)=\{\Delta\in\mathbb{R}^{d}:||\Delta_{S^{c}}||_{1}\leq\alpha\|\Delta_{S}\|_{1}\}$. 이 notation 들을 써서 이하 정의.
+
+:::{.definition name="RE condition"}
+
+매트릭스 $X$ 는 이하를 만족할 경우, 패러미터 $(\alpha, \kappa)$ 와 함께 $S$ 에 대해 **RE condition** 을 만족한다.
+
+$$
+forall \Delta\in C(\alpha,S):{\frac{1}{n}}\|X\Delta\|_{2}^{2}\geq\kappa\|\Delta\|_{2}^{2}
+$$
+
+:::
+
+- Remark.
+
+RE condition 에 대한 직관을 좀 얻어보자. cost difference $\mathcal{L}_{n}(\widehat{\theta}_{\mathrm{lasso}})-\mathcal{L}_{n}(\theta^{*})=\frac{1}{2n}\vert\vert Y-X\widehat{\theta}_{\mathrm{lasso}}\vert\vert_{2}^{2}-\frac{1}{2n}\vert\vert Y-X\theta^{*}\vert\vert_{2}^{2}$ 가 작다면, error vector $\hat \theta_{lasso} - \theta^\ast$ 도 또한 작다는 것을 장담할 수 있을까? 일반적으로 이는 그렇다고 할 수 없다. 특히 cost function $\mathcal L_n(\theta)$ 가  **flat** 할 경우에는 더더욱. 이 flat 상황을 피하기 위해 cost function $\mathcal L_n (\theta)$ 로 하여금 이의 optimum $\hat \theta_{lasso}$ 주위에서 높은 **curvature** 를 갖도록 하는 것이 요구됨. **curvature** 는 Hessian MAtrix $\nabla^{2}{\mathcal{L}}_{n}(\theta)={\frac{1}{n}}X^{\top}X$ 의 구조에 의해 결정됨. 만약 우리가 이 Hessian Matrix 의 ev 가 0 에서 bounded away 되었다고 장담할 수 있다면, 즉, $\forall \Delta\in\mathbb{R}^{d}\setminus\{0\}:\frac{1}{n}||X\Delta||_{2}^{2}\geq\kappa||\Delta||_{2}^{2}\gt 0$ 라면, 우리는 모든 지점에서 curvature 를 갖는다는 것을 확신할 수 있을 것.
+
+
+하지만 고차원 상황 $d>n$ 에서는 Hessian Matrix 는 0 ev 를 가져야만 하고, condition (8.7) (바로 위 상황) 은 성립할 수 없다. 역으로 우리는 $C(\alpha, S)$ 로 정의된 특정한 지점에서 cost function 이 curved 한지를 고려한다. 이 직관을 써서 RE condition 하에서 lasso estimator 에 대한 deterministic bound 를 생산할 수 있다. 이것이 아래의 thm.
+
+:::{.theorem name="Fast Convergence Rate"}
+
+linear model (8.1) 을 살피고, $S=\{i : \theta^\ast_i \not = 0 \}$ 에 대해 패러미터 $(3, \kappa)$ 를 통해 RE condition 을 만족하는 $X$ 를 assume. 이때, $S$ 의 cardinality 가 $s$ 를 쓰자. 여기서 만약 $\lambda_{n}\geq2\left\| \frac{X^{\textsf{T}}\epsilon}{n}\right\|_{\infty}$ 가 성립한다면 이하가 성립.
+
+
+$$
+{\frac{1}{n}}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\leq9{\frac{s\lambda_{n}^{2}}{\kappa}}, \; \; \; \; \; \; \; \; \; \; \; ||\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}||_{2} \le3{\frac{\sqrt{s}\lambda_{n}}{n}}
+$$
+
+- Proof:
+
+편의를 위해 $\hat \Delta = \hat \theta_{lasso} - \theta^\ast$. 주어진 condition 하에서 $\hat \Delta \in C(3, S)$ 임을 먼저 보이자. basic ineq. (lemma 8.3) 을 사용하면 ${\frac{1}{2n}}||X\hat{\Delta}||_{2}^{2}\; \leq \;{\frac{\epsilon^{\top}X\hat{\Delta}}{n}}+\lambda_{n}(||\theta^{*}||_{1}-||\hat{\theta}_{\mathrm{lasso}}||_{1})$ 임을 보일 수 있다. $\theta^\ast$ 가 s-sparse 이며 $\hat \Delta = \hat \theta_{lasso}-\theta^\ast$ 이므로 이하가 성립.
+
+$$
+\begin{alignat}{2}
+\|\theta^{*}\|_{1}-\|{\widehat{\theta}}_{\mathrm{lasso}}\|_{1}
+
+&=\|\theta_{S}^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1}
+
+\\
+
+&= \| \theta_{S}^{*}\|_{1}-\|{\hat{\Delta}}+\theta^{*}\|_{1} 
+
+\\
+
+&=\|\theta_{S}^{*}\|_{1}
+&&-\|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1} - \| \hat \Delta_{S^c} \|_1
+
+\\
+
+&\leq \|\hat{\Delta}_{S}\|_{1}+\ \|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1} 
+&&-  \|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1}\nonumber-\|\widehat{\Delta}_{S^{c}}\|_{1}\nonumber \tag{triangle ineq.}
+
+\\
+
+&= \| \hat \Delta_S \|_1 - \| \hat \Delta_{S^c}\|_1
+\end{alignat}
+$$
+
+
+
+
+$$
+\begin{alignat}{2}
+0\;\leq\;\frac{1}{n}\Vert X\hat{\Delta}\Vert_{2}^{2}
+&\stackrel{(i)}{\le}\;\frac{2}{n}\Vert\epsilon^{\top}X\Vert_{\infty}\Vert\hat{\Delta}\Vert_{1}
+&&+2\lambda_{n}(\Vert\hat{\Delta}_{S}\Vert_{1}-\Vert\hat{\Delta}_{S^{c}}\Vert_{1})
+
+\tag{Holder}
+
+\\
+
+&
+{\stackrel{\mathrm{(ii)}}{\leq}}\ \ \lambda_{n}\|{\widehat\Delta}\|_{1}
+&&+2\lambda_{n}(\|{\hat\Delta}_{S}\|_{1}-\|{\hat\Delta}_{S^{c}}\|_{1})
+
+\tag{condition (8.8) on λ_n}
+
+\\
+
+
+&= \lambda_n (\| \hat \Delta_S \|_1 + \| \hat \Delta_{S^c}\|_1 ) 
+&&+2\lambda_n (\| \hat \Delta_S \|_1 - \| \hat \Delta_{S^c}\|_1 )
+
+\\
+
+
+&=\lambda_{n}(3||\widehat\Delta_{S}||_1-||\widehat\Delta_{S^{c}}||_1)
+\end{alignat}
+$$
+
+이를 통해 $\hat \Delta \in C(3,S)$ 라고 결론지을 수 있으며, 우리는 $X$ 가 패러미터 $(3, \kappa)$ 와 함께 RE condition 을 만족한다고 assume 했으므로, 이는 곧 ${\frac{1}{n}}\|X{\hat{\Delta}}\|_{2}^{2}\geq\kappa\|{\hat{\Delta}}\|_{2}^{2}$ 라는 것을 보여준다.
+
+앞의 과정을 다시 사용해서 이제 
+
+
+$$
+\begin{align}
+{\frac{1}{n}}\|X{\widehat{\Delta}}\|_{2}^{2}\;&\leq\;\lambda_{n}(3\|\widehat{\Delta}_{S}\|_{1}-\|\widehat{\Delta}_{S^{c}}\|_{1})\leq3\lambda_{n}\|\widehat{\Delta}_{S}\|_{1}
+
+\\
+
+&\overset{(i)}{\le} 3 \lambda_{n}\sqrt{s}||\hat{\Delta}_{S}||_{2} \tag{1}
+
+\\
+
+&\leq\ 3\lambda_{n}\sqrt{s}||\hat{\Delta}||_{2}
+
+\\
+
+&\overset{(ii)}{\le}\frac{3\lambda_{n}\sqrt{s}}{\sqrt{n\kappa}}\|X\widehat{\Delta}\|_{2} \tag{ineq. (8.9)}
+
+\\
+
+\iff {\frac{1}{n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2} & \leq9{\frac{s\lambda_{n}^{2}}{\kappa}}
+\end{align}
+$$
+
+1. $\forall x\in\mathbb{R}^{d},\,\|x\|_{1}\leq{\sqrt{d}}\|x\|_{2}$
+
+따라서 위의 마지막 ineq. 와 ineq. (8.9) 를 다시 한번 적용하면 증명 완료.
+
+- Remark.
+
+$\lambda_{n} \asymp \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}$ 상황이라고 가정하자. 이 경우 design 매트릭스에 (8.5) 와 유사한 condition 을 두고 같은 argument 를 적용하면 $\lambda_{n}\geq2 \left \| \frac{X^{\top}\epsilon}{n} \right \|_{\infty}$ with probability at least $1-\frac {1} {n^c}$ for some constant $c>0$ 임을 보일 수 있다. 이는 또한 ($d \gg n$ 일 때) ${\frac{1}{n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim{\frac{s\log(d)}{n}}$ 라는 것으로도 이어지며, 따라서 RE condition 하에서 once $\frac{s \log(d)}{n}\rightarrow 0$ 라면 lasso estimator 는 consistent 하다.
+
+이와 별개로 $\lim\limits_{n \rightarrow \infty} \lambda_n = 0$ 를 가정하는 것으로, thm 8.6 의 결과가 8.4의 결과를 former의 upper bound 가 $\lambda_n$ 이 아니라 $\labmda_n^2$ 에 의존한다는 것으로 진화시킨다는 것을 발견할 수 있다.
+
+
+
+

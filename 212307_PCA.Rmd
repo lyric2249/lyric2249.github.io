@@ -412,6 +412,7 @@ $$
 t\geq C\sigma^{2}\operatorname*{max}\left\{\sqrt{\frac{k\log(\frac{ed}k)+\log(\frac2\delta)}{n}},\;\frac{k\log(\frac{e d}k)+\log(\frac2\delta)}{n}\right\}
 $$
 
+Fin.
 
 
 

@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Self-Study</title>
-  <meta name="description" content="Page not found | Self-Study" />
+  <title>8.8 Linear Regression | Self-Study</title>
+  <meta name="description" content="8.8 Linear Regression | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Self-Study" />
+  <meta property="og:title" content="8.8 Linear Regression | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Self-Study" />
+  <meta name="twitter:title" content="8.8 Linear Regression | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="principal-component-analysis.html"/>
+<link rel="next" href="survival-analysis.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -494,19 +494,423 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="linear-regression" class="section level2" number="8.8">
+<h2><span class="header-section-number">8.8</span> Linear Regression</h2>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+<div id="problem-formulation" class="section level3" number="8.8.1">
+<h3><span class="header-section-number">8.8.1</span> Problem formulation</h3>
+<p>unknown vector 인 <strong>regression vector</strong> <span class="math inline">\(\theta^\ast \in \mathbb R^d\)</span> 설정.</p>
+<p>벡터 <span class="math inline">\(Y = (Y_1 , \cdots, Y_n)&#39; \in \mathbb R^n\)</span> 를 관측했으며, linear model <span class="math inline">\(Y=X\theta^{*}+\epsilon\)</span> 를 통해 이와 관계되어 있는 <span class="math inline">\(X \in \mathbb R^{n \times d}\)</span> 를 가정하자. 이때 <span class="math inline">\(\epsilon\;=\;\left(\epsilon_{1},\cdot\cdot\cdot,\epsilon_{n}\right)^{\top}~\in~\mathbb{R}^{n}\;\)</span> 이며, 각각은 independent zero-mean <span class="math inline">\(\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)\)</span>.</p>
+<p>이제 <span class="math inline">\(\hat \theta\)</span> 를 <span class="math inline">\(\theta^\ast\)</span> 의 estimator 로 잡는다. 이하의 2가지가 주된 관심사.</p>
+<ol style="list-style-type: decimal">
+<li>Prediction</li>
+</ol>
+<p><span class="math inline">\(X \theta^\ast + \tilde \epsilon = \tilde Y \overset{iid} \sim Y\)</span> 라고 설정하자. 우리의 목적은 <span class="math inline">\(\theta^\ast\)</span> 에 대한 우리의 estimate <span class="math inline">\(\hat \theta\)</span> 의 구현값을 사용해서 <span class="math inline">\(\tilde Y\)</span> 를 predict. performance 에 대한 natural measure 는 이하와 같다. 이때 unavoidable error 는 말 그대로 unavoidable 이므로, 우리는 후자인 MSE, 즉 <span class="math inline">\(\mathbb{E}\left [\Bigg \|X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]\)</span>, 를 조사하고자 한다.</p>
+<p><span class="math display">\[
+\frac{1}{n}\mathbb{E}\left [\Bigg \|{\tilde{Y}}-X{\widehat{\theta}}\Bigg \|_{2}^{2}\right ]
+=
+\frac{1}{n}\mathbb{E}\left [\Bigg \|{\tilde{\epsilon}}+X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]
+=
+\underbrace{\frac{1}{n}\mathbb{E}\left [\Bigg \|\tilde \epsilon\Bigg \|_{2}^{2}\right ]}_{\text{unavoidable error}}
++
+\underbrace{\frac{1}{n}\mathbb{E}\left [\Bigg \|X(\theta^{*}-{\widehat{\theta}})\Bigg \|_{2}^{2}\right ]}_{\text{Mean Squared Error}}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Parameter Estimation</li>
+</ol>
+<p>위와는 다른 케이스로, 몇몇 경우에 우리는 regression vector <span class="math inline">\(\theta*\ast\)</span> 를 조사하고 싶어하는 경우가 있으며, 이 경우에 관심사 (조사대상) 는</p>
+<p><span class="math display">\[
+\mathbb{E}\left [\Bigg \|\theta^{*}-{\widehat{\theta}}\Bigg \|_{2}^{2}\right ]
+\]</span></p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="least-squares-estimator-in-high-dimensions" class="section level3" number="8.8.2">
+<h3><span class="header-section-number">8.8.2</span> Least Squares Estimator in high dimensions</h3>
+<p>고전적인 LR 은 LS 문제를 풀어내는 것과 같다. 이하의 형을 구한다는 것과 equivalent 이며, 이는 보통 <strong>Ordinary Least Squares (OLS) estimator</strong> 로 통칭됨.</p>
+<p><span class="math inline">\({\widehat{\theta}}_{\mathrm{LS}}=(X^{\top}X)^{-1}X^{\top}Y=\arg \min\limits_{\theta \in \mathbb R^d}\|Y-X\theta\|_{2}^{2}\)</span></p>
+<p>Gauss–Markov thm 에 의해 우리는 OLS Estimator 가 Best Linear Unbiased Estimator (BLUE) 임을 알고 있음. 왜냐고 특정 condition 하에서의 Linear Unbiased Estimator 들의 class 내에서 OLS Estimator 가 가장 작은 Var 을 가지고 있으니까. 하지만 이 estimator 는 <span class="math inline">\(X&#39;X\)</span> 가 uninvertible 하면 존재할 수 없음. 다른 말로, <span class="math inline">\(n \ge d\)</span> 인 경우에만 존재할 수 있다는 거임. <span class="math inline">\(d&gt;n\)</span> 라도, <span class="math inline">\(\operatorname*{min}_{\theta\in\mathbb{R}^{d}}\|Y-X\theta\|_{2}^{2}\)</span> 라는 문제에 대한 해를 찾아내는 건 가능함. 다음과 같이 매핑하는 function <span class="math inline">\(\theta\mapsto\|Y=X\theta\|_{2}^{2}\)</span> 는 convex 이므로, 1차 optimality condition 인 <span class="math inline">\(\nabla_{\theta}\|Y-X\theta\|_{2}^{2}=0\quad\Longleftrightarrow\quad X^{\top}X\theta=X^{\top}Y\)</span> 를 체크하는 것만으로 충분함. 이의 해는 이하에 제시된 MP-pseudo Inverse <span class="math inline">\(X&#39;X\)</span> 의 형으로 서술될 수 있음.</p>
+<p><br>
+<br>
+<br></p>
+<div id="mean-squared-error-of-the-least-squares-estimator" class="section level4" number="8.8.2.1">
+<h4><span class="header-section-number">8.8.2.1</span> Mean Squared Error of the Least Squares Estimator</h4>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-1" class="theorem"><strong>Theorem 8.1  (Least Squares Estimator) </strong></span>let linear model <span class="math inline">\(Y=X\theta^{*}+\epsilon\)</span>, 이때 <span class="math inline">\(\epsilon\)</span> 의 elements 각각은 independent zero-mean <span class="math inline">\(\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)\)</span>.</p>
+<p>이때 <span class="math inline">\(\hat \theta_{LS}\)</span> 는 이하를 만족하며, 2번째 ineq는 with probability at least <span class="math inline">\(1-\delta\)</span> 로 만족.</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+&amp; &amp;&amp;\frac{1}{n}E \Bigg ( &amp;&amp; \Bigg \| X\bigl(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\bigr) \Bigg \|_{2}^{2} \Bigg) &amp;&amp;\lesssim \sigma^{2}\frac{r}{m} &amp;&amp; \; \; \; \; \; \; \; \; \;\;r= rank(X&#39;X)
+
+\\
+
+&amp;\forall \delta&gt;0: &amp;&amp; {\frac{1}{n}} &amp;&amp;\|X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}^{2} &amp;&amp;\lesssim\sigma^{2} \left({\frac{r+\log(\frac 1 \delta)}{n}} \right) 
+\end{alignat}\]</span>
+$$</p>
+</div>
+<ul>
+<li>Remark</li>
+</ul>
+<p><span class="math inline">\(d \le n\)</span> 이며 <span class="math inline">\(rank(B) = rank \left( \frac{X&#39;X}{n}\right) =d\)</span> 일 때, 이하가 성립한다. 이때 <span class="math inline">\(\lambda_{\mathrm{min}}(B)\)</span> 는 <span class="math inline">\(B\)</span> 의 ev 중 최소인 값이며, 따라서 이에 <span class="math inline">\(\|\hat \theta_{LS} - \theta^\ast \|^2_2\)</span> 를 탐색하기 위해 thm 8.2. 를 바로 적용하는 것이 가능하다.</p>
+<p>그러나 고차원 케이스에서는 <span class="math inline">\(d&gt;n\)</span> 일 때 <span class="math inline">\(\lambda_{\mathrm{min}}(B) = 0\)</span> 이므로 이 방법론을 쓸 수 없다. 따라서 MSE 의 형으로 <span class="math inline">\(\lambda_{\mathrm{min}}(B)\)</span> 의 bound 를 설정할 필요가 있기 때문에 가정이 추가적으로 필요하다.</p>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp; &amp;&amp; \lambda_{\mathrm{min}}(B) &amp;&amp;\Bigg \|\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\Bigg \|_{2}^{2} &amp;&amp;\leq\left(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\right)^{\top}B&amp;&amp;(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})
+\\
+&amp; &amp;&amp; \lambda_{\mathrm{min}}(B) &amp;&amp;\Bigg \|\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\Bigg \|_{2}^{2} &amp;&amp;\leq\left(\widehat{\theta}_{\mathrm{LS}}-\theta^{*}\right)^{\top}\frac{X&#39;X}{n}&amp;&amp;(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})
+\\
+&amp;\iff &amp;&amp; &amp;&amp; \Bigg \|{\widehat\theta}_{\mathrm{LS}}-\theta^{*} \Bigg \|_{2}^{2} &amp;&amp;\leq{\frac{1}{\lambda_{\mathrm{min}}(B)}}\cdot\frac{1}{n} &amp;&amp;\Bigg \|X({\widehat\theta}_{\mathrm{LS}}-\theta^{*}) \Bigg \|_{2}^{2}
+\end{alignat}
+\]</span></p>
+<ul>
+<li>Proof</li>
+</ul>
+<p>8.2 의 증명은 <strong>basic inequality</strong> 와 <strong>sup-out</strong> 테크닉에 의존.</p>
+<ol style="list-style-type: decimal">
+<li>Basic ineq.</li>
+</ol>
+<p>첫줄의 ineq. 는 의 정의에 의해 성립. 이때 <span class="math inline">\(\epsilon\)</span> 과 <span class="math inline">\(\hat \theta_{LS}\)</span> 는 dependent 하기 때문에 <span class="math inline">\(\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})}{||X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})||_{2}}\)</span> 를 control 하기가 어렵다는 것을 note. dependence structure 가 complicated 하다면 더더욱 그럴 것. 이 dependence 를 지워 없애기 위해 sup-out tachnique 를 사용. 이의 maximal ineq. 를 적용하는 것이 해당 문제 해결의 열쇠가 된다.</p>
+$$
+<span class="math display">\[\begin{array}
+&amp;
+&amp;
+&amp;\|Y-X{\widehat{\theta}}_{\mathrm{LS}}\|_{2}^{2}
+&amp;\leq
+&amp;\|Y-X\theta^{*}\|_{2}^{2} 
+&amp;=
+\|\epsilon\|_{2}^{2}
+
+\\
+&amp;=
+&amp; \| \epsilon + X(\theta^\ast - \hat \theta_{LS})\| &amp;
+\\
+&amp;=
+&amp;\|\epsilon\|_{2}^{2}+2\epsilon^{\mathsf{T}}X(\theta^{*}-{\widehat{\theta}}_{\mathsf{L S}})+\|X(\theta^{*}-{\widehat{\theta}}_{\mathsf{L S}})\|_{2}^{2} &amp;&amp;
+
+\\
+
+\iff
+&amp;
+&amp;\|X(\theta^{*}-\hat{\theta}_{\mathrm{LS}})\|_{2}^{2}\;
+&amp;\leq
+&amp;\;2\epsilon^{\top}X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})
+&amp;
+&amp;=
+&amp;2\|X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}\times\frac{\epsilon^{\top}X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})}{\|X(\hat{\theta}_{\mathrm{LS}}-\theta^{*})\|_{2}}
+
+
+
+\end{array}\]</span>
+<p>$$</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Sup-Out</li>
+</ol>
+<p><span class="math inline">\(X\)</span>의 column span 의 orthonormal basis 를 <span class="math inline">\(\Psi = [\psi_1, \cdots, \psi_r] \in \mathbb R^{n \times r}\)</span> 라고 하자. (SVD 를 생각하자.) 특히, <span class="math inline">\(\exists \nu \in \mathbb R^r : X(\hat \theta_{LS} - \theta^\ast) = \Psi \nu\)</span>. 이때 이 <span class="math inline">\(\nu\)</span> 에 대해</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+&amp;
+&amp;&amp;\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})}{||X(\widehat{\theta}_{\mathrm{LS}}-\theta^{*})||_{2}}
+=\frac{\epsilon^{\top}\Psi\nu}{||\Psi \nu||_{2}}
+&amp;&amp;=\frac{\epsilon^{\top}\Psi\nu}{||\nu||_{2}}
+
+\\
+&amp;
+&amp;&amp;
+&amp;&amp;=\frac{\tilde \epsilon^{\top}\Psi}{||\nu||_{2}}
+&amp;&amp;\le&amp;&amp;\sup\limits_{u\in\mathbb{R}^{r}:||u||_{2}=1}\tilde{\epsilon}^{\top}u
+
+\\
+&amp; \iff
+&amp;&amp;
+&amp;&amp;||X(\theta^{*}-\widehat{\theta}_{\mathrm{LS}})||_{2}^{2}
+&amp;&amp;\leq4 \cdot &amp;&amp;\sup\limits_{u\in\mathrm{R}^{r}:\|u\|_{2}=1}(\tilde{\epsilon}^{\mathsf{T}}u)^{2}
+\end{alignat}\]</span>
+$$</p>
+<p>since <span class="math inline">\(\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1\)</span>,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <span class="math inline">\(\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}\)</span>.</p>
+<p>이는 곧 <span class="math inline">\(\tilde \epsilon \in SG(\sigma^2)\)</span> 이라는 소리. 이때 <span class="math inline">\(X\sim SG(\sigma^2) \Longrightarrow Var(X) \le \sigma^2\)</span> (Lecture 2). 따라서 CS ineq. 에 의해 <span class="math inline">\(\mathbb{E}\left[\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} ({\tilde{\epsilon}}^{\mathsf{T}}u)^{2}\right] \leq\sum\limits_{i=1}^{r}\mathbb{E}\left[{\widetilde{\epsilon}}_{i}^{2}\right]\leq r\sigma^{2}\)</span>. 이것이 thm 8.2. 의 첫번째 claim 을 증명.</p>
+<p>bound in Probability 를 보이기 위해, 우리는 standard discretization argument 를 사용. <span class="math inline">\(N_{\frac12}\)</span> 를 <span class="math inline">\(\mathbb S^{r-1}\)</span> 의 <span class="math inline">\(\frac12\)</span>-covering 이라고 하자. 그러면 Lecture 4 에서의 결과물을 사용하는 것으로 <span class="math inline">\(\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} \widetilde{\epsilon}^{\top}u\le2\operatorname*{max}_{u\in{N}_{\frac12}}\widetilde{\epsilon}^{\top}u\)</span> 가 얻어진다.</p>
+<p>따라서 이하가 성립하며 이를 만족시키는 임의의 <span class="math inline">\(\delta\)</span> 를 잡았을때 이에서 파생되는 임의의 <span class="math inline">\(t\)</span> 를 얻는다.</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+\mathbb{P}(\|X(\theta^{*}-{\widehat{\theta}}_{LS})\|_{2}^{2}\geq t)&amp;\leq\mathbb{P}{\Big(}\max\limits_{u\in{ N}_{\frac12}}({\tilde{\epsilon}}^{T}u)^{2}\geq \frac t {16}{\Big)}
+\\
+&amp;\leq \Bigg|{ N}_{\frac 12} \Bigg|e^{-{\frac{t}{32 \sigma^2}}}
+\\
+&amp;\leq5^{r}e^{-{\frac{t}{32 \sigma^2}}}
+
+\\
+
+\exists \delta: &amp;\le \delta &amp;&amp;\iff \exists t: t \ge 32 \sigma^2 \left \{ r \log 5 + \log \left( \frac {1} {\delta} \right) \right \}
+\end{alignat}\]</span>
+$$</p>
+<p>따라서 with probability at least <span class="math inline">\(1-\delta\)</span>, <span class="math inline">\(||X(\theta^{*}-\hat{\theta}_{\mathrm{LS}})||_{2}^{2}\lesssim \sigma^{2}\{r+\log \left (\frac1 \delta \right)\}\)</span>.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+</div>
+</div>
+<div id="sparse-linear-regression" class="section level3" number="8.8.3">
+<h3><span class="header-section-number">8.8.3</span> Sparse linear regression</h3>
+<p>이상을 통해 우리는 <span class="math inline">\(\frac d n \righarrow 0\)</span> 일 때 <span class="math inline">\(\hat \theta_{LS}\)</span> 가 consistent 함을 확인. 따라서 <span class="math inline">\(\frac d n \righarrow 0\)</span> 가 우리가 바랄 수 있는 최적의 condition. 특히 <span class="math inline">\(\frac d n\)</span> 이 0에서 bounded away 된 채로 남는다면 consistent estimator 를 획득하는 건 <strong>불가능</strong>함. (minimax point of view 에서는.) 이러한 이유로 <span class="math inline">\(d &gt; n\)</span> 상황에서 작업을 할 때는 unknown regression vector <span class="math inline">\(\theta^\ast\)</span> 에 추가적인 structure 을 얹는 게 필수가 됨. 이제 <span class="math inline">\(\theta^\ast\)</span> 의 대다수가 0이라는 조건인 <strong>sparse condition</strong> 에 대해서 논해보자.</p>
+<p><br>
+<br>
+<br></p>
+<div id="lasso" class="section level4" number="8.8.3.1">
+<h4><span class="header-section-number">8.8.3.1</span> Lasso</h4>
+<p>linear model (8.1)에서 <span class="math inline">\(\theta\)</span> 의 support set <span class="math inline">\(S(\theta^{*})=\{j\in\{1,\ldots, d\}:\theta_{j}^{*}\not=0\}\)</span> 이 cardinality <span class="math inline">\(s=|S(\theta^\ast)| \overset{substantially}{&lt;} d\)</span>, 즉 s-sparse 인 상황 가정. regularized estimator 로서, <strong>lasso estimator</strong> <span class="math inline">\(\widehat{\theta}_{\mathrm{lasso}}=\arg\min\limits_{\theta\in\mathbb{R}^{d}}\left\{\frac{1}{2n}\|Y-X\theta\|_{2}^{2}+\lambda_{n}\|\theta\|_{1}\right\}\)</span> 는 이러한 sparse structural assumption 에 대한 설명력을 가진다. lasso esimator 는 for many <span class="math inline">\(j \in \{1, \cdots, d\}:\hat_{lasso, \; j} = 0\)</span> 라는 <strong>sparcity property</strong> 를 가지며 이건 <span class="math inline">\(\lambda_n\)</span> 을 무엇으로 골랐는지에 의존한다. 위의 등식 (8.3)은 <strong>lasso problem</strong> 이라고 불리며, 이는 convex optimization problem 이고, computationally tractable.</p>
+<div class="lemma">
+<p><span id="lem:unlabeled-div-2" class="lemma"><strong>Lemma 8.1  (Basic inequality) </strong></span>lasso estimator 에 대한 basic ineq.</p>
+<p><span class="math display">\[
+{\frac{1}{2n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\ \leq\ {\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})}{n}}+\lambda_{n}(\|\theta^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1})
+\]</span></p>
+</div>
+<ul>
+<li>Proof.</li>
+</ul>
+<p>Lasso 의 정의에 의해,</p>
+<p><span class="math display">\[
+\frac{1}{2n}\Vert Y-X\widehat{\theta}_{\mathrm{lasso}}\Vert_{2}^{2}+\lambda_{n}\Vert\widehat{\theta}_{\mathrm{lasso}}\Vert_{1}\ \leq\ \frac{1}{2n}\Vert Y-X\theta^{*}\Vert_{2}^{2}+\lambda_{n}\Vert\theta^{*}\Vert_{1} = \frac{1}{2n} ||\epsilon||_2^2 + \lambda_n ||\theta^\ast ||_1
+\]</span></p>
+<p>그리고 MSE 를 확장하는 것으로</p>
+<p><span class="math display">\[
+{\frac{1}{2n}}\|Y-X{\widehat{\theta}}_{\mathrm{lasso}}\|_{2}^{2}\ =\ {\frac{1}{2n}}\|\epsilon\|_{2}^{2}+{\frac{1}{2n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}+{\frac{\epsilon^{\top}X(\theta^{*}-{\widehat{\theta}}_{\mathrm{laaso}})}{n}}
+\]</span></p>
+<p>둘을 복합.</p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="slow-convergence-rate" class="section level4" number="8.8.3.2">
+<h4><span class="header-section-number">8.8.3.2</span> Slow convergence rate</h4>
+<p>위에서의 basic inequality (lemma 8.3) 이 주어졌을 때, 우리는 lasso estimator <span class="math inline">\(\hat \theta_{lasso}\)</span> 의 consistency 를 보장하는 sufficient condition 생성 가능. 이는 deterministic bound 를 구하는 것부터 시작함.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-3" class="theorem"><strong>Theorem 8.2  (Slow Convergence Rate) </strong></span><span class="math inline">\(X_j\)</span> 를 <span class="math inline">\(X\)</span> 의 j-th column 이라고 하고, <span class="math inline">\(\lambda_{n}\,\geq\,\left|\left|\frac{X^{\top}\epsilon}{n}\right|\right|_{\infty}\ = \max_{i \le j \le d}\left|\frac{X_{j}^{\textsf{T}}\epsilon}{n}\right|\)</span> 라고 가정하자. 이 때 lasso estimator 는 이하를 만족.</p>
+<p><span class="math display">\[
+\frac{1}{n} \Bigg\| X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}) \Bigg\| _{2}^{2}\leq4\lambda_{n} \Bigg\| \theta^{*} \Bigg\| _{1}
+\]</span></p>
+</div>
+<ul>
+<li>Proof:</li>
+</ul>
+<p>$$
+<span class="math display">\[\begin{align}
+\frac{1}{2n}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\ &amp;\leq\ \frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})}{n}
+&amp;&amp;+\lambda_{n}(||\theta^{*}||_{1}-||\widehat{\theta}_{\mathrm{lasso}}||_{1})
+
+\\
+
+&amp;\overset{(i)}{\le} {\frac{1}{n}}\|\epsilon^{\mathsf{T}}X\|_{\infty}\|\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}\|_{1}
+&amp;&amp;+\lambda_{n}(\|\theta^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1})
+
+\\
+
+&amp;\overset{(ii)}{\le}\frac{1}{n}||\epsilon^{\top}X||_{\infty}(||\widehat{\theta}_{\mathrm{lasso}}||_{1}+||\theta^{*}||_{1})
+&amp;&amp;+\lambda_{n}(||\theta^{*}||_{1}-||\widehat{\theta}_{\mathrm{lasso}}||_{1})
+
+\\
+
+&amp;= \|\widehat\theta_{\mathrm{lasso}}\|_{1}\left(\frac{1}{n}\|\epsilon^{\mathsf{T}}X\|_{\infty}-\lambda_{n}\right)
+&amp;&amp;+\|\theta^{*}\|_{1}\left(\frac{1}{n}\|\epsilon^{\mathsf{T}}X\|_{\infty}+\lambda_{n}\right)
+
+\\
+
+&amp;\stackrel{(iii)}{\le}2\lambda_{n}\vert\vert\theta^{*}\|_{1}
+\end{align}\]</span>
+$$</p>
+<ol style="list-style-type: decimal">
+<li>휠더 부등식</li>
+<li>triangle ineq.</li>
+<li>(8.4) 의 <span class="math inline">\(\lambda_n\)</span> 에 대해 걸었던 condition.</li>
+</ol>
+<p>th, 8.4. 의 error bound 는 (8.4) 에서 <span class="math inline">\(\lambda_n\)</span> 에 대해 걸었던 condition 에 의존. 이제 좀 더 자세히 살펴보자.</p>
+<ul>
+<li><span class="math inline">\(lambda_n\)</span> 의 good choice 는 무엇인가?</li>
+</ul>
+<p>랜덤벡터 <span class="math inline">\(\epsilon \in SG(\sigma^2)\)</span> 이었음을 상기. 이제 <span class="math inline">\(\exists C&gt;0:\max\limits_{1\le j\le d} \|X_i\|_2 \le C\sqrt n\)</span> 라고 가정 assume 하자. 이때 <span class="math inline">\(\forall n, d:\max\limits_{ 1 \le j \le d}\left\{\frac{1}{n}\sum_{i=1}^{n}X_{i j}^{2}\right\}\le C\)</span> 가 성립한다. 이를 통해 standard argument 를 만들수 있다:</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+\mathbb{P}\!\left(\frac{1}{n}||\epsilon^{\textsf{T}}X||_{\infty}\geq t\right)\ 
+&amp;= \mathbb{P}\!\left(\max\limits_{1\le j \le d} |X_{j}^{\textsf{T}}\epsilon|\geq\,t n\right)
+
+\\
+&amp;\leq\mathrm{~}\sum_{j=1}^{d}\mathbb{P}(|X_{j}^{\top}\epsilon|\geq\,t n)
+
+
+
+\\
+
+&amp;=\;\sum_{j=1}^{d}\mathbb{P}\left({\frac{|X_{j}^{\top}\epsilon|}{||X_{j}||_{2}}}\geq\,{\frac{t n}{||X_{j}||_{2}}}\right)
+
+
+\\
+&amp;\leq\ 2d\exp\left(-\,\frac{n^{2}t^{2}}{2\sigma^{2}\,\max\limits_{1\le j\le d}\,||X_{j}||^{2}}\right)
+
+
+
+\\
+&amp;\leq\ 2d\exp\left(-\,\frac{n t^{2}}{2C^{2}\sigma^{2}}\right) &amp;&amp;=\delta
+
+\end{alignat}\]</span>
+$$</p>
+<p>마지막 ineq. 는 시작 전 더해둔 assumption <span class="math inline">\(\max\limits_{1\leq j\leq d}\|X_{j}\|_{2}\leq C{\sqrt{n}}.\)</span> 에 의해서 성립. 이제 <span class="math inline">\(t=\lambda_{n}^{*}=\sqrt{\frac{2\sigma^{2}C^{2}}{n} \left \{\log(\frac 1 \delta)+\log(\frac 2d) \right\}}\)</span> 를 하나 고르는 것으로, 우리는 with probability <span class="math inline">\(1-\delta\)</span> 에 의해 <span class="math inline">\({\frac{1}{n}}\|\epsilon^{\mathsf{T}}X\|_{\infty}\leq\lambda_{n}^{*}\)</span> 가 성립한다는 사실을 파악할 수 있다.</p>
+<p>따라서 <span class="math inline">\(\delta = \frac 1n\)</span> 으로 잡는 것으로, thm 8.4 를 적용하는 것으로 <span class="math inline">\(\lambda_n^\ast\)</span> 가 주어진 lasso estimator 는 이하를 보장한다.</p>
+<p><span class="math display">\[
+{\frac{1}{n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim \|\theta^{*}\|_{1} \cdot \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}
+\]</span></p>
+<p>여기에 추가로 <span class="math inline">\(\max\limits_{1\leq j\leq d}\left|\theta_{j}^{\ast}\right|\)</span> 가 uniformly bounded 되어 있다고 suppose 한다면? 그 경우 <span class="math inline">\(\theta^\ast\)</span> 의 <span class="math inline">\(s\)</span>-sparcity 하에서, <span class="math inline">\(s \sqrt{\frac {\log(d)} n} \rightarrow 0\)</span> 이 1번이라도 발생한 순간 MSE 는 0으로 간다.</p>
+<ul>
+<li>Parameter Estimation</li>
+</ul>
+<p>위에서 언급되었 듯이, <span class="math inline">\(\d \le n\)</span> 이며 <span class="math inline">\(\lambda_{\mathrm{min}} \left(\frac{X^{\textsf{T}}X}n \right)\;\geq\;C_{\mathrm{min}}\;\gt \;0,\)</span> 일 경우, 앞의 결과는 이하를 보장한다. 안타깝게도 이 전략은 <span class="math inline">\(d&gt;n\)</span> 인 경우에는 작동하지 않는다. <span class="math inline">\(X&#39;X\)</span> 가 rank-deficient 가 되어 버리므로.</p>
+<p><span class="math display">\[
+||{\widehat\theta}_{\mathrm{lasso}}-\theta^{*}||_{2}^{2} \lesssim {\frac{||\theta^{*}||_1}{C_{\mathrm{min}}}} \cdot \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}
+\]</span></p>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="fast-convergence-rate" class="section level4" number="8.8.3.3">
+<h4><span class="header-section-number">8.8.3.3</span> Fast Convergence Rate</h4>
+<p>디자인 매트릭스 <span class="math inline">\(X\)</span> 에 추가적인 assumption 을 붙이는 것으로 좀 더 빠른 convergence rate 를 얻는 것이 가능. 여기선 Restricted Ev (RE) condition 을 사용할 것. <span class="math inline">\(\{ 1, \cdots, d\}\)</span> 의 subset <span class="math inline">\(S\)</span> 에 대해 <span class="math inline">\(Z_S = (Z_{S,1}, \cdots, Z_{S, d}) \in \mathbb R^d)\)</span> 이며 <span class="math inline">\(\forall j \in S:Z_{S,j} = Z_j\)</span>, o.w. <span class="math inline">\(Z_{S, j} = 0\)</span> 으로 정의.</p>
+<p><span class="math inline">\(S^c\)</span> 를 <span class="math inline">\(S\)</span> 의 complement 로 잡자. 즉슨 <span class="math inline">\(Z_{S^c}\)</span> 도 <span class="math inline">\(Z_S\)</span> 와 유사하게 정의. 이때 <span class="math inline">\(\forall \alpha\ge1:C(\alpha,S)=\{\Delta\in\mathbb{R}^{d}:||\Delta_{S^{c}}||_{1}\leq\alpha\|\Delta_{S}\|_{1}\}\)</span>. 이 notation 들을 써서 이하 정의.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-4" class="definition"><strong>Definition 8.1  (RE condition) </strong></span>매트릭스 <span class="math inline">\(X\)</span> 는 이하를 만족할 경우, 패러미터 <span class="math inline">\((\alpha, \kappa)\)</span> 와 함께 <span class="math inline">\(S\)</span> 에 대해 <strong>RE condition</strong> 을 만족한다.</p>
+<p><span class="math display">\[
+forall \Delta\in C(\alpha,S):{\frac{1}{n}}\|X\Delta\|_{2}^{2}\geq\kappa\|\Delta\|_{2}^{2}
+\]</span></p>
+</div>
+<ul>
+<li>Remark.</li>
+</ul>
+<p>RE condition 에 대한 직관을 좀 얻어보자. cost difference <span class="math inline">\(\mathcal{L}_{n}(\widehat{\theta}_{\mathrm{lasso}})-\mathcal{L}_{n}(\theta^{*})=\frac{1}{2n}\vert\vert Y-X\widehat{\theta}_{\mathrm{lasso}}\vert\vert_{2}^{2}-\frac{1}{2n}\vert\vert Y-X\theta^{*}\vert\vert_{2}^{2}\)</span> 가 작다면, error vector <span class="math inline">\(\hat \theta_{lasso} - \theta^\ast\)</span> 도 또한 작다는 것을 장담할 수 있을까? 일반적으로 이는 그렇다고 할 수 없다. 특히 cost function <span class="math inline">\(\mathcal L_n(\theta)\)</span> 가 <strong>flat</strong> 할 경우에는 더더욱. 이 flat 상황을 피하기 위해 cost function <span class="math inline">\(\mathcal L_n (\theta)\)</span> 로 하여금 이의 optimum <span class="math inline">\(\hat \theta_{lasso}\)</span> 주위에서 높은 <strong>curvature</strong> 를 갖도록 하는 것이 요구됨. <strong>curvature</strong> 는 Hessian MAtrix <span class="math inline">\(\nabla^{2}{\mathcal{L}}_{n}(\theta)={\frac{1}{n}}X^{\top}X\)</span> 의 구조에 의해 결정됨. 만약 우리가 이 Hessian Matrix 의 ev 가 0 에서 bounded away 되었다고 장담할 수 있다면, 즉, <span class="math inline">\(\forall \Delta\in\mathbb{R}^{d}\setminus\{0\}:\frac{1}{n}||X\Delta||_{2}^{2}\geq\kappa||\Delta||_{2}^{2}\gt 0\)</span> 라면, 우리는 모든 지점에서 curvature 를 갖는다는 것을 확신할 수 있을 것.</p>
+<p>하지만 고차원 상황 <span class="math inline">\(d&gt;n\)</span> 에서는 Hessian Matrix 는 0 ev 를 가져야만 하고, condition (8.7) (바로 위 상황) 은 성립할 수 없다. 역으로 우리는 <span class="math inline">\(C(\alpha, S)\)</span> 로 정의된 특정한 지점에서 cost function 이 curved 한지를 고려한다. 이 직관을 써서 RE condition 하에서 lasso estimator 에 대한 deterministic bound 를 생산할 수 있다. 이것이 아래의 thm.</p>
+<p>:::{.theorem name=“Fast Convergence Rate”}</p>
+<p>linear model (8.1) 을 살피고, <span class="math inline">\(S=\{i : \theta^\ast_i \not = 0 \}\)</span> 에 대해 패러미터 <span class="math inline">\((3, \kappa)\)</span> 를 통해 RE condition 을 만족하는 <span class="math inline">\(X\)</span> 를 assume. 이때, <span class="math inline">\(S\)</span> 의 cardinality 가 <span class="math inline">\(s\)</span> 를 쓰자. 여기서 만약 <span class="math inline">\(\lambda_{n}\geq2\left\| \frac{X^{\textsf{T}}\epsilon}{n}\right\|_{\infty}\)</span> 가 성립한다면 이하가 성립.</p>
+<p><span class="math display">\[
+{\frac{1}{n}}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\leq9{\frac{s\lambda_{n}^{2}}{\kappa}}, \; \; \; \; \; \; \; \; \; \; \; ||\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}||_{2} \le3{\frac{\sqrt{s}\lambda_{n}}{n}}
+\]</span></p>
+<ul>
+<li>Proof:</li>
+</ul>
+<p>편의를 위해 <span class="math inline">\(\hat \Delta = \hat \theta_{lasso} - \theta^\ast\)</span>. 주어진 condition 하에서 <span class="math inline">\(\hat \Delta \in C(3, S)\)</span> 임을 먼저 보이자. basic ineq. (lemma 8.3) 을 사용하면 <span class="math inline">\({\frac{1}{2n}}||X\hat{\Delta}||_{2}^{2}\; \leq \;{\frac{\epsilon^{\top}X\hat{\Delta}}{n}}+\lambda_{n}(||\theta^{*}||_{1}-||\hat{\theta}_{\mathrm{lasso}}||_{1})\)</span> 임을 보일 수 있다. <span class="math inline">\(\theta^\ast\)</span> 가 s-sparse 이며 <span class="math inline">\(\hat \Delta = \hat \theta_{lasso}-\theta^\ast\)</span> 이므로 이하가 성립.</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+\|\theta^{*}\|_{1}-\|{\widehat{\theta}}_{\mathrm{lasso}}\|_{1}
+
+&amp;=\|\theta_{S}^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1}
+
+\\
+
+&amp;= \| \theta_{S}^{*}\|_{1}-\|{\hat{\Delta}}+\theta^{*}\|_{1} 
+
+\\
+
+&amp;=\|\theta_{S}^{*}\|_{1}
+&amp;&amp;-\|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1} - \| \hat \Delta_{S^c} \|_1
+
+\\
+
+&amp;\leq \|\hat{\Delta}_{S}\|_{1}+\ \|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1} 
+&amp;&amp;-  \|\widehat{\Delta}_{S}+\theta_{S}^{*}\|_{1}\nonumber-\|\widehat{\Delta}_{S^{c}}\|_{1}\nonumber \tag{triangle ineq.}
+
+\\
+
+&amp;= \| \hat \Delta_S \|_1 - \| \hat \Delta_{S^c}\|_1
+\end{alignat}\]</span>
+$$</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+0\;\leq\;\frac{1}{n}\Vert X\hat{\Delta}\Vert_{2}^{2}
+&amp;\stackrel{(i)}{\le}\;\frac{2}{n}\Vert\epsilon^{\top}X\Vert_{\infty}\Vert\hat{\Delta}\Vert_{1}
+&amp;&amp;+2\lambda_{n}(\Vert\hat{\Delta}_{S}\Vert_{1}-\Vert\hat{\Delta}_{S^{c}}\Vert_{1})
+
+\tag{Holder}
+
+\\
+
+&amp;
+{\stackrel{\mathrm{(ii)}}{\leq}}\ \ \lambda_{n}\|{\widehat\Delta}\|_{1}
+&amp;&amp;+2\lambda_{n}(\|{\hat\Delta}_{S}\|_{1}-\|{\hat\Delta}_{S^{c}}\|_{1})
+
+\tag{condition (8.8) on λ_n}
+
+\\
+
+
+&amp;= \lambda_n (\| \hat \Delta_S \|_1 + \| \hat \Delta_{S^c}\|_1 ) 
+&amp;&amp;+2\lambda_n (\| \hat \Delta_S \|_1 - \| \hat \Delta_{S^c}\|_1 )
+
+\\
+
+
+&amp;=\lambda_{n}(3||\widehat\Delta_{S}||_1-||\widehat\Delta_{S^{c}}||_1)
+\end{alignat}\]</span>
+$$</p>
+<p>이를 통해 <span class="math inline">\(\hat \Delta \in C(3,S)\)</span> 라고 결론지을 수 있으며, 우리는 <span class="math inline">\(X\)</span> 가 패러미터 <span class="math inline">\((3, \kappa)\)</span> 와 함께 RE condition 을 만족한다고 assume 했으므로, 이는 곧 <span class="math inline">\({\frac{1}{n}}\|X{\hat{\Delta}}\|_{2}^{2}\geq\kappa\|{\hat{\Delta}}\|_{2}^{2}\)</span> 라는 것을 보여준다.</p>
+<p>앞의 과정을 다시 사용해서 이제</p>
+<p>$$
+<span class="math display">\[\begin{align}
+{\frac{1}{n}}\|X{\widehat{\Delta}}\|_{2}^{2}\;&amp;\leq\;\lambda_{n}(3\|\widehat{\Delta}_{S}\|_{1}-\|\widehat{\Delta}_{S^{c}}\|_{1})\leq3\lambda_{n}\|\widehat{\Delta}_{S}\|_{1}
+
+\\
+
+&amp;\overset{(i)}{\le} 3 \lambda_{n}\sqrt{s}||\hat{\Delta}_{S}||_{2} \tag{1}
+
+\\
+
+&amp;\leq\ 3\lambda_{n}\sqrt{s}||\hat{\Delta}||_{2}
+
+\\
+
+&amp;\overset{(ii)}{\le}\frac{3\lambda_{n}\sqrt{s}}{\sqrt{n\kappa}}\|X\widehat{\Delta}\|_{2} \tag{ineq. (8.9)}
+
+\\
+
+\iff {\frac{1}{n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2} &amp; \leq9{\frac{s\lambda_{n}^{2}}{\kappa}}
+\end{align}\]</span>
+$$</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(\forall x\in\mathbb{R}^{d},\,\|x\|_{1}\leq{\sqrt{d}}\|x\|_{2}\)</span></li>
+</ol>
+<p>따라서 위의 마지막 ineq. 와 ineq. (8.9) 를 다시 한번 적용하면 증명 완료.</p>
+<ul>
+<li>Remark.</li>
+</ul>
+<p><span class="math inline">\(\lambda_{n} \asymp \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}\)</span> 상황이라고 가정하자. 이 경우 design 매트릭스에 (8.5) 와 유사한 condition 을 두고 같은 argument 를 적용하면 <span class="math inline">\(\lambda_{n}\geq2 \left \| \frac{X^{\top}\epsilon}{n} \right \|_{\infty}\)</span> with probability at least <span class="math inline">\(1-\frac {1} {n^c}\)</span> for some constant <span class="math inline">\(c&gt;0\)</span> 임을 보일 수 있다. 이는 또한 (<span class="math inline">\(d \gg n\)</span> 일 때) <span class="math inline">\({\frac{1}{n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim{\frac{s\log(d)}{n}}\)</span> 라는 것으로도 이어지며, 따라서 RE condition 하에서 once <span class="math inline">\(\frac{s \log(d)}{n}\rightarrow 0\)</span> 라면 lasso estimator 는 consistent 하다.</p>
+<p>이와 별개로 <span class="math inline">\(\lim\limits_{n \rightarrow \infty} \lambda_n = 0\)</span> 를 가정하는 것으로, thm 8.6 의 결과가 8.4의 결과를 former의 upper bound 가 <span class="math inline">\(\lambda_n\)</span> 이 아니라 <span class="math inline">\(\labmda_n^2\)</span> 에 의존한다는 것으로 진화시킨다는 것을 발견할 수 있다.</p>
+<p><br>
+<br>
+<br></p>
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><span class="math inline">\(\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}\)</span><a href="linear-regression.html#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="principal-component-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survival-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -537,7 +941,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/%s",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212308_LR.Rmd",
 "text": "Edit"
 },
 "history": {

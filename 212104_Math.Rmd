@@ -209,7 +209,7 @@ plot(g.ba, layout=layout.circle, vertex.label=NA)
 hist(degree(g.ba), col="lightblue", xlab="Degree", ylab="Frequency", main="")
 ```
 
-고전적인 랜덤 그래프 대비 vertex 쌍 사이의 edge가 uniform 분포를 따르지 않음을 유의. 이런 경향에 의해 edge를 다수 끌어모으고 있는 "hub"라 불릴만한 vertex가 있는 것으로 사료됨. 여기서 전체 분포는 꽤 heterogeneous한 감이 있는데, 대부분의 vertex는 degree가 2를 넘지도 못함. 
+고전적인 랜덤 그래프 (SRS) 대비 vertex 쌍 사이의 edge가 uniform 분포를 따르지 않음을 유의. 이런 경향에 의해 edge를 다수 끌어모으고 있는 "hub"라 불릴만한 vertex가 있는 것으로 사료됨. 여기서 전체 분포는 꽤 heterogeneous한 감이 있는데, 대부분의 vertex는 degree가 2를 넘지도 못함. 
 
 ```
 summary(degree(g.ba))

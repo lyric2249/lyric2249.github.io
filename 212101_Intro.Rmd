@@ -21,11 +21,11 @@ Vertices (Vertex), Edges, directed, undirected
 
 2. Numerical Summaries
 
-- **Transitivity** (**Clustering Coefficient**): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
+	1. **Transitivity** (**Clustering Coefficient**): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
 
-- **Assortativity Coefficient**: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
+	2. **Assortativity Coefficient**: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
 
-- 주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편
+1. 주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편
 
 
 

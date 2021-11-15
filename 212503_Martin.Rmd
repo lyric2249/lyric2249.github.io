@@ -1,0 +1,345 @@
+## Counting Processes and Martingales
+
+1샘플 estimator 를 위해 counting process 사용했었음. 이에서 N-A estimator 의 asymptotic 성질을 확인했고. 하지만 아직 $n^{\frac 12} \{ \hat \Lambda(t) - \Lambda(t)\}$ 의 limiting distribution 을 획득하진 않았고. $\hat \Lambda(t)$ 의 성질을 얻는데 있어서는 conditioning 이 핵심. 모든 이론적 기반은 이 conditioning 에 있음. Martingales 포함. Martingale Central Limit Theorem (MCLT) 은 자동적으로 Normal 로의 convergence 가 보장되는 마일드한 condition 이하에서 성립되었음.
+
+<br>
+<br>
+<br>
+
+
+:::{.definition name="Probability space"}
+
+모든 가능한 결과의 abstract space Ω, σ-algebra $\mathcal F$, set function (measure) $P$ 가 주어졌을 때 확률공간 (Probability space) $(Ω, \mathcal F, P)$ 가 성립.
+
+:::
+
+$\mathcal A$ 가 $\Omega$ 로부터의 결과값의 subset 의 collection 이라고 하자. 
+- 이하를 만족하면 $\mathcal A$ 는 **algebra**.
+	1. $E \in \mathcal A$ 이 complement $\bar E \in \mathcal A$ 를 보장
+	2. $E_1 \in \mathcal A$ 이며 $E_2 \in \mathcal A$ 인 것이 $E_1 \cup E_2 \in \mathcal A$ 를 보장
+- 이하를 만족하면 $\mathcal A$ 는 **$\sigma$-algebra**.
+	1. $E \in \mathcal A$ 이 complement $\bar E \in \mathcal A$ 를 보장
+	2. $\forall j=1,2,\cdots:E_j \in \mathcal A$ 가 $E_1 \cup E_2 \cdots \in \mathcal A$ 를 보장
+
+즉 **$\sigma$-algebra** 는 **countable union** 과 **intersection** 에 **closed** 인 collection of events.
+
+
+<br>
+<br>
+<br>
+
+:::{.definition name="Stochastic Process"}
+
+랜덤변수의 collection $X=\{X(t) ; t \in \mathcal T\}$^[흔히 $\mathcal T = [0,\infty)$, 혹은 $\mathcal T = (0,\tau_\ast)$ where $\forall n=1, \cdots, n:P(X_i > \tau_\ast)>0$.] 가 같은 확률공간 안에서 정의되어 있을때 이는 **Stochastic Process**.
+
+e.g., 주어진 확률공간 $(Ω, \mathcal F, P)$ 과 measurable space $(S, \Sigma)$ 에서, $S$-valued 랜덤변수들의 collection 을 **stochastic process** 라고 하며, 이는 $X=\{X(t) ; t \in \mathcal T\}$.
+
+이때 $S$ 는 mathematical space 이며 이건 $\sigma$-algebra 에 비추어 measurable 해야함.
+:::
+
+
+Stochastic Process 의 실현값 을 **Path** 라고 부른다. 여기 path 에 이하의 조건이 더해진다면 이는 추가로 **counting process**^[일반적인 counting process 에 대해, $N(0)$ 이며 $\forall t \in \mathcal T:N(t)<0$.].
+
+1. non-decreasing
+2. piece-wise constant
+3. cadlag
+4. step-function with increments of size 1
+
+<br>
+<br>
+<br>
+
+:::{.definition name="Filtration"}
+
+$\sigma$-algebra 들의 increasing family, e.g., $\{\mathcal F_t : t \ge 0\}$
+
+increasing Filtration 이라는 것은 $s\get: \mathcal F_s \subset \mathcal F_t$, e.g., $A \in \mathcal F_s \Longrightarrow A \in \mathcal F_t$.
+
+:::
+
+$\forall t: X(t)$ 가 $\mathcal F_t$-measurable 일 경우, stochastic process $X$ 는 **adapted** to $\mathcal F_t$. 특히, 변량에 대해 유의미한 probability statement 가 서술될 수 있다면 이 변량은 measurable.
+
+- $X(t)$ 가 $\mathcal F_t$ 에 adapted $\iff$ $E \Big [X(t) \Bigg | \mathcal F_t \Big] = X(t)$.
+
+모든 process 는 그 자신의 역사 (과거 실현값) 에 adapted. SA 에서는 $\mathcal F_t$ = own history, e.g., $\mathcal F_t = \sigma \{X(s); 0 \le s\ le t\}$ 로 두는 것이 편리하고 쓸만함. 이때 $\mathcal F_t$ 는 $(0, t]$ 에 걸친 $X$ 의 실현값, 즉 $X$ 에 의해 생산된 모든 데이터를 담고 있음. 일례로 $\mathcal F_t$ 는 선풍기들이 돌기 시작한 시점부터 선풍기 전부를 관찰하고 있던 관찰자의 뇌속 기억. 언제 고장났는지 혹은 censoring 당했는지 다 암.
+
+자주 쓰이는 filtration 은 $\mathcal F_t = \sigma \{ N_i (s) , Y_i (s+) \; ; \; s\in (0,t], i=1, \cdots, n\}$.
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+### Conditional Expectation
+
+랜덤변수 $X$ 가 $\mathcal F$-measurable 이며 $\mathcal G \subset \mathcal F$ 이라면:
+
+$$
+\begin{align}
+E(X|\mathcal F) &= X
+\\
+E(aX|\mathcal F) &= aX
+\\
+E(XY|\mathcal F) &= X \cdot E(Y|\mathcal F)
+\\
+E(X | \mathcal G) &= \mathcal G \text{-measurable}
+\\
+\forall \text{ events } B \in \mathcal G : E \Big[X \cdot I(B) \Big] &= E \Big[E(X|\mathcal G) \cdot I(B) \Big]
+\end{align}
+$$
+
+이하의 조건이 만족된다면 Stochastic Process 는 tag 안의 property 가 성립.
+
+$$
+\sup\limits_{t\in T}E[|X(t)|]\lt \infty\
+\tag{integrable}
+\\
+\sup\limits_{t\in{\mathcal{T}}}E[X(t)^{2}]\lt \infty
+\tag{square integrable}
+\\
+P\left\{\operatorname*{sup}_{t\in T}|X(t)|\lt c\right\}=1
+\tag{uniformly bounded}
+$$
+
+
+<br>
+<br>
+<br>
+
+counting process $N(t)$, filtration $\mathcal F_t$ 가 있을때, 이에 엮인 intensity process $A(t)$ 는 다음과 같다.
+
+set $A(t)=\int_0^t dA(s)$. where
+
+$$
+\begin{alignat}{2}
+d A(t) &= E[d N(t)]\mathcal{F}_{t^{-}}] && && =Y(t)\lambda(t)d t
+
+\\
+
+&=\lim\limits_{d t\uparrow0}E[N(t^{-}+d t)-N(t^{-}) &&| {\mathcal{F}}_{t^{-}}]
+\tag{1}
+
+\\
+
+&=\lim\limits_{d\uparrow 0}\{N(t^{-}+d t)-N(t^{-})=1 &&\vert{\mathcal F}_{t^{-}}\}
+\tag{2}
+\end{alignat}
+$$
+
+1. $\mathcal F_{t^-}$ 는 (0, t) 에 대한 정보 보유.
+2. $[t, t+dt)$ 에서 event 발생이 1번을 초과할 가능성은 negligable 하다고 set. 즉, $\lim\limits_{d t\downarrow0}P\{N(t^{-}+d t)-N(t^{-})\gt 1|\mathcal{F}_{t^{-}}\}\;=\;\ o(d t^{2})$.
+
+<br>
+<br>
+<br>
+
+### Martingale
+
+:::{.definition name="Martingale"}
+
+이하의 조건을 만족할 때, right-continuous 인 stochastic process $X=\{X(t):t \ge 0\}$ 는 filtration $\{\mathcal F_t : t \ge 0\}$ 에 대해 **martingale**.
+
+1. X 가 $\mathcal F_t$ 에 대해 adapted.
+2. $\forall t < \infty : E[ \Big | X(t) \Big | ] < \infty$
+3. $\forall t, s \ge 0: E[ X(t+s) | \mathcal F_t] = X(t)$
+3-(1). $\forall t, s \ge 0: E[ X(t+s) | \mathcal F_t] \ge X(t)$, **sub-martingale**
+3-(2). $\forall t, s \ge 0: E[ X(t+s) | \mathcal F_t] \le X(t)$, **super-martingale**
+
+:::
+
+martingale 은 pure random noice process. 즉슨 history 가 주어졌을 때 조건부 평균이 0이며, conditional centered process 이고, $t$ 에 걸쳐 mean 중심으로 랜덤하게 fluctuate. random walk, 페어 갬블링 등이 예시가 됨. 
+
+$X$ 의 matringale increment $dX(t)=X(t^- + dt) - X(t^-)$ 를 정의. 앞의 성질을 통해 $E[dX(t)|\mathcal F_{t^-}] = 0$ 임이 보장되었다. 이제 $\mathcal F_t$ martingale 인 $X$ 가 uncorrelated increment 를 가지고 있음을 보일 것.^[증명에 $E[X(t)|\mathcal{F}_{s}]=X(s)\mathrm{~for~}s\lt t$ 가 사용되었다. 이는 위에서 보였다.]
+
+$$
+\begin{align}
+s\lt t,\;E[X(s)\{X(t)-X(s)\}]
+&= E\, \Big [E[X(s)\{X(t)-X(s)\}|\mathcal{F}_{s} \Big ]
+
+\\
+&= E\, \Big [X(s) \cdot E[\{X(t)-X(s)\}|\mathcal{F}_{s} \Big ]
+\\
+&= {{E \Big [ X(s)\cdot \Big \{E[X(t)|\mathcal{F}_{s}]-E[X(s)|\mathcal{F}_{s}]  \Big \}  \Big ]}} &&= 0
+\end{align}
+$$
+
+univariate survival 에 자주 사용되는 counting process 는 $N(t) = I(X \le t , \Delta = 1)$. 이제 이하로 설정해보자.
+
+$$
+\begin{align}
+M(t) &= N(t) - A(t)
+\\
+A(t) &= \int_0^t dA(s)
+\\
+dA(t) &= Y(t)\lambda(t) dt
+\\
+&=E[dN(t) | \mathcal F_{t^-}]
+
+\end{align}
+$$
+
+이제 intentisy process 의 integration 인 $A(t)$ 을 $N(t)$ 의 **compensator** 라고 명명한다. 이는 process 를 centerin, 즉 중앙쪽으로 보정한다는 의미. 
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+#### Centering Increments
+
+$A(t)$ 가 실제로 $N(t)$ 의 **compensator** 임을 보이자. failure time 이 indenpendent (right) censoring 에 유관함을 suppose. 그렇다면 pertinent counting process 는 $N(t)$ 로 설정되며, filtration $\mathcal F_{t} = \sigma \{N_i(s) , Y_i (s+); i = 1, \cdots, n;s \in (0, t]\}$ 가 된다. 이때 compensator increment 는 이하로 주어진다.
+
+
+
+
+$$
+\begin{alignat}{2}
+E[d N_{i}(t)]{\mathcal{F}}_{t^{-}}]&=&& P[d N_{i}(t)=1&&|{\mathcal{F}}_{t^{-}}]
+
+\\
+
+&=&&P[d N_{i}(t)=1&&|Y(t)]
+
+\\
+
+
+&=Y_{i}(t) \cdot &&P[t\leq T_{i}\lt t+d t&&|t\leq T_{i},t\leq C_{i}]
+
+\\
+
+&=Y_{i}(t) \cdot &&P[t\leq T_{i}\lt t+d t&&|t\leq T_{i}]
+
+\\
+
+&=Y_{i}(t) \cdot &&d A(t)
+\end{alignat}
+$$
+
+이때, $M=N-A$ 가 성립하는가? 다른 말로, $\operatorname{E}[N_{i}(t)]=\operatorname{E}[A(t)]$ 인가?
+
+
+<br>
+<br>
+<br>
+
+이제 **Predictable** 에 대해 생각해보자. **Predictable Process** 란 무엇인가? $H(t)$ 의 값이 $\mathcal F_{t^-}$ 의 함수, 혹은 특정된다면, stochastic process $H$ 는 $\forall t:$ 의 filtration $\mathcal F_t$ 에 대해 **predictable**. 이는 곧 $H$ $t$ 시점의 값이 $t-$ 까지의 정보로 인해 고정된다면, 즉 $H$ 의 행위가 $[0,t)$ 까지 해왔던 행위로 인해 고정된다는 것과 동일. predictable 의 성질은 이하와 같다.
+- left-continuous process 는 predictable (e.g., $Y(t)$)
+- 모든 deterministic function 은 predictable (e.g., $S(t), \lambda(t))
+- $E[H(t) | \mathcal F_{t^-} = H(t)]$
+
+:::{.definition name="Stochastic Integral"}
+$M$ 이 $\mathcal F$-matringale 이라고 가정. 이때 process  $Z(t)~=~\int_{0}^{t}H(s)d M(s)$ 는 $M(t)$ 에 대한 **Stochastic Integral**.
+:::
+
+:::{.theorem}
+
+이하의 조건이 만족될 때, $M(t)$ 에 대한 Stochastic Integral $Z(t)~=~\int_{0}^{t}H(s)d M(s)$ 는 $\mathcal F$ matringale.
+
+1. $H$ 가 filtration $\mathcal F$ 에 대해 predictable 
+2. $M$ 이 $\mathcal F$ matringale
+
+:::
+
+증명을 위해서는 궁극적으로 $E[Z(t)-Z(s)|{\mathcal{F}}_{s}]=0$ 임을 보여야 한다.
+
+$$
+\begin{align}
+E[Z(s)|\mathcal{F}_{s}]\;\;&=\;\;E\left[\int_{0}^{s}H(u)d M(u)|\mathcal{F}_{s}\right]
+
+\\
+
+&=\ \int_{0}^{s}E[H(u)d M(u) \Bigg |\mathcal{F}_{s}]
+
+\\
+
+&=\ \int_{0}^{s}H(u)d M(u)
+
+&&= Z(s)
+
+\\
+\\
+
+E[Z(t)|{\mathcal{F}}_{s}]~&=~E\left[\int_{0}^{t}H(u)d M(u)\Bigg|{\mathcal{F}}_{s}\right]
+
+\\
+
+&=\;\int_{0}^{t}E[H(u)d M(u)|\mathcal{F}_{s}]
+
+&&=\;\;Z(s)+\int_{s}^{t}E[H(u)d M(u)|\mathcal{F}_{s}]
+\end{align}
+$$
+
+이전과 같이 conditioning 을 적용. 단 이번에는 conditional quantity 쪽에. 먼저 conditional expectation 을 고려. 조건부 기댓값을 반복하는 것으로 이하가 발생. 
+
+$$
+\begin{align}
+E \Big [H(u)d M(u) \Big |\mathcal{F}_{s}\Big ]
+
+&=\;\;E \Bigg [E \Big [H(u)d M(u) \Big |\mathcal{F}_{s},\mathcal{F}_{u^{-}} \Big ] \Bigg |\mathcal{F}_{s} \Bigg ]
+
+\\
+
+&=\;\;E \Bigg [E \Big [H(u)d M(u) \Big |\mathcal{F}_{u^{-}} \Big ] \Bigg |\mathcal{F}_{s} \Bigg ]
+
+\\
+
+&=\;\;E \Bigg [H(u) \cdot E \Big [d M(u) \Big |\mathcal{F}_{u^{-}} \Big ] \Bigg |\mathcal{F}_{s} \Bigg ] &&= 0
+\end{align}
+$$
+
+따라서 $E[Z(t)]\mathcal{F}_{s}]\ \ =\ \ Z(s)$ 이며, 이인즉 $E[Z(t)-Z(s)|\mathcal F_{s}]=0$. 이를 통해 martingale **에 대해** 적분한 stochastic integral 은 그자체로 martingale 임을 보일 수 있다.
+
+<br>
+<br>
+<br>
+
+### Key Martingales Properties
+
+위에서 martingale 의 핵심 성질이라고 말했던 (3) 을 increment 의 형식을 빌려 직접 표현하는 것이 가능. 
+
+
+
+천하쌍살단
+살인시동
+ㄱ
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+###
+
+
+
+
+
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<br>
+
+###
+
+
+
+
