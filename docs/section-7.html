@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.1 Inference | Self-Study</title>
-  <meta name="description" content="3.1 Inference | Self-Study" />
+  <title>9.4  | Self-Study</title>
+  <meta name="description" content="9.4  | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.1 Inference | Self-Study" />
+  <meta property="og:title" content="9.4  | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.1 Inference | Self-Study" />
+  <meta name="twitter:title" content="9.4  | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="mathematical-stats.html"/>
-<link rel="next" href="completeness.html"/>
+<link rel="prev" href="counting-processes-and-martingales.html"/>
+<link rel="next" href="cox-regression.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -582,83 +582,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="inference" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Inference</h2>
-<p><span class="math inline">\(T(X)\)</span>가 <span class="math inline">\(\theta\)</span>의 추정량.
-* bias $ = E - $
-* if bias<span class="math inline">\(=0\)</span>, <span class="math inline">\(T(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE.</p>
-<p>이때, <span class="math inline">\(\theta\)</span> can be <span class="math inline">\(g(\theta)\)</span>. 즉슨, <span class="math inline">\(\theta\)</span>는 패러미터 그 자체만이 아니라 패러미터의 함수를 패러미터 삼아 이를 추정하려고 들 수도 있다. 이하의 전개에서는 <span class="math inline">\(\theta = g(\theta)\)</span> 로 이해하자.</p>
-<p><span class="math inline">\(\theta\)</span>의 추정량 <span class="math inline">\(T(X)\)</span>의 MSE는 $MSE = Var +(bias)^2 $.</p>
-<p><span class="math inline">\(T_1(X)\)</span>, <span class="math inline">\(T_2(X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. <span class="math inline">\(T_1(X)\)</span>의 <span class="math inline">\(T_2(X)\)</span>에 대한 Relative Efficiency <span class="math inline">\(RE= \dfrac {Var \left[ T_2 (X) \right]} {Var \left[ T_1 (X) \right]}\)</span></p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>rv $X_1 , , X_n f(x_1 , , x_n ) $. 이하의 조건 하에서 추정량 <span class="math inline">\(T^\ast (X)\)</span>는 <span class="math inline">\(\theta\)</span>의 MVUE.
-1. <span class="math inline">\(E \left [ T^\ast (X) \right] = \theta\)</span>. 즉 <span class="math inline">\(T^\ast (X)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE.
-2. $T(X):Var $.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>Fisher’s Information $I() = E { ^2 } $</p>
-<p>regularity condition:
-1. The partial derivative of <span class="math inline">\(f(X; \theta)\)</span> with respect to <span class="math inline">\(\theta\)</span> exists almost everywhere. (It can fail to exist on a null set, as long as this set does not depend on <span class="math inline">\(\theta\)</span>.)
-2. The integral of <span class="math inline">\(f(X; \theta)\)</span> can be differentiated under the integral sign with respect to <span class="math inline">\(\theta\)</span>.
-3. The support of <span class="math inline">\(f(X; \theta)\)</span> does not depend on <span class="math inline">\(\theta\)</span>.</p>
-<p>e.g.,</p>
-<ol style="list-style-type: decimal">
-<li>패러미터 다르면 pdf 다름. 즉, <span class="math inline">\(\theta \not = \theta&#39;: f(x;\theta) \not = f(x;\theta&#39;)\)</span></li>
-<li>set <span class="math inline">\(A = \{ x: f(x;\theta)&gt;0 \}\)</span>은 패러미터 <span class="math inline">\(\theta\)</span>에 의존하지 않고, <span class="math inline">\(\forall x \in A, \theta \in \Omega : \log f(x;\theta)\)</span>는 <span class="math inline">\(\theta\)</span>에 대해 두 번 미분 가능하고 도함수가 연속이다.</li>
-<li>통계량 <span class="math inline">\(T(X)\)</span>가 <span class="math inline">\(\forall \theta \in \Omega: E \left [ T (X) \right] &lt; \infty\)</span> 라면, $  {} E $에 있어 미분과 적분의 순서를 바꿀 수 있다.</li>
-</ol>
-<p>Information inequality: <br>
-under regularity condition, <span class="math inline">\(\forall g^{-1}(\theta) \in \Omega, Var \left [ T^\ast (X) \right] &lt; \infty, E \left [ T^\ast (X) \right] = \theta, 0&lt;I(\theta)&lt; \infty:\)</span> <span class="math inline">\(\theta\)</span> is differentiable, and <span class="math inline">\(Var \left [ T^\ast (X) \right] \ge \dfrac {1}{n} \dfrac {\left[ g&#39;(\theta) \right]^2}{I (\theta)}\)</span>.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<p>rv $X_1 , , X_n f(x_1 , , x_n ) $. <span class="math inline">\(l\)</span>개 stats(통계량)의 벡터 <span class="math inline">\(\pmb {S(X)} = \left[ S_1(X), \cdots, S_l(X) \right]\)</span>. <br>
-이때 rv $X_1 , , X_n  $의 분포가 패러미터 $ = (_1 , , _k )$에 의존하지 않으면 stats <span class="math inline">\(\pmb {S(X)}\)</span>는 joint SS.</p>
-<p>rv $X_1 , , X_n f(x_1 , , x_n ) $. 1개 stats(통계량) <span class="math inline">\(S(X)\)</span>. <br>
-이때 rv <span class="math inline">\(X_1 , \cdots, X_n \rvert S(X)\)</span> 의 분포가 패러미터 <span class="math inline">\(\theta = (\theta_1 , \cdots, \theta_k )\)</span>에 의존하지 않으면 stats <span class="math inline">\(S(X)\)</span>는 SS.</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<ul>
-<li>Decomposition thm.:</li>
-</ul>
-<p>rv $X_1 , , X_n f(x_1 , , x_n ) $. <span class="math inline">\(k\)</span>개 stats(통계량) <span class="math inline">\(\pmb {S(X)} = \left[ S_1(X), \cdots, S_k(X) \right]\)</span>.</p>
-<p>stats <span class="math inline">\(\pmb {S(X)}\)</span>는 joint SS <span class="math inline">\(\iff\)</span> $f(x_1 , , x_n ; ) = g h(x_1 , , x_n) $</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-<div id="rao-blackwell-thm." class="section level3" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Rao-Blackwell thm.</h3>
-<p>패러미터의 함수 <span class="math inline">\(\theta\)</span>, <span class="math inline">\(S\)</span>는 SS, <span class="math inline">\(T(X)\)</span>는 UE. let <span class="math inline">\(\delta (S) = E \left [ T(X) \rvert S \right]\)</span>. 이때 <span class="math inline">\(\delta (S)\)</span>는 <span class="math inline">\(\theta\)</span>의 UE. 따라서</p>
-<p>$$
-<span class="math display">\[\begin{align*}
+<div id="section-7" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> </h2>
 
-Var \left[ \delta (S) \right ] &amp;= E \left\{ \left[ \delta (S) - \theta \right]^2 \right\} \\
-&amp;\le E \left\{ \left[ T(X) - \theta \right]^2 \right\} = Var \left [ T(X) \right]
-
-\end{align*}\]</span>
-$$</p>
-<p><br>
-<br>
-<br></p>
-<hr />
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="mathematical-stats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="completeness.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="counting-processes-and-martingales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cox-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -689,7 +623,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211101_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212504.Rmd",
 "text": "Edit"
 },
 "history": {

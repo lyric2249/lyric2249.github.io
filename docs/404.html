@@ -53,7 +53,93 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -150,9 +236,8 @@
 <li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
-<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#approximate-bayesian-computation-abc"><i class="fa fa-check"></i><b>4.5.2</b> Approximate Bayesian Computation (ABC)</a></li>
-<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.3</b> ABCifying Monte Carlo Methods</a></li>
-<li class="chapter" data-level="4.5.4" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.4</b> ABC-MCMC Algorithm</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
 <ul>
@@ -447,8 +532,10 @@
 <li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
 <li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
 <li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
 <li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
 <li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
 <ul>
@@ -458,22 +545,23 @@
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#appendix-00-00"><i class="fa fa-check"></i>(APPENDIX) 00-00</a>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
 <ul>
-<li class="chapter" data-level="9.8" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>9.8</b> Tutorial</a>
+<li class="chapter" data-level="A.1" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>A.1</b> Tutorial</a>
 <ul>
-<li class="chapter" data-level="9.8.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>9.8.1</b> About</a></li>
-<li class="chapter" data-level="9.8.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>9.8.2</b> Hello bookdown</a></li>
-<li class="chapter" data-level="9.8.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>9.8.3</b> Cross-references</a></li>
-<li class="chapter" data-level="9.8.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>9.8.4</b> Parts</a></li>
-<li class="chapter" data-level="9.8.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>9.8.5</b> Footnotes and citations</a></li>
-<li class="chapter" data-level="9.8.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>9.8.6</b> Blocks</a></li>
-<li class="chapter" data-level="9.8.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>9.8.7</b> Sharing your book</a></li>
+<li class="chapter" data-level="A.1.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>A.1.1</b> About</a></li>
+<li class="chapter" data-level="A.1.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>A.1.2</b> Hello bookdown</a></li>
+<li class="chapter" data-level="A.1.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>A.1.3</b> Cross-references</a></li>
+<li class="chapter" data-level="A.1.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>A.1.4</b> Parts</a></li>
+<li class="chapter" data-level="A.1.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>A.1.5</b> Footnotes and citations</a></li>
+<li class="chapter" data-level="A.1.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>A.1.6</b> Blocks</a></li>
+<li class="chapter" data-level="A.1.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>A.1.7</b> Sharing your book</a></li>
 <li class="chapter" data-level="" data-path="tutorial.html"><a href="tutorial.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>10</b> NoName</a></li>
-<li class="chapter" data-level="11" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>11</b> ABSTRACT</a></li>
+<li class="chapter" data-level="B" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>B</b> NoName</a></li>
+<li class="chapter" data-level="C" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>C</b> ABSTRACT</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 

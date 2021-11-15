@@ -53,7 +53,93 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -150,9 +236,8 @@
 <li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
-<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#approximate-bayesian-computation-abc"><i class="fa fa-check"></i><b>4.5.2</b> Approximate Bayesian Computation (ABC)</a></li>
-<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.3</b> ABCifying Monte Carlo Methods</a></li>
-<li class="chapter" data-level="4.5.4" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.4</b> ABC-MCMC Algorithm</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
 <ul>
@@ -447,8 +532,10 @@
 <li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
 <li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
 <li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
 <li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
 <li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
 <ul>
@@ -458,22 +545,23 @@
 </ul></li>
 <li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path=""><a href="#appendix-00-00"><i class="fa fa-check"></i>(APPENDIX) 00-00</a>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="r-bookdown.html"><a href="r-bookdown.html"><i class="fa fa-check"></i><b>A</b> R Bookdown</a>
 <ul>
-<li class="chapter" data-level="9.8" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>9.8</b> Tutorial</a>
+<li class="chapter" data-level="A.1" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>A.1</b> Tutorial</a>
 <ul>
-<li class="chapter" data-level="9.8.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>9.8.1</b> About</a></li>
-<li class="chapter" data-level="9.8.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>9.8.2</b> Hello bookdown</a></li>
-<li class="chapter" data-level="9.8.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>9.8.3</b> Cross-references</a></li>
-<li class="chapter" data-level="9.8.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>9.8.4</b> Parts</a></li>
-<li class="chapter" data-level="9.8.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>9.8.5</b> Footnotes and citations</a></li>
-<li class="chapter" data-level="9.8.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>9.8.6</b> Blocks</a></li>
-<li class="chapter" data-level="9.8.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>9.8.7</b> Sharing your book</a></li>
+<li class="chapter" data-level="A.1.1" data-path="tutorial.html"><a href="tutorial.html#about"><i class="fa fa-check"></i><b>A.1.1</b> About</a></li>
+<li class="chapter" data-level="A.1.2" data-path="tutorial.html"><a href="tutorial.html#hello-bookdown"><i class="fa fa-check"></i><b>A.1.2</b> Hello bookdown</a></li>
+<li class="chapter" data-level="A.1.3" data-path="tutorial.html"><a href="tutorial.html#cross-references"><i class="fa fa-check"></i><b>A.1.3</b> Cross-references</a></li>
+<li class="chapter" data-level="A.1.4" data-path="tutorial.html"><a href="tutorial.html#parts"><i class="fa fa-check"></i><b>A.1.4</b> Parts</a></li>
+<li class="chapter" data-level="A.1.5" data-path="tutorial.html"><a href="tutorial.html#footnotes-and-citations"><i class="fa fa-check"></i><b>A.1.5</b> Footnotes and citations</a></li>
+<li class="chapter" data-level="A.1.6" data-path="tutorial.html"><a href="tutorial.html#blocks"><i class="fa fa-check"></i><b>A.1.6</b> Blocks</a></li>
+<li class="chapter" data-level="A.1.7" data-path="tutorial.html"><a href="tutorial.html#sharing-your-book"><i class="fa fa-check"></i><b>A.1.7</b> Sharing your book</a></li>
 <li class="chapter" data-level="" data-path="tutorial.html"><a href="tutorial.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>10</b> NoName</a></li>
-<li class="chapter" data-level="11" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>11</b> ABSTRACT</a></li>
+<li class="chapter" data-level="B" data-path="noname.html"><a href="noname.html"><i class="fa fa-check"></i><b>B</b> NoName</a></li>
+<li class="chapter" data-level="C" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>C</b> ABSTRACT</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -496,6 +584,7 @@
             <section class="normal" id="section-">
 <div id="linear-regression" class="section level2" number="8.8">
 <h2><span class="header-section-number">8.8</span> Linear Regression</h2>
+<p>이것때문이라고 설마?</p>
 <p><br>
 <br>
 <br></p>
@@ -545,7 +634,7 @@
 <div id="mean-squared-error-of-the-least-squares-estimator" class="section level4" number="8.8.2.1">
 <h4><span class="header-section-number">8.8.2.1</span> Mean Squared Error of the Least Squares Estimator</h4>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-1" class="theorem"><strong>Theorem 8.1  (Least Squares Estimator) </strong></span>let linear model <span class="math inline">\(Y=X\theta^{*}+\epsilon\)</span>, 이때 <span class="math inline">\(\epsilon\)</span> 의 elements 각각은 independent zero-mean <span class="math inline">\(\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)\)</span>.</p>
+<p><span id="thm:unlabeled-div-22" class="theorem"><strong>Theorem 8.13  (Least Squares Estimator) </strong></span>let linear model <span class="math inline">\(Y=X\theta^{*}+\epsilon\)</span>, 이때 <span class="math inline">\(\epsilon\)</span> 의 elements 각각은 independent zero-mean <span class="math inline">\(\epsilon_1 , \cdots, \epsilon_n \in SG(\sigma^2)\)</span>.</p>
 <p>이때 <span class="math inline">\(\hat \theta_{LS}\)</span> 는 이하를 만족하며, 2번째 ineq는 with probability at least <span class="math inline">\(1-\delta\)</span> 로 만족.</p>
 <p>$$
 <span class="math display">\[\begin{alignat}{2}
@@ -635,7 +724,7 @@ $$
 &amp;&amp;\leq4 \cdot &amp;&amp;\sup\limits_{u\in\mathrm{R}^{r}:\|u\|_{2}=1}(\tilde{\epsilon}^{\mathsf{T}}u)^{2}
 \end{alignat}\]</span>
 $$</p>
-<p>since <span class="math inline">\(\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1\)</span>,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> <span class="math inline">\(\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}\)</span>.</p>
+<p>since <span class="math inline">\(\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1\)</span>,<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> <span class="math inline">\(\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}\)</span>.</p>
 <p>이는 곧 <span class="math inline">\(\tilde \epsilon \in SG(\sigma^2)\)</span> 이라는 소리. 이때 <span class="math inline">\(X\sim SG(\sigma^2) \Longrightarrow Var(X) \le \sigma^2\)</span> (Lecture 2). 따라서 CS ineq. 에 의해 <span class="math inline">\(\mathbb{E}\left[\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} ({\tilde{\epsilon}}^{\mathsf{T}}u)^{2}\right] \leq\sum\limits_{i=1}^{r}\mathbb{E}\left[{\widetilde{\epsilon}}_{i}^{2}\right]\leq r\sigma^{2}\)</span>. 이것이 thm 8.2. 의 첫번째 claim 을 증명.</p>
 <p>bound in Probability 를 보이기 위해, 우리는 standard discretization argument 를 사용. <span class="math inline">\(N_{\frac12}\)</span> 를 <span class="math inline">\(\mathbb S^{r-1}\)</span> 의 <span class="math inline">\(\frac12\)</span>-covering 이라고 하자. 그러면 Lecture 4 에서의 결과물을 사용하는 것으로 <span class="math inline">\(\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} \widetilde{\epsilon}^{\top}u\le2\operatorname*{max}_{u\in{N}_{\frac12}}\widetilde{\epsilon}^{\top}u\)</span> 가 얻어진다.</p>
 <p>따라서 이하가 성립하며 이를 만족시키는 임의의 <span class="math inline">\(\delta\)</span> 를 잡았을때 이에서 파생되는 임의의 <span class="math inline">\(t\)</span> 를 얻는다.</p>
@@ -671,7 +760,7 @@ $$</p>
 <h4><span class="header-section-number">8.8.3.1</span> Lasso</h4>
 <p>linear model (8.1)에서 <span class="math inline">\(\theta\)</span> 의 support set <span class="math inline">\(S(\theta^{*})=\{j\in\{1,\ldots, d\}:\theta_{j}^{*}\not=0\}\)</span> 이 cardinality <span class="math inline">\(s=|S(\theta^\ast)| \overset{substantially}{&lt;} d\)</span>, 즉 s-sparse 인 상황 가정. regularized estimator 로서, <strong>lasso estimator</strong> <span class="math inline">\(\widehat{\theta}_{\mathrm{lasso}}=\arg\min\limits_{\theta\in\mathbb{R}^{d}}\left\{\frac{1}{2n}\|Y-X\theta\|_{2}^{2}+\lambda_{n}\|\theta\|_{1}\right\}\)</span> 는 이러한 sparse structural assumption 에 대한 설명력을 가진다. lasso esimator 는 for many <span class="math inline">\(j \in \{1, \cdots, d\}:\hat_{lasso, \; j} = 0\)</span> 라는 <strong>sparcity property</strong> 를 가지며 이건 <span class="math inline">\(\lambda_n\)</span> 을 무엇으로 골랐는지에 의존한다. 위의 등식 (8.3)은 <strong>lasso problem</strong> 이라고 불리며, 이는 convex optimization problem 이고, computationally tractable.</p>
 <div class="lemma">
-<p><span id="lem:unlabeled-div-2" class="lemma"><strong>Lemma 8.1  (Basic inequality) </strong></span>lasso estimator 에 대한 basic ineq.</p>
+<p><span id="lem:unlabeled-div-23" class="lemma"><strong>Lemma 8.1  (Basic inequality) </strong></span>lasso estimator 에 대한 basic ineq.</p>
 <p><span class="math display">\[
 {\frac{1}{2n}}\|X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\ \leq\ {\frac{\epsilon^{\top}X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})}{n}}+\lambda_{n}(\|\theta^{*}\|_{1}-\|\widehat{\theta}_{\mathrm{lasso}}\|_{1})
 \]</span></p>
@@ -696,7 +785,7 @@ $$</p>
 <h4><span class="header-section-number">8.8.3.2</span> Slow convergence rate</h4>
 <p>위에서의 basic inequality (lemma 8.3) 이 주어졌을 때, 우리는 lasso estimator <span class="math inline">\(\hat \theta_{lasso}\)</span> 의 consistency 를 보장하는 sufficient condition 생성 가능. 이는 deterministic bound 를 구하는 것부터 시작함.</p>
 <div class="theorem">
-<p><span id="thm:unlabeled-div-3" class="theorem"><strong>Theorem 8.2  (Slow Convergence Rate) </strong></span><span class="math inline">\(X_j\)</span> 를 <span class="math inline">\(X\)</span> 의 j-th column 이라고 하고, <span class="math inline">\(\lambda_{n}\,\geq\,\left|\left|\frac{X^{\top}\epsilon}{n}\right|\right|_{\infty}\ = \max_{i \le j \le d}\left|\frac{X_{j}^{\textsf{T}}\epsilon}{n}\right|\)</span> 라고 가정하자. 이 때 lasso estimator 는 이하를 만족.</p>
+<p><span id="thm:unlabeled-div-24" class="theorem"><strong>Theorem 8.14  (Slow Convergence Rate) </strong></span><span class="math inline">\(X_j\)</span> 를 <span class="math inline">\(X\)</span> 의 j-th column 이라고 하고, <span class="math inline">\(\lambda_{n}\,\geq\,\left|\left|\frac{X^{\top}\epsilon}{n}\right|\right|_{\infty}\ = \max_{i \le j \le d}\left|\frac{X_{j}^{\textsf{T}}\epsilon}{n}\right|\)</span> 라고 가정하자. 이 때 lasso estimator 는 이하를 만족.</p>
 <p><span class="math display">\[
 \frac{1}{n} \Bigg\| X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}) \Bigg\| _{2}^{2}\leq4\lambda_{n} \Bigg\| \theta^{*} \Bigg\| _{1}
 \]</span></p>
@@ -786,7 +875,7 @@ $$</p>
 <p>디자인 매트릭스 <span class="math inline">\(X\)</span> 에 추가적인 assumption 을 붙이는 것으로 좀 더 빠른 convergence rate 를 얻는 것이 가능. 여기선 Restricted Ev (RE) condition 을 사용할 것. <span class="math inline">\(\{ 1, \cdots, d\}\)</span> 의 subset <span class="math inline">\(S\)</span> 에 대해 <span class="math inline">\(Z_S = (Z_{S,1}, \cdots, Z_{S, d}) \in \mathbb R^d)\)</span> 이며 <span class="math inline">\(\forall j \in S:Z_{S,j} = Z_j\)</span>, o.w. <span class="math inline">\(Z_{S, j} = 0\)</span> 으로 정의.</p>
 <p><span class="math inline">\(S^c\)</span> 를 <span class="math inline">\(S\)</span> 의 complement 로 잡자. 즉슨 <span class="math inline">\(Z_{S^c}\)</span> 도 <span class="math inline">\(Z_S\)</span> 와 유사하게 정의. 이때 <span class="math inline">\(\forall \alpha\ge1:C(\alpha,S)=\{\Delta\in\mathbb{R}^{d}:||\Delta_{S^{c}}||_{1}\leq\alpha\|\Delta_{S}\|_{1}\}\)</span>. 이 notation 들을 써서 이하 정의.</p>
 <div class="definition">
-<p><span id="def:unlabeled-div-4" class="definition"><strong>Definition 8.1  (RE condition) </strong></span>매트릭스 <span class="math inline">\(X\)</span> 는 이하를 만족할 경우, 패러미터 <span class="math inline">\((\alpha, \kappa)\)</span> 와 함께 <span class="math inline">\(S\)</span> 에 대해 <strong>RE condition</strong> 을 만족한다.</p>
+<p><span id="def:unlabeled-div-25" class="definition"><strong>Definition 8.8  (RE condition) </strong></span>매트릭스 <span class="math inline">\(X\)</span> 는 이하를 만족할 경우, 패러미터 <span class="math inline">\((\alpha, \kappa)\)</span> 와 함께 <span class="math inline">\(S\)</span> 에 대해 <strong>RE condition</strong> 을 만족한다.</p>
 <p><span class="math display">\[
 forall \Delta\in C(\alpha,S):{\frac{1}{n}}\|X\Delta\|_{2}^{2}\geq\kappa\|\Delta\|_{2}^{2}
 \]</span></p>
@@ -796,11 +885,12 @@ forall \Delta\in C(\alpha,S):{\frac{1}{n}}\|X\Delta\|_{2}^{2}\geq\kappa\|\Delta\
 </ul>
 <p>RE condition 에 대한 직관을 좀 얻어보자. cost difference <span class="math inline">\(\mathcal{L}_{n}(\widehat{\theta}_{\mathrm{lasso}})-\mathcal{L}_{n}(\theta^{*})=\frac{1}{2n}\vert\vert Y-X\widehat{\theta}_{\mathrm{lasso}}\vert\vert_{2}^{2}-\frac{1}{2n}\vert\vert Y-X\theta^{*}\vert\vert_{2}^{2}\)</span> 가 작다면, error vector <span class="math inline">\(\hat \theta_{lasso} - \theta^\ast\)</span> 도 또한 작다는 것을 장담할 수 있을까? 일반적으로 이는 그렇다고 할 수 없다. 특히 cost function <span class="math inline">\(\mathcal L_n(\theta)\)</span> 가 <strong>flat</strong> 할 경우에는 더더욱. 이 flat 상황을 피하기 위해 cost function <span class="math inline">\(\mathcal L_n (\theta)\)</span> 로 하여금 이의 optimum <span class="math inline">\(\hat \theta_{lasso}\)</span> 주위에서 높은 <strong>curvature</strong> 를 갖도록 하는 것이 요구됨. <strong>curvature</strong> 는 Hessian MAtrix <span class="math inline">\(\nabla^{2}{\mathcal{L}}_{n}(\theta)={\frac{1}{n}}X^{\top}X\)</span> 의 구조에 의해 결정됨. 만약 우리가 이 Hessian Matrix 의 ev 가 0 에서 bounded away 되었다고 장담할 수 있다면, 즉, <span class="math inline">\(\forall \Delta\in\mathbb{R}^{d}\setminus\{0\}:\frac{1}{n}||X\Delta||_{2}^{2}\geq\kappa||\Delta||_{2}^{2}\gt 0\)</span> 라면, 우리는 모든 지점에서 curvature 를 갖는다는 것을 확신할 수 있을 것.</p>
 <p>하지만 고차원 상황 <span class="math inline">\(d&gt;n\)</span> 에서는 Hessian Matrix 는 0 ev 를 가져야만 하고, condition (8.7) (바로 위 상황) 은 성립할 수 없다. 역으로 우리는 <span class="math inline">\(C(\alpha, S)\)</span> 로 정의된 특정한 지점에서 cost function 이 curved 한지를 고려한다. 이 직관을 써서 RE condition 하에서 lasso estimator 에 대한 deterministic bound 를 생산할 수 있다. 이것이 아래의 thm.</p>
-<p>:::{.theorem name=“Fast Convergence Rate”}</p>
-<p>linear model (8.1) 을 살피고, <span class="math inline">\(S=\{i : \theta^\ast_i \not = 0 \}\)</span> 에 대해 패러미터 <span class="math inline">\((3, \kappa)\)</span> 를 통해 RE condition 을 만족하는 <span class="math inline">\(X\)</span> 를 assume. 이때, <span class="math inline">\(S\)</span> 의 cardinality 가 <span class="math inline">\(s\)</span> 를 쓰자. 여기서 만약 <span class="math inline">\(\lambda_{n}\geq2\left\| \frac{X^{\textsf{T}}\epsilon}{n}\right\|_{\infty}\)</span> 가 성립한다면 이하가 성립.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-26" class="theorem"><strong>Theorem 8.15  (Fast Convergence Rate) </strong></span>linear model (8.1) 을 살피고, <span class="math inline">\(S=\{i : \theta^\ast_i \not = 0 \}\)</span> 에 대해 패러미터 <span class="math inline">\((3, \kappa)\)</span> 를 통해 RE condition 을 만족하는 <span class="math inline">\(X\)</span> 를 assume. 이때, <span class="math inline">\(S\)</span> 의 cardinality 가 <span class="math inline">\(s\)</span> 를 쓰자. 여기서 만약 <span class="math inline">\(\lambda_{n}\geq2\left\| \frac{X^{\textsf{T}}\epsilon}{n}\right\|_{\infty}\)</span> 가 성립한다면 이하가 성립.</p>
 <p><span class="math display">\[
 {\frac{1}{n}}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\leq9{\frac{s\lambda_{n}^{2}}{\kappa}}, \; \; \; \; \; \; \; \; \; \; \; ||\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}||_{2} \le3{\frac{\sqrt{s}\lambda_{n}}{n}}
 \]</span></p>
+</div>
 <ul>
 <li>Proof:</li>
 </ul>
@@ -890,9 +980,6 @@ $$</p>
 </ul>
 <p><span class="math inline">\(\lambda_{n} \asymp \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}\)</span> 상황이라고 가정하자. 이 경우 design 매트릭스에 (8.5) 와 유사한 condition 을 두고 같은 argument 를 적용하면 <span class="math inline">\(\lambda_{n}\geq2 \left \| \frac{X^{\top}\epsilon}{n} \right \|_{\infty}\)</span> with probability at least <span class="math inline">\(1-\frac {1} {n^c}\)</span> for some constant <span class="math inline">\(c&gt;0\)</span> 임을 보일 수 있다. 이는 또한 (<span class="math inline">\(d \gg n\)</span> 일 때) <span class="math inline">\({\frac{1}{n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim{\frac{s\log(d)}{n}}\)</span> 라는 것으로도 이어지며, 따라서 RE condition 하에서 once <span class="math inline">\(\frac{s \log(d)}{n}\rightarrow 0\)</span> 라면 lasso estimator 는 consistent 하다.</p>
 <p>이와 별개로 <span class="math inline">\(\lim\limits_{n \rightarrow \infty} \lambda_n = 0\)</span> 를 가정하는 것으로, thm 8.6 의 결과가 8.4의 결과를 former의 upper bound 가 <span class="math inline">\(\lambda_n\)</span> 이 아니라 <span class="math inline">\(\labmda_n^2\)</span> 에 의존한다는 것으로 진화시킨다는 것을 발견할 수 있다.</p>
-<p><br>
-<br>
-<br></p>
 
 </div>
 </div>
@@ -900,8 +987,8 @@ $$</p>
 <!-- </div> -->
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p><span class="math inline">\(\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}\)</span><a href="linear-regression.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<ol start="8">
+<li id="fn8"><p><span class="math inline">\(\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}\)</span><a href="linear-regression.html#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

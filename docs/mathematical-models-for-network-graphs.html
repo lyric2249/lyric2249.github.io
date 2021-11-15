@@ -516,13 +516,26 @@ div.csl-indent {
 <li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model</a></li>
 <li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA</a></li>
 </ul></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>8.8.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>8.8.2</b> Least Squares Estimator in high dimensions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>8.8.3</b> Sparse linear regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
 <li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
-<li class="chapter" data-level="9.3" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>9.3</b> </a></li>
-<li class="chapter" data-level="9.4" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
+<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
 <li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
 <li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
 <ul>
@@ -730,7 +743,7 @@ lines(steps, apl/max(apl), lwd=3, col=&quot;red&quot;)</code></pre>
 par(mfrow=c(1,2))
 plot(g.ba, layout=layout.circle, vertex.label=NA)
 hist(degree(g.ba), col=&quot;lightblue&quot;, xlab=&quot;Degree&quot;, ylab=&quot;Frequency&quot;, main=&quot;&quot;)</code></pre>
-<p>고전적인 랜덤 그래프 대비 vertex 쌍 사이의 edge가 uniform 분포를 따르지 않음을 유의. 이런 경향에 의해 edge를 다수 끌어모으고 있는 “hub”라 불릴만한 vertex가 있는 것으로 사료됨. 여기서 전체 분포는 꽤 heterogeneous한 감이 있는데, 대부분의 vertex는 degree가 2를 넘지도 못함.</p>
+<p>고전적인 랜덤 그래프 (SRS) 대비 vertex 쌍 사이의 edge가 uniform 분포를 따르지 않음을 유의. 이런 경향에 의해 edge를 다수 끌어모으고 있는 “hub”라 불릴만한 vertex가 있는 것으로 사료됨. 여기서 전체 분포는 꽤 heterogeneous한 감이 있는데, 대부분의 vertex는 degree가 2를 넘지도 못함.</p>
 <pre><code>summary(degree(g.ba))</code></pre>
 <p>이러한 <strong>preferential attachment</strong> 모델에서 특필될만한 특징은 <span class="math inline">\(t \rightarrow \infty\)</span> 따라서 그래프 <span class="math inline">\(G^{(t)}\)</span>의 degree distribution이 <span class="math inline">\(d^{-\alpha}\)</span>, <span class="math inline">\(\alpha = 3\)</span>의 형을 갖는 경향을 보인다는 것이다. 이러한 경향은 고전적인 랜덤 그래프와 큰 차이점임.</p>
 <p>반면에 BA 모델에 의해 생성된 네트워크 그래프는 vertex 쌍 사이의 shotest path 위에 위치하는 vertex 숫자가 점점 적어지며 또한 low clustering이라는 고전적인 랜덤 그래프의 특징을 어느정도 공유한다. <mark>뭔소리야 BA가 preferential attachment 모델을 생산하려고 고안된게 아냐? BA가 preferential attachment 모사하려고 고안되긴 했는데 preferential attachment의 특성을 모두 복사하진 못했고 BA의 한계상 asymptotic 상황에서 고전적 랜덤 그래프 성질을 가져버렸다는건가?</mark></p>

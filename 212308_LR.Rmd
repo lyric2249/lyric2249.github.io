@@ -1,5 +1,6 @@
 ## Linear Regression
 
+이것때문이라고 설마?
 
 <br>
 <br>
@@ -194,6 +195,10 @@ $$
 \end{alignat}
 $$
 
+
+
+
+
 since $\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1$,^[$\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}$] $\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}$.
 
 이는 곧 $\tilde \epsilon \in SG(\sigma^2)$ 이라는 소리. 이때 $X\sim SG(\sigma^2) \Longrightarrow Var(X) \le \sigma^2$ (Lecture 2). 따라서 CS ineq. 에 의해 $\mathbb{E}\left[\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} ({\tilde{\epsilon}}^{\mathsf{T}}u)^{2}\right] \leq\sum\limits_{i=1}^{r}\mathbb{E}\left[{\widetilde{\epsilon}}_{i}^{2}\right]\leq r\sigma^{2}$. 이것이 thm 8.2. 의 첫번째 claim 을 증명.
@@ -201,6 +206,11 @@ since $\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{
 bound in Probability 를 보이기 위해, 우리는 standard discretization argument 를 사용. $N_{\frac12}$ 를 $\mathbb S^{r-1}$ 의 $\frac12$-covering 이라고 하자. 그러면 Lecture 4 에서의 결과물을 사용하는 것으로 $\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} \widetilde{\epsilon}^{\top}u\le2\operatorname*{max}_{u\in{N}_{\frac12}}\widetilde{\epsilon}^{\top}u$ 가 얻어진다.
 
 따라서 이하가 성립하며 이를 만족시키는 임의의 $\delta$ 를 잡았을때 이에서 파생되는 임의의 $t$ 를 얻는다.
+
+
+
+
+
 
 $$
 \begin{alignat}{2}
@@ -244,6 +254,10 @@ $$
 
 linear model (8.1)에서 $\theta$ 의 support set $S(\theta^{*})=\{j\in\{1,\ldots, d\}:\theta_{j}^{*}\not=0\}$ 이 cardinality $s=|S(\theta^\ast)| \overset{substantially}{<} d$, 즉 s-sparse 인 상황 가정. regularized estimator 로서, **lasso estimator** $\widehat{\theta}_{\mathrm{lasso}}=\arg\min\limits_{\theta\in\mathbb{R}^{d}}\left\{\frac{1}{2n}\|Y-X\theta\|_{2}^{2}+\lambda_{n}\|\theta\|_{1}\right\}$ 는 이러한 sparse structural assumption 에 대한 설명력을 가진다. lasso esimator 는 for many $j \in \{1, \cdots, d\}:\hat_{lasso, \; j} = 0$ 라는 **sparcity property** 를 가지며 이건 $\lambda_n$ 을 무엇으로 골랐는지에 의존한다. 위의 등식 (8.3)은 **lasso problem** 이라고 불리며, 이는 convex optimization problem 이고, computationally tractable.
 
+
+
+
+
 :::{.lemma name="Basic inequality"}
 
 lasso estimator 에 대한 basic ineq.
@@ -253,6 +267,10 @@ $$
 $$
 
 :::
+
+
+
+
 
 - Proof.
 
@@ -417,6 +435,8 @@ $$
 {\frac{1}{n}}||X(\widehat{\theta}_{\mathrm{lasso}}-\theta^{*})||_{2}^{2}\leq9{\frac{s\lambda_{n}^{2}}{\kappa}}, \; \; \; \; \; \; \; \; \; \; \; ||\widehat{\theta}_{\mathrm{lasso}}-\theta^{*}||_{2} \le3{\frac{\sqrt{s}\lambda_{n}}{n}}
 $$
 
+:::
+
 - Proof:
 
 편의를 위해 $\hat \Delta = \hat \theta_{lasso} - \theta^\ast$. 주어진 condition 하에서 $\hat \Delta \in C(3, S)$ 임을 먼저 보이자. basic ineq. (lemma 8.3) 을 사용하면 ${\frac{1}{2n}}||X\hat{\Delta}||_{2}^{2}\; \leq \;{\frac{\epsilon^{\top}X\hat{\Delta}}{n}}+\lambda_{n}(||\theta^{*}||_{1}-||\hat{\theta}_{\mathrm{lasso}}||_{1})$ 임을 보일 수 있다. $\theta^\ast$ 가 s-sparse 이며 $\hat \Delta = \hat \theta_{lasso}-\theta^\ast$ 이므로 이하가 성립.
@@ -515,7 +535,6 @@ $$
 $\lambda_{n} \asymp \sigma\sqrt{\frac{\log(d)+\log(n)}{n}}$ 상황이라고 가정하자. 이 경우 design 매트릭스에 (8.5) 와 유사한 condition 을 두고 같은 argument 를 적용하면 $\lambda_{n}\geq2 \left \| \frac{X^{\top}\epsilon}{n} \right \|_{\infty}$ with probability at least $1-\frac {1} {n^c}$ for some constant $c>0$ 임을 보일 수 있다. 이는 또한 ($d \gg n$ 일 때) ${\frac{1}{n}}\|X({\widehat{\theta}}_{\mathrm{lasso}}-\theta^{*})\|_{2}^{2}\lesssim{\frac{s\log(d)}{n}}$ 라는 것으로도 이어지며, 따라서 RE condition 하에서 once $\frac{s \log(d)}{n}\rightarrow 0$ 라면 lasso estimator 는 consistent 하다.
 
 이와 별개로 $\lim\limits_{n \rightarrow \infty} \lambda_n = 0$ 를 가정하는 것으로, thm 8.6 의 결과가 8.4의 결과를 former의 upper bound 가 $\lambda_n$ 이 아니라 $\labmda_n^2$ 에 의존한다는 것으로 진화시킨다는 것을 발견할 수 있다.
-
 
 
 

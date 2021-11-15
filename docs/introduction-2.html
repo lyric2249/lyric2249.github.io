@@ -516,13 +516,26 @@ div.csl-indent {
 <li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model</a></li>
 <li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA</a></li>
 </ul></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>8.8.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>8.8.2</b> Least Squares Estimator in high dimensions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>8.8.3</b> Sparse linear regression</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
 <li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
-<li class="chapter" data-level="9.3" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>9.3</b> </a></li>
-<li class="chapter" data-level="9.4" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
+<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
 <li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
 <li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
 <ul>
@@ -582,13 +595,13 @@ div.csl-indent {
 <h3><span class="header-section-number">7.1.1</span> Types of Network Analysis</h3>
 <ol style="list-style-type: decimal">
 <li><p>Visualization</p></li>
-<li><p>Numerical Summaries</p></li>
-</ol>
-<ul>
+<li><p>Numerical Summaries</p>
+<ol style="list-style-type: decimal">
 <li><p><strong>Transitivity</strong> (<strong>Clustering Coefficient</strong>): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 <strong>transitivity</strong> 개념과 대응함. 소위 <strong>clustering coefficient</strong>로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.</p></li>
 <li><p><strong>Assortativity Coefficient</strong>: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 <strong>assortativity</strong> 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 <strong>assortativity coefficient</strong>라고 불리는 correlation statistic으로 quantified될 수 있다.</p></li>
+</ol></li>
 <li><p>주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편</p></li>
-</ul>
+</ol>
 <p><br>
 <br>
 <br></p>
