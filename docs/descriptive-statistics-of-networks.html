@@ -584,17 +584,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="descriptive-statistics-of-networks" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Descriptive Statistics of Networks</h2>
-<p>• In the study of a given complex system, questions of interest can often be re-phrased in a useful manner as questions regarding some aspect of the structure or characteristics of a corresponding network graph.</p>
-<ul>
-<li>Various types of basic social dynamics can be represented by triplets of vertices with a particular pattern of ties among them (i.e., triads).</li>
-<li>Questions involving the movement of information or commodities usually can be posed in terms of paths on the network graph and flows along those paths.</li>
-<li>Certain notions of the ‘importance’ of individual system elements may be captured by measures of how ‘central’ the corresponding vertex is in the network.</li>
-<li>The search for ‘communities’ and analogous types of unspecified ‘groups’ within a system frequently may be addressed as a graph partitioning problem.</li>
-</ul>
-<p>• The structural analysis of network graphs has traditionally been treated primarily as a descriptive task, as opposed to an inferential task, and the tools commonly used for such purposes derive largely from areas outside of ‘mainstream’ statistics.
-– An overwhelming proportion of these tools are naturally graph-theoretic in nature, and thus have their origins in mathematics and computer science.
-– The field of social network analysis has been another key source, contributing tools usually aimed at least originally at capturing basic aspects of social structure and dynamics.
-– The field of physics has also been an important contributor, with the proposed tools often motivated by analogues in statistical mechanics.</p>
+<p>complex system 에 대한 연구에서 연구하는 문제는 대응하는 네트워크 그래프의 구조, 혹은 특성을 분석하는 문제로 동치될 수 있음. 3개의 vertex 들을 묶어 특정 형태의 triplet 을 만들어 triplet 의 특성을 분석. 상품이나 정보의 흐름 분석은 네트워크 분석에서의 path 발생 혹은 비발생 확인 문제와 동치. 각각의 시스템에서 해당 element 의 중요도를 체크하는건 vertex 의 centrality 확인과 동치. 동계통의 community 혹은 그룹을 찾는 문제는 그래프 partitioning 문제와 동치. 이런 네트워크 분석은 순혈 통계와는 살짝 차이가 있음. 보통 수학과 컴퓨터과학, 사회구조 분석사회학, 물리학 등에 의존함.</p>
 <p><br>
 <br>
 <br></p>
@@ -603,20 +593,13 @@ div.csl-indent {
 <br></p>
 <div id="vertex-and-edge-characteristics" class="section level3" number="7.2.1">
 <h3><span class="header-section-number">7.2.1</span> Vertex and Edge Characteristics</h3>
-<p>• The fundamental elements of network graphs are their vertices and edges
-• Characterization of the Vertex and Edges
-– Characterizations based upon vertex degrees
-– Characterizations seeking to capture some more general notion of the ‘importance’ of a vertex</p>
+<p>네트워크의 기본 요소는 <strong>edge</strong> 와 <strong>vertex</strong>. 이들을 characterization 하고자 하는 작업은 <strong>vertex degree</strong> 에 기반하며, 이는 각 vertex 가 얼마나 중요한지를 판단하기 위한 측도를 획득하기 위함.</p>
 <p><br>
 <br>
 <br></p>
 <div id="vertex-degree" class="section level4" number="7.2.1.1">
 <h4><span class="header-section-number">7.2.1.1</span> Vertex Degree</h4>
-<p>• The degree dv of a vertex v, in a network graph G = (V, E), counts the number of edges in E incident upon v.
-• Given a network graph G, define fd to be the fraction of vertices v ∈ V with degree dv = d.
-• The collection {fd}d≥0 is called the degree distribution of G, and is simply a rescaling of the set of degree frequencies, formed from the original degree sequence.
-Karate club network<br />
-</p>
+<p>네트워크 그래프 <span class="math inline">\(G=(V, E)\)</span> 에서 vertex <span class="math inline">\(v\)</span> 의 <strong>degree</strong> <span class="math inline">\(d_v\)</span> 는 <span class="math inline">\(v\)</span> 에 엮인 edge 의 갯수. <span class="math inline">\(\forall v \in V, d_v = d: f_d \coloneqq \frac{v}{d = d_v}\)</span>. collection <span class="math inline">\(\{f_d\}_{d \ge 0}\)</span> 는 <span class="math inline">\(G\)</span> 의 <strong>degree distribution</strong> 이라고 부른다. 이는 결국 원본 degree sequence 를 rescaling 한 것.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="descriptive-statistics-of-networks.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sand)</span>
 <span id="cb4-2"><a href="descriptive-statistics-of-networks.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraphdata)</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="descriptive-statistics-of-networks.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(karate)</span>
@@ -625,20 +608,12 @@ Karate club network<br />
 <span id="cb5-4"><a href="descriptive-statistics-of-networks.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Vertex Degree&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span>
 <span id="cb5-5"><a href="descriptive-statistics-of-networks.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">graph.strength</span>(karate), <span class="at">col=</span><span class="st">&quot;pink&quot;</span>,</span>
 <span id="cb5-6"><a href="descriptive-statistics-of-networks.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Vertex Strength&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<p>• The degree distribution
-– There are three distinct groups of vertices, as measured by degree.
-– The two most highly connected vertices correspond to actors 1 and 34 in the network, representing the instructor and administrator about whom the club eventually split.
-– The next set of vertices consists of actors 2, 3, and also 33.</p>
-<p>• Weighted Networks
-– A useful generalization of degree is the notion of vertex strength, which is obtained simply by summing up the weights of edges incident to a given vertex.
-– The distribution of strength sometimes called the weighted degree distribution is defined in analogy to the ordinary degree distribution</p>
-<p>Figure 2: The vertex strength distribution for the Karate club network
-A Network of Interactions among Protein Pairs in Yeast</p>
+<p>weighted network 케이스에서 유용하게 자주 쓰이는 degree 의 일반화는 <strong>vertex strength</strong>. 이는 해당 vertex 에 연결된 edge 의 weight 를 전부 합한 것. 이러한 strength 의 distribution 은 <strong>weighted degree distribution</strong> 이라고 불리며, 이는 일반적인 degree distribution 과 입지가 같음.</p>
+<p><em>Figure 2: The vertex strength distribution for the Karate club network - A Network of Interactions among Protein Pairs in Yeast</em></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="descriptive-statistics-of-networks.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(yeast)</span>
 <span id="cb6-2"><a href="descriptive-statistics-of-networks.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ecount</span>(yeast)</span>
 <span id="cb6-3"><a href="descriptive-statistics-of-networks.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">vcount</span>(yeast)</span></code></pre></div>
-<p>• Histogram: In particular, while there is a substantial fraction of vertices of quite low degree, of an order of magnitude similar to those of the karate network, there are also a non-trivial number of vertices with degrees at successively higher orders of magnitude.
-• There is a fairly linear decay in the log-frequency as a function of log-degree.</p>
+<p>히스토그램을 확인해보자. degree 가 낮은 substantial fraction of vertex 들이 존재한다. 이들의 magnitude 는 karate network 의 그것이랑 유사하지만, 이와 동시에 연속적으로 higher order of magnitude 를 가지는 vertex 들의 숫자가 non-trivial 하게 관측된다. 로그화 시킨 degree 의 경우, log frequency 에서 상당한 linear decay 관측 가능.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="descriptive-statistics-of-networks.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb7-2"><a href="descriptive-statistics-of-networks.html#cb7-2" aria-hidden="true" tabindex="-1"></a>d.yeast <span class="ot">=</span> <span class="fu">degree</span>(yeast)</span>
 <span id="cb7-3"><a href="descriptive-statistics-of-networks.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(d.yeast,<span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;Degree&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Frequency&quot;</span>, <span class="at">main=</span><span class="st">&quot;Degree Distribution&quot;</span>)</span>
@@ -647,10 +622,8 @@ A Network of Interactions among Protein Pairs in Yeast</p>
 <span id="cb7-6"><a href="descriptive-statistics-of-networks.html#cb7-6" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">=</span> (dd.yeast <span class="sc">!=</span> <span class="dv">0</span>)</span>
 <span id="cb7-7"><a href="descriptive-statistics-of-networks.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d[ind], dd.yeast[ind], <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">xlab=</span><span class="fu">c</span>(<span class="st">&quot;Log-Degree&quot;</span>),</span>
 <span id="cb7-8"><a href="descriptive-statistics-of-networks.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="at">ylab=</span><span class="fu">c</span>(<span class="st">&quot;Log-Intensity&quot;</span>), <span class="at">main=</span><span class="st">&quot;Log-Log Degree Distribution&quot;</span>)</span></code></pre></div>
-<p>Figure 3: The degree distribution for protein interactions in Yeast
-• It can be interesting to understand the manner in which vertices of different degrees are linked with each other.
-• Useful in assessing this characteristic is the notion of the average degree of the neighbors of a given vertex.
-• While there is a tendency for vertices of higher degrees to link with similar vertices, vertices of lower degree tend to link with vertices of both lower and higher degrees.</p>
+<p>Figure 3: The degree distribution for protein interactions in Yeast</p>
+<p>서로 다른 degree 의 vertex 들이 서로 연결되어 있다면 그 기저에 깔린 메커니즘은 무엇인가? 이 또한 흥미로운 부분. 이 문제의 해결에 주효하게 작용하는 개념은 주어진 vertex 의 <strong>average degree of the neighbors</strong>. 높은 degree 의 vertex 는 높은 degree 랑만 붙는 경향이 있는 반면 lower degree 들은 높든 낮든 들러붙는 경향.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="descriptive-statistics-of-networks.html#cb8-1" aria-hidden="true" tabindex="-1"></a>a.nn.deg.yeast <span class="ot">=</span> <span class="fu">graph.knn</span>(yeast,<span class="fu">V</span>(yeast))<span class="sc">$</span>knn</span>
 <span id="cb8-2"><a href="descriptive-statistics-of-networks.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d.yeast, a.nn.deg.yeast, <span class="at">log=</span><span class="st">&quot;xy&quot;</span>, <span class="at">col=</span><span class="st">&quot;goldenrod&quot;</span>,</span>
 <span id="cb8-3"><a href="descriptive-statistics-of-networks.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">xlab=</span><span class="fu">c</span>(<span class="st">&quot;Log Vertex Degree&quot;</span>), <span class="at">ylab=</span><span class="fu">c</span>(<span class="st">&quot;Log Average Neighbor Degree&quot;</span>))</span></code></pre></div>
@@ -661,56 +634,22 @@ A Network of Interactions among Protein Pairs in Yeast</p>
 </div>
 <div id="vertex-centrality" class="section level4" number="7.2.1.2">
 <h4><span class="header-section-number">7.2.1.2</span> Vertex Centrality</h4>
-<p>• Many questions that might be asked about a vertex in a network graph essentially seek to understand
-its ‘importance’ in the network.
-– Which actors in a social network seem to hold the ‘reins of power?’
-– How authoritative does a particular page in the World Wide Web seem to be considered?
-– The deletion of which genes in a gene regulatory network is likely to be lethal to the corresponding organism?
-– How critical is a given router in an Internet network to the flow of traffic?</p>
-<p>• Measures of centrality are designed to quantify such notions of ‘importance’ and thereby facilitate the answering of such questions.
-• Most widely used measure of vertex centrality: Vertex Degree.
-• Three other classic types of vertex centrality measures: Closeness, Betweenness, and Eigenvector</p>
+<p>vertex 에 대해 갖는 많은 의문은 결국 해당 vertex 가 주어진 네트워크에서 얼마나 <strong>중요한가</strong> 를 알기 위한 것.</p>
+<p><strong>centrality</strong> 에 대한 많은 측도 (measure) 들은 이러한 중요성을 측정하기 위해 개발되었음. <strong>vertex centrality</strong> 를 확인하기 위해 가장 자주 쓰이는 measure 는 <strong>vertex degree</strong>. 이외에 vertex centrality measure 로서 사용되는 건 <strong>Closeness</strong>, <strong>Betweenness</strong>, and <strong>Eigenvector</strong> 등이 존재. 이 셋이 좀 메이저, 마이저.</p>
+<p>vertex centrality 를 나타내는 가장 직관적인 방법은 radial layout 을 쓰는 것. 이는 곧 central vertex 를 중앙에 가깝게 배치하는 것. 물론 네트워크가 너무너무 커버리면 표시불가. 작거나 중간크기 네트워크에만 사용가능.</p>
 <ul>
-<li><strong>centrality</strong>
-• Closeness centrality measures attempt to capture the notion that a vertex is ‘central’ if it is ‘close’ to many other vertices.
-– The standard approach is to let the centrality vary inversely with a measure of the total distance of a vertex from all others,</li>
+<li><strong>Closeness centrality</strong></li>
 </ul>
-<p>cCL =
-1
-P
-u∈V
-dist(u, v)
-,
-where dist(v, u) is the geodesic distance between the vertices u, v ∈ V .</p>
-<p>– Often, for comparison across graphs and with other centrality measures, this measure is normalized to lie in the interval [0, 1], through multiplication by a factor Nv1.</p>
-<p>• Betweenness centrality measures are aimed at summarizing the extent to which a vertex is located ‘between’ other pairs of vertices.
-– These centralities are based upon the perspective that ‘importance’ relates to where a vertex is located with respect to the paths in the network graph.
-– If we picture those paths as the routes by which communication of some sort or another takes place, vertices that sit on many paths are likely more critical to the communication process.
-– The most commonly used betweenness centrality is defined as</p>
-<p>CB(v) = X
-s6=t6=v∈V
-σ(s, t | v)
-σ(s, t)</p>
-<p>where σ(s, t | v) is the total number of shortest paths between s and t that pass through v, and σ(s, t) is the total number of shortest paths between S and t (regardless of whether or not they pass through v).
-– This centrality measure can be restricted to the unit interval through division by a factor of (Nv − 1)(Nv − 2)/2.</p>
-<p>• Other centrality measures are based on notions of ‘status’ or ‘prestige’ or ‘rank.’
-– Seek to capture the idea that the more central the neighbors of a vertex are, the more central that vertex itself is.
-– These measures are inherently implicit in their definition and typically can be expressed in terms of eigenvector solutions of appropriately defined linear systems of equations.
-– There are many such eigenvector centrality measures. For example,</p>
-<p>CEi
-(v) = α
-X
-{u,v}∈E
-cEi
-(u).
-The vector CEi = (CEi
-(1), · · · , CEi
-(Nv))T</p>
-<p>is the solution to the eigenvalue problem ACEi, where A is the adjacency matrix for the network graph G.</p>
-<p>– An optimal choice of α−1 is the largest eigenvalue of A, and hence cEi is the corresponding eigenvector.
-– When G is undirected and connected, the largest eigenvalue of A will be simple and its eigenvector will have entries that are all nonzero and share the same sign.
-– Convention is to report the absolute values of these entries, which will automatically lie between 0 and 1 by the orthonormality of eigenvectors.
-• An intuitively appealing way of displaying vertex centralities (for networks of small to moderate size) is to use a radial layout, with more central vertices located closer to the center.</p>
+<p>vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판정. 일반적으로 사용되는 기준값은 <span class="math inline">\(C_{CL} =\frac{1}{\sum\limits_{u \in V} dist(u,v)}\)</span>. 이때 denominator <span class="math inline">\(dist(v, u)\)</span> 는 <span class="math inline">\(u, v \ in V\)</span> 인 vertex <span class="math inline">\(u, v\)</span> 사이의 geodesic distance. 각각 다른 그래프에서 산출된 centrality measure 를 비교하기 위해 normalize 하는 상황 있음. 이때는 factor <span class="math inline">\(N_v - 1\)</span> 으로 곱해서 <span class="math inline">\([0,1]\)</span> 로 normalize.</p>
+<ul>
+<li><strong>Betweenness centrality</strong></li>
+</ul>
+<p>어떤 vertex 가 다른 vertex 쌍 사이에 위치하고 있는지를 확인. 이건 vertex 가 네트워크 그래프의 path 에 비추어서 어디에 위치하고 있는지가 중요하다는 관점에 기반. 현실세계에 비추어도 이러한 path 가 인간관계라고 생각한다면 path 가 다수 지나가는 vertex, 즉 인싸는 중요한 사람일 것. 일반적으로 사용되는 값은 <span class="math inline">\(C_B (v) = \sum\limits_{s \not = t \not = v \in V} \frac{\sigma(s,t | v)}{\sigma(s, t)}\)</span>. 이때 numerator 는 <span class="math inline">\(v\)</span> 를 통과하면서 <span class="math inline">\(s,t\)</span> 사이가 최단거리인 path 의 총 숫자, denominator 는 이런 조건 없이 <span class="math inline">\(s,t\)</span> 사이가 최단거리인 path 의 총 숫자. 이를 unit interval 로 scale 할 때는 <span class="math inline">\(\frac{(N_v - 1) (N_v - 2)}{2}\)</span> 로 나누면 됨.</p>
+<ul>
+<li><strong>eigenvector centrality</strong></li>
+</ul>
+<p>‘status,’ ‘prestige,’ ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인건 <span class="math inline">\(C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)\)</span>. 이때 vector <span class="math inline">\(C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)&#39;\)</span> 는 ev problem <span class="math inline">\(A_{C_{E_i}}\)</span> 의 solution. 이때 <span class="math inline">\(A\)</span> 는 네트워크 그래프 <span class="math inline">\(G\)</span> 의 adjacency 매트릭스.</p>
+<p><span class="math inline">\(\alpha^{-1}\)</span> 의 optimal choice 는 <span class="math inline">\(A\)</span> 의 가장 큰 ev. 따라서 <span class="math inline">\(h_{E_i}\)</span> 는 상응하는 evec. <span class="math inline">\(G\)</span> 가 undirected 이며 connected 라면, <span class="math inline">\(A\)</span> 의 largest ev 는 간단하며 이의 evec는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 evec 의 orthonormality 에 의해 얘들은 자동적으로 <span class="math inline">\([0,1]\)</span> 사이로 scaled.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="descriptive-statistics-of-networks.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;network&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
 <span id="cb9-2"><a href="descriptive-statistics-of-networks.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages(&quot;sna&quot;, repos=&quot;http://cran.us.r-project.org&quot;)</span></span>
 <span id="cb9-3"><a href="descriptive-statistics-of-networks.html#cb9-3" aria-hidden="true" tabindex="-1"></a>A <span class="ot">=</span> <span class="fu">get.adjacency</span>(karate, <span class="at">sparse=</span><span class="cn">FALSE</span>)</span>
@@ -737,14 +676,9 @@ The vector CEi = (CEi
 <span id="cb12-5"><a href="descriptive-statistics-of-networks.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">evcent</span>(g), <span class="at">main=</span><span class="st">&quot;Eigenvalue&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
 <span id="cb12-6"><a href="descriptive-statistics-of-networks.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>),</span>
 <span id="cb12-7"><a href="descriptive-statistics-of-networks.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="at">edge.col=</span><span class="st">&quot;darkgray&quot;</span>)</span></code></pre></div>
-<p>• Extensions of these centrality measures from undirected to directed graphs are straightforward.</p>
-<p>Figure 6: Target plots showing various vertex centralities for the karate club network
-– Characterizes the importance of so-called hub vertices by how many authority vertices they
-point to, and so-called authority vertices by how many hubs point to them.
-– Given an adjacency matrix A for a directed graph, hubs are determined according to the
-eigenvector centrality of the matrix Mhub = AAT
-, and authorities, according to that of
-Mauth = AT A.</p>
+<p>Figure 6: Target plots showing various vertex centralities for the karate club network</p>
+<p>이러한 centrality measure 를 undirected 에만 적용해왔음. directed 에도 적용못할 이유는 없지.</p>
+<p>소위 <strong>hub vertex</strong> 의 중요성을 정의해보자. 얼마나 많은 authority vertex 를 그들이 향하는지, 그리고 얼마나 많은 authority vertex 들이 해당 vertex 를 향하는지를 통해 판단. directed graph <span class="math inline">\(A\)</span> 가 주어졌을 때 <strong>hub</strong> 는 <span class="math inline">\(M_{hub} = AA&#39;\)</span> 의 evec centrality 에 의해 결정됨. authority 는 <span class="math inline">\(M_{auth} = A&#39;A\)</span> 에 의해 결정.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="descriptive-statistics-of-networks.html#cb13-1" aria-hidden="true" tabindex="-1"></a>l <span class="ot">=</span> <span class="fu">layout.kamada.kawai</span>(aidsblog)</span>
 <span id="cb13-2"><a href="descriptive-statistics-of-networks.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
 <span id="cb13-3"><a href="descriptive-statistics-of-networks.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aidsblog, <span class="at">layout=</span>l, <span class="at">main=</span><span class="st">&quot;Hubs&quot;</span>, <span class="at">vertex.label=</span><span class="st">&quot;&quot;</span>,</span>
@@ -758,22 +692,10 @@ Mauth = AT A.</p>
 </div>
 <div id="characterizing-edges" class="section level4" number="7.2.1.3">
 <h4><span class="header-section-number">7.2.1.3</span> Characterizing Edges</h4>
-<p>• Edge betweenness centrality which extends vertex betweenness centrality in a straightforward manner, by assigning to each edge a value that reflects the number of shortest paths traversing that edge is a natural quantity to use.</p>
-<p>• Using edge betweenness with the karate network and examining, for instance, the edges with the three largest betweenness values</p>
+<p>vertex betweenness centrality 에서 <strong>edge betweenness centrality </strong> 는 직관적. 각 edge 에 해당 edge 가 최단거리 path 로 삼아지는 횟수를 고르면 됨.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="descriptive-statistics-of-networks.html#cb14-1" aria-hidden="true" tabindex="-1"></a>eb <span class="ot">=</span> <span class="fu">edge.betweenness</span>(karate)</span>
 <span id="cb14-2"><a href="descriptive-statistics-of-networks.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">E</span>(karate)[<span class="fu">order</span>(eb, <span class="at">decreasing=</span>T)[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>]]</span></code></pre></div>
-<p>• Many other vertex centrality measures do not extend as easily. One way around this problem is to apply vertex centrality measures to the vertices in the line graph of a network graph G.
-• Line graph of G, say G0 = (V
-0
-, E0
-), is obtained essentially by changing vertices of G to edges, and
-edges, to vertices.
-• The vertices v
-0 ∈ V
-0
-represent the original edges e ∈ E, and the edges e
-0 ∈ E0
-indicate that the two corresponding original edges in G were incident to a common vertex in G.</p>
+<p>하지만 이외의 vertex centrality measures 들은 edge 에 적용하려면 그렇게 쉽진 않음. 해결책 중 하나는 네트워크 그래프 <span class="math inline">\(G\)</span> 의 라인 그래프의 vertex 에 vertex centrality measures 를 적용하는 것. <span class="math inline">\(G\)</span> 의 라인그래프 <span class="math inline">\(G&#39;=(V&#39;, E&#39;)\)</span> 는 <span class="math inline">\(G\)</span> 의 vertex 를 edge 로, edge 를 vertex 로 바꾸는 것으로 획득됨. vertex <span class="math inline">\(v&#39; \in V&#39;\)</span> 는 원본 그래프의 edge <span class="math inline">\(e \in E&#39;\)</span> 를 의미하며, edge <span class="math inline">\(e&#39; \in E&#39;\)</span> 는 <span class="math inline">\(G\)</span> 에서의 대응하는 원본 vertex 1개의 세트를 의미함.</p>
 <p><br>
 <br>
 <br></p>
@@ -784,18 +706,7 @@ indicate that the two corresponding original edges in G were incident to a commo
 </div>
 <div id="characterizing-network-cohesion" class="section level3" number="7.2.2">
 <h3><span class="header-section-number">7.2.2</span> Characterizing Network Cohesion</h3>
-<p>• Questions involving network cohesion, the extent to which subsets of vertices are cohesive or ‘stuck
-together’ with respect to the relation defining edges in the network graph.
-– Do friends of a given actor in a social network tend to be friends of one another as well?
-– What collections of proteins in a cell appear to work closely together?
-– Does the structure of the pages in the World Wide Web tend to separate with respect to
-distinct types of content?
-– What portion of a measured Internet topology would seem to constitute the ‘backbone?’
-• There are many ways that we can define network cohesion, depending on the context of the question
-being asked.
-– Definitions differ, for example, in scale, ranging from local (e.g., triads) to global (e.g., giant
-components), and also in the extent to which they are specified explicitly (e.g., cliques) versus
-implicitly (e.g., ‘clusters’ or ‘communities’)</p>
+<p>• 네트워크 그래프 상에서 edge 로서 정의된 관계에 비추었을 때, vertex 들의 어느 subset 이 어느 정도로 응집되는가, 혹은 같이 들러붙는가 하는 문제에 대해 생각해보는 것이 <strong>network cohesion</strong>. SNS 에서 친구의 친구끼리는 친구가 되기 쉬운가? 세포에서 어느 protein 들끼리 협업할 가능성이 높은가? 인터넷 토폴로지에서 어느 부분이 “backbone” 을 구성하는가? 다루는 문제가 무엇이냐에 따라 <strong>network cohesion</strong> 그 자체가 무엇인지 또한 달라짐. local 에서 global (ex. giant component), 어느 정도로 확실하게 정의되는가 (ex. clique) 혹은 두루뭉술한가 (ex. cluster, community) 등 스탯이 다양함.</p>
 <p><br>
 <br>
 <br></p>
@@ -804,27 +715,16 @@ implicitly (e.g., ‘clusters’ or ‘communities’)</p>
 <ul>
 <li><strong>Cliques</strong></li>
 </ul>
-<p>Cliques are complete subgraphs and hence are subsets of vertices that are fully cohesive, in the
-sense that all vertices within the subset are connected by edges.
-• A census of cliques of all size can provide some sense of a ‘snapshot’ of how structured a graph is</p>
-<p>For the karate network a census of this sort reflects that there are 34 nodes (cliques of size one)
-and 78 edges (cliques of size two), followed by 45 triangles (cliques of size three).
-• The largest cliques are of size five, of which there are only two</p>
+<p>complete 서브그래프, 즉 fully cohesive 한 vertex 들의 subset 을 <strong>Cliques</strong> 라고 통칭. 이인즉 소속된 모든 vertex 들이 edge 로 연결되어 있다는 것. 모든 사이즈의 clique 들에 대한 census 는 그래프가 어떻게 structure 되어 있는지에 대한 ‘snapshot’ 을 제공함.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descriptive-statistics-of-networks.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(<span class="fu">cliques</span>(karate), length))</span>
 <span id="cb15-2"><a href="descriptive-statistics-of-networks.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cliques</span>(karate)[<span class="fu">sapply</span>(<span class="fu">cliques</span>(karate), length) <span class="sc">==</span> <span class="dv">5</span>]</span></code></pre></div>
-<p>The cliques of larger sizes necessarily include cliques of smaller sizes.
-• A maximal clique is a clique that is not a subset of a larger clique</p>
-<p>• Large cliques are relatively rare, as they necessarily require that a graph G itself be fairly dense,
-while real-world networks are often sparse</p>
+<p>더 큰 사이즈의 clique 는 필연적으로 작은 사이즈의 cluque 들을 포함함. <strong>maximal clique</strong> 는 더 큰 clique 의 subset 이 아닌 clique 를 일컫음. 큰 clique 는 본질적으로 드뭄. 큰 clique 의 존재는 결국 원본 그래프 <span class="math inline">\(G\)</span> 가 일정 이상으로 dense 할 것을 요구하니까. 하지만 현실세계 네트워크는 보통 sparse 하거든.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="descriptive-statistics-of-networks.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(<span class="fu">maximal.cliques</span>(karate), length))</span>
 <span id="cb16-2"><a href="descriptive-statistics-of-networks.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clique.number</span>(yeast)</span></code></pre></div>
 <ul>
 <li><strong><span class="math inline">\(k\)</span>-core</strong></li>
 </ul>
-<p>• Weakened Notions of Cliques. A <span class="math inline">\(k\)</span>-core of a graph G is a subgraph of G for which all vertex degrees are at least k, and such that
-no other subgraph obeying the same condition contains it (i.e., it is maximal in this property).
-• The notion of cores is particularly popular in visualization, as it provides a way of decomposing a
-network into ‘layers.’</p>
+<p>clique 를 약화시킨 개념. 그래프 <span class="math inline">\(G\)</span> 의 <span class="math inline">\(k\)</span>-core 는 <span class="math inline">\(G\)</span> 의 서브그래프 중 모든 vertex degree 가 최소한 <span class="math inline">\(k\)</span> 는 되는 것 서브그래프들 중에서도, 다른 서브그래프들이 <span class="math inline">\(k\)</span>-core 와 동일한 condition 을 따르지 않는 것을 <strong><span class="math inline">\(k\)</span>-core</strong> 라고 말함. 즉, 해당 성질을 보유한 서브그래프들 중 maximal 한 놈. core 라는 개념은 특히 visualization 쪽에서 핫함. 네트워크를 ‘layer’ 로 decomposition 할 방법론을 제공하기 때문.</p>
 <p>Figure 8: Visual representation of the k-core decomposition of the karate network</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="descriptive-statistics-of-networks.html#cb17-1" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">=</span> <span class="fu">graph.coreness</span>(karate)</span>
 <span id="cb17-2"><a href="descriptive-statistics-of-networks.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, cores, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col=</span><span class="st">&quot;skyblue&quot;</span>,</span>
@@ -833,22 +733,15 @@ network into ‘layers.’</p>
 <span id="cb17-5"><a href="descriptive-statistics-of-networks.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:sna&quot;</span>)</span>
 <span id="cb17-6"><a href="descriptive-statistics-of-networks.html#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">detach</span>(<span class="st">&quot;package:network&quot;</span>)</span></code></pre></div>
 <p>Figure 8: Visual representation of the k-core decomposition of the karate network</p>
-<p>Vertices of coreness one (black), two (red), three (green), and four (blue) are shown at successively smaller
-distances from the center, with the same distance for vertices within each core
-Other Classes of Subgraphs in Defining Network Cohesion.
-• Dyads are pairs of vertices and, in directed graphs, may take on three possible states: null (no
-directed edges), asymmetric (one directed edge), or mutual (two directed edges).
-• Triads are triples of vertices and may take on 16 possible states, ranging from the null subgraph
-to the subgraph in which all three dyads formed by the vertices in the triad have mutual directed
-edges.
-The vast majority of the dyads are null and, of those that are non-null, almost all are asymmetric,
-indicating a decided one-sidedness to the manner in which blogs in this network reference each other.</p>
+<p>core 에 포함된 vertex 들은 center 에서 크게 떨어지지 않았으며, 각 core 에서 일정한 거리를 유지하고 있음이 시각적으로 확인 가능.</p>
+<ul>
+<li>Network Cohesion 을 정의함에 있어서 쓰이는 다른 서브그래프들의 class</li>
+</ul>
+<p>vertex 2개를 뽑아 만든 쌍 (pair) 를 <strong>dyad</strong> 라고 부름. directed 그래프에서 dyad 는 3개의 상태를 가질 수 있다. null (no directed edges), asymmetric (one directed edge), mutual (two directed edges). 대부분의 dyad 는 보통 null 이며, non-null 중에서도 대부분은 aymmetric 이다. 후자의 경우는 블로그에서 서로이웃이 아니라 한쪽만 팔로잉하는 경우겠지.</p>
+<p>vertex 3개를 뽑아 만든 모음은 <strong>Triad</strong>. 이는 16개의 상태를 가질 수 있음. null 서브그래프부터, triad 에 속한 모든 vertex 들이 mutual directed edge 를 보유하는 서브그래프 까지.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="descriptive-statistics-of-networks.html#cb18-1" aria-hidden="true" tabindex="-1"></a>aidsblog <span class="ot">=</span> <span class="fu">simplify</span>(aidsblog)</span>
 <span id="cb18-2"><a href="descriptive-statistics-of-networks.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dyad.census</span>(aidsblog)</span></code></pre></div>
-<p>Consistent with the observations from our earlier analysis of hubs and authorities in this network
-• Small connected subgraphs of interest are commonly termed motifs.
-• The notion of motifs is particularly popular in the study of biological networks, where arguments
-often are made linking such network substructures to biological function.</p>
+<p>해당 데이터를 살펴보면 hub 와 authority 에 대한 기존 지식과 궤를 같이함을 확인 가능. <mark>Small connected subgraphs of interest are commonly termed motifs.</mark> <strong>motif</strong> 라는 개념은 생물 네트워크에서 두드러지게 유명한 개념, 생태계 substructure 를 biological function 과 연결지을때 자주 쓰임.</p>
 <p><br>
 <br>
 <br></p>
@@ -858,19 +751,8 @@ often are made linking such network substructures to biological function.</p>
 <ul>
 <li><strong>Density</strong></li>
 </ul>
-<p>The density of a graph is the frequency of realized edges relative to potential edges. For example,
-in a (undirected) graph G with no self-loops and no multiple edges, the density of a subgraph
-H = (VH, EH) is</p>
-<p>den(H) = |EH|
-|VH|(|VH| − 1)/2</p>
-<p>The value of den(H) will lie between zero and one and provides a measure of how close H is to
-being a clique. In the case that G is a directed graph, the denominator is replaced by |VH|(|VH|1).
-• Taking H = G yields the density of the overall graph G.
-• Conversely, taking H = Hv to be the set of neighbors of a vertex v ∈ V , and the edges between
-them, yields a measure of density in the immediate neighborhood of v.
-• The subgraphs corresponding to each of the instructor and the administrator, in union with their
-immediate respective neighborhoods i.e., the ego-centric networks around vertices 1 and 34 are
-noticeably more dense than the overall network.</p>
+<p>그래프의 <strong>Density</strong> 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 <span class="math inline">\(G\)</span> 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 <span class="math inline">\(H=(V_H, E_H)\)</span> 의 density 는 <span class="math inline">\(den(H) = \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}\)</span>. 해당 값은 <span class="math inline">\([0,1]\)</span> 에 존재하며 <span class="math inline">\(H\)</span> 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함. directed 그래프 라면 denominator 는 <span class="math inline">\(|V_H|(|V_H|-1)\)</span> 로 대체.</p>
+<p><span class="math inline">\(H=G\)</span> 인 상황이라면 전체 그래프 <span class="math inline">\(G\)</span> 에 대한 density 를 생산. 반대로 vertex <span class="math inline">\(v \in V\)</span> 의 neighbor 의 set <span class="math inline">\(H_v=H\)</span> 가 되게 한다면, 이들 사이의 edge 는 <span class="math inline">\(v\)</span> 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 ego-centric 네트워크는 원본의 overall 네트워크보다 명백히 dense 함.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="descriptive-statistics-of-networks.html#cb19-1" aria-hidden="true" tabindex="-1"></a>ego.instr <span class="ot">=</span> <span class="fu">induced.subgraph</span>(karate,<span class="fu">neighborhood</span>(karate, <span class="dv">1</span>, <span class="dv">1</span>)[[<span class="dv">1</span>]])</span>
 <span id="cb19-2"><a href="descriptive-statistics-of-networks.html#cb19-2" aria-hidden="true" tabindex="-1"></a>ego.admin <span class="ot">=</span> <span class="fu">induced.subgraph</span>(karate,<span class="fu">neighborhood</span>(karate, <span class="dv">1</span>, <span class="dv">34</span>)[[<span class="dv">1</span>]])</span>
 <span id="cb19-3"><a href="descriptive-statistics-of-networks.html#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">graph.density</span>(karate)</span>
@@ -880,27 +762,13 @@ noticeably more dense than the overall network.</p>
 <ul>
 <li><strong>Clustering Coefficients</strong></li>
 </ul>
-<p>The standard use of the term clustering coefficient typically refers to the quantity
-clT (G) = 3τ∆(G)
-τ3(G)
-,
-where τ∆(G) is the number of triangles in the graph G, and τ3(G), the number of connected triples
-(i.e., a subgraph of three vertices connected by two edges, also sometimes called a 2-star).
-• The value clT (G) is alternatively called the transitivity of the graph, and is a standard quantity of
-interest in the social network literature, where it is also referred to as the ‘fraction of transitive
-triples.’</p>
-<p>clT (G) is a measure of global clustering, summarizing the relative frequency with which connected
-triples close to form triangles.</p>
+<p>일반적으로 <span class="math inline">\(cl_T (G) = \frac{3\tau_\Delta (G)}{\tau_3 (G)}\)</span> 를 일컫음. 이때 <span class="math inline">\(\tau_\Delta (G)\)</span> 는 그래프 <span class="math inline">\(G\)</span> 안에 있는 모든 triangle 의 숫자이며, <span class="math inline">\(\tau_3 (G)\)</span> 는 connected triple, 즉 3개의 vertex 에 2개의 edge 가 놓여있는 (i.e., 2-star) vertex 들로 만든 서브그래프의 숫자. 이 <strong>Clustering Coefficients</strong> 인 <span class="math inline">\(cl_T(g)\)</span> 는 그래프의 <strong>transitivity</strong> 라고 불리기도 함. 이는 소셜 네트워크 문헌에서 일반적으로 관심을 갖는 변량 중 하나임. 다른 말로 <strong>fraction of transitive triples</strong> 라고도 불림. <span class="math inline">\(cl_T(g)\)</span> 는 global clsutring 의 measure 이며, connected triple 이 triangle 을 형성하기까지에 얼마나 가까운지에 대한 상대적 빈도를 서술함.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="descriptive-statistics-of-networks.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(karate)</span>
 <span id="cb20-2"><a href="descriptive-statistics-of-networks.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">transitivity</span>(karate, <span class="st">&quot;local&quot;</span>, <span class="at">vids=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">34</span>))</span></code></pre></div>
 <ul>
-<li><strong>Reciprocity</strong>
-• A concept unique to directed graphs
-• In the case that dyads are used as units, reciprocity is defined to be the number of dyads with reciprocated (i.e., mutual) directed edges divided by the number of dyads with a single, unreciprocated
-edge.
-• Reciprocity is defined as the total number of reciprocated edges divided by the total number of
-edges.</li>
+<li><strong>Reciprocity</strong></li>
 </ul>
+<p><strong>directed graph 에 한정된 개념</strong>. reciprocated (mutual) 한 edge 의 숫자를 총 edge 의 숫자로 나눈 것. 이는 single, unreciprocated 한 dyad 대비 reciprocated dyad 의 비중을 나타냄.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="descriptive-statistics-of-networks.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reciprocity</span>(aidsblog, <span class="at">mode=</span><span class="st">&quot;default&quot;</span>)</span>
 <span id="cb21-2"><a href="descriptive-statistics-of-networks.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">reciprocity</span>(aidsblog, <span class="at">mode=</span><span class="st">&quot;ratio&quot;</span>)</span></code></pre></div>
 <p><br>
