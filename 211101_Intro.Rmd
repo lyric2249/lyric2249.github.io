@@ -213,7 +213,7 @@ $$
 
 
 
-### Rao-Blackwell thm. {###raoblack}
+### Rao-Blackwell thm. {#raoblack}
 
 r***s*** $X_1 , \cdots, X_n \overset{iid}{\sim} f(x;\theta), \theta \in \Theta$.
 

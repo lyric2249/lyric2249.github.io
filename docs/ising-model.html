@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1 Abstract | Self-Study</title>
-  <meta name="description" content="2.1 Abstract | Self-Study" />
+  <title>B.2 Ising Model | Self-Study</title>
+  <meta name="description" content="B.2 Ising Model | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1 Abstract | Self-Study" />
+  <meta property="og:title" content="B.2 Ising Model | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1 Abstract | Self-Study" />
+  <meta name="twitter:title" content="B.2 Ising Model | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="bayesian.html"/>
-<link rel="next" href="continual-aeassessment-method.html"/>
+<link rel="prev" href="autologistics.html"/>
+<link rel="next" href="abstract-1.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -118,6 +118,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -197,11 +219,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> Data Augmentation</a></li>
-<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> Hit-and-Run Algorithm</a></li>
-<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> Metropolis-Adjusted Langevin Algorithm</a></li>
-<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> Multiple-Try Metropolis Algorithm</a></li>
-<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> Reversible Jump MCMC Algorithm</a></li>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> 1. Data Augmentation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> 2. Hit-and-Run Algorithm</a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> 3. Metropolis-Adjusted Langevin Algorithm</a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> 4. Multiple-Try Metropolis Algorithm</a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> 5. Reversible Jump MCMC Algorithm</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC</a>
 <ul>
@@ -504,28 +526,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
 <li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
-<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
-<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
-<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
-<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+<li class="chapter" data-level="10.1.7" data-path="tutorial.html"><a href="tutorial.html"><i class="fa fa-check"></i><b>10.1.7</b> Sharing your book</a></li>
+<li class="chapter" data-level="" data-path="tutorial.html"><a href="tutorial.html#references"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
-<li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
-<li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
+</ul></li>
+<li class="chapter" data-level="11" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>11</b> Concepts</a>
 <ul>
-<li class="chapter" data-level="9.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>9.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약</a></li>
-<li class="chapter" data-level="9.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>9.6.2</b> Ft-measurable</a></li>
-<li class="chapter" data-level="9.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>9.6.3</b> EPILOGUE</a></li>
+<li class="chapter" data-level="11.1" data-path="autologistics.html"><a href="autologistics.html"><i class="fa fa-check"></i><b>11.1</b> Autologistics</a></li>
+<li class="chapter" data-level="11.2" data-path="ising-model.html"><a href="ising-model.html"><i class="fa fa-check"></i><b>11.2</b> Ising Model</a></li>
 </ul></li>
-<li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts</a></li>
-</ul></li>
-<li class="appendix"><span><b>00-00</b></span></li>
-<li class="chapter" data-level="A" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>A</b> Concepts</a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="autologistic.html"><a href="autologistic.html"><i class="fa fa-check"></i><b>A.1</b> Autologistics</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>B</b> ABSTRACT</a></li>
+<li class="chapter" data-level="12" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>12</b> ABSTRACT</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -546,36 +556,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="abstract" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Abstract</h2>
-<p>조건부 확률은 sample sapce가 <span class="math inline">\(S\)</span>에서 <span class="math inline">\(B\)</span>로 축소되었다는 것을 의미한다.</p>
-<p>Bayesian의 Multiplication Rule은 사건이 시간순서대로 발생할 때 유용하게 사용될 수 있다.</p>
-<p>set of events become <strong>partition</strong> of sample space <span class="math inline">\(S\)</span>:
-1. mutually exclusive(disjoint)
-2. Pr of union <span class="math inline">\(=1\)</span></p>
-<p>event <span class="math inline">\(H\)</span>와 event <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>가 주어져 있다. <span class="math inline">\(A\)</span>와 <span class="math inline">\(B\)</span> 가 서로 독립이라면, <span class="math inline">\(H\)</span>가 주어졌을 때 <span class="math inline">\(A\)</span>가 추가되는 것이 <span class="math inline">\(B\)</span>에 대한 정보를 아는데 영향을 미치지 않는다. 수식으로 증명가능.</p>
-<p><span class="math inline">\(Dirichlet\)</span>, <span class="math inline">\(Wishart\)</span></p>
-<p><span class="math inline">\(posterior odds\)</span></p>
-<div id="변수의-독립성" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> 변수의 독립성</h3>
-<p><span class="math inline">\(X_1 , \cdots, X_n\)</span>이 공통 sample space <span class="math inline">\(S\)</span>를 갖는 변수이고 <span class="math inline">\(\theta\)</span> is unknown parameter.</p>
-<p>if <span class="math inline">\(S\)</span>, with for any subset(events) <span class="math inline">\(A_1 , \cdots, A_n\)</span>, $Pr(X_1 A_1 , , X_n A_n ) = Pr(X_1 A_1 ) * Pr(X_n A_n ), then <span class="math inline">\(X_1 , \cdots, X_n\)</span> 는 <span class="math inline">\(\theta\)</span>가 주어졌을 때 <strong>조건부 독립</strong>이다.</p>
-<p>이는 앞서 말한 event의 독립성에 대응된다. 위의 독립성은 event의 독립성과 마찬가지로 $Pr(X_i A_i , X_j A_j) = Pr(X_i A_i ) 가 성립. 이는 <span class="math inline">\(\theta\)</span>가 주어졌을 때 <span class="math inline">\(X_j\)</span>의 정보가 <span class="math inline">\(X_i\)</span>에 대하여 아무런 추가정보를 주지 못함을 의미한다.</p>
-<p>만약 세타가 주어진 상태에서 X1~Xn이 조건부 독립이라면 조건부 joint pdf는 각 조건부 margianl pdf의 곱과 같다. 만약 X-i가 모두 같은 분포를 따르면~. 이때 X_i들은 세타가 주어졌을 때 conditionally iid. 이는 marginal iid와는 구변된다. marginal iid는 X_i들의 marginal iid가 모두 같고 또한 독립이라는 소리.</p>
-</div>
-<div id="교환가능성" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> 교환가능성</h3>
-<p>독립성은 엄격한 조건. 만족안되는 경우 많음. 이것보다는 약조건이 <strong>교환가능성</strong>. 독립성 <span class="math inline">\(\rightarrow\)</span> 교환가능성이지만 교환가능성 <span class="math inline">\(\not \rightarrow\)</span> 독립성. 교환가능성까지만 만족되면 De Finetti thm은 성립함.</p>
+<div id="ising-model" class="section level2" number="11.2">
+<h2><span class="header-section-number">B.2</span> Ising Model</h2>
 
 </div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="bayesian.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="continual-aeassessment-method.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="autologistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="abstract-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -606,7 +598,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/202401_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010102_Ising.Rmd",
 "text": "Edit"
 },
 "history": {

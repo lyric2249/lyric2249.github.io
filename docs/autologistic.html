@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1 Abstract | Self-Study</title>
-  <meta name="description" content="2.1 Abstract | Self-Study" />
+  <title>A.1 Autologistics | Self-Study</title>
+  <meta name="description" content="A.1 Autologistics | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1 Abstract | Self-Study" />
+  <meta property="og:title" content="A.1 Autologistics | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1 Abstract | Self-Study" />
+  <meta name="twitter:title" content="A.1 Autologistics | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="bayesian.html"/>
-<link rel="next" href="continual-aeassessment-method.html"/>
+<link rel="prev" href="concepts-1.html"/>
+<link rel="next" href="abstract-1.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -546,36 +546,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="abstract" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Abstract</h2>
-<p>조건부 확률은 sample sapce가 <span class="math inline">\(S\)</span>에서 <span class="math inline">\(B\)</span>로 축소되었다는 것을 의미한다.</p>
-<p>Bayesian의 Multiplication Rule은 사건이 시간순서대로 발생할 때 유용하게 사용될 수 있다.</p>
-<p>set of events become <strong>partition</strong> of sample space <span class="math inline">\(S\)</span>:
-1. mutually exclusive(disjoint)
-2. Pr of union <span class="math inline">\(=1\)</span></p>
-<p>event <span class="math inline">\(H\)</span>와 event <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>가 주어져 있다. <span class="math inline">\(A\)</span>와 <span class="math inline">\(B\)</span> 가 서로 독립이라면, <span class="math inline">\(H\)</span>가 주어졌을 때 <span class="math inline">\(A\)</span>가 추가되는 것이 <span class="math inline">\(B\)</span>에 대한 정보를 아는데 영향을 미치지 않는다. 수식으로 증명가능.</p>
-<p><span class="math inline">\(Dirichlet\)</span>, <span class="math inline">\(Wishart\)</span></p>
-<p><span class="math inline">\(posterior odds\)</span></p>
-<div id="변수의-독립성" class="section level3" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> 변수의 독립성</h3>
-<p><span class="math inline">\(X_1 , \cdots, X_n\)</span>이 공통 sample space <span class="math inline">\(S\)</span>를 갖는 변수이고 <span class="math inline">\(\theta\)</span> is unknown parameter.</p>
-<p>if <span class="math inline">\(S\)</span>, with for any subset(events) <span class="math inline">\(A_1 , \cdots, A_n\)</span>, $Pr(X_1 A_1 , , X_n A_n ) = Pr(X_1 A_1 ) * Pr(X_n A_n ), then <span class="math inline">\(X_1 , \cdots, X_n\)</span> 는 <span class="math inline">\(\theta\)</span>가 주어졌을 때 <strong>조건부 독립</strong>이다.</p>
-<p>이는 앞서 말한 event의 독립성에 대응된다. 위의 독립성은 event의 독립성과 마찬가지로 $Pr(X_i A_i , X_j A_j) = Pr(X_i A_i ) 가 성립. 이는 <span class="math inline">\(\theta\)</span>가 주어졌을 때 <span class="math inline">\(X_j\)</span>의 정보가 <span class="math inline">\(X_i\)</span>에 대하여 아무런 추가정보를 주지 못함을 의미한다.</p>
-<p>만약 세타가 주어진 상태에서 X1~Xn이 조건부 독립이라면 조건부 joint pdf는 각 조건부 margianl pdf의 곱과 같다. 만약 X-i가 모두 같은 분포를 따르면~. 이때 X_i들은 세타가 주어졌을 때 conditionally iid. 이는 marginal iid와는 구변된다. marginal iid는 X_i들의 marginal iid가 모두 같고 또한 독립이라는 소리.</p>
-</div>
-<div id="교환가능성" class="section level3" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> 교환가능성</h3>
-<p>독립성은 엄격한 조건. 만족안되는 경우 많음. 이것보다는 약조건이 <strong>교환가능성</strong>. 독립성 <span class="math inline">\(\rightarrow\)</span> 교환가능성이지만 교환가능성 <span class="math inline">\(\not \rightarrow\)</span> 독립성. 교환가능성까지만 만족되면 De Finetti thm은 성립함.</p>
+<div id="autologistic" class="section level2" number="10.1">
+<h2><span class="header-section-number">A.1</span> Autologistics</h2>
+<p><strong><em>Source: <a href="https://tgmstat.wordpress.com/2013/01/18/auto-logistic-model/">#</a></em></strong></p>
+<p><strong><a href="auxiliary-variable-mcmc.html#ising">Ising</a></strong> 에 추가적인 조건을 덧붙인 결과물.</p>
+<p>2차원 lattice 를 가정. 이때 이 lattice 의 각 node 의 쌍 <span class="math inline">\((i,j)\)</span> 는 이에 엮인 랜덤 변수 <span class="math inline">\(X_{i,j}\)</span> 를 가짐.</p>
+<p><mark>이때 가장 가까이 위치하고 있는 최단거리 이웃 둘 사이의 관계를 서술하기 위해, 즉 상응하는 2개의 actor 사이의 상호작용에 해당하는 랜덤변수 <span class="math inline">\(X_{i,j}\)</span> 를 서술하기 위해 사용될 수 있는 조건부 확률의 형태는 이하와 같다.</mark></p>
+<p>이때 변수들 <span class="math inline">\(X_{i,j}\)</span> 들 사이의 상호관계를 서술하기 위해 적용될 수 있는 nearest-neighbor model 들 중 하나의 개념은 이하와 같이 조건부 확률의 형으로 제시된다.</p>
+<p><span class="math display">\[
+P(x_{i,j} | \text{all other values}) \equiv P(x_{i,j} | x_{i-1, j}, x_{i+1, j}, x_{i, j-1}, x_{i, j+1})
+\]</span></p>
+<p>위의 식이 직관적인 표현을 제시하긴 하지만 여기에도 단점은 있음. 예를 들어 lattice 의 joint probability distribution 을 평가할 방법이 없으며, 또 이런 조건부 확률로 표현하는 함수의 형은 severe consistency condition 에 강하게 의존함.</p>
+<p>model 이 spatially homogenous 라고 가정하고 binary 데이터를 사용한다고 가정하자. 그러면 이하과 같이 식을 작성할 수 있다.</p>
+<p><span class="math display">\[
+ \exists \alpha, \beta_1, \beta_2 \in \mathbb R:
+p(x_{i,j}|x_{i-1,j},x_{i+1,j},x_{i,j-1},x_{i,j+1})
+\\
+=
+\frac{\exp \Bigg\{x \bigg[ \alpha+\beta_{1}(x_{i-1,j}+x_{i+1,j})+\beta_{2}(x_{i,j-1}+x_{i,j+1})\bigg]\Bigg\}}
+{1+\exp\Bigg\{\alpha+\beta_{1}(x_{i-1,j}+x_{i+1,j})+\beta_{2}(x_{i,j-1}+x_{i,j+1})\Bigg\}}
+\]</span></p>
+<p>위의 모델과 logistic regression model 간에 어느정도 유사점을 발견할 수 있을 것. 때문에 위의 모델을 <strong>auto-logistic model</strong> 이라고 명명하였다.</p>
+<p>boundary of zeros <span class="math inline">\(\mathbf x_B = 0\)</span> 이 lattice 의 inner array <span class="math inline">\(\mathbf x_I\)</span> 를 둘러싸고 있다고 한다면 이하가 성립한다. 이때 모든 <span class="math inline">\((i,j)\in I\)</span> 에 대한 summation 과 <span class="math inline">\(C(\alpha, \beta_1, \beta_2)\)</span> 는 normalizing function. 이의 실값 자체는 array 의 dimension 에 의존하여 정해짐.</p>
+<p><span class="math display">\[
+P\{{\bf x_{i}}|{\bf x_{B}}=0\}=\frac{\exp \Bigg \{\sum \Big (\alpha+\beta_{1}x_{i-1,j}+\beta_{2}x_{i,j-1} \Big )x_{i,j} \Bigg \}}{C(\alpha,\beta_{1,}\beta_{2})}
+\]</span></p>
+<p>위의 결과는 closed boundary 만 가지고 있다면 그 closed boundary 가 뭔 형태든 성립함. 위의 결과를 가지면 문서의 가장 위에서 제시했던 조건부 확률의 식의 형과 일치하는 결과를 얻을 수 있지만, 이 시점까지도 아직 lattice 의 joint probability distribution 을 직접적으로 얻을 수는 없다는 점을 또 notice.</p>
 
 </div>
-</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="bayesian.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="continual-aeassessment-method.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="concepts-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="abstract-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -606,7 +612,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/202401_Intro.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010101_Autologistic.Rmd",
 "text": "Edit"
 },
 "history": {
