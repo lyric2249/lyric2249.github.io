@@ -506,4 +506,7 @@ epilogue
 concepts
 concepts-1
 autologistic
+orderlogit
 abstract-1
+cnn
+cnn-1

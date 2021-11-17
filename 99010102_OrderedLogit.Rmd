@@ -1,45 +1,4 @@
-## Autologistics {#autologistic}
-
-***Source: [#](https://tgmstat.wordpress.com/2013/01/18/auto-logistic-model/)***
-
-**[Ising](#ising)** 에 추가적인 조건을 덧붙인 결과물.
-
-2차원 lattice 를 가정. 이때 이 lattice 의 각 node 의 쌍 $(i,j)$ 는 이에 엮인 랜덤 변수 $X_{i,j}$ 를 가짐. 
-
-<mark>이때 가장 가까이 위치하고 있는 최단거리 이웃 둘 사이의 관계를 서술하기 위해, 즉 상응하는 2개의 actor 사이의 상호작용에 해당하는 랜덤변수 $X_{i,j}$ 를 서술하기 위해 사용될 수 있는 조건부 확률의 형태는 이하와 같다.</mark>
-
-이때 변수들 $X_{i,j}$ 들 사이의 상호관계를 서술하기 위해 적용될 수 있는 nearest-neighbor model 들 중 하나의 개념은 이하와 같이 조건부 확률의 형으로 제시된다.
-
-$$
-P(x_{i,j} | \text{all other values}) \equiv P(x_{i,j} | x_{i-1, j}, x_{i+1, j}, x_{i, j-1}, x_{i, j+1})
-$$
-
-위의 식이 직관적인 표현을 제시하긴 하지만 여기에도 단점은 있음. 예를 들어 lattice 의 joint probability distribution 을 평가할 방법이 없으며, 또 이런 조건부 확률로 표현하는 함수의 형은 severe consistency condition 에 강하게 의존함.
-
-model 이 spatially homogenous 라고 가정하고 binary 데이터를 사용한다고 가정하자. 그러면 이하과 같이 식을 작성할 수 있다.
-
-$$
- \exists \alpha, \beta_1, \beta_2 \in \mathbb R:
-p(x_{i,j}|x_{i-1,j},x_{i+1,j},x_{i,j-1},x_{i,j+1})
-\\
-=
-\frac{\exp \Bigg\{x \bigg[ \alpha+\beta_{1}(x_{i-1,j}+x_{i+1,j})+\beta_{2}(x_{i,j-1}+x_{i,j+1})\bigg]\Bigg\}}
-{1+\exp\Bigg\{\alpha+\beta_{1}(x_{i-1,j}+x_{i+1,j})+\beta_{2}(x_{i,j-1}+x_{i,j+1})\Bigg\}}
-$$
-
-
-
-위의 모델과 logistic regression model 간에 어느정도 유사점을 발견할 수 있을 것. 때문에 위의 모델을 **auto-logistic model** 이라고 명명하였다.
-
-boundary of zeros $\mathbf x_B = 0$ 이 lattice 의 inner array $\mathbf x_I$ 를 둘러싸고 있다고 한다면 이하가 성립한다. 이때 모든 $(i,j)\in I$ 에 대한 summation 과 $C(\alpha, \beta_1, \beta_2)$ 는 normalizing function. 이의 실값 자체는 array 의 dimension 에 의존하여 정해짐.
-
-
-$$
-P\{{\bf x_{i}}|{\bf x_{B}}=0\}=\frac{\exp \Bigg \{\sum \Big (\alpha+\beta_{1}x_{i-1,j}+\beta_{2}x_{i,j-1} \Big )x_{i,j} \Bigg \}}{C(\alpha,\beta_{1,}\beta_{2})}
-$$
-
-위의 결과는 closed boundary 만 가지고 있다면 그 closed boundary 가 뭔 형태든 성립함. 위의 결과를 가지면 문서의 가장 위에서 제시했던 조건부 확률의 식의 형과 일치하는 결과를 얻을 수 있지만, 이 시점까지도 아직 lattice 의 joint probability distribution 을 직접적으로 얻을 수는 없다는 점을 또 notice.
-
+## Ordered Logit {#orderlogit}
 
 
 
