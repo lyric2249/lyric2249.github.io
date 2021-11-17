@@ -36,7 +36,7 @@ sort: 4
 
 ##### Auxiliary Variable MCMC Methods
 
-$f(x)$를 가지는 mv 분포에서의 샘플링을 생각해보자. **Rao-Blackwellization**이 MC 시뮬레이션에의 최우선원칙임은 알려져 있다. 시뮬레이션의 수렴을 좀 더 강화하기 위해 우리는 가능한한 많은 $x$의 구성물을 integrate하는 것을 시도해보아야 한다. 하지만 이하의 두가지 경우(이외에도 존재)에 시뮬레이션을 양질로 만들기 위해 우리는 1개 이상의 변수를 추가하는 상황을 고려할 수 있다.
+$f(x)$를 가지는 mv 분포에서의 샘플링을 생각해보자. **Rao-Blackwellization**(@/ref(raoblack))이 MC 시뮬레이션에의 최우선원칙임은 알려져 있다. 시뮬레이션의 수렴을 좀 더 강화하기 위해 우리는 가능한한 많은 $x$의 구성물을 integrate하는 것을 시도해보아야 한다. 하지만 이하의 두가지 경우(이외에도 존재)에 시뮬레이션을 양질로 만들기 위해 우리는 1개 이상의 변수를 추가하는 상황을 고려할 수 있다.
 1. 타겟분포 $f(x)$가 multimodal. 온도 혹은 아직 관측되지 않은 측정값과 같은 auxiliary variable이 계가 **로컬 트랩**에서 빠져나올 수 있도록 도움을 줌. multimodal 상황.
 2. 타겟분포 $f(x)$가 intractable normalizing constant 포함. $X$의 auxiliary 실현값이 시뮬레이션에 포함됨으로써 시뮬레이션에서 normalizing constant 를 무력화시킴.
 

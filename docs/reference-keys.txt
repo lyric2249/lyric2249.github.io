@@ -26,11 +26,10 @@ thm:unlabeled-div-24
 def:unlabeled-div-25
 thm:unlabeled-div-26
 def:unlabeled-div-27
+def:unlabeled-div-31
 def:unlabeled-div-28
 def:unlabeled-div-29
-def:unlabeled-div-30
-def:unlabeled-div-31
-thm:unlabeled-div-32
+thm:unlabeled-div-30
 fig:nice-fig
 tab:nice-tab
 categorical
@@ -47,7 +46,7 @@ inference
 rao-blackwell-thm.
 completeness
 레만-쉐페-thm.
-rao-blackwell-thm.-1
+rao-blackwell-thm.-raoblack
 hypothesis-test
 power-fucntion
 significance-probability-p-value
@@ -210,9 +209,6 @@ one-way-manova
 multivariate-multiple-regression-wk6
 overview-4
 multivariate-multiple-regression
-least-square
-hypothesis-testing
-full-model-vs.-reduced-model
 example
 sampling-distribution-of-the-wilks-lambda
 prediction
@@ -534,5 +530,7 @@ sharing-your-book
 publishing
 pages
 metadata-for-sharing
-noname
+concepts-1
+autologistics
+ising-model-ising
 abstract-1
