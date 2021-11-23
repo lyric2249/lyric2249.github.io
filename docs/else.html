@@ -289,7 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
 <li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
-<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
 <li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
@@ -553,7 +554,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.10</span> Else</h2>
 <div id="hw4.-rasch-model" class="section level3" number="4.10.1">
 <h3><span class="header-section-number">4.10.1</span> Hw4. Rasch Model</h3>
-<p>$
+<p>$$
 <span class="math display">\[\begin{align}
 
 L(\theta, \beta) &amp;= \prod_{k=1}^n \prod_{i=1}^p \left\{ \dfrac{\exp(\theta_k + \beta_i)}{1 + \exp(\theta_k + \beta_i)}\right\}^{y_{ki}} \left\{ \dfrac{1}{1 + \exp(\theta_k + \beta_i)}\right\}^{1-y_{ki}} \\
@@ -564,54 +565,52 @@ L(\theta, \beta) &amp;= \prod_{k=1}^n \prod_{i=1}^p \left\{ \dfrac{\exp(\theta_k
 
 
 \end{align}\]</span>
-$</p>
-<p>$</p>
-<p>0&lt;{ }^{y_{ki}} &lt;1, ; ; ; ; ; 0&lt;{ }^{1-y_{ki}}&lt;1</p>
-<p>$</p>
+$$</p>
+<p><span class="math display">\[
+0&lt;\left\{ \dfrac{\exp(\theta_k + \beta_i)}{1 + \exp(\theta_k + \beta_i)}\right\}^{y_{ki}} &lt;1, \; \; \; \; \; 0&lt;\left\{ \dfrac{1}{1 + \exp(\theta_k + \beta_i)}\right\}^{1-y_{ki}}&lt;1
+\]</span></p>
 <p><strong>underflow problem</strong>. log 취하면 해결.</p>
-<p>$</p>
-<p>(_k) N(0, ^2), ; ; ; ; ; (^2 ) IG(0.001, 0.001)</p>
-<p>$</p>
-<p>update <span class="math inline">\(\theta_k , k=1, \cdots, n\)</span>”</p>
-<p>$
-(r) = (<em>k ’ y, ^{(t)}. </em>{-k}^{(t)} - (^{(t)} y, ^{(t)}. _{-k}^{(t)}
-$</p>
+<p><span class="math display">\[
+\pi(\theta_k) \sim N(0, \sigma^2), \; \; \; \; \; \pi(\sigma^2 ) \sim IG(0.001, 0.001)
+\]</span></p>
+<p>update <span class="math inline">\(\theta_k , k=1, \cdots, n\)</span>"</p>
+<p><span class="math display">\[
+\log (r) = \log \pi (\theta_k &#39; \vert y, \beta^{(t)}. \theta_{-k}^{(t)} - \log \pi (\theta^{(t)} \vert y, \beta^{(t)}. \theta_{-k}^{(t)}
+\]</span></p>
 <p>if <span class="math inline">\(\log U &lt; min(\log(r), 0))\)</span>, accept. else, reject.</p>
 <hr />
 </div>
 <div id="da-example-mvn" class="section level3" number="4.10.2">
 <h3><span class="header-section-number">4.10.2</span> DA) Example: MVN</h3>
 <p>for DA 알고리즘, I-step과 P-step이 존재.</p>
-<div id="i-step" class="section level5" number="4.10.2.0.1">
-<h5><span class="header-section-number">4.10.2.0.1</span> 1. I-Step</h5>
-<p>$
+<div id="i-step" class="section level4" number="4.10.2.1">
+<h4><span class="header-section-number">4.10.2.1</span> 1. I-Step</h4>
+<p>$$
 <span class="math display">\[\begin{alignat}{4}
-
-
 
 Y_2 \vert Y_1 &amp;\sim N &amp;&amp; \Big( \mu_2 + \Sigma_{21} \Sigma_{11}^{-1} (Y_1 - \mu_1) , &amp;&amp; \Sigma_{22}  - \Sigma_{21}\Sigma_{11}^{-1} \Sigma_{12} \Big) \\
 
 Y_{i, mis} \vert Y_{i, obs}, \mu, \Sigma &amp;\sim N_{dim(Y_{mis}^{(i)})} &amp;&amp; \Big( \mu_{mis}^{(i)} + \Sigma_{mis, obs}^{(i)} \Sigma_{obs, obs}^{-1} (Y_{i, obs} - \mu_{i, mis}^{(i)}) , &amp;&amp; \Sigma_{mis,mis}^{(i)}  - \Sigma_{mis,obs}^{(i)}[\Sigma_{obs,obs}^{(i)}]^{-1} \Sigma_{obs,mis}^{(i)} \Big)
 
 \end{alignat}\]</span>
-$</p>
+$$</p>
 <p>상기의 conditional pdf로 우리는 <span class="math inline">\(Y_{i, mis}\)</span>를 impute 가능.</p>
 <p><strong>for <span class="math inline">\(i=1, \cdots, n\)</span>, <span class="math inline">\(Y_{i, mis} \vert Y_{i, obs}\)</span> 에서 <span class="math inline">\(Y_{i, mis}\)</span>를 draw.</strong></p>
 </div>
-<div id="p-step" class="section level5" number="4.10.2.0.2">
-<h5><span class="header-section-number">4.10.2.0.2</span> 2. P-Step</h5>
+<div id="p-step" class="section level4" number="4.10.2.2">
+<h4><span class="header-section-number">4.10.2.2</span> 2. P-Step</h4>
 <p>베이지안 분석을 위해선 prior가 필요. 여기서 prior는 이하로 설정하자. <span class="math inline">\(q\)</span>는 known integer이며, <span class="math inline">\(q=p\)</span>인 상황에 이는 <span class="math inline">\(\Sigma\)</span>에 대한 Jefferey’s prior.</p>
-<p>$</p>
-<p>(, ) ^{-}</p>
-<p>$</p>
+<p><span class="math display">\[
+\pi (\mu, \Sigma) \propto \vert \Sigma \vert^{-\tfrac{q+1}{2}}
+\]</span></p>
 <p>위와 같이 식들을 구성하였을 때, com 데이터에 대한 posterior distribution <span class="math inline">\(\pi(\mu, \Sigma \vert Y_1 , \cdots, Y_n)\)</span>는 이하와 같이 characterized 가능. 이는 inverse-Wishart 분포.</p>
-<p>$</p>
-<p>Y_1 , , Y_n  { - tr( ^{-1} S ) }</p>
-<p>$</p>
+<p><span class="math display">\[
+\Sigma \vert Y_1 , \cdots, Y_n \sim \dfrac{1}{\vert \Sigma \vert^{-\tfrac{q+n}{2}}} \exp \left\{ -\dfrac{1}{2} tr\left( \Sigma^{-1} S \right) \right\}
+\]</span></p>
 <p>이렇게 획득해온 패러미터들을 사용해 <span class="math inline">\(\mu\)</span>의 post를 구하면 이하와 같다.</p>
-<p>$</p>
-<p>, Y_1 , , Y_n N_p ( Y  )</p>
-<p>$</p>
+<p><span class="math display">\[
+\mu \vert \Sigma, Y_1 , \cdots, Y_n \sim N_p \left( \bar Y \dfrac {1}{n} \Sigma \right)
+\]</span></p>
 <p><strong><span class="math inline">\(\Sigma \vert Y_1 , \cdots, Y_n\)</span>에서 <span class="math inline">\(\Sigma\)</span> 를 생산</strong></p>
 <p><strong>이후 <span class="math inline">\(\mu \vert \Sigma, Y_1 , \cdots, Y_n\)</span>에서 <span class="math inline">\(\mu\)</span> 를 생산</strong></p>
 <hr />
@@ -619,8 +618,8 @@ $</p>
 </div>
 <div id="bayesian-adaptive-clinical-trial-with-delayed-outcomes" class="section level3" number="4.10.3">
 <h3><span class="header-section-number">4.10.3</span> Bayesian adaptive clinical trial with delayed outcomes</h3>
-<div id="continual-reassessment-method" class="section level5" number="4.10.3.0.1">
-<h5><span class="header-section-number">4.10.3.0.1</span> Continual Reassessment Method</h5>
+<div id="continual-reassessment-method" class="section level4" number="4.10.3.1">
+<h4><span class="header-section-number">4.10.3.1</span> Continual Reassessment Method</h4>
 <p>Clinical Trial: Toxicity -&gt; Efficacy -&gt; Confirmation</p>
 <p>희귀병 케이스에서는 도즈 레벨을 1~n까지 정해둔 후, 샘플을 slice 하여 1번 subsample에 도즈1 투입. 유효하면 (1차시에 3명 투입했다고 하고 그중에 1명이 독성 나왔으면 독성 확률은 1/3. 해당 여부로 도즈2로 넘어갈 것인지를 판단) 2투입. 2에서 문제 생기면 1로 복귀하고 2번 subsample에 도즈1 투입해봐서 유효한지 검증. 이렇게 모든 서브샘플에 도즈레벨 오가면서 투입해보고 최적 도즈레벨 결정.</p>
 <p><img src="99-0.png"></p>
@@ -639,22 +638,49 @@ $</p>
 <div id="nmar의-종류" class="section level3" number="4.10.4">
 <h3><span class="header-section-number">4.10.4</span> NMAR의 종류</h3>
 <p><span class="math inline">\(m_i\)</span>는 missing indicator. <span class="math inline">\(Y_i\)</span>가 mis면 1.</p>
-<p>$
-f(M, Y X, , ) = _{i=1}^n f(m_i , y_i x_i , , psi)
-$</p>
+<p><span class="math display">\[
+f(M, Y \vert X, \theta, \psi) = \prod_{i=1}^n f(m_i , y_i \vert x_i , \theta, psi)
+\]</span></p>
 <p>interested in <strong>direct</strong> relationship b/w <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, rather than in subpopulation defined by missing-data pattern.</p>
-<div class="line-block">Selection Model | characterize <span class="math inline">\(y\)</span> | missing mechanism |<br />
-<span class="math inline">\(f(m_i, y_i \vert x_i, \theta, \psi) =\)</span> | <span class="math inline">\(f_y(y_i \vert x_i, \theta)\)</span> | <span class="math inline">\(\ast f_{m \vert y}(m_i \vert x_i, y_i, \psi)\)</span> |<br />
-<span class="math inline">\(f(m_i, y_i \vert x_i, \xi, \psi) =\)</span> | <span class="math inline">\(f(y_i \vert x_i, \xi)\)</span> | <span class="math inline">\(\ast f(m_i \vert x_i, \xi)\)</span> |<br />
-Pattern Mixture model | mis 데이터의 다른 패턴들에 의해 <br>정의되는 각각 다른 strata에서의 <span class="math inline">\(y_i \vert x_i\)</span>의 분포 | probability of different patterns in missingness |</div>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Selection Model</th>
+<th align="center">characterize <span class="math inline">\(y\)</span></th>
+<th align="center">missing mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><span class="math inline">\(f(m_i, y_i \vert x_i, \theta, \psi) =\)</span></td>
+<td align="center"><span class="math inline">\(f_y(y_i \vert x_i, \theta)\)</span></td>
+<td align="center"><span class="math inline">\(\ast f_{m \vert y}(m_i \vert x_i, y_i, \psi)\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><span class="math inline">\(f(m_i, y_i \vert x_i, \xi, \psi) =\)</span></td>
+<td align="center"><span class="math inline">\(f(y_i \vert x_i, \xi)\)</span></td>
+<td align="center"><span class="math inline">\(\ast f(m_i \vert x_i, \xi)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">Pattern Mixture model</td>
+<td align="center">mis 데이터의 다른 패턴들에 의해 <br>정의되는 각각 다른 strata에서의 <span class="math inline">\(y_i \vert x_i\)</span>의 분포</td>
+<td align="center">probability of different patterns in missingness</td>
+</tr>
+</tbody>
+</table>
 <p>missing의 다른 패턴에 따라 <span class="math inline">\(x_i\)</span>가 결정이 되고, 그 <span class="math inline">\(x_i\)</span>를 기준으로 놓았을 때의 <span class="math inline">\(y_i\)</span>의 분포가 궁금.</p>
 <hr />
 </div>
 <div id="wk10-bayesian-model-selection" class="section level3" number="4.10.5">
 <h3><span class="header-section-number">4.10.5</span> wk10) Bayesian Model Selection</h3>
 <p>해당 문제는 prior을 어떻게 고르느냐에 따라서 해결될 수 있음. 이하는 해당 문제에 대한 다양한 해결책들.</p>
-<div id="spike-and-slab-prior" class="section level5" number="4.10.5.0.1">
-<h5><span class="header-section-number">4.10.5.0.1</span> 1. Spike-and-Slab prior</h5>
+<div id="spike-and-slab-prior" class="section level4" number="4.10.5.1">
+<h4><span class="header-section-number">4.10.5.1</span> 1. Spike-and-Slab prior</h4>
 <p>let <span class="math inline">\(X_{n \times p} , Y_{n \times 1}\)</span>, then <span class="math inline">\(Y = X \beta\)</span>, where <span class="math inline">\(\beta_{p \times 1}\)</span>.</p>
 <p>p가 많다, 즉 배리어블이 많다는 이야기는 실제 각각의 x의 정보량이 중첩될 가능성이 큼. 그러면 수학적으로는 x’x가 full rank matrix가 아닐 것이며, 이는 곧 몇몇 변수들 간에 서로간의 의존관계가 강하여 의미없는 정보를 포함하는 변수들이 많아질 것. 이러한 의미없는 변수를 삭제하고 실제로 필요한 변수들만 골라내어 y에 대한 inference를 하고 싶음. 이것이 모델 셀렉션 문제이며 이걸 베이지안적으로 풀어내는 것이 곧 Bayesian Model Selection.</p>
 <p>무지성 prior로는 <span class="math inline">\(\pi(\beta) \sim N(0, \sigma^2)\)</span>가 쓰이지만, 이로는 variable selection이 불가. <span class="math inline">\(\beta\)</span> 중 하나의 component가 0에 가깝게 나왔다고 한들 이것을 0으로 판정할 indicator가 없기 때문. (HPD interval을 구성해서 이것이 0을 포함하면 내치는 식의 방법도 있지만 일단은.)</p>
@@ -667,12 +693,12 @@ Pattern Mixture model | mis 데이터의 다른 패턴들에 의해 <br>정의�
 <p><img src = "99-1.png"></p>
 <p>spike 파트 (아래에서는 <span class="math inline">\((1-\lambda)N(0, \sigma^2)\)</span>) 에는 double exponential을 쓰거나, normal 을 변형해서 사용함. 혹은 극단적으로는 dirac 분포 (point mass) 를 쓸 수도 있음.</p>
 <p>이하에서 예시로 제시된 수식은 SS prior이며, 이는 spike와 slab 모두 Normal을 사용하였음.</p>
-<p>$
-() (1-)N(0, ^2) + N(0, ^2), ; ; ; ; ; w 
-$</p>
+<p><span class="math display">\[
+\pi(\beta) \sim (1-\lambda)N(0, \sigma^2) + \lambda N(0, \omega \sigma^2), \; \; \; \; \; w \gg 1
+\]</span></p>
 <p>위에서 <span class="math inline">\(\sigma^2\)</span>는 spike variance, <span class="math inline">\(w \sigma^2\)</span>는 slab variance.</p>
 <p>여기서 <span class="math inline">\(\lambda\)</span>가 취할 수 있는 값은 0 아니면 1. 확인할 수 있듯이 1이면 slab part, 즉 significant하고, 0이면 역으로 not significant. 우리는 이에 MCMC 알고리즘을 적용하게 되며, 따라서 MCMC 샘플로 계산을 하면 해당 샘플에서 0인 propotion과 1인 비율이 나오게 될 것. 이때 1인 비율이 0.5 이상이면? 해당 component (변수) 는 significant 하다고 결론짓는 것이 가능하다.</p>
-<p>$
+<p>$$
 <span class="math display">\[\begin{alignat}{3}
 
 \pi(\beta, \lambda, \sigma^2, \omega \vert y, x) &amp;\sim \pi(\beta \vert \lambda, \sigma^2, \omega )  \pi(\lambda, \sigma^2, \omega) &amp;&amp; f(y \vert x, \beta, \lambda, \sigma^2, \omega) \\
@@ -683,14 +709,14 @@ $</p>
 \pi(\lambda) &amp;\sim BETA(1,1), \; \; \; \pi(\sigma^2) \sim \cdot \tag{1}, \; \; \; \omega \sim 1 + GAM(\alpha, \beta)
 
 \end{alignat}\]</span>
-$</p>
+$$</p>
 <ol style="list-style-type: decimal">
 <li>이때 <span class="math inline">\(\sigma^2\)</span>는 우리가 임의로 fixed 해서 given으로 잡거나, 위처럼 prior로 해서 시뮬레이션 중에 생산되도록 할수도 있다. 여기선 <span class="math inline">\(\dfrac{1}{U(4,100)}\)</span>을 사용.</li>
 </ol>
 <p>accept를 하기 위해선 위를 돌리면 됨. 이는 <strong>Stochastic Search Variable Selection (SSVS)</strong>라고 불림. 이는 GS를 통하여 패러미터를 sequentially update. 이의 결과값은 다음과 같으며, 프로세스는 그 다음과 같다.</p>
-<p>$
-(_1 , , _p, _1, , _p, ^2, )
-$</p>
+<p><span class="math display">\[
+(\beta_1 , \cdots, \beta_p, \lambda_1, \cdots, \lambda_p, \sigma^2, \omega)
+\]</span></p>
 <ul>
 <li>Proceeds:
 <ol style="list-style-type: decimal">
@@ -713,11 +739,11 @@ $</p>
 </ul>
 <hr />
 </div>
-<div id="horseshoe-prior-scale-mixture-prior" class="section level5" number="4.10.5.0.2">
-<h5><span class="header-section-number">4.10.5.0.2</span> 2. Horseshoe prior (Scale-mixture prior)</h5>
+<div id="horseshoe-prior-scale-mixture-prior" class="section level4" number="4.10.5.2">
+<h4><span class="header-section-number">4.10.5.2</span> 2. Horseshoe prior (Scale-mixture prior)</h4>
 <p><strong>distribution에서 scale이란 Variance</strong>.</p>
 <p>위와 동일 케이스 가정. 그 경우</p>
-<p>$
+<p>$$
 <span class="math display">\[\begin{alignat}{4}
 
 \pi(\beta \vert y, x) \propto f(y \vert x, \beta) \pi(\beta), \; \; \; \; \; &amp;\pi(\beta) &amp;&amp; \sim N(0, \sigma^2) \\
@@ -725,7 +751,7 @@ $</p>
 \Longrightarrow &amp;\pi(\beta_i \vert \tau, \lambda_i) &amp;&amp; \sim N(0, \tau^2 \lambda_i^2) 
 
 \end{alignat}\]</span>
-$</p>
+$$</p>
 <ul>
 <li>where <span class="math inline">\(pi(\tau^2), \pi(\lambda_i^2) \sim Cauchy^{+}(0,1)\)</span></li>
 </ul>
@@ -750,8 +776,8 @@ $</p>
 <p>이를 통해 최종적으로 posterior sample 같은 경우에는 각 모델 별로 model probability에 posterior sample의 probability를 다 더해준 값이 실제로 우리의 <span class="math inline">\(\theta\)</span>에 대한 post가 된다.</p>
 <p>즉슨 BMA란 다양한 모델 후보군들이 존재할 때, 그 어떤 상황에서도 robust inference를 가능케 하는 tool이 바로 BMA.</p>
 <hr />
-<div id="ex-bma-crm" class="section level5" number="4.10.7.0.1">
-<h5><span class="header-section-number">4.10.7.0.1</span> Ex: BMA-CRM</h5>
+<div id="ex-bma-crm" class="section level4" number="4.10.7.1">
+<h4><span class="header-section-number">4.10.7.1</span> Ex: BMA-CRM</h4>
 <p>CRM 시작 전에 skeleton 정하고 시작하는 건 자명. 근데 이 skeleton이 잘못 선정되었다면 제대로된 도즈 selection이 불가능해지므로 skeleton의 선정이 잘못되어 있다면 이는 치명적임. 상식적으로, 하나의 skeleton으로만 도즈 셀렉션을 진행한다면 문제가 생길 확률은 당연히 높음. 이런 리스크를 희석하기 위해 skeleton을 다수를 정하고 CRM을 시작하면 이런 문제를 다소 회피할 수 있지 않을까? 이때 이 각각의 스켈레톤 하나하나를 모델로 인식한다. 이 각각의 모델에 따라서 CRM을, 즉 도즈레벨을 업데이트할 확률을, 즉 업데이트 할 때 패러미터 evaluation을 하는데, 그때 나오는 패러미터 값과 그 각각의 모델 probability를 비교하여 그 모델 averaging을 해주면 그 어떤 상황이 와도 굉장히 robust 한 값을 획득할 수 있을 것.</p>
 <hr />
 <ol style="list-style-type: decimal">
