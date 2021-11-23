@@ -182,13 +182,13 @@ $Q$ 가 symmetric Matrix 일 때 이하를 정의할 수 있다.
 
 $$
 \begin{align}
-
 \|Q\|_{\mathrm{{op}}}&=\operatorname*{sup}_{\|u\|_{2}=1}\|Q u\|_{2} \tag{l2-operator norm}
 \\
 \|Q\|_{\mathrm{{F}}}&={\sqrt{\sum_{i=1}^{n}\sum_{j=1}^{n}Q_{i j}^{2}}} \tag{Frobenius norm}
-
 \end{align}
 $$
+
+
 
 :::{.theorem name="Hanson–Wright inequality"}
 
