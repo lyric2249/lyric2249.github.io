@@ -7,7 +7,7 @@ sort: 99
 
 ### Hw4. Rasch Model
 
-$
+$$
 \begin{align}
 
 L(\theta, \beta) &= \prod_{k=1}^n \prod_{i=1}^p \left\{ \dfrac{\exp(\theta_k + \beta_i)}{1 + \exp(\theta_k + \beta_i)}\right\}^{y_{ki}} \left\{ \dfrac{1}{1 + \exp(\theta_k + \beta_i)}\right\}^{1-y_{ki}} \\
@@ -18,28 +18,24 @@ L(\theta, \beta) &= \prod_{k=1}^n \prod_{i=1}^p \left\{ \dfrac{\exp(\theta_k + \
 
 
 \end{align}
-$
+$$
 
-$
-
+$$
 0<\left\{ \dfrac{\exp(\theta_k + \beta_i)}{1 + \exp(\theta_k + \beta_i)}\right\}^{y_{ki}} <1, \; \; \; \; \; 0<\left\{ \dfrac{1}{1 + \exp(\theta_k + \beta_i)}\right\}^{1-y_{ki}}<1
-
-$
+$$
 
 
 **underflow problem**. log 취하면 해결.
 
-$
-
+$$
 \pi(\theta_k) \sim N(0, \sigma^2), \; \; \; \; \; \pi(\sigma^2 ) \sim IG(0.001, 0.001)
-
-$
+$$
 
 update $\theta_k , k=1, \cdots, n$"
 
-$
+$$
 \log (r) = \log \pi (\theta_k ' \vert y, \beta^{(t)}. \theta_{-k}^{(t)} - \log \pi (\theta^{(t)} \vert y, \beta^{(t)}. \theta_{-k}^{(t)}
-$
+$$
 
 
 if $\log U < min(\log(r), 0))$, accept. else, reject.
@@ -54,51 +50,43 @@ if $\log U < min(\log(r), 0))$, accept. else, reject.
 
 for DA 알고리즘, I-step과 P-step이 존재.
 
-##### 1. I-Step
+#### 1. I-Step
 
-$
+$$
 \begin{alignat}{4}
-
-
 
 Y_2 \vert Y_1 &\sim N && \Big( \mu_2 + \Sigma_{21} \Sigma_{11}^{-1} (Y_1 - \mu_1) , && \Sigma_{22}  - \Sigma_{21}\Sigma_{11}^{-1} \Sigma_{12} \Big) \\
 
 Y_{i, mis} \vert Y_{i, obs}, \mu, \Sigma &\sim N_{dim(Y_{mis}^{(i)})} && \Big( \mu_{mis}^{(i)} + \Sigma_{mis, obs}^{(i)} \Sigma_{obs, obs}^{-1} (Y_{i, obs} - \mu_{i, mis}^{(i)}) , && \Sigma_{mis,mis}^{(i)}  - \Sigma_{mis,obs}^{(i)}[\Sigma_{obs,obs}^{(i)}]^{-1} \Sigma_{obs,mis}^{(i)} \Big)
 
 \end{alignat}
-$
+$$
 
 상기의 conditional pdf로 우리는 $Y_{i, mis}$를 impute 가능.
 
 **for $i=1, \cdots, n$, $Y_{i, mis} \vert Y_{i, obs}$ 에서 $Y_{i, mis}$를 draw.**
 
-##### 2. P-Step
+#### 2. P-Step
 
 
 베이지안 분석을 위해선 prior가 필요. 여기서 prior는 이하로 설정하자. $q$는 known integer이며, $q=p$인 상황에 이는 $\Sigma$에 대한 Jefferey's prior.
 
-$
-
+$$
 \pi (\mu, \Sigma) \propto \vert \Sigma \vert^{-\tfrac{q+1}{2}}
-
-$
+$$
 
 위와 같이 식들을 구성하였을 때, com 데이터에 대한 posterior distribution $\pi(\mu, \Sigma \vert Y_1 , \cdots, Y_n)$는 이하와 같이 characterized 가능. 이는 inverse-Wishart 분포. 
 
-$
-
+$$
 \Sigma \vert Y_1 , \cdots, Y_n \sim \dfrac{1}{\vert \Sigma \vert^{-\tfrac{q+n}{2}}} \exp \left\{ -\dfrac{1}{2} tr\left( \Sigma^{-1} S \right) \right\}
-
-$
+$$
 
 
 이렇게 획득해온 패러미터들을 사용해 $\mu$의 post를 구하면 이하와 같다. 
 
-$
-
+$$
 \mu \vert \Sigma, Y_1 , \cdots, Y_n \sim N_p \left( \bar Y \dfrac {1}{n} \Sigma \right)
-
-$
+$$
 
 **$\Sigma \vert Y_1 , \cdots, Y_n$에서 $\Sigma$ 를 생산**
 
@@ -110,7 +98,7 @@ $
 
 ### Bayesian adaptive clinical trial with delayed outcomes
 
-##### Continual Reassessment Method
+#### Continual Reassessment Method
 
 
 
@@ -141,20 +129,14 @@ Clinical Trial: Toxicity -> Efficacy -> Confirmation
 
 $m_i$는 missing indicator. $Y_i$가 mis면 1.
 
-$
+$$
 f(M, Y \vert X, \theta, \psi) = \prod_{i=1}^n f(m_i , y_i \vert x_i , \theta, psi)
-$
-
-
-
-
-
-
-
+$$
 
 interested in **direct** relationship b/w $X$ and $Y$, rather than in subpopulation defined by missing-data pattern.
 
 | Selection Model | characterize $y$ | missing mechanism |
+| :-: | :-: | :-: |
 | $f(m_i, y_i \vert x_i, \theta, \psi) =$ | $f_y(y_i \vert x_i, \theta)$ | $\ast  f_{m \vert y}(m_i \vert x_i, y_i, \psi)$ |
 | $f(m_i,  y_i \vert x_i, \xi, \psi) =$ | $f(y_i \vert x_i, \xi)$ | $\ast  f(m_i \vert x_i, \xi)$ | 
 | Pattern Mixture model | mis 데이터의 다른 패턴들에 의해 <br>정의되는 각각 다른 strata에서의 $y_i \vert x_i$의 분포 | probability of different patterns in missingness | 
@@ -170,7 +152,7 @@ missing의 다른 패턴에 따라 $x_i$가 결정이 되고, 그 $x_i$를 기�
 
 해당 문제는 prior을 어떻게 고르느냐에 따라서 해결될 수 있음. 이하는 해당 문제에 대한 다양한 해결책들.
 
-##### 1. Spike-and-Slab prior
+#### 1. Spike-and-Slab prior
 
 let $X_{n \times p} , Y_{n \times 1}$, then $Y = X \beta$, where $\beta_{p \times 1}$.
 
@@ -194,15 +176,15 @@ spike 파트 (아래에서는 $(1-\lambda)N(0, \sigma^2)$) 에는 double exponen
 
 이하에서 예시로 제시된 수식은 SS prior이며, 이는 spike와 slab 모두 Normal을 사용하였음.
 
-$
+$$
 \pi(\beta) \sim (1-\lambda)N(0, \sigma^2) + \lambda N(0, \omega \sigma^2), \; \; \; \; \; w \gg 1
-$
+$$
 
 위에서 $\sigma^2$는 spike variance, $w \sigma^2$는 slab variance.
 
 여기서 $\lambda$가 취할 수 있는 값은 0 아니면 1. 확인할 수 있듯이 1이면 slab part, 즉 significant하고, 0이면 역으로 not significant. 우리는 이에 MCMC 알고리즘을 적용하게 되며, 따라서 MCMC 샘플로 계산을 하면 해당 샘플에서 0인 propotion과 1인 비율이 나오게 될 것. 이때 1인 비율이 0.5 이상이면? 해당 component (변수) 는 significant 하다고 결론짓는 것이 가능하다.
 
-$
+$$
 \begin{alignat}{3}
 
 \pi(\beta, \lambda, \sigma^2, \omega \vert y, x) &\sim \pi(\beta \vert \lambda, \sigma^2, \omega )  \pi(\lambda, \sigma^2, \omega) && f(y \vert x, \beta, \lambda, \sigma^2, \omega) \\
@@ -213,15 +195,15 @@ $
 \pi(\lambda) &\sim BETA(1,1), \; \; \; \pi(\sigma^2) \sim \cdot \tag{1}, \; \; \; \omega \sim 1 + GAM(\alpha, \beta)
 
 \end{alignat}
-$
+$$
 
 1. 이때 $\sigma^2$는 우리가 임의로 fixed 해서 given으로 잡거나, 위처럼 prior로 해서 시뮬레이션 중에 생산되도록 할수도 있다. 여기선 $\dfrac{1}{U(4,100)}$을 사용.
 
 accept를 하기 위해선 위를 돌리면 됨. 이는 **Stochastic Search Variable Selection (SSVS)**라고 불림. 이는 GS를 통하여 패러미터를 sequentially update. 이의 결과값은 다음과 같으며, 프로세스는 그 다음과 같다.
 
-$
+$$
 (\beta_1 , \cdots, \beta_p, \lambda_1, \cdots, \lambda_p, \sigma^2, \omega)
-$
+$$
 
 
 - Proceeds:
@@ -238,13 +220,13 @@ $
 
 ----
 
-##### 2. Horseshoe prior (Scale-mixture prior)
+#### 2. Horseshoe prior (Scale-mixture prior)
 
 **distribution에서 scale이란 Variance**.   
 
 위와 동일 케이스 가정. 그 경우
 
-$
+$$
 \begin{alignat}{4}
 
 \pi(\beta \vert y, x) \propto f(y \vert x, \beta) \pi(\beta), \; \; \; \; \; &\pi(\beta) && \sim N(0, \sigma^2) \\
@@ -252,9 +234,9 @@ $
 \Longrightarrow &\pi(\beta_i \vert \tau, \lambda_i) && \sim N(0, \tau^2 \lambda_i^2) 
 
 \end{alignat}
-$
+$$
 
-* where $pi(\tau^2), \pi(\lambda_i^2) \sim Cauchy^{+}(0,1)$
+- where $pi(\tau^2), \pi(\lambda_i^2) \sim Cauchy^{+}(0,1)$
 
 이때 common variance component $\tau$는 각 component마다 공유하는 1개의 variance component, 그리고 각 component마다 indiviually 고유한 individual parameter variance component $\lambda_i$를 설정한 것.
 
@@ -286,7 +268,7 @@ In brief, BMA는 model uncertainty를 설명할 수 있는 posterior density를 
 
 ----
 
-##### Ex: BMA-CRM
+#### Ex: BMA-CRM
 
 CRM 시작 전에 skeleton 정하고 시작하는 건 자명. 근데 이 skeleton이 잘못 선정되었다면 제대로된 도즈 selection이 불가능해지므로 skeleton의 선정이 잘못되어 있다면 이는 치명적임. 상식적으로, 하나의 skeleton으로만 도즈 셀렉션을 진행한다면 문제가 생길 확률은 당연히 높음. 이런 리스크를 희석하기 위해 skeleton을 다수를 정하고 CRM을 시작하면 이런 문제를 다소 회피할 수 있지 않을까? 이때 이 각각의 스켈레톤 하나하나를 모델로 인식한다. 이 각각의 모델에 따라서 CRM을, 즉 도즈레벨을 업데이트할 확률을, 즉 업데이트 할 때 패러미터 evaluation을 하는데, 그때 나오는 패러미터 값과 그 각각의 모델 probability를 비교하여 그 모델 averaging을 해주면 그 어떤 상황이 와도 굉장히 robust 한 값을 획득할 수 있을 것.
 
