@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>D CNN | Self-Study</title>
+  <meta name="description" content="D CNN | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="D CNN | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="D CNN | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cnn.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Intro</a></li>
+<li class="part"><span><b>I 20-02</b></span></li>
+<li class="chapter" data-level="1" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>1</b> Categorical</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>1.1.1</b> Data Type and Statistical Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>2</b> Bayesian</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2.1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>2.1.1</b> 변수의 독립성</a></li>
+<li class="chapter" data-level="2.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>2.1.2</b> 교환가능성</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>2.2</b> Continual Aeassessment Method</a></li>
+<li class="chapter" data-level="2.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>2.3</b> Horseshoe Prior</a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01</b></span></li>
+<li class="chapter" data-level="3" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>3</b> Mathematical Stats</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>3.1</b> Inference</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>3.1.1</b> Rao-Blackwell thm.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="inference.html"><a href="inference.html#completeness"><i class="fa fa-check"></i><b>3.1.2</b> Completeness</a></li>
+<li class="chapter" data-level="3.1.3" data-path="inference.html"><a href="inference.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>3.1.3</b> 레만-쉐페 thm.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="inference.html"><a href="inference.html#raoblack"><i class="fa fa-check"></i><b>3.1.4</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis Test</a></li>
+<li class="chapter" data-level="3.3" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>3.3</b> Power Fucntion</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>3.3.1</b> Significance Probability (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>3.4</b> Optimal Testing Method</a></li>
+<li class="chapter" data-level="3.5" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>3.5</b> Data Reduction</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>3.5.1</b> Sufficiency Principle</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>3.6</b> Borel Paradox</a></li>
+<li class="chapter" data-level="3.7" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>3.7</b> Neyman–Pearson lemma</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>3.7.1</b> Overview</a></li>
+<li class="chapter" data-level="3.7.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>3.7.2</b> Generalized LRT</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>3.8</b> 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>4</b> MCMC</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>4.1</b> Importance Sampling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>4.1.1</b> Independent Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.2</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>4.2.1</b> MH Algorithm</a></li>
+<li class="chapter" data-level="4.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>4.2.2</b> Random Walk Chains (Most Widely Used)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>4.2.3</b> Basic Gibbs Sampler</a></li>
+<li class="chapter" data-level="4.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>4.2.4</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> Data Augmentation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> Hit-and-Run Algorithm</a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> Metropolis-Adjusted Langevin Algorithm</a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> Multiple-Try Metropolis Algorithm</a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> Reversible Jump MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>4.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Multimodal Target Distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>4.4.3</b> Doubly-intractable Normalizing Constants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>4.6.1</b> Introduction to Hamiltonian Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>4.7</b> Population Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>4.7.1</b> Adaptive Direction Sampling</a></li>
+<li class="chapter" data-level="4.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>4.7.2</b> Conjugate Gradient MC</a></li>
+<li class="chapter" data-level="4.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>4.7.3</b> Parallel Tempering</a></li>
+<li class="chapter" data-level="4.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>4.7.4</b> Evolutionary MC</a></li>
+<li class="chapter" data-level="4.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>4.7.5</b> Sequential Parallel Tempering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>4.8</b> Stochastic Approximation Monte Carlo</a></li>
+<li class="chapter" data-level="4.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>4.9</b> Review</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>4.9.1</b> Wk01</a></li>
+<li class="chapter" data-level="4.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>4.9.2</b> wk03</a></li>
+<li class="chapter" data-level="4.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>4.9.3</b> wk04, 05</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>4.10</b> Else</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>4.10.1</b> Hw4. Rasch Model</a></li>
+<li class="chapter" data-level="4.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>4.10.2</b> DA) Example: MVN</a></li>
+<li class="chapter" data-level="4.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>4.10.3</b> Bayesian adaptive clinical trial with delayed outcomes</a></li>
+<li class="chapter" data-level="4.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>4.10.4</b> NMAR의 종류</a></li>
+<li class="chapter" data-level="4.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>4.10.5</b> wk10) Bayesian Model Selection</a></li>
+<li class="chapter" data-level="4.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>4.10.6</b> Autologistic model</a></li>
+<li class="chapter" data-level="4.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>4.10.7</b> wk10) Bayesian Model Averaging</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>5</b> MVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>5.1</b> Overview of mva (not ended)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>5.1.1</b> Notation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>5.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="5.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>5.1.3</b> Statistical Inference on Correlation</a></li>
+<li class="chapter" data-level="5.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>5.1.4</b> Standardization</a></li>
+<li class="chapter" data-level="5.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>5.1.5</b> Missing Value Treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>5.2</b> Multivariate Nomral (wk2)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>5.2.2</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>5.2.3</b> Properties of MVN</a></li>
+<li class="chapter" data-level="5.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>5.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>5.2.5</b> Linear Combination of Random Vectors</a></li>
+<li class="chapter" data-level="5.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>5.2.6</b> Multivariate Normal Likelihood</a></li>
+<li class="chapter" data-level="5.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>5.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span></a></li>
+<li class="chapter" data-level="5.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>5.2.8</b> Assessing Normality</a></li>
+<li class="chapter" data-level="5.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>5.2.9</b> Power Transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>5.3</b> Inference about Mean Vector (wk3)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>5.3.2</b> 1. Confidence Region</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>5.3.3</b> 2. Simultaneous CI</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>5.3.4</b> 3. Note: Bonferroni Multiple Comparison</a></li>
+<li class="chapter" data-level="5.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>5.3.5</b> 4. Large Sample Inferences about a Mean Vector</a></li>
+<li class="chapter" data-level="5.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>5.3.6</b> 1. Profile Analysis (wk4, 5)</a></li>
+<li class="chapter" data-level="5.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>5.3.7</b> 2. Test for Linear Trend</a></li>
+<li class="chapter" data-level="5.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>5.3.8</b> 3. Inferences about a Covariance Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>5.4</b> Comparison of Several MV Means (wk5)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>5.4.1</b> Paired Comparison</a></li>
+<li class="chapter" data-level="5.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>5.4.2</b> Comparing Mean Vectors from Two Populations</a></li>
+<li class="chapter" data-level="5.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>5.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>5.4.4</b> Comparing Several Multivariate Population Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>5.5</b> Multivariate Multiple Regression (wk6)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
+<li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>5.7.1</b> Method of Estimation</a></li>
+<li class="chapter" data-level="5.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>5.7.2</b> Factor Rotation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>5.7.3</b> Varimax Criterion</a></li>
+<li class="chapter" data-level="5.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>5.7.4</b> Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>5.8</b> Discrimination and Classification</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>5.8.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="5.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>5.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations</a></li>
+<li class="chapter" data-level="5.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>5.8.3</b> Evaluating Classification Functions</a></li>
+<li class="chapter" data-level="5.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>5.8.4</b> Classification with several Populations (wk13)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>5.8.5</b> Other Discriminant Analysis Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>5.9</b> Clustering, Distance Methods, and Ordination</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>5.9.1</b> Overview</a></li>
+<li class="chapter" data-level="5.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>5.9.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="5.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>5.9.3</b> K-means Clustering</a></li>
+<li class="chapter" data-level="5.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>5.9.4</b> 군집의 평가방법</a></li>
+<li class="chapter" data-level="5.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>5.9.5</b> Clustering using Density Estimation (wk14)</a></li>
+<li class="chapter" data-level="5.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>5.9.6</b> Multidimensional Scaling (MDS)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>6</b> Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="svd.html"><a href="svd.html"><i class="fa fa-check"></i><b>6.1</b> SVD</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="svd.html"><a href="svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>6.1.1</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="6.1.2" data-path="svd.html"><a href="svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>6.1.2</b> Singular value Decomposition: General-version</a></li>
+<li class="chapter" data-level="6.1.3" data-path="svd.html"><a href="svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>6.1.3</b> Singular value Decomposition: Another-version</a></li>
+<li class="chapter" data-level="6.1.4" data-path="svd.html"><a href="svd.html#quadratic-forms"><i class="fa fa-check"></i><b>6.1.4</b> Quadratic Forms</a></li>
+<li class="chapter" data-level="6.1.5" data-path="svd.html"><a href="svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>6.1.5</b> Partitioned Matrices</a></li>
+<li class="chapter" data-level="6.1.6" data-path="svd.html"><a href="svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>6.1.6</b> Geometrical Aspects</a></li>
+<li class="chapter" data-level="6.1.7" data-path="svd.html"><a href="svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>6.1.7</b> Column, Row and Null Space</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-1.html"><a href="introduction-1.html#what"><i class="fa fa-check"></i><b>6.2.1</b> What</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-1.html"><a href="introduction-1.html#random-vectors-and-matrices"><i class="fa fa-check"></i><b>6.2.2</b> Random Vectors and Matrices</a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-1.html"><a href="introduction-1.html#multivariate-normal-distributions"><i class="fa fa-check"></i><b>6.2.3</b> Multivariate Normal Distributions</a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-1.html"><a href="introduction-1.html#distributions-of-quadratic-forms"><i class="fa fa-check"></i><b>6.2.4</b> Distributions of Quadratic Forms</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>6.3</b> Estimation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>6.3.1</b> Identifiability and Estimability</a></li>
+<li class="chapter" data-level="6.3.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>6.3.2</b> Estimation: Least Squares</a></li>
+<li class="chapter" data-level="6.3.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>6.3.3</b> Estimation: Best Linear Unbiased</a></li>
+<li class="chapter" data-level="6.3.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>6.3.4</b> Estimation: Maximum Likelihood</a></li>
+<li class="chapter" data-level="6.3.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>6.3.5</b> Estimation: Minimum Variance Unbiased</a></li>
+<li class="chapter" data-level="6.3.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>6.3.6</b> Sampling Distributions of Estimates</a></li>
+<li class="chapter" data-level="6.3.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>6.3.7</b> Generalized Least Squares(GLS)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>6.4</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>6.4.1</b> One-Way ANOVA</a></li>
+<li class="chapter" data-level="6.4.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>6.4.2</b> More About Models</a></li>
+<li class="chapter" data-level="6.4.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>6.4.3</b> Estimating and Testing Contrasts</a></li>
+<li class="chapter" data-level="6.4.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>6.4.4</b> Cochran’s Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>6.5</b> Testing</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>6.5.1</b> More About Models: Two approaches for linear model</a></li>
+<li class="chapter" data-level="6.5.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>6.5.2</b> Testing Models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>6.5.3</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="6.5.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>6.5.4</b> Testing Linear Parametric Functions</a></li>
+<li class="chapter" data-level="6.5.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>6.5.5</b> Theoretical Complements</a></li>
+<li class="chapter" data-level="6.5.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>6.5.6</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="6.5.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>6.5.7</b> Testing Single Degrees of Freedom in a Given Subspace</a></li>
+<li class="chapter" data-level="6.5.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>6.5.8</b> Breaking SS into Independent Components</a></li>
+<li class="chapter" data-level="6.5.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>6.5.9</b> General Theory</a></li>
+<li class="chapter" data-level="6.5.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>6.5.10</b> Two-Way ANOVA</a></li>
+<li class="chapter" data-level="6.5.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>6.5.11</b> Confidence Regions</a></li>
+<li class="chapter" data-level="6.5.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>6.5.12</b> Tests for Generalized Least Squares Models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>6.6</b> Generalized Least Squares</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>6.6.1</b> A direct solution via inner products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>6.7</b> Flat</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>6.7.1</b> 1.Flat</a></li>
+<li class="chapter" data-level="6.7.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>6.7.2</b> 2. Solutions to systems of linear equations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>6.8</b> Unified Approach to Balanced ANOVA Models</a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02</b></span></li>
+<li class="chapter" data-level="7" data-path="network-stats.html"><a href="network-stats.html"><i class="fa fa-check"></i><b>7</b> Network Stats</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>7.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="introduction-2.html"><a href="introduction-2.html#types-of-network-analysis"><i class="fa fa-check"></i><b>7.1.1</b> Types of Network Analysis</a></li>
+<li class="chapter" data-level="7.1.2" data-path="introduction-2.html"><a href="introduction-2.html#network-modeling-and-inference"><i class="fa fa-check"></i><b>7.1.2</b> Network Modeling and Inference</a></li>
+<li class="chapter" data-level="7.1.3" data-path="introduction-2.html"><a href="introduction-2.html#network-processes"><i class="fa fa-check"></i><b>7.1.3</b> Network Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics of Networks</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#vertex-and-edge-characteristics"><i class="fa fa-check"></i><b>7.2.1</b> Vertex and Edge Characteristics</a></li>
+<li class="chapter" data-level="7.2.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#characterizing-network-cohesion"><i class="fa fa-check"></i><b>7.2.2</b> Characterizing Network Cohesion</a></li>
+<li class="chapter" data-level="7.2.3" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#graph-partitioning"><i class="fa fa-check"></i><b>7.2.3</b> Graph Partitioning</a></li>
+<li class="chapter" data-level="7.2.4" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#assortativity-and-mixing"><i class="fa fa-check"></i><b>7.2.4</b> Assortativity and Mixing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Data Collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Designs</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>7.3.2</b> Coping Strategies</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>7.3.3</b> Big Data Solves Nothing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>7.4</b> Mathematical Models for Network Graphs</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#classical-random-graph-models"><i class="fa fa-check"></i><b>7.4.1</b> Classical Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#generalized-random-graph-models"><i class="fa fa-check"></i><b>7.4.2</b> Generalized Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.3" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#network-graph-models-based-on-mechanisms"><i class="fa fa-check"></i><b>7.4.3</b> Network Graph Models Based on Mechanisms</a></li>
+<li class="chapter" data-level="7.4.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#assessing-significance-of-network-graph-characteristics"><i class="fa fa-check"></i><b>7.4.4</b> Assessing Significance of Network Graph Characteristics</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html"><i class="fa fa-check"></i><b>7.5</b> Introduction to ERGM</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#exponential-random-graph-models"><i class="fa fa-check"></i><b>7.5.1</b> Exponential Random Graph Models</a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#difficulty-in-parameter-estimation"><i class="fa fa-check"></i><b>7.5.2</b> Difficulty in Parameter Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html"><i class="fa fa-check"></i><b>7.6</b> Parameter Estimation of ERGM</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
+<li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html"><i class="fa fa-check"></i><b>7.9</b> Additive and Multiplicative Effects Network Models</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#introduction-3"><i class="fa fa-check"></i><b>7.9.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.9.2" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#social-relations-regression"><i class="fa fa-check"></i><b>7.9.2</b> Social Relations Regression</a></li>
+<li class="chapter" data-level="7.9.3" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#multiplicative-effects-models"><i class="fa fa-check"></i><b>7.9.3</b> Multiplicative Effects Models</a></li>
+<li class="chapter" data-level="7.9.4" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#inference-via-posterior-approximation"><i class="fa fa-check"></i><b>7.9.4</b> Inference via Posterior Approximation</a></li>
+<li class="chapter" data-level="7.9.5" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#discussion-and-example-with-r"><i class="fa fa-check"></i><b>7.9.5</b> Discussion and Example with R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="high-dimension.html"><a href="high-dimension.html"><i class="fa fa-check"></i><b>8</b> High Dimension</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html"><i class="fa fa-check"></i><b>8.2</b> Concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#motivation"><i class="fa fa-check"></i><b>8.2.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.2.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#from-markov-to-chernoff"><i class="fa fa-check"></i><b>8.2.2</b> From Markov to Chernoff</a></li>
+<li class="chapter" data-level="8.2.3" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.3</b> sub-Gaussian random variables</a></li>
+<li class="chapter" data-level="8.2.4" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#properties-of-sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.4</b> Properties of sub-Gaussian random variables</a></li>
+<li class="chapter" data-level="8.2.5" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#equivalent-definitions"><i class="fa fa-check"></i><b>8.2.5</b> Equivalent definitions</a></li>
+<li class="chapter" data-level="8.2.6" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-vectors"><i class="fa fa-check"></i><b>8.2.6</b> Sub-Gaussian random vectors</a></li>
+<li class="chapter" data-level="8.2.7" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#hoeffdings-inequality"><i class="fa fa-check"></i><b>8.2.7</b> Hoeffding’s inequality</a></li>
+<li class="chapter" data-level="8.2.8" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#maximal-inequalities"><i class="fa fa-check"></i><b>8.2.8</b> Maximal inequalities</a></li>
+<li class="chapter" data-level="8.2.9" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#section"><i class="fa fa-check"></i><b>8.2.9</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html"><i class="fa fa-check"></i><b>8.3</b> Concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#sub-exponential-random-variables"><i class="fa fa-check"></i><b>8.3.1</b> Sub-exponential random variables</a></li>
+<li class="chapter" data-level="8.3.2" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#bernsteins-condition"><i class="fa fa-check"></i><b>8.3.2</b> Bernstein’s condition</a></li>
+<li class="chapter" data-level="8.3.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#mcdiarmids-inequality"><i class="fa fa-check"></i><b>8.3.3</b> McDiarmid’s inequality</a></li>
+<li class="chapter" data-level="8.3.4" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#levys-inequality"><i class="fa fa-check"></i><b>8.3.4</b> Levy’s inequality</a></li>
+<li class="chapter" data-level="8.3.5" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#quadratic-form"><i class="fa fa-check"></i><b>8.3.5</b> Quadratic form</a></li>
+<li class="chapter" data-level="8.3.6" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#the-johnsonlindenstrauss-lemma"><i class="fa fa-check"></i><b>8.3.6</b> The Johnson–Lindenstrauss Lemma</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html"><i class="fa fa-check"></i><b>8.4</b> Metric entropy and its uses</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#metric-space"><i class="fa fa-check"></i><b>8.4.1</b> Metric space</a></li>
+<li class="chapter" data-level="8.4.2" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#covering-numbers-and-metric-entropy"><i class="fa fa-check"></i><b>8.4.2</b> Covering numbers and metric entropy</a></li>
+<li class="chapter" data-level="8.4.3" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#packing-numbers"><i class="fa fa-check"></i><b>8.4.3</b> Packing numbers</a></li>
+<li class="chapter" data-level="8.4.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-1"><i class="fa fa-check"></i><b>8.4.4</b> </a></li>
+<li class="chapter" data-level="8.4.5" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-2"><i class="fa fa-check"></i><b>8.4.5</b> </a></li>
+<li class="chapter" data-level="8.4.6" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-3"><i class="fa fa-check"></i><b>8.4.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="covariance-estimation.html"><a href="covariance-estimation.html"><i class="fa fa-check"></i><b>8.5</b> Covariance estimation</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="covariance-estimation.html"><a href="covariance-estimation.html#matrix-algebra-review"><i class="fa fa-check"></i><b>8.5.1</b> Matrix algebra review</a></li>
+<li class="chapter" data-level="8.5.2" data-path="covariance-estimation.html"><a href="covariance-estimation.html#covariance-matrix-estimation-in-the-operator-norm"><i class="fa fa-check"></i><b>8.5.2</b> Covariance matrix estimation in the operator norm</a></li>
+<li class="chapter" data-level="8.5.3" data-path="covariance-estimation.html"><a href="covariance-estimation.html#bounds-for-structured-covariance-matrices"><i class="fa fa-check"></i><b>8.5.3</b> Bounds for structured covariance matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html"><i class="fa fa-check"></i><b>8.6</b> Matrix concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-calculus"><i class="fa fa-check"></i><b>8.6.1</b> Matrix calculus</a></li>
+<li class="chapter" data-level="8.6.2" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-chernoff"><i class="fa fa-check"></i><b>8.6.2</b> Matrix Chernoff</a></li>
+<li class="chapter" data-level="8.6.3" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#sub-gaussian-and-sub-exponential-matrices"><i class="fa fa-check"></i><b>8.6.3</b> Sub-Gaussian and sub-exponential matrices</a></li>
+<li class="chapter" data-level="8.6.4" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#랜덤-매트릭스에-대한-hoeffding-and-bernstein-bounds"><i class="fa fa-check"></i><b>8.6.4</b> 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8.7</b> Principal Component Analysis</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-1"><i class="fa fa-check"></i><b>8.7.1</b> PCA</a></li>
+<li class="chapter" data-level="8.7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#matrix-perturbation"><i class="fa fa-check"></i><b>8.7.2</b> Matrix Perturbation</a></li>
+<li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model</a></li>
+<li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>8.8.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>8.8.2</b> Least Squares Estimator in high dimensions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>8.8.3</b> Sparse linear regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
+<li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
+<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>9.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약</a></li>
+<li class="chapter" data-level="9.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>9.6.2</b> Ft-measurable</a></li>
+<li class="chapter" data-level="9.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>9.6.3</b> EPILOGUE</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts</a></li>
+</ul></li>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>A</b> Concepts</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="autologistic.html"><a href="autologistic.html"><i class="fa fa-check"></i><b>A.1</b> Autologistics</a></li>
+<li class="chapter" data-level="A.2" data-path="orderlogit.html"><a href="orderlogit.html"><i class="fa fa-check"></i><b>A.2</b> Ordered Logit</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>B</b> ABSTRACT</a></li>
+<li class="chapter" data-level="C" data-path="cnn.html"><a href="cnn.html"><i class="fa fa-check"></i><b>C</b> CNN</a></li>
+<li class="chapter" data-level="D" data-path="cnn-1.html"><a href="cnn-1.html"><i class="fa fa-check"></i><b>D</b> CNN</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cnn-1" class="section level1" number="13">
+<h1><span class="header-section-number">D</span> CNN</h1>
+<p>SEMI-SUPERVISED CLASSIFICATION WITH GRAPH CONVOLUTIONAL NETWORKS</p>
+<p>ABSTRACT</p>
+<p>We present a scalable approach for semi-supervised learning on graph-structured data that is based on an efficient variant of convolutional neural networks which operate directly on graphs. We motivate the choice of our convolutional architecture via a localized first-order approximation of spectral graph convolutions. Our model scales linearly in the number of graph edges and learns hidden layer representations that encode both local graph structure and features of nodes. In a number of experiments on citation networks and on a knowledge graph dataset we demonstrate that our approach outperforms related methods by a significant margin</p>
+<p>1 INTRODUCTION</p>
+<p>We consider the problem of classifying nodes (such as documents) in a graph (such as a citation network), where labels are only available for a small subset of nodes. This problem can be framed as graph-based semi-supervised learning, where label information is smoothed over the graph via some form of explicit graph-based regularization (Zhu et al., 2003; Zhou et al., 2004; Belkin et al., 2006; Weston et al., 2012), e.g. by using a graph Laplacian regularization term in the loss function:</p>
+<p>Here, L0 denotes the supervised loss w.r.t. the labeled part of the graph, f(·) can be a neural networklike differentiable function, λ is a weighing factor and X is a matrix of node feature vectors Xi . ∆ = D − A denotes the unnormalized graph Laplacian of an undirected graph G = (V, E) with N nodes vi ∈ V, edges (vi , vj ) ∈ E, an adjacency matrix A ∈ R N×N (binary or weighted) and a degree matrix Dii = P j Aij . The formulation of Eq. 1 relies on the assumption that connected nodes in the graph are likely to share the same label. This assumption, however, might restrict modeling capacity, as graph edges need not necessarily encode node similarity, but could contain additional information. In this work, we encode the graph structure directly using a neural network model f(X, A) and train on a supervised target L0 for all nodes with labels, thereby avoiding explicit graph-based regularization in the loss function. Conditioning f(·) on the adjacency matrix of the graph will allow the model to distribute gradient information from the supervised loss L0 and will enable it to learn representations of nodes both with and without labels. Our contributions are two-fold. Firstly, we introduce a simple and well-behaved layer-wise propagation rule for neural network models which operate directly on graphs and show how it can be motivated from a first-order approximation of spectral graph convolutions (Hammond et al., 2011). Secondly, we demonstrate how this form of a graph-based neural network model can be used for fast and scalable semi-supervised classification of nodes in a graph. Experiments on a number of datasets demonstrate that our model compares favorably both in classification accuracy and efficiency (measured in wall-clock time) against state-of-the-art methods for semi-supervised learning</p>
+<p>2 FAST APPROXIMATE CONVOLUTIONS ON GRAPHS</p>
+<p>In this section, we provide theoretical motivation for a specific graph-based neural network model f(X, A) that we will use in the rest of this paper. We consider a multi-layer Graph Convolutional Network (GCN) with the following layer-wise propagation rule:</p>
+<p>Here, A˜ = A + IN is the adjacency matrix of the undirected graph G with added self-connections. IN is the identity matrix, D˜ ii = P j A˜ ij and W(l) is a layer-specific trainable weight matrix. σ(·) denotes an activation function, such as the ReLU(·) = max(0, ·). H(l) ∈ R N×D is the matrix of activations in the l th layer; H(0) = X. In the following, we show that the form of this propagation rule can be motivated1 via a first-order approximation of localized spectral filters on graphs (Hammond et al., 2011; Defferrard et al., 2016).</p>
+<p>2.1 SPECTRAL GRAPH CONVOLUTIONS</p>
+<p>We consider spectral convolutions on graphs defined as the multiplication of a signal x ∈ R N (a scalar for every node) with a filter gθ = diag(θ) parameterized by θ ∈ R N in the Fourier domain, i.e.:</p>
+<p>where U is the matrix of eigenvectors of the normalized graph Laplacian L = IN − D− 1 2 AD− 1 2 = UΛU &gt;, with a diagonal matrix of its eigenvalues Λ and U &gt;x being the graph Fourier transform of x. We can understand gθ as a function of the eigenvalues of L, i.e. gθ(Λ). Evaluating Eq. 3 is computationally expensive, as multiplication with the eigenvector matrix U is O(N2 ). Furthermore, computing the eigendecomposition of L in the first place might be prohibitively expensive for large graphs. To circumvent this problem, it was suggested in Hammond et al. (2011) that gθ(Λ) can be well-approximated by a truncated expansion in terms of Chebyshev polynomials Tk(x) up to Kth order:</p>
+<p>with a rescaled Λ = ˜ 2 λmax Λ − IN . λmax denotes the largest eigenvalue of L. θ 0 ∈ R K is now a vector of Chebyshev coefficients. The Chebyshev polynomials are recursively defined as Tk(x) = 2xTk−1(x) − Tk−2(x), with T0(x) = 1 and T1(x) = x. The reader is referred to Hammond et al. (2011) for an in-depth discussion of this approximation.</p>
+<p>Going back to our definition of a convolution of a signal x with a filter gθ 0 , we now have:</p>
+<p>with L˜ = 2 λmax L − IN ; as can easily be verified by noticing that (UΛU &gt;) k = UΛ kU &gt;. Note that this expression is now K-localized since it is a Kth-order polynomial in the Laplacian, i.e. it depends only on nodes that are at maximum K steps away from the central node (Kth-order neighborhood). The complexity of evaluating Eq. 5 is O(|E|), i.e. linear in the number of edges. Defferrard et al. (2016) use this K-localized convolution to define a convolutional neural network on graphs.</p>
+<p>2.2 LAYER-WISE LINEAR MODEL</p>
+<p>A neural network model based on graph convolutions can therefore be built by stacking multiple convolutional layers of the form of Eq. 5, each layer followed by a point-wise non-linearity. Now, imagine we limited the layer-wise convolution operation to K = 1 (see Eq. 5), i.e. a function that is linear w.r.t. L and therefore a linear function on the graph Laplacian spectrum.</p>
+<p>In this way, we can still recover a rich class of convolutional filter functions by stacking multiple such layers, but we are not limited to the explicit parameterization given by, e.g., the Chebyshev polynomials. We intuitively expect that such a model can alleviate the problem of overfitting on local neighborhood structures for graphs with very wide node degree distributions, such as social networks, citation networks, knowledge graphs and many other real-world graph datasets. Additionally, for a fixed computational budget, this layer-wise linear formulation allows us to build deeper models, a practice that is known to improve modeling capacity on a number of domains (He et al., 2016).</p>
+<p>In this linear formulation of a GCN we further approximate λmax ≈ 2, as we can expect that neural network parameters will adapt to this change in scale during training. Under these approximations Eq. 5 simplifies to: with two free parameters θ 0 0 and θ 0 1 . The filter parameters can be shared over the whole graph. Successive application of filters of this form then effectively convolve the k th-order neighborhood of a node, where k is the number of successive filtering operations or convolutional layers in the neural network model. In practice, it can be beneficial to constrain the number of parameters further to address overfitting and to minimize the number of operations (such as matrix multiplications) per layer. This leaves us with the following expression: with a single parameter θ = θ 0 0 = −θ 0 1 . Note that IN + D− 1 2 AD− 1 2 now has eigenvalues in the range [0, 2]. Repeated application of this operator can therefore lead to numerical instabilities and exploding/vanishing gradients when used in a deep neural network model. To alleviate this problem, we introduce the following renormalization trick: IN +D− 1 2 AD− 1 2 → D˜ − 1 2 A˜D˜ − 1 2 , with A˜ = A + IN and D˜ ii = P j A˜ ij . We can generalize this definition to a signal X ∈ R N×C with C input channels (i.e. a C-dimensional feature vector for every node) and F filters or feature maps as follows: where Θ ∈ R C×F is now a matrix of filter parameters and Z ∈ R N×F is the convolved signal matrix. This filtering operation has complexity O(|E|F C), as AX˜ can be efficiently implemented as a product of a sparse matrix with a dense matrix.</p>
+<p>3 SEMI-SUPERVISED NODE CLASSIFICATION</p>
+<p>Having introduced a simple, yet flexible model f(X, A) for efficient information propagation on graphs, we can return to the problem of semi-supervised node classification. As outlined in the introduction, we can relax certain assumptions typically made in graph-based semi-supervised learning by conditioning our model f(X, A) both on the data X and on the adjacency matrix A of the underlying graph structure. We expect this setting to be especially powerful in scenarios where the adjacency matrix contains information not present in the data X, such as citation links between documents in a citation network or relations in a knowledge graph. The overall model, a multi-layer GCN for semi-supervised learning, is schematically depicted in Figure 1.</p>
+<p>3.1 EXAMPLE</p>
+<p>In the following, we consider a two-layer GCN for semi-supervised node classification on a graph with a symmetric adjacency matrix A (binary or weighted). We first calculate Aˆ = D˜ − 1 2 A˜D˜ − 1 2 in a pre-processing step. Our forward model then takes the simple form</p>
+<p>Here, W(0) ∈ R C×H is an input-to-hidden weight matrix for a hidden layer with H feature maps. W(1) ∈ R H×F is a hidden-to-output weight matrix. The softmax activation function, defined as softmax(xi) = 1 Z exp(xi) with Z = P i exp(xi), is applied row-wise. For semi-supervised multiclass classification, we then evaluate the cross-entropy error over all labeled examples: where YL is the set of node indices that have labels. The neural network weights W(0) and W(1) are trained using gradient descent. In this work, we perform batch gradient descent using the full dataset for every training iteration, which is a viable option as long as datasets fit in memory. Using a sparse representation for A, memory requirement is O(|E|), i.e. linear in the number of edges. Stochasticity in the training process is introduced via dropout (Srivastava et al., 2014). We leave memory-efficient extensions with mini-batch stochastic gradient descent for future work.</p>
+<p>3.2 IMPLEMENTATION</p>
+<p>In practice, we make use of TensorFlow (Abadi et al., 2015) for an efficient GPU-based implementation2 of Eq. 9 using sparse-dense matrix multiplications. The computational complexity of evaluating Eq. 9 is then O(|E|CHF), i.e. linear in the number of graph edges.</p>
+<p>4 RELATED WORK</p>
+<p>Our model draws inspiration both from the field of graph-based semi-supervised learning and from recent work on neural networks that operate on graphs. In what follows, we provide a brief overview on related work in both fields.</p>
+<p>4.1 GRAPH-BASED SEMI-SUPERVISED LEARNING</p>
+<p>A large number of approaches for semi-supervised learning using graph representations have been proposed in recent years, most of which fall into two broad categories: methods that use some form of explicit graph Laplacian regularization and graph embedding-based approaches. Prominent examples for graph Laplacian regularization include label propagation (Zhu et al., 2003), manifold regularization (Belkin et al., 2006) and deep semi-supervised embedding (Weston et al., 2012).</p>
+<p>Recently, attention has shifted to models that learn graph embeddings with methods inspired by the skip-gram model (Mikolov et al., 2013). DeepWalk (Perozzi et al., 2014) learns embeddings via the prediction of the local neighborhood of nodes, sampled from random walks on the graph. LINE (Tang et al., 2015) and node2vec (Grover &amp; Leskovec, 2016) extend DeepWalk with more sophisticated random walk or breadth-first search schemes. For all these methods, however, a multistep pipeline including random walk generation and semi-supervised training is required where each step has to be optimized separately. Planetoid (Yang et al., 2016) alleviates this by injecting label information in the process of learning embeddings.</p>
+<p>4.2 NEURAL NETWORKS ON GRAPHS Neural</p>
+<p>networks that operate on graphs have previously been introduced in Gori et al. (2005); Scarselli et al. (2009) as a form of recurrent neural network. Their framework requires the repeated application of contraction maps as propagation functions until node representations reach a stable fixed point. This restriction was later alleviated in Li et al. (2016) by introducing modern practices for recurrent neural network training to the original graph neural network framework. Duvenaud et al. (2015) introduced a convolution-like propagation rule on graphs and methods for graph-level classification. Their approach requires to learn node degree-specific weight matrices which does not scale to large graphs with wide node degree distributions. Our model instead uses a single weight matrix per layer and deals with varying node degrees through an appropriate normalization of the adjacency matrix (see Section 3.1). A related approach to node classification with a graph-based neural network was recently introduced in Atwood &amp; Towsley (2016). They report O(N2 ) complexity, limiting the range of possible applications. In a different yet related model, Niepert et al. (2016) convert graphs locally into sequences that are fed into a conventional 1D convolutional neural network, which requires the definition of a node ordering in a pre-processing step. Our method is based on spectral graph convolutional neural networks, introduced in Bruna et al. (2014) and later extended by Defferrard et al. (2016) with fast localized convolutions. In contrast to these works, we consider here the task of transductive node classification within networks of significantly larger scale. We show that in this setting, a number of simplifications (see Section 2.2) can be introduced to the original frameworks of Bruna et al. (2014) and Defferrard et al. (2016) that improve scalability and classification performance in large-scale networks.</p>
+<p>5 EXPERIMENTS</p>
+<p>We test our model in a number of experiments: semi-supervised document classification in citation networks, semi-supervised entity classification in a bipartite graph extracted from a knowledge graph, an evaluation of various graph propagation models and a run-time analysis on random graphs.</p>
+<p>5.1 DATASETS</p>
+<p>We closely follow the experimental setup in Yang et al. (2016). Dataset statistics are summarized in Table 1. In the citation network datasets—Citeseer, Cora and Pubmed (Sen et al., 2008)—nodes are documents and edges are citation links. Label rate denotes the number of labeled nodes that are used for training divided by the total number of nodes in each dataset. NELL (Carlson et al., 2010; Yang et al., 2016) is a bipartite graph dataset extracted from a knowledge graph with 55,864 relation nodes and 9,891 entity nodes.</p>
+<p>Citation networks</p>
+<p>We consider three citation network datasets: Citeseer, Cora and Pubmed (Sen et al., 2008). The datasets contain sparse bag-of-words feature vectors for each document and a list of citation links between documents. We treat the citation links as (undirected) edges and construct a binary, symmetric adjacency matrix A. Each document has a class label. For training, we only use 20 labels per class, but all feature vectors.</p>
+<p>NELL</p>
+<p>NELL is a dataset extracted from the knowledge graph introduced in (Carlson et al., 2010). A knowledge graph is a set of entities connected with directed, labeled edges (relations). We follow the pre-processing scheme as described in Yang et al. (2016). We assign separate relation nodes r1 and r2 for each entity pair (e1, r, e2) as (e1, r1) and (e2, r2). Entity nodes are described by sparse feature vectors. We extend the number of features in NELL by assigning a unique one-hot representation for every relation node, effectively resulting in a 61,278-dim sparse feature vector per node. The semi-supervised task here considers the extreme case of only a single labeled example per class in the training set. We construct a binary, symmetric adjacency matrix from this graph by setting entries Aij = 1, if one or more edges are present between nodes i and j.</p>
+<p>Random graphs</p>
+<p>We simulate random graph datasets of various sizes for experiments where we measure training time per epoch. For a dataset with N nodes we create a random graph assigning 2N edges uniformly at random. We take the identity matrix IN as input feature matrix X, thereby implicitly taking a featureless approach where the model is only informed about the identity of each node, specified by a unique one-hot vector. We add dummy labels Yi = 1 for every node.</p>
+<p>5.2 EXPERIMENTAL SET-UP</p>
+<p>Unless otherwise noted, we train a two-layer GCN as described in Section 3.1 and evaluate prediction accuracy on a test set of 1,000 labeled examples. We provide additional experiments using deeper models with up to 10 layers in Appendix B. We choose the same dataset splits as in Yang et al. (2016) with an additional validation set of 500 labeled examples for hyperparameter optimization (dropout rate for all layers, L2 regularization factor for the first GCN layer and number of hidden units). We do not use the validation set labels for training. For the citation network datasets, we optimize hyperparameters on Cora only and use the same set of parameters for Citeseer and Pubmed. We train all models for a maximum of 200 epochs (training iterations) using Adam (Kingma &amp; Ba, 2015) with a learning rate of 0.01 and early stopping with a window size of 10, i.e. we stop training if the validation loss does not decrease for 10 consecutive epochs. We initialize weights using the initialization described in Glorot &amp; Bengio (2010) and accordingly (row-)normalize input feature vectors. On the random graph datasets, we use a hidden layer size of 32 units and omit regularization (i.e. neither dropout nor L2 regularization).</p>
+<p>5.3 BASELINES</p>
+<p>We compare against the same baseline methods as in Yang et al. (2016), i.e. label propagation (LP) (Zhu et al., 2003), semi-supervised embedding (SemiEmb) (Weston et al., 2012), manifold regularization (ManiReg) (Belkin et al., 2006) and skip-gram based graph embeddings (DeepWalk) (Perozzi et al., 2014). We omit TSVM (Joachims, 1999), as it does not scale to the large number of classes in one of our datasets. We further compare against the iterative classification algorithm (ICA) proposed in Lu &amp; Getoor (2003) in conjunction with two logistic regression classifiers, one for local node features alone and one for relational classification using local features and an aggregation operator as described in Sen et al. (2008). We first train the local classifier using all labeled training set nodes and use it to bootstrap class labels of unlabeled nodes for relational classifier training. We run iterative classification (relational classifier) with a random node ordering for 10 iterations on all unlabeled nodes (bootstrapped using the local classifier). L2 regularization parameter and aggregation operator (count vs. prop, see Sen et al. (2008)) are chosen based on validation set performance for each dataset separately. Lastly, we compare against Planetoid (Yang et al., 2016), where we always choose their bestperforming model variant (transductive vs. inductive) as a baseline.</p>
+<p>6 RESULTS
+6.1 SEMI-SUPERVISED NODE CLASSIFICATION</p>
+<p>Results are summarized in Table 2. Reported numbers denote classification accuracy in percent. For ICA, we report the mean accuracy of 100 runs with random node orderings. Results for all other baseline methods are taken from the Planetoid paper (Yang et al., 2016). Planetoid* denotes the best model for the respective dataset out of the variants presented in their paper</p>
+<p>We further report wall-clock training time in seconds until convergence (in brackets) for our method (incl. evaluation of validation error) and for Planetoid. For the latter, we used an implementation provided by the authors3 and trained on the same hardware (with GPU) as our GCN model. We trained and tested our model on the same dataset splits as in Yang et al. (2016) and report mean accuracy of 100 runs with random weight initializations. We used the following sets of hyperparameters for Citeseer, Cora and Pubmed: 0.5 (dropout rate), 5 · 10−4 (L2 regularization) and 16 (number of hidden units); and for NELL: 0.1 (dropout rate), 1 · 10−5 (L2 regularization) and 64 (number of hidden units). In addition, we report performance of our model on 10 randomly drawn dataset splits of the same size as in Yang et al. (2016), denoted by GCN (rand. splits). Here, we report mean and standard error of prediction accuracy on the test set split in percent.</p>
+<p>6.2 EVALUATION OF PROPAGATION MODEL</p>
+<p>We compare different variants of our proposed per-layer propagation model on the citation network datasets. We follow the experimental set-up described in the previous section. Results are summarized in Table 3. The propagation model of our original GCN model is denoted by renormalization trick (in bold). In all other cases, the propagation model of both neural network layers is replaced with the model specified under propagation model. Reported numbers denote mean classification accuracy for 100 repeated runs with random weight matrix initializations. In case of multiple variables Θi per layer, we impose L2 regularization on all weight matrices of the first layer.</p>
+<p>6.3 TRAINING TIME PER EPOCH</p>
+<p>Here, we report results for the mean training time per epoch (forward pass, cross-entropy calculation, backward pass) for 100 epochs on simulated random graphs, measured in seconds wall-clock time. See Section 5.1 for a detailed description of the random graph dataset used in these experiments. We compare results on a GPU and on a CPU-only implementation4 in TensorFlow (Abadi et al., 2015). Figure 2 summarizes the results</p>
+<p>7 DISCUSSION
+7.1 SEMI-SUPERVISED MODEL</p>
+<p>In the experiments demonstrated here, our method for semi-supervised node classification outperforms recent related methods by a significant margin. Methods based on graph-Laplacian regularization (Zhu et al., 2003; Belkin et al., 2006; Weston et al., 2012) are most likely limited due to their assumption that edges encode mere similarity of nodes. Skip-gram based methods on the other hand are limited by the fact that they are based on a multi-step pipeline which is difficult to optimize. Our proposed model can overcome both limitations, while still comparing favorably in terms of efficiency (measured in wall-clock time) to related methods. Propagation of feature information from neighboring nodes in every layer improves classification performance in comparison to methods like ICA (Lu &amp; Getoor, 2003), where only label information is aggregated. We have further demonstrated that the proposed renormalized propagation model (Eq. 8) offers both improved efficiency (fewer parameters and operations, such as multiplication or addition) and better predictive performance on a number of datasets compared to a na¨ıve 1 st-order model (Eq. 6) or higher-order graph convolutional models using Chebyshev polynomials (Eq. 5).</p>
+<p>7.2 LIMITATIONS AND FUTURE WORK</p>
+<p>Here, we describe several limitations of our current model and outline how these might be overcome in future work.</p>
+<p>Memory requirement</p>
+<p>In the current setup with full-batch gradient descent, memory requirement grows linearly in the size of the dataset. We have shown that for large graphs that do not fit in GPU memory, training on CPU can still be a viable option. Mini-batch stochastic gradient descent can alleviate this issue. The procedure of generating mini-batches, however, should take into account the number of layers in the GCN model, as the Kth-order neighborhood for a GCN with K layers has to be stored in memory for an exact procedure. For very large and densely connected graph datasets, further approximations might be necessary.</p>
+<p>Directed edges and edge features</p>
+<p>Our framework currently does not naturally support edge features and is limited to undirected graphs (weighted or unweighted). Results on NELL however show that it is possible to handle both directed edges and edge features by representing the original directed graph as an undirected bipartite graph with additional nodes that represent edges in the original graph (see Section 5.1 for details).</p>
+<p>Limiting assumptions</p>
+<p>Through the approximations introduced in Section 2, we implicitly assume locality (dependence on the Kth-order neighborhood for a GCN with K layers) and equal importance of self-connections vs. edges to neighboring nodes. For some datasets, however, it might be beneficial to introduce a trade-off parameter λ in the definition of A˜:</p>
+<p>This parameter now plays a similar role as the trade-off parameter between supervised and unsupervised loss in the typical semi-supervised setting (see Eq. 1). Here, however, it can be learned via gradient descent.</p>
+<p>8 CONCLUSION</p>
+<p>We have introduced a novel approach for semi-supervised classification on graph-structured data. Our GCN model uses an efficient layer-wise propagation rule that is based on a first-order approximation of spectral convolutions on graphs. Experiments on a number of network datasets suggest that the proposed GCN model is capable of encoding both graph structure and node features in a way useful for semi-supervised classification. In this setting, our model outperforms several recently proposed methods by a significant margin, while being computationally efficient.</p>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cnn.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010292_GCN.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

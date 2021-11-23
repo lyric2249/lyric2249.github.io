@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>C CNN | Self-Study</title>
+  <meta name="description" content="C CNN | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="C CNN | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="C CNN | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="abstract-1.html"/>
+<link rel="next" href="cnn-1.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Intro</a></li>
+<li class="part"><span><b>I 20-02</b></span></li>
+<li class="chapter" data-level="1" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>1</b> Categorical</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>1.1.1</b> Data Type and Statistical Analysis</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>2</b> Bayesian</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2.1</b> Abstract</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>2.1.1</b> 변수의 독립성</a></li>
+<li class="chapter" data-level="2.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>2.1.2</b> 교환가능성</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>2.2</b> Continual Aeassessment Method</a></li>
+<li class="chapter" data-level="2.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>2.3</b> Horseshoe Prior</a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01</b></span></li>
+<li class="chapter" data-level="3" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>3</b> Mathematical Stats</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>3.1</b> Inference</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>3.1.1</b> Rao-Blackwell thm.</a></li>
+<li class="chapter" data-level="3.1.2" data-path="inference.html"><a href="inference.html#completeness"><i class="fa fa-check"></i><b>3.1.2</b> Completeness</a></li>
+<li class="chapter" data-level="3.1.3" data-path="inference.html"><a href="inference.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>3.1.3</b> 레만-쉐페 thm.</a></li>
+<li class="chapter" data-level="3.1.4" data-path="inference.html"><a href="inference.html#raoblack"><i class="fa fa-check"></i><b>3.1.4</b> Rao-Blackwell thm.</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis Test</a></li>
+<li class="chapter" data-level="3.3" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>3.3</b> Power Fucntion</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>3.3.1</b> Significance Probability (p-value)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>3.4</b> Optimal Testing Method</a></li>
+<li class="chapter" data-level="3.5" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>3.5</b> Data Reduction</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>3.5.1</b> Sufficiency Principle</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>3.6</b> Borel Paradox</a></li>
+<li class="chapter" data-level="3.7" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>3.7</b> Neyman–Pearson lemma</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>3.7.1</b> Overview</a></li>
+<li class="chapter" data-level="3.7.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>3.7.2</b> Generalized LRT</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>3.8</b> 개념</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>4</b> MCMC</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>4.1</b> Importance Sampling</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>4.1.1</b> Independent Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.2</b> Markov Chain Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>4.2.1</b> MH Algorithm</a></li>
+<li class="chapter" data-level="4.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>4.2.2</b> Random Walk Chains (Most Widely Used)</a></li>
+<li class="chapter" data-level="4.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>4.2.3</b> Basic Gibbs Sampler</a></li>
+<li class="chapter" data-level="4.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>4.2.4</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> Data Augmentation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> Hit-and-Run Algorithm</a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> Metropolis-Adjusted Langevin Algorithm</a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> Multiple-Try Metropolis Algorithm</a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> Reversible Jump MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>4.4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Multimodal Target Distribution</a></li>
+<li class="chapter" data-level="4.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>4.4.3</b> Doubly-intractable Normalizing Constants</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models</a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods</a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>4.6.1</b> Introduction to Hamiltonian Monte Carlo</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>4.7</b> Population Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>4.7.1</b> Adaptive Direction Sampling</a></li>
+<li class="chapter" data-level="4.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>4.7.2</b> Conjugate Gradient MC</a></li>
+<li class="chapter" data-level="4.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>4.7.3</b> Parallel Tempering</a></li>
+<li class="chapter" data-level="4.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>4.7.4</b> Evolutionary MC</a></li>
+<li class="chapter" data-level="4.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>4.7.5</b> Sequential Parallel Tempering</a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>4.8</b> Stochastic Approximation Monte Carlo</a></li>
+<li class="chapter" data-level="4.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>4.9</b> Review</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>4.9.1</b> Wk01</a></li>
+<li class="chapter" data-level="4.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>4.9.2</b> wk03</a></li>
+<li class="chapter" data-level="4.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>4.9.3</b> wk04, 05</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>4.10</b> Else</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>4.10.1</b> Hw4. Rasch Model</a></li>
+<li class="chapter" data-level="4.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>4.10.2</b> DA) Example: MVN</a></li>
+<li class="chapter" data-level="4.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>4.10.3</b> Bayesian adaptive clinical trial with delayed outcomes</a></li>
+<li class="chapter" data-level="4.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>4.10.4</b> NMAR의 종류</a></li>
+<li class="chapter" data-level="4.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>4.10.5</b> wk10) Bayesian Model Selection</a></li>
+<li class="chapter" data-level="4.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>4.10.6</b> Autologistic model</a></li>
+<li class="chapter" data-level="4.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>4.10.7</b> wk10) Bayesian Model Averaging</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>5</b> MVA</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>5.1</b> Overview of mva (not ended)</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>5.1.1</b> Notation</a></li>
+<li class="chapter" data-level="5.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>5.1.2</b> Summary Statistics</a></li>
+<li class="chapter" data-level="5.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>5.1.3</b> Statistical Inference on Correlation</a></li>
+<li class="chapter" data-level="5.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>5.1.4</b> Standardization</a></li>
+<li class="chapter" data-level="5.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>5.1.5</b> Missing Value Treatment</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>5.2</b> Multivariate Nomral (wk2)</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>5.2.1</b> Overview</a></li>
+<li class="chapter" data-level="5.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>5.2.2</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="5.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>5.2.3</b> Properties of MVN</a></li>
+<li class="chapter" data-level="5.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>5.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution</a></li>
+<li class="chapter" data-level="5.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>5.2.5</b> Linear Combination of Random Vectors</a></li>
+<li class="chapter" data-level="5.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>5.2.6</b> Multivariate Normal Likelihood</a></li>
+<li class="chapter" data-level="5.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>5.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span></a></li>
+<li class="chapter" data-level="5.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>5.2.8</b> Assessing Normality</a></li>
+<li class="chapter" data-level="5.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>5.2.9</b> Power Transformation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>5.3</b> Inference about Mean Vector (wk3)</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>5.3.1</b> Overview</a></li>
+<li class="chapter" data-level="5.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>5.3.2</b> 1. Confidence Region</a></li>
+<li class="chapter" data-level="5.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>5.3.3</b> 2. Simultaneous CI</a></li>
+<li class="chapter" data-level="5.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>5.3.4</b> 3. Note: Bonferroni Multiple Comparison</a></li>
+<li class="chapter" data-level="5.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>5.3.5</b> 4. Large Sample Inferences about a Mean Vector</a></li>
+<li class="chapter" data-level="5.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>5.3.6</b> 1. Profile Analysis (wk4, 5)</a></li>
+<li class="chapter" data-level="5.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>5.3.7</b> 2. Test for Linear Trend</a></li>
+<li class="chapter" data-level="5.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>5.3.8</b> 3. Inferences about a Covariance Matrix</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>5.4</b> Comparison of Several MV Means (wk5)</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>5.4.1</b> Paired Comparison</a></li>
+<li class="chapter" data-level="5.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>5.4.2</b> Comparing Mean Vectors from Two Populations</a></li>
+<li class="chapter" data-level="5.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>5.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)</a></li>
+<li class="chapter" data-level="5.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>5.4.4</b> Comparing Several Multivariate Population Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>5.5</b> Multivariate Multiple Regression (wk6)</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
+<li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
+<li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>5.7.1</b> Method of Estimation</a></li>
+<li class="chapter" data-level="5.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>5.7.2</b> Factor Rotation</a></li>
+<li class="chapter" data-level="5.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>5.7.3</b> Varimax Criterion</a></li>
+<li class="chapter" data-level="5.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>5.7.4</b> Factor Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>5.8</b> Discrimination and Classification</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>5.8.1</b> Bayes Rule</a></li>
+<li class="chapter" data-level="5.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>5.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations</a></li>
+<li class="chapter" data-level="5.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>5.8.3</b> Evaluating Classification Functions</a></li>
+<li class="chapter" data-level="5.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>5.8.4</b> Classification with several Populations (wk13)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>5.8.5</b> Other Discriminant Analysis Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>5.9</b> Clustering, Distance Methods, and Ordination</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>5.9.1</b> Overview</a></li>
+<li class="chapter" data-level="5.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>5.9.2</b> Hierarchical Clustering</a></li>
+<li class="chapter" data-level="5.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>5.9.3</b> K-means Clustering</a></li>
+<li class="chapter" data-level="5.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>5.9.4</b> 군집의 평가방법</a></li>
+<li class="chapter" data-level="5.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>5.9.5</b> Clustering using Density Estimation (wk14)</a></li>
+<li class="chapter" data-level="5.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>5.9.6</b> Multidimensional Scaling (MDS)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>6</b> Linear</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="svd.html"><a href="svd.html"><i class="fa fa-check"></i><b>6.1</b> SVD</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="svd.html"><a href="svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>6.1.1</b> Spectral Decomposition</a></li>
+<li class="chapter" data-level="6.1.2" data-path="svd.html"><a href="svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>6.1.2</b> Singular value Decomposition: General-version</a></li>
+<li class="chapter" data-level="6.1.3" data-path="svd.html"><a href="svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>6.1.3</b> Singular value Decomposition: Another-version</a></li>
+<li class="chapter" data-level="6.1.4" data-path="svd.html"><a href="svd.html#quadratic-forms"><i class="fa fa-check"></i><b>6.1.4</b> Quadratic Forms</a></li>
+<li class="chapter" data-level="6.1.5" data-path="svd.html"><a href="svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>6.1.5</b> Partitioned Matrices</a></li>
+<li class="chapter" data-level="6.1.6" data-path="svd.html"><a href="svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>6.1.6</b> Geometrical Aspects</a></li>
+<li class="chapter" data-level="6.1.7" data-path="svd.html"><a href="svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>6.1.7</b> Column, Row and Null Space</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>6.2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-1.html"><a href="introduction-1.html#what"><i class="fa fa-check"></i><b>6.2.1</b> What</a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-1.html"><a href="introduction-1.html#random-vectors-and-matrices"><i class="fa fa-check"></i><b>6.2.2</b> Random Vectors and Matrices</a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-1.html"><a href="introduction-1.html#multivariate-normal-distributions"><i class="fa fa-check"></i><b>6.2.3</b> Multivariate Normal Distributions</a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-1.html"><a href="introduction-1.html#distributions-of-quadratic-forms"><i class="fa fa-check"></i><b>6.2.4</b> Distributions of Quadratic Forms</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>6.3</b> Estimation</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>6.3.1</b> Identifiability and Estimability</a></li>
+<li class="chapter" data-level="6.3.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>6.3.2</b> Estimation: Least Squares</a></li>
+<li class="chapter" data-level="6.3.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>6.3.3</b> Estimation: Best Linear Unbiased</a></li>
+<li class="chapter" data-level="6.3.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>6.3.4</b> Estimation: Maximum Likelihood</a></li>
+<li class="chapter" data-level="6.3.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>6.3.5</b> Estimation: Minimum Variance Unbiased</a></li>
+<li class="chapter" data-level="6.3.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>6.3.6</b> Sampling Distributions of Estimates</a></li>
+<li class="chapter" data-level="6.3.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>6.3.7</b> Generalized Least Squares(GLS)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>6.4</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>6.4.1</b> One-Way ANOVA</a></li>
+<li class="chapter" data-level="6.4.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>6.4.2</b> More About Models</a></li>
+<li class="chapter" data-level="6.4.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>6.4.3</b> Estimating and Testing Contrasts</a></li>
+<li class="chapter" data-level="6.4.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>6.4.4</b> Cochran’s Theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>6.5</b> Testing</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>6.5.1</b> More About Models: Two approaches for linear model</a></li>
+<li class="chapter" data-level="6.5.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>6.5.2</b> Testing Models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>6.5.3</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="6.5.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>6.5.4</b> Testing Linear Parametric Functions</a></li>
+<li class="chapter" data-level="6.5.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>6.5.5</b> Theoretical Complements</a></li>
+<li class="chapter" data-level="6.5.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>6.5.6</b> A Generalized Test Procedure</a></li>
+<li class="chapter" data-level="6.5.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>6.5.7</b> Testing Single Degrees of Freedom in a Given Subspace</a></li>
+<li class="chapter" data-level="6.5.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>6.5.8</b> Breaking SS into Independent Components</a></li>
+<li class="chapter" data-level="6.5.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>6.5.9</b> General Theory</a></li>
+<li class="chapter" data-level="6.5.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>6.5.10</b> Two-Way ANOVA</a></li>
+<li class="chapter" data-level="6.5.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>6.5.11</b> Confidence Regions</a></li>
+<li class="chapter" data-level="6.5.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>6.5.12</b> Tests for Generalized Least Squares Models</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>6.6</b> Generalized Least Squares</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>6.6.1</b> A direct solution via inner products</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>6.7</b> Flat</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>6.7.1</b> 1.Flat</a></li>
+<li class="chapter" data-level="6.7.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>6.7.2</b> 2. Solutions to systems of linear equations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>6.8</b> Unified Approach to Balanced ANOVA Models</a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02</b></span></li>
+<li class="chapter" data-level="7" data-path="network-stats.html"><a href="network-stats.html"><i class="fa fa-check"></i><b>7</b> Network Stats</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>7.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="introduction-2.html"><a href="introduction-2.html#types-of-network-analysis"><i class="fa fa-check"></i><b>7.1.1</b> Types of Network Analysis</a></li>
+<li class="chapter" data-level="7.1.2" data-path="introduction-2.html"><a href="introduction-2.html#network-modeling-and-inference"><i class="fa fa-check"></i><b>7.1.2</b> Network Modeling and Inference</a></li>
+<li class="chapter" data-level="7.1.3" data-path="introduction-2.html"><a href="introduction-2.html#network-processes"><i class="fa fa-check"></i><b>7.1.3</b> Network Processes</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics of Networks</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#vertex-and-edge-characteristics"><i class="fa fa-check"></i><b>7.2.1</b> Vertex and Edge Characteristics</a></li>
+<li class="chapter" data-level="7.2.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#characterizing-network-cohesion"><i class="fa fa-check"></i><b>7.2.2</b> Characterizing Network Cohesion</a></li>
+<li class="chapter" data-level="7.2.3" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#graph-partitioning"><i class="fa fa-check"></i><b>7.2.3</b> Graph Partitioning</a></li>
+<li class="chapter" data-level="7.2.4" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#assortativity-and-mixing"><i class="fa fa-check"></i><b>7.2.4</b> Assortativity and Mixing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Data Collection and Sampling</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Designs</a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>7.3.2</b> Coping Strategies</a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>7.3.3</b> Big Data Solves Nothing</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>7.4</b> Mathematical Models for Network Graphs</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#classical-random-graph-models"><i class="fa fa-check"></i><b>7.4.1</b> Classical Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.2" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#generalized-random-graph-models"><i class="fa fa-check"></i><b>7.4.2</b> Generalized Random Graph Models</a></li>
+<li class="chapter" data-level="7.4.3" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#network-graph-models-based-on-mechanisms"><i class="fa fa-check"></i><b>7.4.3</b> Network Graph Models Based on Mechanisms</a></li>
+<li class="chapter" data-level="7.4.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#assessing-significance-of-network-graph-characteristics"><i class="fa fa-check"></i><b>7.4.4</b> Assessing Significance of Network Graph Characteristics</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html"><i class="fa fa-check"></i><b>7.5</b> Introduction to ERGM</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#exponential-random-graph-models"><i class="fa fa-check"></i><b>7.5.1</b> Exponential Random Graph Models</a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#difficulty-in-parameter-estimation"><i class="fa fa-check"></i><b>7.5.2</b> Difficulty in Parameter Estimation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html"><i class="fa fa-check"></i><b>7.6</b> Parameter Estimation of ERGM</a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.1</b> Approximation-based Algorithm</a></li>
+<li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.2</b> Auxiliary Variable MCMC-based Approaches</a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.3</b> Varying Trunction Stochastic Approximation MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model</a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html"><i class="fa fa-check"></i><b>7.9</b> Additive and Multiplicative Effects Network Models</a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#introduction-3"><i class="fa fa-check"></i><b>7.9.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.9.2" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#social-relations-regression"><i class="fa fa-check"></i><b>7.9.2</b> Social Relations Regression</a></li>
+<li class="chapter" data-level="7.9.3" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#multiplicative-effects-models"><i class="fa fa-check"></i><b>7.9.3</b> Multiplicative Effects Models</a></li>
+<li class="chapter" data-level="7.9.4" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#inference-via-posterior-approximation"><i class="fa fa-check"></i><b>7.9.4</b> Inference via Posterior Approximation</a></li>
+<li class="chapter" data-level="7.9.5" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#discussion-and-example-with-r"><i class="fa fa-check"></i><b>7.9.5</b> Discussion and Example with R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="high-dimension.html"><a href="high-dimension.html"><i class="fa fa-check"></i><b>8</b> High Dimension</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html"><i class="fa fa-check"></i><b>8.2</b> Concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#motivation"><i class="fa fa-check"></i><b>8.2.1</b> Motivation</a></li>
+<li class="chapter" data-level="8.2.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#from-markov-to-chernoff"><i class="fa fa-check"></i><b>8.2.2</b> From Markov to Chernoff</a></li>
+<li class="chapter" data-level="8.2.3" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.3</b> sub-Gaussian random variables</a></li>
+<li class="chapter" data-level="8.2.4" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#properties-of-sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.4</b> Properties of sub-Gaussian random variables</a></li>
+<li class="chapter" data-level="8.2.5" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#equivalent-definitions"><i class="fa fa-check"></i><b>8.2.5</b> Equivalent definitions</a></li>
+<li class="chapter" data-level="8.2.6" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-vectors"><i class="fa fa-check"></i><b>8.2.6</b> Sub-Gaussian random vectors</a></li>
+<li class="chapter" data-level="8.2.7" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#hoeffdings-inequality"><i class="fa fa-check"></i><b>8.2.7</b> Hoeffding’s inequality</a></li>
+<li class="chapter" data-level="8.2.8" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#maximal-inequalities"><i class="fa fa-check"></i><b>8.2.8</b> Maximal inequalities</a></li>
+<li class="chapter" data-level="8.2.9" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#section"><i class="fa fa-check"></i><b>8.2.9</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html"><i class="fa fa-check"></i><b>8.3</b> Concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#sub-exponential-random-variables"><i class="fa fa-check"></i><b>8.3.1</b> Sub-exponential random variables</a></li>
+<li class="chapter" data-level="8.3.2" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#bernsteins-condition"><i class="fa fa-check"></i><b>8.3.2</b> Bernstein’s condition</a></li>
+<li class="chapter" data-level="8.3.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#mcdiarmids-inequality"><i class="fa fa-check"></i><b>8.3.3</b> McDiarmid’s inequality</a></li>
+<li class="chapter" data-level="8.3.4" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#levys-inequality"><i class="fa fa-check"></i><b>8.3.4</b> Levy’s inequality</a></li>
+<li class="chapter" data-level="8.3.5" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#quadratic-form"><i class="fa fa-check"></i><b>8.3.5</b> Quadratic form</a></li>
+<li class="chapter" data-level="8.3.6" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#the-johnsonlindenstrauss-lemma"><i class="fa fa-check"></i><b>8.3.6</b> The Johnson–Lindenstrauss Lemma</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html"><i class="fa fa-check"></i><b>8.4</b> Metric entropy and its uses</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#metric-space"><i class="fa fa-check"></i><b>8.4.1</b> Metric space</a></li>
+<li class="chapter" data-level="8.4.2" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#covering-numbers-and-metric-entropy"><i class="fa fa-check"></i><b>8.4.2</b> Covering numbers and metric entropy</a></li>
+<li class="chapter" data-level="8.4.3" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#packing-numbers"><i class="fa fa-check"></i><b>8.4.3</b> Packing numbers</a></li>
+<li class="chapter" data-level="8.4.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-1"><i class="fa fa-check"></i><b>8.4.4</b> </a></li>
+<li class="chapter" data-level="8.4.5" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-2"><i class="fa fa-check"></i><b>8.4.5</b> </a></li>
+<li class="chapter" data-level="8.4.6" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-3"><i class="fa fa-check"></i><b>8.4.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="covariance-estimation.html"><a href="covariance-estimation.html"><i class="fa fa-check"></i><b>8.5</b> Covariance estimation</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="covariance-estimation.html"><a href="covariance-estimation.html#matrix-algebra-review"><i class="fa fa-check"></i><b>8.5.1</b> Matrix algebra review</a></li>
+<li class="chapter" data-level="8.5.2" data-path="covariance-estimation.html"><a href="covariance-estimation.html#covariance-matrix-estimation-in-the-operator-norm"><i class="fa fa-check"></i><b>8.5.2</b> Covariance matrix estimation in the operator norm</a></li>
+<li class="chapter" data-level="8.5.3" data-path="covariance-estimation.html"><a href="covariance-estimation.html#bounds-for-structured-covariance-matrices"><i class="fa fa-check"></i><b>8.5.3</b> Bounds for structured covariance matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html"><i class="fa fa-check"></i><b>8.6</b> Matrix concentration inequalities</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-calculus"><i class="fa fa-check"></i><b>8.6.1</b> Matrix calculus</a></li>
+<li class="chapter" data-level="8.6.2" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-chernoff"><i class="fa fa-check"></i><b>8.6.2</b> Matrix Chernoff</a></li>
+<li class="chapter" data-level="8.6.3" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#sub-gaussian-and-sub-exponential-matrices"><i class="fa fa-check"></i><b>8.6.3</b> Sub-Gaussian and sub-exponential matrices</a></li>
+<li class="chapter" data-level="8.6.4" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#랜덤-매트릭스에-대한-hoeffding-and-bernstein-bounds"><i class="fa fa-check"></i><b>8.6.4</b> 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8.7</b> Principal Component Analysis</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-1"><i class="fa fa-check"></i><b>8.7.1</b> PCA</a></li>
+<li class="chapter" data-level="8.7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#matrix-perturbation"><i class="fa fa-check"></i><b>8.7.2</b> Matrix Perturbation</a></li>
+<li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model</a></li>
+<li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8.8</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>8.8.1</b> Problem formulation</a></li>
+<li class="chapter" data-level="8.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>8.8.2</b> Least Squares Estimator in high dimensions</a></li>
+<li class="chapter" data-level="8.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>8.8.3</b> Sparse linear regression</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>9.1</b> Introduction</a></li>
+<li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
+<li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation</a></li>
+<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale</a></li>
+<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties</a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression</a></li>
+<li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!</a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>9.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약</a></li>
+<li class="chapter" data-level="9.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>9.6.2</b> Ft-measurable</a></li>
+<li class="chapter" data-level="9.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>9.6.3</b> EPILOGUE</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts</a></li>
+</ul></li>
+<li class="appendix"><span><b>00-00</b></span></li>
+<li class="chapter" data-level="A" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>A</b> Concepts</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="autologistic.html"><a href="autologistic.html"><i class="fa fa-check"></i><b>A.1</b> Autologistics</a></li>
+<li class="chapter" data-level="A.2" data-path="orderlogit.html"><a href="orderlogit.html"><i class="fa fa-check"></i><b>A.2</b> Ordered Logit</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>B</b> ABSTRACT</a></li>
+<li class="chapter" data-level="C" data-path="cnn.html"><a href="cnn.html"><i class="fa fa-check"></i><b>C</b> CNN</a></li>
+<li class="chapter" data-level="D" data-path="cnn-1.html"><a href="cnn-1.html"><i class="fa fa-check"></i><b>D</b> CNN</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cnn" class="section level1" number="12">
+<h1><span class="header-section-number">C</span> CNN</h1>
+<p>Abstract</p>
+<p>We trained a large, deep convolutional neural network to classify the 1.2 million high-resolution images in the ImageNet LSVRC-2010 contest into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 37.5% and 17.0% which is considerably better than the previous state-of-the-art. The neural network, which has 60 million parameters and 650,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and three fully-connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of the convolution operation. To reduce overfitting in the fully-connected layers we employed a recently-developed regularization method called “dropout” that proved to be very effective. We also entered a variant of this model in the ILSVRC-2012 competition and achieved a winning top-5 test error rate of 15.3%, compared to 26.2% achieved by the second-best entry.</p>
+<p>1 Introduction</p>
+<p>Current approaches to object recognition make essential use of machine learning methods. To improve their performance, we can collect larger datasets, learn more powerful models, and use better techniques for preventing overfitting. Until recently, datasets of labeled images were relatively small — on the order of tens of thousands of images (e.g., NORB [16], Caltech-101/256 [8, 9], and CIFAR-10/100 [12]). Simple recognition tasks can be solved quite well with datasets of this size, especially if they are augmented with label-preserving transformations. For example, the currentbest error rate on the MNIST digit-recognition task (&lt;0.3%) approaches human performance [4]. But objects in realistic settings exhibit considerable variability, so to learn to recognize them it is necessary to use much larger training sets. And indeed, the shortcomings of small image datasets have been widely recognized (e.g., Pinto et al. [21]), but it has only recently become possible to collect labeled datasets with millions of images. The new larger datasets include LabelMe [23], which consists of hundreds of thousands of fully-segmented images, and ImageNet [6], which consists of over 15 million labeled high-resolution images in over 22,000 categories. To learn about thousands of objects from millions of images, we need a model with a large learning capacity. However, the immense complexity of the object recognition task means that this problem cannot be specified even by a dataset as large as ImageNet, so our model should also have lots of prior knowledge to compensate for all the data we don’t have. Convolutional neural networks (CNNs) constitute one such class of models [16, 11, 13, 18, 15, 22, 26]. Their capacity can be controlled by varying their depth and breadth, and they also make strong and mostly correct assumptions about the nature of images (namely, stationarity of statistics and locality of pixel dependencies). Thus, compared to standard feedforward neural networks with similarly-sized layers, CNNs have much fewer connections and parameters and so they are easier to train, while their theoretically-best performance is likely to be only slightly worse.</p>
+<p>Despite the attractive qualities of CNNs, and despite the relative efficiency of their local architecture, they have still been prohibitively expensive to apply in large scale to high-resolution images. Luckily, current GPUs, paired with a highly-optimized implementation of 2D convolution, are powerful enough to facilitate the training of interestingly-large CNNs, and recent datasets such as ImageNet contain enough labeled examples to train such models without severe overfitting. The specific contributions of this paper are as follows: we trained one of the largest convolutional neural networks to date on the subsets of ImageNet used in the ILSVRC-2010 and ILSVRC-2012 competitions [2] and achieved by far the best results ever reported on these datasets. We wrote a highly-optimized GPU implementation of 2D convolution and all the other operations inherent in training convolutional neural networks, which we make available publicly1 . Our network contains a number of new and unusual features which improve its performance and reduce its training time, which are detailed in Section 3. The size of our network made overfitting a significant problem, even with 1.2 million labeled training examples, so we used several effective techniques for preventing overfitting, which are described in Section 4. Our final network contains five convolutional and three fully-connected layers, and this depth seems to be important: we found that removing any convolutional layer (each of which contains no more than 1% of the model’s parameters) resulted in inferior performance. In the end, the network’s size is limited mainly by the amount of memory available on current GPUs and by the amount of training time that we are willing to tolerate. Our network takes between five and six days to train on two GTX 580 3GB GPUs. All of our experiments suggest that our results can be improved simply by waiting for faster GPUs and bigger datasets to become available.</p>
+<p>2 The Dataset</p>
+<p>ImageNet is a dataset of over 15 million labeled high-resolution images belonging to roughly 22,000 categories. The images were collected from the web and labeled by human labelers using Amazon’s Mechanical Turk crowd-sourcing tool. Starting in 2010, as part of the Pascal Visual Object Challenge, an annual competition called the ImageNet Large-Scale Visual Recognition Challenge (ILSVRC) has been held. ILSVRC uses a subset of ImageNet with roughly 1000 images in each of 1000 categories. In all, there are roughly 1.2 million training images, 50,000 validation images, and 150,000 testing images. ILSVRC-2010 is the only version of ILSVRC for which the test set labels are available, so this is the version on which we performed most of our experiments. Since we also entered our model in the ILSVRC-2012 competition, in Section 6 we report our results on this version of the dataset as well, for which test set labels are unavailable. On ImageNet, it is customary to report two error rates: top-1 and top-5, where the top-5 error rate is the fraction of test images for which the correct label is not among the five labels considered most probable by the model. ImageNet consists of variable-resolution images, while our system requires a constant input dimensionality. Therefore, we down-sampled the images to a fixed resolution of 256 × 256. Given a rectangular image, we first rescaled the image such that the shorter side was of length 256, and then cropped out the central 256×256 patch from the resulting image. We did not pre-process the images in any other way, except for subtracting the mean activity over the training set from each pixel. So we trained our network on the (centered) raw RGB values of the pixels.</p>
+<p>3 The Architecture</p>
+<p>The architecture of our network is summarized in Figure 2. It contains eight learned layers — five convolutional and three fully-connected. Below, we describe some of the novel or unusual features of our network’s architecture. Sections 3.1-3.4 are sorted according to our estimation of their importance, with the most important first.</p>
+<p>3.1 ReLU Nonlinearity</p>
+<p>Figure 1: A four-layer convolutional neural network with ReLUs (solid line) reaches a 25% training error rate on CIFAR-10 six times faster than an equivalent network with tanh neurons (dashed line).</p>
+<p>The learning rates for each network were chosen independently to make training as fast as possible. No regularization of any kind was employed. The magnitude of the effect demonstrated here varies with network architecture, but networks with ReLUs consistently learn several times faster than equivalents with saturating neurons. The standard way to model a neuron’s output f as a function of its input x is with f(x) = tanh(x) or f(x) = (1 + e −x ) −1 . In terms of training time with gradient descent, these saturating nonlinearities are much slower than the non-saturating nonlinearity f(x) = max(0, x). Following Nair and Hinton [20], we refer to neurons with this nonlinearity as Rectified Linear Units (ReLUs). Deep convolutional neural networks with ReLUs train several times faster than their equivalents with tanh units. This is demonstrated in Figure 1, which shows the number of iterations required to reach 25% training error on the CIFAR-10 dataset for a particular four-layer convolutional network. This plot shows that we would not have been able to experiment with such large neural networks for this work if we had used traditional saturating neuron models. We are not the first to consider alternatives to traditional neuron models in CNNs. For example, Jarrett et al. [11] claim that the nonlinearity f(x) = |tanh(x)| works particularly well with their type of contrast normalization followed by local average pooling on the Caltech-101 dataset. However, on this dataset the primary concern is preventing overfitting, so the effect they are observing is different from the accelerated ability to fit the training set which we report when using ReLUs. Faster learning has a great influence on the performance of large models trained on large datasets.</p>
+<p>3.2 Training on Multiple GPUs</p>
+<p>A single GTX 580 GPU has only 3GB of memory, which limits the maximum size of the networks that can be trained on it. It turns out that 1.2 million training examples are enough to train networks which are too big to fit on one GPU. Therefore we spread the net across two GPUs. Current GPUs are particularly well-suited to cross-GPU parallelization, as they are able to read from and write to one another’s memory directly, without going through host machine memory. The parallelization scheme that we employ essentially puts half of the kernels (or neurons) on each GPU, with one additional trick: the GPUs communicate only in certain layers. This means that, for example, the kernels of layer 3 take input from all kernel maps in layer 2. However, kernels in layer 4 take input only from those kernel maps in layer 3 which reside on the same GPU. Choosing the pattern of connectivity is a problem for cross-validation, but this allows us to precisely tune the amount of communication until it is an acceptable fraction of the amount of computation. The resultant architecture is somewhat similar to that of the “columnar” CNN employed by Cire¸san et al. [5], except that our columns are not independent (see Figure 2). This scheme reduces our top-1 and top-5 error rates by 1.7% and 1.2%, respectively, as compared with a net with half as many kernels in each convolutional layer trained on one GPU. The two-GPU net takes slightly less time to train than the one-GPU net2 .</p>
+<p>The one-GPU net actually has the same number of kernels as the two-GPU net in the final convolutional layer. This is because most of the net’s parameters are in the first fully-connected layer, which takes the last convolutional layer as input. So to make the two nets have approximately the same number of parameters, we did not halve the size of the final convolutional layer (nor the fully-conneced layers which follow). Therefore this comparison is biased in favor of the one-GPU net, since it is bigger than “half the size” of the two-GPU net.</p>
+<p>3.3 Local Response Normalization</p>
+<p>ReLUs have the desirable property that they do not require input normalization to prevent them from saturating. If at least some training examples produce a positive input to a ReLU, learning will happen in that neuron. However, we still find that the following local normalization scheme aids generalization. Denoting by a i x,y the activity of a neuron computed by applying kernel i at position (x, y) and then applying the ReLU nonlinearity, the response-normalized activity b i x,y is given by the expression, where the sum runs over n “adjacent” kernel maps at the same spatial position, and N is the total number of kernels in the layer. The ordering of the kernel maps is of course arbitrary and determined before training begins. This sort of response normalization implements a form of lateral inhibition inspired by the type found in real neurons, creating competition for big activities amongst neuron outputs computed using different kernels. The constants k, n, α, and β are hyper-parameters whose values are determined using a validation set; we used k = 2, n = 5, α = 10−4 , and β = 0.75. We applied this normalization after applying the ReLU nonlinearity in certain layers (see Section 3.5). This scheme bears some resemblance to the local contrast normalization scheme of Jarrett et al. [11], but ours would be more correctly termed “brightness normalization,” since we do not subtract the mean activity. Response normalization reduces our top-1 and top-5 error rates by 1.4% and 1.2%, respectively. We also verified the effectiveness of this scheme on the CIFAR-10 dataset: a four-layer CNN achieved a 13% test error rate without normalization and 11% with normalization3 .</p>
+<p>3.4 Overlapping Pooling</p>
+<p>Pooling layers in CNNs summarize the outputs of neighboring groups of neurons in the same kernel map. Traditionally, the neighborhoods summarized by adjacent pooling units do not overlap (e.g., [17, 11, 4]). To be more precise, a pooling layer can be thought of as consisting of a grid of pooling units spaced s pixels apart, each summarizing a neighborhood of size z × z centered at the location of the pooling unit. If we set s = z, we obtain traditional local pooling as commonly employed in CNNs. If we set s &lt; z, we obtain overlapping pooling. This is what we use throughout our network, with s = 2 and z = 3. This scheme reduces the top-1 and top-5 error rates by 0.4% and 0.3%, respectively, as compared with the non-overlapping scheme s = 2, z = 2, which produces output of equivalent dimensions. We generally observe during training that models with overlapping pooling find it slightly more difficult to overfit.</p>
+<p>3.5 Overall Architecture</p>
+<p>Now we are ready to describe the overall architecture of our CNN. As depicted in Figure 2, the net contains eight layers with weights; the first five are convolutional and the remaining three are fullyconnected. The output of the last fully-connected layer is fed to a 1000-way softmax which produces a distribution over the 1000 class labels. Our network maximizes the multinomial logistic regression objective, which is equivalent to maximizing the average across training cases of the log-probability of the correct label under the prediction distribution. The kernels of the second, fourth, and fifth convolutional layers are connected only to those kernel maps in the previous layer which reside on the same GPU (see Figure 2). The kernels of the third convolutional layer are connected to all kernel maps in the second layer. The neurons in the fullyconnected layers are connected to all neurons in the previous layer. Response-normalization layers follow the first and second convolutional layers. Max-pooling layers, of the kind described in Section 3.4, follow both response-normalization layers as well as the fifth convolutional layer. The ReLU non-linearity is applied to the output of every convolutional and fully-connected layer.</p>
+<p>The first convolutional layer filters the 224×224×3 input image with 96 kernels of size 11×11×3 with a stride of 4 pixels (this is the distance between the receptive field centers of neighboring neurons in a kernel map). The second convolutional layer takes as input the (response-normalized and pooled) output of the first convolutional layer and filters it with 256 kernels of size 5 × 5 × 48. The third, fourth, and fifth convolutional layers are connected to one another without any intervening pooling or normalization layers. The third convolutional layer has 384 kernels of size 3 × 3 × 256 connected to the (normalized, pooled) outputs of the second convolutional layer. The fourth convolutional layer has 384 kernels of size 3 × 3 × 192 , and the fifth convolutional layer has 256 kernels of size 3 × 3 × 192. The fully-connected layers have 4096 neurons each.</p>
+<p>Figure 2: An illustration of the architecture of our CNN, explicitly showing the delineation of responsibilities between the two GPUs. One GPU runs the layer-parts at the top of the figure while the other runs the layer-parts at the bottom. The GPUs communicate only at certain layers. The network’s input is 150,528-dimensional, and the number of neurons in the network’s remaining layers is given by 253,440–186,624–64,896–64,896–43,264– 4096–4096–1000.</p>
+<p>4 Reducing Overfitting</p>
+<p>Our neural network architecture has 60 million parameters. Although the 1000 classes of ILSVRC make each training example impose 10 bits of constraint on the mapping from image to label, this turns out to be insufficient to learn so many parameters without considerable overfitting. Below, we describe the two primary ways in which we combat overfitting.</p>
+<p>4.1 Data Augmentation</p>
+<p>The easiest and most common method to reduce overfitting on image data is to artificially enlarge the dataset using label-preserving transformations (e.g., [25, 4, 5]). We employ two distinct forms of data augmentation, both of which allow transformed images to be produced from the original images with very little computation, so the transformed images do not need to be stored on disk. In our implementation, the transformed images are generated in Python code on the CPU while the GPU is training on the previous batch of images. So these data augmentation schemes are, in effect, computationally free. The first form of data augmentation consists of generating image translations and horizontal reflections. We do this by extracting random 224 × 224 patches (and their horizontal reflections) from the 256×256 images and training our network on these extracted patches4 . This increases the size of our training set by a factor of 2048, though the resulting training examples are, of course, highly interdependent. Without this scheme, our network suffers from substantial overfitting, which would have forced us to use much smaller networks. At test time, the network makes a prediction by extracting five 224 × 224 patches (the four corner patches and the center patch) as well as their horizontal reflections (hence ten patches in all), and averaging the predictions made by the network’s softmax layer on the ten patches. The second form of data augmentation consists of altering the intensities of the RGB channels in training images. Specifically, we perform PCA on the set of RGB pixel values throughout the ImageNet training set. To each training image, we add multiples of the found principal components, with magnitudes proportional to the corresponding eigenvalues times a random variable drawn from a Gaussian with mean zero and standard deviation 0.1. Therefore to each RGB image pixel Ixy = [I R xy, IG xy, IB xy] T we add the following quantity:</p>
+<p>where pi and λi are ith eigenvector and eigenvalue of the 3 × 3 covariance matrix of RGB pixel values, respectively, and αi is the aforementioned random variable. Each αi is drawn only once for all the pixels of a particular training image until that image is used for training again, at which point it is re-drawn. This scheme approximately captures an important property of natural images, namely, that object identity is invariant to changes in the intensity and color of the illumination. This scheme reduces the top-1 error rate by over 1%.</p>
+<p>4.2 Dropout</p>
+<p>Combining the predictions of many different models is a very successful way to reduce test errors [1, 3], but it appears to be too expensive for big neural networks that already take several days to train. There is, however, a very efficient version of model combination that only costs about a factor of two during training. The recently-introduced technique, called “dropout” [10], consists of setting to zero the output of each hidden neuron with probability 0.5. The neurons which are “dropped out” in this way do not contribute to the forward pass and do not participate in backpropagation. So every time an input is presented, the neural network samples a different architecture, but all these architectures share weights. This technique reduces complex co-adaptations of neurons, since a neuron cannot rely on the presence of particular other neurons. It is, therefore, forced to learn more robust features that are useful in conjunction with many different random subsets of the other neurons. At test time, we use all the neurons but multiply their outputs by 0.5, which is a reasonable approximation to taking the geometric mean of the predictive distributions produced by the exponentially-many dropout networks. We use dropout in the first two fully-connected layers of Figure 2. Without dropout, our network exhibits substantial overfitting. Dropout roughly doubles the number of iterations required to converge.</p>
+<p>5 Details of learning</p>
+<p>We trained our models using stochastic gradient descent with a batch size of 128 examples, momentum of 0.9, and weight decay of 0.0005. We found that this small amount of weight decay was important for the model to learn. In other words, weight decay here is not merely a regularizer: it reduces the model’s training error. The update rule for weight w was B.</p>
+<p>We initialized the weights in each layer from a zero-mean Gaussian distribution with standard deviation 0.01. We initialized the neuron biases in the second, fourth, and fifth convolutional layers, as well as in the fully-connected hidden layers, with the constant 1. This initialization accelerates the early stages of learning by providing the ReLUs with positive inputs. We initialized the neuron biases in the remaining layers with the constant 0. We used an equal learning rate for all layers, which we adjusted manually throughout training. The heuristic which we followed was to divide the learning rate by 10 when the validation error rate stopped improving with the current learning rate. The learning rate was initialized at 0.01 and reduced three times prior to termination. We trained the network for roughly 90 cycles through the training set of 1.2 million images, which took five to six days on two NVIDIA GTX 580 3GB GPUs.</p>
+<p>6 Results</p>
+<p>Our results on ILSVRC-2010 are summarized in Table 1. Our network achieves top-1 and top-5 test set error rates of 37.5% and 17.0%5 . The best performance achieved during the ILSVRC2010 competition was 47.1% and 28.2% with an approach that averages the predictions produced from six sparse-coding models trained on different features [2], and since then the best published results are 45.7% and 25.7% with an approach that averages the predictions of two classifiers trained on Fisher Vectors (FVs) computed from two types of densely-sampled features [24]</p>
+<p>We also entered our model in the ILSVRC-2012 competition and report our results in Table 2. Since the ILSVRC-2012 test set labels are not publicly available, we cannot report test error rates for all the models that we tried. In the remainder of this paragraph, we use validation and test error rates interchangeably because in our experience they do not differ by more than 0.1% (see Table 2). The CNN described in this paper achieves a top-5 error rate of 18.2%. Averaging the predictions of five similar CNNs gives an error rate of 16.4%. Training one CNN, with an extra sixth convolutional layer over the last pooling layer, to classify the entire ImageNet Fall 2011 release (15M images, 22K categories), and then “fine-tuning” it on ILSVRC-2012 gives an error rate of 16.6%. Averaging the predictions of two CNNs that were pre-trained on the entire Fall 2011 release with the aforementioned five CNNs gives an error rate of 15.3%. The second-best contest entry achieved an error rate of 26.2% with an approach that averages the predictions of several classifiers trained on FVs computed from different types of densely-sampled features [7].</p>
+<p>Finally, we also report our error rates on the Fall 2009 version of ImageNet with 10,184 categories and 8.9 million images. On this dataset we follow the convention in the literature of using half of the images for training and half for testing. Since there is no established test set, our split necessarily differs from the splits used by previous authors, but this does not affect the results appreciably. Our top-1 and top-5 error rates on this dataset are 67.4% and 40.9%, attained by the net described above but with an additional, sixth convolutional layer over the last pooling layer. The best published results on this dataset are 78.1% and 60.9% [19].</p>
+<p>6.1 Qualitative Evaluations</p>
+<p>Figure 3 shows the convolutional kernels learned by the network’s two data-connected layers. The network has learned a variety of frequency- and orientation-selective kernels, as well as various colored blobs. Notice the specialization exhibited by the two GPUs, a result of the restricted connectivity described in Section 3.5. The kernels on GPU 1 are largely color-agnostic, while the kernels on on GPU 2 are largely color-specific. This kind of specialization occurs during every run and is independent of any particular random weight initialization (modulo a renumbering of the GPUs).</p>
+<p>In the left panel of Figure 4 we qualitatively assess what the network has learned by computing its top-5 predictions on eight test images. Notice that even off-center objects, such as the mite in the top-left, can be recognized by the net. Most of the top-5 labels appear reasonable. For example, only other types of cat are considered plausible labels for the leopard. In some cases (grille, cherry) there is genuine ambiguity about the intended focus of the photograph. Another way to probe the network’s visual knowledge is to consider the feature activations induced by an image at the last, 4096-dimensional hidden layer. If two images produce feature activation vectors with a small Euclidean separation, we can say that the higher levels of the neural network consider them to be similar. Figure 4 shows five images from the test set and the six images from the training set that are most similar to each of them according to this measure. Notice that at the pixel level, the retrieved training images are generally not close in L2 to the query images in the first column. For example, the retrieved dogs and elephants appear in a variety of poses. We present the results for many more test images in the supplementary material. Computing similarity by using Euclidean distance between two 4096-dimensional, real-valued vectors is inefficient, but it could be made efficient by training an auto-encoder to compress these vectors to short binary codes. This should produce a much better image retrieval method than applying autoencoders to the raw pixels [14], which does not make use of image labels and hence has a tendency to retrieve images with similar patterns of edges, whether or not they are semantically similar</p>
+<p>7 Discussion</p>
+<p>Our results show that a large, deep convolutional neural network is capable of achieving recordbreaking results on a highly challenging dataset using purely supervised learning. It is notable that our network’s performance degrades if a single convolutional layer is removed. For example, removing any of the middle layers results in a loss of about 2% for the top-1 performance of the network. So the depth really is important for achieving our results. To simplify our experiments, we did not use any unsupervised pre-training even though we expect that it will help, especially if we obtain enough computational power to significantly increase the size of the network without obtaining a corresponding increase in the amount of labeled data. Thus far, our results have improved as we have made our network larger and trained it longer but we still have many orders of magnitude to go in order to match the infero-temporal pathway of the human visual system. Ultimately we would like to use very large and deep convolutional nets on video sequences where the temporal structure provides very helpful information that is missing or far less obvious in static images.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="abstract-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cnn-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010291_CNN.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
