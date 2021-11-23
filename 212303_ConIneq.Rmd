@@ -188,6 +188,7 @@ $$
 \end{align}
 $$
 
+이하는 관련한 thm.
 
 
 :::{.theorem name="Hanson–Wright inequality"}
