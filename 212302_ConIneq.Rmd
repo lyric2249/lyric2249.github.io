@@ -160,62 +160,29 @@ $$
 	- $X+Y \in SG \Big ( (\sigma + \gamma)^2\Big )$
 	- if $X \perp Y$, then $X + Y \in SG \Big ( \sigma^2 + \gamma^2 \Big )
 
+Proof for each.
 
-
-- (1)
-$\forall \lambda \in \mathbb R: E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }$, Taylor's thm 에 의해 이하가 성립. 쌍방을 $\labmda^2 >0$ 으로 나누고 $\labmda \rightarrow 0$ 를 취하는 것으로 (1) 성립.
+1. $\forall \lambda \in \mathbb R: E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }$, Taylor's thm 에 의해 이하가 성립. 쌍방을 $\labmda^2 >0$ 으로 나누고 $\labmda \rightarrow 0$ 를 취하는 것으로 (1) 성립.
 
 $$
 1 + \lambda \underbrace{E[(X - \mu)]}_{=0}
-
 + \frac{\lambda^2}{2} \underbrace{E[(X - \mu)^2]}_{=Var(X)}
-
 + o(\lambda^2) \le 1 + \frac{\lambda^2 \sigma^2}{2} + o(\lambda^2 )
 $$
 
-- (2)
+2. $\forall  \lambda \in \mathbb{R}:E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$ 인 것만 보이면 됨. WLOG, $\mu=0$ 임을 가정. $\forall \lambda \in \mathbb R :e^{\lambda x}$ 는 x의 convex 이므로, $ a \le \forall x \le b :e^{\lambda x}\leq\frac{b-x}{b-a}e^{\lambda a}+\frac{x-a}{b-a}e^{\lambda b}$. 
 
-$\forall  \lambda \in \mathbb{R}:E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$ 인 것만 보이면 됨. WLOG, $\mu=0$ 임을 가정. $\forall \lambda \in \mathbb R :e^{\lambda x}$ 는 x의 convex 이므로,
-
-
-
-$ a \le \forall x \le b :e^{\lambda x}\leq\frac{b-x}{b-a}e^{\lambda a}+\frac{x-a}{b-a}e^{\lambda b}$
-
-따라서 $\mu=0$ 를 가정하면,
+따라서 $\mu=0$ 를 가정하면, $\mathbb{R}[e^{\lambda X}]\leq\frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}$. 이때 $h = \lambda(b-a)$ 와 $p = -\frac{a}{b-a}$ 라고 하고, $L(h) = -hp \log(1-p + pe^h)$ 라고 하자. 이때 우리는 이하가 증명된다. ${\frac{b}{b-a}}e^{\lambda a}-{\frac{a}{b-a}}e^{\lambda b}\equiv e^{L(h)}$. 이에 더해 $L(0) = L'(0) = 0$ 이며 $\forall h: L''(h) \le \frac{1}{4}$. 따라서 Taylor expansion 에 의해 $L(h)\le\frac{1}{8}h^{2}=\frac{1}{8}\lambda^{2}(b-a)^{2}$ 이며 따라서 $E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$.
 
 
-$\mathbb{R}[e^{\lambda X}]\leq\frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}.$
-
-이때 $h = \lambda(b-a)$ 와 $p = -\frac{a}{b-a}$ 라고 하고, $L(h) = -hp \log(1-p + pe^h)$ 라고 하자. 이때 우리는 이하가 증명된다.
-
-
-
-${\frac{b}{b-a}}e^{\lambda a}-{\frac{a}{b-a}}e^{\lambda b}\equiv e^{L(h)}.$
-
-
-이에 더해 $L(0) = L'(0) = 0$ 이며 $\forall h: L''(h) \le \frac{1}{4}$. 따라서 Taylor expansion 에 의해 
-
-
-$L(h)\le\frac{1}{8}h^{2}=\frac{1}{8}\lambda^{2}(b-a)^{2}$ 이며 따라서 $E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}$.
-
-
-- (3)
-
-(a) 는 SG 랜덤변수의 정의에 의해 trivial.
-
-(b) 를 증명하자. $E(X) = E(Y)=0$ 임을 가정. 이때 이하가 도출된다.
-
-
-
+3. (a) 는 SG 랜덤변수의 정의에 의해 trivial. (b) 를 증명하자. $E(X) = E(Y)=0$ 임을 가정. 이때 이하가 도출된다.
 
 $$
 \mathbb{E}[e^{\lambda(X+Y)}]=\mathbb{E}[e^{\lambda X}e^{\lambda Y}]\stackrel{(\mathrm{i})}\leq\ \left(\mathbb{E}[e^{\lambda p X}]\right)^{1/p}\left(\mathbb{E}[e^{\lambda q Y}]\right)^{1/q}
 \\
 \stackrel{(ii)}{\le}\,e^{\frac{\lambda^{2}p^{2}\sigma^{2}}{2}\times\frac{1}{p}+\frac{\lambda^{2}q^{2}\tau^{2}}{2}\times\frac{1}{q}}
-
 \\=
 e^{\frac{\lambda^{2}}{2}(p\sigma^{2}+q\tau^{2})}\
-
 \\
 \stackrel{({iii})}{=}\,e^{\frac{\lambda^{2}}{2}(\sigma+\tau)^{2}}
 $$
@@ -225,7 +192,6 @@ $$
 3. by letting $p = \frac{\tau}{\sigma}+1$, $q = \frac{\sigma}{\tau}+1$.
 
 (c) 를 증명하다. $X \perp Y$ 이므로, $E(X) = E(Y)=0$ 을 가정하는 것으로, 이하에 의해 성립.
-
 
 $$
 \mathbb{E}[e^{\lambda(X+Y)}]=\mathbb{E}[e^{\lambda X}]\times\mathbb{E}[e^{\lambda Y}]\leq e^{\frac{\lambda^{2}(\sigma^{2}+\tau^{2})}{2}},
@@ -239,9 +205,11 @@ $$
 
 - **Holder's Inquality**
 
-$\forall p, q >0$ with $\frac 1 p + \frac 1 q = 1$, it holds that
+$\forall p, q >0$ with $\frac 1 p + \frac 1 q = 1$, it holds that 
 
-$\mathbb{E}[|X Y|]\leq||X||p||Y||_{q} = \{\mathbb{E}[|X|^{p}]\}^{1/p} \cdot \{\mathbb{E}[|Y|^{q}]\}^{1/q}$
+$$
+\mathbb{E}[|X Y|]\leq||X||p||Y||_{q} = \{\mathbb{E}[|X|^{p}]\}^{1/p} \cdot \{\mathbb{E}[|Y|^{q}]\}^{1/q}
+$$
 
 
 Proof. Observe that $\forall a, b \ge 0: a b=e^{\log(a b)}=e^{\frac{1}{p}p\log a+\frac{1}{q}q\log b}\le\frac{1}{p}e^{p\log a}+\frac{1}{q}e^{q\log b}=\frac{1}{p}a^{p}+\frac{1}{q}b^{q}$, 이는 Jensen 에 의해 성립. 이제 $a = \frac{X}{||X||_p}$, $b=\frac{Y}{||Y||_q}$ 로 하고 양쪽에 expectation 취하는 것으로 ineq 성립.

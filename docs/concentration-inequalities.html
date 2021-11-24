@@ -672,48 +672,33 @@ E[g(X)] \ge E[L_\mu (X)] = E(a+bX) =a+b\mu= L_\mu (\mu) = g(\mu)
 <li>if <span class="math inline">\(X \perp Y\)</span>, then $X + Y SG ( ^2 + ^2 )</li>
 </ul></li>
 </ol>
-<ul>
-<li><ol style="list-style-type: decimal">
+<p>Proof for each.</p>
+<ol style="list-style-type: decimal">
 <li><span class="math inline">\(\forall \lambda \in \mathbb R: E \left \{ e^{\lambda (X-\mu)} \right\} \le e^{\frac{\sigma^2 \lambda^2}{2} }\)</span>, Taylor’s thm 에 의해 이하가 성립. 쌍방을 <span class="math inline">\(\labmda^2 &gt;0\)</span> 으로 나누고 <span class="math inline">\(\labmda \rightarrow 0\)</span> 를 취하는 것으로 (1) 성립.</li>
-</ol></li>
-</ul>
-<p>$$
-1 + _{=0}</p>
-<ul>
-<li><p> _{=Var(X)}</p></li>
-<li><p>o(^2)  +  + o(^2 )
-$$</p></li>
-<li><ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol></li>
-</ul>
-<p><span class="math inline">\(\forall \lambda \in \mathbb{R}:E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}\)</span> 인 것만 보이면 됨. WLOG, <span class="math inline">\(\mu=0\)</span> 임을 가정. <span class="math inline">\(\forall \lambda \in \mathbb R :e^{\lambda x}\)</span> 는 x의 convex 이므로,</p>
-<p>$ a x b :e<sup>{x}e</sup>{a}+e^{b}$</p>
-<p>따라서 <span class="math inline">\(\mu=0\)</span> 를 가정하면,</p>
-<p><span class="math inline">\(\mathbb{R}[e^{\lambda X}]\leq\frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}.\)</span></p>
-<p>이때 <span class="math inline">\(h = \lambda(b-a)\)</span> 와 <span class="math inline">\(p = -\frac{a}{b-a}\)</span> 라고 하고, <span class="math inline">\(L(h) = -hp \log(1-p + pe^h)\)</span> 라고 하자. 이때 우리는 이하가 증명된다.</p>
-<p><span class="math inline">\({\frac{b}{b-a}}e^{\lambda a}-{\frac{a}{b-a}}e^{\lambda b}\equiv e^{L(h)}.\)</span></p>
-<p>이에 더해 <span class="math inline">\(L(0) = L&#39;(0) = 0\)</span> 이며 <span class="math inline">\(\forall h: L&#39;&#39;(h) \le \frac{1}{4}\)</span>. 따라서 Taylor expansion 에 의해</p>
-<p><span class="math inline">\(L(h)\le\frac{1}{8}h^{2}=\frac{1}{8}\lambda^{2}(b-a)^{2}\)</span> 이며 따라서 <span class="math inline">\(E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}\)</span>.</p>
-<ul>
-<li><ol start="3" style="list-style-type: decimal">
-<li></li>
-</ol></li>
-</ul>
-<ol style="list-style-type: lower-alpha">
-<li><p>는 SG 랜덤변수의 정의에 의해 trivial.</p></li>
-<li><p>를 증명하자. <span class="math inline">\(E(X) = E(Y)=0\)</span> 임을 가정. 이때 이하가 도출된다.</p></li>
 </ol>
-<p>$$
-[e^{(X+Y)}]=[e<sup>{X}e</sup>{Y}] ([e^{p X}])<sup>{1/p}([e^{q Y}])</sup>{1/q}
-\
-,e^{+}</p>
-<p>\=
-e<sup>{(p</sup>{2}+q^{2})}<br />
-</p>
-<p>\
-,e<sup>{(+)</sup>{2}}
-$$</p>
+<p><span class="math display">\[
+1 + \lambda \underbrace{E[(X - \mu)]}_{=0}
++ \frac{\lambda^2}{2} \underbrace{E[(X - \mu)^2]}_{=Var(X)}
++ o(\lambda^2) \le 1 + \frac{\lambda^2 \sigma^2}{2} + o(\lambda^2 )
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><span class="math inline">\(\forall \lambda \in \mathbb{R}:E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}\)</span> 인 것만 보이면 됨. WLOG, <span class="math inline">\(\mu=0\)</span> 임을 가정. <span class="math inline">\(\forall \lambda \in \mathbb R :e^{\lambda x}\)</span> 는 x의 convex 이므로, $ a x b :e<sup>{x}e</sup>{a}+e^{b}$.</li>
+</ol>
+<p>따라서 <span class="math inline">\(\mu=0\)</span> 를 가정하면, <span class="math inline">\(\mathbb{R}[e^{\lambda X}]\leq\frac{b}{b-a}e^{\lambda a}-\frac{a}{b-a}e^{\lambda b}\)</span>. 이때 <span class="math inline">\(h = \lambda(b-a)\)</span> 와 <span class="math inline">\(p = -\frac{a}{b-a}\)</span> 라고 하고, <span class="math inline">\(L(h) = -hp \log(1-p + pe^h)\)</span> 라고 하자. 이때 우리는 이하가 증명된다. <span class="math inline">\({\frac{b}{b-a}}e^{\lambda a}-{\frac{a}{b-a}}e^{\lambda b}\equiv e^{L(h)}\)</span>. 이에 더해 <span class="math inline">\(L(0) = L&#39;(0) = 0\)</span> 이며 <span class="math inline">\(\forall h: L&#39;&#39;(h) \le \frac{1}{4}\)</span>. 따라서 Taylor expansion 에 의해 <span class="math inline">\(L(h)\le\frac{1}{8}h^{2}=\frac{1}{8}\lambda^{2}(b-a)^{2}\)</span> 이며 따라서 <span class="math inline">\(E [e^{\lambda\left(x-\mu\right)}]\ \le {\exp\left \{ \frac{\lambda^{2}\left(b-a\right)^{2}}{8} \right \}}\)</span>.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><ol style="list-style-type: lower-alpha">
+<li>는 SG 랜덤변수의 정의에 의해 trivial. (b) 를 증명하자. <span class="math inline">\(E(X) = E(Y)=0\)</span> 임을 가정. 이때 이하가 도출된다.</li>
+</ol></li>
+</ol>
+<p><span class="math display">\[
+\mathbb{E}[e^{\lambda(X+Y)}]=\mathbb{E}[e^{\lambda X}e^{\lambda Y}]\stackrel{(\mathrm{i})}\leq\ \left(\mathbb{E}[e^{\lambda p X}]\right)^{1/p}\left(\mathbb{E}[e^{\lambda q Y}]\right)^{1/q}
+\\
+\stackrel{(ii)}{\le}\,e^{\frac{\lambda^{2}p^{2}\sigma^{2}}{2}\times\frac{1}{p}+\frac{\lambda^{2}q^{2}\tau^{2}}{2}\times\frac{1}{q}}
+\\=
+e^{\frac{\lambda^{2}}{2}(p\sigma^{2}+q\tau^{2})}\
+\\
+\stackrel{({iii})}{=}\,e^{\frac{\lambda^{2}}{2}(\sigma+\tau)^{2}}
+\]</span></p>
 <ol style="list-style-type: decimal">
 <li>Holder 부등식</li>
 <li>by condition <span class="math inline">\(X\in SG(\sigma^2)\)</span>, <span class="math inline">\(Y\in SG(\tau^2)\)</span></li>
@@ -729,7 +714,9 @@ $$</p>
 <li><strong>Holder’s Inquality</strong></li>
 </ul>
 <p><span class="math inline">\(\forall p, q &gt;0\)</span> with <span class="math inline">\(\frac 1 p + \frac 1 q = 1\)</span>, it holds that</p>
-<p><span class="math inline">\(\mathbb{E}[|X Y|]\leq||X||p||Y||_{q} = \{\mathbb{E}[|X|^{p}]\}^{1/p} \cdot \{\mathbb{E}[|Y|^{q}]\}^{1/q}\)</span></p>
+<p><span class="math display">\[
+\mathbb{E}[|X Y|]\leq||X||p||Y||_{q} = \{\mathbb{E}[|X|^{p}]\}^{1/p} \cdot \{\mathbb{E}[|Y|^{q}]\}^{1/q}
+\]</span></p>
 <p>Proof. Observe that <span class="math inline">\(\forall a, b \ge 0: a b=e^{\log(a b)}=e^{\frac{1}{p}p\log a+\frac{1}{q}q\log b}\le\frac{1}{p}e^{p\log a}+\frac{1}{q}e^{q\log b}=\frac{1}{p}a^{p}+\frac{1}{q}b^{q}\)</span>, 이는 Jensen 에 의해 성립. 이제 <span class="math inline">\(a = \frac{X}{||X||_p}\)</span>, <span class="math inline">\(b=\frac{Y}{||Y||_q}\)</span> 로 하고 양쪽에 expectation 취하는 것으로 ineq 성립.
 <br>
 <br>
