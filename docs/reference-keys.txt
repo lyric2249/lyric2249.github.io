@@ -1,3 +1,6 @@
+fig:knitr-logo4
+fig:knitr-logo2
+fig:knitr-logo3
 fig:ERGMs
 def:unlabeled-div-1
 thm:unlabeled-div-2
@@ -28,9 +31,7 @@ thm:unlabeled-div-26
 def:unlabeled-div-27
 def:unlabeled-div-28
 def:unlabeled-div-29
-def:unlabeled-div-30
-def:unlabeled-div-31
-thm:unlabeled-div-32
+thm:unlabeled-div-30
 categorical
 overview
 data-type-and-statistical-analysis
@@ -208,9 +209,6 @@ one-way-manova
 multivariate-multiple-regression-wk6
 overview-4
 multivariate-multiple-regression
-least-square
-hypothesis-testing
-full-model-vs.-reduced-model
 example
 sampling-distribution-of-the-wilks-lambda
 prediction
@@ -370,6 +368,7 @@ difficulty-in-parameter-estimation
 intractable-normalizing-constants
 model-degeneracy
 parameter-estimation-of-ergm
+current-methods-for-ergm
 approximation-based-algorithm
 maximum-pseudo-likelihood-estimation
 mcmcmle
@@ -381,10 +380,9 @@ varying-trunction-stochastic-approximation-mcmc
 mcmc-stochastic-approximation-1
 model-degeneracy-1
 varying-truncation-samcmc-for-ergms
-setup
-varying-truncation-samcmc-algorithm-for-ergms
 trajectory-averaging-estimator
 numerical-examples
+conclusion
 ergm-for-dynamic-networks
 temporal-ergm
 network-statistics-for-temporal-ergm
@@ -394,7 +392,7 @@ assessing-statistic-importance-and-quality-of-fit
 separable-temporal-ergm
 temporal-ergm-interpretation
 application-study
-conclusion
+conclusion-1
 latent-network-models
 latent-position-model
 methods

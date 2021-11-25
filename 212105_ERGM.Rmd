@@ -56,7 +56,7 @@ $$
 #### Network Statistics
 
 
-```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Basic Markov Network Statistics'}
+```{r knitr-logo4, out.width='32.8%', fig.show='hold', fig.cap='Basic Markov Network Statistics'}
 knitr::include_graphics('images/knit-logo.png')
 ```
 
@@ -80,7 +80,7 @@ unordered pair $
 	- $\sum EP_k(x) = S_1(x)$ (edge counts) 이며, $\sum DP_k (x) = {n \choose x}$ (dyad counts).
 
 
-```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Degree and Shared Partnership Distribution'}
+```{r knitr-logo2, out.width='32.8%', fig.show='hold', fig.cap='Degree and Shared Partnership Distribution'}
 knitr::include_graphics('images/knit-logo.png')
 ```
 
@@ -147,7 +147,7 @@ $\theta$를 어떻게 설정하느냐에 따라서 ERGM은 full (모든 연결�
 현재 사용되는 방법인 **MCMLE** and **stochastic approximation** 는 시작값이 degeneracy 영역에 있었다면 $\theta$의 degenerate 추정값을 생산하기도 한다. 이러한 문제점을 일컫는 용어가 **Local convergence property**.
 
 
-```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Model Degeneracy for Basic Markov Statistics, Figure: Visualization of the degeneracy (black) and non-degeneracy (white) region of an ERGM with edge counts and K2-star.'}
+```{r knitr-logo3, out.width='32.8%', fig.show='hold', fig.cap='Model Degeneracy for Basic Markov Statistics, Figure: Visualization of the degeneracy (black) and non-degeneracy (white) region of an ERGM with edge counts and K2-star.'}
 knitr::include_graphics(rep('images/knit-logo.png',3))
 ```
 

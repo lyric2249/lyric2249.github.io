@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.8 Discrimination and Classification | Self-Study</title>
-  <meta name="description" content="5.8 Discrimination and Classification | Self-Study" />
+  <title>7.7 Conclusion | Self-Study</title>
+  <meta name="description" content="7.7 Conclusion | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.8 Discrimination and Classification | Self-Study" />
+  <meta property="og:title" content="7.7 Conclusion | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.8 Discrimination and Classification | Self-Study" />
+  <meta name="twitter:title" content="7.7 Conclusion | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="factor.html"/>
-<link rel="next" href="clustering-distance-methods-and-ordination.html"/>
+<link rel="prev" href="parameter-estimation-of-ergm.html"/>
+<link rel="next" href="ergm-for-dynamic-networks.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -551,466 +551,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="discrimination-and-classification" class="section level2" number="5.8">
-<h2><span class="header-section-number">5.8</span> Discrimination and Classification</h2>
-<ol style="list-style-type: decimal">
-<li>여러개의 다른 모집단으로부터 나온 데이터들을 <strong>설명</strong>. discriminants (구분자) 들의 발견.</li>
-<li>관찰치를 <strong>분류</strong>하여 이를 클래스로 묶고 싶다. why인지는 크게 중요하지 않고, <strong>예측</strong>을 하고 싶다.</li>
-</ol>
-<p><br>
-<br></p>
-<div id="bayes-rule" class="section level3" number="5.8.1">
-<h3><span class="header-section-number">5.8.1</span> Bayes Rule</h3>
-<p><img src="11-1.png" width="480" alt="hi" class="inline"/></p>
-<p>let r<span class="math inline">\(v\)</span> for populations <span class="math inline">\(\pi_1 , \pi_2\)</span>, <span class="math inline">\(\pmb X = (x_1 , \cdots, x_p)&#39;\)</span>. 이때, <span class="math inline">\(f_i(\pmb X)\)</span>는 <span class="math inline">\(\pi_i\)</span>의 pdf. <span class="math inline">\(R_i\)</span>는 우리가 해당 object를 <span class="math inline">\(\pi_i\)</span>로 분류하는 <span class="math inline">\(\pmb X\)</span> 값들의 set.</p>
-<p>$</p>
-<p>R_1 :  {f_2 ( X)} , ; ; ; ; ; R_2 :  {f_2 ( X)}  </p>
-<p>$</p>
-<p><br>
-<br></p>
-<p><img src="11-2.png" width="480" alt="hi" class="inline"/></p>
-<p>let prior of each <span class="math inline">\(P_i\)</span> be <span class="math inline">\(\pi_i\)</span>, and <span class="math inline">\(\sum_{i=1}^n P_i = 1\)</span>.</p>
-<p>$</p>
-<p>R_1 :  {f_2 ( X)} , ; ; ; ; ; R_2 :  {f_2 ( X)}  </p>
-<p>$</p>
-<p><br>
-<br></p>
-<p>let the costs of misclassification can be defined by a cost matrix:</p>
-<div class="line-block">| classify <span class="math inline">\(\pi_1\)</span>| <span class="math inline">\(\pi_2\)</span> |<br />
-True Population <span class="math inline">\(\pi_1\)</span> | 0 | <span class="math inline">\(C(2 \vert 1)\)</span> |<br />
-<span class="math inline">\(\pi_2\)</span> | <span class="math inline">\(C(1 \vert 2)\)</span> | 0 |</div>
-<p>$</p>
-<p>R_1 :  {f_2 ( X)} , ; ; ; ; ; R_2 :  {f_2 ( X)}  </p>
-<p>$</p>
-<p><br>
-<br></p>
-<p>and let both.</p>
-<p>$</p>
-<p>R_1 :  {f_2 ( X)}  , ; ; ; ; ; R_2 :  {f_2 ( X)}   </p>
-<p>$</p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="classification-with-two-mv-n-populations" class="section level3" number="5.8.2">
-<h3><span class="header-section-number">5.8.2</span> Classification with Two mv <span class="math inline">\(N\)</span> Populations</h3>
-<p>assume <span class="math inline">\(\pmb X_1 \sim N_p( \pmb \mu_1 , \Sigma_1), \pmb X_2 \sim N_p( \pmb \mu_2 , \Sigma_2)\)</span></p>
-<p><br>
-<br></p>
-<div id="if-sigma_1-sigma_2-sigma-lda" class="section level5" number="5.8.2.0.1">
-<h5><span class="header-section-number">5.8.2.0.1</span> 1. if <span class="math inline">\(\Sigma_1 = \Sigma_2 = \Sigma\)</span> (LDA)</h5>
-<p>this is called Linear Discriminant Analysis, e.g., LDA.</p>
-<p><img src="11-3.png" width="480" alt="hi" class="inline"/></p>
-<p>$</p>
-<p>f_i ( X ) =  {(2)^{p/2} {}^{1/2}} </p>
-<p>$</p>
-<p>suppose the populations parameters, <span class="math inline">\(\pmb \mu_1, \pmb \mu_2, \Sigma\)</span> are known.</p>
-<p>The minimum expected cost rule is</p>
-<p>$</p>
-<p><span class="math display">\[\begin{alignat*}{2}
+<div id="conclusion" class="section level2" number="7.7">
+<h2><span class="header-section-number">7.7</span> Conclusion</h2>
+<p>SAMCMC 알고리즘의 varying truncation 은 ERGM 에 적용 가능. 여기서는 estimator 가 degeneracy region 으로 향하는 걸 reinitialization 에 의해 방지. estimator 는 ERGM 의 MLE로 converge 하며, 이는 asymptotic 하게 <span class="math inline">\(N\)</span> 을 따르며 asymptotic 하게 efficient. 이는 normalizing constant 를 감당하고서라도 model degeneracy problem 를 해결할 수 있다는 점에서 유용.</p>
 
-
-&amp;R_1 : \dfrac {f_1 ( \pmb X)} {f_2 ( \pmb X)} &amp;
-&amp;\ge  \dfrac {P_2}{P_1} \ast \dfrac {C(1\vert2)}{C(2\vert1)} \\
-
-
-
-&amp;\exp \left[ 
--\dfrac {1} {2} (\pmb X - \pmb \mu_1)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_1)&#39; +\dfrac {1} {2} (\pmb X - \pmb \mu_2)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_2)
-
-\right]&amp;
-
-&amp;\ge \\
-
-
-
-&amp;-\dfrac {1} {2} (\pmb X - \pmb \mu_1)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_1)&#39; +\dfrac {1} {2} (\pmb X - \pmb \mu_2)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_2) &amp;
-
-&amp;\ge \log \left[ \dfrac {P_2}{P_1} \ast \dfrac {C(1\vert2)}{C(2\vert1)} \right] \\
-
-\\
-\\
-
-
-\Rightarrow \; \; \; \; \;
-
-
-
-&amp;(\pmb \mu_1 - \pmb \mu_2)&#39; \Sigma^{-1} \pmb X - \dfrac {1}{2} (\pmb \mu_1 - \pmb \mu_2)&#39; \Sigma^{-1} (\pmb \mu_1 + \pmb \mu_2) &amp;
-
-&amp;\ge 
-
-
-\\
-\\
-
-
-\Rightarrow \; \hat R_1 \colon \; \; \; \; \; 
-
-
-
-&amp;(\bar {\pmb X}_1 - \bar {\pmb X}_2)&#39; {S_p}^{-1} \pmb X - \dfrac {1}{2} (\bar {\pmb X}_1 - \bar {\pmb X}_2)&#39; {S_p}^{-1} (\bar {\pmb X}_1 + \bar {\pmb X}_2) &amp;
-
-&amp;\ge \tag{1}
-
-
-\\
-\\
-
-
-\Rightarrow \; \hat R_1 \colon \; \; \; \; \; 
-
-
-&amp; \hat {\pmb a}&#39; \pmb X - \dfrac {1}{2} ( \hat {\pmb a}&#39; \bar {\pmb X_1} + \hat {\pmb a}&#39; \bar {\pmb X_2}) &amp;
-
-&amp;\ge \tag{2}
-
-
-\end{alignat*}\]</span></p>
-<p>$</p>
-<p><br></p>
-<p>Allocate (Classify) <span class="math inline">\(\pmb X_0\)</span> to <span class="math inline">\(\pi_1\)</span> if <span class="math inline">\(R_1\)</span> holds.</p>
-<p>Note that <span class="math inline">\(R_1\)</span> has changed to $ R_1$ at last expression.</p>
-<p><br>
-<br></p>
-<p><span class="math inline">\((1):\)</span> However, in practice, <span class="math inline">\(\pmb \mu_1, \pmb \mu_2, \Sigma\)</span> are unknown. 따라서 해당 룰은 상응하는 패러미터를 샘플 패러미터로 대체해서 이루어짐.</p>
-<p><span class="math inline">\(\pmb \mu_i\)</span>는 ${X}_i $ 로 대체.</p>
-<p>we assumed <span class="math inline">\(\Sigma_1 = \Sigma_2 = \Sigma\)</span>, therefore <span class="math inline">\(\Sigma\)</span> can be replaced by <span class="math inline">\(S_p = \dfrac{n_1 - 1 } {n_1 + n_2 -2} S_1 + \dfrac{n_2 - 1 } {n_1 + n_2 -2} S_2\)</span>.</p>
-<hr />
-<p><span class="math inline">\((2):\)</span> Note that <span class="math inline">\((\bar {\pmb X}_1 - \bar {\pmb X}_2)&#39; {S_p}^{-1} \pmb X\)</span> is linear combination of variable <span class="math inline">\(\pmb X\)</span>.</p>
-<p>let <span class="math inline">\((\bar {\pmb X}_1 - \bar {\pmb X}_2)&#39; {S_p}^{-1} = \hat {\pmb a}&#39;\)</span>.</p>
-<hr />
-<div id="lda-intuition" class="section level6" number="5.8.2.0.1.1">
-<h6><span class="header-section-number">5.8.2.0.1.1</span> LDA intuition</h6>
-<p><img src="11-4.png" width="480" alt="hi" class="inline"/></p>
-<p><br>
-<br></p>
-</div>
-<div id="posterior" class="section level6" number="5.8.2.0.1.2">
-<h6><span class="header-section-number">5.8.2.0.1.2</span> Posterior</h6>
-<p>assuming equal prior, equal misclassification cost:</p>
-<p>$
-<span class="math display">\[\begin{alignat*}{1}
-
-P(\pi_1 \vert \pmb X) &amp;= \dfrac{f_1 ( \pmb X) } {f_1 ( \pmb X) + f_2 ( \pmb X) } \\
-
-&amp;= 
-
-\dfrac
-{\exp \left[ - \dfrac {1}{2} (\pmb X - \pmb \mu_1)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_1)&#39; \right] } 
-
-{\exp \left[ - \dfrac {1}{2} (\pmb X - \pmb \mu_1)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_1)&#39;\right] + 
-\exp \left[ - \dfrac {1}{2} (\pmb X - \pmb \mu_2)&#39; \Sigma^{-1} (\pmb X - \pmb \mu_2)&#39;\right]}
-
-
-\end{alignat*}\]</span>
-$</p>
-<p>Allocate <span class="math inline">\(\pmb X_0\)</span> to <span class="math inline">\(\pi_1\)</span>, if $P(_1 X_0) P(_2 X_0) $.</p>
-<p>This is equivalent to the Bayes Rule $R_1 f_1 (X) f_2 (X) $.</p>
-<p><br>
-<br></p>
-</div>
-</div>
-<div id="sigma_1-not-sigma_2-qda" class="section level5" number="5.8.2.0.2">
-<h5><span class="header-section-number">5.8.2.0.2</span> 2. <span class="math inline">\(\Sigma_1 \not = \Sigma_2\)</span> (QDA)</h5>
-<p>This is called Quadratic Discriminant Analysis (QDA).</p>
-<p>suppose the populations parameters, <span class="math inline">\(\pmb \mu_1, \pmb \mu_2, \Sigma_1, \Sigma_2\)</span> are known.</p>
-<p>$</p>
-<p><span class="math display">\[\begin{alignat*}{2}
-
-
-R_1 \colon \; &amp;-\dfrac {1} {2} (\pmb X - \pmb \mu_1)&#39; \Sigma_1^{-1} (\pmb X - \pmb \mu_1)&#39; +\dfrac {1} {2} (\pmb X - \pmb \mu_2)&#39; \Sigma_2^{-1} (\pmb X - \pmb \mu_2)&#39;&amp;
-
-&amp;\ge \log \left[ \dfrac {P_2}{P_1} \ast \dfrac {C(1\vert2)}{C(2\vert1)} \right] 
-
-\\
-\\
-
-
-\Rightarrow \; \; \; \; \;
-
-&amp;(\pmb \mu_1 \Sigma_1 ^{-1} - \pmb \mu_2 \Sigma_2 ^{-1} )&#39;  \pmb X - \dfrac {1}{2} \pmb X &#39; (\Sigma_1^{-1} - \Sigma_2^{-1} ) \pmb X \; \; \; \; \; -k&amp;
-
-&amp;\ge  \tag{3}
-
-
-\\
-\\
-
-\Rightarrow \; \hat R_1 \colon \; \; \; \; \;
-
-&amp;(\pmb \mu_1 S_1 ^{-1} - \pmb \mu_2 S_2 ^{-1} )&#39;  \pmb X - \dfrac {1}{2} \pmb X &#39; (S_1^{-1} - S_2^{-1} ) \pmb X \; \; \; \; \; - k&amp;
-
-&amp;\ge 
-
-
-
-
-
-\end{alignat*}\]</span></p>
-<p>$</p>
-<p><br></p>
-<p>allocate <span class="math inline">\(\pmb X_0\)</span> to <span class="math inline">\(\pi_1\)</span> if <span class="math inline">\(R_1\)</span> holds.</p>
-<hr />
-<p><span class="math inline">\((3)\)</span> where</p>
-<p>$</p>
-<p><span class="math display">\[\begin{alignat*}{2} 
-
-k &amp;= \dfrac {1} {2} \log \left( \dfrac {\vert \Sigma_1 \vert}{\vert \Sigma_2 \vert}\right) + \dfrac {1}{2} (\pmb \mu_1 &#39; \Sigma_1^{-1} \pmb \mu_1 - \pmb \mu_2 &#39; \Sigma_2^{-1} \pmb \mu_2) \\ 
-
-&amp;= \dfrac {1} {2} \log \left( \dfrac {\vert S_1 \vert}{\vert S_2 \vert}\right) + \dfrac {1}{2} (\hat {\pmb X}_1 &#39; S_1^{-1} \hat {\pmb X}_1 - \hat {\pmb X}_2 &#39; S_2^{-1} \hat {\pmb X}_2) 
-
-\end{alignat*}\]</span></p>
-<p>$</p>
-<p><br>
-<br></p>
-<p>When <span class="math inline">\(\Sigma_1 = \Sigma_2\)</span>, <span class="math inline">\(\pmb X &#39; (\Sigma_1^{-1} - \Sigma_2^{-1} ) \pmb X\)</span> disappears, which means LDA.</p>
-<hr />
-<p>This regions <span class="math inline">\(R_1\)</span> is defined by quadratic functions of <span class="math inline">\(\pmb X\)</span>.</p>
-<p><img src="11-5.png" width="480" alt="hi" class="inline"/></p>
-</div>
-</div>
-<div id="evaluating-classification-functions" class="section level3" number="5.8.3">
-<h3><span class="header-section-number">5.8.3</span> Evaluating Classification Functions</h3>
-<p><img src="11-6.png" width="480" alt="hi" class="inline"/></p>
-<p>The misclassification probability is <span class="math inline">\(P(1 \vert 2) + P(2 \vert 1)\)</span>. . If <span class="math inline">\(R_1, R_2\)</span> are selected by Bayes Rule, then this misclassification probability is the minimum.</p>
-<hr />
-<p>Sample Misclassification Probability:</p>
-<p>$P_1 <em>{R_2} f_1 (x) dx + P_2 </em>{R_1} f_2 (x) dx $</p>
-<p>assume <span class="math inline">\(f_1(\pmb x), f_2(\pmb x)\)</span> are unkown. 우리가 분포를 가정하지 않으면 이를 측정하는 것은 상당히 어렵다.</p>
-<div id="apparent-error-rate-aper" class="section level5" number="5.8.3.0.1">
-<h5><span class="header-section-number">5.8.3.0.1</span> Apparent Error Rate (APER)</h5>
-<p>이는 training 샘플 중에서 sample classification function에 의해 분류될 때 잘못 분류된 관찰값들의 분수.
-* Training Sample: classification function 제작을 위해 사용되는 데이터
-* Test Sample: classification function 평가를 위해 사용되는 데이터. 이는 training sample과는 독립.</p>
-<div id="confusion-matrix" class="section level6" number="5.8.3.0.1.1">
-<h6><span class="header-section-number">5.8.3.0.1.1</span> Confusion Matrix</h6>
-<div class="line-block">| Predicted <br> Membership <br> <span class="math inline">\(\pi_1\)</span> | <span class="math inline">\(\pi_2\)</span> | |<br />
-Actual<br><span class="math inline">\(\pi_1\)</span> | <span class="math inline">\(n_{11}\)</span> | <span class="math inline">\(n_{12}\)</span> | <span class="math inline">\(n_1\)</span> |<br />
-<span class="math inline">\(\pi_2\)</span> | <span class="math inline">\(n_{21}\)</span> | <span class="math inline">\(n_{22}\)</span> | <span class="math inline">\(n_2\)</span> |</div>
-<p>the APER <span class="math inline">\(= \dfrac {n_{21} + n_{12}} {n_1 + n_2}\)</span>: 오분류된 item들의 비율.</p>
-<p><strong>APER은 true 오분류 확률을 과소평가한다.</strong> 이는 classification function 생산에 활용된 데이터들이 또한 이를 평가하기 위해서도 사용되기 때문. 생산에 쓰였던 놈들인만큼 생산된 classification function은 얘들한테 좀 더 최적화되어있을 수밖에 없고 이에 의해 에러율이 낮아진다.</p>
-<p><br>
-<br></p>
-</div>
-</div>
-<div id="test-sample-error-rate" class="section level5" number="5.8.3.0.2">
-<h5><span class="header-section-number">5.8.3.0.2</span> Test Sample Error Rate</h5>
-<p>training 샘플과 독립인, test 샘플이 따로 존재한다면,우리는 misclassification probability를 test 샘플에서 오분류된 비율로 misclassification probability를 계산하는 것이 가능하다.</p>
-<p>test 샘플이 없다면, 총 데이터를 training과 test 샘플로 쪼갠다. training 샘플은 classification function의 구축에 사용되고, test 샘플은 이를 평가하는데 쓰인다. 이 과정은 large sample을 필요로 한다.</p>
-<p><br>
-<br></p>
-</div>
-<div id="hold-out-error-rate" class="section level5" number="5.8.3.0.3">
-<h5><span class="header-section-number">5.8.3.0.3</span> Hold-out Error Rate</h5>
-<p><span class="math inline">\(= \dfrac {n_{21}^{(H)} + n_{12}^{(H)}} {n_1 + n_2}\)</span></p>
-<p>Also called ‘leave-one-out’ or ‘cross-validation’ error rate.
-1. 관측값 1개를 뽑아서 (omit) 제외한 후 나머지 데이터들을 사용해서 cf 생산.
-2. 위에서 생산한 function을 써서 <strong>hold-out</strong> 관측값을 분류.
-3. 모든 관측값들이 분류될 때까지 1, 2를 반복.</p>
-<p>이에 의해, 역으로 1-LOO는 accuracy rate.</p>
-<hr />
-</div>
-</div>
-<div id="classification-with-several-populations-wk13" class="section level3" number="5.8.4">
-<h3><span class="header-section-number">5.8.4</span> Classification with several Populations (wk13)</h3>
-<p>let associated with <span class="math inline">\(\pi_i , i = 1, \cdots, g\)</span>:
-* density $f_i (x) $
-* Prior distribution <span class="math inline">\(P_i\)</span>
-* misclassification cost <span class="math inline">\(C(k \vert i)\)</span>
-* set of <span class="math inline">\(\pmb x\)</span> classified as, <span class="math inline">\(R_k\)</span></p>
-<p><span class="math inline">\(R_k\)</span> is the region that
-* <span class="math inline">\(f_k(\pmb x) \propto P_k f_k(\pmb x)\)</span> is largest
-* <span class="math inline">\(\sum_{\not k} f_i(\pmb x) \propto \sum_{\not k} P_i f_i(\pmb x) \propto \sum_{\not k} C(k \vert i) P_i f_i(\pmb x)\)</span> is smallest</p>
-<p><br></p>
-<ul>
-<li><strong>under equal misclassification cost</strong>, allocate <span class="math inline">\(\pmb X_0\)</span> to <span class="math inline">\(\pi_k\)</span> if:</li>
-</ul>
-<p>$
-<span class="math display">\[\begin{alignat*}{3}
-\forall i \not = &amp;k: P_k f_k (\pmb x) &amp;&amp;&gt;P_i f_i (\pmb x) \\
-&amp;\log P_k f_k (\pmb x) &amp;&amp;&gt;\log P_i f_i (\pmb x) \\
-\end{alignat*}\]</span>
-$</p>
-<p><br></p>
-<ul>
-<li><ul>
-<li>the Bayes rule is identical to the rule that maximizes Posterior Probability <span class="math inline">\(P(\pi \vert \pmb X) = \dfrac{P_k f_k (\pmb x)}{\sum_{i=1}^g P_i f_i (\pmb x)}\)</span></li>
-</ul></li>
-</ul>
-<hr />
-<div id="classification-with-several-normal-populations" class="section level5" number="5.8.4.0.1">
-<h5><span class="header-section-number">5.8.4.0.1</span> Classification with several Normal Populations</h5>
-<p>assume <span class="math inline">\(f_i (\pmb x) \sim N_p (\pmb \mu_i , \Sigma_i )\)</span>, and <strong>equal misclassification cost</strong>.</p>
-<p><br></p>
-<hr />
-<div id="sigma_1-cdots-sigma_g-sigma-lda" class="section level6" number="5.8.4.0.1.1">
-<h6><span class="header-section-number">5.8.4.0.1.1</span> 1. <span class="math inline">\(\Sigma_1 = \cdots = \Sigma_g = \Sigma\)</span> (LDA)</h6>
-<p>MVN을 따르는 것에서 <span class="math inline">\(f_k\)</span>의 형은 알 수 있다.</p>
-<p>according to Bayes rule, we allocate <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi_k\)</span> if</p>
-<p>$
-P_k f_k ( x_0 ) = _i P_i f_i ( x_0 )
-$</p>
-<p>이때 constant $- (2 ) - () - x_0 ’ ^{-1} x_0 $는 모든 <span class="math inline">\(\log P_i f_i (\pmb x_0)\)</span>에 대해 공통 (<span class="math inline">\(k\)</span>에 의존하지 않으므로). 따라서 해당 constant 부위는 비교 목적으로는 무시될 수 있음.</p>
-<p><br></p>
-<p>$
-<span class="math display">\[\begin{align*}
-
-d_i (\pmb x) &amp;= \pmb \mu_i &#39; \Sigma^{-1} \left( \pmb x \right) - \tfrac{1}{2} \pmb \mu_i &#39; \Sigma^{-1} \pmb \mu_i + \log P_i \tag{1} \\
-
-\\
-
-S_p &amp;= \tfrac{1}{(n_1 + \cdots +n_g) - g} \left[ (n_1-1)S_1 + \cdots (n_g - 1)S_g  \right] \tag{2} \\
-
-\\
-
-\Longrightarrow \hat d_i (\pmb x) &amp;= \bar { \pmb x_i} S_p^{-1} \ast \pmb x - \tfrac{1}{2} \bar { \pmb x_i} &#39; S_p^{-1} \bar { \pmb x_i} + \log P_i \tag{3}
-
-\end{align*}\]</span></p>
-<p>$</p>
-<ol style="list-style-type: decimal">
-<li>define linear discriminant function (LDF) <span class="math inline">\(d_i (\pmb x)\)</span>, where <span class="math inline">\(i=1, \cdots, g\)</span>.</li>
-<li><span class="math inline">\(\Sigma\)</span>’s pooled estimate <span class="math inline">\(S_p\)</span></li>
-<li><span class="math inline">\(d_i (\pmb x)\)</span>’s estimate <span class="math inline">\(\hat d_i (\pmb x)\)</span>, 실질적으로 사용할 LDF function.</li>
-</ol>
-<ul>
-<li>Estimated Bayes Rule:
-<ul>
-<li>allocate <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi_k\)</span>, <br>if <span class="math inline">\(\hat d_k(\pmb x_0) = \max \{ \hat d_1(\pmb x_0), \cdots, \hat d_g(\pmb x_0) \}\)</span>. 뒤의 조건을 만족하는 것이 Likelihood의 키가 가장 큰 population이므로.</li>
-</ul></li>
-</ul>
-<p><br>
-<br></p>
-<hr />
-</div>
-<div id="not-sigma-qda" class="section level6" number="5.8.4.0.1.2">
-<h6><span class="header-section-number">5.8.4.0.1.2</span> 2. <span class="math inline">\(\not = \Sigma\)</span> (QDA)</h6>
-<p>$
-P_k f_k ( x_0 ) = _i P_i f_i ( x_0 )
-$</p>
-<p>constant <span class="math inline">\(-\dfrac{p}{2} \log(2 \pi)\)</span>는 모든 <span class="math inline">\(\log P_i f_i (\pmb x_0)\)</span>에 대해 공통, 무시 가능.</p>
-<ul>
-<li>define quadratic discriminant function <span class="math inline">\(d_i^Q (\pmb x)\)</span>, where <span class="math inline">\(i=1, \cdots, g\)</span>:</li>
-</ul>
-<p>$
-<span class="math display">\[\begin{align*}
-
-d_i^Q (\pmb x) &amp;= -\dfrac{1}{2} \log\vert\Sigma_i \vert -\dfrac{1}{2} (\pmb x - \pmb \mu_i)&#39; \Sigma_i^{-1} (\pmb x - \pmb \mu_i) +\log P_i \\
-
-\\
-
-\hat {d}_i^Q (\pmb x) &amp;= -\dfrac{1}{2} \log\vert S_i \vert -\dfrac{1}{2} (\pmb x - \bar {\pmb x_i})&#39; S_i^{-1} (\pmb x - \bar {\pmb x_i}) +\log P_i \tag{Sample}
-
-\end{align*}\]</span>
-$</p>
-<ul>
-<li>Estimated Bayes Rule:
-<ul>
-<li>allocate <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi_k\)</span>, <br>if <span class="math inline">\(\hat d_k^Q(\pmb x_0) = \max \{ \hat d_1^Q(\pmb x_0), \cdots, \hat d_g^Q(\pmb x_0) \}\)</span></li>
-</ul></li>
-</ul>
-<p><br>
-<br>
-<br></p>
-<hr />
-</div>
-</div>
-</div>
-<div id="other-discriminant-analysis-methods" class="section level3" number="5.8.5">
-<h3><span class="header-section-number">5.8.5</span> Other Discriminant Analysis Methods</h3>
-<ul>
-<li>Nearest Neighbor Discriminant Analysis (거리 함수 사용)
-<ol style="list-style-type: decimal">
-<li>Nonparametric approach – <strong>no assumption on distribution</strong>
-<ul>
-<li>Idea
-*For a new observation, first find the observation in the training sample that is closest to the new observation. (i.e. its Mahalanobis distance is smallest) <br>Then assign the new observation to the group from which the observation’s nearest neighbor comes.</li>
-<li>Variations: K-nearest neighbor
-<ul>
-<li>assign each new observation to the group to which a majority of its k nearest neighbors belongs. e.g. k=5.</li>
-</ul></li>
-</ul></li>
-</ol></li>
-</ul>
-<p><br>
-<br></p>
-<hr />
-<div id="knn" class="section level5" number="5.8.5.0.1">
-<h5><span class="header-section-number">5.8.5.0.1</span> KNN</h5>
-<p><img src></p>
-<p><span class="math inline">\(K_1\)</span> belongs to group 1, <span class="math inline">\(K_2\)</span> belongs to group 2. 우리는 <span class="math inline">\(K_1 + K_2 =K =5\)</span> 로 설정함. 즉 가장 가까운 이웃 5개를 뽑되 Group 1과 Group 2에서 뽑은 애들을 합하면 총 5개여야 함.</p>
-<p>assign <span class="math inline">\(\pmb x_0\)</span> to group 1 (<span class="math inline">\(\pi1\)</span>) if <span class="math inline">\(K_1 \ge K_2\)</span>.
-- if <span class="math inline">\(n_1 \not = n_2\)</span>, then assign <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi1\)</span> if <span class="math inline">\(\dfrac{K_1}{n_1} \ge \dfrac{K_2}{n_2}\)</span>.
-- if <span class="math inline">\(P_1 \not = P_2\)</span>, then assign <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi1\)</span> if <span class="math inline">\(P_1\dfrac{K_1}{n_1} \ge P_2\dfrac{K_2}{n_2}\)</span>.</p>
-<ul>
-<li>choice of <strong>hyper-parameters</strong> <span class="math inline">\(K\)</span>:</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(K = \sqrt{n_1}\)</span>.</li>
-<li>select <span class="math inline">\(K\)</span> s.t. minimizes the error rate</li>
-</ol>
-<p><br>
-<br></p>
-<hr />
-</div>
-<div id="kernel-density-estimation-discriminant-analysis-kda" class="section level5" number="5.8.5.0.2">
-<h5><span class="header-section-number">5.8.5.0.2</span> Kernel (Density Estimation) Discriminant Analysis (KDA)</h5>
-<ol style="list-style-type: decimal">
-<li><p>Bayes Rule 이론에서 출발, Likelihood 함수 사용 (KNN과는 이 부분부터 다름. KNN은 Bayes Rule 안썼음): allocate <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi_k\)</span>, if <span class="math inline">\(\dfrac{f_1 (\pmb x)}{f_2 (\pmb x)} \ge \dfrac{P_2 C(1 \vert 2)}{P_1 C(2 \vert 1)}\)</span>
-분포에 대한 가정 없이 개시하므로, 밀도함수 자체를 추정해버리자. density estimation: estimate f_1 (x) and f_2 (x) for each point <span class="math inline">\(\pmb x\)</span>, where <span class="math inline">\(N(\pmb x_0)\)</span> is neighborhood around <span class="math inline">\(\pmb x_0\)</span> of width <span class="math inline">\(\lambda\)</span></p>
-<p>이동 히스토그램
-람다는 벽돌 하나의 넓이이며, 람다값이 달라지면 추정된 pdf의 형 또한 조금씩 바뀔 수 있음</p>
-<p>$
-f(x_0) = 
-$</p>
-<p><img src></p>
-<p>this estimate is bumpy. 더 발전된 추정법을 찾아내자. 개선된 추정법:</p></li>
-<li><p>Parzen Estimate</p></li>
-</ol>
-<p>$
-f(x_0) =  <em>{i=1}^N K</em>{} (x_0 , x_i)
-$</p>
-<p>위의 초기형 추정에서 사용된 커널함수는 uniform. 가우시안 커널은 정규분포의 형을 따르므로 이는 당연히 분산을 필요로 함. 여기서 분산 부분에 들어가는건 람다이며, 따라서 람다는 벽돌의 넓이, width를 결정하게 된다. 따라서 람다는 called as smoothing parameters, or bandwidth. 추정의 성능은 거의 전적으로 람다의 selection에 달려있음. 람다 잘 고르면 추정 성능 높고, 람다 잘못 고르면 떡락함. 람다를 너무 좁게 잡으면 삐쭉삐쭉해서 과반영되고, 너무 넓게 잡으면 민둥산이 나와서 값 간의 density가 다 비슷비슷한 나쁜 pdf가 추정됨.</p>
-<p>at here, popular choice of <span class="math inline">\(K_{\lambda}\)</span> is Gaussian kernal:</p>
-<p>$</p>
-<p>K_{} (x_0 , x) = (  ) =  {  ( x_i - x_0 )^2 }</p>
-<p>$</p>
-<ul>
-<li><ol start="3" style="list-style-type: decimal">
-<li>estimated Bayes Rule:</li>
-</ol>
-<ul>
-<li>allocate <span class="math inline">\(\pmb x_0\)</span> to <span class="math inline">\(\pi_1\)</span>, <br> if <span class="math inline">\(\dfrac{\hat f_1 (\pmb x_0)}{\hat f_2 (\pmb x_0)} \ge \dfrac{P_2 C(1 \vert 2)}{P_1 C(2 \vert 1)}\)</span></li>
-</ul></li>
-</ul>
-<p>이런 식의 비율 접근법은 클래스가 2개인 경우 한정. 늘어나면 달라?</p>
-<p><br>
-<br></p>
-<hr />
-</div>
-<div id="modern-classification-methods" class="section level5" number="5.8.5.0.3">
-<h5><span class="header-section-number">5.8.5.0.3</span> Modern Classification Methods:</h5>
-<ol style="list-style-type: decimal">
-<li>Decision Trees
-<ul>
-<li>Classification Trees</li>
-<li>Regression Trees</li>
-</ul></li>
-<li>Neutral Networks</li>
-<li>Support Vector Machines</li>
-<li>Ensemble</li>
-</ol>
-
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="factor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="clustering-distance-methods-and-ordination.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="parameter-estimation-of-ergm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ergm-for-dynamic-networks.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1041,7 +593,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211311_DiscriminationandClassification.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212106_ParameterEstimationofERGM.Rmd",
 "text": "Edit"
 },
 "history": {
