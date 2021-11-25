@@ -1,14 +1,18 @@
 ## Parameter Estimation of ERGM
 
-Current Methods for ERGM
+### Current Methods for ERGM
 
-1. Approximation-based Algorithm: Maximize the likelihood function with MCMC samples.
+
+
+1. **Approximation-based Algorithm**: <br> MCMC 샘플들로 likelihood function 을 최대화.
 	- Maximum Pseudo-likelihood Estimation (MPLE).
 	- Markov Chain Monte Carlo Maximum Likelihood Estimation (MCMCMLE).
 	- Markov Chain Monte Carlo Stochastic Approximation (MCMCSA).
 	- Varying Truncation Stochastic Approximation MCMC Method with Trajectory Averaging (VTSAMCMC).
 
-2. Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm: Introduce auxiliary variables to cancel the normalizing constant ratio $\frac{\kappa(\theta)} {\kappa(\theta')}$ or to approximate the normalizing constant. Used for the Bayesian Inference.
+2. **Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm**: <br> 
+
+normalizing constant 를 근사하거나, normalizing constant ratio $\frac{\kappa(\theta)} {\kappa(\theta')}$ 를 cancel 하기 위해 auxiliary variable 들을 도입 (introduce). 베이지안 추론을 위해 사용.
 	- The Exchange Algorithm.
 	- Auxiliary Variable Metropolis-Hasting Algorithm (AVMH).
 	- Adaptive Exchange Monte Carlo Algorithm (AEXMC).
@@ -29,11 +33,13 @@ $A$ 내부의 성분 간의 의존성을 무시한 채로 조건부 likelihood �
 
 $$
 \begin{align}
-logit \left \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \right \} &= \theta ' g(x_{ij}^c)
+&logit \Bigg \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \Big ) \Bigg \} &&= \theta ' g(x_{ij}^c)
 
 \\
 
-\log PL(\theta, x) &= \sum_{ij} \theta ' g(x_{ij}^c) \cdot x_{ij} - \sum_{ij}\log \left \{ 1+ \theta ' g(x_{ij}^c) \right \}
+\iff
+
+&\log PL(\theta, x) &&= \sum_{ij} \theta ' g(x_{ij}^c) \cdot x_{ij} - \sum_{ij}\log \left \{ 1+ \theta ' g(x_{ij}^c) \right \}
 
 \end{align}
 $$
@@ -47,32 +53,16 @@ $$
 
 #### MCMCMLE
 
-Approximate $\kappa(θ)$ using Monte Carlo samples generated from a
-distribution 
+distribution $f(x|\theta^{(0)})$ 에서 생산된 MC 샘플들로부터 $\kappa(θ)$ 근사. 이때 $\theta^{(0)}$ 는 $\theta$ 의 initial 측정값. MCMC 시뮬레이션을 통해 $f(x_{obs}|\theta^{(0)}$ 으로부터 랜덤샘플 $x_1 , \cdots, x_m$ 을 draw. 이 경우 log-ratio likelihood 는 $m \rightarrow \infty$ 에서 이하와 같이 근사 가능.
+
+$I(\theta)-I(\theta^{(0)})=(\theta-\theta^{(0)})^{t}g(x_{\mathrm{obs}})-\log\left[\frac{1}{m}\sum_{i=1}^{m}\exp\left\{(\theta-\theta^{(0)})^{t}g(x_{i})\right\}\right],$
+
+따라서 $\theta$ 를 경유해서 $I(\theta)-I(\theta^{(0)})$ 를 극대화하는 작업을 통해 결국 $\hat \theta_{MLE}$ 를 근사할 수 있게 된다.
+
+MCMLE 의 퍼포먼스는 $\theta^{(0)}$ 의 선택에 좌우된다. $\theta^{(0)}$ 이 MLE 의 참값의 attraction region 에 존재하지 않는다면, 해당 방법론은 suboptimal 해로 수렴해버리거나, 최악으로는 converge 실패 가능성도 있음.
 
 
-f(x|θ
-(0)
-), where θ
-(0)
-is an initial estimate of θ.
-Draw x1, · · · , xm denote random samples drawn from f(xobs|θ
-(0)
-) via
-MCMC simulations, the log-ratio of likelihood can be approximated by
 
-$$
-I(\theta) - I(\theta^{(0)}) = \left (\theta - \theta^{(0)} \right) ' g(x_{obs}) - \log \left [ \frac{1}{m} \sum_{i=1}^m \exp \left \{ \left (\theta - \theta^{(0)}\right )' g(x_i) \right \} \right ]
-$$
-
-) via θ will approximate θˆ (MLE).
-The performance of MCMLE depends on the choice of θ
-(0)
-. If θ
-(0)
-does
-not lie in the attraction region of true MLE, the method may converge to
-a suboptimal solution or fail to converge.
 
 <br>
 <br>
@@ -122,8 +112,6 @@ normalizing constant ratio $\frac{\kappa(\theta)}{\kappa(\theta')}$ 따위의 au
 
 $$
 r(\theta, \theta ' \Big | x) = 
-
-
 \frac{\pi(theta')}{\pi(theta)}
 \cdot
 \frac{f(x \Big | \theta ' )}{f(x \Big | \theta )}
@@ -131,8 +119,6 @@ r(\theta, \theta ' \Big | x) =
 \frac{f(y \Big \theta)}{f(y \Big \theta')}
 \cdot
 \frac{q(\theta \Big | \theta ' , x)}{q(\theta ' \Big | \theta , x)}
-
-
 $$
 
 exchange 알고리즘은 **Ising** 이나 **autologistic** 과 같은 일부 discrete 모델에는 잘 작동. 하지만 **perfect sampling** 이 적용되지 않는 많은 다른 모델에는 적용할 수 없다. 우리는 MCMC 샘플을 통해 auxiliary 변수 $y$를 생산할 수 있지만, 수렴 문제 부분에서 이론적인 흠결이 있음. 만약 MCMC 샘플의 mixing이 매우 느리다면 딴놈이 아니라 $\theta_0$ 가 매우 높은 확률로 채택되어버림. 그리고 이 MCMC 샘플의 mixing 이 느린 것 자체가 ERGMs 의 일반적인 특징임. 이래서 문제.
@@ -184,19 +170,19 @@ ERGM 의 likelihood 함수는
 $$
 \begin{align}
 &f(y | \theta ) = \frac{1}{\kappa(\theta )} \exp \Big \{ \theta' S(y)\Big \},
-&&\theta = (\theta_1 , \cdots, \theta_d)'$, 
-&&$S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)'
+&&\theta = (\theta_1 , \cdots, \theta_d)', 
+&&S(y) = \Big( S_1 (y), \cdots, S_d(y) \Big)'
 \end{align}
 $$
 
 이때 **$\kappa(θ)$를 특정할 수 없다** (intractability)는 점과 **모델 degeneracy** 때문에, $\theta$를 정확하게 추정하는 것은 어렵다. 이 문제는 **varying truncation stochastic approximation MCMC** 를 사용하는 것으로 해결 가능.
 
-Normalizing constant $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta ' S(y)\Big\}$.
+Normalizing constant 는 $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{ \theta ' S(y)\Big\}$.
 
 이로 인해 촉발되는 문제는?
 
-1. MPLE: dyadic 독립을 가정하는 것으로 해결해보고자 함. 이건 observed 네트워크가 무엇이냐에 대해 과하게 의존.
-2. MCMLE: $\theta^{(0)}$ 을 어떻게 고르느냐에 대해 과하게 의존. local 최적해로 수렴해버리거나 모델 degeneracy 로 수렴 자체가 실패하기도.
+1. **MPLE**: dyadic 독립이 가정되어 있다. 이건 observed 네트워크가 무엇이냐에 대해 과하게 의존.
+2. **MCMLE**: $\theta^{(0)}$ 을 어떻게 고르느냐에 대해 과하게 의존. local 최적해로 수렴해버리거나 모델 degeneracy 로 수렴 자체가 실패하기도.
 
 
 
@@ -211,7 +197,7 @@ Normalizing constant $\kappa(\theta) = \sum_{\text{all possible }y} \exp \Big \{
 
 #### MCMC Stochastic Approximation
 
-$h(\theta) = 0$ 형의 system 을 풀자. 고전적인 **SA 알고리즘**은 이하와 같은 형태를 띈다. ($a_k$ , $h$, $\omgea_k$ 에 대한) 적절한 조건 하에서, 이 알고리즘은 해로 수렴한다는 것을 실제로 보이는 것이 가능하다.
+$h(\theta) = 0$ 형의 system 을 풀자. 고전적인 **SA 알고리즘**은 이하와 같은 형태를 띈다. ($a_k$ , $h$, $\omega_k$ 에 대한) 적절한 조건 하에서, 이 알고리즘은 해로 수렴한다는 것을 실제로 보이는 것이 가능하다.
 
 $$
 \begin{align}
@@ -229,18 +215,18 @@ $$
 
 $\theta_{MLE}$ 를 찾는 것은 exponential family 안에서 $E_\theta \{ S(Y) \} = S(\mathbf y_{obs})$ 의 해를 찾는 것과 equivalent. 이는 이하의 단계를 거친다. 다만 이는 independent 네트워크 샘플을 생산하는데 있어 비효율적일 수밖에 없음. order of $100n^2$ 이라 연산을 엄청 먹으니까.
 
+<br>
+<br>
+
+
 1. $\mathbf y^{k+1} \sim f(\mathbf y | \theta^{(k)}$를 샘플링 (independence 네트워크 생산)
 
 각 arc 변수 $Y_{ij}$가 독립적으로 정해지는 랜덤 그래프에서 시작. 이 변수에는 0 혹은 1이 0.5 확률로 할당. 이 랜덤 그래프를 Gibbs 샘플러든 MH 알고리즘이든 써서 업데이트.
 
-2. **SA** 를 통해 패러미터 estimate 업데이트.
+2. **SA** 를 통해 패러미터 estimate $\theta^{(k+1)} &= \theta^{(k)} - a_k D^{-1} \Big \{ U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big \}$ 절차 따라서 업데이트. where
 
 $$
 \begin{align}
-\theta^{(k+1)} &= \theta^{(k)} - a_k D^{-1} \Big \{ U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big \},
-\\
-\\
-\\
 U( \mathbf y_{k+1}, \bar {\mathbf y}_{k+1} ) - \mathbf S (\mathbf y_{obs} ) \Big 
 \} &= P(\bar {\mathbf y}_{k+1} \Big | \mathbf y_{k+1} ) \cdot \mathbf S (\mathbf {\bar y}_{k+1} ) 
 
@@ -276,37 +262,35 @@ $\theta$을 어떻게 정하느냐에 따라 모델은 그것의 확률을 (Comp
 
 #### Varying Truncation SAMCMC for ERGMs 
 
-##### Setup
+알고리즘 proceeds 전 Setup: for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\xi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$, set as below.
+
 
 $$
 \begin{align}
 
-&a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &&b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1, set}
+&a_k = C_a \left( \frac{k_0}{(k_0 \vee k)}\right)^\eta, &&b_k = C_b \left( \frac{k_0}{(k_0 \vee k)}\right)^\xi \tag{C_1}
 
 \end{align}
 $$
+
+Next,
 
 $$
 \bigcup_{s \ge 0} \mathcal K_s = \Theta, \; \; \; \text{where } \mathcal K_s \subset \text{int}(\mathcal K_{s+1}) \tag{C_2}
 $$
 
-- for some constants $k_0>1$, $\eta \in (\frac{1}{2},1)$, $\xi \in (\frac{1}{2},\eta)$, $C_a > 0$, $C_b >0$.
-
 And also,
 
 - $\mathcal X$: a space of social network
 - $\mathcal T$: $\mathcal X \times \Theta \rightarrow \mathcal X_0 \times \mathcal K_0$ (reinitialization mechanism)
+- $\sigma_k$: 이터레이션 $k$ 까지 수행되는 reinitialization 의 숫자. ($\sigma_0 = 0$)
 
-- $\sigma_k$: the number of reinitialization performed until iteration $k$. ($\sigma_0 = 0$)
 
+----
 
-<br>
-<br>
-<br>
+**Proceeds**:
 
-##### Varying truncation SAMCMC algorithm for ERGMs
-
-1. Gibbs 샘플러 사용해 $m$ sweeps 번 interate 해서 auxiliary network $y_{k+1} \sim f(y | \theta^{(k)}$ 생산
+1. Gibbs 샘플러 사용해 $m$ sweeps 번 interate 해서 auxiliary network $y_{k+1} \sim f(y | \theta^{(k)})$ 생산
 
 2. Set $\theta^{(k + \frac{1}{2})} = \theta^{(k)}  + a_k \Big \{ S(y_{k+1}) - S(y_{obs}) \Big \}$
 
@@ -337,14 +321,15 @@ $$
 
 trajectory averaging estimator $\bar \theta_n = \frac{1}{n}\sum_{k=1}^n \theta^{(k)}$ 에 의해 $\theta$ 를 estimate 가능.
 
-실전에서는 estimate 의 variation 을 줄이기 위해 대신 $\theta$ estimate 에 $\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum_{k=n_0+1}^n \theta^{(k)}$ 을 자주 사용함. 이 때 $n_0$ 는 burn-in 이터레이션의 숫자.
+실전에서는 estimate 의 variation 을 줄이기 위해 대신 $\theta$ estimate 에 $\bar \theta (n_0 , n) = \frac{1}{n-n_0}\sum\limits_{k=n_0+1}^n \theta^{(k)}$ 을 자주 사용함. 이 때 $n_0$ 는 burn-in 이터레이션의 숫자.
 
-- Free parameters: $\{a_k\}$, $\{b_k\}$, $\{\mathcal K_s, \; s \le 0\}$, $m$
-- $k_0 = 100$, $\eta = 0.65$, $\xi = \frac{0.5 + \eta}{2}$.
-- $C_a$, $C_b$: adjusted for different examples
-- choose $\mathcal K_0$ to be around MPLE.
-- In this artical, we set $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$.
-- $m=1$.
+- Free parameters
+	- Free parameters: $\{a_k\}$, $\{b_k\}$, $\{\mathcal K_s, \; s \le 0\}$, $m$
+	- $k_0 = 100$, $\eta = 0.65$, $\xi = \frac{0.5 + \eta}{2}$.
+	- $C_a$, $C_b$: adjusted for different examples
+	- choose $\mathcal K_0$ to be around MPLE.
+	- 이 article 에선 $\mathcal K_{s, 1} = \Big [ -4(s+1), 4(s+1) \Big]$, $\mathcal K_{s, 2} = \cdots = \mathcal K_{s, d} = \Big [ -2(s+1), 2(s+1) \Big]$ 로 설정.
+	- $m=1$
 
 <br>
 <br>
@@ -356,10 +341,12 @@ Methods: MCMLE, SAA (Stochastic Approximation Algorithm), Varying truncation SAM
 SAMCMC: independent 5 runs(each of 200,000 iterations) (m=1, Ca = 0.01, Cb = 1000, η, ξ, κs are defalut)
 
 
+?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\?????????????????\\
 
 
+## Conclusion
 
-
+SAMCMC 알고리즘의 varying truncation 은 ERGM 에 적용 가능. 여기서는 estimator 가 degeneracy region 으로 향하는 걸 reinitialization 에 의해 방지. estimator 는 ERGM 의 MLE로 converge 하며, 이는 asymptotic 하게 $N$ 을 따르며 asymptotic 하게 efficient. 이는 normalizing constant 를 감당하고서라도 model degeneracy problem 를 해결할 수 있다는 점에서 유용.
 
 
 

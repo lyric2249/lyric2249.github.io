@@ -139,33 +139,20 @@ observed 네트워크의 sequence $N^1  , N^2 , \cdots, N^T$ 를 사용하자. �
 
 
 $$
-
 L\Bigl(\theta:N^{1},{ N}^{2},\cdot\cdot\cdot\ ,{ N}^{T}\Bigr)=\log P\Bigl({ N}^{2},{ N}^{3},\cdot\cdot\cdot\cdot,{ N}^{t}\,\vert\,{ N}^{1},\theta\Bigr),
-
 \\
-
 M\Bigl(t,\theta\Bigr)= E_{\theta}\Bigl(\downarrow\phi^{t},\Lambda\not v^{t-1}\Bigr)\mid{{N}}^{t-1}\Bigr),
-
 \\
-
-
 G\Bigl(t,\theta\Bigr) = E_{\theta}\Bigl(\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)^{T}\mid\Lambda\not=\Lambda\prime\prime
-
 $$
 
 
 이때 이하의 기댓값들은 조건부 분포로부터 Gibbs 샘플링을 돌리는 것으로 근사 가능. Newton 방법론과 유사한 과정을 통해 unconstrained optimization 을 하자. 기댓값을 근사하고, Likelihood를 증가시키는 방향으로 패러미터값을 업데이트. 이 과정을 수렴하기까지 반복.
 
 $$
-
-
 \Delta{ L}\Bigl(\theta:N^1 , N^2 , \cdots, N^T \Bigr) =
-
 \sum_{t=2}^{T}\Bigl(\Psi\big( N^t, N^{t-1} \Bigr)-M\big(t,\theta\big)\Bigr)
-
 \\
-
-
 \triangle^{2} L\Big(\theta:N^1 , N^2 , \cdots, N^T\Big)= \sum_{t=2}^{T}\Big(\mathrm{M}\big(t,\theta\big)\mathrm{M}\big(t,\theta\big)^{\prime}-{{C}}\big(t,\theta\big)\Big)
 $$
 

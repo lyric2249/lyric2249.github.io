@@ -10,7 +10,6 @@
 
 := “relational data” 를 수학적 그래프로 나타낸 것. node의 set과 edge set의 복합이며, edge는 일부 node를 이음.
 
-Adjacencey Matrix $X_{ij} = 1$, if node $i,j$ are connected. $0$ o.w.
 
 <br>
 <br>
@@ -31,15 +30,15 @@ $$
 P_\theta (X=x) = \frac{1}{\kappa(\theta)} \exp \Big( \theta' g(x) \Big)
 $$
 
-- $X$: A random network written as an adjacency Matrix
-	- $X_{ij}$ is an indicator of an edge from node i to node j.
-- $g(x)$: A vector of network statistics of interest.
-- $\theta$: The vector of parameters measuring the **strengths of the effects** of the corresponding entries in the vector $g(x)$.
-	- $\theta >0$: There exists a tendency to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
-	- $\theta >0$: There exists a tendency **not** to form $g(x)$ when changing $X_{ij}$ value from 0 to 1.
+- $X$: adjacency Matrix 로 서술된 랜덤 네트워크
+	- $X_{ij}$: node $i$ 로부터 node $j$ 로의 edge 여부 indicator
+- $g(x)$: 연구자의 관심대상인 네트워크 statistics 의 vector
+- $\theta$: vector $g(x)$ 에서의 상응하는 entry 들의 **strengths of the effects** 를 측정 (measure) 하는 패러미터 들의 vector. ERGM 을 해석하는 방법은 이하와 같다.
+	- $\theta >0$: $X_{ij}$ 값이 0에서 1로 변할 때 $g(x)$ 를 형성하는 경향이 있음을 의미
+	- $\theta >0$: $X_{ij}$ 값이 0에서 1로 변할 때 $g(x)$ 를 형성하지 **않는** 경향이 있음을 의미. $g(x)$ 형성의 역방향.
 - $\kappa (θ)$: A normalizing constant
 
-네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 "파트너십에서 개인들이 삼각형을 형성하는 성향" 과 같은 것임. **즉, ERGM은 local transtivity의 정도, 위력을 량화하는데 도움을 줌.** EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.
+*ERGM* 은 네트워크의 전체 구조를 형성하는 로컬적인 selection force를 간략하게 설명함. 네트워크 데이터셋은 리그레션에서의 response 같은 것으로 간주될 수 있으며, 이때 predictor들은 "파트너십에서 개인들이 삼각형을 형성하는 성향" 과 같은 것임. **즉, ERGM은 local transtivity의 정도, 위력을 량화하는데 도움을 줌.** EGRM을 사용해 획득하는 정보는 특정 현상을 이해하거나 특정 네트워크로부터의 랜덤한 실현값을 시뮬레이션하는데에 쓰일 수 있음. 이때 랜덤한 실현값은 당연히 원본의 성질을 유지해야 하고.
 
 
 
@@ -56,24 +55,37 @@ $$
 
 #### Network Statistics
 
-Basic Markov Network Statistics
+
+```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Basic Markov Network Statistics'}
+knitr::include_graphics('images/knit-logo.png')
+```
+
 
 <Pics>
 
 ##### Degree and Shared Partnership Distribution
 
-- **Degree**: The number of edges the node has to other nodes.
-	- $D_k (x)$: The number of nodes with degree $k$. 이때 $\sum D_k(x) = n$.
+- **Degree**: 특정 node 가 다른 node 와 연결되어 있는, 즉 보유하고 있는 edge 의 수
+	- $D_k (x)$: degree 가 $k$ 인 node 들의 갯수. 이때 $\sum D_k(x) = n$.
+
+
+
+unordered pair $
 
 - Shared Partnership Distribution: 
-	- The number of unordered pairs $(i, j)$ for which $i$ and $j$ have exactly share $k$ common neighbors and
-		- $EP_k (x)$: $X_{ij} = 1$
-		- $NP_k (x)$: $X_{ij} = 0$
-		- $DP_k (x)$: regardless of value $X_{ij}$
-	- $\sum EP_k(x) = S_1(x)$ (edge counts) and $\sum DP_k (x) = {n \choose x}$ (dyad counts).
+	- $i$와 $j$ 가 정확히 $k$ 개의 공통된 neighbor 를 가지고, 이와 동시에 이하의 각각의 조건을 만족한다면, unordered pair $(i,j)$ 의 갯수는 이하로 notation.
+		- $EP_k (x)$: $X_{ij} = 1$. 즉 픽된 서로가 connected.
+		- $NP_k (x)$: $X_{ij} = 0$. 즉 픽된 서로가 unconnected.
+		- $DP_k (x)$: regardless of value $X_{ij}$. 픽된 서로의 connect 여부 무관.
+	- $\sum EP_k(x) = S_1(x)$ (edge counts) 이며, $\sum DP_k (x) = {n \choose x}$ (dyad counts).
 
 
-**geometrically weighted statistics** for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 $\tau$는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄.
+```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Degree and Shared Partnership Distribution'}
+knitr::include_graphics('images/knit-logo.png')
+```
+
+
+**geometrically weighted statistics** for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 $\tau$는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄. 위에서 언급한 statistics 들 중 $NP$ 만 안쓰였음.
 
 $$
 \begin{alignat}{2}
@@ -108,13 +120,9 @@ $$
 
 ### Difficulty in Parameter Estimation
 
-<br>
-<br>
-<br>
-
 #### Intractable Normalizing Constants
 
-$\kappa (\theta) =\sum_{\text{all possible }x} \exp \Big \{ \theta' g(\mathbf x) \Big \}$ 는 ERGMs의 normalizing constant.
+ERGMs의 normalizing constant 는 $\kappa (\theta) =\sum_{\text{all possible }x} \exp \Big \{ \theta' g(\mathbf x) \Big \}$.
 
 undirected 인 경우에조차도 $2^{n \choose x}$ 개의 네트워크가 존재하므로, $\kappa(\theta)$ 를 직접 계산하는건 불가능함. 이렇게 직접 계산하는게 불가능하기 때문에 MCMC 가 시뮬레이션과 통계적 추론 양쪽에 있어서 핵심이 된다. 하지만 일반적은 MH 알고리즘에 있어서는 acceptance probability에 알려지지 않은 constant ratio 인 $\frac{\kappa(\theta)}{\kappa(\theta')}$ 가 끼어있으므로 이를 직접적으로 계산하는 것 또한 실패하게 됨. 이때 $\theta '$ denotes the proposed value.
 
@@ -133,12 +141,15 @@ $\theta$를 어떻게 설정하느냐에 따라서 ERGM은 full (모든 연결�
 
 
 
-Example: **Basic Markovian Statistics**. 네트워크에서 하나의 edge가 추가되거나 제거될때, 다른 통계량들이 비교적 크게 변하지 않을 때 basic Markovian 통계량만 엄청나게 요동치는 상황 발생할 수 있음. 따라서 dyadic dependence effects만 빠르게 뻥튀기되어서 모델이 degenerate 될 수 있음.
+- Example: **Basic Markovian Statistics**. 네트워크에서 하나의 edge가 추가되거나 제거될때, 다른 통계량들이 비교적 크게 변하지 않을 때 basic Markovian 통계량만 엄청나게 요동치는 상황 발생할 수 있음. 따라서 dyadic dependence effects만 빠르게 뻥튀기되어서 모델이 degenerate 될 수 있음.
 
 
 현재 사용되는 방법인 **MCMLE** and **stochastic approximation** 는 시작값이 degeneracy 영역에 있었다면 $\theta$의 degenerate 추정값을 생산하기도 한다. 이러한 문제점을 일컫는 용어가 **Local convergence property**.
 
 
+```{r knitr-logo, out.width='32.8%', fig.show='hold', fig.cap='Model Degeneracy for Basic Markov Statistics, Figure: Visualization of the degeneracy (black) and non-degeneracy (white) region of an ERGM with edge counts and K2-star.'}
+knitr::include_graphics(rep('images/knit-logo.png',3))
+```
 
 
 
