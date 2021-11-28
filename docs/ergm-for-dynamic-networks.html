@@ -289,7 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview</a></li>
 <li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression</a></li>
-<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)</a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>5.5.3</b> Hypothesis Testing</a></li>
+<li class="chapter" data-level="5.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.4</b> Example)</a></li>
 </ul></li>
 <li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA</a></li>
 <li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor</a>
@@ -531,6 +532,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="B" data-path="abstract-1.html"><a href="abstract-1.html"><i class="fa fa-check"></i><b>B</b> ABSTRACT</a></li>
 <li class="chapter" data-level="C" data-path="cnn.html"><a href="cnn.html"><i class="fa fa-check"></i><b>C</b> CNN</a></li>
 <li class="chapter" data-level="D" data-path="cnn-1.html"><a href="cnn-1.html"><i class="fa fa-check"></i><b>D</b> CNN</a></li>
+<li class="chapter" data-level="E" data-path="cnn-2.html"><a href="cnn-2.html"><i class="fa fa-check"></i><b>E</b> CNN</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -659,11 +661,16 @@ n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
 </ul>
 <p>observed 네트워크의 sequence <span class="math inline">\(N^1 , N^2 , \cdots, N^T\)</span> 를 사용하자. 무엇을 위해? 실제 패러미터값 <span class="math inline">\(\theta\)</span> 에 가까운 estimator <span class="math inline">\(\hat \theta\)</span> 을 찾기 위해. normalizing constant 는 보통 계산해내는 것이 불가능하여 MLE 방법론의 도입은 불가. 따라서 MCMC stochastic approximation 를 사용해 패러미터 estimate. 이하와 같이 notation 한다. 이때 t 시점의 네트워크인 랜덤변수 <span class="math inline">\(\underline N^t\)</span> 에 대해 기댓값들이 계산되었음을 notice.</p>
 <p><span class="math display">\[
-L\Bigl(\theta:N^{1},{ N}^{2},\cdot\cdot\cdot\ ,{ N}^{T}\Bigr)=\log P\Bigl({ N}^{2},{ N}^{3},\cdot\cdot\cdot\cdot,{ N}^{t}\,\vert\,{ N}^{1},\theta\Bigr),
+\begin{align}
+L\Bigl(\theta:N^{1},{ N}^{2},\cdots ,{ N}^{T}\Bigr)
+=\log P\Bigl({ N}^{2},{ N}^{3},\cdots,{ N}^{t}\,\Bigg \vert\,{ N}^{1},\theta\Bigr)
 \\
-M\Bigl(t,\theta\Bigr)= E_{\theta}\Bigl(\downarrow\phi^{t},\Lambda\not v^{t-1}\Bigr)\mid{{N}}^{t-1}\Bigr),
+M\Bigl(t,\theta\Bigr)
+= E_{\theta}\Bigl(\downarrow\phi^{t},\Lambda\not v^{t-1}\Bigr)\mid{{N}}^{t-1}\Bigr)
 \\
-G\Bigl(t,\theta\Bigr) = E_{\theta}\Bigl(\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)^{T}\mid\Lambda\not=\Lambda\prime\prime
+G\Bigl(t,\theta\Bigr) 
+&amp;=E_{\theta}\Bigl(\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)\Psi\Bigl(\underline{{{\Lambda}}}^{t},\Lambda\not{N}^{t-1}\Bigr)^{T}\mid\Lambda\not=\Lambda\prime\prime
+\end{align}
 \]</span></p>
 <p>이때 이하의 기댓값들은 조건부 분포로부터 Gibbs 샘플링을 돌리는 것으로 근사 가능. Newton 방법론과 유사한 과정을 통해 unconstrained optimization 을 하자. 기댓값을 근사하고, Likelihood를 증가시키는 방향으로 패러미터값을 업데이트. 이 과정을 수렴하기까지 반복.</p>
 <p><span class="math display">\[

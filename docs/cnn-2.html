@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.5 Covariance estimation | Self-Study</title>
-  <meta name="description" content="8.5 Covariance estimation | Self-Study" />
+  <title>E CNN | Self-Study</title>
+  <meta name="description" content="E CNN | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.5 Covariance estimation | Self-Study" />
+  <meta property="og:title" content="E CNN | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="https://github.com/lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.5 Covariance estimation | Self-Study" />
+  <meta name="twitter:title" content="E CNN | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="metric-entropy-and-its-uses.html"/>
-<link rel="next" href="matrix-concentration-inequalities.html"/>
+<link rel="prev" href="cnn-1.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -553,171 +553,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="covariance-estimation" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Covariance estimation</h2>
-<p><br>
-<br>
-<br></p>
-<div id="matrix-algebra-review" class="section level3" number="8.5.1">
-<h3><span class="header-section-number">8.5.1</span> Matrix algebra review</h3>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="covariance-matrix-estimation-in-the-operator-norm" class="section level3" number="8.5.2">
-<h3><span class="header-section-number">8.5.2</span> Covariance matrix estimation in the operator norm</h3>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-14" class="theorem"><strong>Theorem 8.7  (Covariance estimation) </strong></span><span class="math inline">\(X_1 , \cdots, X_n \overset {iid}\sim SG(\sigma)\)</span> s.t. <span class="math inline">\(E(X_1) = 0, Var(X_1) = \Sigma_{d \times d}\)</span>.</p>
-<p>Let sample Cov matrix <span class="math inline">\(\hat \Sigma = \frac{1}{n} \sum X_i X_i &#39;\)</span> based on <span class="math inline">\(X_1 , \cdots, X_n\)</span>.</p>
-<p>Then there exists a universal constant <span class="math inline">\(C &gt;0\)</span> s.t. below holds with probabilty at least <span class="math inline">\(1-\sigma\)</span>.</p>
-<p><span class="math display">\[
-\forall \sigma \in (0,1): \frac{\|\hat \Sigma - \Sigma \|_{op}}{\sigma^2} \le C \max \left \{ \sqrt{\frac{d + \log(\frac{2}{\sigma})}{n}}, \; {\frac{d + \log(\frac{2}{\sigma})}{n}}\right \}
-\]</span></p>
-</div>
-<p><br></p>
-<ul>
-<li>이건 결국 <span class="math inline">\(\lim_{n \rightarrow \infty \frac{d}{n} \rightarrow 0}\)</span> 일 때 operator norm 안의 <span class="math inline">\(\Sigma\)</span>를 계속해서 estimate 할 수 있다는 것을 말함. 실제로 추가적인 가정 없이는 이 rate 이상으로 측정을 정밀화할 수 없음.</li>
-</ul>
-<p><br>
-<br></p>
-<p>증명을 2단계로 분할.</p>
-<ol style="list-style-type: decimal">
-<li>discretization argument 를 써서 문제를 finitely 많은 랜덤변수의 maximum 을 제어하는 문제로 변경. 이하의 정보와 함께 finite maximum 라는 사실 사용해서 <span class="math inline">\(\|\hat \Sigma - \Sigma \|_{op}\)</span> 에 대한 상한 생산.</li>
-</ol>
-<p>let <span class="math inline">\(A = A&#39; \in \mathbb R^{d \times d}\)</span> 로 하고, <span class="math inline">\(N_\epsilon = \{ y_1 , \cdots, y_N \}\)</span> 을 <span class="math inline">\(\mathbb S^{d-1}\)</span> 의 <span class="math inline">\(\epsilon\)</span>-covering 으로 함.</p>
-<p>이때 <span class="math inline">\(\| A \|_{op} \le \frac{1}{1-2\epsilon} \cdot \max_{y \in N_\epsilon} | y&#39; A y |\)</span>.</p>
-<p>이를 증명하자. <span class="math inline">\(x \in \mathbb S^{d-1}\)</span> 에 대해 <span class="math inline">\(\| x-y \|_2 \le \epsilon\)</span> 만족하는 <span class="math inline">\(y \in N_\epsilon\)</span> 선택. 이때 <span class="math inline">\(A\)</span>는 symmetric Matrix 이므로,</p>
-<p>여기서 <span class="math inline">\(\hat \Sigma - \Sigma\)</span> 는 symmetric Matrix 이므로, <span class="math inline">\(\|\hat \Sigma - \Sigma \|_{op} \le \frac{1}{1-2\epsilon} \max_{y \in N_\epsilon} | y&#39; (\hat \Sigma - \Sigma) y |\)</span>.</p>
-<p><span class="math display">\[
-\vert x^{\textsf{T}}A x-y^{\textsf{T}}A y\vert\ =\ \vert x^{\textsf{T}}A(x-y)-y^{\textsf{T}}A(y-x)\vert
-\leq\;\left|x^{\textsf{T}}A(x-y)\right|+\left|y^{\textsf{T}}A(y-x)\right| \tag{triangle ineq.}
-\]</span></p>
-<p><span class="math display">\[
-|x^{\textsf{T}}A(x-y)|\ \stackrel{(1)}{\le}\ ||A(x-y)||_{2}||x||_{2} \tag{Cauchy–Schwarz inequality}
-\\
-\overset{(2)}{\le} {{||A||_{\mathrm{op}}||x-y||_{2}}}
-\\
-\overset{(3)}{\le} \epsilon\|A\|_{\mathrm{op}}
-\]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li><span class="math inline">\(|| x||_2 = 1\)</span>, and <span class="math inline">\(\forall v \in \mathbb R^d:||A v ||_2 \le ||A||_{op} ||v||_2\)</span></li>
-<li><span class="math inline">\(||x-y||_2 \le \epsilon\)</span></li>
-</ol>
-<p>Applying the same argument to <span class="math inline">\(|y^T A(y-x)|\)</span> then gives <span class="math inline">\(|x^T Ax - y^T Ay| \le 2 \epsilon ||A||_{op}\)</span>.</p>
-<p>To complete the proof of inequality (5.1), note that</p>
-<p><span class="math display">\[
-|x^{\textsf{T}}A x|=|x^{\textsf{T}}A x-y^{\textsf{T}}A y+y^{\textsf{T}}A y| \leq\ \left|x^{\top}A x-y^{\top}A y\right|+\left|y^{\top}A y\right|
-\leq 2\epsilon || A||_{\mathrm{op}}+|y^{T}A y \rvert
-\]</span></p>
-<p>This implies that <span class="math inline">\(||A||_{op} \le 2 \epsilon ||A||_{op} + \max_{y \in N_\epsilon} |y^T A y|\)</span> and rearranging the terms yields inequality (5.1).</p>
-<p><br>
-<br></p>
-<ol start="2" style="list-style-type: decimal">
-<li>standard concentration inequality 사용.</li>
-</ol>
-<p>Step 2. By choosing  = 1/4, inequality (5.2) becomes</p>
-<p><span class="math display">\[
-||\hat{\Sigma} - \Sigma||_\mathrm{op} \leq 
-2 \max_{y\in{N_{1/4}}}
-|\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}|
-\]</span></p>
-<p>Therefore by the union bound</p>
-<p><span class="math display">\[
-P(||\hat{\Sigma} - \Sigma||_\mathrm{op} \ge t) \leq 
-P \left ( 2 \max_{y\in{N_{1/4}}}
-|\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}|
-\ge t \right )
- \leq 
-\sum_{y\in{ N_{1/4}}} P \left( |\mathcal{y}^{\top} \big(\hat{\Sigma} - \Sigma\big)\mathcal{y}| \ge \frac{t}{2} \right)
-\]</span>
-Note that we can write</p>
-<p><span class="math inline">\(y^{\top}(\hat{\Sigma}-\Sigma)y=\frac{1}{n}\sum_{i=1}^{n}\left\{(y^{\top}X_{i})^{2}-\mathbb{E}[(y^{\top}X_{i})^{2}]\right\}\)</span></p>
-<p>We saw earlier in Lemma 3.3 that the square of a sub-Gaussian random variable is sub-exponential with parameters <span class="math inline">\((\nu, \alpha) = (16 \sigma^2, 16 \sigma^2)\)</span>. This property implies that <span class="math inline">\(\left\{(y^{\top}X_{i})^{2}-\mathbb{E}[(y^{\top}X_{i})^{2}]\right\}\)</span> is sub-exponential with <span class="math inline">\((16\sigma^2 , 16\sigma^2)\)</span>. Applying the sub-exponential tail bound, especially inequality (3.2), yields</p>
-<p><span class="math display">\[
-\mathbb{P}(\|\widehat\Sigma-\Sigma\|_{\mathrm{lop}}\geq t)\ \leq\ 2\ \underbrace{\mathrm{l}N_{1/4}}_{\mathrm{extrianitv}}
-\times 
-\exp\Biggl(-{\frac{1}{2}}\operatorname{min}\Biggl\{{\frac{n t}{16\sigma^{2}}},\ {\frac{n t^{2}}{16^{2}\sigma^{4}}}\Biggr\}\Biggr)
-\\
-\leq\ 2\times9^{d}\times\exp\biggl(-\frac{1}{2}\operatorname*{min}\Biggl\{\frac{n t}{16\sigma^{2}},\ \frac{n t^{2}}{16^{2}\sigma^{4}}\Biggr\}\biggr)
-\]</span></p>
-<p>where the last step uses the result in Lecture 4, which shows that the cardinality of <span class="math inline">\(N_{1/4}\)</span> is
-bounded by <span class="math inline">\(|N_{1/4}| ≤ 9\)</span>. (here note that <span class="math inline">\(\mathbb{S}^{d-1}\subset\mathbb{B}=\{\theta\in\mathbb{R}^{d}:||\theta||_{2}\leq1\}\})\)</span>). Finally, inverting the bound gives the desired result.</p>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-</div>
-<div id="bounds-for-structured-covariance-matrices" class="section level3" number="8.5.3">
-<h3><span class="header-section-number">8.5.3</span> Bounds for structured covariance matrices</h3>
-<p>우리의 주된 목적은 샘플 Cov를 경유하여 unstructured Cov Matrix를 estimate 하는 것. Cov Matrix 가 추가적인 structure 를 품고 있다면, 샘플 Cov 가 아니라 다른 estimator 를 사용해서 좀더 연산이 빠른 estimate 가 가능.</p>
-<p><br></p>
-<ul>
-<li><strong>Diagonal matrix</strong></li>
-</ul>
-<p><strong>Cov Matrix 가 diagonal이라는 정보</strong>를 가지고 있다고 해보자. 이때 <span class="math inline">\(\hat \Sigma_{diag} = diag \{ \hat \Sigma_{11}, \cdots, \hat \Sigma_{dd}\)</span> 로 estimate 하는 것은 자연스럽다. 이 경우 sub-Gaussinianity 를 가정한다면 어떻게 될까? unstructured 케이스에서 order 가 <span class="math inline">\(\sqrt{\frac{d}{n}}\)</span> rates (단, <span class="math inline">\(d \le n\)</span>) 였던 것과 대비되게 estimation error of the order $ 가 생산된다.</p>
-<p>좀 더 자세히 살펴보자. diagonal 케이스에서, <span class="math inline">\(\hat \Sigma_{diag} - \Sigma\)</span> 의 operator norm 은 본질적으로 <span class="math inline">\(d\)</span> 개의 entry값 <span class="math inline">\(\{| \hat \Sigma_{diag,11} - \Sigma_{11} |, \cdots, | \hat \Sigma_{diag,dd} - \Sigma_{dd} |\}\)</span> 중의 maximum 이다. 그렇다면 여기서 the union bound argument along with an exponential tail bound 를 통해 우리는 <span class="math inline">\(\sqrt{\frac{\log d}{n}} → 0\)</span> 일 때 operator norm 이 0로 decay 된다는 것을 파악할 수 있다. <mark> See Theorem 2.11 for a similar argument.</mark></p>
-<p><br></p>
-<ul>
-<li><strong>Unknown sparsity and thresholding</strong></li>
-</ul>
-<p>좀더 일반적인 케이스를 생각해보자. Cov Matrix가 상대적으로 sparse 하다는 사실이 알려져 있지만, 어느 entry가 non-zero인지는 알려져있지 않다. 이때 estimator가 thresholding 에 기반하고 있다고 생가가흔 넉승 나젼스럽다. 이때 <span class="math inline">\(\lambda &gt;0\)</span> 라는 패러미터가 주어져 있다고 생각할 때, hard-thresholding 을 통해 얻어지는 Cov estimator 의 <span class="math inline">\((i,j)\)</span> entry 는 <span class="math inline">\([T_\lambda (\hat \Sigma)]_{ij} = \hat \Sigma_{ij} \cdot I(|\hat \Sigma_{ij}&gt;\lambda)\)</span>.</p>
-<p>let <span class="math inline">\(\Sigma\)</span>의 adjacency matrix <span class="math inline">\(A \in \mathbb R^{d \times d}\)</span>, <span class="math inline">\(A_{ij} = I(\Sigma_{ij}) \not = 0\)</span>. adjacency matrix 의 operator norm <span class="math inline">\(\| A \|_{op}\)</span> 는 sparsity 에 대한 natural measure 를 제공한다. 이때 우리는 <span class="math inline">\(\Sigma\)</span> 가 row 별로 <span class="math inline">\(s\)</span> 개의 non-zero entry를 갖고 있다면 <span class="math inline">\(\| A \|_{op} \le s\)</span> 임을 보일 수 있다. 또한 thresholded 샘플 Cov Matrix 는 다음과 같은 concentration bound를 가짐.</p>
-<p><br>
-<br></p>
-<div class="theorem">
-<p><span id="thm:unlabeled-div-15" class="theorem"><strong>Theorem 8.8  (Thresholding-based covariance estimation) </strong></span><span class="math inline">\(X_1 , \cdots, X_n \overset {iid} \sim\)</span>, s.t. <span class="math inline">\(E(X_1) = 0, Var(X_1) = \Sigma_{d \times d}\)</span>, and suppose each component <span class="math inline">\(X_{ij}\)</span> is sub-Gaussinian with 패러미터 at most <span class="math inline">\(\sigma\)</span>.</p>
-<p>만약 <span class="math inline">\(n &gt; 16 \log d\)</span> 라면, <span class="math inline">\(\forall \delta&gt;0\)</span>에 대해, thresholded 샘플 Cov Matrix <span class="math inline">\(T_{\lambda_n} (\hat \Sigma)\)</span> with <span class="math inline">\(\frac{\lambda_n}{\sigma^2} = 8 \sqrt{\frac{\log d}{n}} + \delta\)</span> 는 이하를 만족한다.</p>
-<p><span class="math display">\[
-P \Big (
-\| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \ge 2 \| A \|_{op} \cdot \lambda_n
- \Big)
-\le 8 \exp \Big( -\frac{n}{16} (\delta \wedge \delta^2)\Big)
-\]</span></p>
-</div>
-<p><br></p>
-<ul>
-<li><p>위의 부등식은 높은 확률로 <span class="math inline">\(\| T_{\lambda_n} ( \hat \Sigma ) - \Sigma \|_{op} \lesssim \| A \|_{op} \sqrt{\log d}{n}\)</span> 임을 보여줌. 이에 더해서 <span class="math inline">\(\sigma\)</span> 가 row 당 최대 <span class="math inline">\(s\)</span> 개의 non-zero entry 를 가진다는 조건을 생각하자. 이는 곧 <span class="math inline">\(\|A\|_2 \le s\)</span> 라는 의미가 됨. 그렇다면 thresholded Cov Matrix는 <span class="math inline">\(s\sqrt{\frac{\log d}{n}}→0\)</span> 일 때 consistent 하며, 이는 곧 특히 <span class="math inline">\(s\)</span> 가 작을 때 <span class="math inline">\(\sqrt{\frac{d}{n}}\)</span> 보다 훨씬 빠르다.</p></li>
-<li><p>thresholding 패러미터는 sub-Gaussian 패러미터 <span class="math inline">\(\sigma\)</span>에 의존하는데, 이는 실전 상황에서는 대부분 unknown.</p></li>
-</ul>
-<p><br>
-<br></p>
-<p><strong>Proof</strong>: Let us denote the elementwise infinity norm of the error matrix <span class="math inline">\(\hat \Delta = \hat \Sigma - \Sigma\)</span> by <span class="math inline">\(|| \hat \Delta ||_\infty = \max_{1\le j , \; \; j \le d} |\hat \Delta_{ij}|\)</span>. The proof of the theorem is based on two intermediate results:</p>
-<p><br />
-</p>
-<ol style="list-style-type: decimal">
-<li>Under the assumptions of the theorem,</li>
-</ol>
-<p><span class="math inline">\(\mathbb{P}(||\widehat{\Delta}||_{\infty}/\sigma^{2}\geq t)\leq8e^{-{\frac{n}{16}}\operatorname*{min}\{t,t^{2}\}+2\log d}\quad\mathrm{for~all~}t\gt 0 \tag{5.3}\)</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>For any choice of <span class="math inline">\(\lambda_n\)</span> such that <span class="math inline">\(|| \hat \Delta ||_\infty \le \lambda_n\)</span> we are guaranteed that</li>
-</ol>
-<p><span class="math inline">\(||\widehat{\Sigma}-\Sigma||_{\mathrm{lop}}\leq\ 2||A||_{\mathrm{op}}\lambda_{n} \tag{5.4}\)</span></p>
-<p><br />
-</p>
-<p>Having these results in place, the theorem follows by taking <span class="math inline">\(t = \frac{\lambda_n}{\sigma^2} = 8 \sqrt{\frac{\log d}{n}} + \delta\)</span>in inequality (5.3) and see</p>
-<p><span class="math inline">\(8e^{-\frac{n}{16}\operatorname*{min}\{t,t^{2}\}+2\log d}\lt 8e^{-\frac{n}{16}\operatorname*{min}\{\delta,\delta^{2}\}},\)</span></p>
-<p>, when <span class="math inline">\(n &gt; 16 log d\)</span>. Thus</p>
-<p>It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see Section 6.5 of Martin’s book)</p>
-<p><span class="math display">\[
-|\mathbb{P} \Bigg (||T_{\lambda_{n}}(\hat{\Sigma})\to\Sigma||_{\mathrm{op}}\geq\ 2||{A}||_{\mathrm{op}}\lambda_{n} \Bigg)
- \le P (||\widehat\Delta||_{\infty}\ge\,\lambda_{n})\le8e^{-\frac n{16}\it\ m i n}\{\delta,\delta^{2}\}_{.}
-\]</span></p>
-<p>It remains to prove inequality (5.3) and inequality (5.4), which are left as exercises (see Section 6.5 of Martin’s book)</p>
+<div id="cnn-2" class="section level1" number="14">
+<h1><span class="header-section-number">E</span> CNN</h1>
+<p>The Anatomy of an Amazon 6-pager
+A deep dive into writing detailed planning docs from one of the most successful companies in the world
+Jesse Freeman
+Jesse Freeman</p>
+<p>Jul 17, 2020·16 min read</p>
+<p>Image by CurtisM media from Pixabay
+The Amazon 6-pager
+I worked at Amazon for five years, leaving days before receiving the coveted yellow badge. Most people don’t make it past the first year. It’s an intense work environment, and the company revolves around specific leadership principles that provide a strict framework for how you interact with your co-workers. Because of this distinct culture, Amazon is unlike any company I’ve ever seen.
+Perhaps the most challenging part of working at Amazon comes down to being able to write a 6-pager. While there are several types of documents you may need to write at Amazon, such as the backward press-release or the 2-pager, your ability to write a 6-pager will directly impact your status at the table and your ability to move up in the company. If you struggle to write detailed plans for your business, this may be a useful structure to emulate.
+My plan here is to walk you through the anatomy of an Amazon-style 6-page document in granular detail. I was surprised to see that the few articles out there on the process mostly get it wrong. Even stranger, there doesn’t appear to be a single real example of a 6-pager outside of Amazon. So, I’ve decided to create one from scratch and share it with you. I based it on a structure I used when I headed up Framework Partner Marketing for the Amazon Appstore.
+Each group in Amazon has its way of writing 6-pagers. While they may look or read a bit differently, they all share the same structure. Also, there are different approaches based on the goal of the document. The example I am going to share is from what we call an operational plan document. These are 6-month plans that outline the current state of the business, the historical data from the last period, the goals for this period, and how you plan on achieving them. There are two of these documents that cover the year called OP-1 and OP-2. Right about now, Amazon teams would be executing their 2020 OP-2 plan and beginning to draft the 2021 OP-1 plan.
+It’s rare to write a large plan like this on your own. We usually work as a team to contribute to a single OP doc. One owner is responsible for cleaning it up and making it sounds like it came from an individual author. The heads of each team will have a plan for their group, and highlights from there will roll up into a master OP document used by the entire organization. I’ve had to write several tactical plans myself in various groups at Amazon, and it’s an incredibly time-consuming process that usually involves dozens of revisions. It feels like writing a master’s thesis, and a lot of care goes into making sure it is ready before presenting to a group of superiors.
+How Amazon conducts meetings
+Amazon is well known for its lack of using PowerPoint. The way this works is that before a meeting, you print out enough copies for everyone in the room. You’re not allowed to read the document from your computer unless you are remote. Also, no one reads the document before the meeting. You are usually given 20–25 minutes at the beginning of a 60-minute meeting to read the doc from beginning to end. Most people write down questions or feedback directly on the printout since using a computer during this time is frowned upon.</p>
+<p>Image by websubs from Pixabay
+All print outs are handed back to you at the end of the meeting. The rest of the time consists of everyone in the room challenging your position, questioning your tactics, and digging through the data to make sure it is valid. It’s incredibly stressful, and when the meeting is over, it’s your responsibility to update and recirculate the document to everyone as a final version. There is no ideation or brainstorming during these kinds of meetings. You need to go into them with everything prepared ahead of time, which usually means you’ve had multiple people review it to ensure that you are ready.
+The last thing you should know, which is perhaps the most critical part of the entire process, is that your 6-pager needs to stand on its own. One of the things I admired most at Amazon was their ability to transfer knowledge between different groups. Any time I interacted with a new group, I could ask to see their OP doc and get caught up on everything I needed to know. For this process to work, it means you need to write your 6-pager in a way that allows anyone, even people not familiar with the subject, to know what is going on without additional research. I’ll get into some of the ways you can do that later.
+Since this may be your first time reading an Amazon-style 6-pager, the last bit of context I’ll give you is that I wrote this for a game development tool I have been building in my spare time called Pixel Vision 8. There are a few things I dived deeper into than I would in a normal 6-pager to help make things a bit clearer. Also, some sections are more generic than I’d typically write, seeing how this isn’t a real plan I can execute on for a hobby project. Still, it was a good exercise in focusing my activities over the next six months. Writing a plan like this is one of the most powerful ways you can organize your thoughts to share with others.
+After you finish reading the 6-pager, I’ll break apart each section and explain them in more detail. Don’t get too hung up on the actual contents if you’re not familiar with game development, marketing, or reading dense plans. I also won’t accept any feedback on this one, so there is no need to print it out and hand it back to me.
+So, with that out of the way, take the next 20–25 minutes to read my 2020 OP-2 plan for Pixel Vision 8.
+Structuring a 6-pager narrative
+How did that go, intense, right? I remember the first time I had to read one. It looked like a complete wall of text. I am going to assume you didn’t get through the entire thing so I’ll include some excerpts as we go. To give you perspective, that took me five days to write, and I did four revisions. Since no one else had to review it, I’d say the process was almost tolerable. I love to write, but even these are a challenge for me. While it may feel completely alien to you, I miss this detail and clarity these types of documents provide now that I no longer work at Amazon. And while 6-pagers are a chore to write, I can no longer sit through a PowerPoint presentation without questioning why it wasn’t put into a document for me to read through.
+The first thing you probably noticed is that my 6-pager is using 10 point font. These things are dense, and there is a strict rule around it being exactly six pages. The goal is to fill up all six pages without any filler. The other thing you may have noticed is that the document isn’t six pages, it’s much longer. The perceived length of a 6-pager is a bit of a misconception. I’ve written 6-pagers that were over 40 pages long. The reason for this is because of the appendix.
+The main goal of authoring this kind of document is to craft the entire thing as a narrative. That doesn’t mean it needs to be an entertaining story. It merely means there are no bullet-point lists, no graphics, and no fluff in the document’s core 6-pages. Since it’s difficult to sum up the contextual information like data, graphs, or examples in narrative form, you can add it to the end of the document in an appendix. This allows the reader to choose what to look up for additional information as needed. It also allows you to store bulky, complex data visualizations without breaking up the narrative’s flow.
+At this point, we are ready to break down the skeleton of the 6-pager. Again, this might change slightly based on the document’s goal, but for the most part, it works like this:
+Introduction — This needs to set up precisely what the material is going to cover and to inherently state the general direction of where the document plans on going.
+Goals — List right up front what the metrics for success are so we can use them as a lens to see the remaining document through.
+Tenets — This is a very Amazon thing where every action has some clearly define north star. There are a lot of ways to word these. Generally, they are inspirational pillars that the rest of the plan sits on top of (go with me on this one).
+State of the business — This section is another important one. You need to inform the reader of the current state of the business. There needs to be a lot of detail here, which sets up the points to compare against in the next section.
+Lessons learned — Amazon is big on data. This section will outline the current state of the business and its influence over creating the goals you need to achieve. It should be a detailed enough snapshot to give the reader all of the data they need to understand the positive and negatives activities in the prior period.
+Strategic priorities — This is the meat of the document and lays out the plan, how to execute it, and should match up to achieving the goals stated at the top of the document.
+Of course, each of these sections has a specific job in building the narrative of the 6-pager. To pull it all together requires a certain amount of finesse. Luckily, I’ve made it through meetings needing to make only minor changes, and I’ve been in meetings where someone’s entire document is ripped apart line by line. I don’t profess to have the experience to say mine were better than others, but I did have a few good mentors. So here is how I decided to write my sample 6-pager.
+The introduction
+I usually try to consolidate my introduction to two paragraphs. Since this 6-pager was probably the first you’ve ever read on a topic you probably have no background on, I indulged and added the 3rd paragraph to pack in some extra detail.</p>
+<p>Figure 1. The introduction section from my sample 6-pager
+I’m not going to spend a lot of time on this section; it should be self-explanatory. I wanted to point out the two references to the appendix right off the bat. There is a lot of data to process upfront, especially if you’re not familiar with the subject. So you will want to add as much contextual data as possible in the document itself. You’ll notice there are no links in the documents to any websites either. The expectation is that you are reading a printout. So, if you need an offline copy of the entire internet for reference, put it all in the appendix.
+The goals
+Next up are the goals. The goal section is one of the only two areas of the document where bullet points are allowed. I follow a predefined structure for writing these, and I’ve seen it consistently used across several other groups.</p>
+<p>Figure 2. The goals section from my sample 6-pager
+You start with the actual goal, bolded, in as few words as possible. Then you follow with a single sentence that adds context to the goal. Finally, there needs to be a historical data point and a projected data point, followed by an explicit calculation of the change between the two. Not all goals end up with a positive outcome; I made my first one a negative one to show off two different types of results. But you want to have at least three goals which appear to be the magic number considering you will probably have multiple other priorities throughout the year from other groups since these plans do not exist in a vacuum.
+I’ve seen all kinds of ways of writing goals at companies I’ve worked at, and this is honestly the only format that has ever made sense to me. It feels like OKRs are another popular one but I find it very difficult to adjust to them after spending years at Amazon.
+The tenets
+After the goals, you declare the tenets. I’ve never seen another company so cultish in the way it requires employees to think according to a framework of rules. On the first day of orientation, they walk you through the leadership principles, and this way of thinking helps reinforce the documents you write.</p>
+<p>Figure 3. The tenets from my sample 6-pager
+I rarely put much effort into these. While the leadership principles become rules for how you engage with your co-workers, these tenets add nothing to the document. The people that write excellent tenets can link them back to the leadership principles somehow. Since one of the principles I liked the most is “disagree and commit,” I kept my opinion to myself and always added tenets to my 6-pagers since the decision to use them happened long before I got there.
+Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.
+The state of the business
+After the tenets, things get serious fast. The document begins with the state of the business. For this example, 6-pager, I decided to make it a single page. I would hardly call my hobby game engine a “business,” but I did my best to take it seriously.</p>
+<p>Figure 5. Setting up the introduction for the state of the business section in my sample 6-pager
+Appendix references litter this section. In a real 6-pager, I would have cut out the first paragraph and jumped right into the numbers. This section is really about distilling all of the current activities and their intended goals. However, this is not a section to talk in the past tense. The state of the business should be a current snapshot of the data. Because of this, I usually keep all of the figures blank until right before the meeting. This way, my document is always as up to date as possible.
+I still look at this section through the lens of the Appstore, where I was in charge of tracking the game engines that supported Fire OS, the game submission numbers, and my budget. I had to report weekly on the business’s health, so it was natural to have these numbers ready at a moment’s notice. Had this been a real 6-pager, I would have included a full snapshot of this data, which could go on for pages, in the appendix. Amazon is big on data; those are real facts. You are building a narrative around those facts so that we are not just skimming an excel spreadsheet.
+The last thing I want to call out in this section was how I ended it. It’s a subtle detail, but I make sure to complete the section with a little summary of everything that has been done and try to tie it into the goals. Since my goals were core to the way I ran my business, they didn’t change much every six months. The only thing that change was the target numbers. This made it easier to keep a consistent theme on how I ran things and made sure my summary of the business reflected that.
+Lessons learned
+After summing up the state of the business, it’s time to reflect on what happened in the past. This is a snapshot from the last period until now and has to be even more factual with numbers, percentages of goal completion, and even additional references in the appendix.</p>
+<p>Figure 6. Setting up the introduction for the lessons learned section in my sample 6-pager
+This section is similar to the state of the business but with one exception; the tense here is always in the past. There shouldn’t be any forward projections or expectations. There is zero room for interpretation. The data will tell the real story. Part of working at Amazon is that you are encouraged to share your failures along with your successes. I’ve worked in many places where people try to hide what didn’t work. You can usually tell because they never have data to back up their claims. At Amazon, the culture understands that you will fail; in fact, there is a leadership principle called “deliver results” to address that reality.
+Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.
+Notice the “despite setbacks” part? That is very important because real leaders fail from time to time but learn from their mistakes. Those failures help inform the new set of goals and give you clarity as to why it failed, so you don’t repeat your mistake. That’s outlined in the “ownership” and “are right, a lot” leadership principles too but you can look those up on your own.
+Strategic priorities
+At this point, you should have a real clear picture of what is going on, what has happened leading up to this, and what we hope to achieve moving forward. It’s now time for the most detailed section of all, the strategic priorities.</p>
+<p>Figure 7. The beginning of my strategic priorities from my sample 6-pager
+There is a lot to unpack here, mostly because this is usually 50–70% of the 6-pager. This section outlines each activity you plan on doing and how it relates to one of the goals. I don’t believe the order makes a difference, you can structure the narrative how you like, but people in the meeting will calculate up each activity to make sure it matches up to the goal’s projected data point. This is also the section that is open for interpretation and will be the one you spend the majority of the meeting defending.
+Up until this point, everything you have written has been facts, except for the tenets. The only questions you will get on those sections are whether the data adds up or they perceive the goals as not challenging enough. The strategic priorities section is all speculation. And at Amazon, they don’t accept anecdotes for an answer. That is why to write this section, you need to pull numbers from the lessons learned and state of the business that help prove your proposed activities will work.
+I’ll admit, I didn’t fully back my assumptions up with data from the previous sections. Honestly, since I don’t have to report this to anyone, I don’t analyze my game engine data all that much. I just do it for fun. But what I did want you to learn from this section was how to structure these priorities. You’ll see they follow a particular pattern.
+A strategic priority consists of two parts. The first part is a prediction. Think of this as your thesis on how you will contribute back to a given goal. The second part, however, is where you attempt laying out the actual plan to achieve it. These can get very detailed, and a lot of the plans I’ve put together use these to summarize the approach and the appendix for tactical execution steps. I’ve placed entire content plans in the appendix since they didn’t contribute to the narrative, but people will want to see the details.
+The beauty of the appendix, and probably the most brilliant part of the Amazon 6-pager, is that it gives the reader the choice of how deep they want to go down the rabbit hole. What you read in the 6-pager narrative gives you a high-level overview. If you chose to follow an appendix, that reference goes right into the details. And since the meeting comprises of team leads from other groups, each one will have specific areas of interest to dig into and skim over parts that don’t pertain to them. Since everyone at the table needs to understand the entire scope, they chose to follow an appendix reference for more information as needed. Either way, they still walk away with an overall sense of that part of the plan. It’s incredibly brilliant, and probably the one structural detail most plans I read at other companies don’t do very well.
+Ending a 6-pager
+Congratulations on making it this far. Luckily, we are almost at the end. Let’s take a look at the last strategic priority in my 6-pager.</p>
+<p>Figure 8. Excerpt of the last strategic priority from my sample 6-pager
+There are two things you should notice. First, I wrote right up to the bottom of page 6 to stick the landing. Second, you’ll see there is no summary section or closing remarks. That would be fluff. I’ve never read a 6-pager that summed everything up. They may exist, but out of the hundreds I’ve read, I never felt like a summary was missing. I got a clear picture of the past, present, and future activities and what better way to end then on an actionable item.
+I always make sure that the last sentence ends on a positive, forward-facing note. One that doesn’t sum everything up but at least feels like a natural ending to the document. Also, I didn’t add many appendix items to this example strategic priority section. That was on purpose; it would be more work than this example warranted. Regardless, you should now have a clear sense of how this section is supposed to be structured.
+Some final advice
+I think the last few bits of advice I’ll leave you with are how important the leadership principles come into play when reviewing a document and receiving feedback without taking it personally. The leadership principles give you a sort of rules of engagement on how to be direct with a co-worker and walk away civil. While I don’t fully drink the kool-aid, it’s impossible to survive at Amazon without weaponizing these principles in your meetings. Sometimes it’s to attack and others times to defend, but most of all, you want to always “dive deep.”
+Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.</p>
 
 </div>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="metric-entropy-and-its-uses.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="matrix-concentration-inequalities.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="cnn-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -748,7 +683,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212305_CovEst.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010292_medium.Rmd",
 "text": "Edit"
 },
 "history": {
