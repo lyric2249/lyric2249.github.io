@@ -30,19 +30,20 @@ complex system 에 대한 연구에서 연구하는 문제는 대응하는 네�
 
 네트워크 그래프 $G=(V, E)$ 에서 vertex $v$ 의 **degree** $d_v$ 는 $v$ 에 엮인 edge 의 갯수. $\forall v \in V, d_v = d: f_d  \coloneqq \frac{v}{d = d_v}$. collection $\{f_d\}_{d \ge 0}$ 는 $G$ 의 **degree distribution** 이라고 부른다. 이는 결국 원본 degree sequence 를 rescaling 한 것.
 
-```{r, eval=FALSE}
+```{r,warning=FALSE,message=FALSE}
 library(sand)
-library(igraphdata)
 ```
 
-```{r, eval=FALSE}
+```{r, fig.cap='Karate Network', fig.align='center'}
 data(karate)
 par(mfrow=c(1,2))
 hist(degree(karate), col="lightblue", xlim=c(0,50),
-xlab="Vertex Degree", ylab="Frequency", main="")
+     xlab="Vertex Degree", ylab="Frequency", main="")
 hist(graph.strength(karate), col="pink",
-xlab="Vertex Strength", ylab="Frequency", main="")
+     xlab="Vertex Strength", ylab="Frequency", main="")
 ```
+
+
 
 weighted network 케이스에서 유용하게 자주 쓰이는 degree 의 일반화는 **vertex strength**. 이는 해당 vertex 에 연결된 edge 의 weight 를 전부 합한 것. 이러한 strength 의 distribution 은 **weighted degree distribution** 이라고 불리며, 이는 일반적인 degree distribution 과 입지가 같음.
 
@@ -51,45 +52,49 @@ weighted network 케이스에서 유용하게 자주 쓰이는 degree 의 일반
 
 
 
-```{r, eval=FALSE}
+```{r,warning=FALSE,message=FALSE}
+library(igraphdata)
+```
+
+
+```{r, collapse = TRUE, fig.cap='A Network of Interactions among Protein Pairs in Yeast', fig.align='center'}
 data(yeast)
 ecount(yeast)
 vcount(yeast)
 ```
 
+
 히스토그램을 확인해보자. degree 가 낮은 substantial fraction of vertex 들이 존재한다. 이들의 magnitude 는 karate network 의 그것이랑 유사하지만, 이와 동시에 연속적으로 higher order of magnitude 를 가지는 vertex 들의 숫자가 non-trivial 하게 관측된다. 로그화 시킨 degree 의 경우, log frequency 에서 상당한 linear decay 관측 가능.
 
 
 
-```{r, eval=FALSE}
+```{r, fig.cap='The degree distribution for protein interactions in Yeast', fig.align='center'}
 
 par(mfrow=c(1,2))
+
 d.yeast = degree(yeast)
 hist(d.yeast,col="blue", xlab="Degree", ylab="Frequency", main="Degree Distribution")
+
 dd.yeast = degree.distribution(yeast)
 d = 1:max(d.yeast)-1
 ind = (dd.yeast != 0)
 plot(d[ind], dd.yeast[ind], log="xy", col="blue", xlab=c("Log-Degree"),
-ylab=c("Log-Intensity"), main="Log-Log Degree Distribution")
-
-
+     ylab=c("Log-Intensity"), main="Log-Log Degree Distribution")
 ```
+
 
 Figure 3: The degree distribution for protein interactions in Yeast
 
 서로 다른 degree 의 vertex 들이 서로 연결되어 있다면 그 기저에 깔린 메커니즘은 무엇인가? 이 또한 흥미로운 부분. 이 문제의 해결에 주효하게 작용하는 개념은 주어진 vertex 의 **average degree of the neighbors**. 높은 degree 의 vertex 는 높은 degree 랑만 붙는 경향이 있는 반면 lower degree 들은 높든 낮든 들러붙는 경향.
 
 
-
-```{r, eval=FALSE}
+```{r, fig.cap='The degree distribution for protein interactions in Yeast', fig.align='center'}
+#par(mfrow=c(1,1))
 
 a.nn.deg.yeast = graph.knn(yeast,V(yeast))$knn
 plot(d.yeast, a.nn.deg.yeast, log="xy", col="goldenrod",
-xlab=c("Log Vertex Degree"), ylab=c("Log Average Neighbor Degree"))
-
+     xlab=c("Log Vertex Degree"), ylab=c("Log Average Neighbor Degree"))
 ```
-
-Figure 4: The degree distribution for protein interactions in Yeast
 
 
 <br>
@@ -122,50 +127,35 @@ vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판
 $\alpha^{-1}$ 의 optimal choice 는 $A$ 의 가장 큰 ev. 따라서 $h_{E_i}$ 는 상응하는 evec. $G$ 가 undirected 이며 connected 라면, $A$ 의 largest ev 는 간단하며 이의 evec는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 evec 의 orthonormality 에 의해 얘들은 자동적으로 $[0,1]$ 사이로 scaled.
 
 
-```{r, eval=FALSE}
-#install.packages("network", repos="http://cran.us.r-project.org")
-#install.packages("sna", repos="http://cran.us.r-project.org")
-A = get.adjacency(karate, sparse=FALSE)
+```{r,warning=FALSE,message=FALSE}
 library(network)
-g = as.network.matrix(A)
 library(sna)
 ```
 
-```{r, eval=FALSE}
-par(mfrow=c(1,2))
+
+```{r}
+A = get.adjacency(karate, sparse=FALSE)
+g = as.network.matrix(A)
+```
+
+
+```{r, fig.cap="Target plots showing various vertex centralities for the karate club network", fig.align = 'center', cache=TRUE}
+par(mfrow=c(2,2))
+
 gplot.target(g, degree(g), main="Degree", circ.lab = FALSE, circ.col = "skyblue",
-usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
-edge.col="darkgray")
+             usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+             edge.col="darkgray")
 gplot.target(g, closeness(g), main="Closeness", circ.lab = FALSE, circ.col = "skyblue",
-usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
-edge.col="darkgray")
-```
-
-```{r, eval=FALSE}
-#install.packages("network", repos="http://cran.us.r-project.org")
-#install.packages("sna", repos="http://cran.us.r-project.org")
-A = get.adjacency(karate, sparse=FALSE)
-library(network)
-g = as.network.matrix(A)
-library(sna)
-```
-
-
-
-
-```{r, eval=FALSE}
-par(mfrow=c(1,2))
+             usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+             edge.col="darkgray")
 gplot.target(g, betweenness(g), main="Betweenness", circ.lab = FALSE, circ.col = "skyblue",
-usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
-edge.col="darkgray")
+             usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+             edge.col="darkgray")
 gplot.target(g, evcent(g), main="Eigenvalue", circ.lab = FALSE, circ.col = "skyblue",
-usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
-edge.col="darkgray")
-
-
+             usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
+             edge.col="darkgray")
 ```
 
-Figure 6: Target plots showing various vertex centralities for the karate club network
 
 이러한 centrality measure 를 undirected 에만 적용해왔음. directed 에도 적용못할 이유는 없지. 
 
@@ -174,19 +164,15 @@ Figure 6: Target plots showing various vertex centralities for the karate club n
 
 
 
-
-```{r, eval=FALSE}
+```{r, fig.cap="AIDS blog network with vertex area proportional to hubs and authority centrality measures", fig.align = 'center'}
 l = layout.kamada.kawai(aidsblog)
 par(mfrow=c(1,2))
 plot(aidsblog, layout=l, main="Hubs", vertex.label="",
-vertex.size=10 * sqrt(hub.score(aidsblog)$vector))
+     vertex.size=10 * sqrt(hub.score(aidsblog)$vector))
 plot(aidsblog, layout=l, main="Authorities", vertex.label="",
-vertex.size=10 * sqrt(authority.score(aidsblog)$vector))
-
-
-
+     vertex.size=10 * sqrt(authority.score(aidsblog)$vector))
 ```
-Figure 7: AIDS blog network with vertex area proportional to hubs and authority centrality measures
+
 
 
 <br>
@@ -202,12 +188,9 @@ vertex betweenness centrality 에서 **edge betweenness centrality ** 는 직관
 
 
 
-
-```{r, eval=FALSE}
+```{r}
 eb = edge.betweenness(karate)
 E(karate)[order(eb, decreasing=T)[1:3]]
-
-
 ```
 
 
@@ -254,39 +237,36 @@ E(karate)[order(eb, decreasing=T)[1:3]]
 
 complete 서브그래프, 즉 fully cohesive 한 vertex 들의 subset 을 **Cliques** 라고 통칭. 이인즉 소속된 모든 vertex 들이 edge 로 연결되어 있다는 것. 모든 사이즈의 clique 들에 대한 census 는 그래프가 어떻게 structure 되어 있는지에 대한 'snapshot' 을 제공함.
 
-```{r, eval=FALSE}
-table(sapply(cliques(karate), length))
-cliques(karate)[sapply(cliques(karate), length) == 5]
-
-
-```
-
 더 큰 사이즈의 clique 는 필연적으로 작은 사이즈의 cluque 들을 포함함. **maximal clique** 는 더 큰 clique 의 subset 이 아닌 clique 를 일컫음. 큰 clique 는 본질적으로 드뭄. 큰 clique 의 존재는 결국 원본 그래프 $G$ 가 일정 이상으로 dense 할 것을 요구하니까. 하지만 현실세계 네트워크는 보통 sparse 하거든.
 
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
+table(sapply(cliques(karate), length))
+cliques(karate)[sapply(cliques(karate), length) == 5]
 table(sapply(maximal.cliques(karate), length))
 clique.number(yeast)
 ```
+
+
 
 - **$k$-core**
 
 clique 를 약화시킨 개념. 그래프 $G$ 의 $k$-core 는 $G$ 의 서브그래프 중 모든 vertex degree 가 최소한 $k$ 는 되는 것 서브그래프들 중에서도, 다른 서브그래프들이 $k$-core 와 동일한 condition 을 따르지 않는 것을 **$k$-core** 라고 말함. 즉, 해당 성질을 보유한 서브그래프들 중 maximal 한 놈. core 라는 개념은 특히 visualization 쪽에서 핫함. 네트워크를 'layer' 로 decomposition 할 방법론을 제공하기 때문.
 
 
-Figure 8: Visual representation of the k-core decomposition of the karate network
+```{r, fig.cap='Visual representation of the k-core decomposition of the karate network', fig.align='center', cache=TRUE}
 
-
-```{r, eval=FALSE}
 cores = graph.coreness(karate)
-gplot.target(g, cores, circ.lab = FALSE, circ.col="skyblue",
-usearrows = FALSE, vertex.col=cores, edge.col="darkgray")
+gplot.target(g, cores, circ.lab = FALSE,
+             circ.col="skyblue",
+             usearrows = FALSE, vertex.col=cores,
+             edge.col="darkgray")
+```
 
+```{r}
 detach("package:sna")
 detach("package:network")
 ```
-
-Figure 8: Visual representation of the k-core decomposition of the karate network
 
 
 core 에 포함된 vertex 들은 center 에서 크게 떨어지지 않았으며, 각 core 에서 일정한 거리를 유지하고 있음이 시각적으로 확인 가능. 
@@ -304,11 +284,9 @@ vertex 3개를 뽑아 만든 모음은 **Triad**. 이는 16개의 상태를 가�
 
 
 
-```{r, eval=FALSE}
-
+```{r}
 aidsblog = simplify(aidsblog)
 dyad.census(aidsblog)
-
 ```
 
 해당 데이터를 살펴보면 hub 와 authority 에 대한 기존 지식과 궤를 같이함을 확인 가능. <mark>Small connected subgraphs of interest are commonly termed motifs.</mark> **motif** 라는 개념은 생물 네트워크에서 두드러지게 유명한 개념, 생태계 substructure 를 biological function 과 연결지을때 자주 쓰임.
@@ -329,11 +307,10 @@ dyad.census(aidsblog)
 
 $H=G$ 인 상황이라면 전체 그래프 $G$ 에 대한 density 를 생산. 반대로 vertex $v \in V$ 의 neighbor 의 set $H_v=H$ 가 되게 한다면, 이들 사이의 edge 는 $v$ 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 ego-centric 네트워크는 원본의 overall 네트워크보다 명백히 dense 함.
 
-```{r, eval=FALSE}
+```{r, collapse = TRUE}
 ego.instr = induced.subgraph(karate,neighborhood(karate, 1, 1)[[1]])
 ego.admin = induced.subgraph(karate,neighborhood(karate, 1, 34)[[1]])
 graph.density(karate)
-
 graph.density(ego.instr)
 graph.density(ego.admin)
 
@@ -345,7 +322,7 @@ graph.density(ego.admin)
 
 
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 transitivity(karate)
 transitivity(karate, "local", vids=c(1,34))
 ```
@@ -354,7 +331,7 @@ transitivity(karate, "local", vids=c(1,34))
 
 **directed graph 에 한정된 개념**. reciprocated (mutual) 한 edge 의 숫자를 총 edge 의 숫자로 나눈 것. 이는 single, unreciprocated 한 dyad 대비 reciprocated dyad 의 비중을 나타냄.
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 reciprocity(aidsblog, mode="default")
 reciprocity(aidsblog, mode="ratio")
 ```
@@ -374,7 +351,7 @@ reciprocity(aidsblog, mode="ratio")
 
 그래프 $G$의 connected component 중 하나가 다른 모두를 위력에서 압도한다면, 이는 곧 해당 connected component가 $G$의 대부분의 vertex를 포함하고 있다는 이야기. 이러한 component는 **giant component**라고 불리며 이는 random graph theory 출신 용어.
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 is.connected(yeast)
 comps = decompose.graph(yeast)
 table(sapply(comps, vcount))
@@ -383,7 +360,7 @@ table(sapply(comps, vcount))
 결과는 false로 나오지만 이에 대해 census 돌리면 giant component의 존재 확인 가능. 아래 예시의 경우 component 1개가 2375/2617로 90퍼 vertex랑 연결중임. 이는 현실 네트워크에서의 **small world property**와 연결. vertex 쌍들 collection에서의 minimum path는 보통 되게 작음. 대비되게 clustring은 상대적으로 높음. (ex) protein?
 
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 yeast.gc = decompose.graph(yeast)[[1]]
 average.path.length(yeast.gc)
 diameter(yeast.gc)
@@ -408,7 +385,7 @@ transitivity(yeast.gc)
 
 즉 $G$의 vertex (edge) connectivity는 $G$의 k-vertex(k-edge-) connected가 유지되는 가장 큰 integer. <mark> 이때 vertex connectivity $\le$ edge connectivity $\le$ minimum degree among vertex in $G$ (dmin).</mark> 따라서 이 서브그래프를 추가적인 component로 분해하기 위해서는 단 1개의 엄선된 vertex나 edge를 제거하는 것으로 충분하다.
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 vertex.connectivity(yeast.gc)
 edge.connectivity(yeast.gc)
 
@@ -422,7 +399,7 @@ vertex (edge)의 subset $S$를 제거하는 것으로 해당 그래프가 서브
 • In the giant component of the yeast network, almost 15% of the vertices are cut vertices.
 
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 yeast.cut.vertices = articulation.points(yeast.gc)
 length(yeast.cut.vertices)
 ```
@@ -433,7 +410,7 @@ nontrivial 그래프 $G$는 k-vertex (k-edge) connected $\iff$ 서로다른 vert
 이 결과는 그래프에서 특정 vertex (edge)가 제거된 상황에서도 그래프 내부에서 만들어지는 서로 다른 path 들이 얼마나 많은지를 통해 평가되는 그래프의 robust함과 연결되어 있다. 낮은 vertex (edge) connectivity 를 가지는 그래프는 따라서 path들을 가질 수 있으며, 이에 의해 그 path들을 통과했던 "information"들은 작은 숫자의 vertex (edge)를 없애는 것만으로 쉽게 방해되고 만다.
 
 
-```{r, eval=FALSE}
+```{r, eval = FALSE}
 shortest.paths()
 graph.maxfow()
 graph.mincu()
@@ -505,19 +482,21 @@ In principle the optimization of the modularity requires a search over all possi
 Applying this method to the karate network,
 
 
-```{r, eval=FALSE}
+```{r, collapse=TRUE}
 kc = fastgreedy.community(karate)
 length(kc)
 sizes(kc)
-membership(kc)
+head(membership(kc))
 ```
+
+
 
 
 The largest community of 18 members is centered around the administrator (i.e., John A, vertex ID 34).
 • The second largest community of 11 members is centered around the head instructor (i.e., Mr Hi, vertex ID 1).
 
 
-```{r, eval=FALSE}
+```{r, fig.cap='Partitioning of the Karate network obtained from hierarchical clustering'}
 plot(kc, karate)
 ```
 
@@ -526,11 +505,12 @@ Figure 9: Partitioning of the Karate network obtained from hierarchical clusteri
 • Whether agglomerative or divisive, when used for network graph partitioning, hierarchical clustering methods actually produce, as the name indicates, an entire hierarchy of nested partitions of the graph, not just a single partition.
 • The resulting hierarchy typically is represented in the form of a tree, called a dendrogram.
 
-```{r, eval=FALSE}
+
+```{r,warning=FALSE,message=FALSE}
 library(ape)
 ```
 
-```{r, eval=FALSE}
+```{r, fig.cap='The corresponding dendrogram for this partitioning'}
 dendPlot(kc, mode="phylo")
 ```
 
@@ -562,7 +542,7 @@ $$
 
 즉, 2개의 vertex의 subset이 생산되며 (이를 보통 **cut**이라고 부름), 이 벡터 $x_2$는 보통 **Fiedler Vector**라고 불리며 이에 대응하는 ev $\lambda_2$는 **Fiedler Value**라고 부른다.
 
-```{r, eval=FALSE}
+```{r, fig.cap='Eigenvalues of Graph Laplacian'}
 k.lap = graph.laplacian(karate)
 eig.anal = eigen(k.lap)
 plot(eig.anal$values, col="blue", ylab="Eigenvalues of Graph Laplacian")
@@ -573,7 +553,8 @@ We plot the eigenvalues of the graph Laplacian.
 1. 0인 ev는 딱 하나. (해당 네트워크는 connected이므로 예상한 결과)
 2. 2번째로 작은 ev인 $\lambda_2$는 0에 매우 가까움.
 
-```{r, eval=FALSE}
+```{r, fig.cap='Fiedler vector and its corresponding partition'}
+f.vec = eig.anal$vectors[, 33] #Extracting the Fiedler vector
 faction = get.vertex.attribute(karate, "Faction")
 f.colors = as.character(length(faction))
 f.colors[faction == 1] = "red"
@@ -600,17 +581,17 @@ Fiedler vector를 생산하고 해당 vector의 요소들을 실제 actor number
 validation 문제는 그래프 partitioning에 항상 중요하지만, 대부분의 경우 nontrivial 문제이다. 네트워크 그래프에 vertex의 cohesive subset 이 존재한다면, 이러한 subset의 기저에는 vertex에게 있어 vertex 간에 특정한 연관적인 특성 (또는 속성)에 일부 공통성이 있을 것으로 일반적으로 예상한다. 그래프 partitioning은 이러한 성질에 대한 지식이 없을때 그러한 subset을 발견하기 위한 도구로 인식될 수도 있다. 우리가 그래프 외부에서 정의된 클래스 멤버쉽에 대한 subset 정의를 알고 있다면, 그래프 내부에서의 partitioning으로 얻은 분절들과 비교하는 것도 흥미로움.
 
 
-```{r, eval=FALSE}
+```{r}
 func.class = get.vertex.attribute(yeast.gc, "Class")
 table(func.class)
 ```
 
 해당 예시는 cell 구축에 있어 protein이 역할하는 바로 분절했음. 단백질들이 서로 다른 단백질들과 얼마나 유사한지는 특정 세포 역할에 해당 단백질이 무슨 일을 하는지와 연관되어 있다고 알려져 있음. 그래프 외부에서 이러한 단백질들을 분류하려는 시도는 분류된 결과가 그래프 내부에서 합리적은 partitioning 과정을 걸쳐 나온 결과물과 어느정도는 연관이 있는게 맞다. 아니면 partitioning이 잘못됐던가 그래프 외부 분절이 잘못됐던가.
 
-```{r, eval=FALSE}
+```{r}
 yc = fastgreedy.community(yeast.gc)
 c.m = membership(yc)
-table(c.m, func.class, useNA=c("no"))
+head(table(c.m, func.class, useNA=c("no")))
 ```
 
 
@@ -654,13 +635,16 @@ $$
 – However, in the event that the mixing is perfectly disassortative, in the sense that every edge in the graph connects vertices of two different categories, the coefficient need not take the value −1.
 • The fact that physical binding of proteins is known to be directly relevant to functional classes suggests that there will frequently be strong assortative mixing in protein-protein interaction networks with respective to these classes as attributes.
 
-```{r, eval=FALSE}
-assortativity.nominal(yeast, (V(yeast)$Class=="P")+1, directed=FALSE)
+```{r, collapse = TRUE}
+assortativity.nominal(yeast, 
+                      (replace(V(yeast)$Class, is.na(V(yeast)$Class), 0)=="P")+1,
+                      directed=FALSE)
+assortativity.degree(yeast)
 ```
 
 • When the vertex characteristic of interest is continuous, rather than discrete, denote by (xe, ye) the
 values of that characteristic for the vertices joined by an edge e ∈ E.
-• A natural candidate for quantifying the assortativity in this characteristic is just the Pearson correlation coefficient of the pairs (xe, ye),
+• A natural candidate for quantifying the assortativity in this characteristic is just th  e Pearson correlation coefficient of the pairs (xe, ye),
 
 
 $$
@@ -670,11 +654,6 @@ $$
 
 
 
-
-```{r, eval=FALSE}
-assortativity.degree(yeast)
-
-```
 
 
 

@@ -1,3 +1,13 @@
+fig:unnamed-chunk-2
+fig:unnamed-chunk-5
+fig:unnamed-chunk-6
+fig:unnamed-chunk-9
+fig:unnamed-chunk-10
+fig:unnamed-chunk-13
+fig:unnamed-chunk-25
+fig:unnamed-chunk-27
+fig:unnamed-chunk-28
+fig:unnamed-chunk-29
 fig:knitr-logo4
 fig:knitr-logo2
 fig:knitr-logo3

@@ -15,4 +15,15 @@ link-citations: yes
 github-repo: https://github.com/lyric2249/lyric2249.github.io
 ---
 
+```{r, setup, include=FALSE}
+library(formatR)
+knitr::opts_chunk$set(
+  collapse = TRUE, 
+  fig.align="center", 
+  #cache=TRUE,
+  tidy.opts = list(width.cutoff = 60), 
+  tidy = TRUE
+)
+```
+
 # Intro {-}

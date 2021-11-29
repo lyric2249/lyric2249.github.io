@@ -170,16 +170,38 @@ $$
 
 
 
-$\hat{N}_{(i)}^{t,1}\,,\,\cdot\,\cdot\,\cdot\,,\,\hat{N}_{(i)}^{t,B}\,\sim\,\mathcal{D}\left(\frac{\Lambda^{t}}{\Omega}\,\mid\,{\Lambda^{l-1}}_{\cdot}\,\mathcal{O}^{(i)}\right)$
 
-$\hat{\cal M}_{(i)}^{t}\longrightarrow\ {\textstyle\frac{1}{B}}\sum_{\textstyle{\cal B}=1}^{B}\Psi\Big(\hat{\cal N}_{(i)}^{t,b},\Lambda^{t-1}\Big)$
+randomly initialize $\pmb \theta^{(1)}$.
 
-$\~\hat{G}_{(i)}^{t}\equiv\left.\frac{1}{B}\sum_{-b=1}^{B}\Psi\left(\hat{N}_{(i)}^{t,b},\Lambda^{t-1}\right)\Psi\left(\hat{N}_{(i)}^{t,b},\Lambda^{l-1}\right)^{\prime}$
+$$
+\begin{alignat}{2}
+\hat{N}_{(i)}^{t,1},\cdots, \hat{N}_{(i)}^{t,B}
+& \sim\,{P}\left(\underline N^t\,\mid\,{N^{t-1}}_{\cdot}\,\pmb{\theta}^{(i)}\right)
 
-$\hat{H}_{(i)}\stackrel{\wedge}{=}\sum_{i=2}^{T}\left(\hat{\cal H}_{(i)}^{t}\hat{\mu}_{(i)}^{t}-\hat{G}_{(i)}^{t}\right)$
+\\
 
-$\theta^{(i+1)}\underline{{{\ge}}}\rightarrow\theta^{(i)}-\hat{\cal{H}}_{(i)}^{-1}\sum_{l=2}\left(\Psi\Big(\hat{N}_{(i)}^{t,b},\Lambda^{l-1}\Big)-\hat{\cal{H}}_{(i)}^{t}\Big)\right.$
+\hat{\mu}_{(i)}^{t}
+ & = {\frac{1}{B}}\sum_{b=1}^{B}\Psi\Big(\hat{ N}_{(i)}^{t,b},N^{t-1}\Big)
 
+\\
+
+\hat{C}_{(i)}^{t} 
+ & = \frac{1}{B}\sum_{b=1}^{B}\Psi\left(\hat{N}_{(i)}^{t,b},N^{t-1}\right)\Psi\left(\hat{N}_{(i)}^{t,b},N^{t-1}\right)'
+
+\\
+
+\hat{H}_{(i)}
+ & {=}\sum_{i=2}^{T}\left(\mu_{(i)}^{t}\hat{\mu}_{(i)}^{t}-\hat{C}_{(i)}^{t}\right) \tag{after iteration}
+
+\\
+
+\end{alignat}
+$$
+
+$$
+\pmb \theta^{(i+1)} 
+ = \pmb \theta^{(i)}-\hat{{H}}_{(i)}^{-1}\sum_{t=2}^T\Bigg\{\Psi\Big(\hat{N}_{(i)}^{t,b},N^{t-1}\Big)-\hat{\mu}_{(i)}^{t}\Bigg\}
+$$
 
 
 
