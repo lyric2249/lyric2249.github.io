@@ -34,7 +34,7 @@ complex system 에 대한 연구에서 연구하는 문제는 대응하는 네�
 library(sand)
 ```
 
-```{r, fig.cap='Karate Network', fig.align='center'}
+```{r 1, fig.cap='Karate Network', fig.align='center'}
 data(karate)
 par(mfrow=c(1,2))
 hist(degree(karate), col="lightblue", xlim=c(0,50),

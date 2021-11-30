@@ -578,8 +578,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb5-4"><a href="descriptive-statistics-of-networks.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span>
 <span id="cb5-5"><a href="descriptive-statistics-of-networks.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">graph.strength</span>(karate), <span class="at">col =</span> <span class="st">&quot;pink&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Vertex Strength&quot;</span>,</span>
 <span id="cb5-6"><a href="descriptive-statistics-of-networks.html#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Frequency&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-2"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-2-1.png" alt="Karate Network" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:1"></span>
+<img src="_main_files/figure-html/1-1.png" alt="Karate Network" width="672" />
 <p class="caption">
 FIGURE 7.1: Karate Network
 </p>
@@ -604,8 +604,8 @@ FIGURE 7.1: Karate Network
 <span id="cb8-9"><a href="descriptive-statistics-of-networks.html#cb8-9" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">=</span> (dd.yeast <span class="sc">!=</span> <span class="dv">0</span>)</span>
 <span id="cb8-10"><a href="descriptive-statistics-of-networks.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d[ind], dd.yeast[ind], <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;Log-Degree&quot;</span>),</span>
 <span id="cb8-11"><a href="descriptive-statistics-of-networks.html#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;Log-Intensity&quot;</span>), <span class="at">main =</span> <span class="st">&quot;Log-Log Degree Distribution&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-5-1.png" alt="The degree distribution for protein interactions in Yeast" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-4"></span>
+<img src="_main_files/figure-html/unnamed-chunk-4-1.png" alt="The degree distribution for protein interactions in Yeast" width="672" />
 <p class="caption">
 FIGURE 7.2: The degree distribution for protein interactions in Yeast
 </p>
@@ -617,8 +617,8 @@ FIGURE 7.2: The degree distribution for protein interactions in Yeast
 <span id="cb9-3"><a href="descriptive-statistics-of-networks.html#cb9-3" aria-hidden="true" tabindex="-1"></a>a.nn.deg.yeast <span class="ot">=</span> <span class="fu">graph.knn</span>(yeast, <span class="fu">V</span>(yeast))<span class="sc">$</span>knn</span>
 <span id="cb9-4"><a href="descriptive-statistics-of-networks.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(d.yeast, a.nn.deg.yeast, <span class="at">log =</span> <span class="st">&quot;xy&quot;</span>, <span class="at">col =</span> <span class="st">&quot;goldenrod&quot;</span>,</span>
 <span id="cb9-5"><a href="descriptive-statistics-of-networks.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="fu">c</span>(<span class="st">&quot;Log Vertex Degree&quot;</span>), <span class="at">ylab =</span> <span class="fu">c</span>(<span class="st">&quot;Log Average Neighbor Degree&quot;</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-6"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-6-1.png" alt="The degree distribution for protein interactions in Yeast" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-5"></span>
+<img src="_main_files/figure-html/unnamed-chunk-5-1.png" alt="The degree distribution for protein interactions in Yeast" width="672" />
 <p class="caption">
 FIGURE 7.3: The degree distribution for protein interactions in Yeast
 </p>
@@ -663,8 +663,8 @@ FIGURE 7.3: The degree distribution for protein interactions in Yeast
 <span id="cb12-12"><a href="descriptive-statistics-of-networks.html#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, <span class="fu">evcent</span>(g), <span class="at">main =</span> <span class="st">&quot;Eigenvalue&quot;</span>, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb12-13"><a href="descriptive-statistics-of-networks.html#cb12-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,</span>
 <span id="cb12-14"><a href="descriptive-statistics-of-networks.html#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rep</span>(<span class="st">&quot;red&quot;</span>, <span class="dv">32</span>), <span class="st">&quot;yellow&quot;</span>), <span class="at">edge.col =</span> <span class="st">&quot;darkgray&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-9-1.png" alt="Target plots showing various vertex centralities for the karate club network" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="_main_files/figure-html/unnamed-chunk-8-1.png" alt="Target plots showing various vertex centralities for the karate club network" width="672" />
 <p class="caption">
 FIGURE 7.4: Target plots showing various vertex centralities for the karate club network
 </p>
@@ -677,8 +677,8 @@ FIGURE 7.4: Target plots showing various vertex centralities for the karate club
 <span id="cb13-4"><a href="descriptive-statistics-of-networks.html#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">vertex.size =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">hub.score</span>(aidsblog)<span class="sc">$</span>vector))</span>
 <span id="cb13-5"><a href="descriptive-statistics-of-networks.html#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aidsblog, <span class="at">layout =</span> l, <span class="at">main =</span> <span class="st">&quot;Authorities&quot;</span>, <span class="at">vertex.label =</span> <span class="st">&quot;&quot;</span>,</span>
 <span id="cb13-6"><a href="descriptive-statistics-of-networks.html#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">vertex.size =</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="fu">authority.score</span>(aidsblog)<span class="sc">$</span>vector))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-10"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-10-1.png" alt="AIDS blog network with vertex area proportional to hubs and authority centrality measures" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<img src="_main_files/figure-html/unnamed-chunk-9-1.png" alt="AIDS blog network with vertex area proportional to hubs and authority centrality measures" width="672" />
 <p class="caption">
 FIGURE 7.5: AIDS blog network with vertex area proportional to hubs and authority centrality measures
 </p>
@@ -741,8 +741,8 @@ FIGURE 7.5: AIDS blog network with vertex area proportional to hubs and authorit
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="descriptive-statistics-of-networks.html#cb16-1" aria-hidden="true" tabindex="-1"></a>cores <span class="ot">=</span> <span class="fu">graph.coreness</span>(karate)</span>
 <span id="cb16-2"><a href="descriptive-statistics-of-networks.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gplot.target</span>(g, cores, <span class="at">circ.lab =</span> <span class="cn">FALSE</span>, <span class="at">circ.col =</span> <span class="st">&quot;skyblue&quot;</span>,</span>
 <span id="cb16-3"><a href="descriptive-statistics-of-networks.html#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">usearrows =</span> <span class="cn">FALSE</span>, <span class="at">vertex.col =</span> cores, <span class="at">edge.col =</span> <span class="st">&quot;darkgray&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-13"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-13-1.png" alt="Visual representation of the k-core decomposition of the karate network" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-12"></span>
+<img src="_main_files/figure-html/unnamed-chunk-12-1.png" alt="Visual representation of the k-core decomposition of the karate network" width="672" />
 <p class="caption">
 FIGURE 7.6: Visual representation of the k-core decomposition of the karate network
 </p>
@@ -917,8 +917,8 @@ where <span class="math inline">\(f_{kk}^\ast\)</span>는 random edge assignment
 <p>The largest community of 18 members is centered around the administrator (i.e., John A, vertex ID 34).
 • The second largest community of 11 members is centered around the head instructor (i.e., Mr Hi, vertex ID 1).</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="descriptive-statistics-of-networks.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(kc, karate)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-25"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-25-1.png" alt="Partitioning of the Karate network obtained from hierarchical clustering" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-24"></span>
+<img src="_main_files/figure-html/unnamed-chunk-24-1.png" alt="Partitioning of the Karate network obtained from hierarchical clustering" width="672" />
 <p class="caption">
 FIGURE 7.7: Partitioning of the Karate network obtained from hierarchical clustering
 </p>
@@ -928,8 +928,8 @@ FIGURE 7.7: Partitioning of the Karate network obtained from hierarchical cluste
 • The resulting hierarchy typically is represented in the form of a tree, called a dendrogram.</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="descriptive-statistics-of-networks.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span></code></pre></div>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="descriptive-statistics-of-networks.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dendPlot</span>(kc, <span class="at">mode =</span> <span class="st">&quot;phylo&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-27"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-27-1.png" alt="The corresponding dendrogram for this partitioning" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-26"></span>
+<img src="_main_files/figure-html/unnamed-chunk-26-1.png" alt="The corresponding dendrogram for this partitioning" width="672" />
 <p class="caption">
 FIGURE 7.8: The corresponding dendrogram for this partitioning
 </p>
@@ -954,8 +954,8 @@ S = \{v \in V: x_2 (v) \ge 0 \}
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="descriptive-statistics-of-networks.html#cb31-1" aria-hidden="true" tabindex="-1"></a>k.lap <span class="ot">=</span> <span class="fu">graph.laplacian</span>(karate)</span>
 <span id="cb31-2"><a href="descriptive-statistics-of-networks.html#cb31-2" aria-hidden="true" tabindex="-1"></a>eig.anal <span class="ot">=</span> <span class="fu">eigen</span>(k.lap)</span>
 <span id="cb31-3"><a href="descriptive-statistics-of-networks.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(eig.anal<span class="sc">$</span>values, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Eigenvalues of Graph Laplacian&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-28-1.png" alt="Eigenvalues of Graph Laplacian" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-27"></span>
+<img src="_main_files/figure-html/unnamed-chunk-27-1.png" alt="Eigenvalues of Graph Laplacian" width="672" />
 <p class="caption">
 FIGURE 7.9: Eigenvalues of Graph Laplacian
 </p>
@@ -973,8 +973,8 @@ FIGURE 7.9: Eigenvalues of Graph Laplacian
 <span id="cb32-6"><a href="descriptive-statistics-of-networks.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(f.vec, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">xlab =</span> <span class="st">&quot;Actor Number&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Fiedler Vector Entry&quot;</span>,</span>
 <span id="cb32-7"><a href="descriptive-statistics-of-networks.html#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> f.colors)</span>
 <span id="cb32-8"><a href="descriptive-statistics-of-networks.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
-<img src="C:/docs/_main_files/figure-htmlunnamed-chunk-29-1.png" alt="Fiedler vector and its corresponding partition" width="672" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-28"></span>
+<img src="_main_files/figure-html/unnamed-chunk-28-1.png" alt="Fiedler vector and its corresponding partition" width="672" />
 <p class="caption">
 FIGURE 7.10: Fiedler vector and its corresponding partition
 </p>
