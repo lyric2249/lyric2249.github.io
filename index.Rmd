@@ -22,7 +22,8 @@ knitr::opts_chunk$set(echo = TRUE,
 	fig.align="center", 
 	#cache=TRUE,
 	tidy.opts = list(width.cutoff = 60), 
-	tidy = TRUE
+	tidy = TRUE,
+	root.dir = '/docs'
 )
 ```
 
