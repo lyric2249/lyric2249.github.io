@@ -23,7 +23,8 @@ knitr::opts_chunk$set(echo = TRUE,
 	#cache=TRUE,
 	tidy.opts = list(width.cutoff = 60), 
 	tidy = TRUE,
-	root.dir = '/docs'
+	#root.dir = '/docs',
+	base.dir = 'docs'
 )
 ```
 
