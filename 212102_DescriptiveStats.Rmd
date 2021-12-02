@@ -111,17 +111,56 @@ vertex 에 대해 갖는 많은 의문은 결국 해당 vertex 가 주어진 네
 
 vertex centrality 를 나타내는 가장 직관적인 방법은 radial layout 을 쓰는 것. 이는 곧 central vertex 를 중앙에 가깝게 배치하는 것. 물론 네트워크가 너무너무 커버리면 표시불가. 작거나 중간크기 네트워크에만 사용가능.
 
+<br>
+<br>
+
+
 - **Closeness centrality**
 
-vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판정. 일반적으로 사용되는 기준값은 $C_{CL} =\frac{1}{\sum\limits_{u \in V} dist(u,v)}$. 이때 denominator $dist(v, u)$ 는 $u, v \ in V$ 인 vertex $u, v$ 사이의 geodesic distance. 각각 다른 그래프에서 산출된 centrality measure 를 비교하기 위해 normalize 하는 상황 있음. 이때는 factor $N_v - 1$ 으로 곱해서 $[0,1]$ 로 normalize.
+vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판정. 일반적으로 사용되는 기준값은 $C_{CL} =\frac{1}{\sum\limits_{u \in V} dist(u,v)}$. 
+
+- denominator $dist(v, u)$ 는 $u, v \in V$ 인 vertex $u, v$ 사이의 geodesic distance, 이의 sum 은 결국 total distance of a vertex from all others.
+
+각각 다른 그래프에서 산출된 centrality measure 를 비교하기 위해 normalize 하는 상황 있음. 이때는 factor $N_v - 1$ 으로 곱해서 $[0,1]$ 로 normalize.
+
+<mark>large centrality value 는 곧 small total distance 로 이어짐.</mark>
+
+
+<br>
+<br>
+
 
 - **Betweenness centrality**
 
-어떤 vertex 가 다른 vertex 쌍 사이에 위치하고 있는지를 확인. 이건 vertex 가 네트워크 그래프의 path 에 비추어서 어디에 위치하고 있는지가 중요하다는 관점에 기반. 현실세계에 비추어도 이러한 path 가 인간관계라고 생각한다면 path 가 다수 지나가는 vertex, 즉 인싸는 중요한 사람일 것. 일반적으로 사용되는 값은 $C_B (v) = \sum\limits_{s \not = t \not = v \in V} \frac{\sigma(s,t | v)}{\sigma(s, t)}$. 이때 numerator 는 $v$ 를 통과하면서 $s,t$ 사이가 최단거리인 path 의 총 숫자, denominator 는 이런 조건 없이 $s,t$ 사이가 최단거리인 path 의 총 숫자. 이를 unit interval 로 scale 할 때는 $\frac{(N_v - 1) (N_v - 2)}{2}$ 로 나누면 됨.
+어떤 vertex 가 다른 vertex 쌍 사이에 위치하고 있는지를 확인. 이건 vertex 가 네트워크 그래프의 path 에 비추어서 어디에 위치하고 있는지가 중요하다는 관점에 기반. 현실세계에 비추어도 이러한 path 가 인간관계라고 생각한다면 path 가 다수 지나가는 vertex, 즉 인싸는 중요한 사람일 것. 일반적으로 사용되는 값은 $C_B (v) = \sum\limits_{s \not = t \not = v \in V} \frac{\sigma(s,t | v)}{\sigma(s, t)}$. 
+
+- numerator 는 $v$ 를 통과하면서 $s,t$ 사이가 최단거리인 path 의 총 숫자, 
+- denominator 는 이런 조건 없이 $s,t$ 사이가 최단거리인 path 의 총 숫자. 
+
+이를 unit interval 로 scale 할 때는 $\frac{(N_v - 1) (N_v - 2)}{2}$ 로 나누면 됨.
+
+
+<br>
+<br>
+
 
 - **eigenvector centrality**
 
-‘status’, ‘prestige’, ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인건 $C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)$. 이때 vector $C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)'$ 는 ev problem $A_{C_{E_i}}$ 의 solution. 이때 $A$ 는 네트워크 그래프 $G$ 의 adjacency 매트릭스.
+what is this?
+
+1. we implement eigen-analysis for an adjacency matrix
+        - $\alpha$: precision
+2. find the largest eigenvalue and its corresponding eigenvector
+        - eigenvalue: the importance capture largest variance
+        - eigenvector: dependency information
+
+
+
+‘status’, ‘prestige’, ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인건 $C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)$.
+
+
+- vector $C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)'$ 는 ev problem $A_{C_{E_i}}$ 의 solution. 
+- $A$ 는 네트워크 그래프 $G$ 의 adjacency 매트릭스.
 
 
 $\alpha^{-1}$ 의 optimal choice 는 $A$ 의 가장 큰 ev. 따라서 $h_{E_i}$ 는 상응하는 evec. $G$ 가 undirected 이며 connected 라면, $A$ 의 largest ev 는 간단하며 이의 evec는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 evec 의 orthonormality 에 의해 얘들은 자동적으로 $[0,1]$ 사이로 scaled.
@@ -239,6 +278,8 @@ complete 서브그래프, 즉 fully cohesive 한 vertex 들의 subset 을 **Cliq
 
 더 큰 사이즈의 clique 는 필연적으로 작은 사이즈의 cluque 들을 포함함. **maximal clique** 는 더 큰 clique 의 subset 이 아닌 clique 를 일컫음. 큰 clique 는 본질적으로 드뭄. 큰 clique 의 존재는 결국 원본 그래프 $G$ 가 일정 이상으로 dense 할 것을 요구하니까. 하지만 현실세계 네트워크는 보통 sparse 하거든.
 
+- clique size: 1 (node), 2 (edge), 3 (triangle), 4 (안이 크로스된 사각형)
+
 
 ```{r, collapse=TRUE}
 table(sapply(cliques(karate), length))
@@ -278,7 +319,13 @@ core 에 포함된 vertex 들은 center 에서 크게 떨어지지 않았으며,
 
 - Network Cohesion 을 정의함에 있어서 쓰이는 다른 서브그래프들의 class
 
-vertex 2개를 뽑아 만든 쌍 (pair) 를 **dyad** 라고 부름. directed 그래프에서 dyad 는 3개의 상태를 가질 수 있다. null (no directed edges), asymmetric (one directed edge), mutual (two directed edges). 대부분의 dyad 는 보통 null 이며, non-null 중에서도 대부분은 aymmetric 이다. 후자의 경우는 블로그에서 서로이웃이 아니라 한쪽만 팔로잉하는 경우겠지.
+vertex 2개를 뽑아 만든 쌍 (pair) 를 **dyad** 라고 부름. directed 그래프에서 dyad 는 3개의 상태를 가질 수 있다. 
+
+1. null (no directed edges)
+2. asymmetric (one directed edge)
+3. mutual (two directed edges)
+
+대부분의 dyad 는 보통 null 이며, non-null 중에서도 대부분은 aymmetric 이다. 후자의 경우는 블로그에서 서로이웃이 아니라 한쪽만 팔로잉하는 경우겠지.
 
 vertex 3개를 뽑아 만든 모음은 **Triad**. 이는 16개의 상태를 가질 수 있음. null 서브그래프부터, triad 에 속한 모든 vertex 들이 mutual directed edge 를 보유하는 서브그래프 까지. 
 
@@ -303,7 +350,12 @@ dyad.census(aidsblog)
 
 - **Density**
 
-그래프의 **Density** 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 $G$ 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 $H=(V_H, E_H)$ 의 density 는 $den(H) = \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}$. 해당 값은 $[0,1]$ 에 존재하며 $H$ 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함. directed 그래프 라면 denominator 는 $|V_H|(|V_H|-1)$ 로 대체.
+그래프의 **Density** 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 $G$ 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 $H=(V_H, E_H)$ 의 density 는 
+$$
+0 \le den(H) = \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}= \frac{\text{# of edges}}{\text{# of dyads}} \le 1
+$$ 
+
+해당 값은 $[0,1]$ 에 존재하며 $H$ 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함. directed 그래프 라면 denominator 는 $|V_H|(|V_H|-1)$ 로 대체.
 
 $H=G$ 인 상황이라면 전체 그래프 $G$ 에 대한 density 를 생산. 반대로 vertex $v \in V$ 의 neighbor 의 set $H_v=H$ 가 되게 한다면, 이들 사이의 edge 는 $v$ 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 ego-centric 네트워크는 원본의 overall 네트워크보다 명백히 dense 함.
 
@@ -358,6 +410,10 @@ table(sapply(comps, vcount))
 ```
 
 결과는 false로 나오지만 이에 대해 census 돌리면 giant component의 존재 확인 가능. 아래 예시의 경우 component 1개가 2375/2617로 90퍼 vertex랑 연결중임. 이는 현실 네트워크에서의 **small world property**와 연결. vertex 쌍들 collection에서의 minimum path는 보통 되게 작음. 대비되게 clustring은 상대적으로 높음. (ex) protein?
+
+- **small world property**: high connectivity b/w pairs of nodes
+        - small shortest-path distance
+        - high clustering coefficient
 
 
 ```{r, collapse=TRUE}
@@ -465,14 +521,24 @@ Hierarchical methods 는 다음 둘로 분류됨.
 1. agglomerative 방법에서는, 2개의 이전의 partition elements 중 가장 저렴한 merge 방법이 실행된다
 2. divisive 방법에서는, 1개의 이전의 partition 중 가장 저렴하게 2개로 split 할 수 있는 방법이 실행된다
 
-비용측정의 기준은 vertex의 "cohesive" subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 **modularity**. $C = \{ C_1, \cdots, C_K \}$를 주어진 후보 partition으로 하고, <mark>$f_{ij} = f_{ij}(\mathcal C)$는 $C_i$의 vertex를  to be the fraction of edges in the original network that connect vertices in Ci with vertices in Cj.</mark> 이때 $\mathcal C$의 **modularity**는
+비용측정의 기준은 vertex의 "cohesive" subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 **modularity**. 계산은 이하와 같다:
+- $C = \{ C_1, \cdots, C_K \}$를 주어진 (given) 후보 partition 으로 하자
+- f_{ij} = f_{ij}(\mathcal C)$는 $C_i$ 에 있던 vertex 들을 $C_j$ 에 있는 vertex 들과 연결시키는 (오리지널 네트워크의) edge 들의 fraction
+
+이때 $\mathcal C$의 **modularity**는
+
+
 
 $$
 \mod(\mathcal C) = \sum_{k=1}^K \left[ f_{kk}(\mathcal C) - f_{kk}^\ast \right]
 $$
 
+- $f_{kk}$ 는 within $C_k$ 에서의 observed connections.
+- $f_{kk}^\ast$는 random edge assignment의 몇몇 모델 이하에서의 $f_{kk}$의 기댓값. 
+- $f_{kk}^\ast$는 $f_{k+} \cdot f_{+k}$이며 각각 $f$의 k번째 rowsum과 colsum. 즉 $f_{ij}$를 entry로 하는 $K \times K$ 매트릭스가 만들어짐. 
+
 <mark>
-where $f_{kk}^\ast$는 random edge assignment의 몇몇 모델을 두고 만들어진 $f_{kk}$의 기댓값. $f_{kk}^\ast$는 $f_{k+} \cdot f_{+k}$이며 각각 $f$의 k번째 rowsum과 colsum. 즉 $f_{ij}$를 entry로 하는 $K \times K$ 매트릭스가 만들어짐. This choice corresponds to a model in which a graph is constructed to have the same degree distribution as $G$, but with edges otherwise placed at random, without respect to the underlying partition elements dictated by $C$.
+This choice corresponds to a model in which a graph is constructed to have the same degree distribution as $G$, but with edges otherwise placed at random, without respect to the underlying partition elements dictated by $C$.
 </mark>
 
 In principle the optimization of the modularity requires a search over all possible partitions C, which is prohibitively expensive in networks of moderate size and larger.
@@ -488,6 +554,9 @@ length(kc)
 sizes(kc)
 head(membership(kc))
 ```
+
+<mark>high modularity value nontrivial group ???</mark>
+
 
 
 
@@ -522,6 +591,35 @@ dendPlot(kc, mode="phylo")
 
 
 #### Spectral Partitioning
+
+1. Calculate Laplacian Grpah
+
+$$
+L = \underbrace{D}_{\text{diagonal matrix with degree}}-\underbrace{A}_{\text{Adjacency Matrix}}
+
+\\
+=
+\begin{bmatrix}
+degree(n_1) &  & 0 \\
+ & \ddots &  \\
+0 &  & degree(n_r)
+\end{bmatrix}
+-A
+$$
+2. Eigenvalue decomposition of $L$
+
+$$
+L = \underbrace{\begin{bmatrix} v_1 & \cdots & v_n\end{bmatrix}}_{eigenvector}
+\underbrace{\begin{bmatrix} \lambda_1 &  & 0 \\ & \ddots & \\ 0& & \lambda_n \end{bmatrix}}_{eigenvalue}
+\begin{bmatrix} v_1 \\ \vdots \\ v_n\end{bmatrix}
+$$
+
+
+3. <mark>sort eigenvalue $\lambda_1 > \lambda_2 > \cdots > \lambda_n$. Is $L$ full rank? No. Why? cause $L$ is a representation of a network. Smallest eigenvalue can be shown to be identically zero and its corresponding eigenvecotr 1. Then? # of component in a grpah is directly related to # of non-zero eigenvalue. Which means $\lambda_{N-1} \approx 0 \Rightarrow K=2$, $\lambda_{N-1} \approx \lambda_{N-2} \approx 0 \Rightarrow K=3$</mark>^[1st class]
+
+4. select $K$ eigenvector. $v_{n-1}, \cdots, v_{n-k}$.
+
+5. apply $k$-means clustering to $k$ selected eigenvector.
 
 spectral graph theory의 연구결과를 응용하여 그래프 $G$의 connectivity를 특정 매트릭스의 eigen-analysis와 연관짓는 것.
 

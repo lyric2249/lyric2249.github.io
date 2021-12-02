@@ -7,6 +7,11 @@
 
 Vertices (Vertex), Edges, directed, undirected
 
+sender -> receiver.
+
+- total possible dyads: $n(n-1)$
+
+
 
 기존 상황에서는 iid 가 가정되었었음. 이는 Likelihood 를 단순히 각 pdf 의 $\prod$ 로 나타내는 것을 가능하게 했었다. 하지만 네트워크 분석 상황에서는 iid 가 보장되지 않으며 따라서 equality 붕괴.
 
@@ -27,10 +32,12 @@ Vertices (Vertex), Edges, directed, undirected
 2. Numerical Summaries
 
 	1. **Transitivity** (**Clustering Coefficient**): A-B, A-C 조합의 변호사가 동업할 때, B-C끼리도 동업할 확률은 얼마일까? 이는 social network에서의 **transitivity** 개념과 대응함. 소위 **clustering coefficient**로 요약되는, 삼각형을 이루는 (즉, 모든 세개의 vertex pair가 edge로 연결) vertex 3개 묶음들의 비율을 나열하는 것으로 수치적으로 획득 가능.
+	<br><mark>networks tends to form a triangle relationship. When a edge is formed, how likely this edge forms a triangle.</mark>
 
 	2. **Assortativity Coefficient**: 2가지 종류의 변호사(corporate와 litigation)이 존재할 때, 동업과 더 일을 자주하는지 다른 분야와 더 일을 자주하는지, 그 비율은 어떻게 되는지 궁금할 수 있음. 이는 social network의 **assortativity** 개념과 대응하며, in which labels of connected pairs of vertices들이 compared되는, 소위 **assortativity coefficient**라고 불리는 correlation statistic으로 quantified될 수 있다.
+	<br><mark>Each node has covariate information when a pair of node has same (similar) covariate, how likely they are connected.</mark>
 
-1. 주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편
+- 주된 관심은 네트워크의 vertex (변호사 케이스라면 변호사 실무) 에 있으며 네트워크 구조 레벨의 속성은 좀 더 역할이 흐릿한 편
 
 
 
@@ -64,11 +71,13 @@ Vertices (Vertex), Edges, directed, undirected
 	이러한 2개의 모델의 종류 사이에는 교집합이 존재하지만, 이 둘을 다루는 paper들 사이에는 그럼에도 불구하고 큰 차이들이 존재함
 
 
-2. Erdos-Renyi Model: 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도.
+2. Erdos-Renyi Model: <mark>assumes each connection in a network is iid.</mark> 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도. Measure the propoertion of connection among possible dyads.
 
 3. Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 "significance" 한지를 판정하기 위한 네트워크의 **null classes**로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.
 
 4. Statistical Network Models: **Exponential Random Graph Models** 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 **Latent network models**은 **hierarchical modeling**에서의 latent 변수 사용법과 정확하게 평행하다 <mark>즉, ***대비된다???***.</mark> **Stochastic block models**는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.
+
+
 
 
 
@@ -108,7 +117,19 @@ network-based 관점에서 연구되는 많은 system들은 본질적으로 동�
 네트워크 flow 를 분석하기 위한 통계적 방법론들. 시작점으로부터 도착점까지의 material, 사람, 상품 등의 움직임 등을 생각해보면, flow들은 커뮤니케이션 네트워크 (인터넷 패킷 등), transportation 네트워크에 필수불가결한 동적 프로세스 이며 이외에도 그러함. 이러한 동적 프로세스들은 기본적으로 특이점이 없다면 시간의 흐름에 따라 evolve 될 것이 기대되고 있음.
 
 
+----
 
+geodesic distance b/w vertices: the length of the shortest path(s) b/w vertices. The value of longest distance: diameter.
+
+- complete graph: every node is connected to the other nodes.
+- regular graph : a graph in which every node has the same degree.
+- tree graph: a connected graph with no cycles
+- $k$-star graph: a special case of tree graphs, there is one root and $k$ leaves
+
+directed graph
+
+- out-degree
+- in-degree
 
 
 
