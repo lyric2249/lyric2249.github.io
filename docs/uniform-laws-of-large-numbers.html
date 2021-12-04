@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>E CNN | Self-Study</title>
-  <meta name="description" content="E CNN | Self-Study" />
+  <title>9.9 Uniform laws of large numbers | Self-Study</title>
+  <meta name="description" content="9.9 Uniform laws of large numbers | Self-Study" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="E CNN | Self-Study" />
+  <meta property="og:title" content="9.9 Uniform laws of large numbers | Self-Study" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="lyric2249/lyric2249.github.io" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="E CNN | Self-Study" />
+  <meta name="twitter:title" content="9.9 Uniform laws of large numbers | Self-Study" />
   
   
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="cnn-1.html"/>
-
+<link rel="prev" href="linear-regression.html"/>
+<link rel="next" href="survival-analysis.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -568,108 +568,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="cnn-2" class="section level1" number="15">
-<h1><span class="header-section-number">E</span> CNN</h1>
-<p>The Anatomy of an Amazon 6-pager</p>
-<p>A deep dive into writing detailed planning docs from one of the most successful companies in the world</p>
-<p>Jesse Freeman</p>
-<p>Jesse Freeman</p>
-<p>Jul 17, 2020·16 min read</p>
-<p>Image by CurtisM media from Pixabay</p>
-<p>The Amazon 6-pager</p>
-<p>I worked at Amazon for five years, leaving days before receiving the coveted yellow badge. Most people don’t make it past the first year. It’s an intense work environment, and the company revolves around specific leadership principles that provide a strict framework for how you interact with your co-workers. Because of this distinct culture, Amazon is unlike any company I’ve ever seen.</p>
-<p>Perhaps the most challenging part of working at Amazon comes down to being able to write a 6-pager. While there are several types of documents you may need to write at Amazon, such as the backward press-release or the 2-pager, your ability to write a 6-pager will directly impact your status at the table and your ability to move up in the company. If you struggle to write detailed plans for your business, this may be a useful structure to emulate.</p>
-<p>My plan here is to walk you through the anatomy of an Amazon-style 6-page document in granular detail. I was surprised to see that the few articles out there on the process mostly get it wrong. Even stranger, there doesn’t appear to be a single real example of a 6-pager outside of Amazon. So, I’ve decided to create one from scratch and share it with you. I based it on a structure I used when I headed up Framework Partner Marketing for the Amazon Appstore.</p>
-<p>Each group in Amazon has its way of writing 6-pagers. While they may look or read a bit differently, they all share the same structure. Also, there are different approaches based on the goal of the document. The example I am going to share is from what we call an operational plan document. These are 6-month plans that outline the current state of the business, the historical data from the last period, the goals for this period, and how you plan on achieving them. There are two of these documents that cover the year called OP-1 and OP-2. Right about now, Amazon teams would be executing their 2020 OP-2 plan and beginning to draft the 2021 OP-1 plan.</p>
-<p>It’s rare to write a large plan like this on your own. We usually work as a team to contribute to a single OP doc. One owner is responsible for cleaning it up and making it sounds like it came from an individual author. The heads of each team will have a plan for their group, and highlights from there will roll up into a master OP document used by the entire organization. I’ve had to write several tactical plans myself in various groups at Amazon, and it’s an incredibly time-consuming process that usually involves dozens of revisions. It feels like writing a master’s thesis, and a lot of care goes into making sure it is ready before presenting to a group of superiors.</p>
-<p>How Amazon conducts meetings</p>
-<p>Amazon is well known for its lack of using PowerPoint. The way this works is that before a meeting, you print out enough copies for everyone in the room. You’re not allowed to read the document from your computer unless you are remote. Also, no one reads the document before the meeting. You are usually given 20–25 minutes at the beginning of a 60-minute meeting to read the doc from beginning to end. Most people write down questions or feedback directly on the printout since using a computer during this time is frowned upon.</p>
-<p>Image by websubs from Pixabay</p>
-<p>All print outs are handed back to you at the end of the meeting. The rest of the time consists of everyone in the room challenging your position, questioning your tactics, and digging through the data to make sure it is valid. It’s incredibly stressful, and when the meeting is over, it’s your responsibility to update and recirculate the document to everyone as a final version. There is no ideation or brainstorming during these kinds of meetings. You need to go into them with everything prepared ahead of time, which usually means you’ve had multiple people review it to ensure that you are ready.</p>
-<p>The last thing you should know, which is perhaps the most critical part of the entire process, is that your 6-pager needs to stand on its own. One of the things I admired most at Amazon was their ability to transfer knowledge between different groups. Any time I interacted with a new group, I could ask to see their OP doc and get caught up on everything I needed to know. For this process to work, it means you need to write your 6-pager in a way that allows anyone, even people not familiar with the subject, to know what is going on without additional research. I’ll get into some of the ways you can do that later.</p>
-<p>Since this may be your first time reading an Amazon-style 6-pager, the last bit of context I’ll give you is that I wrote this for a game development tool I have been building in my spare time called Pixel Vision 8. There are a few things I dived deeper into than I would in a normal 6-pager to help make things a bit clearer. Also, some sections are more generic than I’d typically write, seeing how this isn’t a real plan I can execute on for a hobby project. Still, it was a good exercise in focusing my activities over the next six months. Writing a plan like this is one of the most powerful ways you can organize your thoughts to share with others.</p>
-<p>After you finish reading the 6-pager, I’ll break apart each section and explain them in more detail. Don’t get too hung up on the actual contents if you’re not familiar with game development, marketing, or reading dense plans. I also won’t accept any feedback on this one, so there is no need to print it out and hand it back to me.</p>
-<p>So, with that out of the way, take the next 20–25 minutes to read my 2020 OP-2 plan for Pixel Vision 8.</p>
-<p>Structuring a 6-pager narrative</p>
-<p>How did that go, intense, right? I remember the first time I had to read one. It looked like a complete wall of text. I am going to assume you didn’t get through the entire thing so I’ll include some excerpts as we go. To give you perspective, that took me five days to write, and I did four revisions. Since no one else had to review it, I’d say the process was almost tolerable. I love to write, but even these are a challenge for me. While it may feel completely alien to you, I miss this detail and clarity these types of documents provide now that I no longer work at Amazon. And while 6-pagers are a chore to write, I can no longer sit through a PowerPoint presentation without questioning why it wasn’t put into a document for me to read through.</p>
-<p>The first thing you probably noticed is that my 6-pager is using 10 point font. These things are dense, and there is a strict rule around it being exactly six pages. The goal is to fill up all six pages without any filler. The other thing you may have noticed is that the document isn’t six pages, it’s much longer. The perceived length of a 6-pager is a bit of a misconception. I’ve written 6-pagers that were over 40 pages long. The reason for this is because of the appendix.</p>
-<p>The main goal of authoring this kind of document is to craft the entire thing as a narrative. That doesn’t mean it needs to be an entertaining story. It merely means there are no bullet-point lists, no graphics, and no fluff in the document’s core 6-pages. Since it’s difficult to sum up the contextual information like data, graphs, or examples in narrative form, you can add it to the end of the document in an appendix. This allows the reader to choose what to look up for additional information as needed. It also allows you to store bulky, complex data visualizations without breaking up the narrative’s flow.</p>
-<p>At this point, we are ready to break down the skeleton of the 6-pager. Again, this might change slightly based on the document’s goal, but for the most part, it works like this:</p>
-<p>Introduction — This needs to set up precisely what the material is going to cover and to inherently state the general direction of where the document plans on going.</p>
-<p>Goals — List right up front what the metrics for success are so we can use them as a lens to see the remaining document through.</p>
-<p>Tenets — This is a very Amazon thing where every action has some clearly define north star. There are a lot of ways to word these. Generally, they are inspirational pillars that the rest of the plan sits on top of (go with me on this one).</p>
-<p>State of the business — This section is another important one. You need to inform the reader of the current state of the business. There needs to be a lot of detail here, which sets up the points to compare against in the next section.</p>
-<p>Lessons learned — Amazon is big on data. This section will outline the current state of the business and its influence over creating the goals you need to achieve. It should be a detailed enough snapshot to give the reader all of the data they need to understand the positive and negatives activities in the prior period.</p>
-<p>Strategic priorities — This is the meat of the document and lays out the plan, how to execute it, and should match up to achieving the goals stated at the top of the document.</p>
-<p>Of course, each of these sections has a specific job in building the narrative of the 6-pager. To pull it all together requires a certain amount of finesse. Luckily, I’ve made it through meetings needing to make only minor changes, and I’ve been in meetings where someone’s entire document is ripped apart line by line. I don’t profess to have the experience to say mine were better than others, but I did have a few good mentors. So here is how I decided to write my sample 6-pager.</p>
-<p>The introduction</p>
-<p>I usually try to consolidate my introduction to two paragraphs. Since this 6-pager was probably the first you’ve ever read on a topic you probably have no background on, I indulged and added the 3rd paragraph to pack in some extra detail.</p>
-<p>Figure 1. The introduction section from my sample 6-pager</p>
-<p>I’m not going to spend a lot of time on this section; it should be self-explanatory. I wanted to point out the two references to the appendix right off the bat. There is a lot of data to process upfront, especially if you’re not familiar with the subject. So you will want to add as much contextual data as possible in the document itself. You’ll notice there are no links in the documents to any websites either. The expectation is that you are reading a printout. So, if you need an offline copy of the entire internet for reference, put it all in the appendix.</p>
-<p>The goals</p>
-<p>Next up are the goals. The goal section is one of the only two areas of the document where bullet points are allowed. I follow a predefined structure for writing these, and I’ve seen it consistently used across several other groups.</p>
-<p>Figure 2. The goals section from my sample 6-pager</p>
-<p>You start with the actual goal, bolded, in as few words as possible. Then you follow with a single sentence that adds context to the goal. Finally, there needs to be a historical data point and a projected data point, followed by an explicit calculation of the change between the two. Not all goals end up with a positive outcome; I made my first one a negative one to show off two different types of results. But you want to have at least three goals which appear to be the magic number considering you will probably have multiple other priorities throughout the year from other groups since these plans do not exist in a vacuum.</p>
-<p>I’ve seen all kinds of ways of writing goals at companies I’ve worked at, and this is honestly the only format that has ever made sense to me. It feels like OKRs are another popular one but I find it very difficult to adjust to them after spending years at Amazon.</p>
-<p>The tenets</p>
-<p>After the goals, you declare the tenets. I’ve never seen another company so cultish in the way it requires employees to think according to a framework of rules. On the first day of orientation, they walk you through the leadership principles, and this way of thinking helps reinforce the documents you write.</p>
-<p>Figure 3. The tenets from my sample 6-pager</p>
-<p>I rarely put much effort into these. While the leadership principles become rules for how you engage with your co-workers, these tenets add nothing to the document. The people that write excellent tenets can link them back to the leadership principles somehow. Since one of the principles I liked the most is “disagree and commit,” I kept my opinion to myself and always added tenets to my 6-pagers since the decision to use them happened long before I got there.</p>
-<p>Leaders are obligated to respectfully challenge decisions when they disagree, even when doing so is uncomfortable or exhausting. Leaders have conviction and are tenacious. They do not compromise for the sake of social cohesion. Once a decision is determined, they commit wholly.</p>
-<p>The state of the business</p>
-<p>After the tenets, things get serious fast. The document begins with the state of the business. For this example, 6-pager, I decided to make it a single page. I would hardly call my hobby game engine a “business,” but I did my best to take it seriously.</p>
-<p>Figure 5. Setting up the introduction for the state of the business section in my sample 6-pager</p>
-<p>Appendix references litter this section. In a real 6-pager, I would have cut out the first paragraph and jumped right into the numbers. This section is really about distilling all of the current activities and their intended goals. However, this is not a section to talk in the past tense. The state of the business should be a current snapshot of the data. Because of this, I usually keep all of the figures blank until right before the meeting. This way, my document is always as up to date as possible.</p>
-<p>I still look at this section through the lens of the Appstore, where I was in charge of tracking the game engines that supported Fire OS, the game submission numbers, and my budget. I had to report weekly on the business’s health, so it was natural to have these numbers ready at a moment’s notice. Had this been a real 6-pager, I would have included a full snapshot of this data, which could go on for pages, in the appendix. Amazon is big on data; those are real facts. You are building a narrative around those facts so that we are not just skimming an excel spreadsheet.</p>
-<p>The last thing I want to call out in this section was how I ended it. It’s a subtle detail, but I make sure to complete the section with a little summary of everything that has been done and try to tie it into the goals. Since my goals were core to the way I ran my business, they didn’t change much every six months. The only thing that change was the target numbers. This made it easier to keep a consistent theme on how I ran things and made sure my summary of the business reflected that.</p>
-<p>Lessons learned</p>
-<p>After summing up the state of the business, it’s time to reflect on what happened in the past. This is a snapshot from the last period until now and has to be even more factual with numbers, percentages of goal completion, and even additional references in the appendix.</p>
-<p>Figure 6. Setting up the introduction for the lessons learned section in my sample 6-pager</p>
-<p>This section is similar to the state of the business but with one exception; the tense here is always in the past. There shouldn’t be any forward projections or expectations. There is zero room for interpretation. The data will tell the real story. Part of working at Amazon is that you are encouraged to share your failures along with your successes. I’ve worked in many places where people try to hide what didn’t work. You can usually tell because they never have data to back up their claims. At Amazon, the culture understands that you will fail; in fact, there is a leadership principle called “deliver results” to address that reality.</p>
-<p>Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion. Despite setbacks, they rise to the occasion and never settle.</p>
-<p>Notice the “despite setbacks” part? That is very important because real leaders fail from time to time but learn from their mistakes. Those failures help inform the new set of goals and give you clarity as to why it failed, so you don’t repeat your mistake. That’s outlined in the “ownership” and “are right, a lot” leadership principles too but you can look those up on your own.</p>
-<p>Strategic priorities</p>
-<p>At this point, you should have a real clear picture of what is going on, what has happened leading up to this, and what we hope to achieve moving forward. It’s now time for the most detailed section of all, the strategic priorities.</p>
-<p>Figure 7. The beginning of my strategic priorities from my sample 6-pager</p>
-<p>There is a lot to unpack here, mostly because this is usually 50–70% of the 6-pager. This section outlines each activity you plan on doing and how it relates to one of the goals. I don’t believe the order makes a difference, you can structure the narrative how you like, but people in the meeting will calculate up each activity to make sure it matches up to the goal’s projected data point. This is also the section that is open for interpretation and will be the one you spend the majority of the meeting defending.</p>
-<p>Up until this point, everything you have written has been facts, except for the tenets. The only questions you will get on those sections are whether the data adds up or they perceive the goals as not challenging enough. The strategic priorities section is all speculation. And at Amazon, they don’t accept anecdotes for an answer. That is why to write this section, you need to pull numbers from the lessons learned and state of the business that help prove your proposed activities will work.</p>
-<p>I’ll admit, I didn’t fully back my assumptions up with data from the previous sections. Honestly, since I don’t have to report this to anyone, I don’t analyze my game engine data all that much. I just do it for fun. But what I did want you to learn from this section was how to structure these priorities. You’ll see they follow a particular pattern.</p>
-<p>A strategic priority consists of two parts. The first part is a prediction. Think of this as your thesis on how you will contribute back to a given goal. The second part, however, is where you attempt laying out the actual plan to achieve it. These can get very detailed, and a lot of the plans I’ve put together use these to summarize the approach and the appendix for tactical execution steps. I’ve placed entire content plans in the appendix since they didn’t contribute to the narrative, but people will want to see the details.</p>
-<p>The beauty of the appendix, and probably the most brilliant part of the Amazon 6-pager, is that it gives the reader the choice of how deep they want to go down the rabbit hole. What you read in the 6-pager narrative gives you a high-level overview. If you chose to follow an appendix, that reference goes right into the details. And since the meeting comprises of team leads from other groups, each one will have specific areas of interest to dig into and skim over parts that don’t pertain to them. Since everyone at the table needs to understand the entire scope, they chose to follow an appendix reference for more information as needed. Either way, they still walk away with an overall sense of that part of the plan. It’s incredibly brilliant, and probably the one structural detail most plans I read at other companies don’t do very well.</p>
-<p>Ending a 6-pager</p>
-<p>Congratulations on making it this far. Luckily, we are almost at the end. Let’s take a look at the last strategic priority in my 6-pager.</p>
-<p>Figure 8. Excerpt of the last strategic priority from my sample 6-pager</p>
-<p>There are two things you should notice. First, I wrote right up to the bottom of page 6 to stick the landing. Second, you’ll see there is no summary section or closing remarks. That would be fluff. I’ve never read a 6-pager that summed everything up. They may exist, but out of the hundreds I’ve read, I never felt like a summary was missing. I got a clear picture of the past, present, and future activities and what better way to end then on an actionable item.</p>
-<p>I always make sure that the last sentence ends on a positive, forward-facing note. One that doesn’t sum everything up but at least feels like a natural ending to the document. Also, I didn’t add many appendix items to this example strategic priority section. That was on purpose; it would be more work than this example warranted. Regardless, you should now have a clear sense of how this section is supposed to be structured.</p>
-<p>Some final advice</p>
-<p>I think the last few bits of advice I’ll leave you with are how important the leadership principles come into play when reviewing a document and receiving feedback without taking it personally. The leadership principles give you a sort of rules of engagement on how to be direct with a co-worker and walk away civil. While I don’t fully drink the kool-aid, it’s impossible to survive at Amazon without weaponizing these principles in your meetings. Sometimes it’s to attack and others times to defend, but most of all, you want to always “dive deep.”</p>
-<p>Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ. No task is beneath them.</p>
-
+<div id="uniform-laws-of-large-numbers" class="section level2" number="9.9">
+<h2><span class="header-section-number">9.9</span> Uniform laws of large numbers</h2>
+<p>랜덤변수의 fixed sequence 에만 적용되던 usual LLN 을 확장하여 uniform LLN 는 랜덤변수의 collection 들에 대해 uniform 하게 성립함. 이제 non-symptotic 결과물에 대해서도 설명할 것.</p>
+<div id="motivation-1" class="section level3" number="9.9.1">
+<h3><span class="header-section-number">9.9.1</span> Motivation</h3>
+<ul>
+<li><strong>Detour</strong>: <span class="math inline">\(\mathbb{P}\Big(\Big\{s\in S:\operatorname*{lim}_{n\to\infty}X_{n}(s)=X(s) \Big\}\Big)=1\)</span> 일 경우, <span class="math inline">\(X_n \overset{a.s.}{\rightarrow} X\)</span><a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>. 이때 <span class="math inline">\(S\)</span> 는 underlying sample space.</li>
+</ul>
+<div id="cumulative-distribution-functions" class="section level4" number="9.9.1.1">
+<h4><span class="header-section-number">9.9.1.1</span> Cumulative distribution functions</h4>
+<p>랜덤변수 <span class="math inline">\(X\)</span> 가 cdf <span class="math inline">\(F(t\in \mathbb R)\)</span> 을 보유한다. 우리가 collection <span class="math inline">\(\{X_i\}^n_{i=1}\)</span> 를 보유하며 이는 <span class="math inline">\(X\)</span> 의 <span class="math inline">\(n\)</span> 개의 <span class="math inline">\(iid\)</span> copy 들이라고 하자. <span class="math inline">\(F\)</span> 에 대한 natural estimate 는 <strong>empirical cdf</strong> 이며, 이 <strong>empirical cdf </strong>는 이하와 같다. 이 경우 population cdf 는 <span class="math inline">\({{F}}(t)=\mathbb E \Big [{I}_{(-\infty,t]}(X) \Big ]\)</span> 로 표기될 수 있으므로, <strong>empirical cdf </strong>는 UE.</p>
+<p><span class="math display">\[
+\widehat{F}_{n}(t)=\frac{1}{n}\sum_{i=1}^{n}I_{(-\infty,t]}(X_{i}) \tag{empirical cdf}
+\]</span></p>
+<p><span class="math inline">\(\forall\)</span> fixed <span class="math inline">\(t \in \R\)</span>, 랜덤변수 <span class="math inline">\(\widehat F_n(t)\)</span> 는 <span class="math inline">\(F(t)\)</span> 를 가지며, 모든 차수 (order) 의 moment 또한 가진다. 따라서 strong LLN 을 적용하는 것으로 <span class="math inline">\({\widehat{F}}_{n}(t)\ {\xrightarrow{\mathrm{a.s.}}}\ F(t)\)</span> 임을 획득할 수 있다. 우리의 목적은 이 pointwise convergence 를 확장시켜 uniform convergence 가 성립함을 보이는 것. 특히 이하를 보이는 것이 주된 목적. 이 uniform convergence 결과는 실제로 성립하며 이의 이름은 <strong>Glivenko–Cantelli theorem</strong>.</p>
+<p><span class="math display">\[
+\|{\hat{F}}_{n}-F\|_{\infty}=\operatorname*{sup}_{t\in\R}|{\hat{F}}_{n}(t)-F(t)|\ {\stackrel{\mathrm{a.s.}}{\longrightarrow}}\ 0 \tag{9.1.}
+\]</span></p>
+<p>이러한 uniform convergence 결과가 유의미한 이유는 무엇인가? 많은 estimation problem 이 cdf <span class="math inline">\(F\)</span> 를 실수 <span class="math inline">\(\gamma(F)\)</span> 로 mapping 하는 functional 표기법으로 치환될 수 있으니까. <strong>plug-in principle</strong> 은 이 unknown cdf <span class="math inline">\(F\)</span> 를 empirical cdf <span class="math inline">\(\hat F_n\)</span> 으로 대체하는 것으로 <span class="math inline">\(\gamma(\hat F_n)\)</span> 을 $(F) 의 estimate 로 인식할 수 있다는 것을 제시하고 있음. 예시 몇가지:</p>
+<ul>
+<li><strong>Remark (Continuity of a functional)</strong></li>
+</ul>
+<p>우리가 <span class="math inline">\(\|{\hat{F}}_{n}-F\|_{\infty}\to0\)</span> in probability 를 깨달았다면, 우리는 자연스럽게 functional <span class="math inline">\(\gamma\)</span> 가 sup-norm 에 비추었을 때 연속일 경우, <span class="math inline">\(|\gamma(\hat{F_{n}})-\gamma(F)|\to0\)</span> in probability 라는 것 또한 알 수 있다.</p>
+<p>우리는 functional <span class="math inline">\(\gamma\)</span> 의 continuity 를 <strong>sup-norm</strong> <span class="math inline">\(\|F-G\|_\infty=\sup\limits_{t\in\mathbb{R}}|F(t)-G(t)|\)</span> 에 기반하여 정의할 것이다. 더 정확하게 설명하자면, <span class="math inline">\(\forall \epsilon&gt;0, \exists \delta&gt;0: \|F-G\|_\infty &lt;\delta \; \; \; \Rightarrow \; \; \; |\gamma(F) - \gamma(G)|\le \epsilon\)</span> 가 성립할 경우, functional <span class="math inline">\(\gamma\)</span> 는, in sup-norm, <span class="math inline">\(F\)</span> 에서 연속이다.</p>
+<p>결과적으로 <span class="math inline">\(\forall \epsilon&gt;0:\mathbb{P}(|\gamma({\hat{F}}_{n})-\gamma(F)|\gt \epsilon)\leq\mathbb{P}(||{\hat{F}}_{n}-F||_{\infty}\gt \delta)\)</span> 가 성립하며, 이를 통해, (9.1.) 의 <strong>Glivenko–Cantelli theorem</strong> 에 의해, <span class="math inline">\(\mathbb{P}(\|{\hat{F}}_{n}-F\|_{\infty}\gt \delta)\to0\)</span> 이며, 이인즉 <span class="math inline">\(|\gamma(\hat{F}_{n})-\gamma(F)|\to0\)</span> in probability.</p>
+</div>
+<div id="uniform-laws-for-more-general-function-classes" class="section level4" number="9.9.1.2">
+<h4><span class="header-section-number">9.9.1.2</span> Uniform laws for more general function classes</h4>
+<p>unifrom LLN 의 좀 더 general 한 고려로 넘어가보자.
+- <span class="math inline">\(\mathcal F\)</span>: domain <span class="math inline">\(\mathcal X\)</span> 를 가지는 적분가능한 (integrable) real-valued function 의 class
+- ${ X_i }^n_{i=1}: over <span class="math inline">\(\mathcal X\)</span> 인 어떤 distribution <span class="math inline">\(\mathbb P\)</span> 로부터의 iid 샘플 의 collection</p>
+<p>이제 이하의 랜덤변수를 생각해보자. 이는 over class <span class="math inline">\(\mathcal F\)</span>, 샘플평균과 population 평균 간의 absolute deviation 을 uniformly 측정한다. 이때 만약 <span class="math inline">\(n \to \infty\)</span> 일 때 <span class="math inline">\(\|\mathbb{P}_{n}-\mathbb{P}\|_{\mathcal F}\)</span> 가 0 으로 in probability 하게 수렴하면, 우리는 <span class="math inline">\(\mathcal F\)</span>
+를 <strong>Glivenko–Cantelli class</strong> 라고 명명한다.</p>
+<p><span class="math display">\[
+\|\mathbb{P}_{n}-\mathbb{P}\|_{\mathcal F}=\sup_{f\in{\mathcal{F}}}\left|{\frac{1}{n}}\sum_{i=1}^{n}f(X_{i})-\mathbb{E}\Big [f(X) \Big ]\right|
+\]</span></p>
+</div>
+<div id="empirical-risk-minimization" class="section level4" number="9.9.1.3">
+<h4><span class="header-section-number">9.9.1.3</span> Empirical risk minimization</h4>
+<p><strong>empirical risk minimization</strong> 에서 quantity <span class="math inline">\(\|{\vec{\mathbf{p}}}_{n}-\mathbb{P}\|_{{\mathcal{F}}}\)</span> 가 유의미하게 사용됨. probability distribution 의 indexed family <span class="math inline">\(\{\mathbb P_\theta : \theta \in \Omega\}\)</span> 를 생각해보자. fixed 되었지만 unknown 인 임의의 <span class="math inline">\(\theta^\ast \in \Omega\)</span> 에 대해, distribution <span class="math inline">\(\mathbb P_{\theta^\ast}\)</span> 에서 iid 샘플을 추출한 상황을 생각하자. 여기서 <span class="math inline">\(\theta^\ast\)</span> 를 estimate 하는 가장 보편적인 방법은 패러미터 <span class="math inline">\(\theta \in \Omega\)</span> 와 샘플 <span class="math inline">\(X \in \mathcal X\)</span> 둘 사이의 fit 을 measure 하는 cost function <span class="math inline">\(\mathcal L_{\theta}(X)\)</span> 을 최소하하는 것. 그후 우리는 <strong>empirical risk</strong> <span class="math inline">\(\widehat{R}_{n}(\theta,\theta^{*})={\frac{1}{n}}\sum_{i=1}^{n} \mathcal L_{\theta}(X_{i})\)</span> 를 최소로 하는 estimate <span class="math inline">\(\hat \theta\)</span> 를 획득할 수 있다.</p>
+<p>대조적으로 <strong>population risk</strong> <span class="math inline">\(R(\theta,\theta^{*})=\mathbb{E}_{\theta^{*}} \Big [{\mathcal{L}}_{\theta}(X) \Big ]\)</span>, 여기서 기댓값 <span class="math inline">\(\mathbb E_{\theta^\ast}\)</span>는 over 샘플 <span class="math inline">\(X \sim \mathbb P_{\theta^\ast}\)</span> 에 대해서 구해졌다. 여기서 주로 논해지는 통계적 질문은 <strong>excess risk</strong> <span class="math inline">\(E(\widehat{\theta},\theta^{*})=R(\widehat{\theta},\theta^{*})-\inf\limits_{\theta\in\Omega}R(\theta,\theta^{*})\)</span> 를 어떻게 bound 할 것인가.</p>
+<p>간단함을 위해 <span class="math inline">\(R(\theta_{0},\theta^{*})=\inf \limits_{\theta\in\Omega}R(\theta,\theta^{*})\)</span> 를 만족하는 <span class="math inline">\(\theta_0 \in \Omega\)</span> 가 존재한다고 가정하자. 이 notation 을 사용할 경우 <strong>excess risk</strong> 는 이하와 같이 표기 가능.</p>
+<p><span class="math display">\[
+E(\widehat{\theta},\theta^{*})=
+\underbrace{ \Big \{ R(\widehat{\theta},\theta^{*})- \hat R_n(\widehat{\theta},\theta^{*}) \Big \}}_{T_1}
++ \underbrace{\Big \{ \hat R_n(\widehat{\theta},\theta^{*}) -\hat R_n(\widehat{\theta}_0,\theta^{*}) \Big \}}_{T_2}
++\underbrace{ \Big \{\hat R_n(\widehat{\theta}_0,\theta^{*}) - R({\theta}_0,\theta^{*}) \Big \}}_{T3}
+\tag{excess risk}
+\]</span></p>
+<p><span class="math inline">\(\hat R_n (\hat \theta , \theta^\ast)\)</span> 를 minimize 한다는 <span class="math inline">\(\hat \theta\)</span> 의 정의 덕분에 우리는 <span class="math inline">\(T_2 \le 0\)</span> 임은 알 수 있다.</p>
+<p><span class="math inline">\(T_{3}=\frac{1}{n}\sum_{i=1}^{n}\mathcal L_{\theta_{0}}(X_{i})-\mathbb{E}_{X}[{\mathcal{L}}_{\theta_{0}}(X)]\)</span> 는 centered at 0 인 iid 랜덤변수들의 sample average 이다. 따라서 <span class="math inline">\(T_3\)</span> 를 analyze 함에 있어 <strong>Hoeffding’s inequality</strong> 사용 가능.</p>
+<p><span class="math inline">\(T_{1}=\mathbb{E}_{X}[{\mathcal{L}}_{\hat{\theta}}(X)]-{\frac{1}{n}}\sum_{i=1}^{n}{\mathcal{L}}_{\hat{\theta}}(X_{i})\)</span> 은 control 하기 좀 빡셈. 패러미터 <span class="math inline">\(\hat \theta\)</span> 가 랜덤이고, 샘플들 <span class="math inline">\(\{X_i\}^n_{i=1}\)</span> 에 의존하기 때문이다. 따라서 <span class="math inline">\(T_1\)</span> 을 control 하는 건 강력한 result 를 필요로 하며, 바로 여기에서 cost function <span class="math inline">\(\mathcal{F}(\Omega)=\{x\mapsto\mathcal{L}_{\theta}(x),\theta\in\Omega_{0}\}\)</span> 에 대해 (over) uniform LLN 를 적용한다. 이 notation 을 사용하면 이하와 같은 형식으로 <span class="math inline">\(T_1\)</span> 이 정리됨.</p>
+<p><span class="math display">\[
+T_{1}\leq\operatorname*{sup}_{\theta\in\Omega_{0}}\left|{\frac{1}{n}}\sum_{i=1}^{n}{\mathcal{L}}_{\theta}(X_{i})-\mathbb{E}_{X}[{\mathcal{L}}_{\theta}(X)]\right|=\|{\mathbb{P}}_{n}-\mathbb{P}\|_{{\mathcal{F}}(\Omega)}
+\]</span></p>
+<p><span class="math inline">\(T_3\)</span> 는 이 quantity 에 의해 dominated 되므로, 우리는 <strong>excess risk</strong> 가 <span class="math inline">\(E(\widehat{\theta},\theta^{*})\leq2\|\mathbb{P}_{n}-\mathbb{P}\|_{{\mathcal{F}}(\Omega)}\)</span> 에 의해 bound 된다고 결론지을 수 있다.</p>
+<p>이를 통해 우리는 <strong>empirical risk</strong> 최소화에 기반한 estimator analyzing 에 있어 가장 중요한 장애물은 loss class <span class="math inline">\(\mathcal F(\Omega)\)</span> 에 대해 <strong>uniform LLN</strong> 을 구축하는 일이라는 것을 알 수 있다.</p>
+</div>
+</div>
+<div id="a-uniform-law-via-rademacher-complexity" class="section level3" number="9.9.2">
+<h3><span class="header-section-number">9.9.2</span> A uniform law via Rademacher complexity</h3>
+<p>uniform law 의 구축에 필수불가결한 것은 function class <span class="math inline">\(\mathcal F\)</span> 의 <strong>Rademacher complexity</strong>. 아무 fixed class <span class="math inline">\(x_{1}^{n}=(x_{1},\cdots,x_{n})\)</span> 에 대해, <span class="math inline">\(\mathcal{F}(x_{1}^{n})=\Bigg \{\Big (f(x_{1}),f(x_{2}),\ldots,f(x_{n}) \Big ):f\in\mathcal{F}\Bigg \}\)</span> 로서 주어지는 <span class="math inline">\(\R^n\)</span> 의 subset 을 생각하자. 이때 <strong>empirical Rademacher complexity</strong> 는 이하와 같다.</p>
+<p><span class="math display">\[
+\mathcal R \left(\frac{{\mathcal{F}}(x_{1}^{n})}n \right)
+=
+\mathbb{E}_{\epsilon}{\Bigg[}\sup_{f\in{\mathcal{F}}}{\Biggl|}{\frac{1}{n}}\sum_{i=1}^{n}\epsilon_{i} \cdot f(x_{i}){\Biggr|}\ \Bigg]
+\tag{empirical Rademacher complexity}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\epsilon_{1:n}\)</span>: iid Rademacher 랜덤변수.</li>
+</ul>
+<p>랜덤변수의 collection <span class="math inline">\({X_{1}^{n}}=\{{X_{i}}\}_{i=1}^{n}\)</span> 가 주어졌다면, <strong>empirical Rademacher complexity</strong> <span class="math inline">\(\mathcal R \left(\frac{{\mathcal{F}}(x_{1}^{n})}n \right)\)</span> 또한 랜덤변수이다.</p>
+<p><span class="math inline">\(X_1^n\)</span> 에 대해 expectation 을 취하는 것으로 <strong>Rademacher complexity of the function class <span class="math inline">\(\mathcal F\)</span></strong> 가 획득되며, 이는 주로 deterministic quantity.</p>
+<p><span class="math display">\[
+{\cal R}_{n}({\mathcal F})=\mathbb{E}_{X}\left[{\cal R}\left( \frac{{\mathcal F}(X_{1}^{n})}n\right)\right]=\mathbb{E}_{X,\epsilon}\left[\operatorname*{sup}_{f\in{\mathcal F}}\left|\frac{1}{n}\sum_{i=1}^{n}\epsilon_{i}f(X_{i})\right|\right]
+\]</span></p>
+<p>여기서 <strong>Rademacher complexity</strong> 는 vector <span class="math inline">\(\Big(f(X_{1}),f(X_{2}),\cdots,f(X_{n})\Big)\)</span> 와 noise vector <span class="math inline">\((\epsilon_{1:n})\)</span> 사이의 maximum correlation 임을 note.</p>
+<p>function class 가 극도로 크다면 우리는 언제나 무작위로 drawn 된 noise vector 에 대해 높은 correlation 을 가지는 function 을 찾아내는 것이 가능하다. 역으로 function class 가 지나치게 작다면 무작위로 drawn 된 noise vector 에 대해 기댓값 적으로 강하게 correlate 된 function 을 찾아내는 것은 불가능할 지도 모른다. 이러한 관점에서 결국 <strong>Rademacher complexity</strong> 는 function class 의 size 를 측정하며, 이는 곧 uniform convergence result 를 구축함에 있어 핵심적인 역할을 한다. 이하는 <span class="math inline">\(\forall f \in \mathcal F \in \|f\|_\infty \le b\)</span> 일 경우, function blass <span class="math inline">\(\mathcal F\)</span> 는 <span class="math inline">\(b\)</span>-uniformly bounded 임을 보여준다.</p>
+<div class="theorem">
+<p><span id="thm:unlabeled-div-27" class="theorem"><strong>Theorem 9.16  (Glivenko–Cantelli property) </strong></span><span class="math inline">\(\forall \mathcal F\)</span>, function 의 <span class="math inline">\(b\)</span>-uniformly bounded class, 에 대해 <span class="math inline">\(\forall\)</span> positive integer <span class="math inline">\(n \ge 1\)</span> 과 <span class="math inline">\(\forall\)</span> scale <span class="math inline">\(\delta \ge 0\)</span> 에 대해 with <span class="math inline">\(\mathbb P\)</span>-probability at least <span class="math inline">\(1 - \exp \left ( - \frac{n \delta^2}{2b^2} \right)\)</span> 에 대해 이하가 성립한다.</p>
+<p><span class="math display">\[
+\|\mathbb{P}_{n}-\mathbb{P}\|_{{\mathcal{F}}}\leq2\mathcal R_{n}({\mathcal{F}})+\delta
+\]</span></p>
+<p>결과적으로 <span class="math inline">\(\mathcal R_n (\mathcal F) = o(1)\)</span> 인 한, 우리는 <span class="math inline">\(\left\|\mathbb{P}_{n}-\mathbb{P}\right\|_{{\mathcal{F}}}\overset{a.s.}{\to}0\)</span> 임을 얻는다.</p>
+</div>
+</div>
+<div id="upper-bounds-on-the-rademacher-complexity" class="section level3" number="9.9.3">
+<h3><span class="header-section-number">9.9.3</span> Upper bounds on the Rademacher complexity</h3>
+<p><strong>Glivenko–Cantelli property</strong> 가 유용하기 위해선 우리는 Rademacher complexity <span class="math inline">\(\mathcal R_n(\mathcal F)\)</span> 에 대한 upper bound 를 획득할 필요가 있다. 이에 대해서는 다양한 방법론이 존재하며 simple union bound (finite funciton class 들에 적합한) 부터 metric entropy 의 개념부터 chaining argument 를 아우르는 고등한 방법까지 다양하다. 여기서는 <strong>polynomial discrimination</strong> 을 보유하는 function class 들에 적용할 수 있는 간단한 방법을 사용하겠다.</p>
+<div class="definition">
+<p><span id="def:unlabeled-div-28" class="definition"><strong>Definition 9.9  (Polynomial discrimination) </strong></span>domain <span class="math inline">\(\mathcal X\)</span> 를 가지는 function 들의 class <span class="math inline">\(\mathcal F\)</span> 는 이하가 성립한다면 <strong>polynomial discrimination</strong> of order <span class="math inline">\(\nu \ge 1\)</span> 를 가진다.</p>
+<p>각각의 positive integer <span class="math inline">\(n\)</span> 과, <span class="math inline">\(\mathcal X\)</span> 안의 <span class="math inline">\(n\)</span>개의 point 들로 이루어진 collection <span class="math inline">\(x_1^n = \{x_{1:n}\}\)</span> 에 대해,</p>
+<p>set <span class="math inline">\({\mathcal{F}}(x_{1}^{n})=\Big \{(f(x_{1}),\ldots,f(x_{n})):f\in{\mathcal{F}}\Big \}\)</span> 은 <span class="math inline">\(\operatorname{card} \Big ({\mathcal{F}}(x_{1}^{n}) \Big )\leq(n+1)^{\nu}\)</span> 로 upper bounded 된 cardinality 를 가진다.</p>
+</div>
+<p>이 성질은 <strong>empirical Rademacher complexity</strong> 를 control 하는데 있어 straightforward 한 접근법을 제공한다는 점에서 유의.</p>
+<div class="lemma">
+<p><span id="lem:unlabeled-div-29" class="lemma"><strong>Lemma 9.2  (Bound on the empirical Rademacher complexity) </strong></span><span class="math inline">\(\mathcal F\)</span> 가 <strong>polynomial discrimination of order <span class="math inline">\(\nu\)</span></strong> 를 가진다고 하자. 이때</p>
+<p><span class="math display">\[
+\forall n&gt;0\in \Z, \forall \text{collection of points }x^n_1 = (x_{1:n}): \mathbb{E}_{\epsilon}{\Biggl[}\sup_{f\in{\mathcal{F}}}{\bigg|}{\frac{1}{n}}\sum_{i=1}^{n}\epsilon_{i}f(x_{i}){\biggr|} \Bigg]\leq2D(x_{1}^{n}){\sqrt{\frac{\nu\log(n+1)}{n}}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(D(x_{1}^{n})=\sup\limits_{f\in{\mathcal{F}}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}f^{2}(x_{i})}}\)</span> 는 set <span class="math inline">\(\frac{\mathcal F(x_1^n)}{\sqrt n}\)</span> 의 <span class="math inline">\(l_2\)</span>-raidus.</li>
+</ul>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</div>
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="10">
+<li id="fn10"><p>almost surely.<a href="uniform-laws-of-large-numbers.html#fnref10" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="cnn-1.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="survival-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -700,7 +719,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/99010292_GCN3.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/212309_LLN.Rmd",
 "text": "Edit"
 },
 "history": {

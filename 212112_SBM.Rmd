@@ -1,0 +1,241 @@
+
+## Stochastic Block Models
+
+### Stochastic Block Model
+
+- Latent Class Model
+- for each actor (node), we assign group memberships
+
+two components in the block model,
+
+1. the vector of grop membership : $z$
+2. conditional on the group membership, the **block matrix** represents the edge probability of two nodes
+
+
+$$
+\begin{align}
+&
+\begin{bmatrix}
+0.8 & 0.05 & 0.02 \\
+0.05 & 0.9 & 0.03 \\
+0.02 & 0.03 & 0.7
+\end{bmatrix}
+
+&&
+\begin{bmatrix}
+b_{11} & b_{12} & b_{13} \\
+b_{21} & b_{22} & b_{23}  \\
+b_{31} & b_{32} & b_{32} 
+\end{bmatrix}
+
+\end{align}
+$$
+
+- $b_{11}$ 에 부여된 확률 0.8: the connection prob within group 1
+- $b_{22}$ 에 부여된 확률 0.9: the connection prob within group 1
+- $b_{11}$ 에 부여된 확률 0.05: the connection prob b/w group 1 and group 2
+
+
+
+※ notations:
+
+- $Y$: adjacency Matrix
+- $K$: the total membership groups ($<n$)
+- $Z_i$: $k$-vector, all elements of which are $0$, except exactly one that takes the value $1$ and represents the group node $i$ belongs to.
+- $Z := (z_1 , \cdots, z_n)'$
+- $C$: $k \times k$ block matrix
+  - entry $C_{ij} \in [0,1]$: prob of occurence of a edge from a node in $g$
+  
+  
+
+
+the idea of block Matrix $C$ means the edges are are conditionally independent, given the block membership.
+
+
+$\Rightarrow Y_{ij} \sim$ Bernoulli distribution with success probability $z_i ' C z_j$, and independent of $Y_{kl}$ for $(i,j) \no = (k,l)$, given $z_i$ and $z_j$.
+
+
+
+
+
+### Likelihood function
+
+$$
+P (Y \Big | Z, C) = \prod_{i<j} P (y_{ij} \Big | Z, C)
+
+= \prod_{i<j}
+
+\Bigg [  \Big (z_i ' Cz_j \Big )^{y_{ij}}
+
+ \Big (1-z_i ' Cz_j \Big )^{1-y_{ij}}
+
+ \Bigg ] \tag{1}
+
+$$
+
+
+
+In real data, $z$ and $C$ are unknown. $\Rightarrow$ we need additional assumptions.
+$\underbrace{1}_{2}$
+1. $z_i$ is independent of $z_j$.
+2. $P(z_{i \underbrace{k}_{\text group}} =1) = \theta_k$, $\sum_{j=1}^k \theta_k = 1$  $\Rightarrow$ the latent group $z_p$ follows multinomial distribution with $\theta$, i.e.,
+
+$$
+\pi(z \Big | \theta) = \prod_{i=1}^n z_i ' \theta = \prod_{k=1}^K \theta_k^{n_k} \tag{2}
+$$
+
+, where $n_k$ is the total number of nodes that belongs to group $K$.
+
+
+In a Bayesian inference, we can assign $Dirichlet$ prior $\alpha, \cdots, \alpha$ $\pi(\alpha) \sim Gamma (a,b)$.
+
+#### Inference
+
+By combining equation (1) and (2), we can make an inference by the frequentist way using EM algorithm.
+
+#### Bayesian
+
+we need to assign prior for $C \Sim BETA$, $C_{ij} \sim BETA(A_{ij}, B_{ij})$, where A, B are $k \times k$ Matrix.
+
+
+#### Posterior Distribution 
+
+$$
+\begin{alignat}{2}
+
+
+
+\pi(Z , \theta, C , \alpha  \Big | Y) 
+
+ & \propto f(Y \Big | Z , \theta, C , \alpha) 
+ && \cdot \pi(Z , \theta, C , \alpha)
+
+\\
+
+& = f(Y \Big | Z , \theta, C , \alpha)
+ && \cdot \pi(Z \Big | \theta, C , \alpha)
+ && \cdot \pi(\theta \Big | C , \alpha)
+ && \cdot \pi(C, \alpha)
+
+
+\\
+
+& = f(Y \Big | Z , C)
+ && \cdot \pi(Z \Big | \theta)
+ && \cdot \pi(\theta \Big | \alpha)
+ && \cdot \pi(C)
+ \cdot \pi(\alpha)
+
+\\
+& \propto \prod_{i<j} \Big[ (z_i' C z_j)^{y_{ij}}(1- z_i' C z_j)^{1-y_{ij}} \Big]
+ && \cdot \prod_{k=1}^K \theta_k^{n_k} 
+\Bigg[\Gamma(k \alpha) \Big \{ \sum^k_{i=} \theta_k = 1 \prod_{i=1}^k \frac{\theta_z^{\alpha-1}}{\Gamma(\alpha)}\Big \} \Bigg]
+ && \cdot\prod^k_{i<j} \Big[ C_{ij}^{A_{ij}-1} (1-C_{ij})^{B_{ij}-1} \Big]
+ && \cdot \alpha^{a-1} e^{-b \alpha}
+
+\end{alignat}
+$$
+
+$\Rightarrow$ Computation is veery straightforward via MCMC.
+
+
+
+
+### Mixed Membership Block Model (MMBM)
+
+
+- SBM each actor only has one membership
+- to alleviate the assumption of SBM, MMBM has been proposed
+- This model allows each node can have multiple membership instead of assigning $1$ to a ceratin membership, we estimate the probability of all membership.
+
+$$
+\begin{align}
+z_i &= (1, 0, 0) \tag{SBM}
+\\
+\theta_i &= (0.7, 0.2, 0.1) \tag{MMSB}
+\end{align}
+$$
+
+이때 MMSB 의 vector 의 각 항은 각각 group 1, group 2, group 3 일 prob.
+
+- $\theta_i$: weights or probabilities in the grous that have to be non-negative and sum to 1.
+
+For each dyad $y_{ij}$, a latent membership $z_{ij}$ is drawn from the multinomial distribution with $\theta_p$.
+
+$\pi(z \Big | \Theta) = \prod_{i \not = j} (z_{ij}'\theta_i x z_{ji}'\theta_j$, where $\Theta := (\theta_1 , \cdots, \theta_k)$ is $n \times k$ Matrix of membership probability.
+
+The likeliood is $f(Y \Big | Z, C) = \prod_{i<j} \Big[ (z_{ij}' C z_{ji})^{y_{ij}}(1- z_{ij}' C z_{ji})^{1-y_{ij}} \Big]$.
+
+The goal of inference estimating not $z$ but the mixed memberships $\Theta$.
+
+#### Degree-corrected SBM
+
+use Poisson Model.
+
+- $y_{ij}$: the number of edges from dyad (i,j) following a Poisson dist
+- $C_{ij}$: the expected number of edges from a node in group $i$ to a node in group $j$
+
+The likelihood is 
+
+$$
+\pi(Y_{ij} \Big | Z, C) = (Y_{ij}!)^{-1} \exp \Big \{ (-z_i ' C z_j ) (z_i ' C z_j )^{y_{ij}}  \Big \} \tag{3}
+$$
+
+In a large sparse graph, where the edge probability equals the expected number of edges, DC-SBM is asymptotically equivalient to the Bernoulli counterpart in equation (3). 
+
+
+- $\phi_p$: the ratio of node $i$'s degree to the sum of degrees in node $i$'s group.
+
+Under constraint $\sum_{i=1}^n \phi_i \cdot I \Big ( z_{ik} = 1 \Big) =1$, then equation (3) becomes
+
+
+$$
+f(y_{ij} \Big | Z, C, \phi) = (y_{ij}!)^{-1} \exp \Big \{ (- \phi_i \phi_j z_i ' C z_j ) (\phi_i \phi_j z_i ' C z_j )^{y_{ij}}  \Big \}
+$$
+
+which is **DC-SBM**.
+
+$\Rightarrow$ SBM ignores the variation of node degrees in a real network. 
+
+With DC-SBM, we can make correction better.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
