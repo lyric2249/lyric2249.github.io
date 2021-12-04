@@ -443,8 +443,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.10" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html"><i class="fa fa-check"></i><b>7.10</b> Stochastic Block Models</a>
 <ul>
 <li class="chapter" data-level="7.10.1" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#stochastic-block-model"><i class="fa fa-check"></i><b>7.10.1</b> Stochastic Block Model</a></li>
-<li class="chapter" data-level="7.10.2" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#likelihood-function"><i class="fa fa-check"></i><b>7.10.2</b> Likelihood function</a></li>
-<li class="chapter" data-level="7.10.3" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#mixed-membership-block-model-mmbm"><i class="fa fa-check"></i><b>7.10.3</b> Mixed Membership Block Model (MMBM)</a></li>
+<li class="chapter" data-level="7.10.2" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#mixed-membership-block-model-mmbm"><i class="fa fa-check"></i><b>7.10.2</b> Mixed Membership Block Model (MMBM)</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="high-dimension.html"><a href="high-dimension.html"><i class="fa fa-check"></i><b>8</b> High Dimension</a>
@@ -601,11 +600,11 @@ $$</p>
 <li><span class="math inline">\(b_{22}\)</span> 에 부여된 확률 0.9: the connection prob within group 1</li>
 <li><span class="math inline">\(b_{11}\)</span> 에 부여된 확률 0.05: the connection prob b/w group 1 and group 2</li>
 </ul>
-<p>※ notations:</p>
+<p><strong>※ notations</strong>:</p>
 <ul>
 <li><span class="math inline">\(Y\)</span>: adjacency Matrix</li>
 <li><span class="math inline">\(K\)</span>: the total membership groups (<span class="math inline">\(&lt;n\)</span>)</li>
-<li><span class="math inline">\(Z_i\)</span>: <span class="math inline">\(k\)</span>-vector, all elements of which are <span class="math inline">\(0\)</span>, except exactly one that takes the value <span class="math inline">\(1\)</span> and represents the group node <span class="math inline">\(i\)</span> belongs to.</li>
+<li><span class="math inline">\(Z_i\)</span>: <span class="math inline">\(k\)</span>-vector. node <span class="math inline">\(i\)</span> 가 속하게 될 group 에만 <span class="math inline">\(1\)</span> 부여하고 이외에는 모두 <span class="math inline">\(0\)</span>.</li>
 <li><span class="math inline">\(Z := (z_1 , \cdots, z_n)&#39;\)</span></li>
 <li><span class="math inline">\(C\)</span>: <span class="math inline">\(k \times k\)</span> block matrix
 <ul>
@@ -613,14 +612,23 @@ $$</p>
 </ul></li>
 </ul>
 <p>the idea of block Matrix <span class="math inline">\(C\)</span> means the edges are are conditionally independent, given the block membership.</p>
-<p><span class="math inline">\(\Rightarrow Y_{ij} \sim\)</span> Bernoulli distribution with success probability <span class="math inline">\(z_i &#39; C z_j\)</span>, and independent of <span class="math inline">\(Y_{kl}\)</span> for <span class="math inline">\((i,j) \no = (k,l)\)</span>, given <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_j\)</span>.</p>
-</div>
-<div id="likelihood-function" class="section level3" number="7.10.2">
-<h3><span class="header-section-number">7.10.2</span> Likelihood function</h3>
-<p>$$
-P (Y | Z, C) = <em>{i&lt;j} P (y</em>{ij} | Z, C)</p>
-<p>= _{i&lt;j}</p>
-<p>$$</p>
+<p><span class="math inline">\(\Rightarrow\)</span></p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(Y_{ij} \sim\)</span> Bernoulli distribution with success probability <span class="math inline">\(z_i &#39; C z_j\)</span></li>
+<li>independent of <span class="math inline">\(Y_{kl}\)</span> for <span class="math inline">\((i,j) \not = (k,l)\)</span>, given <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_j\)</span>.</li>
+</ol>
+<p><br>
+<br>
+<br></p>
+<div id="likelihood-function" class="section level4" number="7.10.1.1">
+<h4><span class="header-section-number">7.10.1.1</span> Likelihood function</h4>
+<p><span class="math display">\[
+P (Y \Big | Z, C) = \prod_{i&lt;j} P (y_{ij} \Big | Z, C)
+= \prod_{i&lt;j}
+\Bigg [  \Big (z_i &#39; Cz_j \Big )^{y_{ij}}
+ \Big (1-z_i &#39; Cz_j \Big )^{1-y_{ij}}
+ \Bigg ] \tag{1}
+\]</span></p>
 <p>In real data, <span class="math inline">\(z\)</span> and <span class="math inline">\(C\)</span> are unknown. <span class="math inline">\(\Rightarrow\)</span> we need additional assumptions.
 <span class="math inline">\(\underbrace{1}_{2}\)</span>
 1. <span class="math inline">\(z_i\)</span> is independent of <span class="math inline">\(z_j\)</span>.
@@ -630,16 +638,26 @@ P (Y | Z, C) = <em>{i&lt;j} P (y</em>{ij} | Z, C)</p>
 \]</span></p>
 <p>, where <span class="math inline">\(n_k\)</span> is the total number of nodes that belongs to group <span class="math inline">\(K\)</span>.</p>
 <p>In a Bayesian inference, we can assign <span class="math inline">\(Dirichlet\)</span> prior <span class="math inline">\(\alpha, \cdots, \alpha\)</span> <span class="math inline">\(\pi(\alpha) \sim Gamma (a,b)\)</span>.</p>
-<div id="inference-1" class="section level4" number="7.10.2.1">
-<h4><span class="header-section-number">7.10.2.1</span> Inference</h4>
+<p><br>
+<br>
+<br></p>
+</div>
+<div id="inference-1" class="section level4" number="7.10.1.2">
+<h4><span class="header-section-number">7.10.1.2</span> Inference</h4>
 <p>By combining equation (1) and (2), we can make an inference by the frequentist way using EM algorithm.</p>
+<p><br>
+<br>
+<br></p>
 </div>
-<div id="bayesian-1" class="section level4" number="7.10.2.2">
-<h4><span class="header-section-number">7.10.2.2</span> Bayesian</h4>
-<p>we need to assign prior for <span class="math inline">\(C \Sim BETA\)</span>, <span class="math inline">\(C_{ij} \sim BETA(A_{ij}, B_{ij})\)</span>, where A, B are <span class="math inline">\(k \times k\)</span> Matrix.</p>
+<div id="bayesian-1" class="section level4" number="7.10.1.3">
+<h4><span class="header-section-number">7.10.1.3</span> Bayesian</h4>
+<p>we need to assign prior for <span class="math inline">\(C \sim BETA\)</span>, <span class="math inline">\(C_{ij} \sim BETA(A_{ij}, B_{ij})\)</span>, where <span class="math inline">\(A, B\)</span> are <span class="math inline">\(k \times k\)</span> Matrix.</p>
+<p><br>
+<br>
+<br></p>
 </div>
-<div id="posterior-distribution" class="section level4" number="7.10.2.3">
-<h4><span class="header-section-number">7.10.2.3</span> Posterior Distribution</h4>
+<div id="posterior-distribution" class="section level4" number="7.10.1.4">
+<h4><span class="header-section-number">7.10.1.4</span> Posterior Distribution</h4>
 <p>$$
 <span class="math display">\[\begin{alignat}{2}
 
@@ -676,15 +694,17 @@ P (Y | Z, C) = <em>{i&lt;j} P (y</em>{ij} | Z, C)</p>
 \end{alignat}\]</span>
 $$</p>
 <p><span class="math inline">\(\Rightarrow\)</span> Computation is veery straightforward via MCMC.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
-<div id="mixed-membership-block-model-mmbm" class="section level3" number="7.10.3">
-<h3><span class="header-section-number">7.10.3</span> Mixed Membership Block Model (MMBM)</h3>
-<ul>
-<li>SBM each actor only has one membership</li>
-<li>to alleviate the assumption of SBM, MMBM has been proposed</li>
-<li>This model allows each node can have multiple membership instead of assigning <span class="math inline">\(1\)</span> to a ceratin membership, we estimate the probability of all membership.</li>
-</ul>
+<div id="mixed-membership-block-model-mmbm" class="section level3" number="7.10.2">
+<h3><span class="header-section-number">7.10.2</span> Mixed Membership Block Model (MMBM)</h3>
+<p>상기의 <strong>SBM</strong> 에서, 각 actor 는 오직 1개의 membership 을 가짐. 이러한 <strong>SBM</strong> 의 제약을 완화 (alleviate) 하기 위해 <strong>MMBM</strong> 이 제언되었다. 해당 모델에서는 특정 membership 에 1을 부여하는 것이 아니라, 각 membership 발생 여부에 prob 을 할당하여 다중 membership 을 각 ndoe 에 할당한다.</p>
 <p><span class="math display">\[
 \begin{align}
 z_i &amp;= (1, 0, 0) \tag{SBM}
@@ -694,14 +714,17 @@ z_i &amp;= (1, 0, 0) \tag{SBM}
 \]</span></p>
 <p>이때 MMSB 의 vector 의 각 항은 각각 group 1, group 2, group 3 일 prob.</p>
 <ul>
-<li><span class="math inline">\(\theta_i\)</span>: weights or probabilities in the grous that have to be non-negative and sum to 1.</li>
+<li><span class="math inline">\(\theta_i\)</span>: weights or probabilities in the groups that have to be non-negative and sum to 1.</li>
 </ul>
 <p>For each dyad <span class="math inline">\(y_{ij}\)</span>, a latent membership <span class="math inline">\(z_{ij}\)</span> is drawn from the multinomial distribution with <span class="math inline">\(\theta_p\)</span>.</p>
-<p><span class="math inline">\(\pi(z \Big | \Theta) = \prod_{i \not = j} (z_{ij}&#39;\theta_i x z_{ji}&#39;\theta_j\)</span>, where <span class="math inline">\(\Theta := (\theta_1 , \cdots, \theta_k)\)</span> is <span class="math inline">\(n \times k\)</span> Matrix of membership probability.</p>
-<p>The likeliood is <span class="math inline">\(f(Y \Big | Z, C) = \prod_{i&lt;j} \Big[ (z_{ij}&#39; C z_{ji})^{y_{ij}}(1- z_{ij}&#39; C z_{ji})^{1-y_{ij}} \Big]\)</span>.</p>
+<p><span class="math inline">\(\pi(z \Big | \Theta) = \prod\limits_{i \not = j} (z_{ij}&#39;\theta_i x z_{ji}&#39;\theta_j)\)</span>, where <span class="math inline">\(\Theta := (\theta_1 , \cdots, \theta_k)\)</span> is <span class="math inline">\(n \times k\)</span> Matrix of membership probability.</p>
+<p>The likeliood is <span class="math inline">\(f(Y \Big | Z, C) = \prod\limits_{i&lt;j} \Big[ (z_{ij}&#39; C z_{ji})^{y_{ij}}(1- z_{ij}&#39; C z_{ji})^{1-y_{ij}} \Big]\)</span>.</p>
 <p>The goal of inference estimating not <span class="math inline">\(z\)</span> but the mixed memberships <span class="math inline">\(\Theta\)</span>.</p>
-<div id="degree-corrected-sbm" class="section level4" number="7.10.3.1">
-<h4><span class="header-section-number">7.10.3.1</span> Degree-corrected SBM</h4>
+<p><br>
+<br>
+<br></p>
+<div id="degree-corrected-sbm" class="section level4" number="7.10.2.1">
+<h4><span class="header-section-number">7.10.2.1</span> Degree-corrected SBM</h4>
 <p>use Poisson Model.</p>
 <ul>
 <li><span class="math inline">\(y_{ij}\)</span>: the number of edges from dyad (i,j) following a Poisson dist</li>
