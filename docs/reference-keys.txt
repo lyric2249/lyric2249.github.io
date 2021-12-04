@@ -348,7 +348,6 @@ connectivity-cuts-and-flows
 graph-partitioning
 hierarchical-clustering-1
 spectral-partitioning
-section
 validation-of-graph-partitioning
 assortativity-and-mixing
 data-collection-and-sampling
@@ -448,7 +447,7 @@ equivalent-definitions
 sub-gaussian-random-vectors
 hoeffdings-inequality
 maximal-inequalities
-section-1
+section
 concentration-inequalities-1
 sub-exponential-random-variables
 bernsteins-condition
@@ -460,9 +459,9 @@ metric-entropy-and-its-uses
 metric-space
 covering-numbers-and-metric-entropy
 packing-numbers
+section-1
 section-2
 section-3
-section-4
 covariance-estimation
 matrix-algebra-review
 covariance-matrix-estimation-in-the-operator-norm
@@ -504,15 +503,15 @@ notation-1
 right-censoring-most-of-the-course
 type-of-data-to-be-analyzed-in-survival-analysis
 left-censoring
-section-5
+section-4
 counting-processes-and-martingales
 conditional-expectation
 martingale
 centering-increments
 key-martingales-properties
+section-5
 section-6
 section-7
-section-8
 cox-regression
 proportional-hazards-model
 cox-ph-model

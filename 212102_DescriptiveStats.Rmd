@@ -596,7 +596,6 @@ dendPlot(kc, mode="phylo")
 
 $$
 L = \underbrace{D}_{\text{diagonal matrix with degree}}-\underbrace{A}_{\text{Adjacency Matrix}}
-
 \\
 =
 \begin{bmatrix}
@@ -606,6 +605,7 @@ degree(n_1) &  & 0 \\
 \end{bmatrix}
 -A
 $$
+
 2. Eigenvalue decomposition of $L$
 
 $$
