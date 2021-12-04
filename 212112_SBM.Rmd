@@ -47,15 +47,11 @@ $$
   - entry $C_{ij} \in [0,1]$: prob of occurence of a edge from a node in $g$
   
   
+block Matrix $C$ 라는 발상은, block membership 이 given 일 때, edge 들이 conditionally independent 라는 것.
 
 
-the idea of block Matrix $C$ means the edges are are conditionally independent, given the block membership.
-
-
-$\Rightarrow$ 
-
-1. $Y_{ij} \sim$ Bernoulli distribution with success probability $z_i ' C z_j$
-2. independent of $Y_{kl}$ for $(i,j) \not = (k,l)$, given $z_i$ and $z_j$.
+$\Rightarrow$ 	1. $Y_{ij} \sim$ Bernoulli distribution with success probability $z_i ' C z_j$
+				2. independent of $Y_{kl}$ for $(i,j) \not = (k,l)$, given $z_i$ and $z_j$.
 
 
 
@@ -206,7 +202,9 @@ $\Rightarrow$ Computation is veery straightforward via MCMC.
 <br>
 <br>
 
+----
 
+====
 
 
 
