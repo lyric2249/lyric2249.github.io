@@ -1,0 +1,207 @@
+## Uniform laws of large numbers
+
+랜덤변수의 fixed sequence 에만 적용되던 usual LLN 을 확장하여 uniform LLN 는 랜덤변수의 collection 들에 대해 uniform 하게 성립함. 이제 non-symptotic 결과물에 대해서도 설명할 것.
+
+
+### Motivation
+
+
+
+
+- **Detour**: $\mathbb{P}\Big(\Big\{s\in S:\operatorname*{lim}_{n\to\infty}X_{n}(s)=X(s) \Big\}\Big)=1$ 일 경우, $X_n \overset{a.s.}{\rightarrow} X$^[almost surely.]. 이때 $S$ 는 underlying sample space.
+
+
+
+
+
+
+
+#### Cumulative distribution functions
+
+랜덤변수 $X$ 가 cdf $F(t\in \mathbb R)$ 을 보유한다. 우리가 collection $\{X_i\}^n_{i=1}$ 를 보유하며 이는 $X$ 의 $n$ 개의 $iid$ copy 들이라고 하자. $F$ 에 대한 natural estimate 는 **empirical cdf** 이며, 이 **empirical cdf **는 이하와 같다. 이 경우 population cdf 는 ${{F}}(t)=\mathbb E \Big [{I}_{(-\infty,t]}(X) \Big ]$ 로 표기될 수 있으므로, **empirical cdf **는 UE.
+
+
+$$
+\widehat{F}_{n}(t)=\frac{1}{n}\sum_{i=1}^{n}I_{(-\infty,t]}(X_{i}) \tag{empirical cdf}
+$$
+
+
+$\forall$ fixed $t \in \R$, 랜덤변수 $\widehat F_n(t)$ 는 $F(t)$ 를 가지며, 모든 차수 (order) 의 moment 또한 가진다. 따라서 strong LLN 을 적용하는 것으로 ${\widehat{F}}_{n}(t)\ {\xrightarrow{\mathrm{a.s.}}}\ F(t)$ 임을 획득할 수 있다. 우리의 목적은 이 pointwise convergence 를 확장시켜 uniform convergence 가 성립함을 보이는 것. 특히 이하를 보이는 것이 주된 목적. 이 uniform convergence 결과는 실제로 성립하며 이의 이름은 **Glivenko–Cantelli theorem**.
+
+$$
+\|{\hat{F}}_{n}-F\|_{\infty}=\operatorname*{sup}_{t\in\R}|{\hat{F}}_{n}(t)-F(t)|\ {\stackrel{\mathrm{a.s.}}{\longrightarrow}}\ 0 \tag{9.1.}
+$$
+
+
+이러한 uniform convergence 결과가 유의미한 이유는 무엇인가? 많은 estimation problem 이 cdf $F$ 를 실수 $\gamma(F)$ 로 mapping 하는 functional 표기법으로 치환될 수 있으니까. **plug-in principle** 은 이 unknown cdf $F$ 를 empirical cdf $\hat F_n$ 으로 대체하는 것으로 $\gamma(\hat F_n)$ 을 $\gamma (F) 의 estimate 로 인식할 수 있다는 것을 제시하고 있음. 예시 몇가지:
+
+
+
+
+- **Remark (Continuity of a functional)**
+
+우리가 $\|{\hat{F}}_{n}-F\|_{\infty}\to0$ in probability 를 깨달았다면, 우리는 자연스럽게 functional $\gamma$ 가 sup-norm 에 비추었을 때 연속일 경우, $|\gamma(\hat{F_{n}})-\gamma(F)|\to0$ in probability 라는 것 또한 알 수 있다.
+
+
+우리는 functional $\gamma$ 의 continuity 를 **sup-norm** $\|F-G\|_\infty=\sup\limits_{t\in\mathbb{R}}|F(t)-G(t)|$ 에 기반하여 정의할 것이다. 더 정확하게 설명하자면, $\forall \epsilon>0, \exists \delta>0: \|F-G\|_\infty <\delta \; \; \; \Rightarrow \; \; \; |\gamma(F) - \gamma(G)|\le \epsilon$ 가 성립할 경우, functional $\gamma$ 는, in sup-norm, $F$ 에서 연속이다.
+
+결과적으로 $\forall \epsilon>0:\mathbb{P}(|\gamma({\hat{F}}_{n})-\gamma(F)|\gt \epsilon)\leq\mathbb{P}(||{\hat{F}}_{n}-F||_{\infty}\gt \delta)$ 가 성립하며, 이를 통해, (9.1.) 의 **Glivenko–Cantelli theorem** 에 의해, $\mathbb{P}(\|{\hat{F}}_{n}-F\|_{\infty}\gt \delta)\to0$ 이며, 이인즉 $|\gamma(\hat{F}_{n})-\gamma(F)|\to0$ in probability.
+
+
+
+
+
+
+#### Uniform laws for more general function classes
+
+unifrom LLN 의 좀 더 general 한 고려로 넘어가보자.
+- $\mathcal F$: domain $\mathcal X$ 를 가지는 적분가능한 (integrable) real-valued function 의 class 
+- $\{ X_i \}^n_{i=1}: over $\mathcal X$ 인 어떤 distribution $\mathbb P$ 로부터의 iid 샘플 의 collection 
+
+이제 이하의 랜덤변수를 생각해보자. 이는 over class $\mathcal F$, 샘플평균과 population 평균 간의 absolute deviation 을 uniformly 측정한다. 이때 만약 $n \to \infty$ 일 때 $\|\mathbb{P}_{n}-\mathbb{P}\|_{\mathcal F}$ 가 0 으로 in probability 하게 수렴하면, 우리는 $\mathcal F$ 
+를 **Glivenko–Cantelli class** 라고 명명한다.
+
+$$
+\|\mathbb{P}_{n}-\mathbb{P}\|_{\mathcal F}=\sup_{f\in{\mathcal{F}}}\left|{\frac{1}{n}}\sum_{i=1}^{n}f(X_{i})-\mathbb{E}\Big [f(X) \Big ]\right|
+$$
+
+
+#### Empirical risk minimization
+
+**empirical risk minimization** 에서 quantity $\|{\vec{\mathbf{p}}}_{n}-\mathbb{P}\|_{{\mathcal{F}}}$ 가 유의미하게 사용됨. probability distribution 의 indexed family $\{\mathbb P_\theta : \theta \in \Omega\}$ 를 생각해보자. fixed 되었지만 unknown 인 임의의 $\theta^\ast \in \Omega$ 에 대해, distribution $\mathbb P_{\theta^\ast}$ 에서 iid 샘플을 추출한 상황을 생각하자. 여기서 $\theta^\ast$ 를 estimate 하는 가장 보편적인 방법은 패러미터 $\theta \in \Omega$ 와 샘플 $X \in \mathcal X$  둘 사이의 fit 을 measure 하는 cost function $\mathcal L_{\theta}(X)$ 을 최소하하는 것. 그후 우리는 **empirical risk** $\widehat{R}_{n}(\theta,\theta^{*})={\frac{1}{n}}\sum_{i=1}^{n} \mathcal L_{\theta}(X_{i})$ 를 최소로 하는 estimate $\hat \theta$ 를 획득할 수 있다.
+
+
+대조적으로 **population risk** $R(\theta,\theta^{*})=\mathbb{E}_{\theta^{*}} \Big [{\mathcal{L}}_{\theta}(X) \Big ]$, 여기서 기댓값 $\mathbb E_{\theta^\ast}$는 over 샘플 $X \sim \mathbb P_{\theta^\ast}$ 에 대해서 구해졌다. 여기서 주로 논해지는 통계적 질문은 **excess risk** $E(\widehat{\theta},\theta^{*})=R(\widehat{\theta},\theta^{*})-\inf\limits_{\theta\in\Omega}R(\theta,\theta^{*})$ 를 어떻게 bound 할 것인가.
+
+간단함을 위해 $R(\theta_{0},\theta^{*})=\inf \limits_{\theta\in\Omega}R(\theta,\theta^{*})$ 를 만족하는 $\theta_0 \in \Omega$ 가 존재한다고 가정하자. 이 notation 을 사용할 경우 **excess risk** 는 이하와 같이 표기 가능. 
+
+$$
+E(\widehat{\theta},\theta^{*})=
+\underbrace{ \Big \{ R(\widehat{\theta},\theta^{*})- \hat R_n(\widehat{\theta},\theta^{*}) \Big \}}_{T_1}
++ \underbrace{\Big \{ \hat R_n(\widehat{\theta},\theta^{*}) -\hat R_n(\widehat{\theta}_0,\theta^{*}) \Big \}}_{T_2}
++\underbrace{ \Big \{\hat R_n(\widehat{\theta}_0,\theta^{*}) - R({\theta}_0,\theta^{*}) \Big \}}_{T3}
+\tag{excess risk}
+$$
+
+$\hat R_n (\hat \theta ,  \theta^\ast)$ 를 minimize 한다는 $\hat \theta$ 의 정의 덕분에 우리는 $T_2 \le 0$ 임은 알 수 있다.
+
+$T_{3}=\frac{1}{n}\sum_{i=1}^{n}\mathcal L_{\theta_{0}}(X_{i})-\mathbb{E}_{X}[{\mathcal{L}}_{\theta_{0}}(X)]$ 는 centered at 0 인 iid 랜덤변수들의 sample average 이다. 따라서 $T_3$ 를 analyze 함에 있어 **Hoeffding’s inequality** 사용 가능.
+
+$T_{1}=\mathbb{E}_{X}[{\mathcal{L}}_{\hat{\theta}}(X)]-{\frac{1}{n}}\sum_{i=1}^{n}{\mathcal{L}}_{\hat{\theta}}(X_{i})$ 은 control 하기 좀 빡셈. 패러미터 $\hat \theta$ 가 랜덤이고, 샘플들 $\{X_i\}^n_{i=1}$ 에 의존하기 때문이다. 따라서 $T_1$ 을 control 하는 건 강력한 result 를 필요로 하며, 바로 여기에서 cost function $\mathcal{F}(\Omega)=\{x\mapsto\mathcal{L}_{\theta}(x),\theta\in\Omega_{0}\}$ 에 대해 (over) uniform LLN 를 적용한다. 이 notation 을 사용하면 이하와 같은 형식으로 $T_1$ 이 정리됨.
+
+$$
+T_{1}\leq\operatorname*{sup}_{\theta\in\Omega_{0}}\left|{\frac{1}{n}}\sum_{i=1}^{n}{\mathcal{L}}_{\theta}(X_{i})-\mathbb{E}_{X}[{\mathcal{L}}_{\theta}(X)]\right|=\|{\mathbb{P}}_{n}-\mathbb{P}\|_{{\mathcal{F}}(\Omega)}
+$$
+
+$T_3$ 는 이 quantity 에 의해 dominated 되므로, 우리는 **excess risk** 가 $E(\widehat{\theta},\theta^{*})\leq2\|\mathbb{P}_{n}-\mathbb{P}\|_{{\mathcal{F}}(\Omega)}$ 에 의해 bound 된다고 결론지을 수 있다.
+
+이를 통해 우리는 **empirical risk** 최소화에 기반한 estimator analyzing 에 있어 가장 중요한 장애물은 loss class $\mathcal F(\Omega)$ 에 대해 **uniform LLN** 을 구축하는 일이라는 것을 알 수 있다.
+
+
+
+### A uniform law via Rademacher complexity
+
+
+
+uniform law 의 구축에 필수불가결한 것은 function class $\mathcal F$ 의 **Rademacher complexity**. 아무 fixed class $x_{1}^{n}=(x_{1},\cdots,x_{n})$ 에 대해, $\mathcal{F}(x_{1}^{n})=\Bigg \{\Big (f(x_{1}),f(x_{2}),\ldots,f(x_{n}) \Big ):f\in\mathcal{F}\Bigg \}$ 로서 주어지는 $\R^n$ 의 subset 을 생각하자. 이때 **empirical Rademacher complexity** 는 이하와 같다.
+
+$$
+\mathcal R \left(\frac{{\mathcal{F}}(x_{1}^{n})}n \right)
+=
+\mathbb{E}_{\epsilon}{\Bigg[}\sup_{f\in{\mathcal{F}}}{\Biggl|}{\frac{1}{n}}\sum_{i=1}^{n}\epsilon_{i} \cdot f(x_{i}){\Biggr|}\ \Bigg]
+\tag{empirical Rademacher complexity}
+$$
+
+- $\epsilon_{1:n}$: iid Rademacher 랜덤변수.
+
+랜덤변수의 collection ${X_{1}^{n}}=\{{X_{i}}\}_{i=1}^{n}$ 가 주어졌다면, **empirical Rademacher complexity** $\mathcal R \left(\frac{{\mathcal{F}}(x_{1}^{n})}n \right)$ 또한 랜덤변수이다. 
+
+$X_1^n$ 에 대해 expectation 을 취하는 것으로 **Rademacher complexity of the function class $\mathcal F$** 가 획득되며, 이는 주로 deterministic quantity.
+
+$$
+{\cal R}_{n}({\mathcal F})=\mathbb{E}_{X}\left[{\cal R}\left( \frac{{\mathcal F}(X_{1}^{n})}n\right)\right]=\mathbb{E}_{X,\epsilon}\left[\operatorname*{sup}_{f\in{\mathcal F}}\left|\frac{1}{n}\sum_{i=1}^{n}\epsilon_{i}f(X_{i})\right|\right]
+$$
+
+여기서 **Rademacher complexity** 는 vector $\Big(f(X_{1}),f(X_{2}),\cdots,f(X_{n})\Big)$ 와 noise vector $(\epsilon_{1:n})$ 사이의 maximum correlation 임을 note.
+
+function class 가 극도로 크다면 우리는 언제나 무작위로 drawn 된 noise vector 에 대해 높은 correlation 을 가지는 function 을 찾아내는 것이 가능하다. 역으로 function class 가 지나치게 작다면 무작위로 drawn 된 noise vector 에 대해 기댓값 적으로 강하게 correlate 된 function 을 찾아내는 것은 불가능할 지도 모른다. 이러한 관점에서 결국 **Rademacher complexity** 는 function class 의 size 를 측정하며, 이는 곧 uniform convergence result 를 구축함에 있어 핵심적인 역할을 한다. 이하는 $\forall f \in \mathcal F \in \|f\|_\infty \le b$ 일 경우, function blass $\mathcal F$ 는 $b$-uniformly bounded 임을 보여준다.
+
+
+:::{.theorem name="Glivenko–Cantelli property"}
+
+
+
+$\forall \mathcal F$, function 의 $b$-uniformly bounded class, 에 대해 $\forall$ positive integer $n \ge 1$ 과 $\forall$ scale $\delta \ge 0$ 에 대해 with $\mathbb P$-probability at least $1 - \exp \left ( - \frac{n \delta^2}{2b^2} \right)$ 에 대해 이하가 성립한다. 
+
+$$
+\|\mathbb{P}_{n}-\mathbb{P}\|_{{\mathcal{F}}}\leq2\mathcal R_{n}({\mathcal{F}})+\delta
+$$
+
+
+결과적으로 $\mathcal R_n (\mathcal F) = o(1)$ 인 한, 우리는 $\left\|\mathbb{P}_{n}-\mathbb{P}\right\|_{{\mathcal{F}}}\overset{a.s.}{\to}0$ 임을 얻는다.
+
+:::
+
+
+
+
+
+
+
+### Upper bounds on the Rademacher complexity
+
+**Glivenko–Cantelli property** 가 유용하기 위해선 우리는 Rademacher complexity $\mathcal R_n(\mathcal F)$ 에 대한 upper bound 를 획득할 필요가 있다. 이에 대해서는 다양한 방법론이 존재하며 simple union bound (finite funciton class 들에 적합한) 부터 metric entropy 의 개념부터 chaining argument 를 아우르는 고등한 방법까지 다양하다. 여기서는 **polynomial discrimination** 을 보유하는 function class 들에 적용할 수 있는 간단한 방법을 사용하겠다.
+
+
+
+
+
+
+:::{.definition name="Polynomial discrimination"}
+domain $\mathcal X$ 를 가지는 function 들의 class $\mathcal F$ 는 이하가 성립한다면 **polynomial discrimination** of order $\nu \ge 1$ 를 가진다. 
+
+
+
+각각의 positive integer $n$ 과, $\mathcal X$ 안의 $n$개의 point 들로 이루어진 collection $x_1^n = \{x_{1:n}\}$ 에 대해, 
+
+set ${\mathcal{F}}(x_{1}^{n})=\Big \{(f(x_{1}),\ldots,f(x_{n})):f\in{\mathcal{F}}\Big \}$ 은 $\operatorname{card} \Big ({\mathcal{F}}(x_{1}^{n}) \Big )\leq(n+1)^{\nu}$ 로 upper bounded 된 cardinality 를 가진다.
+
+:::
+
+
+이 성질은 **empirical Rademacher complexity** 를 control 하는데 있어 straightforward 한 접근법을 제공한다는 점에서 유의.
+
+
+:::{.lemma name="Bound on the empirical Rademacher complexity"}
+
+$\mathcal F$ 가 **polynomial discrimination of order $\nu$** 를 가진다고 하자. 이때 
+
+$$
+\forall n>0\in \Z, \forall \text{collection of points }x^n_1 = (x_{1:n}): \mathbb{E}_{\epsilon}{\Biggl[}\sup_{f\in{\mathcal{F}}}{\bigg|}{\frac{1}{n}}\sum_{i=1}^{n}\epsilon_{i}f(x_{i}){\biggr|} \Bigg]\leq2D(x_{1}^{n}){\sqrt{\frac{\nu\log(n+1)}{n}}}
+$$
+
+- $D(x_{1}^{n})=\sup\limits_{f\in{\mathcal{F}}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}f^{2}(x_{i})}}$ 는 set $\frac{\mathcal F(x_1^n)}{\sqrt n}$ 의 $l_2$-raidus. 
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

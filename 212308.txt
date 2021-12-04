@@ -1,0 +1,96 @@
+
+
+
+
+
+
+
+
+
+## Linear Regression
+
+### Problem formulation
+
+regression vector 로서 unknown vector $\theta^\ast \in \mathbb R^d$ 를 잡자. 이에 더하여 vector $Y=(Y_{1},\dots,Y_{n})^{\mathsf{T}}\in\mathbb{R}^{n}$ 를 관측하였고, 이는 *fixed* design Matrix $X \in \mathbb R^{n \times d}$ 와 $Y=X\theta^{*}+\epsilon$ 의 관계로 묶여있다고 하자. 이때 $\epsilon\,=\,(\epsilon_{1},\dots,\epsilon_{n})^{1}\ \in\,\mathbb{R}^{n}$ 이며 $\epsilon_{1},\dots,\epsilon_{n}$ 들은 independent centered $SG(\sigma^2)$.
+
+$\hat \theta$ 가 $\thata^\ast$ 의 estimator 라고 할 때, 주된 관심사는 이하의 2개.
+
+1. Prediction.
+
+$\tilde Y = X \theta^\ast + \tilde \epsilon$ 를 $Y$ 를 따라 identically distributed 된 independent draw 라고 하자. $\tilde Y$ 를 $\theta^\ast$ 의 estimate 에 기반하여 predict 하고 싶다. performance 에 대한 natural measure 은 이하와 같다. 이때 expansion 의 첫번째 항 (term) 은 unavoidable. 따라서 우리는 후자를 조사하고 싶음.
+
+$$
+{\frac{1}{n}}\mathrm{E}[\|{\tilde{Y}}-X{\hat{\theta}}\|_{2}^{2}]={\frac{1}{n}}\mathrm{E}[\|{\tilde{\epsilon}}+X(\theta^{*}-{\hat{\theta}})\|_{2}^{2}]
+= \underbrace{{\frac{1}{n}}\mathrm E[\|{\tilde{\epsilon}}\|_{2}^{2}]}_{\text{unavoidable error}} +\underbrace{{\frac{1}{n}} E[\|X(\theta^{*}-{\hat{\theta}})\|_{2}^{2}]}_{\text{Mean Squared Error}}
+$$
+
+2. Parameter estimation. 
+
+몇몇 경우에 우리의 흥미는 다른 것이 아니라 $\theta^\ast$ 를 조사하는 것일 수 있음. 이 경우 목표하게 되는 것은 $E[\|\theta^{*}-{\hat{\theta}}\|_{2}^{2}]$.
+
+
+
+
+### Least squares estimator in high dimensions
+
+고전적인 linear regression 은 LS 문제를 OLS estimator 라고 불리는 형태로 보통 풀려고 함.
+
+Gauss–Markov theorem 에 의해 우리는 OLS estimator 과 Best Linear Unbiased Estimator (BLUE) 임을 알고 있음. 이인즉 특정 조건 하에서의 linear UE 중 가장 작은 variance 를 보유한다는 소리. 하지만 이 estimator 는 $X'X$ 가 invertable 하지 않으면, 즉 $d \le n$ 이외의 상황이라면, 즉슨 $d>n$ 이면 존재하질 않음. 
+
+$$
+{\widehat{\theta}}_{\mathrm{LS}}=(X^{\mathsf{T}}X)^{-1}X^{\mathsf{T}}Y=\arg\operatorname*{min}_{\theta\in\mathbb{R}^{\mathsf{T}}}\|Y-X\theta\|_{2}^{2} \tag{OLS}
+$$
+
+그래도 $d>n$ 이어도 $\operatorname*{min}_{\theta\in \mathbb R^d}\|Y-X\theta\|_{2}^{2}$ 문제에 대한 해를 찾는 것까지는 가능함. 
+
+$\theta\mapsto\|Y-X\theta\|_{2}^{2}$ 로 mapping 하는 함수는 convex 이므로, it is enough to check the first order optimality condition: 이 해는 이하에 언급된 $X'X$ 의 psudo inverse 의 형으로 서술 가능.
+
+$$
+\nabla_{\theta}\|Y-X\theta\|_{2}^{2}=0\quad\Longleftrightarrow\quad X^{\textsf{T}}X\theta=X^{\textsf{T}}Y \text{normal equation} \tag{8.2.}
+$$
+
+Definition 8.1 (Pseudo inverse) Let A be a n × m matrix. Then A+ is a m × n
+matrix called Moore–Penrose pseduo inverse if it satisfies the following properties:
+1. AA+A = A
+2. A+AA+ = A+
+3. (AA+)
+> = AA+
+4. (A+A)
+> = A+A
+If n = m and A is invertible, then A+ = A−1
+.
+Remark. To construct the pseudo inverse, we can consider the singular value decomposition (SVD) of the matrix A:
+A = UDV >, D = diag(σ1, . . . , σk, 0, . . . , 0),
+where σ1, . . . , σk are the singular values of A and k = rank(A) ≤ min{m, n}. We can
+then construct the pseudo inverse in the following way:
+A
++ = UD−1V
+>, D−1 = diag(σ
+−1
+1
+, . . . , σ−1
+k
+, 0, . . . , 0).
+
+
+(8.2.) 의 우항을 만족시키는 모든 $\theta$ 는 $\|Y-X\theta\|_{2}^{2}$ 를 최소화시킨다. 
+
+1. 
+2. 
+
+
+$\widehat{\theta}_{\mathrm{LS}}=(X^{\mathsf{T}}X)^{+}X^{\mathsf{T}}Y$
+
+
+
+일반적으로 이 해는 unique 하지 않음. $\forall \delta \in Null(X)=\{b \in \mathbb R^d: Xb = 0 \}: \hat \theta_{LS} + \delta$ 에 속하는 모든 vector 는 그것이 (8.2.) 의 우항을 만족하는 한 LS problem 에 대한 minimizer 임.
+
+
+
+####  Mean squared error of the least squares estimator
+
+### 2.
+
+### Sparse linear regression
+
+이전 section 에서 LS estomator $\hat \theta_{LS}$ 가 $\frac dn \rightarrow 0$ 일 경우 consistent 함을 보였다. 이인즉 $\frac dn \rightarrow 0$ 가 우리가 바랄 수 있는 **best condition** 이라는 것을 의미. 특히 $\frac dn$ 가 0에서 bounded away 된 채로 남아버릴 경우 consistent estimator 를 얻고자 하는 시도는 **달성 불가능해짐.** (minimax 관점에서는 말이지) 따라서 $d > b$ 인 세팅에서 연구를 진행할 경우, unknown regression vector $\theta^\ast$ 에 추가적인 structure 를 impose 하는 것이 필수불가결함. 여기서는 $\theta^\ast$ 의 entry 대부분이 0인 상황인 **sparse 가정**에 대해 설명.
