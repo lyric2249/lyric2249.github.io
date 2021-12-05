@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -619,7 +619,7 @@ FIGURE 7.11: Basic Markov Network Statistics
 <li><span class="math inline">\(D_k (x)\)</span>: degree 가 <span class="math inline">\(k\)</span> 인 node 들의 갯수. 이때 <span class="math inline">\(\sum D_k(x) = n\)</span>.</li>
 </ul></li>
 </ul>
-<p>unordered pair $</p>
+<p>unordered pair</p>
 <ul>
 <li>Shared Partnership Distribution:
 <ul>
@@ -639,28 +639,34 @@ FIGURE 7.11: Basic Markov Network Statistics
 FIGURE 7.12: Degree and Shared Partnership Distribution
 </p>
 </div>
-<p><strong>geometrically weighted statistics</strong> for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 <span class="math inline">\(\tau\)</span>는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄. 위에서 언급한 statistics 들 중 <span class="math inline">\(NP\)</span> 만 안쓰였음.</p>
+<p><strong>Geometrically Weighted Statistics (GW statistics)</strong> for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 <span class="math inline">\(\tau\)</span>는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄. 위에서 언급한 statistics 들 중 <span class="math inline">\(NP\)</span> 만 안쓰였음.</p>
 <p>$$
 <span class="math display">\[\begin{alignat}{2}
 
 u(x | \tau) 
 &amp;= e^\tau \sum_{i=1}^{n-2} \left \{ 1- \left ( 1-\frac{1}{e^\tau} \right)^i \right \} 
 &amp;&amp;\cdot D_i(x)
-
+\tag{GWD}
 \\
 
 v(x | \tau) 
 &amp;= \ditto
 &amp;&amp;\cdot EP_i(x)
-
+\tag{GWESP}
 \\
 
 w(x | \tau) 
 &amp;= \ditto
 &amp;&amp;\cdot DP_i(x)
-
+\tag{GWDSP}
 \end{alignat}\]</span>
 $$</p>
+<p>이들을 통해 우리는 can capture <strong>high-order interaction</strong>.</p>
+<p><span class="math inline">\(\tau\)</span> can be either</p>
+<ul>
+<li>pre-specified (general exponential families)</li>
+<li>estimated (curved exponential families)</li>
+</ul>
 <p><br>
 <br>
 <br></p>

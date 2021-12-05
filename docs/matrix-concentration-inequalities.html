@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -714,7 +714,7 @@ $$</p>
 <p><span class="math display">\[
 Y_i = \begin{bmatrix} 0_{d_1 \times d_1} &amp; X_i \\ X_i &#39; &amp; 0_{d_2 \times d_2}\end{bmatrix} \in \mathbb R^{(d_1 + d_2) \times (d_1 + d_2)}
 \]</span></p>
-<p><span class="math inline">\(Y_i\)</span> 가 symmetric 임을 보이는 건 쉬움. 더욱 중요한 것은, <span class="math inline">\(\|X_i \|_{op} = \|Y_i \|_{op}\)</span> 임을 보이는 것도 가능.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> 따라서 이하와 같으며, <span class="math inline">\(Y_i\)</span>의 mgf 에 특정한 조건을 부여하는 것으로 위에서 진행해온 프로세스를 그대로 적용할 수 있다.</p>
+<p><span class="math inline">\(Y_i\)</span> 가 symmetric 임을 보이는 건 쉬움. 더욱 중요한 것은, <span class="math inline">\(\|X_i \|_{op} = \|Y_i \|_{op}\)</span> 임을 보이는 것도 가능.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> 따라서 이하와 같으며, <span class="math inline">\(Y_i\)</span>의 mgf 에 특정한 조건을 부여하는 것으로 위에서 진행해온 프로세스를 그대로 적용할 수 있다.</p>
 <p><span class="math display">\[
 P(\| \bar X \|_{op} \ge t)= P(\| \bar Y \|_{op} \ge t) 
 \]</span></p>
@@ -724,8 +724,8 @@ P(\| \bar X \|_{op} \ge t)= P(\| \bar Y \|_{op} \ge t)
 </div>
 <div class="footnotes">
 <hr />
-<ol start="4">
-<li id="fn4"><p>Tropp, Joel A. ”User-friendly tail bounds for sums of random matrices.” Foundations of computational mathematics 12.4 (2012): 389-434<a href="matrix-concentration-inequalities.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<ol start="5">
+<li id="fn5"><p>Tropp, Joel A. ”User-friendly tail bounds for sums of random matrices.” Foundations of computational mathematics 12.4 (2012): 389-434<a href="matrix-concentration-inequalities.html#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

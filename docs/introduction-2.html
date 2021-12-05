@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -611,7 +611,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Statistical Models: 대부분, 아니면 일부분이나마, 관측된 데이터와 맥락을 같이 하기 위해 정의되는 모델 (자주 probabilistic하기도 함, 1번의 성질도 같이 갖는다는 소리) 이며 이의 fit함은 통계적 추론의 일반적인 원칙들을 사용하여 영향을 받고, 또 평가도 받음</p></li>
 </ol>
 <p>이러한 2개의 모델의 종류 사이에는 교집합이 존재하지만, 이 둘을 다루는 paper들 사이에는 그럼에도 불구하고 큰 차이들이 존재함</p></li>
-<li><p>Erdos-Renyi Model: <mark>assumes each connection in a network is iid.</mark> 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도. Measure the propoertion of connection among possible dyads.</p></li>
+<li><p><strong>Erdos-Renyi Model</strong>: <mark>assumes each connection in a network is iid.</mark> 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도. Measure the propoertion of connection among possible dyads.</p></li>
 <li><p>Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 “significance” 한지를 판정하기 위한 네트워크의 <strong>null classes</strong>로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.</p></li>
 <li><p>Statistical Network Models: <strong>Exponential Random Graph Models</strong> 는 Generalized Linear Models (GLM)과 유사하며, 이는 둘다 지수족 형태(exponential family form)에 기반을 두고 있다. edge들이 unmeasured, 혹은 알려지지 않은 변수에 뿌리를 두고 있다는 것이 핵심인 <strong>Latent network models</strong>은 <strong>hierarchical modeling</strong>에서의 latent 변수 사용법과 정확하게 평행하다 <mark>즉, <strong><em>대비된다???</em></strong>.</mark> <strong>Stochastic block models</strong>는 mixture 모델의 형태로 볼 수도 있다. 여기서 중요한건 이렇게 나열해놨지만서도 고차원 데이터가 의존성 높은 데이터를 쓰면 이런 애들은 이렇게 표준화된 모델과 맞아떨어지는 정도가 낮아진다는 것이다.</p></li>
 </ol>

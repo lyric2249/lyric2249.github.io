@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -570,14 +570,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">7.8.1</span> Latent Position Model</h3>
 <p>ERGMs 와 다르게, 이 모델은 소셜 스페이스의 개념을 도입함. 이 소셜 스페이스에서는, 네트워크 관계에 있어 unobserved latent 특성이 potential transitive 경향을 represent, 즉 위력? 을 나타낼 수 있음. 이때 이 소셜 스페이스에서 각 actor (혹은 node) <span class="math inline">\(i\)</span>는 알려지지 않은 포지션 <span class="math inline">\(z_i\)</span>를 각각 차지하게 됨. 우리는 이를 <strong>latent position</strong> 이라고 부름.</p>
 <p>여기서 우리는 주된 가정으로 ties 간의 <strong>조건부 독립</strong>을 가정한다. latent position이 주어진다면, 네트워크 안의 ties들은 조건부 독립임이 가정된다. 두 개인들 간의 특정한 tie의 확률은 그들의 positions 들의 함수로 모델링된다. 가령 소셜 스페이스 안에서의 두 actor 사이의 거리라던가.</p>
-<p>이때 이를 노테이션으로 표기하자면 다음과 같다.</p>
+<ul>
+<li>main assumption
+<ul>
+<li>given the latent position, each connection is conditionally independent each others</li>
+<li>latent positions can capture all dependence structures</li>
+<li>the prob of having an edge is a function of latent positions
+<ul>
+<li>이때 주로 사용되는 function 은 distance.</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>이때 이를 노테이션으로 표기하자면 다음과 같다. 아래는 joint likelihood function.</p>
 <p><span class="math display">\[
-P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)
+P(Y | Z, X, \theta) = \prod_{i \not = j, i&lt;j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)
 \]</span></p>
 <ul>
-<li>sociomatrix <span class="math inline">\(Y_{n \times n}\)</span>, 이때 요소 <span class="math inline">\(y_{i,j}\)</span>는 actor <span class="math inline">\(i\)</span>로부터 <span class="math inline">\(j\)</span>로의 관계를 의미하는 값.</li>
-<li>additional covariate information <span class="math inline">\(X\)</span></li>
-<li>이때 <span class="math inline">\(X\)</span>와 <span class="math inline">\(x_{i,j}\)</span>는 unobserved 성질이며, <span class="math inline">\(\theta\)</span>는 estimate되어야 하는 패러미터, <span class="math inline">\(Z\)</span>는 estimate 되어야 하는 포지션.</li>
+<li><span class="math inline">\(i&lt;j\)</span> 는 undirected network 상황에서</li>
+<li>sociomatrix (binary network) <span class="math inline">\(Y_{n \times n}\)</span>, 이때 요소 <span class="math inline">\(y_{i,j}\)</span>는 actor <span class="math inline">\(i\)</span>로부터 <span class="math inline">\(j\)</span>로의 관계를 의미하는 값.</li>
+<li>additional covariate information <span class="math inline">\(X\)</span> (nodal covaraites)</li>
+<li>이때 <span class="math inline">\(X\)</span>와 <span class="math inline">\(x_{i,j}\)</span>는 unobserved 성질이며, <span class="math inline">\(\theta\)</span>는 estimate되어야 하는 패러미터, <span class="math inline">\(Z\)</span>는 estimate 되어야 하는 포지션.
+<ul>
+<li><span class="math inline">\(z_i\)</span>: node <span class="math inline">\(i\)</span> 의 latent position.</li>
+</ul></li>
 </ul>
 <p><br>
 <br>
@@ -586,26 +601,84 @@ P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta
 <h4><span class="header-section-number">7.8.1.1</span> Methods</h4>
 <div id="distance-models" class="section level5" number="7.8.1.1.1">
 <h5><span class="header-section-number">7.8.1.1.1</span> Distance Models</h5>
-<p><span class="math inline">\(P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)\)</span>는 로지스틱 회귀모형을 쓰면 편하게 패러미터化 할 수 있다. 이렇게 패러미터化 할 때 tie의 확률은 <span class="math inline">\(z_i , z_j \in \mathbb R\)</span> 인 <span class="math inline">\(z_i , z_j\)</span> 사이의 유클리디안 거리에 의존한다. 수식은 아래와 같다.</p>
+<p><span class="math inline">\(P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)\)</span>는 logistic regression framework 를 활용하는 것으로 편하게 패러미터化 (설명) 할 수 있다. 이렇게 패러미터化 할 때 tie의 확률은 <span class="math inline">\(z_i , z_j \in \mathbb R\)</span> 인 <span class="math inline">\(z_i , z_j\)</span> 사이의 euclidean distance 에 의존한다. 수식은 아래와 같다.</p>
 <p><span class="math display">\[
-\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta &#39; x_{i,j} - |z_i - z_j |
+\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = 
+\underbrace{\alpha}_{\text{intercept}} + 
+\underbrace{\beta &#39; }_{\substack{\text{effect of}\\\text{nodal covariates}}} x_{i,j}- 
+\underbrace{|z_i - z_j |}_{\text{euclidean}}
+\]</span></p>
+<p><span class="math display">\[
+\begin{alignat}{2}
+P(Y|Z,X,\theta) 
+&amp;= \prod_{i&lt;j} &amp;&amp;\pi_{ij}^{y_{ij}}&amp;&amp;(1-\pi_{ij})^{1-y_{ij}}
+&amp;= \prod_{i&lt;j} 
+&amp;&amp;\left(\frac{\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)}
+{1+\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)} \right)^{y_{ij}}
+&amp;&amp;\left(\frac{1}{1+\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)} \right)^{1-y_{ij}}
+\end{alignat}
 \]</span></p>
 <ul>
-<li>이때 <span class="math inline">\(|z_i - z_j |&#39;\)</span> 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 <span class="math inline">\(d_{i,j} \le d_{i,k} + d_{k,j}\)</span>만 만족하면 됨.</li>
+<li>이때 distance <span class="math inline">\(|z_i - z_j |=d_{ij}\)</span> 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 <span class="math inline">\(d_{i,j} \le d_{i,k} + d_{k,j}\)</span>만 만족하면 됨.
+<ul>
+<li><span class="math inline">\(d_{ij}\)</span> 이 증가하면 edge 를 가질 prob은 감소. 역도 성립. out of sight, out of mind.</li>
+</ul></li>
 </ul>
 <p>latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 <span class="math inline">\(i \rightarrow j\)</span> 이고 <span class="math inline">\(j \rightarrow k\)</span> 이라면, <span class="math inline">\(d_{i,j}\)</span> 와 <span class="math inline">\(d_{j,k}\)</span> 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark></p>
 <ol style="list-style-type: decimal">
 <li>events <span class="math inline">\(j \rightarrow i\)</span> (reciprocity)</li>
 <li>그리고 <span class="math inline">\(i \rightarrow k\)</span> (transitivity)</li>
 </ol>
+<p><mark>when a node <span class="math inline">\(i,j,k\)</span> are connected, the latent position of <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_j\)</span> are close.</mark></p>
+<ul>
+<li>benefits: visualize the relationship / very easy to capture the cluster - structures
+disadvantages: even though a latent space model can capture the transitivities with triangle inequalities, it still has a limitatino in capturing a high-order dependence</li>
+</ul>
+<p><br>
+<br>
+<br></p>
 </div>
 <div id="projection-models" class="section level5" number="7.8.1.1.2">
 <h5><span class="header-section-number">7.8.1.1.2</span> Projection Models</h5>
-<p>distance 모델은 본질적으로 symmetric 임. 즉 <span class="math inline">\(p(i → j) = p(j → i)\)</span>. 하지만 많은 (<strong>directed</strong>) 모델에서 이런 symmetry 는 성립을 안함. 예를 들어 actor <span class="math inline">\(i\)</span> 가 대량의 ties 들을 보내는 반면 <span class="math inline">\(j\)</span> 가 <span class="math inline">\(i\)</span> 에게서 ties 들을 받은 actors 전체 중 작은 subset 에게만 보낸다면? 따라서 행위의 변수 레벨은 관계에서 확률의 transitivity 를 allow하는 latent 포지션 모델의 맥락 속에서 모델링될 필요가 있다. 개개인의 소셜 활동의 특정한 수준도 고려되어야 함은 물론이다.</p>
-<p>actor <span class="math inline">\(i\)</span>의 특성의 벡터 <span class="math inline">\(v_i\)</span>를 <strong>unit</strong> <span class="math inline">\(k\)</span>-dim 이라고 가정. <span class="math inline">\(i,j\)</span> 사이의 angle이 작으면 우리는 둘 사이에 tie가 존재할 가능성이 높다고 생각하자. 직각이면 중립, 둔각이면 낮다. actor <span class="math inline">\(i\)</span> 의 활동 레벨 <span class="math inline">\(a_i &gt;0\)</span> 를 설정한 후, <span class="math inline">\(i→j\)</span>의 tie의 존재 확률을 <span class="math inline">\(a_i v_i &#39; v_i = \frac{z_i&#39; z_j}{| z_j |}\)</span> (이때 <span class="math inline">\(z_i = a_i v_i\)</span>) 라고 설정한다면 이하의 등식이 성립.</p>
+<p><strong>Invariance of distance</strong>. distance 모델은 본질적으로 symmetric 임. 즉 <span class="math inline">\(p(i → j) = p(j → i)\)</span>. 하지만 많은 (<strong>directed</strong>) 모델에서 이런 symmetry 는 성립을 안함. 예를 들어 actor <span class="math inline">\(i\)</span> 가 대량의 ties 들을 보내는 반면 <span class="math inline">\(j\)</span> 가 <span class="math inline">\(i\)</span> 에게서 ties 들을 받은 actors 전체 중 작은 subset 에게만 보낸다면? <mark>따라서 행위의 변수 레벨은 관계에서 확률의 transitivity 를 allow하는 latent 포지션 모델의 맥락 속에서 모델링될 필요가 있다.</mark> 개개인의 소셜 활동의 특정한 수준도 고려되어야 함은 물론이다.<mark></p>
+<p>그러나 likelihood 는 only include a distance function -&gt; distance 는 2개의 latent position 사이의 infinite realization 을 보유.</p>
+<p>latent position 들 자체도 무한한 realization 이 존재.</p>
+<p>-&gt; Bayesian Inference</p>
+<p>-&gt; post-process for posterior sample (<strong>Procrustes Matching</strong>: based on a reference point, all posterior samples are moved / rotated tward a reference point. commonly used in statistical shape analysis)</p>
+<ol style="list-style-type: decimal">
+<li><p>set up a reference point generally a posterior sample that yiedls MAP (Maximum A Posterior)</p></li>
+<li><p>all other posterior samples are transformed by procrustes matching -&gt; <span class="math inline">\(procrustes(X_{ref}, X_{ref})\)</span> in <code>MCMCpack</code> pacakage of <code>R</code>.</p></li>
+</ol>
+<p>distance -&gt; undirected network
+projection method -&gt; directed network</p>
+<p>actor <span class="math inline">\(i\)</span>의 특성의 벡터 <span class="math inline">\(v_i\)</span>를 <strong>unit</strong> <span class="math inline">\(k\)</span>-dim 이라고 가정. <span class="math inline">\(i,j\)</span> 사이의 angle 에 따라 둘 사이에 tie 가 존재할 가능성이 이하와 같이 영향받는다.</p>
+<ul>
+<li>예각: high</li>
+<li>직각: neutral</li>
+<li>둔각: low</li>
+</ul>
+<p>actor <span class="math inline">\(i\)</span> 의 활동 레벨 <span class="math inline">\(a_i &gt;0\)</span> 를 설정한 후, <span class="math inline">\(i→j\)</span>의 tie의 존재 확률을 <span class="math inline">\(a_i v_i &#39; v_i = \frac{z_i&#39; z_j}{| z_j |}\)</span> (이때 <span class="math inline">\(z_i = \underbrace{a_i}_{\text{strength (length)}} \underbrace{v_i}_{\text{unit vector}}\)</span>) 라고 설정한다면 이하의 등식이 성립.</p>
 <p><span class="math display">\[
 \eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta &#39; x_{i,j} + \frac{z_i&#39; z_j}{| z_j |}
 \]</span></p>
+<p>from note:</p>
+<p><span class="math display">\[
+\pi_{ij} = logodds(y_{ij} | z_i , z_j , \alpha) = \alpha + \frac{z_i &#39; z_j}{\|z_i \|}
+\\
+\pi_{ji} = \phantom{logodds}(y_{ji} | \phantom{z_i , z_j , \alpha) = \alpha} + \frac{z_j &#39; z_i}{\|z_j \|}
+\]</span></p>
+<p>Latent Space Model (LSM)</p>
+<p>-&gt; map each node into unobserved latent space
+-&gt; easy to visualized
+-&gt; easy to observe cluster structures</p>
+<ol style="list-style-type: decimal">
+<li>LSM <span class="math inline">\(z_i \sim (0, \sigma^2)\)</span>, <span class="math inline">\(\pi(z_i) \sim N(0, \sigma^2)\)</span></li>
+</ol>
+<p>-&gt; need a model that capture clusture structures using a model</p>
+<p>여기서 <span class="math inline">\(z_i\)</span> 는 mixture normal prior (one of the typical way to implement clustering)</p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="estimation-2" class="section level4" number="7.8.1.2">
@@ -620,7 +693,7 @@ P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta
 \]</span></p>
 <p>※ Steps:</p>
 <ol style="list-style-type: decimal">
-<li>각 j 에서 $z_j ’ $ 샘플링하기 위해 MH 스텝 거침. proposal 분포 <span class="math inline">\(\varphi(\cdot)\)</span> 으로부터 <span class="math inline">\(z_j&#39;\)</span> 생산하고 이를 이하의 확률 <span class="math inline">\(r_z \left ( z_j &#39; , z_j^{(t)} \right)\)</span> 로 채택. 비슷환 과정을 따라서 <span class="math inline">\(\alpha, \beta\)</span> 도 MH 이용해서 생산.</li>
+<li>각 j 에서 <span class="math inline">\(z_j &#39;\)</span> 샘플링하기 위해 MH 스텝 거침. proposal 분포 <span class="math inline">\(\varphi(\cdot)\)</span> 으로부터 <span class="math inline">\(z_j&#39;\)</span> 생산하고 이를 이하의 확률 <span class="math inline">\(r_z \left ( z_j &#39; , z_j^{(t)} \right)\)</span> 로 채택. 비슷환 과정을 따라서 <span class="math inline">\(\alpha, \beta\)</span> 도 MH 이용해서 생산.</li>
 </ol>
 <p><span class="math display">\[
 r_z \left ( z_j &#39; , .z_j^{(t)} \right)
@@ -651,6 +724,7 @@ Z^\ast  = \arg \min_{TZ} tr \Big \{ (Z_0 - TZ) &#39; (Z_0 - TZ) \Big \}
 <p><br>
 <br>
 <br></p>
+<hr />
 <p><br>
 <br>
 <br></p>
@@ -678,6 +752,21 @@ $$</p>
 <p><br>
 <br>
 <br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Latent position cluster model</li>
+</ol>
+<p><span class="math display">\[
+z_i \sim \sum^G_{g=1} \lambda_g \cdot MVN(\mu_g , \sigma^2_g I)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\lambda_g\)</span>: proportion of an individual distribution (probability of belonging to cluster <span class="math inline">\(g\)</span> from node <span class="math inline">\(i\)</span>)</li>
+<li><span class="math inline">\(\mu_g\)</span>: center of cluster position</li>
+<li><span class="math inline">\(\sigma_g^2\)</span>: size of cluster</li>
+</ul>
+<p><mark>이때 <span class="math inline">\(\sqrt{\frac{1}{n} \sum\limits^n_{i=1}\|z_i\|^2} = 1\)</span></mark></p>
+<p><span class="math display">\[
+logodd \pi_{ij} = \beta_0 &#39; x_{ij} - \beta_1 |z_i - z_j| = \alpha - \beta \|z_i - z_j\|
+\]</span></p>
 <div id="bayesian-estimation" class="section level4" number="7.8.2.1">
 <h4><span class="header-section-number">7.8.2.1</span> Bayesian Estimation</h4>
 <p>※ Fully Bayesian Estimation Procedure</p>
@@ -714,10 +803,17 @@ $$</p>
 &amp;\sim
 \phi_{d}\bigl({\bf z}_{i};\mu_{g},\sigma_{g}^{2}I_{d}\bigr)
 \cdot
-P\bigl(\bf V\mid Z,X,\beta\bigr),\quad 
+P\bigl(Y\mid Z,X,\beta\bigr),\quad 
+&amp;&amp;i=1:n,
+\\
+&amp;=
+MVN(\bf z_i ; \mu_g , \sigma_g^2 I_d)
+\cdot
+P\bigl(Y\mid Z,X,\beta\bigr),\quad 
 
-&amp;&amp;i=1,\cdots\cdot,n,
 
+
+\tag{1}
 \\
 
 \beta\mid \bf{Z},\mathrm{others}
@@ -725,7 +821,13 @@ P\bigl(\bf V\mid Z,X,\beta\bigr),\quad
 \phi_{p}\Bigl(\beta;\xi,\Psi\Bigr)
 \cdot
 P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
+\\
+&amp;=
 
+MVN(\beta ; \xi, \Psi)
+\cdot
+P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
+\tag{2}
 \\
 
 \lambda\mid{\mathrm{others}}
@@ -736,9 +838,9 @@ P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
 
 \mu_{g}\mid\mathrm{others}
 &amp;\sim
-MVN_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}  \cdot I\right),\quad 
+MVN_{d}\left(\frac{m_{g}\bar z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}  \cdot I\right),\quad 
 
-&amp;&amp;g=1,\cdot\cdot\cdot\cdot\cdot,G,
+&amp;&amp;g=1:G,
 
 
 \\
@@ -747,7 +849,7 @@ MVN_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sig
 &amp;\sim
 \left(\sigma_{0}^{2}+d s_{g}^{2}\right) \cdot \mathrm{Inv-}\chi^2_{\alpha + m_s d},
 
-&amp;&amp;g=1\,,\cdot\cdot\cdot\,,\,\bar{G},
+&amp;&amp;g=1:G,
 
 
 \\
@@ -757,15 +859,23 @@ P\Bigl(K_{i}=g \bigg | \mathrm{others}\Bigr)
 \frac{\lambda_{g}\phi_{d}\Bigl(z_{i};\mu_{g},\;\sigma_{g}^{2} \cdot I_{d}\Bigr)}
 {\sum_{r=1}^{G}\lambda_{r}\phi_{d}\Bigl(z_{i};\mu_{r}, \; \sigma_{r}^{2} \cdot I_{d}\Bigr)},\quad 
 
-&amp;&amp;g=1,\cdot\cdot\cdot,G.
-
-
-
-
+&amp;&amp;g=1:G.
 
 \end{align}\]</span>
 $$</p>
-<p>Steps.</p>
+<ul>
+<li><span class="math inline">\(K_i = g\)</span>: the membership of node <span class="math inline">\(i\)</span></li>
+<li><span class="math inline">\(MVN(\bf z_i ; \mu_g , \sigma_g^2 I_d)\)</span>: normal for membership <span class="math inline">\(g\)</span></li>
+<li><span class="math inline">\(P\bigl(Y\mid Z,X,\beta\bigr)\)</span>: we cannot calculate the conditional posterior distribution analytically.
+<ul>
+<li>for same reason, for (1) and (2), use MH algorithm</li>
+</ul></li>
+<li><span class="math inline">\(m_g = \sum\limits^n_{i=1}I(K_i = g)\)</span></li>
+<li><span class="math inline">\(\bar z_g\)</span>: mean of latent positions that belongs to cluster <span class="math inline">\(g\)</span></li>
+<li><span class="math inline">\(d\)</span>: dimension</li>
+<li><span class="math inline">\(s_g^2 = \frac{1}{d}\sum\limits_{i=1}^n (z_i - \mu_g) &#39; (z_i - \mu_g) I(K_i = g)\)</span></li>
+</ul>
+<p>※ Steps.</p>
 <ol style="list-style-type: decimal">
 <li><p>MH 스텝 이용해서 <span class="math inline">\(Z_{t+1}\)</span> 업데이트
 1. proposal <span class="math inline">\(2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})\)</span>, <span class="math inline">\(g=1, \cdots, G\)</span>
@@ -786,18 +896,32 @@ $$</p>
 </div>
 <div id="identifiability-of-positions-and-cluster-labels" class="section level4" number="7.8.2.2">
 <h4><span class="header-section-number">7.8.2.2</span> Identifiability of Positions and Cluster Labels</h4>
+<p>2개의 <strong>identifiability</strong> issues</p>
+<ol style="list-style-type: decimal">
+<li>invariant property of distance</li>
+<li><dl>
+<dt>label-switching problem</dt>
+<dd>common problem in a Bayesian Mixture Model
+</dd>
+</dl></li>
+</ol>
+<p>Cluster label does not change the likelihood
+-&gt; changing the cluster label will make problems for making inferences of individuals in a cluster.</p>
+<p>Solution: Minimize, expectation of loss function, which is <strong>Bayes risk</strong></p>
 <p>Likelihood 에만 의존해서 cluster化 성능 평가하면 문제생김. positions 과 cluster labels 들의 Non-identifiabilities 문제. Likelihood 는 이하에 불변.</p>
 <ol style="list-style-type: decimal">
 <li>latent positions 들의 반사, 회전, translation</li>
 <li>cluster 들의 relabeling. 이는 <strong>Label switching problem</strong>[^cluster 의 label 을 permute 하는 것은 Likelihood 에 변화를 가져오지 않지만, obs 들을 그룹에 넣는 과정에서 우리가 문제를 겪게 됨. Likelihood 는 같지만 label 이 다른 순간 이건 cluster 의 구성이 다른 것과 동일하니까.] 으로 이어짐.</li>
 </ol>
-<p>이를 해결하기 위한 방법으로 <strong>Minimizing Bayes risk</strong> 가 제시.</p>
+<p>이를 해결하기 위한 방법으로 Minimizing <strong>Bayes risk</strong> 가 제시.</p>
 <ol style="list-style-type: decimal">
-<li>estimate 되는 Bayes risk[^Bayes risk = Expecation of loss function. 이때 loss function 으로는 Kullback-Leibler loss 를 사용한다.] 를 최소화하는 actor 들의 position 탐색</li>
-<li>latent position 의 posterior 추출값 (draw) 를 Procrustes Transform 하고 동일한 Transformation Matrix 를 사용하여, cluster mean 와 Cov 를 transform</li>
-<li>Estimate 된 Bayes risk 를 최소화하는 cluster membership 의 확률을 탐색</li>
+<li>estimate 되는 Bayes risk<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> 를 최소화하는 actor 들의 position (i.e., reference point) 탐색</li>
+<li>latent position 의 posterior 추출값 (draw), (i.e. 모든 다른 MCMC 샘플들) 를 Procrustes Transform 하고 동일한 Transformation Matrix 를 사용하여, cluster mean 와 Cov 를 transform</li>
+<li>Estimate 된 Bayes risk 를 최소화하는 cluster membership probability 을 탐색</li>
 </ol>
-<p>이제 이하의 과정을 거쳐서 cluster 의 갯수를 정한다. Bayesian estimation - 이하의 equation, 즉 higehest posterior probability 를 가지는 model 을 선택.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>에 대한 계산은 이하와 같다. 이를 통하여 cluster 의 갯수를 정한다. Bayesian estimation - 이하의 equation, 즉 higehest posterior probability 를 가지는 model 을 선택.</li>
+</ol>
 $$
 <span class="math display">\[\begin{array}
 
@@ -835,12 +959,18 @@ BIC &amp;= &amp;&amp;BIC_{lr} &amp;&amp;+ &amp;&amp;BIC_{mbc}
 <p>$$</p>
 <ul>
 <li><span class="math inline">\(d_{logit} =\)</span> # of parameters in the logistic regression</li>
-<li><span class="math inline">\(n_{logit} =\)</span> # of ties in data</li>
+<li><span class="math inline">\(n_{logit} =\)</span> # of ties in data (# of edges)</li>
 <li><span class="math inline">\(d_{mbc} =\)</span> # of parameters in the clustering model</li>
 </ul>
 
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>Bayes risk = Expecation of loss function. 이때 loss function 으로는 Kullback-Leibler loss 를 사용한다.<a href="latent-network-models.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

@@ -7,16 +7,28 @@ ERGMs 와 다르게, 이 모델은 소셜 스페이스의 개념을 도입함. �
 
 여기서 우리는 주된 가정으로 ties 간의 **조건부 독립**을 가정한다. latent position이 주어진다면, 네트워크 안의 ties들은 조건부 독립임이 가정된다. 두 개인들 간의 특정한 tie의 확률은 그들의 positions 들의 함수로 모델링된다. 가령 소셜 스페이스 안에서의 두 actor 사이의 거리라던가.
 
+- main assumption
+	- given the latent position, each connection is conditionally independent each others
+	- latent positions can capture all dependence structures
+	- the prob of having an edge is a function of latent positions
+		- 이때 주로 사용되는 function 은 distance.
 
-이때 이를 노테이션으로 표기하자면 다음과 같다.
+
+이때 이를 노테이션으로 표기하자면 다음과 같다. 아래는 joint likelihood function.
 
 $$
-P(Y | Z, X, \theta) = \prod_{i \not = j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)
+P(Y | Z, X, \theta) = \prod_{i \not = j, i<j} P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)
 $$
 
-- sociomatrix $Y_{n \times n}$, 이때 요소 $y_{i,j}$는 actor $i$로부터 $j$로의 관계를 의미하는 값.
-- additional covariate information $X$
+
+
+
+
+- $i<j$ 는 undirected network 상황에서
+- sociomatrix (binary network) $Y_{n \times n}$, 이때 요소 $y_{i,j}$는 actor $i$로부터 $j$로의 관계를 의미하는 값.
+- additional covariate information $X$ (nodal covaraites)
 - 이때 $X$와 $x_{i,j}$는 unobserved 성질이며, $\theta$는 estimate되어야 하는 패러미터, $Z$는 estimate 되어야 하는 포지션.
+	- $z_i$: node $i$ 의 latent position.
 
 
 <br>
@@ -28,31 +40,108 @@ $$
 
 ##### Distance Models
 
-$P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)$는 로지스틱 회귀모형을 쓰면 편하게 패러미터化 할 수 있다. 이렇게 패러미터化 할 때 tie의 확률은 $z_i , z_j \in \mathbb R$ 인 $z_i , z_j$ 사이의 유클리디안 거리에 의존한다. 수식은 아래와 같다.
+$P(y_{i,j} | z_i , z_j , x_{i,j}, \theta)$는 logistic regression framework 를 활용하는 것으로 편하게 패러미터化 (설명) 할 수 있다. 이렇게 패러미터化 할 때 tie의 확률은 $z_i , z_j \in \mathbb R$ 인 $z_i , z_j$ 사이의 euclidean distance 에 의존한다. 수식은 아래와 같다.
 
 $$
-\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta ' x_{i,j} - |z_i - z_j |
+\eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = 
+\underbrace{\alpha}_{\text{intercept}} + 
+\underbrace{\beta ' }_{\substack{\text{effect of}\\\text{nodal covariates}}} x_{i,j}- 
+\underbrace{|z_i - z_j |}_{\text{euclidean}}
 $$
 
-- 이때 $|z_i - z_j |'$ 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 $d_{i,j} \le d_{i,k} + d_{k,j}$만 만족하면 됨. 
+
+$$
+\begin{alignat}{2}
+P(Y|Z,X,\theta) 
+&= \prod_{i<j} &&\pi_{ij}^{y_{ij}}&&(1-\pi_{ij})^{1-y_{ij}}
+&= \prod_{i<j} 
+&&\left(\frac{\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)}
+{1+\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)} \right)^{y_{ij}}
+&&\left(\frac{1}{1+\exp(\alpha + \beta x_{ij} - \|z_i - z_j \|)} \right)^{1-y_{ij}}
+\end{alignat}
+$$
+
+
+- 이때 distance $|z_i - z_j |=d_{ij}$ 는 그 어떤 metric으로도 대체될 수 있다는 것을 notice. 삼각부등식 $d_{i,j} \le d_{i,k} + d_{k,j}$만 만족하면 됨. 
+	- $d_{ij}$ 이 증가하면 edge 를 가질 prob은 감소. 역도 성립. out of sight, out of mind.
 
 latent 포지션 모델은 본질적으로 reciprocal 하고 transitive 함. <mark>왜? 만약 $i \rightarrow j$ 이고 $j \rightarrow k$ 이라면, $d_{i,j}$ 와 $d_{j,k}$ 는 어쩌면 지나치게 크지는 않을 수도 있는 것이고, 이 경우에는 이하로 이어짐: </mark>
 
 1. events $j \rightarrow i$ (reciprocity)
 2. 그리고 $i \rightarrow k$ (transitivity)
 
+<mark>when a node $i,j,k$ are connected, the latent position of $z_i$ and $z_j$ are close.</mark>
+
+- benefits: visualize the relationship / very easy to capture the cluster - structures
+disadvantages: even though a latent space model can capture the transitivities with triangle inequalities, it still has a limitatino in capturing a high-order dependence
+
+<br>
+<br>
+<br>
+
 
 
 ##### Projection Models
 
-distance 모델은 본질적으로 symmetric 임. 즉 $p(i → j) = p(j → i)$. 하지만 많은 (**directed**) 모델에서 이런 symmetry 는 성립을 안함. 예를 들어 actor $i$ 가 대량의 ties 들을 보내는 반면 $j$ 가 $i$ 에게서 ties 들을 받은 actors 전체 중 작은 subset 에게만 보낸다면? 따라서 행위의 변수 레벨은 관계에서 확률의 transitivity 를 allow하는 latent 포지션 모델의 맥락 속에서 모델링될 필요가 있다. 개개인의 소셜 활동의 특정한 수준도 고려되어야 함은 물론이다.
+**Invariance of distance**. distance 모델은 본질적으로 symmetric 임. 즉 $p(i → j) = p(j → i)$. 하지만 많은 (**directed**) 모델에서 이런 symmetry 는 성립을 안함. 예를 들어 actor $i$ 가 대량의 ties 들을 보내는 반면 $j$ 가 $i$ 에게서 ties 들을 받은 actors 전체 중 작은 subset 에게만 보낸다면? <mark>따라서 행위의 변수 레벨은 관계에서 확률의 transitivity 를 allow하는 latent 포지션 모델의 맥락 속에서 모델링될 필요가 있다.</mark> 개개인의 소셜 활동의 특정한 수준도 고려되어야 함은 물론이다.<mark>
 
-actor $i$의 특성의 벡터 $v_i$를 **unit** $k$-dim 이라고 가정. $i,j$ 사이의 angle이 작으면 우리는 둘 사이에 tie가 존재할 가능성이 높다고 생각하자. 직각이면 중립, 둔각이면 낮다. actor $i$ 의 활동 레벨 $a_i >0$ 를 설정한 후, $i→j$의 tie의 존재 확률을 $a_i v_i ' v_i = \frac{z_i' z_j}{| z_j |}$ (이때 $z_i = a_i v_i$) 라고 설정한다면 이하의 등식이 성립.
+그러나 likelihood 는 only include a distance function -> distance 는 2개의 latent position 사이의 infinite realization 을 보유.
+
+latent position 들 자체도 무한한 realization 이 존재.
+
+-> Bayesian Inference
+
+-> post-process for posterior sample (**Procrustes Matching**: based on a reference point, all posterior samples are moved / rotated tward a reference point. commonly used in statistical shape analysis)
+
+1. set up a reference point generally a posterior sample that yiedls MAP (Maximum A Posterior)
+
+2. all other posterior samples are transformed by procrustes matching -> $procrustes(X_{ref}, X_{ref})$ in `MCMCpack` pacakage of `R`.
+
+distance -> undirected network
+projection method -> directed network
+
+
+actor $i$의 특성의 벡터 $v_i$를 **unit** $k$-dim 이라고 가정. $i,j$ 사이의 angle 에 따라 둘 사이에 tie 가 존재할 가능성이 이하와 같이 영향받는다.
+
+- 예각: high
+- 직각: neutral
+- 둔각: low
+
+actor $i$ 의 활동 레벨 $a_i >0$ 를 설정한 후, $i→j$의 tie의 존재 확률을 $a_i v_i ' v_i = \frac{z_i' z_j}{| z_j |}$ (이때 $z_i = \underbrace{a_i}_{\text{strength (length)}} \underbrace{v_i}_{\text{unit vector}}$) 라고 설정한다면 이하의 등식이 성립.
 
 
 $$
 \eta_{i,j} = logodds (y_{i,j} = 1 | z_i , z_j , x_{i,j}, \alpha, \beta) = \alpha + \beta ' x_{i,j} + \frac{z_i' z_j}{| z_j |}
 $$
+
+from note:
+
+$$
+\pi_{ij} = logodds(y_{ij} | z_i , z_j , \alpha) = \alpha + \frac{z_i ' z_j}{\|z_i \|}
+\\
+\pi_{ji} = \phantom{logodds}(y_{ji} | \phantom{z_i , z_j , \alpha) = \alpha} + \frac{z_j ' z_i}{\|z_j \|}
+$$
+
+
+
+Latent Space Model (LSM)
+
+-> map each node into unobserved latent space
+-> easy to visualized
+-> easy to observe cluster structures
+
+1. LSM $z_i \sim (0, \sigma^2)$, $\pi(z_i) \sim N(0, \sigma^2)$
+
+-> need a model that capture clusture structures using a model
+
+여기서 $z_i$ 는 mixture normal prior (one of the typical way to implement clustering)
+
+
+<br>
+<br>
+<br>
+
+
 
 #### Estimation
 
@@ -71,7 +160,7 @@ $$
 
 ※ Steps:
 
-1. 각 j 에서 $z_j ' $ 샘플링하기 위해 MH 스텝 거침. proposal 분포 $\varphi(\cdot)$ 으로부터 $z_j'$ 생산하고 이를 이하의 확률 $r_z \left ( z_j ' , z_j^{(t)} \right)$ 로 채택. 비슷환 과정을 따라서 $\alpha, \beta$ 도 MH 이용해서 생산.
+1. 각 j 에서 $z_j '$ 샘플링하기 위해 MH 스텝 거침. proposal 분포 $\varphi(\cdot)$ 으로부터 $z_j'$ 생산하고 이를 이하의 확률 $r_z \left ( z_j ' , z_j^{(t)} \right)$ 로 채택. 비슷환 과정을 따라서 $\alpha, \beta$ 도 MH 이용해서 생산.
 
 $$
 r_z \left ( z_j ' , .z_j^{(t)} \right)
@@ -117,7 +206,7 @@ the model is inherently transitive, and so we can expect an improved fit over mo
 
 
 
-
+----
 
 
 <br>
@@ -154,6 +243,27 @@ $$
 <br>
 <br>
 <br>
+
+
+
+
+2. Latent position cluster model
+
+$$
+z_i \sim \sum^G_{g=1} \lambda_g \cdot MVN(\mu_g , \sigma^2_g I)
+$$
+
+- $\lambda_g$: proportion of an individual distribution (probability of belonging to cluster $g$ from node $i$)
+- $\mu_g$: center of cluster position
+- $\sigma_g^2$: size of cluster
+
+<mark>이때 $\sqrt{\frac{1}{n} \sum\limits^n_{i=1}\|z_i\|^2} = 1$</mark>
+
+$$
+logodd \pi_{ij} = \beta_0 ' x_{ij} - \beta_1 |z_i - z_j| = \alpha - \beta \|z_i - z_j\|
+$$
+
+
 
 
 
@@ -197,10 +307,17 @@ $$
 &\sim
 \phi_{d}\bigl({\bf z}_{i};\mu_{g},\sigma_{g}^{2}I_{d}\bigr)
 \cdot
-P\bigl(\bf V\mid Z,X,\beta\bigr),\quad 
+P\bigl(Y\mid Z,X,\beta\bigr),\quad 
+&&i=1:n,
+\\
+&=
+MVN(\bf z_i ; \mu_g , \sigma_g^2 I_d)
+\cdot
+P\bigl(Y\mid Z,X,\beta\bigr),\quad 
 
-&&i=1,\cdots\cdot,n,
 
+
+\tag{1}
 \\
 
 \beta\mid \bf{Z},\mathrm{others}
@@ -208,7 +325,13 @@ P\bigl(\bf V\mid Z,X,\beta\bigr),\quad
 \phi_{p}\Bigl(\beta;\xi,\Psi\Bigr)
 \cdot
 P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
+\\
+&=
 
+MVN(\beta ; \xi, \Psi)
+\cdot
+P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
+\tag{2}
 \\
 
 \lambda\mid{\mathrm{others}}
@@ -219,9 +342,9 @@ P\Bigl({Y}\mid\bf {Z},\bf {X},\beta\Bigr),
 
 \mu_{g}\mid\mathrm{others}
 &\sim
-MVN_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}  \cdot I\right),\quad 
+MVN_{d}\left(\frac{m_{g}\bar z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sigma_{g}^{2}}{m_{g}+\sigma_{g}^{2}/\omega^{2}}  \cdot I\right),\quad 
 
-&&g=1,\cdot\cdot\cdot\cdot\cdot,G,
+&&g=1:G,
 
 
 \\
@@ -230,7 +353,7 @@ MVN_{d}\left(\frac{m_{g}\bf z_{g}}{m_{g}+\sigma_{g}^{2}/\omega^{2}},\,\frac{\sig
 &\sim
 \left(\sigma_{0}^{2}+d s_{g}^{2}\right) \cdot \mathrm{Inv-}\chi^2_{\alpha + m_s d},
 
-&&g=1\,,\cdot\cdot\cdot\,,\,\bar{G},
+&&g=1:G,
 
 
 \\
@@ -240,19 +363,21 @@ P\Bigl(K_{i}=g \bigg | \mathrm{others}\Bigr)
 \frac{\lambda_{g}\phi_{d}\Bigl(z_{i};\mu_{g},\;\sigma_{g}^{2} \cdot I_{d}\Bigr)}
 {\sum_{r=1}^{G}\lambda_{r}\phi_{d}\Bigl(z_{i};\mu_{r}, \; \sigma_{r}^{2} \cdot I_{d}\Bigr)},\quad 
 
-&&g=1,\cdot\cdot\cdot,G.
-
-
-
-
+&&g=1:G.
 
 \end{align}
 $$
 
+- $K_i = g$: the membership of node $i$
+- $MVN(\bf z_i ; \mu_g , \sigma_g^2 I_d)$: normal for membership $g$
+- $P\bigl(Y\mid Z,X,\beta\bigr)$: we cannot calculate the conditional posterior distribution analytically.
+	- for same reason, for (1) and (2), use MH algorithm
+- $m_g = \sum\limits^n_{i=1}I(K_i = g)$
+- $\bar z_g$: mean of latent positions that belongs to cluster $g$
+- $d$: dimension
+- $s_g^2 = \frac{1}{d}\sum\limits_{i=1}^n (z_i - \mu_g) ' (z_i - \mu_g) I(K_i = g)$
 
-
-
-Steps.
+※ Steps.
 
   1. MH 스텝 이용해서 $Z_{t+1}$ 업데이트
     1. proposal $2_{i}^{\ast}\sim\left|l\right|/|\bigvee_{i}(\Sigma_{i},(\hat{L}_{i}^{\ast}|_{i})$, $g=1, \cdots, G$
@@ -289,6 +414,18 @@ Pros and Cons
 
 #### Identifiability of Positions and Cluster Labels
 
+2개의 **identifiability** issues
+
+1. invariant property of distance
+2. label-switching problem
+	: common problem in a Bayesian Mixture Model
+
+Cluster label does not change the likelihood
+-> changing the cluster label will make problems for making inferences of individuals in a cluster.
+
+Solution: Minimize, expectation of loss function, which is **Bayes risk**
+
+
 
 Likelihood 에만 의존해서 cluster化 성능 평가하면 문제생김. positions 과 cluster labels 들의 Non-identifiabilities 문제. Likelihood 는 이하에 불변.
 
@@ -296,15 +433,14 @@ Likelihood 에만 의존해서 cluster化 성능 평가하면 문제생김. posi
 2. cluster 들의 relabeling. 이는 **Label switching problem**[^cluster 의 label 을 permute 하는 것은 Likelihood 에 변화를 가져오지 않지만, obs 들을 그룹에 넣는 과정에서 우리가 문제를 겪게 됨. Likelihood 는 같지만 label 이 다른 순간 이건 cluster 의 구성이 다른 것과 동일하니까.] 으로 이어짐. 
 
 
-이를 해결하기 위한 방법으로 **Minimizing Bayes risk** 가 제시.
+이를 해결하기 위한 방법으로 Minimizing **Bayes risk** 가 제시.
 
 
-1. estimate 되는 Bayes risk[^Bayes risk = Expecation of loss function. 이때 loss function 으로는 Kullback-Leibler loss 를 사용한다.] 를 최소화하는 actor 들의 position 탐색
-2. latent position 의 posterior 추출값 (draw) 를 Procrustes Transform 하고 동일한 Transformation Matrix 를 사용하여, cluster mean 와 Cov 를 transform
-3. Estimate 된 Bayes risk 를 최소화하는 cluster membership 의 확률을 탐색
+1. estimate 되는 Bayes risk^[Bayes risk = Expecation of loss function. 이때 loss function 으로는 Kullback-Leibler loss 를 사용한다.] 를 최소화하는 actor 들의 position (i.e., reference point) 탐색
+2. latent position 의 posterior 추출값 (draw), (i.e. 모든 다른 MCMC 샘플들) 를 Procrustes Transform 하고 동일한 Transformation Matrix 를 사용하여, cluster mean 와 Cov 를 transform
+3. Estimate 된 Bayes risk 를 최소화하는 cluster membership probability 을 탐색
 
-이제 이하의 과정을 거쳐서 cluster 의 갯수를 정한다. Bayesian estimation - 이하의 equation, 즉 higehest posterior probability 를 가지는 model 을 선택.
-
+(3) 에 대한 계산은 이하와 같다. 이를 통하여 cluster 의 갯수를 정한다. Bayesian estimation - 이하의 equation, 즉 higehest posterior probability 를 가지는 model 을 선택.
 
 
 
@@ -345,7 +481,7 @@ BIC &= &&BIC_{lr} &&+ &&BIC_{mbc}
 $$
 
 - $d_{logit} =$ # of parameters in the logistic regression
-- $n_{logit} =$ # of ties in data
+- $n_{logit} =$ # of ties in data (# of edges)
 - $d_{mbc} =$ # of parameters in the clustering model
 
 

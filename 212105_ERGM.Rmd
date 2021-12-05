@@ -70,7 +70,7 @@ knitr::include_graphics('images/knit-logo.png')
 
 
 
-unordered pair $
+unordered pair
 
 - Shared Partnership Distribution: 
 	- $i$와 $j$ 가 정확히 $k$ 개의 공통된 neighbor 를 가지고, 이와 동시에 이하의 각각의 조건을 만족한다면, unordered pair $(i,j)$ 의 갯수는 이하로 notation.
@@ -85,7 +85,7 @@ knitr::include_graphics('images/knit-logo.png')
 ```
 
 
-**geometrically weighted statistics** for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 $\tau$는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄. 위에서 언급한 statistics 들 중 $NP$ 만 안쓰였음.
+**Geometrically Weighted Statistics (GW statistics)** for degree and shared partnership distribution 는 이하와 같이 정의된다. 여기에 추가된 패러미터 $\tau$는 higher order terms 때 부과되는 weight의 decreasing rate를 나타냄. 위에서 언급한 statistics 들 중 $NP$ 만 안쓰였음.
 
 $$
 \begin{alignat}{2}
@@ -93,21 +93,28 @@ $$
 u(x | \tau) 
 &= e^\tau \sum_{i=1}^{n-2} \left \{ 1- \left ( 1-\frac{1}{e^\tau} \right)^i \right \} 
 &&\cdot D_i(x)
-
+\tag{GWD}
 \\
 
 v(x | \tau) 
 &= \ditto
 &&\cdot EP_i(x)
-
+\tag{GWESP}
 \\
 
 w(x | \tau) 
 &= \ditto
 &&\cdot DP_i(x)
-
+\tag{GWDSP}
 \end{alignat}
 $$
+
+이들을 통해 우리는 can capture **high-order interaction**.
+
+$\tau$ can be either
+
+- pre-specified (general exponential families)
+- estimated (curved exponential families)
 
 
 <br>

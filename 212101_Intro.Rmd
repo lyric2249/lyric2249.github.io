@@ -71,7 +71,7 @@ sender -> receiver.
 	이러한 2개의 모델의 종류 사이에는 교집합이 존재하지만, 이 둘을 다루는 paper들 사이에는 그럼에도 불구하고 큰 차이들이 존재함
 
 
-2. Erdos-Renyi Model: <mark>assumes each connection in a network is iid.</mark> 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도. Measure the propoertion of connection among possible dyads.
+2. **Erdos-Renyi Model**: <mark>assumes each connection in a network is iid.</mark> 각 vertex 쌍마다 iid 동전던지기를 통해 해당 쌍 사이에 edge를 둘지 안둘지를 랜덤하게 결정. 랜덤 그래프의 유명한 Erdos-Renyi 공식의 변형에 해당. 이는 성질이 정말 좋음. cohesive structure가 edge 1개에서의 확률의 함수로서 나타남. 또한 다른 더 복잡한 모델들과 비교되어 이해를 돕기 위한 교과서로서도. Measure the propoertion of connection among possible dyads.
 
 3. Mathematical Network Model: 수학모델은 현실 네트워크 데이터에 비하면 보통 너무 간단하지만, edge 구성의 특정 메커니즘이 어떻게 네트워크의 구조에 영향을 미칠 수 있는가 하는 것과, 관측된 네트워크에서 획득할 수 있는 구조적 성질이 얼마나 "significance" 한지를 판정하기 위한 네트워크의 **null classes**로 작동할 수 있다는 것에서 여전히 공부할 가치가 있음.
 

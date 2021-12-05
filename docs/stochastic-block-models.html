@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -611,12 +611,9 @@ $$</p>
 <li>entry <span class="math inline">\(C_{ij} \in [0,1]\)</span>: prob of occurence of a edge from a node in <span class="math inline">\(g\)</span></li>
 </ul></li>
 </ul>
-<p>the idea of block Matrix <span class="math inline">\(C\)</span> means the edges are are conditionally independent, given the block membership.</p>
-<p><span class="math inline">\(\Rightarrow\)</span></p>
-<ol style="list-style-type: decimal">
-<li><span class="math inline">\(Y_{ij} \sim\)</span> Bernoulli distribution with success probability <span class="math inline">\(z_i &#39; C z_j\)</span></li>
-<li>independent of <span class="math inline">\(Y_{kl}\)</span> for <span class="math inline">\((i,j) \not = (k,l)\)</span>, given <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_j\)</span>.</li>
-</ol>
+<p>block Matrix <span class="math inline">\(C\)</span> 라는 발상은, block membership 이 given 일 때, edge 들이 conditionally independent 라는 것.</p>
+<p><span class="math inline">\(\Rightarrow\)</span> 1. <span class="math inline">\(Y_{ij} \sim\)</span> Bernoulli distribution with success probability <span class="math inline">\(z_i &#39; C z_j\)</span>
+2. independent of <span class="math inline">\(Y_{kl}\)</span> for <span class="math inline">\((i,j) \not = (k,l)\)</span>, given <span class="math inline">\(z_i\)</span> and <span class="math inline">\(z_j\)</span>.</p>
 <p><br>
 <br>
 <br></p>
@@ -697,11 +694,10 @@ $$</p>
 <p><br>
 <br>
 <br></p>
+<hr />
 <p><br>
 <br>
 <br></p>
-<hr />
-<p>====</p>
 </div>
 </div>
 <div id="mixed-membership-block-model-mmbm" class="section level3" number="7.10.2">

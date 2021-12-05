@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -648,41 +648,56 @@ FIGURE 7.3: The degree distribution for protein interactions in Yeast
 <ul>
 <li><strong>Closeness centrality</strong></li>
 </ul>
-<p>vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판정. 일반적으로 사용되는 기준값은 <span class="math inline">\(C_{CL} =\frac{1}{\sum\limits_{u \in V} dist(u,v)}\)</span>.</p>
+<p>vertex 가 다른 다수의 vertex 와 가깝다면 이를 central 이라고 판정. 일반적으로 사용되는 기준값은:</p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
+
+&amp;C_{CL} &amp;&amp;=\frac{1}{\sum\limits_{u \in V} dist(u,v)}  \tag{closeness}
+0 \le &amp; &amp;&amp;=\frac{1}{\sum\limits_{u \in V} dist(u,v)} \cdot (N_v-1) \le 1 \tag{normalized}
+
+\end{alignat}\]</span>
+$$</p>
 <ul>
-<li>denominator <span class="math inline">\(dist(v, u)\)</span> 는 <span class="math inline">\(u, v \in V\)</span> 인 vertex <span class="math inline">\(u, v\)</span> 사이의 geodesic distance, 이의 sum 은 결국 total distance of a vertex from all others.</li>
+<li>denominator <span class="math inline">\(dist(v, u)\)</span> 는 <span class="math inline">\(u, v \in V\)</span> 인 vertex <span class="math inline">\(u, v\)</span> 사이의 geodesic distance
+<ul>
+<li>이의 sum 은 결국 total distance of a vertex from all others.</li>
+</ul></li>
 </ul>
-<p>각각 다른 그래프에서 산출된 centrality measure 를 비교하기 위해 normalize 하는 상황 있음. 이때는 factor <span class="math inline">\(N_v - 1\)</span> 으로 곱해서 <span class="math inline">\([0,1]\)</span> 로 normalize.</p>
+<p>각각 다른 그래프에서 산출된 centrality measure 를 비교하기 위해 normalize 하는 상황 있으며 위의 factor 곱하면 <span class="math inline">\([0,1]\)</span> 로 normalize.</p>
 <p><mark>large centrality value 는 곧 small total distance 로 이어짐.</mark></p>
 <p><br>
 <br></p>
 <ul>
 <li><strong>Betweenness centrality</strong></li>
 </ul>
-<p>어떤 vertex 가 다른 vertex 쌍 사이에 위치하고 있는지를 확인. 이건 vertex 가 네트워크 그래프의 path 에 비추어서 어디에 위치하고 있는지가 중요하다는 관점에 기반. 현실세계에 비추어도 이러한 path 가 인간관계라고 생각한다면 path 가 다수 지나가는 vertex, 즉 인싸는 중요한 사람일 것. 일반적으로 사용되는 값은 <span class="math inline">\(C_B (v) = \sum\limits_{s \not = t \not = v \in V} \frac{\sigma(s,t | v)}{\sigma(s, t)}\)</span>.</p>
+<p>어떤 vertex 가 다른 vertex 쌍 사이에 위치하고 있는지를 확인. 이건 vertex 가 네트워크 그래프의 path 에 비추어서 어디에 위치하고 있는지가 중요하다는 관점에 기반. 현실세계에 비추어도 이러한 path 가 인간관계라고 생각한다면 path 가 다수 지나가는 vertex, 즉 인싸는 중요한 사람일 것. 일반적으로 사용되는 값은:</p>
+<p><span class="math display">\[
+C_B (v) = \sum\limits_{s \not = t \not = v \in V} \frac{\sigma(s,t | v)}{\sigma(s, t)}
+\]</span></p>
 <ul>
 <li>numerator 는 <span class="math inline">\(v\)</span> 를 통과하면서 <span class="math inline">\(s,t\)</span> 사이가 최단거리인 path 의 총 숫자,</li>
 <li>denominator 는 이런 조건 없이 <span class="math inline">\(s,t\)</span> 사이가 최단거리인 path 의 총 숫자.</li>
 </ul>
-<p>이를 unit interval 로 scale 할 때는 <span class="math inline">\(\frac{(N_v - 1) (N_v - 2)}{2}\)</span> 로 나누면 됨.</p>
+<p>이를 unit interval 로 scale 할 때는 <span class="math inline">\(\frac{(N_v - 1) (N_v - 2)}{2} = \chooses{N_v - 1}2\)</span> 로 나누면 됨.</p>
 <p><br>
 <br></p>
 <ul>
 <li><strong>eigenvector centrality</strong></li>
 </ul>
-<p>what is this?</p>
-<ol style="list-style-type: decimal">
-<li>we implement eigen-analysis for an adjacency matrix
-- <span class="math inline">\(\alpha\)</span>: precision</li>
-<li>find the largest eigenvalue and its corresponding eigenvector
+<p>‘status,’ ‘prestige,’ ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인 건:</p>
+<p><span class="math display">\[
+C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)
+\]</span></p>
+<p><mark>
+- What is this?
+1. we implement eigen-analysis for an adjacency matrix
+- <span class="math inline">\(\alpha\)</span>: precision
+2. find the largest eigenvalue and its corresponding eigenvector
 - eigenvalue: the importance capture largest variance
-- eigenvector: dependency information</li>
-</ol>
-<p>‘status,’ ‘prestige,’ ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인건 <span class="math inline">\(C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)\)</span>.</p>
-<ul>
-<li>vector <span class="math inline">\(C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)&#39;\)</span> 는 ev problem <span class="math inline">\(A_{C_{E_i}}\)</span> 의 solution.</li>
-<li><span class="math inline">\(A\)</span> 는 네트워크 그래프 <span class="math inline">\(G\)</span> 의 adjacency 매트릭스.</li>
-</ul>
+- eigenvector: dependency information
+</mark>
+- vector <span class="math inline">\(C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)&#39;\)</span> 는 ev problem <span class="math inline">\(A_{C_{E_i}}\)</span> 의 solution.
+- <span class="math inline">\(A\)</span> 는 네트워크 그래프 <span class="math inline">\(G\)</span> 의 adjacency 매트릭스.</p>
 <p><span class="math inline">\(\alpha^{-1}\)</span> 의 optimal choice 는 <span class="math inline">\(A\)</span> 의 가장 큰 ev. 따라서 <span class="math inline">\(h_{E_i}\)</span> 는 상응하는 evec. <span class="math inline">\(G\)</span> 가 undirected 이며 connected 라면, <span class="math inline">\(A\)</span> 의 largest ev 는 간단하며 이의 evec는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 evec 의 orthonormality 에 의해 얘들은 자동적으로 <span class="math inline">\([0,1]\)</span> 사이로 scaled.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="descriptive-statistics-of-networks.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(network)</span>
 <span id="cb10-2"><a href="descriptive-statistics-of-networks.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sna)</span></code></pre></div>
@@ -756,7 +771,7 @@ FIGURE 7.5: AIDS blog network with vertex area proportional to hubs and authorit
 <p>complete 서브그래프, 즉 fully cohesive 한 vertex 들의 subset 을 <strong>Cliques</strong> 라고 통칭. 이인즉 소속된 모든 vertex 들이 edge 로 연결되어 있다는 것. 모든 사이즈의 clique 들에 대한 census 는 그래프가 어떻게 structure 되어 있는지에 대한 ‘snapshot’ 을 제공함.</p>
 <p>더 큰 사이즈의 clique 는 필연적으로 작은 사이즈의 cluque 들을 포함함. <strong>maximal clique</strong> 는 더 큰 clique 의 subset 이 아닌 clique 를 일컫음. 큰 clique 는 본질적으로 드뭄. 큰 clique 의 존재는 결국 원본 그래프 <span class="math inline">\(G\)</span> 가 일정 이상으로 dense 할 것을 요구하니까. 하지만 현실세계 네트워크는 보통 sparse 하거든.</p>
 <ul>
-<li>clique size: 1 (node), 2 (edge), 3 (triangle), 4 (안이 크로스된 사각형)</li>
+<li><mark>clique size: 1 (node), 2 (edge), 3 (triangle), 4 (안이 크로스된 사각형)</mark></li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="descriptive-statistics-of-networks.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(<span class="fu">sapply</span>(<span class="fu">cliques</span>(karate), length))</span>
 <span id="cb15-2"><a href="descriptive-statistics-of-networks.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
@@ -823,11 +838,14 @@ FIGURE 7.6: Visual representation of the k-core decomposition of the karate netw
 <ul>
 <li><strong>Density</strong></li>
 </ul>
-<p>그래프의 <strong>Density</strong> 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 <span class="math inline">\(G\)</span> 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 <span class="math inline">\(H=(V_H, E_H)\)</span> 의 density 는
-<span class="math display">\[
+<p>그래프의 <strong>Density</strong> 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 <span class="math inline">\(G\)</span> 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 <span class="math inline">\(H=(V_H, E_H)\)</span> 의 density 는</p>
+<p><span class="math display">\[
 0 \le den(H) = \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}= \frac{\text{# of edges}}{\text{# of dyads}} \le 1
 \]</span></p>
-<p>해당 값은 <span class="math inline">\([0,1]\)</span> 에 존재하며 <span class="math inline">\(H\)</span> 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함. directed 그래프 라면 denominator 는 <span class="math inline">\(|V_H|(|V_H|-1)\)</span> 로 대체.</p>
+<ul>
+<li>directed 그래프 라면 denominator 는 <span class="math inline">\(|V_H|(|V_H|-1)\)</span> 로 대체.</li>
+</ul>
+<p>해당 값은 <span class="math inline">\([0,1]\)</span> 에 존재하며 <span class="math inline">\(H\)</span> 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함.</p>
 <p><span class="math inline">\(H=G\)</span> 인 상황이라면 전체 그래프 <span class="math inline">\(G\)</span> 에 대한 density 를 생산. 반대로 vertex <span class="math inline">\(v \in V\)</span> 의 neighbor 의 set <span class="math inline">\(H_v=H\)</span> 가 되게 한다면, 이들 사이의 edge 는 <span class="math inline">\(v\)</span> 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 ego-centric 네트워크는 원본의 overall 네트워크보다 명백히 dense 함.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="descriptive-statistics-of-networks.html#cb19-1" aria-hidden="true" tabindex="-1"></a>ego.instr <span class="ot">=</span> <span class="fu">induced.subgraph</span>(karate, <span class="fu">neighborhood</span>(karate, <span class="dv">1</span>,</span>
 <span id="cb19-2"><a href="descriptive-statistics-of-networks.html#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>)[[<span class="dv">1</span>]])</span>
@@ -873,9 +891,11 @@ FIGURE 7.6: Visual representation of the k-core decomposition of the karate netw
 <span id="cb22-7"><a href="descriptive-statistics-of-networks.html#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   63   13    5    6    1    3    1</span></span></code></pre></div>
 <p>결과는 false로 나오지만 이에 대해 census 돌리면 giant component의 존재 확인 가능. 아래 예시의 경우 component 1개가 2375/2617로 90퍼 vertex랑 연결중임. 이는 현실 네트워크에서의 <strong>small world property</strong>와 연결. vertex 쌍들 collection에서의 minimum path는 보통 되게 작음. 대비되게 clustring은 상대적으로 높음. (ex) protein?</p>
 <ul>
-<li><strong>small world property</strong>: high connectivity b/w pairs of nodes
-- small shortest-path distance
-- high clustering coefficient</li>
+<li><mark><strong>small world property</strong>: high connectivity b/w pairs of nodes</mark>
+<ul>
+<li>small shortest-path distance</li>
+<li>high clustering coefficient</li>
+</ul></li>
 </ul>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="descriptive-statistics-of-networks.html#cb23-1" aria-hidden="true" tabindex="-1"></a>yeast.gc <span class="ot">=</span> <span class="fu">decompose.graph</span>(yeast)[[<span class="dv">1</span>]]</span>
 <span id="cb23-2"><a href="descriptive-statistics-of-networks.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">average.path.length</span>(yeast.gc)</span>
@@ -950,17 +970,21 @@ FIGURE 7.6: Visual representation of the k-core decomposition of the karate netw
 <p>각 단계에서 현재의 후보 partition은 지정된 비용 측정값을 최소화한다는 목적으로 계속해서 정제되어 갑니다.
 1. agglomerative 방법에서는, 2개의 이전의 partition elements 중 가장 저렴한 merge 방법이 실행된다
 2. divisive 방법에서는, 1개의 이전의 partition 중 가장 저렴하게 2개로 split 할 수 있는 방법이 실행된다</p>
-<p>비용측정의 기준은 vertex의 “cohesive” subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 <strong>modularity</strong>. 계산은 이하와 같다:
-- <span class="math inline">\(C = \{ C_1, \cdots, C_K \}\)</span>를 주어진 (given) 후보 partition 으로 하자
-- f_{ij} = f_{ij}(C)$는 <span class="math inline">\(C_i\)</span> 에 있던 vertex 들을 <span class="math inline">\(C_j\)</span> 에 있는 vertex 들과 연결시키는 (오리지널 네트워크의) edge 들의 fraction</p>
+<p>비용측정의 기준은 vertex의 “cohesive” subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 <strong>modularity</strong>. 계산은 이하와 같다:</p>
+<ul>
+<li><span class="math inline">\(C = \{ C_1, \cdots, C_K \}\)</span>를 주어진 (given) 후보 (candidate) partition 으로 하자</li>
+<li><span class="math inline">\(f_{ij} = f_{ij}(\mathcal C)\)</span>는 <span class="math inline">\(C_i\)</span> 에 있던 vertex 들을 <span class="math inline">\(C_j\)</span> 에 있는 vertex 들과 연결시키는 (오리지널 네트워크의) edge 들의 fraction</li>
+</ul>
 <p>이때 <span class="math inline">\(\mathcal C\)</span>의 <strong>modularity</strong>는</p>
 <p><span class="math display">\[
 \mod(\mathcal C) = \sum_{k=1}^K \left[ f_{kk}(\mathcal C) - f_{kk}^\ast \right]
 \]</span></p>
 <ul>
 <li><span class="math inline">\(f_{kk}\)</span> 는 within <span class="math inline">\(C_k\)</span> 에서의 observed connections.</li>
-<li><span class="math inline">\(f_{kk}^\ast\)</span>는 random edge assignment의 몇몇 모델 이하에서의 <span class="math inline">\(f_{kk}\)</span>의 기댓값.</li>
+<li><span class="math inline">\(f_{kk}^\ast\)</span>는 random edge assignment의 몇몇 모델 이하에서의 <span class="math inline">\(f_{kk}\)</span>의 기댓값.
+<ul>
 <li><span class="math inline">\(f_{kk}^\ast\)</span>는 <span class="math inline">\(f_{k+} \cdot f_{+k}\)</span>이며 각각 <span class="math inline">\(f\)</span>의 k번째 rowsum과 colsum. 즉 <span class="math inline">\(f_{ij}\)</span>를 entry로 하는 <span class="math inline">\(K \times K\)</span> 매트릭스가 만들어짐.</li>
+</ul></li>
 </ul>
 <p><mark>
 This choice corresponds to a model in which a graph is constructed to have the same degree distribution as <span class="math inline">\(G\)</span>, but with edges otherwise placed at random, without respect to the underlying partition elements dictated by <span class="math inline">\(C\)</span>.
@@ -1119,7 +1143,7 @@ FIGURE 7.10: Fiedler vector and its corresponding partition
 <p><span class="math display">\[
 r_a = \frac{\sum_{i}f_{ii} - \sum_i f_{x+}f_{+y}}{1 - \sum_if_{x+}f_{+y}}
 \]</span></p>
-<p><mark>where fij is the fraction of edges in G that join a vertex in the i-th category with a vertex in the jth category, and fi+ and f+i denote the ith marginal row and column sums, respectively, of the resulting matrix f.</mark></p>
+<p><mark>where <span class="math inline">\(f_{ij}\)</span> is the fraction of edges in <span class="math inline">\(G\)</span> that join a vertex in the <span class="math inline">\(i\)</span>-th category with a vertex in the jth category, and <span class="math inline">\(f_{i+}\)</span> and <span class="math inline">\(f_{+i}\)</span> denote the ith marginal row and column sums, respectively, of the resulting matrix <span class="math inline">\(f\)</span>.</mark></p>
 <p>이때 <span class="math inline">\(-1 \le r_a \le 1\)</span></p>
 <p>– It is equal to zero when the mixing in the graph is no different from that obtained through a random assignment of edges that preserves the marginal degree distribution.
 – It is equal to one when there is perfect assortative mixing (i.e., when edges only connect vertices of the same category).

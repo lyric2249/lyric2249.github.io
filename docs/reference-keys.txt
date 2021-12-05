@@ -388,8 +388,8 @@ model-degeneracy
 parameter-estimation-of-ergm
 current-methods-for-ergm
 approximation-based-algorithm
-maximum-pseudo-likelihood-estimation
-mcmcmle
+maximum-pseudo-likelihood-estimation-mple
+mcmc-mle
 mcmc-stochastic-approximation
 auxiliary-variable-mcmc-based-approaches
 exchange-algorithm-2
@@ -402,12 +402,12 @@ trajectory-averaging-estimator
 numerical-examples
 conclusion
 ergm-for-dynamic-networks
-temporal-ergm
+temporal-ergm-tergm-t-ergm
 network-statistics-for-temporal-ergm
 estimation-1
 degeneracy-of-temporal-ergms
 assessing-statistic-importance-and-quality-of-fit
-separable-temporal-ergm
+separable-temporal-ergm-stergm-st-ergm
 temporal-ergm-interpretation
 application-study
 conclusion-1

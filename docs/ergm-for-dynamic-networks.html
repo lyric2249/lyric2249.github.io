@@ -424,8 +424,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks</a>
 <ul>
-<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM</a></li>
-<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM</a></li>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)</a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models</a>
 <ul>
@@ -568,14 +568,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">7.7</span> ERGM for Dynamic Networks</h2>
 <p><pic></p>
 <p>However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure</p>
-<p><br>
-<br>
-<br></p>
-<p><br>
-<br>
-<br></p>
-<div id="temporal-ergm" class="section level3" number="7.7.1">
-<h3><span class="header-section-number">7.7.1</span> Temporal ERGM</h3>
 <ul>
 <li><strong>ERGM → TERGM → STERGM</strong></li>
 </ul>
@@ -583,18 +575,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 P_{\eta, g} \Big ( Y^t = y^t \Big | Y^{t-1} \; \; ; \; \; \theta \Big ) = \frac{\exp \Big \{ \eta(\theta) \cdot g(y^t, y^{t-1})\Big  \}}{c_{\eta, h}(\theta, y^{t-1})}
 \]</span></p>
-<ul>
-<li><strong>TERGM: Temporal ERGM</strong></li>
-</ul>
-<p>시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 <strong>Markov assumption</strong> 적용. 이는 곧, <span class="math inline">\(A^t\)</span>가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 <span class="math inline">\(A^{t-1}\)</span> 의 값이 주어져 있다면, <span class="math inline">\(A^t\)</span> 는 <span class="math inline">\(A^1, \cdots, A^{t-2}\)</span> 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.</p>
+<p><br>
+<br>
+<br></p>
+<p><br>
+<br>
+<br></p>
+<div id="temporal-ergm-tergm-t-ergm" class="section level3" number="7.7.1">
+<h3><span class="header-section-number">7.7.1</span> Temporal ERGM (TERGM, T ERGM)</h3>
+<p>시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 <strong>Markov assumption</strong> 적용.</p>
+<p>이는 곧, <span class="math inline">\(A^t\)</span>가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 <span class="math inline">\(A^{t-1}\)</span> 의 값이 주어져 있다면, <span class="math inline">\(A^t\)</span> 는 <span class="math inline">\(A^1, \cdots, A^{t-2}\)</span> 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.</p>
 <p><span class="math display">\[
 P\Big(A^2, A^3, \cdots, A^t \Big | A^1 \Big ) = P\Big(A^t \Big | A^{t-1} \Big ) P\Big(A^{t-1} \Big | A^{t-2} \Big ) \cdots P\Big(A^2 \Big | A^1 \Big ) \tag{Temporal ERGM}
 \]</span></p>
 <p>마르코프 가정이 주어져 있음을 고려하면, evolving 네트워크 전반에 대해 ERGM 을 일반화하는 방법이란 <span class="math inline">\(A^t \vert A^{t-1}\)</span> 가 ERGM 표현법을 채택했음을 가정하는 것. <mark>to assume <span class="math inline">\(A^t \vert A^{t-1}\)</span> admits an ERGM representation.</mark></p>
-<p>함수 <span class="math inline">\(\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k\)</span> 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 (<span class="math inline">\(t\)</span>, <span class="math inline">\(t-1\)</span> 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 <span class="math inline">\(\theta \in \mathbb R^k\)</span> 는 이하와 같은 conditional pdf를 갖는다.</p>
+<p>함수 <span class="math inline">\(\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k\)</span> 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 (<span class="math inline">\(t\)</span>, <span class="math inline">\(t-1\)</span> 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 <span class="math inline">\(\theta \in \mathbb R^k\)</span> 는 이하와 같은 conditional pdf를 가지며, <mark><span class="math inline">\(\theta_i\)</span> 는 곧 tendency to have more <span class="math inline">\(S_i\)</span> network statistics as time evolves.</mark></p>
 <p><span class="math display">\[
 P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \exp \left\{ \theta&#39; \Psi \left ( A^t, A^{t-1} \right ) \right\}
 \]</span></p>
+<p>joint likelihood 에서 <span class="math inline">\(\theta &#39;\)</span> 는, as time evolves, how likely to have this network statistics.</p>
 <p>특히 우리는 해당 모델에서 이하와 같은 특수한 경우에 관심이 있다.</p>
 <p><span class="math display">\[
 \Psi \left ( A^t, A^{t-1} \right ) = \sum_{ij}\Psi_{ij} \left ( A^t_{ij}, A^{t-1} \right )
@@ -605,13 +604,14 @@ P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \
 <br></p>
 <div id="network-statistics-for-temporal-ergm" class="section level4" number="7.7.1.1">
 <h4><span class="header-section-number">7.7.1.1</span> Network Statistics for Temporal ERGM</h4>
+<p>여기서 4개의 network Statistics 를 제안하자. 여기서 <span class="math inline">\(n\)</span> 은 # of dyad.</p>
 <p>$$
 <span class="math display">\[\begin{align}
-\Psi_D \left ( A^t , A^{t-1}\right)
+S_D = \Psi_D \left ( A^t , A^{t-1}\right)
 
 &amp;=
 
-\frac{1}{n-1} \sum_{ij} A^t_{ij}
+\frac{1}{n-1} \sum_{ij = (i&lt;j)} A^t_{ij}
 
 \tag{Density}
 
@@ -656,11 +656,12 @@ n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
 \end{align}\]</span></p>
 <p>$$</p>
 <ol style="list-style-type: decimal">
-<li><strong>Density</strong> : 전체 네트워크에 들어있는 총 tie의 숫자.</li>
-<li><strong>Stability</strong> : t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성</li>
-<li><strong>Reciprocity</strong> : t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j→i 링크가 생겨날 경향</li>
-<li><strong>Transitivity</strong> : t-1 시점에 i→j와 j→k인 tie가 존재한다면, t에 i→k tie의 발생으로 이어지는 경향</li>
+<li><strong>Density</strong> : 전체 네트워크에 들어있는 총 tie의 숫자. 단순 density.</li>
+<li><strong>Stability</strong> : <span class="math inline">\(t-1\)</span> 시점에 존재했던 link가 <span class="math inline">\(t\)</span> 시점에도 여전히 존재하는 경향성</li>
+<li><strong>Reciprocity</strong> : <span class="math inline">\(t-1\)</span> 시점에 <span class="math inline">\(i\)</span> 에서 <span class="math inline">\(j\)</span> 로 향하는 link가 있었다면 <span class="math inline">\(t\)</span> 시점에 <span class="math inline">\(j→i\)</span> 링크가 생겨날 경향</li>
+<li><strong>Transitivity</strong> : <span class="math inline">\(t-1\)</span> 시점에 <span class="math inline">\(i→j\)</span> 와 <span class="math inline">\(j→k\)</span> 인 tie가 존재한다면, <span class="math inline">\(t\)</span> 에 <span class="math inline">\(i→k\)</span> tie의 발생으로 이어지는 경향</li>
 </ol>
+<p>Claim <strong>TERGM</strong> can avoid the <strong>model degeneracy</strong> problem: NOT CORRECT!!</p>
 <p><br>
 <br>
 <br></p>
@@ -761,20 +762,58 @@ Generosity</p>
 <br></p>
 </div>
 </div>
-<div id="separable-temporal-ergm" class="section level3" number="7.7.2">
-<h3><span class="header-section-number">7.7.2</span> Separable Temporal ERGM</h3>
-<p>STERGM = A Separable Model for Dynamic Network</p>
-<p>Dynamic: social networks that evolve over time
-Time(discrete): <span class="math inline">\(\cdots (t-2) → (t-1) → (t) → \cdots\)</span>
-Shows longitudinal properties based on the ERGM</p>
-<p>Separable
-formation : new ties
-duration : lasting ties</p>
+<div id="separable-temporal-ergm-stergm-st-ergm" class="section level3" number="7.7.2">
+<h3><span class="header-section-number">7.7.2</span> Separable Temporal ERGM (STERGM, ST ERGM)</h3>
+<ul>
+<li>STERGM = A Separable Model for Dynamic Network</li>
+<li>Dynamic: social networks that evolve over time</li>
+<li>Time(discrete): <span class="math inline">\(\cdots (t-2) → (t-1) → (t) → \cdots\)</span></li>
+</ul>
+<p>Shows longitudinal properties based on the ERGM</p>
+<ul>
+<li>Separable Temporal ERGM
+<ul>
+<li>formation of an edge: new ties</li>
+<li>duration of an edge: lasting ties</li>
+</ul></li>
+<li>즉, model formation / duration seperatively.</li>
+</ul>
 <div id="temporal-ergm-interpretation" class="section level4" number="7.7.2.1">
 <h4><span class="header-section-number">7.7.2.1</span> Temporal ERGM Interpretation</h4>
 <p>하지만 이때 패러미터 해석할 때 주의해야할 부분이 있음.</p>
-<p>Property1: incidence of ties (the rate at which new ties are formed)
-Property2: duration of ties (how long they tend to last once they do)</p>
+<ol style="list-style-type: decimal">
+<li>Property1: incidence of ties / tie formation (the rate at which new ties are formed)</li>
+</ol>
+<p><span class="math display">\[
+Y^+ = Y^{t-1} \cup Y^{t}
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Property2: duration of ties / tie dissolution (how long they tend to last once they do)</li>
+</ol>
+<p><span class="math display">\[
+Y^- = Y^{t-1} \cap Y^{t} \Rightarrow Y^t = Y^- \cup \Big( Y^+ \setminust Y^{t-1}\Big)
+\]</span></p>
+<p>given <span class="math inline">\(Y^{t-1}\)</span>, we assume <span class="math inline">\(Y^+\)</span> and <span class="math inline">\(Y^-\)</span> are conditionally independent.</p>
+<p><span class="math display">\[
+\begin{align}
+P(Y^+ = y^+ |  Y^{t-1} = y^{t-1} ; \theta^+) 
+= \frac{1}{\kappa(\theta^+} \exp \Big( \sum_{i=1}^P \theta_i^+ S_i^+(Y^+ , y^{t-1})\Big)
+\\
+P(Y^- = y^- |  Y^{t-1} = y^{t-1} ; \theta^-) 
+= \frac{1}{\kappa(\theta^-} \exp \Big( \sum_{i=1}^P \theta_i^- S_i^-(Y^- , y^{t-1})\Big)
+\end{align}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(S_i^\pm (Y^\pm , y^{t-1})\)</span> 는 <span class="math inline">\(S_i(y^\pm)\)</span>, <span class="math inline">\(S_i(y^{t-1})\)</span> 사이의 difference.</li>
+<li><span class="math inline">\(S_i(\cdot)\)</span> 는 ERGM 상에서의 아무 network statistics</li>
+</ul>
+<p><span class="math display">\[
+P(Y^t = y^t |  Y^{t-1} = y^{t-1})
+=
+P(Y^+ = y^+ |  Y^{t-1} = y^{t-1} ; \theta^+)
+\cdot 
+P(Y^- = y^- |  Y^{t-1} = y^{t-1} ; \theta^-)
+\]</span></p>
 <ul>
 <li>Network statstic</li>
 </ul>

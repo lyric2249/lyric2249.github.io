@@ -4,15 +4,14 @@
 
 
 
-1. **Approximation-based Algorithm**: <br> MCMC 샘플들로 likelihood function 을 최대화.
-	- Maximum Pseudo-likelihood Estimation (MPLE).
-	- Markov Chain Monte Carlo Maximum Likelihood Estimation (MCMCMLE).
-	- Markov Chain Monte Carlo Stochastic Approximation (MCMCSA).
-	- Varying Truncation Stochastic Approximation MCMC Method with Trajectory Averaging (VTSAMCMC).
+1. **Approximation-based Algorithm**: <br> MCMC 샘플들로 likelihood function 을 최대화. typically used in finding MLE.
+	- Maximum Pseudo-likelihood Estimation (MPLE, 1974).
+	- Markov Chain Monte Carlo Maximum Likelihood Estimation (MCMCMLE, 1994).
+	- Markov Chain Monte Carlo Stochastic Approximation (MCMCSA, 2002).
+		- 이 위까지로는 **model degeneracy issue** 를 해결하지 못했음. 아래의 VTSAMCMC 가서야 해결함.
+	- Varying Truncation Stochastic Approximation MCMC Method with Trajectory Averaging (VTSAMCMC, 2013).
 
-2. **Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm**: <br> 
-
-normalizing constant 를 근사하거나, normalizing constant ratio $\frac{\kappa(\theta)} {\kappa(\theta')}$ 를 cancel 하기 위해 auxiliary variable 들을 도입 (introduce). 베이지안 추론을 위해 사용.
+2. **Auxiliary Variable Markov Chain Monte Carlo (MCMC) Algorithm**: <br> normalizing constant 를 근사하거나, normalizing constant ratio $\frac{\kappa(\theta)} {\kappa(\theta')}$ 를 cancel 하기 위해 auxiliary variable 들을 도입 (introduce). 베이지안 추론을 위해 사용. Bayesian inference.
 	- The Exchange Algorithm.
 	- Auxiliary Variable Metropolis-Hasting Algorithm (AVMH).
 	- Adaptive Exchange Monte Carlo Algorithm (AEXMC).
@@ -25,37 +24,63 @@ normalizing constant 를 근사하거나, normalizing constant ratio $\frac{\kap
 
 ### Approximation-based Algorithm
 
-#### Maximum Pseudo Likelihood Estimation
+#### Maximum Pseudo Likelihood Estimation (MPLE)
 
 
-$A$ 내부의 성분 간의 의존성을 무시한 채로 조건부 likelihood 함수들의 series를 곱하는 것으로 likelihood 함수를 근사함. ERGMS 의 조건부이며 pseudo Likelihood 는 아래와 같음. 물론 이건 어디까지나 가장 간단한 방법으로서 제시되었을 뿐이고, 이 방법론은 의존성 구조를 완전히 무시했기 때문에 퍼포먼스가 구림.
+$A$ 내부의 성분 간의 의존성 (high-order dependence wihin network) 을 무시한 채로, conditional independence 를 가정하여 조건부 likelihood 함수들의 series를 곱하는 것으로 **pseudo-likelihood** 함수를 근사함. ERGMS 의 조건부이며 **pseudo-likelihood** 는 아래와 같음. 이렇게 근사한 **pseudo-likelihood** 로 maximum likelihood estimator 를 approximate. 물론 이건 어디까지나 가장 간단한 방법으로서 제시되었을 뿐이고, 이 방법론은 의존성 구조를 완전히 무시했기 때문에 퍼포먼스가 구림.
 
 
 $$
 \begin{align}
 &logit \Bigg \{ P_\theta \Big (X_{ij} = 1 \Big | X_{ij}^c = x_{ij}^c \Big ) \Bigg \} &&= \theta ' g(x_{ij}^c)
-
 \\
-
 \iff
-
 &\log PL(\theta, x) &&= \sum_{ij} \theta ' g(x_{ij}^c) \cdot x_{ij} - \sum_{ij}\log \left \{ 1+ \theta ' g(x_{ij}^c) \right \}
-
 \end{align}
+$$
+
+$$
+\begin{align}
+&logit \Bigg \{ P_\theta \Big (X_{ij} = 1 \Big | y_{ij}^c \Big ) \Bigg \} &&= \underbrace{\sum_{i=1}^P \theta_i ' S_i(y_{ij}^c)}_{\text{log of unnormalized density with \(y_{ij}^c\)}}
+\\
+\iff
+&\log PL(\theta, y) &&= \underbrace{\sum_{ij} \theta ' S(y_{ij}^c) \cdot y_{ij} - \sum_{ij}\log \left \{ 1+ \theta ' S(y_{ij}^c) \right \}}_{\text{not a proper likelihood}}
+\end{align}
+$$
+
+- advantage: simple one / don't need to generate auxiliary networks
+- disadvantage: parameter estimates is not good because MPLE ignores high-order depedence
+
+
+<br>
+<br>
+<br>
+
+
+#### MCMC MLE
+
+1. with initial guess of parameter -> generate auxiliary networks
+2. with auxiliary networks -> update parameter estimates
+
+패러미터 $\theta^{(0)}$ 에 대해 이하와 같은 initial guess 가진다고 하자.
+
+$$
+l(\theta) = \theta ' S(y) - \log k(\theta)\\
+l(\theta^{(0)}) = \theta^{(0)} ' S(y) - \log k(\theta^{(0)})
+$$
+
+$$
+l(\theta)-l(\theta^{(0)})=(\theta-\theta^{(0)})^{t}S(y)-\log \frac{\kappa(\theta)}{\kappa(\theta^{(0)}}
 $$
 
 
 
-<br>
-<br>
-<br>
-
-
-#### MCMCMLE
 
 distribution $f(x|\theta^{(0)})$ 에서 생산된 MC 샘플들로부터 $\kappa(θ)$ 근사. 이때 $\theta^{(0)}$ 는 $\theta$ 의 initial 측정값. MCMC 시뮬레이션을 통해 $f(x_{obs}|\theta^{(0)}$ 으로부터 랜덤샘플 $x_1 , \cdots, x_m$ 을 draw. 이 경우 log-ratio likelihood 는 $m \rightarrow \infty$ 에서 이하와 같이 근사 가능.
 
-$I(\theta)-I(\theta^{(0)})=(\theta-\theta^{(0)})^{t}g(x_{\mathrm{obs}})-\log\left[\frac{1}{m}\sum_{i=1}^{m}\exp\left\{(\theta-\theta^{(0)})^{t}g(x_{i})\right\}\right],$
+$$
+I(\theta)-I(\theta^{(0)})=(\theta-\theta^{(0)})^{t}g(x_{\mathrm{obs}})-\log\left[\frac{1}{m}\sum_{i=1}^{m}\exp\left\{(\theta-\theta^{(0)})^{t}g(x_{i})\right\}\right]
+$$
 
 따라서 $\theta$ 를 경유해서 $I(\theta)-I(\theta^{(0)})$ 를 극대화하는 작업을 통해 결국 $\hat \theta_{MLE}$ 를 근사할 수 있게 된다.
 

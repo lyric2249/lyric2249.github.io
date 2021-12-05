@@ -4,18 +4,6 @@
 
 However, a need for statistical models representing the evolving phenomena ⇒ ”Dynamic Models” with a temporal structure
 
-<br>
-<br>
-<br>
-
-<br>
-<br>
-<br>
-
-
-
-
-### Temporal ERGM
 
 - **ERGM → TERGM → STERGM**
 
@@ -27,9 +15,23 @@ $$
 
 
 
-- **TERGM: Temporal ERGM**
+<br>
+<br>
+<br>
 
-시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 **Markov assumption** 적용. 이는 곧, $A^t$가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 $A^{t-1}$ 의 값이 주어져 있다면, $A^t$ 는 $A^1, \cdots, A^{t-2}$ 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.
+<br>
+<br>
+<br>
+
+
+
+
+### Temporal ERGM (TERGM, T ERGM)
+
+
+시간 t에서의 네트워크는, t-1 시점의 (어쩌면 t-2도 가능하고) 네트워크로 조건을 건 ERGM 으로부터의 단일 생산으로 생각될 수 있음. 소셜 네트워크의 변화를 간단히 하기 위해 **Markov assumption** 적용. 
+
+이는 곧, $A^t$가 t 시점에서의 단일-관계 소셜 네트워크의 weight 매트릭스를 표현하고, 우리에게 $A^{t-1}$ 의 값이 주어져 있다면, $A^t$ 는 $A^1, \cdots, A^{t-2}$ 으로부터는 독립임을 의미한다는 뜻. 수식으로 표현하면 아래와 같다.
 
 $$
 P\Big(A^2, A^3, \cdots, A^t \Big | A^1 \Big ) = P\Big(A^t \Big | A^{t-1} \Big ) P\Big(A^{t-1} \Big | A^{t-2} \Big ) \cdots P\Big(A^2 \Big | A^1 \Big ) \tag{Temporal ERGM}
@@ -39,11 +41,13 @@ $$
 
 
 
-함수 $\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k$ 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 ($t$, $t-1$ 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 $\theta \in \mathbb R^k$ 는 이하와 같은 conditional pdf를 갖는다.
+함수 $\Psi : \mathbb R_{n \times n} \times \mathbb R_{n \times n} \rightarrow \mathbb R^k$ 를 생각해보자. 이는 시간적으로 인접한 2개의 네트워크 ($t$, $t-1$ 등) 에 걸친 cliques 들의 잠재적은 potential로 인지될 수 있다. 이때 패러미터 벡터 $\theta \in \mathbb R^k$ 는 이하와 같은 conditional pdf를 가지며, <mark>$\theta_i$ 는 곧 tendency to have more $S_i$ network statistics as time evolves.</mark>
 
 $$
 P \bigg( A^t \Big | A^{t-1}, \theta \bigg) = \frac{1}{\kappa(\theta, A^{t-1})} \exp \left\{ \theta' \Psi \left ( A^t, A^{t-1} \right ) \right\}
 $$
+
+joint likelihood 에서 $\theta '$ 는, as time evolves, how likely to have this network statistics.
 
 특히 우리는 해당 모델에서 이하와 같은 특수한 경우에 관심이 있다.
 
@@ -63,14 +67,15 @@ $$
 
 #### Network Statistics for Temporal ERGM
 
+여기서 4개의 network Statistics 를 제안하자. 여기서 $n$ 은 # of dyad.
 
 $$
 \begin{align}
-\Psi_D \left ( A^t , A^{t-1}\right)
+S_D = \Psi_D \left ( A^t , A^{t-1}\right)
 
 &=
 
-\frac{1}{n-1} \sum_{ij} A^t_{ij}
+\frac{1}{n-1} \sum_{ij = (i<j)} A^t_{ij}
 
 \tag{Density}
 
@@ -117,11 +122,13 @@ n \left ( \frac{\sum_\limits{ijk} A_{ik}^t A_{ij}^{t-1}A_{jk}^{t-1}}
 $$
 
 
-1. **Density**		: 전체 네트워크에 들어있는 총 tie의 숫자. 
-2. **Stability**	: t-1 시점에 존재했던 link가 t 시점에도 여전히 존재하는 경향성
-3. **Reciprocity**	: t-1 시점에 i에서 j로 향하는 link가 있었다면 t 시점에 j→i 링크가 생겨날 경향
-4. **Transitivity**	: t-1 시점에 i→j와 j→k인 tie가 존재한다면, t에 i→k tie의 발생으로 이어지는 경향
+1. **Density**		: 전체 네트워크에 들어있는 총 tie의 숫자. 단순 density.
+2. **Stability**	: $t-1$ 시점에 존재했던 link가 $t$ 시점에도 여전히 존재하는 경향성
+3. **Reciprocity**	: $t-1$ 시점에 $i$ 에서 $j$ 로 향하는 link가 있었다면 $t$ 시점에 $j→i$ 링크가 생겨날 경향
+4. **Transitivity**	: $t-1$ 시점에 $i→j$ 와 $j→k$ 인 tie가 존재한다면, $t$ 에 $i→k$ tie의 발생으로 이어지는 경향
 
+
+Claim **TERGM** can avoid the **model degeneracy** problem: NOT CORRECT!!
 
 <br>
 <br>
@@ -272,24 +279,62 @@ Generosity
 
 
 
-### Separable Temporal ERGM
+### Separable Temporal ERGM (STERGM, ST ERGM)
 
-STERGM = A Separable Model for Dynamic Network
+- STERGM = A Separable Model for Dynamic Network
+- Dynamic: social networks that evolve over time
+- Time(discrete): $\cdots (t-2) → (t-1) → (t) → \cdots$
 
-Dynamic: social networks that evolve over time
-Time(discrete): $\cdots (t-2) → (t-1) → (t) → \cdots$
 Shows longitudinal properties based on the ERGM
 
-Separable
-	formation : new ties
-	duration : lasting ties
+- Separable Temporal ERGM
+	- formation of an edge: new ties
+	- duration of an edge: lasting ties
+- 즉, model formation / duration seperatively.
+
 
 ####  Temporal ERGM Interpretation
 
 하지만 이때 패러미터 해석할 때 주의해야할 부분이 있음.
 
-Property1: incidence of ties (the rate at which new ties are formed)
-Property2: duration of ties (how long they tend to last once they do)
+1. Property1: incidence of ties / tie formation (the rate at which new ties are formed)
+
+$$
+Y^+ = Y^{t-1} \cup Y^{t}
+$$
+
+2. Property2: duration of ties / tie dissolution (how long they tend to last once they do)
+
+
+$$
+Y^- = Y^{t-1} \cap Y^{t} \Rightarrow Y^t = Y^- \cup \Big( Y^+ \setminust Y^{t-1}\Big)
+$$
+
+
+given $Y^{t-1}$, we assume $Y^+$ and $Y^-$ are conditionally independent.
+
+$$
+\begin{align}
+P(Y^+ = y^+ |  Y^{t-1} = y^{t-1} ; \theta^+) 
+= \frac{1}{\kappa(\theta^+} \exp \Big( \sum_{i=1}^P \theta_i^+ S_i^+(Y^+ , y^{t-1})\Big)
+\\
+P(Y^- = y^- |  Y^{t-1} = y^{t-1} ; \theta^-) 
+= \frac{1}{\kappa(\theta^-} \exp \Big( \sum_{i=1}^P \theta_i^- S_i^-(Y^- , y^{t-1})\Big)
+\end{align}
+$$
+
+- $S_i^\pm (Y^\pm , y^{t-1})$ 는 $S_i(y^\pm)$, $S_i(y^{t-1})$ 사이의 difference.
+- $S_i(\cdot)$ 는 ERGM 상에서의 아무 network statistics
+
+$$
+P(Y^t = y^t |  Y^{t-1} = y^{t-1})
+=
+P(Y^+ = y^+ |  Y^{t-1} = y^{t-1} ; \theta^+)
+\cdot 
+P(Y^- = y^- |  Y^{t-1} = y^{t-1} ; \theta^-)
+$$
+
+
 
 - Network statstic
 

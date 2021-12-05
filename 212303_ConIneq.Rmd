@@ -176,6 +176,14 @@ $$
 
 
 
+
+
+
+
+
+
+
+
 ###  Quadratic form
 
 $Q$ 가 symmetric Matrix 일 때 이하를 정의할 수 있다.

@@ -20,12 +20,15 @@
 
 
 <div class="math-left-align">
-$$a+b=c$$
+$$
+a+b=c
+$$
 </div>
 
 <div class="math-left-align">
 
 $$
+\style{text-align:right;}
 \begin{alignat}{2}
 
 y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
