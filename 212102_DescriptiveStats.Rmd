@@ -123,6 +123,7 @@ $$
 \begin{alignat}{2}
 
 &C_{CL} &&=\frac{1}{\sum\limits_{u \in V} dist(u,v)}  \tag{closeness}
+\\
 0 \le & &&=\frac{1}{\sum\limits_{u \in V} dist(u,v)} \cdot (N_v-1) \le 1 \tag{normalized}
 
 \end{alignat}
