@@ -706,7 +706,7 @@ $$
 &amp;&amp;\leq4 \cdot &amp;&amp;\sup\limits_{u\in\mathrm{R}^{r}:\|u\|_{2}=1}(\tilde{\epsilon}^{\mathsf{T}}u)^{2}
 \end{alignat}\]</span>
 $$</p>
-<p>since <span class="math inline">\(\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1\)</span>,<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> <span class="math inline">\(\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}\)</span>.</p>
+<p>since <span class="math inline">\(\forall u \in \mathbb S^{r-1} : u^{\textsf{T}}\Psi^{\textsf{T}}\Psi u=u^{\textsf{T}}u=1\)</span>,<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> <span class="math inline">\(\forall s \in \mathbb R: \mathbb{E}[e^{s{\tilde{\epsilon}}^{\top}}u]=\mathbb{E}[e^{s\epsilon^{\top}\Psi u}]\leq e^{{\frac{s^{2}\sigma^2}{2}}}\)</span>.</p>
 <p>이는 곧 <span class="math inline">\(\tilde \epsilon \in SG(\sigma^2)\)</span> 이라는 소리. 이때 <span class="math inline">\(X\sim SG(\sigma^2) \Longrightarrow Var(X) \le \sigma^2\)</span> (Lecture 2). 따라서 CS ineq. 에 의해 <span class="math inline">\(\mathbb{E}\left[\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} ({\tilde{\epsilon}}^{\mathsf{T}}u)^{2}\right] \leq\sum\limits_{i=1}^{r}\mathbb{E}\left[{\widetilde{\epsilon}}_{i}^{2}\right]\leq r\sigma^{2}\)</span>. 이것이 thm 8.2. 의 첫번째 claim 을 증명.</p>
 <p>bound in Probability 를 보이기 위해, 우리는 standard discretization argument 를 사용. <span class="math inline">\(N_{\frac12}\)</span> 를 <span class="math inline">\(\mathbb S^{r-1}\)</span> 의 <span class="math inline">\(\frac12\)</span>-covering 이라고 하자. 그러면 Lecture 4 에서의 결과물을 사용하는 것으로 <span class="math inline">\(\sup\limits_{u\in\mathbb{R}^{r}:\|u\|_{2}=1} \widetilde{\epsilon}^{\top}u\le2\operatorname*{max}_{u\in{N}_{\frac12}}\widetilde{\epsilon}^{\top}u\)</span> 가 얻어진다.</p>
 <p>따라서 이하가 성립하며 이를 만족시키는 임의의 <span class="math inline">\(\delta\)</span> 를 잡았을때 이에서 파생되는 임의의 <span class="math inline">\(t\)</span> 를 얻는다.</p>
@@ -968,8 +968,8 @@ $$</p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="10">
-<li id="fn10"><p><span class="math inline">\(\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}\)</span><a href="linear-regression.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<ol start="11">
+<li id="fn11"><p><span class="math inline">\(\mathbb S^{r-1} =\{x\in\mathbb{R}^{r}: \|x\|_2 = 1\}\)</span><a href="linear-regression.html#fnref11" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

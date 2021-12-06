@@ -424,7 +424,7 @@ identifiability-of-positions-and-cluster-labels
 additive-and-multiplicative-effects-network-models
 introduction-3
 social-relations-regression
-addictive-effect-model-iid-model
+additive-effect-model-iid-model
 multiplicative-effects-models
 inference-via-posterior-approximation
 discussion-and-example-with-r

@@ -577,69 +577,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="social-relations-regression" class="section level3" number="7.9.2">
 <h3><span class="header-section-number">7.9.2</span> Social Relations Regression</h3>
-<p><br>
-<br>
-<br></p>
-<div class="math-left-align">
-<p><span class="math display">\[
-a+b=c
-\]</span></p>
-</div>
-<div class="math-left-align">
+<ol style="list-style-type: decimal">
+<li>Social Relations Regression
+<ul>
+<li>additive Effect Model (ANOVA Model): iid model</li>
+<li>Social Relations Model
+<ul>
+<li>Social Relations Covariance Model</li>
+</ul></li>
+<li>Social Relations Regression Model</li>
+</ul></li>
+<li>Multiplicative Effect Models
+<ul>
+<li>additive &amp; Multiplicative Effect Models</li>
+</ul></li>
+</ol>
 <p>$$
+<span class="math display">\[\begin{align}
 
+&amp;y_{i,j} &amp;&amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM, ANOVA model}
+\\
+&amp;y_{i,j} &amp;&amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
+\\
+&amp;y_{i,j} &amp;&amp;= \beta&#39; \mathbf x_{i,j} &amp;&amp; +\mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
+\\
+&amp;y_{i,j} &amp;&amp;=\beta^{T} \mathbf x_{i,j} &amp;&amp; +\mathbf u_{i}^{T} \mathbf v_{j}  &amp;&amp; +{a}_{i}+b_{j}+\epsilon_{i,j} \tag{AMEM}
+\\
+
+&amp; \tag{Random effects AMEM}
+
+\\
+
+&amp;V &amp;&amp;=M(X,\beta)+U V^{T} &amp;&amp;  &amp;&amp; +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
+
+\end{align}\]</span>
+$$</p>
+<div id="additive-effect-model-iid-model" class="section level4" number="7.9.2.1">
+<h4><span class="header-section-number">7.9.2.1</span> additive Effect Model (iid model)</h4>
+<p>$$
 <span class="math display">\[\begin{alignat}{2}
 
-y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
+y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM, ANOVA model}
 \\
 y_{i,j} &amp;= &amp;&amp;\; \; \; \; \mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
 \\
 y_{i,j} &amp;= \beta&#39; \mathbf x_{i,j} &amp;&amp; +\mu &amp;&amp; +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
-\\
-y_{i,j} &amp;=\beta^{T} \mathbf x_{i,j} &amp;&amp; +\mathbf u_{i}^{T} \mathbf v_{j}  &amp;&amp; +{a}_{i}+b_{j}+\epsilon_{i,j}, \; \; \; \; \; \; \; \; \; \; \; \; \; \; 
-
-
-&amp;&amp; \forall i&lt;j: &amp;&amp;\left(\epsilon_{i,j},\epsilon_{j,i}\right) &amp;&amp;\overset{iid}{\sim} 
-
-
-N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 &amp; \rho \\ \rho &amp; 1 \end{pmatrix} \Bigg) \tag{AMEM}
-
-\\
-
-
-&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp;(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
-&amp;&amp;\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
-
-\\
-
-&amp; &amp;&amp; &amp;&amp; &amp;&amp; &amp;&amp;(a_1 , b_1), \cdots, (a_n , b_n) 
-&amp;&amp;\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AMEM}
-
-\\
-
-V &amp;=M(X,\beta)+U V^{T} &amp;&amp;  &amp;&amp; +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
-
-
-\end{alignat}\]</span></p>
-<p>$$</p>
-</div>
-<p><span class="math display">\[
-P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i} \Bigg\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
-\]</span></p>
-<div class="line-block">| <span class="math display">\[ | \]</span> | [^Combines a linear regression model with the covariance structure of the SRM as follows, where <span class="math inline">\(\mathbf x_{i,j}\)</span> is <span class="math inline">\(p\)</span>−dimensional vector of regressors and <span class="math inline">\(\beta\)</span> is a vector of regression coefficient to be estimated.] |</div>
-<div id="addictive-effect-model-iid-model" class="section level4" number="7.9.2.1">
-<h4><span class="header-section-number">7.9.2.1</span> Addictive Effect Model (iid model)</h4>
+\end{alignat}\]</span>
+$$</p>
+<ul>
+<li><span class="math inline">\(a_i\)</span>: sender effect (sociomatrix 의 rowmean)</li>
+<li><span class="math inline">\(b_j\)</span>: receiver effect (sociomatrix 의 colmean)</li>
+</ul>
 <table>
 <colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
+<col width="12%" />
+<col width="29%" />
+<col width="29%" />
+<col width="29%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="center"></th>
-<th align="center">Addictive Effect Model (iid model)</th>
+<th align="center">additive Effect Model (iid model)</th>
 <th align="center">Social Relations Model (SRM)</th>
 <th align="center">Social Relations Regression Model</th>
 </tr>
@@ -648,28 +647,10 @@ P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b
 <tr class="odd">
 <td align="center">Goal</td>
 <td align="center">Consider Dependency</td>
-<td align="center">Social Relations Model</td>
-<td align="center">Quantify the association between a particular dyadic variable and some other dyadic or nodal variables</td>
+<td align="center">sender-receiver correlations (dyadic correlations)</td>
+<td align="center">Quantify the association between a particular dyadic variable and some other dyadic or nodal variables<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></td>
 </tr>
 <tr class="even">
-<td align="center"><span class="math inline">\(a_i\)</span></td>
-<td align="center">sender effect (row means of the sociomatrix)</td>
-<td align="center">zero-mean rv</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="center"><span class="math inline">\(b_j\)</span></td>
-<td align="center">receiver effect (column means of the sociomatrix)</td>
-<td align="center">zero-mean rv</td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="center"><span class="math inline">\(\epsilon_{i,j}\)</span></td>
-<td align="center">-</td>
-<td align="center">zero-mean rv</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
 <td align="center"></td>
 <td align="center"></td>
 <td align="center">(2)</td>
@@ -678,7 +659,7 @@ P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b
 </tbody>
 </table>
 <ol start="2" style="list-style-type: decimal">
-<li>with effects otherwise being independent</li>
+<li>SRM 에서 <span class="math inline">\(a_i &#39; s , b_j s , \epsilon_{ij} &#39;\)</span> 들은 mean-zero random variable 들. with effects otherwise being independent 이며 이하를 따름.</li>
 </ol>
 <p><span class="math display">\[
 V a r\left[\begin{pmatrix}a_i \\ b_j\end{pmatrix}\right]=\Sigma={\left(\begin{array}{l l}{\sigma_{a}^{2}}&amp;{\sigma_{a b}}\\ {\sigma_{a b}}&amp;{\sigma_{b}^{2}}\end{array}\right)}
@@ -690,6 +671,30 @@ V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\
 <li><span class="math inline">\(b_j\)</span>: receiver effect (column means of the sociomatrix)</li>
 </ul>
 <p>목표: dependency 고려</p>
+<ul>
+<li><strong>Social Relations Covariance Model</strong>:</li>
+</ul>
+<p>You decompese the variance of <span class="math inline">\(y_{ij}\)</span> into three parts:</p>
+<p><span class="math display">\[
+Var(y_{ij}) = 
+\underbrace{\sigma^2_a }_{\text{variance of sender}}
++ 
+\underbrace{\sigma^2_b }_{\text{variance of receiver}}
++ 
+\underbrace{\sigma^2 }_{\text{common variance}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(Cov(y_{ij}, y_{ik}) = \sigma_a^2\)</span>: within-row covariance</li>
+<li><span class="math inline">\(Cov(y_{ij}, y_{kj}) = \sigma_b^2\)</span> : within-col covariance</li>
+<li><span class="math inline">\(Cov(\underbrace{y_{ij}, y_{jk}}_{i\rightarrow j \rightarrow k}) = \sigma_{ab}\)</span>: row-col covariance</li>
+<li><span class="math inline">\(Cov(\underbrace{y_{ij}, y_{ji}}_{ i\rightarrow j \\j \rightarrow i}) = 2 \sigma_{ab} + \rho \sigma^2\)</span>: row-col covariance + reciprocity</li>
+</ul>
+<p>with all other Cov b/w elements of <span class="math inline">\(\bf Y\)</span> being 0.</p>
+<ul>
+<li><strong>Social Relations Regression Model</strong>:</li>
+</ul>
+<p>linear regression model을 SRM 의 covariance structure 를 사용하여 combine. 그 결과값이 가장 위의 수식. 여기서 <span class="math inline">\(x_{ij}\)</span> 는 regressor 들의 <span class="math inline">\(p\)</span>-dimensional vector 이며, <span class="math inline">\(\beta\)</span> 는 estimate 된 regression coefficient 들의 vector.</p>
+<p>한계: high-order network pattern 을 드러내는 것은 불가능. (lack of fit)</p>
 <p><br>
 <br>
 <br></p>
@@ -700,6 +705,219 @@ V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\
 </div>
 <div id="multiplicative-effects-models" class="section level3" number="7.9.3">
 <h3><span class="header-section-number">7.9.3</span> Multiplicative Effects Models</h3>
+<p><span class="math display">\[
+\begin{alignat}{2}
+y_{i,j} &amp;=\beta^{T} \mathbf x_{i,j} &amp;&amp; +\mathbf u_{i}^{T} \mathbf v_{j}  &amp;&amp; +{a}_{i}+b_{j}+\epsilon_{i,j} \tag{AMEM}
+\\
+\tag{Random effects AMEM}
+\\
+V &amp;=M(X,\beta)+U V^{T} &amp;&amp;  &amp;&amp; +a{1}^{T}+1b^{T}+E \tag{GS for AME}
+\end{alignat}
+\]</span></p>
+<table>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">Goal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Multiplicative Effect Models</td>
+<td align="center">Random effect AME model</td>
+</tr>
+<tr class="even">
+<td align="center">Capture higher-order network patterns</td>
+<td align="center">prevent overfitting &amp; provide summaries of certain network dependencies</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[
+\begin{align}
+y_{i,j} &amp;=\beta^{T} \mathbf x_{i,j}  +\mathbf u_{i}^{T} \mathbf v_{j}   +{a}_{i}+b_{j}+\epsilon_{i,j}, 
+&amp;&amp; \forall i&lt;j: \left(\epsilon_{i,j},\epsilon_{j,i}\right) \overset{iid}{\sim} 
+N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 &amp; \rho \\ \rho &amp; 1 \end{pmatrix} \Bigg) \tag{AMEM}
+\end{align}
+\]</span></p>
+<ul>
+<li><strong>Random effects AME model</strong></li>
+</ul>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp;(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
+&amp;&amp;\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
+\\
+&amp; (a_1 , b_1), \cdots, (a_n , b_n) 
+&amp;&amp;\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AME}
+\end{alignat}
+\]</span></p>
+<ul>
+<li>Transformation Models for Non-Gaussian:</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Continuous dyadic variable</th>
+<th align="center"></th>
+<th align="center">Discrete dyadic variable</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Gaussian AME model</td>
+<td align="center">Binary (not friend / friend)</td>
+<td align="center">Probit AME model</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center">Ordinary (dislike / neutral / like)</td>
+<td align="center">Ordinal Probit AME model</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>continuous 에는 binary, ordinary 구분 없음.</li>
+</ul>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">ERGM</th>
+<th align="center">Latent Variable Models<br>(latent network)<br>(Stochastic Block Model)</th>
+<th align="center">AME</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">global properties</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center">evaluating specific <strong>global</strong> network patterns of interest simply by including an appropriate sufficient statistic in the model</td>
+<td align="center">Description of <strong>local</strong>, micro-level patterns of relationships among specific nodes</td>
+<td align="center"><strong>global patterns</strong> via estimating the parameters <span class="math inline">\((\beta,\underbrace{\Sigma}_{\substack{\text{Cov of}\\\text{mean effect}}}, \underbrace{\Psi}_{\substack{\text{Cov of}\\\text{high-order}}}, \underbrace{\sigma^2 , \rho}_{\text{error}})\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">local properties</td>
+<td align="center">local patterns via estimating the node-specific effects <span class="math inline">\((\underbrace{a_i , b_i}_{\text{mean effects}} , \underbrace{\bf u_i , \bf v_i}_{\substack{\text{high-order}\\ \text{dependency}}})\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Comparisons b/w ERGMs vs. SRM</strong></li>
+</ul>
+<p><span class="math display">\[
+P(Y)\sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i}
+\bigg
+\{a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i}
+\bigg
+\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
+\tag{p2 model}
+\]</span></p>
+<ul>
+<li>p1 model:
+<ul>
+<li><span class="math inline">\(\sum_{i,j}y_{i,j}\)</span>: sufficient statics, the total # of ties</li>
+<li><span class="math inline">\(\sum_{i,j}y_{i,j}y_{j,i}\)</span>: the # of reciprocated ties</li>
+<li><span class="math inline">\(\sum_{j}y_{i,j}\)</span>, <span class="math inline">\(\sum_{j}y_{j,i}\)</span>: in- &amp; out-degrees</li>
+</ul></li>
+<li>SRM
+<ul>
+<li><span class="math inline">\(\mu\)</span>: overall mean of the relations</li>
+<li><span class="math inline">\(\rho\)</span>: dyadic correlations</li>
+<li><span class="math inline">\(a_i , b_i\)</span>: Heterogeneity in row &amp; col means</li>
+</ul></li>
+</ul>
+<p><strong>p2 model</strong> extends the <strong>p1 model</strong> by including regressors (as does the SRRM). Treats the node-level parameters <span class="math inline">\(a_i\)</span> and <span class="math inline">\(b_i\)</span> as potentially correlated random effects (as do SRM and SRRM).</p>
+<p><strong>P1 model</strong> is unable to describe more complex forms of dependency such as transitivity or clustering.</p>
+<p><strong>P2 model</strong> or <strong>SRRM</strong> can represent some degree of higher-order dependency, still exhibit lack-of-fit and so more complex models are desired.</p>
+<p><strong>ERGMs</strong> approach to describe higher-order dependencies is to include additional sufficient statistics. However, it can lead to model degeneracy - How to solve?</p>
+<ol style="list-style-type: decimal">
+<li>Constraining the parameter space</li>
+<li>Finding alternative summary statistics</li>
+</ol>
+<hr />
+<p>AME Approach to Represent Complex Patterns</p>
+<p>AME 는 low-rank Matrix <span class="math inline">\(UV&#39;\)</span> 를 사용하여 complex pattern 표시. <span class="math inline">\(Y_{n \times n}\)</span> 는 <span class="math inline">\(U_{n \times r}\)</span> 과 <span class="math inline">\(V_{n \times r}\)</span> 를 사용하여 <span class="math inline">\(UV&#39;\)</span> 의 형으로 arbitrary degree of precision 으로 approximate 가능. AME model 은 observed network 의 model-based low-dimensional 표현 (representation) 을 제공함.</p>
+<p><strong>Limitation of Multiplicative Effects Approach</strong></p>
+<p>Not all higher-order moments can be represented by the random effects model for the multiplicative effects (Gaussian random effect model)</p>
+<p>예를 들어 dimenison <span class="math inline">\(r=1\)</span> 일 때,</p>
+<p><span class="math display">\[
+\begin{alignat}{2}
+&amp;E[\gamma_{i,j}\gamma_{j,k}\gamma_{k,l}\gamma_{l,i}&amp;&amp;]&amp;&amp;=tr(\Psi^4_{uv}) = \sigma^4_{uv}
+\\
+&amp;E[\gamma_{i,j}\gamma_{j,k}\gamma_{k,l}&amp;&amp;] &amp;&amp;=tr(\Psi^3_{uv}) = \sigma^3_{uv}
+\end{alignat}
+\]</span></p>
+<p>These moments are not separately estimable, because <strong>both completely determined by the single parameter <span class="math inline">\(\sigma_{uv}\)</span></strong>. To separately estimate such moments requires the higher dimension, which is <strong>very tricky</strong>.</p>
+<p><strong>Pros of AME Models</strong></p>
+<p><strong>Multiplicative effects matrix</strong> <span class="math inline">\(UV&#39;\)</span> 는 sociomatrix <span class="math inline">\(Y\)</span> 의 reduced-rank representation 을 생산.</p>
+<p><span class="math inline">\(\Psi\)</span> 의 estimate 는 <span class="math inline">\(u_i\)</span> 와 <span class="math inline">\(v_i\)</span> 간의, network dependency 를 유도하는 것인, node heterogeneity 에 걸친 summary 를 제공한다.</p>
+<p>multiplicative effect 는 simple random effect model 보다 훨씬 더 넓은 range 의 pattern 을 설명해내는 것이 가능.</p>
+<p><strong>Cons of AME models</strong></p>
+<p><span class="math inline">\(\Psi\)</span> 의 estimate 는 imcomplete summary. 이는 오직 node heterogeneity effect 에 대한 (across) Covariance 를 설명해낼 뿐이다.</p>
+<p>potential network dependency 에 대한 제한된 summary 만을 제공.</p>
+<p>higher-dependency 는 다소 모호 (opaque) 한 채로 남음.</p>
+<p>목적이 특정한 종류의 higher-order network dependencies 를 측정하고자 하는 것이라면, <strong>ERMGs</strong> 쪽이 더욱 straightforward.</p>
+<table>
+<colgroup>
+<col width="17%" />
+<col width="41%" />
+<col width="41%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center">Block Model</th>
+<th align="center">Latent Distance Model</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Assumption</td>
+<td align="center">Each node belongs to an unobserved latent class or “block” “stochastic equivalence”</td>
+<td align="center">Each node has some unobserved location in a latent Euclidean “social space”</td>
+</tr>
+<tr class="even">
+<td align="center">Relations b/w nodes</td>
+<td align="center">two nodes are determined (statistically) by their block membership within-group density of ties is lower then b/w-group density</td>
+<td align="center">the strength of a relation (prob of tie) b/w two nodes is decreasing in the distance b/w them in latent space</td>
+</tr>
+<tr class="odd">
+<td align="center">how to define Membership</td>
+<td align="center">members of the same group with the same distribution of relationships to other nodes</td>
+<td align="center">closeness b/w two nodes</td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">useful when there exists subgroups of nodes with strong withi-group relationships</td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">latent 와 비교시, SBM 은 large number of block 요구</td>
+<td align="center">SBM 과 비교시, latent에서 social space 에서 같은 위치에 존재할 경우, 2개의 node 는 stochastically equivalent</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Limitation of Latent Variable Models</strong>
+Real networks exhibit combinations of stochastic equivalence and transitivity in varying amounts</p>
+<p>Providing incomplete description of the heterogeneity across nodes: How to solve?</p>
+<ul>
+<li>Latent variable models based on multiplicative effects</li>
+<li>Represent both types of network patterns</li>
+<li>Generalization of both models</li>
+</ul>
 <p><br>
 <br>
 <br></p>
@@ -709,6 +927,12 @@ V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\
 </div>
 <div id="inference-via-posterior-approximation" class="section level3" number="7.9.4">
 <h3><span class="header-section-number">7.9.4</span> Inference via Posterior Approximation</h3>
+<ul>
+<li>Gibbs Sampling for the AME
+<span class="math display">\[
+V =M(X,\beta)+U V^{T} +a{1}^{T}+1b^{T}+E \tag{GS for AME}
+\]</span></li>
+</ul>
 <p><br>
 <br>
 <br></p>
@@ -720,6 +944,12 @@ V a r\left[\begin{pmatrix}\epsilon_{i,j} \\ \epsilon_{j,i}\end{pmatrix}\right]=\
 <h3><span class="header-section-number">7.9.5</span> Discussion and Example with R</h3>
 
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>Combines a linear regression model with the covariance structure of the SRM as follows, where <span class="math inline">\(\mathbf x_{i,j}\)</span> is <span class="math inline">\(p\)</span>−dimensional vector of regressors and <span class="math inline">\(\beta\)</span> is a vector of regression coefficient to be estimated.<a href="additive-and-multiplicative-effects-network-models.html#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
             </section>
 

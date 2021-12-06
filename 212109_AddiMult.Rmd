@@ -14,87 +14,71 @@
 
 ### Social Relations Regression
 
-<br>
-<br>
-<br>
+1. Social Relations Regression
+	- additive Effect Model (ANOVA Model): iid model
+	- Social Relations Model
+		- Social Relations Covariance Model
+		
+	- Social Relations Regression Model
+2. Multiplicative Effect Models
+	- additive & Multiplicative Effect Models
 
-
-<div class="math-left-align">
-$$
-a+b=c
-$$
-</div>
-
-<div class="math-left-align">
 
 $$
-\style{text-align:right;}
+\begin{align}
+
+&y_{i,j} &&= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM, ANOVA model}
+\\
+&y_{i,j} &&= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
+\\
+&y_{i,j} &&= \beta' \mathbf x_{i,j} && +\mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
+\\
+&y_{i,j} &&=\beta^{T} \mathbf x_{i,j} && +\mathbf u_{i}^{T} \mathbf v_{j}  && +{a}_{i}+b_{j}+\epsilon_{i,j} \tag{AMEM}
+\\
+
+& \tag{Random effects AMEM}
+
+\\
+
+&V &&=M(X,\beta)+U V^{T} &&  && +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
+
+\end{align}
+$$
+
+
+
+
+
+#### additive Effect Model (iid model)
+
+
+$$
 \begin{alignat}{2}
 
-y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM}
+y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{AEM, ANOVA model}
 \\
 y_{i,j} &= &&\; \; \; \; \mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SRM}
 \\
 y_{i,j} &= \beta' \mathbf x_{i,j} && +\mu && +a_{i}+b_{j}+\epsilon_{i,j} \tag{SR Regression M}
-\\
-y_{i,j} &=\beta^{T} \mathbf x_{i,j} && +\mathbf u_{i}^{T} \mathbf v_{j}  && +{a}_{i}+b_{j}+\epsilon_{i,j}, \; \; \; \; \; \; \; \; \; \; \; \; \; \; 
-
-
-&& \forall i<j: &&\left(\epsilon_{i,j},\epsilon_{j,i}\right) &&\overset{iid}{\sim} 
-
-
-N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix} \Bigg) \tag{AMEM}
-
-\\
-
-
-& && && && &&(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
-&&\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
-
-\\
-
-& && && && &&(a_1 , b_1), \cdots, (a_n , b_n) 
-&&\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AMEM}
-
-\\
-
-V &=M(X,\beta)+U V^{T} &&  && +a{1}^{T}+1b^{T}+E \tag{Gibbs Sampling for the AME}
-
-
 \end{alignat}
-
-$$
-</div>
-
-$$
-P(Y) \sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i} \Bigg \{ a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i} \Bigg\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
 $$
 
 
 
+- $a_i$: sender effect (sociomatrix 의 rowmean)
+- $b_j$: receiver effect (sociomatrix 의 colmean)
 
 
-| | $$ | $$ | [^Combines a linear regression model with the covariance structure of the SRM as follows, where $\mathbf x_{i,j}$ is $p$−dimensional vector of regressors and $\beta$ is a vector of regression coefficient to be estimated.] |
-
-
-#### Addictive Effect Model (iid model)
-
-
-
-
-| | Addictive Effect Model (iid model) | Social Relations Model (SRM) | Social Relations Regression Model |
-| :-: | :-: | :-: | :-: |
-| Goal | Consider Dependency | Social Relations Model | Quantify the association between a particular dyadic variable and some other dyadic or nodal variables |
-| $a_i$ | sender effect (row means of the sociomatrix) | zero-mean rv | |
-| $b_j$ | receiver effect (column means of the sociomatrix) | zero-mean rv | |
-| $\epsilon_{i,j}$ | - | zero-mean rv | |
+|  | additive Effect Model (iid model) | Social Relations Model (SRM) | Social Relations Regression Model |
+| :-: | :-----: | :-----: | :-----: |
+| Goal | Consider Dependency | sender-receiver correlations (dyadic correlations) | Quantify the association between a particular dyadic variable and some other dyadic or nodal variables^[Combines a linear regression model with the covariance structure of the SRM as follows, where $\mathbf x_{i,j}$ is $p$−dimensional vector of regressors and $\beta$ is a vector of regression coefficient to be estimated.] |
 | | | (2) | Limitation: Unable to represent higher-order network patterns (lack of fit) |
 
 
 
 
 
-2. with effects otherwise being independent
+2. SRM 에서 $a_i ' s , b_j s , \epsilon_{ij} '$ 들은 mean-zero random variable 들. with effects otherwise being independent 이며 이하를 따름.
 
 $$
 V a r\left[\begin{pmatrix}a_i \\ b_j\end{pmatrix}\right]=\Sigma={\left(\begin{array}{l l}{\sigma_{a}^{2}}&{\sigma_{a b}}\\ {\sigma_{a b}}&{\sigma_{b}^{2}}\end{array}\right)}
@@ -109,6 +93,39 @@ $$
 목표: dependency 고려
 
 
+
+
+- **Social Relations Covariance Model**:
+
+You decompese the variance of $y_{ij}$ into three parts:
+
+$$
+Var(y_{ij}) = 
+\underbrace{\sigma^2_a }_{\text{variance of sender}}
++ 
+\underbrace{\sigma^2_b }_{\text{variance of receiver}}
++ 
+\underbrace{\sigma^2 }_{\text{common variance}}
+$$
+
+- $Cov(y_{ij}, y_{ik}) = \sigma_a^2$: within-row covariance
+- $Cov(y_{ij}, y_{kj}) = \sigma_b^2$ : within-col covariance
+- $Cov(\underbrace{y_{ij}, y_{jk}}_{i\rightarrow j \rightarrow k}) = \sigma_{ab}$: row-col covariance
+- $Cov(\underbrace{y_{ij}, y_{ji}}_{ i\rightarrow j \\j \rightarrow i}) = 2 \sigma_{ab} + \rho \sigma^2$: row-col covariance + reciprocity
+
+with all other Cov b/w elements of $\bf Y$ being 0.
+
+
+
+- **Social Relations Regression Model**:
+
+linear regression model을 SRM 의 covariance structure 를 사용하여 combine. 그 결과값이 가장 위의 수식. 여기서 $x_{ij}$ 는 regressor 들의 $p$-dimensional vector 이며, $\beta$ 는 estimate 된 regression coefficient 들의 vector.
+
+한계: high-order network pattern 을 드러내는 것은 불가능. (lack of fit)
+
+
+
+
 <br>
 <br>
 <br>
@@ -120,6 +137,148 @@ $$
 
 
 ### Multiplicative Effects Models
+
+$$
+\begin{alignat}{2}
+y_{i,j} &=\beta^{T} \mathbf x_{i,j} && +\mathbf u_{i}^{T} \mathbf v_{j}  && +{a}_{i}+b_{j}+\epsilon_{i,j} \tag{AMEM}
+\\
+\tag{Random effects AMEM}
+\\
+V &=M(X,\beta)+U V^{T} &&  && +a{1}^{T}+1b^{T}+E \tag{GS for AME}
+\end{alignat}
+$$
+
+| | Goal | 
+| :-: | :-----: |
+| Multiplicative Effect Models | Random effect AME model |
+| Capture higher-order network patterns | prevent overfitting & provide summaries of certain network dependencies |
+
+$$
+\begin{align}
+y_{i,j} &=\beta^{T} \mathbf x_{i,j}  +\mathbf u_{i}^{T} \mathbf v_{j}   +{a}_{i}+b_{j}+\epsilon_{i,j}, 
+&& \forall i<j: \left(\epsilon_{i,j},\epsilon_{j,i}\right) \overset{iid}{\sim} 
+N_{2} \Bigg( \mathbf 0 , \; \sigma^2 \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix} \Bigg) \tag{AMEM}
+\end{align}
+$$
+
+- **Random effects AME model**
+
+$$
+\begin{alignat}{2}
+&(\mathbf u_1, \mathbf v_1), \cdots, (\mathbf u_n, \mathbf v_n) 
+&&\overset{iid}{\sim} N_{2r}(\mathbf 0 , \Phi)
+\\
+& (a_1 , b_1), \cdots, (a_n , b_n) 
+&&\overset{iid}{\sim} N_2(\mathbf 0 , \Sigma) \tag{Random effects AME}
+\end{alignat}
+$$
+
+
+- Transformation Models for Non-Gaussian:
+
+| Continuous dyadic variable |  | Discrete dyadic variable | 
+| :-: | :-: | :-: |
+| Gaussian AME model | Binary (not friend / friend) | Probit AME model |
+| | Ordinary (dislike / neutral / like) | Ordinal Probit AME model| 
+
+- continuous 에는 binary, ordinary 구분 없음.
+
+| ERGM | Latent Variable Models<br>(latent network)<br>(Stochastic Block Model) | AME |
+| :-: | :-: | :-: |
+| global properties |  | |
+| evaluating specific **global** network patterns of interest  simply by including an appropriate sufficient statistic in the model | Description of **local**, micro-level patterns of relationships among specific nodes | **global patterns** via estimating the parameters $(\beta,\underbrace{\Sigma}_{\substack{\text{Cov of}\\\text{mean effect}}}, \underbrace{\Psi}_{\substack{\text{Cov of}\\\text{high-order}}}, \underbrace{\sigma^2  , \rho}_{\text{error}})$ |
+| | local properties | local patterns via estimating the node-specific effects $(\underbrace{a_i , b_i}_{\text{mean effects}} , \underbrace{\bf u_i , \bf v_i}_{\substack{\text{high-order}\\ \text{dependency}}})$ |
+
+
+- **Comparisons b/w ERGMs vs. SRM**
+
+$$
+P(Y)\sim\exp\left(\mu\sum_{i,j}y_{i,j}+\sum_{i}
+\bigg
+\{a_{i}\sum_{j}y_{i,j}+b_{i}\sum_{j}y_{j,i}
+\bigg
+\}+\rho\sum_{i,j}y_{i,j}y_{j,i}\right)
+\tag{p2 model}
+$$
+
+- p1 model:
+	- $\sum_{i,j}y_{i,j}$: sufficient statics, the total # of ties
+	- $\sum_{i,j}y_{i,j}y_{j,i}$: the # of reciprocated ties
+	- $\sum_{j}y_{i,j}$, $\sum_{j}y_{j,i}$: in- & out-degrees
+- SRM
+	- $\mu$: overall mean of the relations
+	- $\rho$: dyadic correlations
+	- $a_i , b_i$: Heterogeneity in row & col means
+
+**p2 model** extends the **p1 model** by including regressors (as does the SRRM). Treats the node-level parameters $a_i$ and $b_i$ as potentially correlated random effects (as do SRM and SRRM).
+
+
+**P1 model** is unable to describe more complex forms of dependency such as transitivity or clustering.
+
+**P2 model** or **SRRM** can represent some degree of higher-order dependency, still exhibit lack-of-fit and so more complex models are desired.
+
+**ERGMs** approach to describe higher-order dependencies is to include additional sufficient statistics. However, it can lead to model degeneracy - How to solve?
+
+1. Constraining the parameter space
+2. Finding alternative summary statistics
+
+----
+
+AME Approach to Represent Complex Patterns
+
+AME 는 low-rank Matrix $UV'$ 를 사용하여 complex pattern 표시. $Y_{n \times n}$ 는 $U_{n \times r}$ 과 $V_{n \times r}$ 를 사용하여 $UV'$ 의 형으로 arbitrary degree of precision 으로 approximate 가능. AME model 은 observed network 의 model-based low-dimensional 표현 (representation) 을 제공함.
+
+**Limitation of Multiplicative Effects Approach**
+
+Not all higher-order moments can be represented by the random effects model for the multiplicative effects (Gaussian random effect model)
+
+예를 들어 dimenison $r=1$ 일 때,
+
+$$
+\begin{alignat}{2}
+&E[\gamma_{i,j}\gamma_{j,k}\gamma_{k,l}\gamma_{l,i}&&]&&=tr(\Psi^4_{uv}) = \sigma^4_{uv}
+\\
+&E[\gamma_{i,j}\gamma_{j,k}\gamma_{k,l}&&] &&=tr(\Psi^3_{uv}) = \sigma^3_{uv}
+\end{alignat}
+$$
+
+These moments are not separately estimable, because **both completely determined by the single parameter $\sigma_{uv}$**. To separately estimate such moments requires the higher dimension, which is **very tricky**.
+
+**Pros of AME Models**
+
+**Multiplicative effects matrix** $UV'$ 는 sociomatrix $Y$ 의 reduced-rank representation 을 생산.
+
+$\Psi$ 의 estimate 는 $u_i$ 와 $v_i$ 간의, network dependency 를 유도하는 것인, node heterogeneity 에 걸친 summary 를 제공한다.
+
+multiplicative effect 는 simple random effect model 보다 훨씬 더 넓은 range 의 pattern 을 설명해내는 것이 가능.
+
+**Cons of AME models**
+
+$\Psi$ 의 estimate 는 imcomplete summary. 이는 오직 node heterogeneity effect 에 대한 (across) Covariance 를 설명해낼 뿐이다.
+
+potential network dependency 에 대한 제한된 summary 만을 제공.
+
+higher-dependency 는 다소 모호 (opaque) 한 채로 남음.
+
+목적이 특정한 종류의 higher-order network dependencies 를 측정하고자 하는 것이라면, **ERMGs** 쪽이 더욱 straightforward.
+
+| | Block Model | Latent Distance Model |
+| :-: | :-----: | :-----: |
+| Assumption | Each node belongs to an unobserved latent class or "block" "stochastic equivalence" | Each node has some unobserved location in a latent Euclidean "social space" |
+| Relations b/w nodes | two nodes are determined (statistically) by their block membership  within-group density of ties is lower then b/w-group density | the strength of a relation (prob of tie) b/w two nodes is decreasing in the distance b/w them in latent space |
+| how to define Membership | members of the same group with the same distribution of relationships to other nodes | closeness b/w two nodes |
+| | | useful when there exists subgroups of nodes with strong withi-group relationships |
+| | latent 와 비교시, SBM 은 large number of block 요구 | SBM 과 비교시, latent에서 social space 에서 같은 위치에 존재할 경우, 2개의 node 는 stochastically equivalent | 
+
+
+**Limitation of Latent Variable Models**
+Real networks exhibit combinations of stochastic equivalence and transitivity in varying amounts
+
+Providing incomplete description of the heterogeneity across nodes: How to solve?
+
+- Latent variable models based on multiplicative effects
+- Represent both types of network patterns
+- Generalization of both models
 
 
 
@@ -136,7 +295,10 @@ $$
 
 ### Inference via Posterior Approximation
 
-
+- Gibbs Sampling for the AME
+$$
+V =M(X,\beta)+U V^{T} +a{1}^{T}+1b^{T}+E \tag{GS for AME}
+$$
 
 <br>
 <br>

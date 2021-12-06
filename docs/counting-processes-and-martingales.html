@@ -589,7 +589,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>e.g., 주어진 확률공간 <span class="math inline">\((Ω, \mathcal F, P)\)</span> 과 measurable space <span class="math inline">\((S, \Sigma)\)</span> 에서, <span class="math inline">\(S\)</span>-valued 랜덤변수들의 collection 을 <strong>stochastic process</strong> 라고 하며, 이는 <span class="math inline">\(X=\{X(t) ; t \in \mathcal T\}\)</span>.</p>
 <p>이때 <span class="math inline">\(S\)</span> 는 mathematical space 이며 이건 <span class="math inline">\(\sigma\)</span>-algebra 에 비추어 measurable 해야함.</p>
 </div>
-<p>Stochastic Process 의 실현값 을 <strong>Path</strong> 라고 부른다. 여기 path 에 이하의 조건이 더해진다면 이는 추가로 <strong>counting process</strong><a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a>.</p>
+<p>Stochastic Process 의 실현값 을 <strong>Path</strong> 라고 부른다. 여기 path 에 이하의 조건이 더해진다면 이는 추가로 <strong>counting process</strong><a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a>.</p>
 <ol style="list-style-type: decimal">
 <li>non-decreasing</li>
 <li>piece-wise constant</li>
@@ -683,7 +683,7 @@ $$</p>
 </ol>
 </div>
 <p>martingale 은 pure random noice process. 즉슨 history 가 주어졌을 때 조건부 평균이 0이며, conditional centered process 이고, <span class="math inline">\(t\)</span> 에 걸쳐 mean 중심으로 랜덤하게 fluctuate. random walk, 페어 갬블링 등이 예시가 됨.</p>
-<p><span class="math inline">\(X\)</span> 의 matringale increment <span class="math inline">\(dX(t)=X(t^- + dt) - X(t^-)\)</span> 를 정의. 앞의 성질을 통해 <span class="math inline">\(E[dX(t)|\mathcal F_{t^-}] = 0\)</span> 임이 보장되었다. 이제 <span class="math inline">\(\mathcal F_t\)</span> martingale 인 <span class="math inline">\(X\)</span> 가 uncorrelated increment 를 가지고 있음을 보일 것.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p><span class="math inline">\(X\)</span> 의 matringale increment <span class="math inline">\(dX(t)=X(t^- + dt) - X(t^-)\)</span> 를 정의. 앞의 성질을 통해 <span class="math inline">\(E[dX(t)|\mathcal F_{t^-}] = 0\)</span> 임이 보장되었다. 이제 <span class="math inline">\(\mathcal F_t\)</span> martingale 인 <span class="math inline">\(X\)</span> 가 uncorrelated increment 를 가지고 있음을 보일 것.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
 <p>$$
 <span class="math display">\[\begin{align}
 s\lt t,\;E[X(s)\{X(t)-X(s)\}]
@@ -836,9 +836,9 @@ $$</p>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="12">
-<li id="fn12"><p>일반적인 counting process 에 대해, <span class="math inline">\(N(0)\)</span> 이며 <span class="math inline">\(\forall t \in \mathcal T:N(t)&lt;0\)</span>.<a href="counting-processes-and-martingales.html#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>증명에 <span class="math inline">\(E[X(t)|\mathcal{F}_{s}]=X(s)\mathrm{~for~}s\lt t\)</span> 가 사용되었다. 이는 위에서 보였다.<a href="counting-processes-and-martingales.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<ol start="13">
+<li id="fn13"><p>일반적인 counting process 에 대해, <span class="math inline">\(N(0)\)</span> 이며 <span class="math inline">\(\forall t \in \mathcal T:N(t)&lt;0\)</span>.<a href="counting-processes-and-martingales.html#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>증명에 <span class="math inline">\(E[X(t)|\mathcal{F}_{s}]=X(s)\mathrm{~for~}s\lt t\)</span> 가 사용되었다. 이는 위에서 보였다.<a href="counting-processes-and-martingales.html#fnref14" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
