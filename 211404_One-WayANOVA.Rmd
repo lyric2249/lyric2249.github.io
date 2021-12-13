@@ -9,17 +9,15 @@ sort: 5
 
 General form of One-Way ANOVA model is
 
-$
+$$
 y_{ij} = \mu + \alpha_{i} + \epsilon_{ij}, \; \; \; \; \; i=1, \cdots, a \; \; \; \; \; j=1, \cdots, N_i
-$
+$$
 
-$
-n=\sum_{i=1}^a N_i \\
-
+$$
+n=\sum_{i=1}^a N_i
 \\
-
 E(\epsilon_{ij})=0, \; Var(\epsilon_{ij})=\sigma^2, \; Cov(\epsilon_{ij}, \epsilon_{ab})=0
-$
+$$
 
 - **i-th treatment (group) effect** $a_i$
 	- **Balanced model** is $\forall i: N_i = b$
@@ -41,67 +39,44 @@ $
 
 $a = 3, \; N_1 = 5, \; N_2 = 3, \; N_3 = 3$,
 
-$
+$$
 Y = X \beta + \epsilon = 
-
 \begin{pmatrix} 
 J_5 & J_5 &  0 & 0 \\
 J_3 & 0 & J_3 & 0 \\
 J_3 & 0 & 0 & J_3
-
-
 \end{pmatrix} 
-
 \begin{pmatrix} 
-
 \mu \\
 \alpha_1 \\
 \alpha_2 \\
 \alpha_3
-
-
 \end{pmatrix} 
-
 +
-
 \begin{pmatrix} 
-
 \epsilon_{11} \\
 \epsilon_{12} \\
 \vdots \\
 \epsilon_{33}
-
 \end{pmatrix} 
-
-
-
-$
+$$
 
 let $N_1 = N_2 = N_3 = 5$. then
 
-$
-X = 
-
-\begin{pmatrix} 
-
+$$
+X = \begin{pmatrix} 
 J_3 \otimes J_5 & I_3 \otimes J_5
 \end{pmatrix} 
-
-
-$
+$$
 
 In general, balanced design such as $i = 1, \cdots, a \; \; \; \; \; j = 1, \cdots, b$:
 
-$
+$$
 X = 
-
 \begin{pmatrix} 
-
 J_a \otimes J_b & I_a \otimes J_b
 \end{pmatrix} 
-
-
-$
+$$
 
 <br/>
 <br/>
@@ -115,49 +90,31 @@ $
 
 Let $Z$ be the model matrix for the alternative one-way analysis of variance model
 
-$
+$$
 y_{ij} = \mu_i + \epsilon_{ij} \; \; \; \; \; i=1, \cdots, a \; \; \; \; \; k= 1, \cdots, N_i
-$
+$$
 
 then, letting $X_i  X_j = \delta_{ij}$ with 1 for $i=j$ and 0 for $i \not = j$,
 
-$
+$$
 \begin{align}
-
 X &= \begin{bmatrix}J & Z\end{bmatrix} &&= \begin{bmatrix}J & (X_1 , \cdots, X_a)\end{bmatrix}
-
 \\
-
 \Longrightarrow \; \; \; \; \; \mathcal{C}(X) &=\mathcal{C}(Z)
-
 \\
-
 Z'Z &= diag(N_1 , N_2 , \cdots, N_a)
-
 \\
-
 Z(Z'Z)^{-1}Z' &=Blk \; \; diag \Big[ N_i^{-1} J_{N_i}^{N_i} \Big]
-
 \\
-
 M &=X (X'X)^{-1}X'
-
 \\
-
 M_\alpha &= Z_\ast(Z_\ast ' Z_\ast)^{-1} Z_\ast ' &&=M- M_J = M-\dfrac{1}{n}J_n^n
-
 \\
-
 Z_\ast &=(I-M_j)Z
-
 \\
-
 M &= M_j + M_\alpha
-
-
-
 \end{align}
-$
+$$
 
 
 
@@ -190,11 +147,9 @@ $
 
 A contrast in the one-way ANOVA
 
-$
-
+$$
 \lambda ' \beta = \sum_{i=1}^a \lambda_i \alpha_i \; \; \; \; \; with \; \; \; \lambda ' J_{a+1} = \sum_{i=1}^a \lambda_i = 0
-
-$
+$$
 
 For estimable $\lambda ' \beta$, find $\rho$ so that $\rho'X = \lambda ' $, $\rho ' = \begin{pmatrix} \dfrac{J_{N_i} ' \lambda_i}{N_i} \end{pmatrix}$.
 

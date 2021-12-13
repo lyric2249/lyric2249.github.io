@@ -10,9 +10,9 @@ sort: 3
 
 이하와 같은 linear model 고려. 이때 $x_i '$는 $X$의 i번째 row vector이며, $E(\epsilon)=0, \; Cov(\epsilon)=\sigma^2 I = \sigma^2 \Sigma$.
 
-$
+$$
 Y_{n \times 1} = X_{n \times p} \beta_{p \times 1} + \epsilon_{n \times 1} = \begin{pmatrix} x_i '  \beta \end{pmatrix} + \epsilon
-$
+$$
 
 
 <br/>
@@ -44,9 +44,9 @@ The parameter $\beta$ is **identifiable** if for any $\beta_1$ and $\beta_2$ $f(
 
 For regression models for which $r(X) = p$, the parameters are identifiable: $X'X$ is nonsingular, so if $X\beta_1 = X\beta_2$, then 
 
-$
+$$
 \beta_1 = (X'X)^{-1} X'X \beta_1 = (X'X)^{-1} X'X \beta_2 = \beta_2
-$
+$$
 
 A function $g(\beta)$ is identifiable $\iff$ $g(\beta)$ is a function of $f(\beta)$.
 

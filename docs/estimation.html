@@ -567,12 +567,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="estimation" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Estimation</h2>
 <p>이하와 같은 linear model 고려. 이때 <span class="math inline">\(x_i &#39;\)</span>는 <span class="math inline">\(X\)</span>의 i번째 row vector이며, <span class="math inline">\(E(\epsilon)=0, \; Cov(\epsilon)=\sigma^2 I = \sigma^2 \Sigma\)</span>.</p>
-$
-Y_{n } = X_{n p} <em>{p } + </em>{n } =
-<span class="math display">\[\begin{pmatrix} x_i &#39;  \beta \end{pmatrix}\]</span>
-<ul>
-<li>$</li>
-</ul>
+<p><span class="math display">\[
+Y_{n \times 1} = X_{n \times p} \beta_{p \times 1} + \epsilon_{n \times 1} = \begin{pmatrix} x_i &#39;  \beta \end{pmatrix} + \epsilon
+\]</span></p>
 <p><br/>
 <br/></p>
 <div id="identifiability-and-estimability" class="section level3" number="6.3.1">
@@ -593,9 +590,9 @@ E(Y) &amp;= f(X) \\
 $</p>
 <p>The parameter <span class="math inline">\(\beta\)</span> is <strong>identifiable</strong> if for any <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span> <span class="math inline">\(f(\beta_1) = f(\beta_2)\)</span> implies <span class="math inline">\(\beta_1 = \beta_2\)</span>. If <span class="math inline">\(\beta\)</span> is identifiable, we say that the parameterization <span class="math inline">\(f(\beta)\)</span> is identifiable. (패러미터 <span class="math inline">\(\beta\)</span>가 identifiable하다면, 우리는 해당 패러미터의 parameterization <span class="math inline">\(f(\beta)\)</span> 또한 identifiable 하다) Moreover, a vector-valued function <span class="math inline">\(g(\beta)\)</span> is identifiable if <span class="math inline">\(f (\beta_1) = f(\beta_2)\)</span> implies <span class="math inline">\(g (\beta_1) = g(\beta_2)\)</span>.</p>
 <p>For regression models for which <span class="math inline">\(r(X) = p\)</span>, the parameters are identifiable: <span class="math inline">\(X&#39;X\)</span> is nonsingular, so if <span class="math inline">\(X\beta_1 = X\beta_2\)</span>, then</p>
-<p>$
-_1 = (X’X)^{-1} X’X _1 = (X’X)^{-1} X’X _2 = _2
-$</p>
+<p><span class="math display">\[
+\beta_1 = (X&#39;X)^{-1} X&#39;X \beta_1 = (X&#39;X)^{-1} X&#39;X \beta_2 = \beta_2
+\]</span></p>
 <p>A function <span class="math inline">\(g(\beta)\)</span> is identifiable <span class="math inline">\(\iff\)</span> <span class="math inline">\(g(\beta)\)</span> is a function of <span class="math inline">\(f(\beta)\)</span>.</p>
 <p><br/>
 <br/>

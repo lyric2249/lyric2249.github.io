@@ -569,14 +569,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="one-way-anova-1" class="section level3" number="6.4.1">
 <h3><span class="header-section-number">6.4.1</span> One-Way ANOVA</h3>
 <p>General form of One-Way ANOVA model is</p>
-<p>$
-y_{ij} = + <em>{i} + </em>{ij}, ; ; ; ; ; i=1, , a ; ; ; ; ; j=1, , N_i
-$</p>
-<p>$
-n=_{i=1}^a N_i \</p>
-<p>\</p>
-<p>E(<em>{ij})=0, ; Var(</em>{ij})=^2, ; Cov(<em>{ij}, </em>{ab})=0
-$</p>
+<p><span class="math display">\[
+y_{ij} = \mu + \alpha_{i} + \epsilon_{ij}, \; \; \; \; \; i=1, \cdots, a \; \; \; \; \; j=1, \cdots, N_i
+\]</span></p>
+<p><span class="math display">\[
+n=\sum_{i=1}^a N_i
+\\
+E(\epsilon_{ij})=0, \; Var(\epsilon_{ij})=\sigma^2, \; Cov(\epsilon_{ij}, \epsilon_{ab})=0
+\]</span></p>
 <ul>
 <li><strong>i-th treatment (group) effect</strong> <span class="math inline">\(a_i\)</span>
 <ul>
@@ -597,52 +597,40 @@ $</p>
 <li>Example 4.1.1:</li>
 </ul>
 <p><span class="math inline">\(a = 3, \; N_1 = 5, \; N_2 = 3, \; N_3 = 3\)</span>,</p>
-<p>$
-Y = X + =</p>
-<span class="math display">\[\begin{pmatrix} 
+<p><span class="math display">\[
+Y = X \beta + \epsilon = 
+\begin{pmatrix} 
 J_5 &amp; J_5 &amp;  0 &amp; 0 \\
 J_3 &amp; 0 &amp; J_3 &amp; 0 \\
 J_3 &amp; 0 &amp; 0 &amp; J_3
-
-
-\end{pmatrix}\]</span>
-<span class="math display">\[\begin{pmatrix} 
-
+\end{pmatrix} 
+\begin{pmatrix} 
 \mu \\
 \alpha_1 \\
 \alpha_2 \\
 \alpha_3
-
-
-\end{pmatrix}\]</span>
-<ul>
-<li></li>
-</ul>
-<span class="math display">\[\begin{pmatrix} 
-
+\end{pmatrix} 
++
+\begin{pmatrix} 
 \epsilon_{11} \\
 \epsilon_{12} \\
 \vdots \\
 \epsilon_{33}
-
-\end{pmatrix}\]</span>
-<p>$</p>
+\end{pmatrix} 
+\]</span></p>
 <p>let <span class="math inline">\(N_1 = N_2 = N_3 = 5\)</span>. then</p>
-<p>$
-X =</p>
-<span class="math display">\[\begin{pmatrix} 
-
+<p><span class="math display">\[
+X = \begin{pmatrix} 
 J_3 \otimes J_5 &amp; I_3 \otimes J_5
-\end{pmatrix}\]</span>
-<p>$</p>
+\end{pmatrix} 
+\]</span></p>
 <p>In general, balanced design such as <span class="math inline">\(i = 1, \cdots, a \; \; \; \; \; j = 1, \cdots, b\)</span>:</p>
-<p>$
-X =</p>
-<span class="math display">\[\begin{pmatrix} 
-
+<p><span class="math display">\[
+X = 
+\begin{pmatrix} 
 J_a \otimes J_b &amp; I_a \otimes J_b
-\end{pmatrix}\]</span>
-<p>$</p>
+\end{pmatrix} 
+\]</span></p>
 <p><br/>
 <br/></p>
 <ul>
@@ -651,47 +639,29 @@ J_a \otimes J_b &amp; I_a \otimes J_b
 <p><br/>
 <br/></p>
 <p>Let <span class="math inline">\(Z\)</span> be the model matrix for the alternative one-way analysis of variance model</p>
-<p>$
-y_{ij} = <em>i + </em>{ij} ; ; ; ; ; i=1, , a ; ; ; ; ; k= 1, , N_i
-$</p>
+<p><span class="math display">\[
+y_{ij} = \mu_i + \epsilon_{ij} \; \; \; \; \; i=1, \cdots, a \; \; \; \; \; k= 1, \cdots, N_i
+\]</span></p>
 <p>then, letting <span class="math inline">\(X_i X_j = \delta_{ij}\)</span> with 1 for <span class="math inline">\(i=j\)</span> and 0 for <span class="math inline">\(i \not = j\)</span>,</p>
-<p>$
-<span class="math display">\[\begin{align}
-
+<p><span class="math display">\[
+\begin{align}
 X &amp;= \begin{bmatrix}J &amp; Z\end{bmatrix} &amp;&amp;= \begin{bmatrix}J &amp; (X_1 , \cdots, X_a)\end{bmatrix}
-
 \\
-
 \Longrightarrow \; \; \; \; \; \mathcal{C}(X) &amp;=\mathcal{C}(Z)
-
 \\
-
 Z&#39;Z &amp;= diag(N_1 , N_2 , \cdots, N_a)
-
 \\
-
 Z(Z&#39;Z)^{-1}Z&#39; &amp;=Blk \; \; diag \Big[ N_i^{-1} J_{N_i}^{N_i} \Big]
-
 \\
-
 M &amp;=X (X&#39;X)^{-1}X&#39;
-
 \\
-
 M_\alpha &amp;= Z_\ast(Z_\ast &#39; Z_\ast)^{-1} Z_\ast &#39; &amp;&amp;=M- M_J = M-\dfrac{1}{n}J_n^n
-
 \\
-
 Z_\ast &amp;=(I-M_j)Z
-
 \\
-
 M &amp;= M_j + M_\alpha
-
-
-
-\end{align}\]</span>
-$</p>
+\end{align}
+\]</span></p>
 <hr />
 <p><br/>
 <br/>
@@ -702,9 +672,9 @@ $</p>
 <div id="estimating-and-testing-contrasts" class="section level3" number="6.4.3">
 <h3><span class="header-section-number">6.4.3</span> Estimating and Testing Contrasts</h3>
 <p>A contrast in the one-way ANOVA</p>
-<p>$</p>
-<p>’ = _{i=1}^a <em>i <em>i ; ; ; ; ; with ; ; ; ’ J</em>{a+1} = </em>{i=1}^a _i = 0</p>
-<p>$</p>
+<p><span class="math display">\[
+\lambda &#39; \beta = \sum_{i=1}^a \lambda_i \alpha_i \; \; \; \; \; with \; \; \; \lambda &#39; J_{a+1} = \sum_{i=1}^a \lambda_i = 0
+\]</span></p>
 <p>For estimable <span class="math inline">\(\lambda &#39; \beta\)</span>, find <span class="math inline">\(\rho\)</span> so that $‘X = ’ $, <span class="math inline">\(\rho &#39; = \begin{pmatrix} \dfrac{J_{N_i} &#39; \lambda_i}{N_i} \end{pmatrix}\)</span>.</p>
 <p><br/>
 <br/></p>
