@@ -69,11 +69,9 @@ Clearly, if $\Lambda ' \beta$ is estimable, it is identifiable and therefore it 
 For estimable functions $\Lambda' \beta = P ' X \beta$, although $P$ need not be unique, its perpendicular projection (columnwise) onto $\mathcal{C}(X)$ is unique: <br/>
 let $P_1 , \; P_2$ be matrices with $\Lambda ' = P_1 ' X = P_2 ' X$, then
 
-$
-
+$$
 MP_1 = X(X'X)^{-}X'P_1 = X(X'X)^{-}\Lambda = X(X'X)^{-}X'P_2 = MP_2
-
-$
+$$
 
 <br/>
 <br/>
@@ -130,9 +128,7 @@ for any Least Squares Estimate $\hat \beta$, LSE of $\Lambda ' \beta is \Lambda 
 
 where $M$ is the perpendicular projection operator onto $\mathcal{C}(X)$, then
 
-$
-\hat \beta$ is a LSE of $\beta$ $\iff$ $X \hat \beta = M Y
-$
+$\hat \beta$ is a LSE of $\beta$ $\iff$ $X \hat \beta = M Y$
 
 
 <br/>
@@ -219,9 +215,9 @@ Let $r (X) = r$ and $Cov(\epsilon) = \sigma^2 I$. At below formula, denominator 
 
 Then an **UE** of $\sigma^2$, MSE, is as below. 
 
-$
+$$
 \hat \sigma^2 =\dfrac{Y'(I-M)Y}{rank(I-M)}  =\dfrac{Y'(I-M)Y}{n-r} \tag{MSE}
-$
+$$
 
 ----
 
@@ -356,16 +352,16 @@ If $T(Y)$ is a complete sufficient statistic, then $f(T(Y))$ is a **Minimum Vari
 
 let $\theta = (\theta_1 , \cdots, \theta_s)'$ and let $Y$ be a rvec with pdf as below. then $T(Y) = \Big( T_1(Y), \cdots, T_s(Y) \Big)'$ is a **complete sufficient statistics** provided that neither $\theta$ nor $T(Y)$ satisfies any linear constraints.
 
-$
+$$
 f(Y) = c(\theta) \exp \left[ \sum_{i=1}^s \theta_i T_i (Y) \right] h(Y)
-$
+$$
 
 <br/>
 <br/>
 
 - Theorem 2.5.4
 
-MSE is a $\hat {\sigma^2 }_{MVUE} $, and $\hat { \rho ' X \beta }_{MVUE} = \rho ' M Y$ whenever $\epsilon \sim N(0, \; I)$.
+MSE is a $\hat {\sigma^2 }_{MVUE}$, and $\hat { \rho ' X \beta }_{MVUE} = \rho ' M Y$ whenever $\epsilon \sim N(0, \; I)$.
 
 
 
@@ -410,9 +406,10 @@ $
 <br/>
 
 Do Exercise 2.1. Show that
-$
+
+$$
 \dfrac{Y' (I-M) Y}{\sigma^2} \sim \chi^2 \Bigg( r(I-M), \; \dfrac{\beta'X'(I-M)X\beta}{2\sigma^2} \Bigg)
-$
+$$
 
 
 
@@ -429,62 +426,37 @@ $
 
 Assume that for some known positive definite $\Sigma$, 
 
-$
+$$
 Y = X \beta + \epsilon, \; \; \; \; \; 
-$
+$$
 
-$
+$$
 \begin{alignat}{3}
-
 Y &= X \beta &&+ \epsilon && \; \; \; \; \; \; \; \; \; \; 
-
-&& E(\epsilon)&&=0, \; \; &&\; Cov(\epsilon) &&= \sigma^2 \Sigma \tag{1}\\
-
-
-
-
-
-
-
-
-\Sigma^{-\tfrac{1}{2}}Y &= \Sigma^{-\tfrac{1}{2}} X \beta &&+ \Sigma^{-\tfrac{1}{2}} \epsilon 
-
-
- && \; \; \; \; \; \; \; \; \; \; && E(\Sigma^{-\tfrac{1}{2}} \epsilon)&&=0, &&\; Cov(\Sigma^{-\tfrac{1}{2}} \epsilon) &&= \sigma^2 I \tag{2, by SVD}
+&& E(\epsilon)&&=0, \; \; &&\; Cov(\epsilon) &&= \sigma^2 \Sigma \tag{1}
 \\
-
+\Sigma^{-\tfrac{1}{2}}Y &= \Sigma^{-\tfrac{1}{2}} X \beta &&+ \Sigma^{-\tfrac{1}{2}} \epsilon 
+&& \; \; \; \; \; \; \; \; \; \; && E(\Sigma^{-\tfrac{1}{2}} \epsilon)&&=0, &&\; Cov(\Sigma^{-\tfrac{1}{2}} \epsilon) &&= \sigma^2 I \tag{2, by SVD}
+\\
 Y_\ast &= X_\ast \beta &&+ \epsilon_\ast
-
-
-
- && \; \; \; \; \; \; \; \; \; \; && E( \epsilon_\ast)&&=0, &&\; Cov( \epsilon_\ast) &&= \sigma^2 I
-
-
-
+&& \; \; \; \; \; \; \; \; \; \; && E( \epsilon_\ast)&&=0, &&\; Cov( \epsilon_\ast) &&= \sigma^2 I
 \end{alignat}
-$
+$$
 
-$
+$$
 \begin{alignat}{2}
-
 \hat \beta_{GLS} &= \min_\beta (Y_\ast - X_\ast \beta)'(Y_\ast - X_\ast \beta) \\
-
 &= \min_\beta \Vert Y_\ast - X_\ast \beta \Vert^2 \\
-
-
-
 &= \min_\beta (Y - X \beta)' \Sigma^{-1} (Y - X \beta) \tag{Generalized LSE (GLSE) of β}
-
-
 \end{alignat}
-$
+$$
 
 - Theorem 2.7.1
 
 1. $\lambda ' \beta$ estimable in model (1) $\iff$ if $\lambda ' \beta$ is estimable in model (2).
-2. $\hat \beta $ is GLSE of $\beta$ $\iff$ $X(X' \Sigma^{-1} X)^{-}X' \Sigma^{-1}Y = X \hat \beta$, which is Normal Equation of GLS.
+2. $\hat \beta$ is GLSE of $\beta$ $\iff$ $X(X' \Sigma^{-1} X)^{-}X' \Sigma^{-1}Y = X \hat \beta$, which is Normal Equation of GLS.
   - For any estimable function, there exists a unique GLSE.
-3. GLSE estimate of estimable $\lambda' \beta$, is BLUE of $\lambda' \beta $.
+3. GLSE estimate of estimable $\lambda' \beta$, is BLUE of $\lambda' \beta$.
 4. let $\epsilon \sim N(0, \; \Sigma^2 \Sigma)$. then, GLSE of estimable $\lambda ' \beta$, is MVUE.
 5. let $\epsilon \sim N(0, \; \Sigma^2 \Sigma)$. then, $\hat \beta_{GLS} = \hat \beta_{MLE}$.
 

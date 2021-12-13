@@ -80,8 +80,8 @@
 ----
 
 Network (adjacency Matrix)
--> Network Statistics $S(y)$ capture characteristics of network
--> plug-in network statistics with their corresponding prameteres into the exponential term $\exp \Big (\sum_{i=1}^p \theta_i S_i(y) \Big )$, which is unnormalized density
+-> Network Statistics $S(y)$, which capture characteristics of network
+-> plug-in network statistics with their corresponding prameteres into the exponential term $\underbrace{\exp \Big (\sum_{i=1}^p \theta_i S_i(y) \Big )}_{\text{unnormalized density}}$
 -> $P_\theta (Y=y) = \frac{1}{\kappa(\theta)} \exp \Big( \sum^p_{i=1}\theta_i S_i(y) \Big)$, to make a valid prob.
 
   - $\kappa$: normalizing constant
@@ -98,60 +98,95 @@ $$
 \theta_2 (\underbrace{\text{# of triangle}}_{\substack {\text{transitivity effect} \\ \text{dyadic dependent stat.}}})
 $$
 
-dyadic independent statistics: a status of dyad does not depends on the status of other dyads.
+**dyadic independent statistics**: a status of dyad does not depends on the status of other dyads.
 
 
-$S(y) = \sum_{i<j} y_{ij}h(x_i , x_j)$
+
+<mark>$S(y) = \sum_{i<j} y_{ij}h(x_i , x_j)$</mark>
 
 - $x$: covariate information of node
 - $x_i , x_j$
 
-how we define $h(x_i , x_j)$ determines the network stats.
-
-1. Uniform homophily effects.
+how we define $h(x_i , x_j)$ determines the network stats?
 
 $$
-h(x_i , x_j) = \cases{1 & \( x_i = x_j\) \\ 0 & o.w.}
+\begin{align}
+h(x_i , x_j) & = \cases{1 & \( x_i = x_j\) \\ 0 & o.w.}
+\tag{Uniform homophily effects}
+\\
+h(x_i , x_j, d) & = \cases{1 & \( x_i = x_j = d\) \\ 0 & o.w.}
+\tag{Differential homophily effects}
+h(x_i , x_j, d) & = \cases{2 & \( x_i = x_j = d\) \\ 1 & \( x_i = d or x_j = d and x_i \not = x_j \) (only one) \\ 0 & o.w.}
+\tag{Nodal Factor Effect}
+\\
+h(x_i , x_j) & = \frac12 (x_i + x_j)
+\tag{Main Effect (Continuous Case)}
+\\
+h(x_i , x_j , C ) & = \cases{1 & |x_i - x_j | = C \\ 0 & o.w.}
+\tag{Absolute Difference Effect}
+\\
+h(x_i ,x_j) & = |x_i - x_j|
+\end{align}
 $$
 
-2. Differential homophily effects.
 
-$$
-h(x_i , x_j, d) = \cases{1 & \( x_i = x_j = d\) \\ 0 & o.w.}
-$$
 
 
 상기의 1번과 2번은 $x$ 가 discrete 값일 때만 사용 가능. 이인즉 $x$ 가 factor 인 경우에만.
 
 
+cause (2): Model-degeneracy
 
+we also need to consider high-order interactions.
 
+1. degree distribution: $D_k(y)$, which means # of node with degree $k$
 
+$\sum^{n-1}_{k=0} D_k(y) = n$: High-order interaction based on (nodes / edges / dyads) -> shared partnership distribution
 
 
 
 
 
 
+- **edgewise shared partnership distribution**: $EP_k(y)$, the number of unordered pairs $9i,j)$ for which i and j share k common neighbors and y_{ij}=1
 
 
+$\sum^{n-2}_k=0 EP_k (y) = S_1(y_1)$, $S_1(y_1)$ is high-order transitivites.
+$\sum^{n-2}_k=0 DP_k (y) = \choose n2$, $DP_k (y)$ is high-order relationships of two-stars
+$DP_k (y) - EP_k(y)  = NP_k(y)$
 
+**dyadwise shared partnership distribution**
 
+**non-edgewise shared partnership distribution**
 
+$D_k(y), EP_k(y), DP_k(y)$ are distribution -> not plausible to plug-in -> geometrically weighted statistics -> summarise dist. into one statistics
 
+by specifying decayed rate $\tau$, we can construct GW statistics.
 
 
 
 
+**homogeneous ERGM**
 
+$$
+P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\theta_1 S_1 (X) + \theta_2 \underbrace{T(X)}_{# of triangle} \Big)
+$$
 
+- $\theta_1$: behaves similar to density
+- $\theta_2>0$: condition on edge, how likely it forms a triangle
+- $\theta_2<0$: <mark>????????????????????????????</mark>
 
 
 
 
+**inhomogeneous ERGM** : homogenous's all $\theta_{1ij} = \theta_1$, $\theta_{2ijk} = $\theta_2$
 
 
+$$
+P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\sum_{i<j}\theta_{1ij} y_ij} + \sum_{i \not = j \no = k}\theta_{2jk} y_{ij}y_{ik}y_{jk} \Big)
+$$
 
+only applicable in **multiplex network**, which is all respondents are same but they have different networks.
 
 
 
@@ -159,38 +194,39 @@ $$
 
 
 
-----
 
+#### Nomralizing constant of ERGM
 
+$$
+k(\theta) = \sum_{\text{all possible} y} \exp \Big( \sum^p_{i=1} \theta_i S_i (y) \Big)
+$$
 
+각 dyad 는 0 과 1 의 2가지 상태를 가짐. total possible $y$ 는 $2^{\choose n2}$. 연산량 미침.
 
 
 
 
+MCMC 	-> frequentist
+		-> Bayesian
 
+1. Bayesian Inference: we assume parameters follow a distribution.
+	- prior $\pi(\theta)$ -> prior belief of parameters
+	- likelihood $f(y | \theta)$
+	- posterior $\pi(\theta | y)$ -> posterior belief of parameters after including data
+2. Frequentist: parameters are fixed
 
+$$
+\begin{align}
+ & \propto f(y|\theta) \pi(\theta)
+\\
+pi(\theta|y) &= \frac{f(y|\theta) \pi(\theta)}{\underbrace{\pi(y) = \int f(y|\theta)\pi(\theta)d \theta}_{\text{marginal density of }y\text{ (normalizing constant)}}}
+\end{align}
+$$
 
+Generally, normalizing constant (denominator) does not depend on $\theta$
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+calculating normalizing contants involves integration, which is generally difficult
 
 
 
@@ -358,7 +394,7 @@ we decompose $\epsilon_{ij} = \underbrace{u_i ' v_j}_{\substack{\text{high-order
 - $v_j$: latent vector that measure a high-order dependence for node $j$ in aspect of receiver effect
 
 
-
+AME: $y_{ij} = \beta
 
 
 

@@ -152,7 +152,7 @@ $$
 - numerator 는 $v$ 를 통과하면서 $s,t$ 사이가 최단거리인 path 의 총 숫자, 
 - denominator 는 이런 조건 없이 $s,t$ 사이가 최단거리인 path 의 총 숫자. 
 
-이를 unit interval 로 scale 할 때는 $\frac{(N_v - 1) (N_v - 2)}{2} = \chooses{N_v - 1}2$ 로 나누면 됨.
+이를 unit interval 로 scale 할 때는 $\frac{(N_v - 1) (N_v - 2)}{2} = \choose {N_v - 1}2$ 로 나누면 됨.
 
 
 <br>
@@ -163,25 +163,24 @@ $$
 
 
 
-‘status’, ‘prestige’, ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 ev solution 으로 표현가능함. 이러한 ev centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인 건: 
+‘status’, ‘prestige’, ‘rank’ 등에 기반한 사고방식. vertex 의 이웃이 central 하다면, 본인 vertex 자체도 central 하리라는 관점. 이는 central 의 정의만 생각해보더라도 꽤 합리적인 추론임. 이는 적절하게 정의된 방정식의 linear system 의 eigenvalue solution 으로 표현가능함. 이러한 eigenvalue centrality 관점에 쓰이는 값은 꽤 많은데 가장 대표적인 건: 
 
 $$
 C_{E_i} (v) = \alpha \sum\limits_{\{u,v\}\in E} C_{E_i}(u)
 $$
 
-<mark>
-- What is this?
+
+- <mark>What is this?</mark>
 	1. we implement eigen-analysis for an adjacency matrix
 			- $\alpha$: precision
 	2. find the largest eigenvalue and its corresponding eigenvector
 			- eigenvalue: the importance capture largest variance
 			- eigenvector: dependency information
-</mark>
-- vector $C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)'$ 는 ev problem $A_{C_{E_i}}$ 의 solution. 
+- vector $C_{E_i} = \left ( C_{E_i}(1), \cdots, C_{E_i}(N_v) \right)'$ 는 eigenvalue problem $A_{C_{E_i}}$ 의 solution. 
 - $A$ 는 네트워크 그래프 $G$ 의 adjacency 매트릭스.
 
 
-$\alpha^{-1}$ 의 optimal choice 는 $A$ 의 가장 큰 ev. 따라서 $h_{E_i}$ 는 상응하는 evec. $G$ 가 undirected 이며 connected 라면, $A$ 의 largest ev 는 간단하며 이의 evec는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 evec 의 orthonormality 에 의해 얘들은 자동적으로 $[0,1]$ 사이로 scaled.
+$\alpha^{-1}$ 의 optimal choice 는 $A$ 의 가장 큰 eigenvalue. 따라서 $h_{E_i}$ 는 상응하는 eigenvector. $G$ 가 undirected 이며 connected 라면, $A$ 의 largest eigenvalue 는 간단하며 이의 eigenvector는 모두 nonzero entry 이며 부호 같음. 관례 (convention) 적으로는 이 entry 들의 abs 를 보고함. 이러면 eigenvector 의 orthonormality 에 의해 얘들은 자동적으로 $[0,1]$ 사이로 scaled.
 
 
 ```{r,warning=FALSE,message=FALSE}
@@ -196,7 +195,7 @@ g = as.network.matrix(A)
 ```
 
 
-```{r, fig.cap="Target plots showing various vertex centralities for the karate club network", fig.align = 'center', cache=TRUE}
+```{r, fig.cap="Target plots showing various vertex centralities for the karate club network", fig.align = 'center', cache=TRUE, eval=FALSE}
 par(mfrow=c(2,2))
 
 gplot.target(g, degree(g), main="Degree", circ.lab = FALSE, circ.col = "skyblue",
@@ -208,7 +207,7 @@ gplot.target(g, closeness(g), main="Closeness", circ.lab = FALSE, circ.col = "sk
 gplot.target(g, betweenness(g), main="Betweenness", circ.lab = FALSE, circ.col = "skyblue",
              usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
              edge.col="darkgray")
-gplot.target(g, evcent(g), main="Eigenvalue", circ.lab = FALSE, circ.col = "skyblue",
+gplot.target(g, eigenvaluecent(g), main="Eigenvalue", circ.lab = FALSE, circ.col = "skyblue",
              usearrows = FALSE, vertex.col=c("blue", rep("red", 32), "yellow"),
              edge.col="darkgray")
 ```
@@ -217,7 +216,7 @@ gplot.target(g, evcent(g), main="Eigenvalue", circ.lab = FALSE, circ.col = "skyb
 이러한 centrality measure 를 undirected 에만 적용해왔음. directed 에도 적용못할 이유는 없지. 
 
 
-소위 **hub vertex** 의 중요성을 정의해보자. 얼마나 많은 authority vertex 를 그들이 향하는지, 그리고 얼마나 많은 authority vertex 들이 해당 vertex 를 향하는지를 통해 판단. directed graph $A$ 가 주어졌을 때 **hub** 는 $M_{hub} = AA'$ 의 evec centrality 에 의해 결정됨. authority 는 $M_{auth} = A'A$ 에 의해 결정.
+소위 **hub vertex** 의 중요성을 정의해보자. 얼마나 많은 authority vertex 를 그들이 향하는지, 그리고 얼마나 많은 authority vertex 들이 해당 vertex 를 향하는지를 통해 판단. directed graph $A$ 가 주어졌을 때 **hub** 는 $M_{hub} = AA'$ 의 eigenvector centrality 에 의해 결정됨. authority 는 $M_{auth} = A'A$ 에 의해 결정.
 
 
 
@@ -251,7 +250,7 @@ E(karate)[order(eb, decreasing=T)[1:3]]
 ```
 
 
-하지만 이외의 vertex centrality measures 들은 edge 에 적용하려면 그렇게 쉽진 않음. 해결책 중 하나는 네트워크 그래프 $G$ 의 라인 그래프의 vertex 에 vertex centrality measures 를 적용하는 것. $G$ 의 라인그래프 $G'=(V', E')$ 는 $G$ 의 vertex 를 edge 로, edge 를 vertex 로 바꾸는 것으로 획득됨. vertex $v' \in V'$ 는 원본 그래프의 edge $e \in E'$ 를 의미하며, edge $e' \in E'$ 는 $G$ 에서의 대응하는 원본 vertex 1개의 세트를 의미함.
+하지만 이외의 vertex centrality measures 들은 edge 에 적용하려면 그렇게 쉽진 않음. 해결책 중 하나는 네트워크 그래프 $G$ 의 line graph 의 vertex 에 vertex centrality measures 를 적용하는 것. $G$ 의 라인그래프 $G'=(V', E')$ 는 $G$ 의 vertex 를 edge 로, edge 를 vertex 로 바꾸는 것으로 획득됨. vertex $v' \in V'$ 는 원본 그래프의 edge $e \in E'$ 를 의미하며, edge $e' \in E'$ 는 $G$ 에서의 대응하는 원본 vertex 1개의 세트를 의미함.
 
 
 
@@ -371,18 +370,22 @@ dyad.census(aidsblog)
 그래프의 **Density** 는 potential, 즉 잠재적으로 발생할 edge 대비 실제로 발생한 edge 들의 빈도. 예를 들어 (undirected) 그래프 $G$ 가 self-loop 가 없고 multiple edge 도 없다고 할 때, 서브그래프 $H=(V_H, E_H)$ 의 density 는 
 
 $$
-0 \le den(H) = \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}= \frac{\text{# of edges}}{\text{# of dyads}} \le 1
+\begin{align}
+0 \le den(H) &= \frac{|E_H|}{\frac{|V_H|(|V_H|-1)}{2}}= \frac{\text{# of edges}}{\text{# of dyads}} \le 1
+\tag{undirected}
+\\
+&= \frac{\phantom{|E_H|}}{|V_H|(|V_H|-1)}
+\tag{directed}
+\begin{alignat} 
 $$ 
-
-- directed 그래프 라면 denominator 는 $|V_H|(|V_H|-1)$ 로 대체.
 
 해당 값은 $[0,1]$ 에 존재하며 $H$ 가 clique 가 되기까지의 역치에 얼마나 가까운지에 대한 측도 (measure) 를 제공함. 
 
 
 
-$H=G$ 인 상황이라면 전체 그래프 $G$ 에 대한 density 를 생산. 반대로 vertex $v \in V$ 의 neighbor 의 set $H_v=H$ 가 되게 한다면, 이들 사이의 edge 는 $v$ 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 ego-centric 네트워크는 원본의 overall 네트워크보다 명백히 dense 함.
+$H=G$ 인 상황이라면 전체 그래프 $G$ 에 대한 density 를 생산. 반대로 vertex $v \in V$ 의 neighbor 의 set $H_v=H$ 가 되게 한다면, 이들 사이의 edge 는 $v$ 의 immediate 이웃의 density 의 측도 (measure) 을 생산함. immediate 이웃의 합집합으로만 생산한 **ego-centric 네트워크** 는 원본의 overall 네트워크보다 명백히 dense 함.
 
-```{r, collapse = TRUE}
+```{r, collapse = TRUE, eval=FALSE}
 ego.instr = induced.subgraph(karate,neighborhood(karate, 1, 1)[[1]])
 ego.admin = induced.subgraph(karate,neighborhood(karate, 1, 34)[[1]])
 graph.density(karate)
@@ -391,9 +394,18 @@ graph.density(ego.admin)
 
 ```
 
-- **Clustering Coefficients**
+- **Clustering Coefficients (transitivity)**
 
-일반적으로 $cl_T (G) = \frac{3\tau_\Delta (G)}{\tau_3 (G)}$ 를 일컫음. 이때 $\tau_\Delta (G)$ 는 그래프 $G$ 안에 있는 모든 triangle 의 숫자이며, $\tau_3 (G)$ 는 connected triple, 즉 3개의 vertex 에 2개의 edge 가 놓여있는 (i.e., 2-star) vertex 들로 만든 서브그래프의 숫자. 이 **Clustering Coefficients** 인 $cl_T(g)$ 는 그래프의 **transitivity** 라고 불리기도 함. 이는 소셜 네트워크 문헌에서 일반적으로 관심을 갖는 변량 중 하나임. 다른 말로 **fraction of transitive triples** 라고도 불림. $cl_T(g)$ 는 global clsutring 의 measure 이며, connected triple 이 triangle 을 형성하기까지에 얼마나 가까운지에 대한 상대적 빈도를 서술함.
+일반적으로 이하를 일컫는다.
+
+$$
+cl_T (G) = \frac{3\tau_\Delta (G)}{\tau_3 (G)}
+$$ 
+
+- $\tau_\Delta (G)$: 그래프 $G$ 안에 있는 모든 triangle 의 숫자
+- $\tau_3 (G)$: connected triple, 즉 3개의 vertex 에 2개의 edge 가 놓여있는 (i.e., 2-star) vertex 들로 만든 서브그래프의 숫자. 
+
+이 **Clustering Coefficients** 인 $cl_T(g)$ 는 그래프의 **transitivity** 라고 불리기도 함. 이는 소셜 네트워크 문헌에서 일반적으로 관심을 갖는 변량 중 하나임. 다른 말로 **fraction of transitive triples** 라고도 불림. $cl_T(g)$ 는 global clustering 의 measure 이며, **connected triple** 이 triangle 을 형성하기까지에 얼마나 가까운지에 대한 상대적 빈도를 서술함.
 
 
 
@@ -422,7 +434,9 @@ reciprocity(aidsblog, mode="ratio")
 
 기본적으로 궁금한 건 주어진 그래프가 서로 다른 서브그래프로 쪼개질 수 있나 하는 것. 불가능하다면 해당 그래프가 이 쪼개질 수 있는 성질의 역치에 얼마나 가까운지를 체크하는 것이 목적이 된다. 
 
-만약 모든 vertex가 다른 모든 vertex에서 접근 가능하다면, 즉 adjacency Matrix가 diag 제외하고 모두 1이면, 그래프 $G$는 **connected**라고 칭해진다. 그리고 그래프의 **connected component**는 maximally connected 서브그래프이다.
+만약 모든 vertex가 다른 모든 vertex에서 접근 가능하다면, 즉 adjacency Matrix가 diag 제외하고 모두 1이면, 그래프 $G$는 **connected**라고 칭해진다. 
+
+그리고 그래프의 **connected component**는 maximally connected 서브그래프이다.
 
 그래프 $G$의 connected component 중 하나가 다른 모두를 위력에서 압도한다면, 이는 곧 해당 connected component가 $G$의 대부분의 vertex를 포함하고 있다는 이야기. 이러한 component는 **giant component**라고 불리며 이는 random graph theory 출신 용어.
 
@@ -453,15 +467,14 @@ transitivity(yeast.gc)
 
 
 - **Connectivity**
+	1. **$k$-vertex-connected**
+		- the number of vertices $N_v > k$
+		- cardinality $|X|<k$ 이며 $X \subseteq V$ 인 vertex의 subset $X$ 을 지우면 connected subgraph가 아니게 됨.
+	2. **$k$-edge-connected**
+		- $N_v ≥ 2$
+		- cardinality $|Y|<k$이며 $Y \subseteq E$인 edge의 subset $Y$을 지우면 connected subgraph가 아니게 됨.
 
-그래프 $G$ 가 
-1. **$k$-vertex-connected**
-	- the number of vertices $N_v > k$
-	- cardinality $|X|<k$이며 $X \subseteq V$인 vertex의 subset $X$을 지우면 connected subgraph가 아니게 됨.
-	
-2. **$k$-edge-connected**
-	- $N_v ≥ 2$
-	- cardinality $|Y|<k$이며 $Y \subseteq E$인 edge의 subset $Y$을 지우면 connected subgraph가 아니게 됨.
+위의 조건에 따라 그래프 $G$ 는 **$k$-vertex-connected** 혹은 **$k$-edge-connected**.
 
 즉 $G$의 vertex (edge) connectivity는 $G$의 k-vertex(k-edge-) connected가 유지되는 가장 큰 integer. <mark> 이때 vertex connectivity $\le$ edge connectivity $\le$ minimum degree among vertex in $G$ (dmin).</mark> 따라서 이 서브그래프를 추가적인 component로 분해하기 위해서는 단 1개의 엄선된 vertex나 edge를 제거하는 것으로 충분하다.
 
@@ -475,8 +488,8 @@ edge.connectivity(yeast.gc)
 
 vertex (edge)의 subset $S$를 제거하는 것으로 해당 그래프가 서브그래프로 조각난다면, $S$는 vertex-cut (edge-cut). 여기서 vertex $S$의 원소가 1개라면, 즉 vertex 1개만을 제거한 것으로 그래프가 조각났다면, 이는 cut vertex, 혹은 **articulation point**. 이러한 vertex의 여부를 식별하는 건 해당 네트워크가 외부 공격에 취약하는지를 파악하는데 도움이 됨. 해당 포인트 끊기면 네트워크 정상작동이 안되니까. 
 
-• Identification of such vertices can provide a sense of where a network is vulnerable (e.g., in the sense of an attack, where disconnecting produces undesired consequences, such as a power outage in an energy network).
-• In the giant component of the yeast network, almost 15% of the vertices are cut vertices.
+- Identification of such vertices can provide a sense of where a network is vulnerable (e.g., in the sense of an attack, where disconnecting produces undesired consequences, such as a power outage in an energy network).
+- In the giant component of the yeast network, almost 15% of the vertices are cut vertices.
 
 
 ```{r, collapse=TRUE}
@@ -485,12 +498,12 @@ length(yeast.cut.vertices)
 ```
 
 
-nontrivial 그래프 $G$는 k-vertex (k-edge) connected $\iff$ 서로다른 vertex의 쌍 $u, v \in V$가 k vertex-disjoint (edge-disjoint) paths에 의해 connected 가능.
+nontrivial 그래프 $G$는 $k$-vertex (k-edge) connected $\iff$ 서로다른 vertex의 쌍 $u, v \in V$가 $k$ vertex-**disjoint** (edge-**disjoint**) paths에 의해 connected 가능.
 
 이 결과는 그래프에서 특정 vertex (edge)가 제거된 상황에서도 그래프 내부에서 만들어지는 서로 다른 path 들이 얼마나 많은지를 통해 평가되는 그래프의 robust함과 연결되어 있다. 낮은 vertex (edge) connectivity 를 가지는 그래프는 따라서 path들을 가질 수 있으며, 이에 의해 그 path들을 통과했던 "information"들은 작은 숫자의 vertex (edge)를 없애는 것만으로 쉽게 방해되고 만다.
 
 
-```{r, eval = FALSE}
+```{r, eval=FALSE}
 shortest.paths()
 graph.maxfow()
 graph.mincu()
@@ -514,13 +527,14 @@ graph.mincu()
 
 **Partitioning**은 elements의 집합을 "발생이 자연스러운" 부분집합으로 분할하는 과정. 더 이론적으로 말하자면, finite set $S$의 partition $C = \{ C_1, \cdots, C_K \}$는 $S$를 $K$ 개의 disjoint로 decomposition 한 물건으로, 이인즉 $\forall C_k \not = \emptyset: \cup_{k=1}^K C_k = S$.
 
-네트워크 그래프 분석에서, partitioning은 겉으로 드러나지 않는 관계성 측면에서 vertex의 묶음이 "cohesiveness"를 가지고 있는지를 확인하기에 유용한 방법이다. vertex의 "cohesive"한 subset은 일반적으로 이하와 같은 걸 일컬음:
-1. subset 내부에서, "동시에", 잘 connected 되어 있어야 한다
+네트워크 그래프 분석에서, partitioning은 겉으로 드러나지 않는 관계성 측면에서 vertex의 묶음이 **cohesiveness**를 가지고 있는지를 확인하기에 유용한 방법이다. vertex의 **cohesive**한 subset은 일반적으로 이하와 같은 걸 일컬음:
+
+1. subset 내부에서, **동시에**, 잘 connected 되어 있어야 한다
 2. subset 외부, 즉 남아있는 vertex들과 잘 seperated - 연결성이 없음 
 
 Graph partitioning algorithms 은 보통 그래프 $G(V, E)$의 vertex set $V$ 의 partition $C = \{ C_1, \cdots, C_K \}$를 찾는 것을 그 목표로 함. 이를 위한 방법으로 $C_k$ 안의 vertex에서 $C_k'$로의 vertex로 잇는 edge의 sets $E(C_k, C_k ')$는 $C_k$ 내에서 vertex 를 잇는 edge들의 set $E(C_k) = E(C_k , C_k)$보다 작다는 점을 활용함.
 
-그래프 partitioning의 이 문제는 complex networks 문헌에서의 community detection에서도 동일하게 발생함. 이에 대한 해결책으로 큰 틀에서 2가지 접근법이 존재.
+그래프 partitioning의 이 문제는 complex networks 문헌에서의 community detection에서도 동일하게 발생함. 이에 대한 해결책으로 큰 틀에서 **2가지 접근법** 이 존재.
 
 
 
@@ -535,17 +549,19 @@ Graph partitioning algorithms 은 보통 그래프 $G(V, E)$의 vertex set $V$ �
 그래프 파티셔닝에 사용되는 대부분의 방법은 본질적으로 Hierarchical Clustering의 변용에 불과함. 여러가지 방법론이 제시되었지만, 그 차이는 결국 이하가 다를 뿐임.
 
 1. proposed clusterings의 quality를 어떻게 측정하는가
-2. 연구자가 찾고 있는 해당 quality를 어떻게 최적화하는가. 보통 그리디 알고리즘으로 모든 가능한 partition $C$의 space를 탐색하는 식으로 한다. 이 과정에서 계속해서 후보 partition을 갱신하고.
+2. 연구자가 찾고 있는 해당 quality를 어떻게 최적화하는가. 보통 greedy algorithm 으로 모든 가능한 partition $C$의 space를 탐색하는 식으로 한다. 이 과정에서 계속해서 후보 partition을 갱신하고.
 
 Hierarchical methods 는 다음 둘로 분류됨.
-1. agglomerative, 파티션을 합쳐나가는 것을 계속해나가는 것으로 크기를 키워가는 것에 기반 (coarsen)
-2. divisive, 파티션을 쪼개나가는 것을 계속해나가는 것으로 연속으로 다듬어나가는 것
+
+1. **agglomerative**, 파티션을 합쳐나가는 것을 계속해나가는 것으로 크기를 키워가는 것에 기반 (coarsen)
+2. **divisive**, 파티션을 쪼개나가는 것을 계속해나가는 것으로 연속으로 다듬어나가는 것
 
 각 단계에서 현재의 후보 partition은 지정된 비용 측정값을 최소화한다는 목적으로 계속해서 정제되어 갑니다.
+
 1. agglomerative 방법에서는, 2개의 이전의 partition elements 중 가장 저렴한 merge 방법이 실행된다
 2. divisive 방법에서는, 1개의 이전의 partition 중 가장 저렴하게 2개로 split 할 수 있는 방법이 실행된다
 
-비용측정의 기준은 vertex의 "cohesive" subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 **modularity**. 계산은 이하와 같다:
+비용측정의 기준은 vertex의 **cohesive** subset을 뭘 기준으로 판정할지 하는 연구자의 주관이 개입됨. 메이저한 기준은 **modularity**. 계산은 이하와 같다:
 
 - $C = \{ C_1, \cdots, C_K \}$를 주어진 (given) 후보 (candidate) partition 으로 하자
 - $f_{ij} = f_{ij}(\mathcal C)$는 $C_i$ 에 있던 vertex 들을 $C_j$ 에 있는 vertex 들과 연결시키는 (오리지널 네트워크의) edge 들의 fraction
@@ -556,6 +572,7 @@ Hierarchical methods 는 다음 둘로 분류됨.
 
 $$
 \mod(\mathcal C) = \sum_{k=1}^K \left[ f_{kk}(\mathcal C) - f_{kk}^\ast \right]
+\tag{modularity}
 $$
 
 - $f_{kk}$ 는 within $C_k$ 에서의 observed connections.
@@ -653,9 +670,9 @@ adjacency matrix $A$에 대한 그래프 $G$의 그래프 Laplacian 은 $L = D �
 
 spectral graph theory의 결과를 통해 우리는 다음을 파악 가능.
 
-그래프 $G$는 $K$ 개의 connected components로 구성 $\iff$ $\lambda_1 (L) = \cdots = \lambda_K(L) = 0$ 이며 $\lambda_{K+1}(L)>0$, where $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_{N_v}$들은 L의 (not necessarily distinct) ev이며, <mark>ordered from small to large</mark>.
+그래프 $G$는 $K$ 개의 connected components로 구성 $\iff$ $\lambda_1 (L) = \cdots = \lambda_K(L) = 0$ 이며 $\lambda_{K+1}(L)>0$, where $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_{N_v}$들은 L의 (not necessarily distinct) eigenvalue이며, <mark>ordered from small to large</mark>.
 
-그래프 안의 component의 숫자는 그래프 Laplacian의 non-zero ev의 숫자과 직접적으로 연관되어 있음. $L$의 최소 ev는 0임을 바로 보일 수 있다. evec $x_1 = (1,\cdots,1)'$에 대응하므로. 따라서 우리가 그래프 $G$가 "거의" $K=2$ 개의 component들로 구성되어 있다고 추론한다면, 즉슨 2개로 쪼개기에 적합하다고 생각한다면, 이는 곧 우리는 해당 대상에 대해 $\lambda_2(L)$가 0에 가까울 것이라고 추론할 것이라는 것과 동치이다. 이러한 추론은 $\lambda_2$가 그래프 connectivity와 structure의 측정치의 값과 깊은 연관이 있기에 합리적이다. 특히 이러한 관계성은 $\lambda_2$가 0에 가까울 수록 서브그래프 A과 서브그래프 B 사이를 통과하는 edge가 적을 것이기에 이렇게 둘로 쪼개는 것이 합리적일 것임을 보여준다. $\lambda_2$를 그래프의 connectivity와 연관지은 제언자는 대응하는 evec $x_2$ 안의 entries들의 부호에 따라 vertex들을 쪼개는 것을 주장했다. 결과는 다음과 같다:
+그래프 안의 component의 숫자는 그래프 Laplacian의 non-zero eigenvalue의 숫자과 직접적으로 연관되어 있음. $L$의 최소 eigenvalue는 0임을 바로 보일 수 있다. eigenvector $x_1 = (1,\cdots,1)'$에 대응하므로. 따라서 우리가 그래프 $G$가 "거의" $K=2$ 개의 component들로 구성되어 있다고 추론한다면, 즉슨 2개로 쪼개기에 적합하다고 생각한다면, 이는 곧 우리는 해당 대상에 대해 $\lambda_2(L)$가 0에 가까울 것이라고 추론할 것이라는 것과 동치이다. 이러한 추론은 $\lambda_2$가 그래프 connectivity와 structure의 측정치의 값과 깊은 연관이 있기에 합리적이다. 특히 이러한 관계성은 $\lambda_2$가 0에 가까울 수록 서브그래프 A과 서브그래프 B 사이를 통과하는 edge가 적을 것이기에 이렇게 둘로 쪼개는 것이 합리적일 것임을 보여준다. $\lambda_2$를 그래프의 connectivity와 연관지은 제언자는 대응하는 eigenvector $x_2$ 안의 entries들의 부호에 따라 vertex들을 쪼개는 것을 주장했다. 결과는 다음과 같다:
 
 $$
 S = \{v \in V: x_2 (v) \ge 0 \}
@@ -663,7 +680,7 @@ S = \{v \in V: x_2 (v) \ge 0 \}
 \bar S = \{v \in V: x_2 (v) < 0 \}
 $$
 
-즉, 2개의 vertex의 subset이 생산되며 (이를 보통 **cut**이라고 부름), 이 벡터 $x_2$는 보통 **Fiedler Vector**라고 불리며 이에 대응하는 ev $\lambda_2$는 **Fiedler Value**라고 부른다.
+즉, 2개의 vertex의 subset이 생산되며 (이를 보통 **cut**이라고 부름), 이 벡터 $x_2$는 보통 **Fiedler Vector**라고 불리며 이에 대응하는 eigenvalue $\lambda_2$는 **Fiedler Value**라고 부른다.
 
 ```{r, fig.cap='Eigenvalues of Graph Laplacian'}
 k.lap = graph.laplacian(karate)
@@ -673,8 +690,8 @@ plot(eig.anal$values, col="blue", ylab="Eigenvalues of Graph Laplacian")
 
 We plot the eigenvalues of the graph Laplacian.
 
-1. 0인 ev는 딱 하나. (해당 네트워크는 connected이므로 예상한 결과)
-2. 2번째로 작은 ev인 $\lambda_2$는 0에 매우 가까움.
+1. 0인 eigenvalue는 딱 하나. (해당 네트워크는 connected이므로 예상한 결과)
+2. 2번째로 작은 eigenvalue인 $\lambda_2$는 0에 매우 가까움.
 
 ```{r, fig.cap='Fiedler vector and its corresponding partition'}
 f.vec = eig.anal$vectors[, 33] #Extracting the Fiedler vector
@@ -755,8 +772,8 @@ $$
 
 – It is equal to zero when the mixing in the graph is no different from that obtained through a random assignment of edges that preserves the marginal degree distribution.
 – It is equal to one when there is perfect assortative mixing (i.e., when edges only connect vertices of the same category).
-– However, in the event that the mixing is perfectly disassortative, in the sense that every edge in the graph connects vertices of two different categories, the coefficient need not take the value −1.
-• The fact that physical binding of proteins is known to be directly relevant to functional classes suggests that there will frequently be strong assortative mixing in protein-protein interaction networks with respective to these classes as attributes.
+– Howeigenvalueer, in the eigenvalueent that the mixing is perfectly disassortative, in the sense that eigenvalueery edge in the graph connects vertices of two different categories, the coefficient need not take the value −1.
+• The fact that physical binding of proteins is known to be directly releigenvalueant to functional classes suggests that there will frequently be strong assortative mixing in protein-protein interaction networks with respective to these classes as attributes.
 
 ```{r, collapse = TRUE}
 assortativity.nominal(yeast, 

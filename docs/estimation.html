@@ -612,9 +612,9 @@ $</p>
 </ul>
 <p>For estimable functions <span class="math inline">\(\Lambda&#39; \beta = P &#39; X \beta\)</span>, although <span class="math inline">\(P\)</span> need not be unique, its perpendicular projection (columnwise) onto <span class="math inline">\(\mathcal{C}(X)\)</span> is unique: <br/>
 let <span class="math inline">\(P_1 , \; P_2\)</span> be matrices with <span class="math inline">\(\Lambda &#39; = P_1 &#39; X = P_2 &#39; X\)</span>, then</p>
-<p>$</p>
-<p>MP_1 = X(X’X)^{-}X’P_1 = X(X’X)^{-}= X(X’X)^{-}X’P_2 = MP_2</p>
-<p>$</p>
+<p><span class="math display">\[
+MP_1 = X(X&#39;X)^{-}X&#39;P_1 = X(X&#39;X)^{-}\Lambda = X(X&#39;X)^{-}X&#39;P_2 = MP_2
+\]</span></p>
 <p><br/>
 <br/>
 <br/></p>
@@ -658,9 +658,7 @@ $</p>
 <li>Theorem 2.2.1</li>
 </ul>
 <p>where <span class="math inline">\(M\)</span> is the perpendicular projection operator onto <span class="math inline">\(\mathcal{C}(X)\)</span>, then</p>
-<p>$
-$ is a LSE of <span class="math inline">\(\beta\)</span> <span class="math inline">\(\iff\)</span> $X = M Y
-$</p>
+<p><span class="math inline">\(\hat \beta\)</span> is a LSE of <span class="math inline">\(\beta\)</span> <span class="math inline">\(\iff\)</span> <span class="math inline">\(X \hat \beta = M Y\)</span></p>
 <p><br/>
 <br/></p>
 <ul>
@@ -723,9 +721,9 @@ $</p>
 </ul>
 <p>Let <span class="math inline">\(r (X) = r\)</span> and <span class="math inline">\(Cov(\epsilon) = \sigma^2 I\)</span>. At below formula, denominator is <strong>degrees of freedom for error</strong>.</p>
 <p>Then an <strong>UE</strong> of <span class="math inline">\(\sigma^2\)</span>, MSE, is as below.</p>
-<p>$
-^2 = = 
-$</p>
+<p><span class="math display">\[
+\hat \sigma^2 =\dfrac{Y&#39;(I-M)Y}{rank(I-M)}  =\dfrac{Y&#39;(I-M)Y}{n-r} \tag{MSE}
+\]</span></p>
 <hr />
 <p><br/>
 <br/>
@@ -829,15 +827,15 @@ $</p>
 <li>Theorem 2.5.3</li>
 </ul>
 <p>let <span class="math inline">\(\theta = (\theta_1 , \cdots, \theta_s)&#39;\)</span> and let <span class="math inline">\(Y\)</span> be a rvec with pdf as below. then <span class="math inline">\(T(Y) = \Big( T_1(Y), \cdots, T_s(Y) \Big)&#39;\)</span> is a <strong>complete sufficient statistics</strong> provided that neither <span class="math inline">\(\theta\)</span> nor <span class="math inline">\(T(Y)\)</span> satisfies any linear constraints.</p>
-<p>$
-f(Y) = c() h(Y)
-$</p>
+<p><span class="math display">\[
+f(Y) = c(\theta) \exp \left[ \sum_{i=1}^s \theta_i T_i (Y) \right] h(Y)
+\]</span></p>
 <p><br/>
 <br/></p>
 <ul>
 <li>Theorem 2.5.4</li>
 </ul>
-<p>MSE is a $_{MVUE} $, and <span class="math inline">\(\hat { \rho &#39; X \beta }_{MVUE} = \rho &#39; M Y\)</span> whenever <span class="math inline">\(\epsilon \sim N(0, \; I)\)</span>.</p>
+<p>MSE is a <span class="math inline">\(\hat {\sigma^2 }_{MVUE}\)</span>, and <span class="math inline">\(\hat { \rho &#39; X \beta }_{MVUE} = \rho &#39; M Y\)</span> whenever <span class="math inline">\(\epsilon \sim N(0, \; I)\)</span>.</p>
 <hr />
 <p><br/>
 <br/>
@@ -870,10 +868,10 @@ $</p>
 $</p>
 <p><br/>
 <br/></p>
-<p>Do Exercise 2.1. Show that
-$
- ^2 ( r(I-M), ;  )
-$</p>
+<p>Do Exercise 2.1. Show that</p>
+<p><span class="math display">\[
+\dfrac{Y&#39; (I-M) Y}{\sigma^2} \sim \chi^2 \Bigg( r(I-M), \; \dfrac{\beta&#39;X&#39;(I-M)X\beta}{2\sigma^2} \Bigg)
+\]</span></p>
 <hr />
 <p><br/>
 <br/>
@@ -884,65 +882,40 @@ $</p>
 <div id="generalized-least-squaresgls" class="section level3" number="6.3.7">
 <h3><span class="header-section-number">6.3.7</span> Generalized Least Squares(GLS)</h3>
 <p>Assume that for some known positive definite <span class="math inline">\(\Sigma\)</span>,</p>
-<p>$
-Y = X + , ; ; ; ; ;
-$</p>
-<p>$
-<span class="math display">\[\begin{alignat}{3}
-
+<p><span class="math display">\[
+Y = X \beta + \epsilon, \; \; \; \; \; 
+\]</span></p>
+<p><span class="math display">\[
+\begin{alignat}{3}
 Y &amp;= X \beta &amp;&amp;+ \epsilon &amp;&amp; \; \; \; \; \; \; \; \; \; \; 
-
-&amp;&amp; E(\epsilon)&amp;&amp;=0, \; \; &amp;&amp;\; Cov(\epsilon) &amp;&amp;= \sigma^2 \Sigma \tag{1}\\
-
-
-
-
-
-
-
-
-\Sigma^{-\tfrac{1}{2}}Y &amp;= \Sigma^{-\tfrac{1}{2}} X \beta &amp;&amp;+ \Sigma^{-\tfrac{1}{2}} \epsilon 
-
-
- &amp;&amp; \; \; \; \; \; \; \; \; \; \; &amp;&amp; E(\Sigma^{-\tfrac{1}{2}} \epsilon)&amp;&amp;=0, &amp;&amp;\; Cov(\Sigma^{-\tfrac{1}{2}} \epsilon) &amp;&amp;= \sigma^2 I \tag{2, by SVD}
+&amp;&amp; E(\epsilon)&amp;&amp;=0, \; \; &amp;&amp;\; Cov(\epsilon) &amp;&amp;= \sigma^2 \Sigma \tag{1}
 \\
-
+\Sigma^{-\tfrac{1}{2}}Y &amp;= \Sigma^{-\tfrac{1}{2}} X \beta &amp;&amp;+ \Sigma^{-\tfrac{1}{2}} \epsilon 
+&amp;&amp; \; \; \; \; \; \; \; \; \; \; &amp;&amp; E(\Sigma^{-\tfrac{1}{2}} \epsilon)&amp;&amp;=0, &amp;&amp;\; Cov(\Sigma^{-\tfrac{1}{2}} \epsilon) &amp;&amp;= \sigma^2 I \tag{2, by SVD}
+\\
 Y_\ast &amp;= X_\ast \beta &amp;&amp;+ \epsilon_\ast
-
-
-
- &amp;&amp; \; \; \; \; \; \; \; \; \; \; &amp;&amp; E( \epsilon_\ast)&amp;&amp;=0, &amp;&amp;\; Cov( \epsilon_\ast) &amp;&amp;= \sigma^2 I
-
-
-
-\end{alignat}\]</span>
-$</p>
-<p>$
-<span class="math display">\[\begin{alignat}{2}
-
+&amp;&amp; \; \; \; \; \; \; \; \; \; \; &amp;&amp; E( \epsilon_\ast)&amp;&amp;=0, &amp;&amp;\; Cov( \epsilon_\ast) &amp;&amp;= \sigma^2 I
+\end{alignat}
+\]</span></p>
+<p><span class="math display">\[
+\begin{alignat}{2}
 \hat \beta_{GLS} &amp;= \min_\beta (Y_\ast - X_\ast \beta)&#39;(Y_\ast - X_\ast \beta) \\
-
 &amp;= \min_\beta \Vert Y_\ast - X_\ast \beta \Vert^2 \\
-
-
-
 &amp;= \min_\beta (Y - X \beta)&#39; \Sigma^{-1} (Y - X \beta) \tag{Generalized LSE (GLSE) of β}
-
-
-\end{alignat}\]</span>
-$</p>
+\end{alignat}
+\]</span></p>
 <ul>
 <li>Theorem 2.7.1</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li><span class="math inline">\(\lambda &#39; \beta\)</span> estimable in model (1) <span class="math inline">\(\iff\)</span> if <span class="math inline">\(\lambda &#39; \beta\)</span> is estimable in model (2).</li>
-<li>$$ is GLSE of <span class="math inline">\(\beta\)</span> <span class="math inline">\(\iff\)</span> <span class="math inline">\(X(X&#39; \Sigma^{-1} X)^{-}X&#39; \Sigma^{-1}Y = X \hat \beta\)</span>, which is Normal Equation of GLS.</li>
+<li><span class="math inline">\(\hat \beta\)</span> is GLSE of <span class="math inline">\(\beta\)</span> <span class="math inline">\(\iff\)</span> <span class="math inline">\(X(X&#39; \Sigma^{-1} X)^{-}X&#39; \Sigma^{-1}Y = X \hat \beta\)</span>, which is Normal Equation of GLS.</li>
 </ol>
 <ul>
 <li>For any estimable function, there exists a unique GLSE.</li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>GLSE estimate of estimable <span class="math inline">\(\lambda&#39; \beta\)</span>, is BLUE of $’ $.</li>
+<li>GLSE estimate of estimable <span class="math inline">\(\lambda&#39; \beta\)</span>, is BLUE of <span class="math inline">\(\lambda&#39; \beta\)</span>.</li>
 <li>let <span class="math inline">\(\epsilon \sim N(0, \; \Sigma^2 \Sigma)\)</span>. then, GLSE of estimable <span class="math inline">\(\lambda &#39; \beta\)</span>, is MVUE.</li>
 <li>let <span class="math inline">\(\epsilon \sim N(0, \; \Sigma^2 \Sigma)\)</span>. then, <span class="math inline">\(\hat \beta_{GLS} = \hat \beta_{MLE}\)</span>.</li>
 </ol>
