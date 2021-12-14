@@ -1,0 +1,92 @@
+1. State the definition of the vertex, edge, and dyad.
+2. State the definition of the undirected and directed networks and calculate total number of dyads for undirected and directed networks that consists of n nodes.
+3. Explain the clustering and assortativity coefficients.
+4. Explain the Erdos-Renyi Model
+5. Explain the concept of the adjacency matrix.
+6. Explain the meaning of geodesic distance.
+7. Explain the complete, regular, tree, and k-star graphs.
+
+
+
+1. State the degree and degree distribution.
+2. State the closeness, betweenness, and eigenvector centrality.
+3. State the concept of cliques.
+4. State the network density, clustering coefficients, and reciprocity.
+5. State the concept of modularity.
+6. Explain the spectral clustering.
+
+
+
+1. Derive the bias of the mean degree in the induced subgraph.
+2. State about the egocentric network.
+3. State about the respondent-driven sampling.
+4. State about the snowball sampling.
+5. State about the trace-route sampling.
+6. Show the Horvitx-Thompson estimator is unbiased.
+
+
+
+
+
+1. State the Erdos-Renyi model and the Bernoulli random graph model.
+2. State the random graph model with degree sequences.
+3. State the small-world network model.
+4. State the preferential attachment model.
+5. Explain how to assess significance of network graph characteristics.
+
+
+
+
+
+1. State the exponential random graph model.
+2. State the definition of dyadic dependent and independent statistics.
+3. State how we can interpret the parameter of the exponential random graph model.
+4. State the definition of Markov network and give three basic Markov network statistics.
+5. Explain the degree, edge-wise shared partnership distributions.
+6. Explain the geometrically weighted network statistics.
+7. Explain doubly-intractable normalizing constant problems in the exponential random graph models.
+8. Explain model degeneracy problems in the exponential random graph models.
+
+
+
+
+
+1. Explain the maximum pseudo likelihood estimation for ERGM and state its pros and cons.
+2. Explain the MCMC MLE for ERGMs and state its pros and cons.
+3. Explain the exchange algorithm for ERGMs and state its pros and cons.
+4. Explain how we can draw the goodness-of-fit plots for ERGMs.
+
+
+
+
+
+1. State the varying truncation SAMCMC algorithm for the exponential random graph model.
+2. Explain how the varying truncation SAMCMC algorithm can avoid the model degeneracy problem.
+3. Explain what the trajectory averaging estimator is.
+4. Explain the temporal exponential random graph model and its weakness.
+5. Explain the concept of incidences and duration of ties in network dynamics.
+6. State the assumption of separate temporal exponential random graph model.
+7. State the form of likelihood function of separate temporal exponential random graph model and parameter interpretation.
+
+
+
+
+
+
+1. Explain the latent space model with distance terms.
+2. Explain the latent space model with projections.
+3. Explain the invariance property of the latent space model.
+4. State the advantages of the latent space model.
+
+
+1. State the multiplicative latent factor model.
+2. State MCMC estimation procedure for the multiplicative latent factor model.
+
+
+
+
+
+1. Explain the hidden Markov models
+2. Explain the dynamic latent space model.
+3. Explain the MCAR, MAR, and NMR.
+4. Explain the edge attraction.
