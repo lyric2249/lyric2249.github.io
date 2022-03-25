@@ -31,35 +31,35 @@ knitr::opts_chunk$set(echo = TRUE,
 
 # Intro {-}
 
-[https://yamalab.tistory.com/98]
-[https://parkgeonyeong.github.io/1.VC-generalization-bound%EC%9D%98-%EC%9D%B4%ED%95%B4/]
-[https://sanghyukchun.github.io/66/]
-[https://sanghyukchun.github.io/home/]
-[https://www.google.com/search?q=vapnik+svm&oq=vapnik+svm&aqs=edge..69i57j0i30l2j0i8i30j0i5i30j0i8i30l2.990j0j4&sourceid=chrome&ie=UTF-8](Vapnik SVM)
-[http://www.aistudy.co.kr/pattern/support_vector_machine.htm]
-[http://www.aistudy.co.kr/]
-[VC dimension]
-[https://stats.hohoweiya.xyz/2019/03/08/Bernstein/]
-[https://stats.hohoweiya.xyz/]
-[https://math.stackexchange.com/questions/533146/dantzigs-unsolved-homework-problems]
-[https://high-dimensional-statistics.github.io/2021/03/17/exercise-6.10.html]
-[https://metamath1.github.io/cnn/index.html]
-[https://slcladal.github.io/net.html]
-[http://web.humoruniv.com/board/humor/read.html?table=pds&number=1113163]
-[https://blog.naver.com/PostView.nhn?blogId=dnjswns2280&logNo=221925748769&categoryNo=10&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView]
-[http://taewan.kim/post/cnn/]
-[https://every-day-life.tistory.com/29]
-[https://everyday-deeplearning.tistory.com/entry/SGD-Stochastic-Gradient-Descent-%ED%99%95%EB%A5%A0%EC%A0%81-%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95%EB%B2%95]
-[https://kkokkilkon.tistory.com/67]
-[https://kkokkilkon.tistory.com/115]
-[https://mongxmongx2.tistory.com/25]
-[https://mons1220.tistory.com/93]
-[https://soh9646.tistory.com/68]
-[https://yamalab.tistory.com/category/Recommender%20System/%EC%B6%94%EC%B2%9C%20%EC%8B%9C%EC%8A%A4%ED%85%9C]
-[https://velog.io/@sennys2/JavaLog4j]
-[https://www.youtube.com/watch?v=ezYLdnfo_wk]
-[https://blog.zarathu.com/posts/2020-10-29-survivalpractice/]
 
-networklabhp
-네트워크00!
+||
+|--|
+|[GAN 모델의 이해와 구현](https://yamalab.tistory.com/98) |
+|[Statistical Learning Theory (1) - VC Bound](https://parkgeonyeong.github.io/1.VC-generalization-bound%EC%9D%98-%EC%9D%B4%ED%95%B4/) |
+|[Machine Learning 스터디 (10) PAC Learning & Statistical Learning Theory](https://sanghyukchun.github.io/66/) |
+|[Sanghyuk Chun - Github](https://sanghyukchun.github.io/home/) |
+|[Vapnik SVM](https://www.google.com/search?q=vapnik+svm&oq=vapnik+svm&aqs=edge..69i57j0i30l2j0i8i30j0i5i30j0i8i30l2.990j0j4&sourceid=chrome&ie=UTF-8) |
+|[About Support Vector Machine](http://www.aistudy.co.kr/pattern/support_vector_machine.htm) |
+|[about AI](http://www.aistudy.co.kr/) |
+|[VC dimension](https://keepmind.net/%EA%B8%B0%EA%B3%84%ED%95%99%EC%8A%B5-vc-dimension/) |
+|[Proof For Bernstein Bounds](https://stats.hohoweiya.xyz/2019/03/08/Bernstein/) |
+|[WeiYa's Work Yard](https://stats.hohoweiya.xyz/) |
+|[Dantzig's unsolved homework problems](https://math.stackexchange.com/questions/533146/dantzigs-unsolved-homework-problems) |
+|[TAIL BOUNDS FOR NON-SYMMETRIC MATRICES](https://high-dimensional-statistics.github.io/2021/03/17/exercise-6.10.html) |
+|[CNN 역전파를 이해하는 가장 쉬운 방법](https://metamath1.github.io/cnn/index.html) |
+|[Network Analysis using R](https://slcladal.github.io/net.html) |
+|[DL-딥러닝 토이 프로젝트 (AI 판타지 소설가)](https://blog.naver.com/PostView.nhn?blogId=dnjswns2280&logNo=221925748769&categoryNo=10&parentCategoryNo=0&viewDate=&currentPage=1&postListTopCurrentPage=1&from=postView) |
+|[CNN, Convolutional Neural Network 요약](http://taewan.kim/post/cnn/) |
+|[생존분석 개념들](https://every-day-life.tistory.com/29) |
+|[Gradient Descent(경사하강법) 와 SGD( Stochastic Gradient Descent) 확률적 경사하강법](https://everyday-deeplearning.tistory.com/entry/SGD-Stochastic-Gradient-Descent-%ED%99%95%EB%A5%A0%EC%A0%81-%EA%B2%BD%EC%82%AC%ED%95%98%EA%B0%95%EB%B2%95) |
+|[R apply 계열 함수 총 정리 1 ( apply / lapply / sapply / vapply )](https://kkokkilkon.tistory.com/67) |
+|[R apply 계열 함수 총 정리 2 ( lapply / mclapply )](https://kkokkilkon.tistory.com/115) |
+|[ReLu(Rectified Linear Unit)](https://mongxmongx2.tistory.com/25) |
+|[Network Modularity (네트워크의 모듈성)](https://mons1220.tistory.com/93) |
+|[빅데이터 분석 - 소셜 네트워크 분석 2(R 관련 그래프 실습)](https://soh9646.tistory.com/68) |
+|[Recommender System/추천 시스템](https://yamalab.tistory.com/category/Recommender%20System/%EC%B6%94%EC%B2%9C%20%EC%8B%9C%EC%8A%A4%ED%85%9C) |
+|[Java - Log4j 사용해 로그기록하기](https://velog.io/@sennys2/JavaLog4j) |
+|[생존분석 실습](https://blog.zarathu.com/posts/2020-10-29-survivalpractice/) |
+
+
 
