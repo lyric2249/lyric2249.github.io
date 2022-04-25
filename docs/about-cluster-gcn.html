@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>B About Cluster-GCN | Self-Study</title>
+  <meta name="description" content="B About Cluster-GCN | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="B About Cluster-GCN | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="B About Cluster-GCN | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="concepts-questions.html"/>
+<link rel="next" href="cnn-1.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li><a href="index.html#intro">Intro<span></span></a></li>
+<li class="part"><span><b>I 20-02<span></span></b></span></li>
+<li class="chapter" data-level="1" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>1</b> Categorical<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>1.1</b> Overview<span></span></a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>1.1.1</b> Data Type and Statistical Analysis<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>2</b> Bayesian<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>2.1</b> Abstract<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>2.1.1</b> 변수의 독립성<span></span></a></li>
+<li class="chapter" data-level="2.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>2.1.2</b> 교환가능성<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>2.2</b> Continual Aeassessment Method<span></span></a></li>
+<li class="chapter" data-level="2.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>2.3</b> Horseshoe Prior<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01<span></span></b></span></li>
+<li class="chapter" data-level="3" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>3</b> Mathematical Stats<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>3.1</b> Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>3.1.1</b> Rao-Blackwell thm.<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="inference.html"><a href="inference.html#completeness"><i class="fa fa-check"></i><b>3.1.2</b> Completeness<span></span></a></li>
+<li class="chapter" data-level="3.1.3" data-path="inference.html"><a href="inference.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>3.1.3</b> 레만-쉐페 thm.<span></span></a></li>
+<li class="chapter" data-level="3.1.4" data-path="inference.html"><a href="inference.html#raoblack"><i class="fa fa-check"></i><b>3.1.4</b> Rao-Blackwell thm.<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>3.2</b> Hypothesis Test<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>3.3</b> Power Fucntion<span></span></a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>3.3.1</b> Significance Probability (p-value)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>3.4</b> Optimal Testing Method<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>3.5</b> Data Reduction<span></span></a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>3.5.1</b> Sufficiency Principle<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>3.6</b> Borel Paradox<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>3.7</b> Neyman–Pearson lemma<span></span></a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>3.7.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="3.7.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>3.7.2</b> Generalized LRT<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>3.8</b> 개념<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>4</b> MCMC<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>4.1</b> Importance Sampling<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>4.1.1</b> Independent Monte Carlo<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>4.2</b> Markov Chain Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>4.2.1</b> MH Algorithm<span></span></a></li>
+<li class="chapter" data-level="4.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>4.2.2</b> Random Walk Chains (Most Widely Used)<span></span></a></li>
+<li class="chapter" data-level="4.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>4.2.3</b> Basic Gibbs Sampler<span></span></a></li>
+<li class="chapter" data-level="4.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>4.2.4</b> Implementation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>4.3</b> Advanced MCMC (wk08)<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>4.3.1</b> Data Augmentation<span></span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>4.3.2</b> Hit-and-Run Algorithm<span></span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>4.3.3</b> Metropolis-Adjusted Langevin Algorithm<span></span></a></li>
+<li class="chapter" data-level="4.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>4.3.4</b> Multiple-Try Metropolis Algorithm<span></span></a></li>
+<li class="chapter" data-level="4.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>4.3.5</b> Reversible Jump MCMC Algorithm<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>4.4</b> Auxiliary Variable MCMC<span></span></a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>4.4.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="4.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>4.4.2</b> Multimodal Target Distribution<span></span></a></li>
+<li class="chapter" data-level="4.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>4.4.3</b> Doubly-intractable Normalizing Constants<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>4.5</b> Approximate Bayesian Computation<span></span></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>4.5.1</b> Simulator-Based Models<span></span></a></li>
+<li class="chapter" data-level="4.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>4.5.2</b> ABCifying Monte Carlo Methods<span></span></a></li>
+<li class="chapter" data-level="4.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>4.5.3</b> ABC-MCMC Algorithm<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>4.6</b> Hamiltonian Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>4.6.1</b> Introduction to Hamiltonian Monte Carlo<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>4.7</b> Population Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>4.7.1</b> Adaptive Direction Sampling<span></span></a></li>
+<li class="chapter" data-level="4.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>4.7.2</b> Conjugate Gradient MC<span></span></a></li>
+<li class="chapter" data-level="4.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>4.7.3</b> Parallel Tempering<span></span></a></li>
+<li class="chapter" data-level="4.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>4.7.4</b> Evolutionary MC<span></span></a></li>
+<li class="chapter" data-level="4.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>4.7.5</b> Sequential Parallel Tempering<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>4.8</b> Stochastic Approximation Monte Carlo<span></span></a></li>
+<li class="chapter" data-level="4.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>4.9</b> Review<span></span></a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>4.9.1</b> Wk01<span></span></a></li>
+<li class="chapter" data-level="4.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>4.9.2</b> wk03<span></span></a></li>
+<li class="chapter" data-level="4.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>4.9.3</b> wk04, 05<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>4.10</b> Else<span></span></a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>4.10.1</b> Hw4. Rasch Model<span></span></a></li>
+<li class="chapter" data-level="4.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>4.10.2</b> DA) Example: MVN<span></span></a></li>
+<li class="chapter" data-level="4.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>4.10.3</b> Bayesian adaptive clinical trial with delayed outcomes<span></span></a></li>
+<li class="chapter" data-level="4.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>4.10.4</b> NMAR의 종류<span></span></a></li>
+<li class="chapter" data-level="4.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>4.10.5</b> wk10) Bayesian Model Selection<span></span></a></li>
+<li class="chapter" data-level="4.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>4.10.6</b> Autologistic model<span></span></a></li>
+<li class="chapter" data-level="4.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>4.10.7</b> wk10) Bayesian Model Averaging<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>5</b> MVA<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>5.1</b> Overview of mva (not ended)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>5.1.1</b> Notation<span></span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>5.1.2</b> Summary Statistics<span></span></a></li>
+<li class="chapter" data-level="5.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>5.1.3</b> Statistical Inference on Correlation<span></span></a></li>
+<li class="chapter" data-level="5.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>5.1.4</b> Standardization<span></span></a></li>
+<li class="chapter" data-level="5.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>5.1.5</b> Missing Value Treatment<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>5.2</b> Multivariate Nomral (wk2)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>5.2.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>5.2.2</b> Spectral Decomposition<span></span></a></li>
+<li class="chapter" data-level="5.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>5.2.3</b> Properties of MVN<span></span></a></li>
+<li class="chapter" data-level="5.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>5.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution<span></span></a></li>
+<li class="chapter" data-level="5.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>5.2.5</b> Linear Combination of Random Vectors<span></span></a></li>
+<li class="chapter" data-level="5.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>5.2.6</b> Multivariate Normal Likelihood<span></span></a></li>
+<li class="chapter" data-level="5.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>5.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span><span></span></a></li>
+<li class="chapter" data-level="5.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>5.2.8</b> Assessing Normality<span></span></a></li>
+<li class="chapter" data-level="5.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>5.2.9</b> Power Transformation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>5.3</b> Inference about Mean Vector (wk3)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>5.3.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>5.3.2</b> 1. Confidence Region<span></span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>5.3.3</b> 2. Simultaneous CI<span></span></a></li>
+<li class="chapter" data-level="5.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>5.3.4</b> 3. Note: Bonferroni Multiple Comparison<span></span></a></li>
+<li class="chapter" data-level="5.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>5.3.5</b> 4. Large Sample Inferences about a Mean Vector<span></span></a></li>
+<li class="chapter" data-level="5.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>5.3.6</b> 1. Profile Analysis (wk4, 5)<span></span></a></li>
+<li class="chapter" data-level="5.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>5.3.7</b> 2. Test for Linear Trend<span></span></a></li>
+<li class="chapter" data-level="5.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>5.3.8</b> 3. Inferences about a Covariance Matrix<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>5.4</b> Comparison of Several MV Means (wk5)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>5.4.1</b> Paired Comparison<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>5.4.2</b> Comparing Mean Vectors from Two Populations<span></span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>5.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)<span></span></a></li>
+<li class="chapter" data-level="5.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>5.4.4</b> Comparing Several Multivariate Population Means<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>5.5</b> Multivariate Multiple Regression (wk6)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>5.5.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="5.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>5.5.2</b> Multivariate Multiple Regression<span></span></a></li>
+<li class="chapter" data-level="5.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>5.5.3</b> Example)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>5.6</b> PCA<span></span></a></li>
+<li class="chapter" data-level="5.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>5.7</b> Factor<span></span></a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>5.7.1</b> Method of Estimation<span></span></a></li>
+<li class="chapter" data-level="5.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>5.7.2</b> Factor Rotation<span></span></a></li>
+<li class="chapter" data-level="5.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>5.7.3</b> Varimax Criterion<span></span></a></li>
+<li class="chapter" data-level="5.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>5.7.4</b> Factor Scores<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>5.8</b> Discrimination and Classification<span></span></a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>5.8.1</b> Bayes Rule<span></span></a></li>
+<li class="chapter" data-level="5.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>5.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations<span></span></a></li>
+<li class="chapter" data-level="5.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>5.8.3</b> Evaluating Classification Functions<span></span></a></li>
+<li class="chapter" data-level="5.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>5.8.4</b> Classification with several Populations (wk13)<span></span></a></li>
+<li class="chapter" data-level="5.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>5.8.5</b> Other Discriminant Analysis Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>5.9</b> Clustering, Distance Methods, and Ordination<span></span></a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>5.9.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="5.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>5.9.2</b> Hierarchical Clustering<span></span></a></li>
+<li class="chapter" data-level="5.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>5.9.3</b> K-means Clustering<span></span></a></li>
+<li class="chapter" data-level="5.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>5.9.4</b> 군집의 평가방법<span></span></a></li>
+<li class="chapter" data-level="5.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>5.9.5</b> Clustering using Density Estimation (wk14)<span></span></a></li>
+<li class="chapter" data-level="5.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>5.9.6</b> Multidimensional Scaling (MDS)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>6</b> Linear<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="overview-svd.html"><a href="overview-svd.html"><i class="fa fa-check"></i><b>6.1</b> Overview &amp; SVD<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="overview-svd.html"><a href="overview-svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>6.1.1</b> Spectral Decomposition<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="overview-svd.html"><a href="overview-svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>6.1.2</b> Singular value Decomposition: General-version<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="overview-svd.html"><a href="overview-svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>6.1.3</b> Singular value Decomposition: Another-version<span></span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="overview-svd.html"><a href="overview-svd.html#quadratic-forms"><i class="fa fa-check"></i><b>6.1.4</b> Quadratic Forms<span></span></a></li>
+<li class="chapter" data-level="6.1.5" data-path="overview-svd.html"><a href="overview-svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>6.1.5</b> Partitioned Matrices<span></span></a></li>
+<li class="chapter" data-level="6.1.6" data-path="overview-svd.html"><a href="overview-svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>6.1.6</b> Geometrical Aspects<span></span></a></li>
+<li class="chapter" data-level="6.1.7" data-path="overview-svd.html"><a href="overview-svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>6.1.7</b> Column, Row and Null Space<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>6.2</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="introduction-1.html"><a href="introduction-1.html#what"><i class="fa fa-check"></i><b>6.2.1</b> What<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="introduction-1.html"><a href="introduction-1.html#random-vectors-and-matrices"><i class="fa fa-check"></i><b>6.2.2</b> Random Vectors and Matrices<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="introduction-1.html"><a href="introduction-1.html#multivariate-normal-distributions"><i class="fa fa-check"></i><b>6.2.3</b> Multivariate Normal Distributions<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="introduction-1.html"><a href="introduction-1.html#distributions-of-quadratic-forms"><i class="fa fa-check"></i><b>6.2.4</b> Distributions of Quadratic Forms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>6.3</b> Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>6.3.1</b> Identifiability and Estimability<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>6.3.2</b> Estimation: Least Squares<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>6.3.3</b> Estimation: Best Linear Unbiased<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>6.3.4</b> Estimation: Maximum Likelihood<span></span></a></li>
+<li class="chapter" data-level="6.3.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>6.3.5</b> Estimation: Minimum Variance Unbiased<span></span></a></li>
+<li class="chapter" data-level="6.3.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>6.3.6</b> Sampling Distributions of Estimates<span></span></a></li>
+<li class="chapter" data-level="6.3.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>6.3.7</b> Generalized Least Squares(GLS)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>6.4</b> One-Way ANOVA<span></span></a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>6.4.1</b> One-Way ANOVA<span></span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>6.4.2</b> More About Models<span></span></a></li>
+<li class="chapter" data-level="6.4.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>6.4.3</b> Estimating and Testing Contrasts<span></span></a></li>
+<li class="chapter" data-level="6.4.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>6.4.4</b> Cochran’s Theorem<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>6.5</b> Testing<span></span></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>6.5.1</b> More About Models: Two approaches for linear model<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>6.5.2</b> Testing Models<span></span></a></li>
+<li class="chapter" data-level="6.5.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>6.5.3</b> A Generalized Test Procedure<span></span></a></li>
+<li class="chapter" data-level="6.5.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>6.5.4</b> Testing Linear Parametric Functions<span></span></a></li>
+<li class="chapter" data-level="6.5.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>6.5.5</b> Theoretical Complements<span></span></a></li>
+<li class="chapter" data-level="6.5.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>6.5.6</b> A Generalized Test Procedure<span></span></a></li>
+<li class="chapter" data-level="6.5.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>6.5.7</b> Testing Single Degrees of Freedom in a Given Subspace<span></span></a></li>
+<li class="chapter" data-level="6.5.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>6.5.8</b> Breaking SS into Independent Components<span></span></a></li>
+<li class="chapter" data-level="6.5.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>6.5.9</b> General Theory<span></span></a></li>
+<li class="chapter" data-level="6.5.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>6.5.10</b> Two-Way ANOVA<span></span></a></li>
+<li class="chapter" data-level="6.5.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>6.5.11</b> Confidence Regions<span></span></a></li>
+<li class="chapter" data-level="6.5.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>6.5.12</b> Tests for Generalized Least Squares Models<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>6.6</b> Generalized Least Squares<span></span></a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>6.6.1</b> A direct solution via inner products<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>6.7</b> Flat<span></span></a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>6.7.1</b> 1.Flat<span></span></a></li>
+<li class="chapter" data-level="6.7.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>6.7.2</b> 2. Solutions to systems of linear equations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>6.8</b> Unified Approach to Balanced ANOVA Models<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02<span></span></b></span></li>
+<li class="chapter" data-level="7" data-path="network-stats.html"><a href="network-stats.html"><i class="fa fa-check"></i><b>7</b> Network Stats<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>7.1</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="introduction-2.html"><a href="introduction-2.html#types-of-network-analysis"><i class="fa fa-check"></i><b>7.1.1</b> Types of Network Analysis<span></span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="introduction-2.html"><a href="introduction-2.html#network-modeling-and-inference"><i class="fa fa-check"></i><b>7.1.2</b> Network Modeling and Inference<span></span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="introduction-2.html"><a href="introduction-2.html#network-processes"><i class="fa fa-check"></i><b>7.1.3</b> Network Processes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>7.2</b> Descriptive Statistics of Networks<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#vertex-and-edge-characteristics"><i class="fa fa-check"></i><b>7.2.1</b> Vertex and Edge Characteristics<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#characterizing-network-cohesion"><i class="fa fa-check"></i><b>7.2.2</b> Characterizing Network Cohesion<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#graph-partitioning"><i class="fa fa-check"></i><b>7.2.3</b> Graph Partitioning<span></span></a></li>
+<li class="chapter" data-level="7.2.4" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#assortativity-and-mixing"><i class="fa fa-check"></i><b>7.2.4</b> Assortativity and Mixing<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>7.3</b> Data Collection and Sampling<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>7.3.1</b> Sampling Designs<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>7.3.2</b> Coping Strategies<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>7.3.3</b> Big Data Solves Nothing<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>7.4</b> Mathematical Models for Network Graphs<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#classical-random-graph-models"><i class="fa fa-check"></i><b>7.4.1</b> Classical Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#generalized-random-graph-models"><i class="fa fa-check"></i><b>7.4.2</b> Generalized Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="7.4.3" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#network-graph-models-based-on-mechanisms"><i class="fa fa-check"></i><b>7.4.3</b> Network Graph Models Based on Mechanisms<span></span></a></li>
+<li class="chapter" data-level="7.4.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#assessing-significance-of-network-graph-characteristics"><i class="fa fa-check"></i><b>7.4.4</b> Assessing Significance of Network Graph Characteristics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html"><i class="fa fa-check"></i><b>7.5</b> Introduction to ERGM<span></span></a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#exponential-random-graph-models"><i class="fa fa-check"></i><b>7.5.1</b> Exponential Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="7.5.2" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#difficulty-in-parameter-estimation"><i class="fa fa-check"></i><b>7.5.2</b> Difficulty in Parameter Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html"><i class="fa fa-check"></i><b>7.6</b> Parameter Estimation of ERGM<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#current-methods-for-ergm"><i class="fa fa-check"></i><b>7.6.1</b> Current Methods for ERGM<span></span></a></li>
+<li class="chapter" data-level="7.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>7.6.2</b> Approximation-based Algorithm<span></span></a></li>
+<li class="chapter" data-level="7.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>7.6.3</b> Auxiliary Variable MCMC-based Approaches<span></span></a></li>
+<li class="chapter" data-level="7.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>7.6.4</b> Varying Trunction Stochastic Approximation MCMC<span></span></a></li>
+<li class="chapter" data-level="7.6.5" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#conclusion"><i class="fa fa-check"></i><b>7.6.5</b> Conclusion<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>7.7</b> ERGM for Dynamic Networks<span></span></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>7.7.1</b> Temporal ERGM (TERGM, T ERGM)<span></span></a></li>
+<li class="chapter" data-level="7.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>7.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>7.8</b> Latent Network Models<span></span></a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>7.8.1</b> Latent Position Model<span></span></a></li>
+<li class="chapter" data-level="7.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>7.8.2</b> Latent Position Cluster Model<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html"><i class="fa fa-check"></i><b>7.9</b> Additive and Multiplicative Effects Network Models<span></span></a>
+<ul>
+<li class="chapter" data-level="7.9.1" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#introduction-3"><i class="fa fa-check"></i><b>7.9.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="7.9.2" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#social-relations-regression"><i class="fa fa-check"></i><b>7.9.2</b> Social Relations Regression<span></span></a></li>
+<li class="chapter" data-level="7.9.3" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#multiplicative-effects-models"><i class="fa fa-check"></i><b>7.9.3</b> Multiplicative Effects Models<span></span></a></li>
+<li class="chapter" data-level="7.9.4" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#inference-via-posterior-approximation"><i class="fa fa-check"></i><b>7.9.4</b> Inference via Posterior Approximation<span></span></a></li>
+<li class="chapter" data-level="7.9.5" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#discussion-and-example-with-r"><i class="fa fa-check"></i><b>7.9.5</b> Discussion and Example with R<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html"><i class="fa fa-check"></i><b>7.10</b> Stochastic Block Models<span></span></a>
+<ul>
+<li class="chapter" data-level="7.10.1" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#stochastic-block-model"><i class="fa fa-check"></i><b>7.10.1</b> Stochastic Block Model<span></span></a></li>
+<li class="chapter" data-level="7.10.2" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#mixed-membership-block-model-mmbm"><i class="fa fa-check"></i><b>7.10.2</b> Mixed Membership Block Model (MMBM)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="high-dimension.html"><a href="high-dimension.html"><i class="fa fa-check"></i><b>8</b> High Dimension<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>8.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="8.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html"><i class="fa fa-check"></i><b>8.2</b> Concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#motivation"><i class="fa fa-check"></i><b>8.2.1</b> Motivation<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#from-markov-to-chernoff"><i class="fa fa-check"></i><b>8.2.2</b> From Markov to Chernoff<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.3</b> sub-Gaussian random variables<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#properties-of-sub-gaussian-random-variables"><i class="fa fa-check"></i><b>8.2.4</b> Properties of sub-Gaussian random variables<span></span></a></li>
+<li class="chapter" data-level="8.2.5" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#equivalent-definitions"><i class="fa fa-check"></i><b>8.2.5</b> Equivalent definitions<span></span></a></li>
+<li class="chapter" data-level="8.2.6" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-vectors"><i class="fa fa-check"></i><b>8.2.6</b> Sub-Gaussian random vectors<span></span></a></li>
+<li class="chapter" data-level="8.2.7" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#hoeffdings-inequality"><i class="fa fa-check"></i><b>8.2.7</b> Hoeffding’s inequality<span></span></a></li>
+<li class="chapter" data-level="8.2.8" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#maximal-inequalities"><i class="fa fa-check"></i><b>8.2.8</b> Maximal inequalities<span></span></a></li>
+<li class="chapter" data-level="8.2.9" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#section"><i class="fa fa-check"></i><b>8.2.9</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html"><i class="fa fa-check"></i><b>8.3</b> Concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#sub-exponential-random-variables"><i class="fa fa-check"></i><b>8.3.1</b> Sub-exponential random variables<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#bernsteins-condition"><i class="fa fa-check"></i><b>8.3.2</b> Bernstein’s condition<span></span></a></li>
+<li class="chapter" data-level="8.3.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#mcdiarmids-inequality"><i class="fa fa-check"></i><b>8.3.3</b> McDiarmid’s inequality<span></span></a></li>
+<li class="chapter" data-level="8.3.4" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#levys-inequality"><i class="fa fa-check"></i><b>8.3.4</b> Levy’s inequality<span></span></a></li>
+<li class="chapter" data-level="8.3.5" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#quadratic-form"><i class="fa fa-check"></i><b>8.3.5</b> Quadratic form<span></span></a></li>
+<li class="chapter" data-level="8.3.6" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#the-johnsonlindenstrauss-lemma"><i class="fa fa-check"></i><b>8.3.6</b> The Johnson–Lindenstrauss Lemma<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html"><i class="fa fa-check"></i><b>8.4</b> Metric entropy and its uses<span></span></a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#metric-space"><i class="fa fa-check"></i><b>8.4.1</b> Metric space<span></span></a></li>
+<li class="chapter" data-level="8.4.2" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#covering-numbers-and-metric-entropy"><i class="fa fa-check"></i><b>8.4.2</b> Covering numbers and metric entropy<span></span></a></li>
+<li class="chapter" data-level="8.4.3" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#packing-numbers"><i class="fa fa-check"></i><b>8.4.3</b> Packing numbers<span></span></a></li>
+<li class="chapter" data-level="8.4.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-1"><i class="fa fa-check"></i><b>8.4.4</b> </a></li>
+<li class="chapter" data-level="8.4.5" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-2"><i class="fa fa-check"></i><b>8.4.5</b> </a></li>
+<li class="chapter" data-level="8.4.6" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-3"><i class="fa fa-check"></i><b>8.4.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="covariance-estimation.html"><a href="covariance-estimation.html"><i class="fa fa-check"></i><b>8.5</b> Covariance estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="covariance-estimation.html"><a href="covariance-estimation.html#matrix-algebra-review"><i class="fa fa-check"></i><b>8.5.1</b> Matrix algebra review<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="covariance-estimation.html"><a href="covariance-estimation.html#covariance-matrix-estimation-in-the-operator-norm"><i class="fa fa-check"></i><b>8.5.2</b> Covariance matrix estimation in the operator norm<span></span></a></li>
+<li class="chapter" data-level="8.5.3" data-path="covariance-estimation.html"><a href="covariance-estimation.html#bounds-for-structured-covariance-matrices"><i class="fa fa-check"></i><b>8.5.3</b> Bounds for structured covariance matrices<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html"><i class="fa fa-check"></i><b>8.6</b> Matrix concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-calculus"><i class="fa fa-check"></i><b>8.6.1</b> Matrix calculus<span></span></a></li>
+<li class="chapter" data-level="8.6.2" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-chernoff"><i class="fa fa-check"></i><b>8.6.2</b> Matrix Chernoff<span></span></a></li>
+<li class="chapter" data-level="8.6.3" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#sub-gaussian-and-sub-exponential-matrices"><i class="fa fa-check"></i><b>8.6.3</b> Sub-Gaussian and sub-exponential matrices<span></span></a></li>
+<li class="chapter" data-level="8.6.4" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#랜덤-매트릭스에-대한-hoeffding-and-bernstein-bounds"><i class="fa fa-check"></i><b>8.6.4</b> 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>8.7</b> Principal Component Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-1"><i class="fa fa-check"></i><b>8.7.1</b> PCA<span></span></a></li>
+<li class="chapter" data-level="8.7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#matrix-perturbation"><i class="fa fa-check"></i><b>8.7.2</b> Matrix Perturbation<span></span></a></li>
+<li class="chapter" data-level="8.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>8.7.3</b> Spiked Cov Model<span></span></a></li>
+<li class="chapter" data-level="8.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>8.7.4</b> sparse PCA<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>8.8</b> Linear Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>8.8.1</b> Problem formulation<span></span></a></li>
+<li class="chapter" data-level="8.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>8.8.2</b> Least Squares Estimator in high dimensions<span></span></a></li>
+<li class="chapter" data-level="8.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>8.8.3</b> Sparse linear regression<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html"><i class="fa fa-check"></i><b>8.9</b> Uniform laws of large numbers<span></span></a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#motivation-1"><i class="fa fa-check"></i><b>8.9.1</b> Motivation<span></span></a></li>
+<li class="chapter" data-level="8.9.2" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#a-uniform-law-via-rademacher-complexity"><i class="fa fa-check"></i><b>8.9.2</b> A uniform law via Rademacher complexity<span></span></a></li>
+<li class="chapter" data-level="8.9.3" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#upper-bounds-on-the-rademacher-complexity"><i class="fa fa-check"></i><b>8.9.3</b> Upper bounds on the Rademacher complexity<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>9</b> Survival Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>9.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>9.2</b> </a></li>
+<li class="chapter" data-level="9.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>9.3</b> Counting Processes and Martingales<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>9.3.1</b> Conditional Expectation<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>9.3.2</b> Martingale<span></span></a></li>
+<li class="chapter" data-level="9.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>9.3.3</b> Key Martingales Properties<span></span></a></li>
+<li class="chapter" data-level="9.3.4" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-5"><i class="fa fa-check"></i><b>9.3.4</b> </a></li>
+<li class="chapter" data-level="9.3.5" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#section-6"><i class="fa fa-check"></i><b>9.3.5</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>9.4</b> </a></li>
+<li class="chapter" data-level="9.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>9.5</b> Cox Regression<span></span></a></li>
+<li class="chapter" data-level="9.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>9.6</b> Filtration의 개념을 정복하자!<span></span></a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>9.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약<span></span></a></li>
+<li class="chapter" data-level="9.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>9.6.2</b> Ft-measurable<span></span></a></li>
+<li class="chapter" data-level="9.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>9.6.3</b> EPILOGUE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>9.7</b> Concepts<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>IV 22-01<span></span></b></span></li>
+<li class="chapter" data-level="10" data-path="scikit.html"><a href="scikit.html"><i class="fa fa-check"></i><b>10</b> scikit<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>10.1</b> Linear Models<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="linear-models.html"><a href="linear-models.html#ordinary-least-squares"><i class="fa fa-check"></i><b>10.1.1</b> Ordinary Least Squares<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>00-00<span></span></b></span></li>
+<li class="chapter" data-level="A" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>A</b> Concepts<span></span></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="autologistic.html"><a href="autologistic.html"><i class="fa fa-check"></i><b>A.1</b> Autologistics<span></span></a></li>
+<li class="chapter" data-level="A.2" data-path="orderlogit.html"><a href="orderlogit.html"><i class="fa fa-check"></i><b>A.2</b> Ordered Logit<span></span></a></li>
+<li class="chapter" data-level="A.3" data-path="concepts-questions.html"><a href="concepts-questions.html"><i class="fa fa-check"></i><b>A.3</b> Concepts Questions<span></span></a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="concepts-questions.html"><a href="concepts-questions.html#통계-및-수학"><i class="fa fa-check"></i><b>A.3.1</b> 통계 및 수학<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html"><i class="fa fa-check"></i><b>B</b> About Cluster-GCN<span></span></a>
+<ul>
+<li class="chapter" data-level="B.0.1" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html#ann"><i class="fa fa-check"></i><b>B.0.1</b> ANN<span></span></a></li>
+<li class="chapter" data-level="B.0.2" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html#cnn"><i class="fa fa-check"></i><b>B.0.2</b> CNN<span></span></a></li>
+<li class="chapter" data-level="B.0.3" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html#graph-convolution-network"><i class="fa fa-check"></i><b>B.0.3</b> Graph Convolution Network<span></span></a></li>
+<li class="chapter" data-level="B.0.4" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html#cluster-gcn"><i class="fa fa-check"></i><b>B.0.4</b> Cluster-GCN<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="cnn-1.html"><a href="cnn-1.html"><i class="fa fa-check"></i><b>C</b> CNN<span></span></a></li>
+<li class="chapter" data-level="D" data-path="cnn-2.html"><a href="cnn-2.html"><i class="fa fa-check"></i><b>D</b> CNN<span></span></a></li>
+<li class="chapter" data-level="E" data-path="cnn-3.html"><a href="cnn-3.html"><i class="fa fa-check"></i><b>E</b> CNN<span></span></a></li>
+<li class="chapter" data-level="F" data-path="section-8.html"><a href="section-8.html"><i class="fa fa-check"></i><b>F</b> 01<span></span></a></li>
+<li class="chapter" data-level="G" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i><b>G</b> 02<span></span></a>
+<ul>
+<li class="chapter" data-level="G.1" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i><b>G.1</b> 10.<span></span></a>
+<ul>
+<li class="chapter" data-level="G.1.1" data-path="section-10.html"><a href="section-10.html#stochastic-block-model-1"><i class="fa fa-check"></i><b>G.1.1</b> Stochastic Block Model<span></span></a></li>
+<li class="chapter" data-level="G.1.2" data-path="section-10.html"><a href="section-10.html#likelihood-function-1"><i class="fa fa-check"></i><b>G.1.2</b> Likelihood function<span></span></a></li>
+<li class="chapter" data-level="G.1.3" data-path="section-10.html"><a href="section-10.html#mixed-membership-block-model-mmbm-1"><i class="fa fa-check"></i><b>G.1.3</b> Mixed Membership Block Model (MMBM)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="about-cluster-gcn" class="section level1 hasAnchor" number="12">
+<h1><span class="header-section-number">B</span> About Cluster-GCN<a href="about-cluster-gcn.html#about-cluster-gcn" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>’’’
+- 1 ANN</p>
+<ul>
+<li><p>1.1 Training</p></li>
+<li><p>1.1.1 Backpropagation</p></li>
+<li><p>1.2 Problem</p></li>
+<li><p>2 CNN</p></li>
+<li><p>2.1 Convolution Layer</p></li>
+<li><p>2.2 Pooling</p></li>
+<li><p>2.3 CNN 을 위한 back-propagation</p></li>
+<li><p>3 Graph Convolution Network</p></li>
+<li><p>4 Cluster-GCN</p></li>
+</ul>
+<div id="ann" class="section level3 hasAnchor" number="12.0.1">
+<h3><span class="header-section-number">B.0.1</span> ANN<a href="about-cluster-gcn.html#ann" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>딥러닝이란 수많은 머신러닝 방법론들 중의 한 갈래로, 실제 신경계를 모사하여 인간이 현실세계에서 데이터에 대한 labeling 을 수행하는 방법을 구현하는 것으로 이러한 프로세스를 컴퓨터로 하여금 진행하도록 하는 것을 의미한다. 인간이 세상을 인식할 때 인간의 감각세포가 받아들인 외부의 자극 input (입력값)은 신경계를 거쳐 해석되어 어떤 종류의 인식인지 output (결과값)으로 분류되어 뇌에 인식된다. 이 일 련의 프로세스를 모사적으로 컴퓨터로 구현하여 인간의 인식을 전뇌적으로 구현하고자 하는 것이 딥러닝의 기초적인 정의이다. 이러한 딥 러닝의 가장 핵심적인 알고리즘으로 꼽히는 것이 Artificial Neural Network (ANN) 으로, ANN 의 방법론을 수학의 언어를 빌려 설명하자면 이하와 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbf{x} &amp;=\left[x_{1} x_{2} \ldots x_{M}\right]^{T} \\
+s(\mathbf{x} ; \theta=\mathbf{w}, b) &amp;=\mathbf{w} \mathbf{x}+b \quad=\sum_{j=1}^{M} w_{j} x_{j}+b \\
+y &amp;=\sigma\{s(\mathbf{x} ; \theta)\}
+\end{aligned}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\mathbf{x}\)</span> : 외부의 자극 input</p></li>
+<li><p><span class="math inline">\(\mathbf{w}, b\)</span> : 신경계의 작동 메커니즘. <span class="math inline">\(\theta\)</span> 는 해당 구현에서의 패러미터인 <span class="math inline">\(\mathbf{w}, b\)</span> 의 실현값.</p></li>
+<li><p><span class="math inline">\(y\)</span> : 뇌가 인식하는 결과값 output</p></li>
+</ul>
+<p>ANN 은 신경계의 분류 메커니즘이 linear transformation 이라는 가정을 깔고 시작한다. input 되는 외부의 자극을 linear 하게 조립하는 것 으로 인간이 해당 자극을 labeling 하기 직전에 마주하는 최종적인 자극의 형태를 만들어낼 수 있다는 것이 그 골자이다. 이때 자극 input 을 linear transformation 하므로, 자극 vector 를 linear transformation 할 coefficient 와 스칼라 연산을 할 constant 를 필요로 한다. 이때 coefficient 를 weight, w 로 명명하고, constant 를 bias, <span class="math inline">\(b\)</span> 로 명명하게 된다.</p>
+<p>언급하였듯이 labeling 하기 전 인간의 신경계가 linear 하게 조립한 자극 자체는 아무런 의미를 갖지 않는다. 이렇게 도출된 계산결과를 무 엇으로 인식할 건지에 대한 규칙을 1 번 더 거친 후에야 비로소 인간이 어떻게 해당 자극을 labeling 하였는가에 대한 결과값을 얻을 수 있 다. 이 규칙이 바로 <span class="math inline">\(\sigma\)</span> 이며 이는 <em>activation function</em> 이라고 불린다. activation function 자체에는 unit step function, sigmoid function, cross entropy 등 다양한 종류가 존재하며 activation function 자체는 연구자가 임의로 선택하게 된다. <em>sigmoid function</em> 은 가장 자주 쓰였던 함수 중 하나이나 sigmoid 의 미분값은 <span class="math inline">\(0 \sim 0.25\)</span> 사이이기에 전달되는 weight 가 발산하거나 곡선의 기울기가 0이 되는 <em>Vanishing Gradient Problem</em> 이 발생한다. 해당 문제를 해결하기 위해 최근에는 임의로 설계된 함수인 <em>ReLU</em> 함수를 activation function 으로 많이 채용한다. 이는 미분값이 0 혹은 1 로 연산자원을 적게 먹는다는 장점 때문에 자주 사용되는 함수이다.</p>
+<p><img src="_main_files/figure-html/plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>기본적으로는 설명의 편의를 위해 sigmoid 함수를 사용하겠다.</p>
+<p>이렇게 1 개의 인공적인 neuron 을 설계해냈지만 이것으로 문제가 한번에 해결될리는 없다. 연구자가 임의로 정한 weight 와 activation function 으로 문제가 한번에 풀린다면 이상적이겠으나 현실에서는 neuron 의 기능이 부족하여 문제를 한번에 해결하지 못하는 경우가 대다수이다. neuron 이 정확하게 작동하기 위해서는 이하의 2 가지 문제를 해결해야 한다.</p>
+<ol style="list-style-type: decimal">
+<li><p><em>Training</em>: 주어진 training dataset <span class="math inline">\(\mathcal{X}\)</span> 를 이용하여 인공적으로 설계한 neuron 이 계산해내는 자극의 linear transformation 이 실제 목표하는 neuron 의 작동기전과 일치하도록 패러미터의 weight <span class="math inline">\(\mathbf{w}\)</span> 와 bias <span class="math inline">\(b\)</span> 를 조정.</p></li>
+<li><p><em>Classification</em>: neuron 이 작동 도중 계산해내는 자극의 linear transformation 을 activation function <span class="math inline">\(\sigma\)</span> 로 분류할 때 이것이 정답과 일*치할 수 있도록 <span class="math inline">\(\sigma\)</span> 를 조정</p></li>
+</ol>
+<p>이때 <span class="math inline">\(\sigma\)</span> 는 연구자가 직접 설정하므로 이터레이션을 거치며 성능향상을 시키는 과정에서 자동화를 시키기에 어려운 부분이 존재한다. 따라 서 ANN 에서 주요한 것은 training 과정에서 neuron 의 패러미터 weight <span class="math inline">\(\mathbf{w}\)</span> 와 bias <span class="math inline">\(b\)</span> 가 정답에 가까워지는 속도를 올리는 것이다.</p>
+<div id="training" class="section level4 hasAnchor" number="12.0.1.1">
+<h4><span class="header-section-number">B.0.1.1</span> Training<a href="about-cluster-gcn.html#training" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>neuron 의 training 을 위해서는 우선 <em>cost function</em> <span class="math inline">\(C\)</span> 를 정의해야 한다. cost function <span class="math inline">\(C\)</span> 의 목적은 input <span class="math inline">\(x\)</span> 에 대한 정답인 <span class="math inline">\(t\)</span> 와 현재 보유하고 있는 model 에서 계산해낸 output <span class="math inline">\(y\)</span> 사이의 차이를 계산해내는 것이다. 보편적으로 쓰이는 cost function 중 하나는 <em>Sum of Squared Error (SSE)</em> 이다. neuron 의 training 이란 곧 <span class="math inline">\(C\)</span> 의 값을 작게 만드는, 즉 실제값과 model 이 계산해낸 결과값 사이의 오차를 최소화시키는 <span class="math inline">\(\mathbf{w}, b\)</span> 를 찾아나가는 과정과 같다. 이러한 학습에는 주로 <em>gradient descent method</em> 가 사용된다. gradient descent method 를 사용해서 neuron 을 training 하는 상황을 가정할 경우 <span class="math inline">\(C\)</span> 를 <span class="math inline">\(\theta=\{\mathbf{w}, b\}\)</span> 각각에 대해 편미분 한 결과값을 얻어야 한다. 편의를 위해 activation function 은 sigmoid 로 사용하였다고 가정하자. 이 경우 이하가 성립한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+w_{j} &amp;=w_{j}-\eta \frac{\partial C}{\partial w_{j}} \\
+&amp;=w_{j}-\eta \frac{\partial C}{\partial y} \frac{\partial y}{\partial s} \frac{\partial s}{\partial w_{j}}=w_{j}+\eta \sum_{n=1}^{N}\left(t_{n}-y\right) y(1-y) x_{j} \\
+b &amp;=b-\eta \frac{\partial C}{\partial b} \quad=b+\eta \sum_{n=1}^{N}\left(t_{n}-y\right) y(1-y)
+\end{aligned}
+\]</span></p>
+<p>이렇게 구한 식들을 대입하는 것으로 gradient descent method 구현이 완료된다. 물론 training 방법론으로 gradient descent method 이외의 다른 방법론을 채택했다면 <em>update rule</em> 은 달라진다. 이처럼 neuron 하나에 대한 update rule 은 위와 같은 과정을 걸쳐서 정의된다.</p>
+<p>기본적으로 하나의 neuron 은 binary class 를 분류하도록 설계된다. 즉 하나의 neuron 은 <span class="math inline">\(\mathrm{A}\)</span> 인가 <span class="math inline">\(\mathrm{A}\)</span> 가 아닌가를 분류하는 기능만을 수행한다. 그러나 현실의 labeling 은 1 개의 여부를 분별하는 binary 이기보다는 다양한 선택지 안에서 하나를 고르는 multinomial 문제가 절대다수 이다. 따라서 yes or not 을 분별하는 binary neuron 다수를 복합하여 이러한 multinomial class 에 대한 classifier 를 설계하게 된다. 이렇게 다수의 neuron 을 복합해서 구성한 하나의 classifier 를 <em>layer</em> 라고 명명한다. 하나의 neuron 에는 그 뉴런이 보유한 weight 와 activation function 이 세트이므로, 따라서 1 개의 layer 에 적층된 neuron 이 <span class="math inline">\(N\)</span> 개라면, weight vector 도 <span class="math inline">\(N\)</span> 개, activation function 도 <span class="math inline">\(N\)</span> 개라는 것과 동의이다.</p>
+<p>여기에 위에서 설명한 update rule 을 구하는 방법을 사용하여 이렇게 다수의 neuron 을 적층시킨 layer 1 개의 Cost function 을 정의하고 이에 대한 update rule 을 따로 정의해주어야 한다. 이러한 layer 에 대한 cost function 으로서 SSE 를 사용하여 예시를 보일 수 있다.</p>
+<p><span class="math display">\[
+\mathcal{C}=\frac{1}{2} \sum_{n=1}^{N}\left\|t_{n}-y\right\|_{2}^{2}=\frac{1}{2} \sum_{n=1}^{N} \sum_{i=1}^{K}\left(t_{n i}-y_{i}\right)^{2}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(t_{n i}: n\)</span> 번째 데이터에 대한 label vector <span class="math inline">\(t_{n}\)</span> 의 <span class="math inline">\(i\)</span>-th element</p></li>
+<li><p><span class="math inline">\(y_{i}\)</span> : output layer 에서의 <span class="math inline">\(i\)</span>-th neuron의 output</p></li>
+</ul>
+<p>위에서 구하였던 update rule 을 이 layer 에 대한 cost function 에 적용하면 아래와 같다. 이때 activation function 은 sigmoid 로 가정하였다. 이때 <em>single-layer</em> ANN 은 서로 independent 한 neuron 여러개를 적층한 것일 뿐이므로, layer 1 개에 들어있는 각 neuron 에 대한 update rule 은 neuron 1 개에 대한 update rule 과 다를바 없음을 알 수 있다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+w_{i j}=w_{i j}-\eta \frac{\partial C}{\partial w_{i j}} &amp;=w_{i j}-\eta \frac{\partial C}{\partial y_{i}} \frac{\partial y_{i}}{\partial s_{i}} \frac{\partial s_{i}}{\partial w_{i j}} \\
+&amp;=w_{i j}+\sum_{n=1}^{N}\left(t_{n i}-y_{i}\right) y_{i}\left(1-y_{i}\right) x_{j} \\
+b_{i}=b_{i}-\eta \frac{\partial C}{\partial b_{i}} &amp;=b_{i}+\sum_{n=1}^{N}\left(t_{n i}-y_{i}\right) y_{i}\left(1-y_{i}\right)
+\end{aligned}
+\]</span></p>
+<p>만약 데이터의 분포가 단순하다면 이런 layer 1 개만으로도 충분한 성능의 classification 을 획득하는 것이 가능하다. 그러나 현실세계의 문제는 복잡하여 그렇지 않은 경우가 더 다수가 된다. 만약 데이터의 분포가 복잡하여 이를 분류하는데에 지나치게 복잡한 형태의 함수를 요구한다면 linear function 으로 이들의 경계선을 만드는 것은 불가능할 것이다. 그러나 데이터의 본질을 건드리지 않는 선에서 데이터에 변환을 적용하여 데이터 class 간의 경계선을 선형에 가깝게 변환할 수 있다면 이러한 문제를 해결하는 것이 가능하다.</p>
+<p><em>Multi-layer</em> ANN 이 바로 이러한 발상을 구현한 것이다. 최종적인 결과물을 출력하는 layer 인 output layer 를 사용하기 전, input layer 와 output layer 사이에 <em>hidden layer</em> 를 다수 설치하여 hidden layer 를 거치면서 데이터의 classification 을 최적화할 수 있는 데이터 변환을 연산하자는 것이 그 골자이다. 이러한 최적화 변환에는 차원을 축소하거나, 혹은 증가시키는 것도 포함된다.</p>
+<p>hidden layer 를 도입해도 output layer 에서 결과를 classification 하는 방법은 위에서 설명하였던 일련의 과정들과 동일하다. 단지 output layer 가 시간 <span class="math inline">\(L\)</span> 에서의 layer 로 정의된다는 것이 다를 뿐이다. 이를 반영하여 update rule 을 수식으로 서술하면 아래와 같다.</p>
+<p><img src="pics/multi-layerANN.png" /></p>
+<p><span class="math display">\[
+\begin{aligned}
+w_{i j}^{(L)} &amp;=w_{i j}^{(L)}-\eta \frac{\partial C}{\partial w_{i j}^{(L)}} \\
+&amp;=w_{i j}^{(L)}+\sum_{n=1}^{N}\left(t_{n}-y_{i}^{(L)}\right) y_{i}^{(L)}\left(1-y_{i}^{(L)}\right) y_{j}^{(L-1)} \\
+b_{i}^{(L)} &amp;=b_{i}^{(L)}-\eta \frac{\partial \mathcal{C}}{\partial b_{i}^{(L)}} \\
+&amp;=b_{i}^{(L)}+\sum_{n=1}^{N}\left(t_{n}-y_{i}^{(L)}\right) y_{i}^{(L)}\left(1-y_{i}^{(L)}\right)
+\end{aligned}
+\]</span></p>
+<p>그러나 hidden layer 는 이러한 cost function 접근법을 직접적으로 활용할 수 없다는 문제가 있다. hidden layer 에는 label 이 존재하지 않아 cost function 을 정의할 수 없기 때문이다. 이러한 문제를 해결하기 위해 제언된 것이 Backpropagation 알고리즘이다.</p>
+<div id="backpropagation" class="section level5 hasAnchor" number="12.0.1.1.1">
+<h5><span class="header-section-number">B.0.1.1.1</span> Backpropagation<a href="about-cluster-gcn.html#backpropagation" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>기본적인 아이디어는 output layer 의 output 과 cost function으로부터 계산된 오차 ( <span class="math inline">\(t\)</span> 와 <span class="math inline">\(y\)</span> 의 차이) 를 hidden layer 로 도로 역행시키며 각 layer 마다 패러미터를 재조정하는 것이다.</p>
+<p>우선 <span class="math inline">\(\delta_{i}^{(l)}=\frac{\partial C}{\partial s_{i}^{(i)}}\)</span> 라는 변수를 정의한다. 이때 <span class="math inline">\(C\)</span> 는 output layer 의 cost function 이다. 이제 <span class="math inline">\(L-1\)</span> layer 를 생각하자. 이는 output layer 도, input layer 도 아니므로 hidden layer 이며, output layer 를 제외하면 layer 배치 중 최후미에 존재하므로 ‘최상층’ 이라고 불린다. 해당 <span class="math inline">\(L-1\)</span> layer 를 구성하는 neuron 들 중 <span class="math inline">\(i\)</span>-th neuron 의 <span class="math inline">\(j\)</span>-th weight, 즉 <span class="math inline">\(w_{i j}^{(L-1)}\)</span> 에 대한 update rule 은 이하와 같은 과정을 거쳐 유도된다.</p>
+$$
+<span class="math display">\[\begin{array}{rlr}
+\frac{\partial C}{\partial w_{i j}^{(L-1)}} &amp; =\frac{\partial C}{\partial y_{i}^{(L-1)}} \cdot &amp; \frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}} 
+\frac{\partial s_{i}^{(L-1)}}{\partial w_{i j}^{(L-1}} \\
+
+&amp; =\left[\sum_{k=1}^{K_{L}} \frac{\partial C}{\partial s_{k}^{(L)}} \frac{\partial s_{k}^{(L)}}{\partial y_{i}^{(L-1)}}\right] &amp; \frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}} 
+\frac{\partial s_{i}^{(L-1}}{\partial w_{i j}^{(L-1)}} \\
+
+&amp; =\left[\sum_{k=1}^{K_{L}} \frac{\partial C}{\partial s_{k}^{(L)}} \frac{\partial}{\partial y_{i}^{(L-1)}}\left\{\sum_{q=1}^{M_{L}} w_{k \beta}^{(L)} v_{i}^{(L-1)}+b_{k}\right\}\right] 
+&amp;\frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)} 
+\; \cdot\;  \frac{\partial s_{i}^{(L-1)}}{\partial w_{i j}^{(L-1)}}} \\
+
+&amp; =\left\{\sum_{k=1}^{K_{k}^{(L)} }W_{k i}^{(L)} \right\} 
+&amp; 
+\frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}} 
+\frac{\partial s_{i}^{(L-1)}}{\partial w_{i j}^{(L-1)}} \\
+
+&amp; =\left\{\sum_{k=1}^{K_{L}} \delta_{k}^{(L)} W_{k i}^{(L)}\right\}_{j}^{(L-2)} 
+&amp; \frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}}
+\phantom{\frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}}}
+\end{array}\]</span>
+<p>$$</p>
+<ul>
+<li><p><span class="math inline">\(K_{l}: l\)</span> layer 를 구성하는 neuron 의 수</p></li>
+<li><p><span class="math inline">\(M_{l}: l\)</span> layer 에 입력되는 데이터의 차원</p></li>
+</ul>
+<p>따라서 <span class="math inline">\(w_{i j}^{(L-1)}\)</span> 는 아래와 같이 update 되며, 상기와 같이 activate function 으로 sigmoid 를 가정하였다면 마지막 등식이 성립한다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+w_{i j}^{(L-1)} &amp;=w_{i j}^{(L-1)}-\eta \frac{\partial C}{\partial w_{i j}^{(L-1)}} \\
+&amp;=w_{i j}^{(L-1)}-\eta\left\{\sum_{k=1}^{K_{L}} \delta_{k}^{(L)} w_{k i}^{(L)}\right\} y_{j}^{(L-2)} \cdot \frac{\partial y_{i}^{(L-1)}}{\partial s_{i}^{(L-1)}} \\
+&amp;=w_{i j}^{(L-1)}-\eta\left\{\sum_{k=1}^{K_{L}} \delta_{k}^{(L)} w_{k i}^{(L)}\right\} y_{j}^{(L-2)} \cdot y_{i}^{(L-1)}\left(1-y_{i}^{(L-1)}\right) \text { (if activ func. is sigmoid) }
+\end{aligned}
+\]</span></p>
+<p>이를 종합한 hidden layer 의 update rule 은 아래와 같다. 이처럼 <span class="math inline">\(l\)</span>-th <span class="math inline">\(\delta \delta_{i}^{(l)}\)</span> 를 메모리에 저장한 후 <span class="math inline">\(l-1\)</span> layer 를 training 할 때 이 변수를 사용하는 것으로 계속해서 거슬러 올라가며 training 을 반복하게 된다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;w_{i j}^{(l)}=w_{i j}^{(l)}-\eta\left\{\sum_{k=1}^{K_{l+1}} \delta_{k}^{(l+1)} w_{k i}^{(l+1)}\right\} y_{j}^{(l)}\left(1-y_{i}^{(l)}\right) \cdot y_{j}^{(l-1)} \\
+&amp;b_{i}^{(l)}=b_{i}^{(l)}-\eta\left\{\sum_{k=1}^{K_{l+1}} \delta_{k}^{(k+1)} w_{k i}^{(l+1)}\right\} y_{j}^{(l)}\left(1-y_{i}^{(l)}\right)
+\end{aligned}
+\]</span></p>
+</div>
+</div>
+<div id="problem" class="section level4 hasAnchor" number="12.0.1.2">
+<h4><span class="header-section-number">B.0.1.2</span> Problem<a href="about-cluster-gcn.html#problem" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이렇게 강력한 성능을 발휘하는 ANN 알고리즘이지만 특정 영역에서는 문제가 발생하게 된다.</p>
+<p><img src="pics/vectorization.png" /></p>
+<p>1번째로는 ANN 의 input layer 는 vector 데이터만을 입력받는다는 점이 문제가 된다. 2차원 이상의 데이터를 input 하고자 할 경우 이를 slice 하여 1차원의 긴 데이터로 입력하는 것 으로 우선 입력시키는 것만은 가능하다. (<em>vectoriaztion</em>) 그러나 다차원 데이터의 경우 개별 entry <span class="math inline">\(a\)</span> 주위에 위치한 entry 들이 가지는 속성이 <span class="math inline">\(a\)</span> 가 어떤 속성을 가지고 있는지 짐작하는데 중요한 역할을 하는 경우가 존재한다는 것이 이러한 접근을 방해하게 된다. 일례로 이미지 데이터를 분석 하는 상황이라면 특정 픽셀이 가지고 있는 색은 주위 픽셀이 가지고 있는 색과 유사할 가능성이 높을 것이다. 또한 node 를 개인, edge 를 인간관계로 하는 그래프 데이터 분석 상황의 경우 유유상종이라는 말에 따라 어느정도 성질을 유사하게 가지는 사람들이 관계를 맺고 있을 가능성이 높으므로 이또한 neighbor 의 정보가 개별 node 분석에 있어 필수불가결하다. 이처럼 다차원 데이터에서는 위치 데이터가 중요 한 역할을 하는 경우가 많으며 다차원 데이터를 평탄화하여 vector 화 하는 것은 다차원 데이터의 위치정보를 유실시켜 결국 알고리즘의 성능을 크게 떨어트리게 된다.</p>
+<p>또한 ANN 의 경우 연산중에 지나치게 많은 model 패러미터를 요구한다. ANN 을 통해 RGB 룰을 따르는 <span class="math inline">\(1024 \times 1024\)</span> 크기의 이미지를 처리 하고자 할 경우 ANN 에 입력되는 벡터의 차원은 <span class="math inline">\(1024 \times 1024 \times 3\)</span> 으로 약 300 만에 달한다. 이러한 input 하나하나에 대해 weight 가 지정될 필요가 있으므로 요구되는 모델 패러미터들의 숫자가 지나치게 많아지게 되며 저장공간을 비효율적으로 활용하게 된다는 점에서 이또한 심각한 단점 중 하나이다. 이러한 ANN 들의 한계를 해결하기 위한 것으로 다양한 해결책들이 제시되었으며, 이들 중 가장 유명한 것은 Convolutional Neural Network, 이하 CNN 이다.</p>
+</div>
+</div>
+<div id="cnn" class="section level3 hasAnchor" number="12.0.2">
+<h3><span class="header-section-number">B.0.2</span> CNN<a href="about-cluster-gcn.html#cnn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>CNN 의 시작은 크게 2가지로 볼 수 있다. 1980년, 후쿠시마 쿠니히코에 의해 제언된 개념인 ‘Neocognitron’ 에서 CNN 의 원형이 최초로 제시되었다. 후쿠시마는 CNN 에 대한 기초적인 아이디어와 알고리즘을 제시하긴 하였으나 후쿠시마의 방법론에서는 아직 back-propagation (back-propagation) 가 사용되지 않았기에 현재 널리 사용되고 있는 CNN 의 그것과는 조금 차이가 있다. 해당 논문에서는 학습을 위해 사 용할 알고리즘으로 2 가지 방식이 제안되었으며 각각은 unsupervised 와 supervised 에 해당한다. 현재 CNN 에서 주도적으로 사용되고 있 는 back-propagation 을 사용하는 알고리즘은 1987년 Alex Waibel 이 쓴 Time Delay Neural Network (TDNN) 에서야 비로소 제안되었다.</p>
+<p>이미지 필터링이란 kernel (filter) 라고 하는 square matrix 를 정의한 후, 해당 kernel 을 이미지 위에서 이동시켜가면서 kernel 과 겹쳐진 이 미지 영역을 연산한 후 그 결과값을 연산을 진행한 이미지 픽셀을 대신하여 입력하는 것으로 새로운 이미지를 생산하는 연산을 말한다. 이 를 통해 이미지의 특성을 강화하거나 약화시키는 목적을 달성할 수 있다. 이때 이미지의 각 구역마다 적용하는 연산은 convolution 연산으 로 이러한 이미지 필터링은 연식이 제법 오래된 기법이었다. Convolution 연산은 이하와 같다.</p>
+<p><em>\begin{gathered}</em></p>
+<p>$$</p>
+<p><span class="math display">\[\begin{alignat}{2}
+g(x, y)&amp;=\omega * f(x, y)&amp;&amp;=\sum_{\substack{d x=-a}}^{a} \sum_{d y=-b}^{b} \omega(d x, d y) f(x+d x, y+d y)
+\tag{function notation}\\
+G_{i j}&amp;=(F * X)(i, j)&amp;&amp;=\sum_{m=0}^{F_{H}-1} \sum_{n=0}^{F_{W}-1} F_{m, n} X_{(i-m),(j-n)}
+\tag{Matrix notation}
+\end{alignat}\]</span>
+$$</p>
+<p><span class="math inline">\(\mathrm{CNN}\)</span> 의 목적은 바로 이 필터링을 위해 사용되는 필터의 각 entry 를 필터링 목적에 맞추어 학습하여 최적의 entry 를 구하자는 것에 있다.</p>
+<p>가령 이미지의 특정 특성을 기준으로 이미지를 분류하고자 한다면 필터링을 통해 이러한 특성을 구해내어 분류하는 필터를 만들어야 할 것 이다. 바로 이때 <span class="math inline">\(\mathrm{CNN}\)</span> 을 통하여 필터를 최적화할 수 있는 것이다. 이러한 <span class="math inline">\(\mathrm{CNN}\)</span> 은 물론 이미지 필터링에 사용하고자 하는 목적으로 개발되 었으나 이미지뿐만이 아니라 그래프 데이터 등 다른 다차원 데이터에서도 무궁무진한 활용도를 보인다.</p>
+<div id="convolution-layer" class="section level4 hasAnchor" number="12.0.2.1">
+<h4><span class="header-section-number">B.0.2.1</span> Convolution Layer<a href="about-cluster-gcn.html#convolution-layer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>이처럼 layer 에서의 연산을 convolution 으로 처리할 경우 input 이 반드시 vector 여야 할 필요가 없으며, <span class="math inline">\(2 \mathrm{~d}\)</span> 이상의 데이터를 input 으로 받 을 수도 있고 matrix 의 형상을 유지한 채로 출력하는 것도 가능하다.</p>
+<p><img src="pics/tensorization.png" /></p>
+<p>2차원 컬러 이미지를 예시로 들어보자. 각 이미지는 2차원이나 픽셀 단위로 이미지를 쪼개서 본다면 픽셀 단위로 색이 부여되어 있다. 따라 서 이미지 데이터를 3차원의 tensor 데이터로 인식하는 것이 가능하다. 해당 인식법을 사용할 경우 이렇게 색을 지정하는 3 번째 axis 는 channel 이라고 칭한다. 이때 3 번째 axis channel 은 각 픽셀에 부여된 색을 지정하는 데에 RGB 를 활용한다면 3 차원, CMYK 를 활용한다 면 4차원 만큼의 저장공간을 차지하게 된다.</p>
+<p><img src="pics/tensorization2.png" /></p>
+<p>Convolution Layer 1 개에는 입력되는 이미지의 channel 의 갯수만큼의 필터가 존재한다. 위에서 언급한 RGB 케이스라면 필터의 갯수는 3 개가 된다. 이 각각의 필터를 할당된 channel 에 적용하는 것으로 해당 convolution layer 에서의 이미지 output 을 생산할 수 있다. 가령 높이×넓이×channel 이 <span class="math inline">\(4 \times 4 \times 1\)</span> 인 input 이미지에 <span class="math inline">\(2 \times 2\)</span> 필터를 적용하면 <span class="math inline">\(3 \times 3 \times 1\)</span> 의 output tensor 를 생산한다.</p>
+<p><img src="pics/stride.png" /></p>
+<p>이 과정에서 필터가 움직일 이동량을 stride 라는 개념으로 정의한다. 위의 경우에는 <span class="math inline">\(2 \times 2\)</span> 필터가 1 칸씩 이동하며 <span class="math inline">\(4 \times 4 \times 1\)</span> 인 input 에서 <span class="math inline">\(3 \times 3 \times 1\)</span> 크기의 output 을 생산하였으므로 이 경우 stride 는 1 이 된다. 만일 stride 가 2 였다면 <span class="math inline">\(2 \times 2\)</span> 필터와 <span class="math inline">\(4 \times 4 \times 1\)</span> 인 input 이 주어졌을 때 output 의 크기는 <span class="math inline">\(2 \times 2 \times 1\)</span> 가 될 것이다.</p>
+</div>
+<div id="zero-padding" class="section level4 hasAnchor" number="12.0.2.2">
+<h4><span class="header-section-number">B.0.2.2</span> zero-padding<a href="about-cluster-gcn.html#zero-padding" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="pooling" class="section level4 hasAnchor" number="12.0.2.3">
+<h4><span class="header-section-number">B.0.2.3</span> Pooling<a href="about-cluster-gcn.html#pooling" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="pics/max_pooling.png" /></p>
+<p>여기에 최신화된 CNN 은 각 convolution layer 사이에 pooling 이라는 과정을 끼워넣는 것으로 연산 및 저장공간의 효율 증대를 노린다. 언 급하였듯이 이미지 데이터의 경우 특정 픽셀은 해당 픽셀 주위의 픽셀과 강력한 상호연관을 갖는다. 따라서 모든 픽셀의 데이터를 보존하 기보다는 일정한 범위에서 한 개의 픽셀만을 보존하고 다음 layer 로 넘기는 것으로 저장공간을 효율적으로 사용하고 model 패러미터 또한 극적으로 감소하는 것을 노릴 수 있다. pooling 의 stride 는 임의로 지정되며, pooling 의 대상이 되는 각 기준 영역은 일반적으로 stride × stride 크기로 나누게 된다. 위의 이미지는 Max-pooling 기반 풀링 계층의 동작.</p>
+</div>
+<div id="cnn-을-위한-back-propagation" class="section level4 hasAnchor" number="12.0.2.4">
+<h4><span class="header-section-number">B.0.2.4</span> CNN 을 위한 back-propagation<a href="about-cluster-gcn.html#cnn-을-위한-back-propagation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>let stride <span class="math inline">\(=1\)</span>.</p>
+<p>이때 literature 별로 사용하는 convolution 의 notation 에 차이가 있다. convolution 시에 하나는 index 에 <span class="math inline">\((m, n)\)</span> 을 빼고, 다른 하나는 더하 는 것이다. 엄밀히 말하는 빼는 쪽이 convolution 의 정확한 정의에 부합하고 더하는 쪽은 cross-correlation 으로 다른 개념에 해당한다. 그 러나 이 둘의 차이는 필터를 그대로 적용하였는지, 아니면 180 도 회전하여 적용하는지의 차이가 있을 뿐이며, <span class="math inline">\(\mathrm{CNN}\)</span> 에서는 필터 자체를 학 습하는 것이 목적이며 필터의 적용에 대해서는 상관하지 않기 때문에 literature 별로 둘을 구분하지 않는다. 여기서는 cross-correlation 을 convolution 으로 사용하겠다.</p>
+<p><span class="math display">\[
+\begin{aligned} \mathbf{X}_{k, i, j}^{(l)} &amp;=\sum_{m=0}^{F_{H}^{(l)}-1} \sum_{n=0}^{P_{W}^{(l)}-1} \mathbf{W}_{k, m, n}^{(l)} \sigma\left(\mathbf{X}_{k,(i+m),(j+n)}^{(l-1)}\right)+b_{k}^{(l)} \quad \text { (convolution) } \\ &amp; \equiv \sum_{m=0}^{F_{H}^{(l)}-1} \sum_{n=0}^{P_{W}^{(l)}-1} \mathbf{W}_{k, m, n}^{(l)} \sigma\left(\mathbf{X}_{k,(i-m),(j-n)}^{(l-1)}\right)+b_{k}^{(l)} \quad \text { (cross-correlation) } \end{aligned}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\mathbf{X}^{(l)}: l\)</span> convolution layer 의 출력 이미지</p></li>
+<li><p><span class="math inline">\(\mathbf{W}_{k}^{(l)}: l\)</span> convolution layer 의 <span class="math inline">\(k\)</span>-th 필터</p></li>
+<li><p><span class="math inline">\(F_{H}^{(l)}, F_{W}^{(l)}: l\)</span> convolution layer 의 높이, 넓이</p></li>
+<li><p><span class="math inline">\(f: \operatorname{Re} L U\)</span> 와 같은 non-linear activation function</p></li>
+</ul>
+<p>gradient descent method 을 이용하여 back-propagation 을 진행할 때, 해당 ANN 에서의 가중치 <span class="math inline">\(\mathbf{W}\)</span> 는 아래와 같이 계산된다. 이는 ANN 에 서 설명하였던 편미분과 기본적인 꼴은 동일하나, cost function <span class="math inline">\(C\)</span> 에 loss function <span class="math inline">\(L\)</span> 을 사용하여 notation 이 변화하였다.</p>
+<p><span class="math display">\[
+\mathbf{W}=\mathbf{W}-\eta \frac{\partial L}{\partial \mathbf{W}}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(L\)</span> : loss function</p></li>
+<li><p><span class="math inline">\(\eta\)</span> : learning rate</p></li>
+</ul>
+<p><span class="math inline">\(\mathrm{CNN}\)</span> 에서는 일반적인 ANN 의 가중치가 convolution layer 의 필터에 해당한다. 따라서 <span class="math inline">\(\mathrm{CNN}\)</span> 을 학습시킨다는 것은 필터들의 각 entry 값을 학습하며 변경해나가는 것돠 동일하다. 이를 위해 <span class="math inline">\(\mathrm{CNN}\)</span> 의 <span class="math inline">\(l\)</span>-th convolution layer 에서 <span class="math inline">\(k\)</span>-th 필터의 <span class="math inline">\(i, j\)</span>-th entry 인 <span class="math inline">\(W_{k, i, j}^{(l)}\)</span> 에 대해 loss function <span class="math inline">\(L\)</span> 을 편미분하면 다음과 같다.</p>
+<p><span class="math display">\[
+\begin{alignat}{2}
+\frac{\partial L}{\partial \mathbf{W}_{k, i, j}^{(l)}}
+&amp;=\sum_{m=0}^{\mathbf{X}_{H}^{(l-1)}-F_{H}^{(l)}} \sum_{n=0}^{(l-1)} \sum_{W}^{(l)} \frac{\partial L}{\partial \mathbf{X}_{k, m, n}^{(l)}} 
+ &amp;&amp; \cdot \frac{\partial \mathbf{X}_{k, m, n}^{(l)}}{\partial \mathbf{W}_{k, i, j}^{(l)}}\\
+&amp;=\sum_{m=0}^{\mathbf{x}_{H}^{(l-1)}-F_{H}^{(l)}} \sum_{n=0}^{(l-1)} \sum_{W}^{(l)} \delta_{k, m, n}^{(l)} 
+ &amp;&amp; \cdot \frac{\partial \mathbf{X}_{k, m, n}^{(l)}}{\partial \mathbf{W}_{k, i, j}^{(l)}}\\
+&amp;=\sum_{m=0}^{\mathbf{x}_{H}^{(l-1)}-F_{H}^{(l)}} \sum_{n=0}^{(l-1)-F_{W}^{(l)}} \delta_{k, m, n}^{(l)} 
+ &amp;&amp; \cdot \frac{\partial}{\partial \mathbf{W}_{k, i, j}^{(l)}}\left\{\sum_{p=0}^{F_{H}^{(l)}-1} \sum_{q=0}^{F_{W}^{(l)}-1} \mathbf{W}_{k, p, q}^{(l)} \sigma\left(\mathbf{X}_{k,(m+p),(n+q)}^{(l-1)}\right)+b_{k}^{(l)}\right\}\\
+&amp;\stackrel{(i)}{=} \sum_{m=0}^{\mathbf{x}_{H}^{(l-1)}-F_{H}^{(l)}} \sum_{n=0}^{(l-1)-F_{W}^{(l)}} \delta_{k, m, n}^{(l)} 
+ &amp;&amp; \cdot \frac{\partial}{\partial \mathbf{W}_{k, i, j}^{(l)}}\left\{\mathbf{W}_{k, i, j}^{(l)} \sigma\left(\mathbf{X}_{k,(i+m),(j+n)}^{(l-1)}\right)\right\}\\
+&amp;=\sum_{m=0}^{X_{H}^{(l-1)}-F_{H}^{(l)} } \sum_{n=0}^{X_{W}^{(l-1)}-F_{W}^{(l)}} \delta_{k, m, n}^{(l)} 
+ &amp;&amp; \cdot \sigma\left(\mathbf{X}_{k,(i+m),(j+n)}^{(l-1)}\right)
+\end{alignat}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(X_{H}^{(l-1)}, X_{W}^{(l-1)}: l-1\)</span> conv layer 에서 출력된 이미지의 높이, 넓이</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(b_{k}^{l}\)</span> 은 constant 이므로 cancel, 편미분 과정에서 <span class="math inline">\(p=i, q=j\)</span> 이외인 <span class="math inline">\(\mathbf{W}_{k, p, q}^{(l)} f\left(\mathbf{X}_{k,(m+p),(n+q)}^{(l-1)}\right)\)</span> 는 <span class="math inline">\(\mathbf{W}_{k, i, j}^{(l)}\)</span> 과 독립이므로 모두 cancel.</li>
+</ol>
+<p>또한</p>
+$$
+<span class="math display">\[\begin{aligned}
+\frac{\partial L}{\partial \mathbf{W}_{k, i, j}^{(l)}}
+&amp;=\sum_{m=0}^{X_{H}^{(l-1)}-F_{H}^{(l)} } \sum_{n=0}^{X_{W}^{(l-1)}-F_{W}^{(l)}} \frac{\partial L}{\partial \mathbf{X}_{k, m, n}^{(l)}} \cdot \frac{\partial \mathbf{X}_{k, m, n}^{(l)}}{\partial \mathbf{W}_{k, i, j}^{(l)}}\\
+
+&amp;=\sum_{m=0} \sum_{n=0}^{(l-1)} \sum_{H}^{(l)} \mathbf{x}_{W}^{(l-1)}-F_{W}^{(l)} \delta_{k, m, n}^{(l)} \cdot \frac{\partial \mathbf{X}_{k, m, n}^{(l)}}{\partial \mathbf{W}_{k, i, j}^{(l)}}\\
+
+&amp;=\sum_{m=0}^{\mathbf{x}_{H}^{(l-1)}-F_{H}^{(l)} \mathbf{x}_{W}^{(l-1)}-F_{W}^{(l)}} \sum_{n=0}^{(l)} \delta_{k, m, n}^{(l)} \cdot \frac{\partial}{\partial \mathbf{W}_{k, i, j}^{(l)}}\left\{\sum_{p=0}^{F_{H}^{(l)}-1} \sum_{q=0}^{F_{W}^{(l)}-1} \mathbf{W}_{k, p, q}^{(l)} \sigma\left(\mathbf{X}_{k,(m+p),(n+q)}^{(l-1)}\right)+b_{k}^{(l)}\right\}\\
+
+&amp;\stackrel{(i)}{=} \sum_{m=0}^{(l-1)} \sum_{n=0}^{(l)} \mathbf{x}_{W}^{(l-1)}-F_{W}^{(l)} \delta_{k, m, n}^{(l)} \cdot \frac{\partial}{\partial \mathbf{W}_{k, i, j}^{(l)}}\left\{\mathbf{W}_{k, i, j}^{(l)} \sigma\left(\mathbf{X}_{k,(i+m),(j+n)}^{(l-1)}\right)\right\}\\
+
+&amp;=\sum_{m=0}^{\mathbf{x}_{H}^{(l-1)}-F_{H}^{(l)}} \sum_{n=0}^{(l-1)} \delta_{W, m, n}^{(l)} \cdot \sigma\left(\mathbf{X}_{k,(i+m),(j+n)}^{(l-1)}\right)
+\end{aligned}\]</span>
+<p>$$</p>
+<ol style="list-style-type: decimal">
+<li>위와 마찬가지로 <span class="math inline">\(m-p+r=m, n-q+s=n\)</span>, 즉 <span class="math inline">\(r=p, s=q\)</span> 를 만족하지 못하는 다른 항들은 <span class="math inline">\(\mathbf{X}_{k, m, n}^{(l)}\)</span> 와 독립적이기에 모두 cancel.</li>
+</ol>
+</div>
+</div>
+<div id="graph-convolution-network" class="section level3 hasAnchor" number="12.0.3">
+<h3><span class="header-section-number">B.0.3</span> Graph Convolution Network<a href="about-cluster-gcn.html#graph-convolution-network" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>언급하였듯이 위치 정보가 중요한 역할을 하는 데이터에는 이미지 데이터 뿐만이 아니라 그래프 데이터 또한 포함된다. 따라서 CNN 의 개 발 이후 그래프 분석 분야에서도 <span class="math inline">\(\mathrm{CNN}\)</span> 을 적극 수용하며 발전시켜 나갔다. <span class="math inline">\(\mathrm{CNN}\)</span> 을 그래프 데이터의 문법에 맞추어 적용하기 위해 지정된 조건을 수학적 언어로 표현하면 이하와 같다. 여기서 기본적인 GCN 에서는 node feature 만이 존재한다고 가정한 후 논리를 전개한다. 즉, edge feature 의 존재를 배제한다.</p>
+<p>let <span class="math inline">\(G=(A, X)\)</span> graph itself. 이때 기본적인 graph convoution 은 이하와 같이 정의.</p>
+<p><span class="math display">\[
+H=\psi(A, X)=\sigma(A X W)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(A \in \mathbb{R}^{N \times N}:\)</span> Adjacency Matrix</p></li>
+<li><p><span class="math inline">\(X \in \mathbb{R}^{N \times d}\)</span> : node feature Matrix. <span class="math inline">\(N\)</span> 은 node 의 숫자, <span class="math inline">\(d\)</span> 는 node feature vector 의 차원.</p></li>
+<li><p><span class="math inline">\(H \in \mathbb{R}^{N \times m}\)</span> : latent node feature matrix. <span class="math inline">\(m\)</span> 은 latent feature vector 의 차원.</p></li>
+<li><p><span class="math inline">\(W \in \mathbb{R}^{d \times m}\)</span> : 학습시키는 것으로 사후에 entry값 변경이 가능한 weight matrix.</p></li>
+<li><p><span class="math inline">\(\phi(\cdot)\)</span> : 그래프 에 대한 convolution 연산 itself.</p></li>
+<li><p><span class="math inline">\(\sigma(\cdot)\)</span> : nonlinear activation function.</p></li>
+</ul>
+<p>그래프 convolution 의 기본적인 개념은 특정 node 의 latent vector 를 해당 node 에 인접한 neighbor 들을 활용하여 생산하는 것이다. node feature matrix <span class="math inline">\(X\)</span> 와 weight matrix <span class="math inline">\(W\)</span> 를 곱하여 <span class="math inline">\(N \times m\)</span> 크기의 node feature matrix <span class="math inline">\(S\)</span> 를 얻은 후, adjacency Matrix <span class="math inline">\(A\)</span> 와 node feature Matrix <span class="math inline">\(S\)</span> 를 곱하는 것으로 각 node 에 해당하는 index 위치의 latent feature vector 는 neighbor 여부가 1인 다른 node 들의 node feature matrix 의 합이라는 것을 발견할 수 있다. 이를 통해 최종적으로 <span class="math inline">\(m\)</span> 차원 latent feature matrix 가 생산된다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \delta_{k, m, n}^{(l)}=\frac{\partial L}{\partial \mathbf{X}_{k, m, n}^{(l)}} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \frac{\partial L}{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}} \frac{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}}{\partial \mathbf{X}_{k, m, n}^{(l)}} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)_{1}} \sum_{q=0}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \frac{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}}{\partial \mathbf{X}_{k, m, n}^{(l)}}
+\end{aligned}
+\]</span></p>
+<p><img src="https://cdn.mathpix.com/cropped/2022_04_22_50eddabab3eaffe2ca79g-07.jpg?height=93&amp;width=795&amp;top_left_y=589&amp;top_left_x=249" /></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \stackrel{(i)}{=} \sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \frac{\partial}{\partial \mathbf{X}_{k, m, n}^{(l)}}\left\{\mathbf{W}_{k, p, q}^{(l+1)} \sigma\left(\mathbf{X}_{k, m, n}^{(l)}\right)\right\} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \mathbf{W}_{k, p, q}^{(l+1)} \cdot \sigma^{\prime}\left(\mathbf{X}_{k, m, n}^{(l)}\right) 
+\end{aligned}
+\]</span></p>
+<p>그러나 adjacency Matrix <span class="math inline">\(A\)</span> 를 보정하지 않고 원본 그대로 사용할 경우 이하와 같은 한계점이 존재한다.</p>
+<ol style="list-style-type: decimal">
+<li><p>neighbor node 와의 연결만을 표시. 그래프 convolution 과정에서 node 자체에 대한 정보는 latent feature vector 생산시에 고려되지 않는다.</p></li>
+<li><p>정규화되지 않은 <span class="math inline">\(A\)</span> 를 사용하는 경우 feature vector 의 크기가 일정하지 않고 불안정하게 변화한다.</p></li>
+</ol>
+<p>이러한 문제를 해결하기 위해 이하와 같은 해결책을 적용한다.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(A\)</span> 에 self-loop 를 추가. 즉 새로운 adjacency Matrix <span class="math inline">\(\tilde{A}=A+I\)</span> 를 설정.</p></li>
+<li><p><span class="math inline">\(A\)</span> 의 degree Matrix <span class="math inline">\(D\)</span> 를 사용하여 <span class="math inline">\(A\)</span> 를 <span class="math inline">\(D^{-\frac{1}{2}} A D^{-\frac{1}{2}}\)</span> 로 정규화.</p></li>
+</ol>
+<p>이 과정을 모두 거친 새로운 정규화된 그래프 convolution 를 나타내는 수식은 이하와 같다.</p>
+<p><span class="math display">\[
+\phi(\tilde{A}, X)=\sigma\left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} X W\right)
+\]</span></p>
+<p>이렇게 그래프 convolution 을 정의한 후 다수의 그래프 convolution layer 를 나열하는 것으로 이전 그래프 convolution layer 의 결과값 <span class="math inline">\(H^{(k)}\)</span> 을 다음 회차의 그래프 covolution layer <span class="math inline">\(H^{(k+1)}\)</span> 의 input 으로 삼는다. 즉 이하와 같다</p>
+<p><span class="math display">\[
+H^{(k)}=\sigma\left(\tilde{D}^{-1 / 2} \tilde{A} \tilde{D}^{-1 / 2} H^{(k-1)} W^{(k)}\right)
+\]</span></p>
+<p>이렇게 GCN 은 Graph Convolution Layers, (Readout), Fully-Connected Layers 의 3단계를 거쳐 최종적인 결과값을 생산하게 된다. 이때 Fully-Connected Layers 로 input 을 넣기 전 전체 그래프가 아닌 그래프를 기반으로 생산한 vector 가 필요한 상황이라면 둘 사이에 readout 단계를 넣어 그래프를 vector 로 정리하게 된다. readout 이 필수인 분석영역은 Graph classification / regression 이 있고, readout 없이 GCN 을 진행하는 분야는 Node Classification, Link Prediction 등이 있다.</p>
+</div>
+<div id="cluster-gcn" class="section level3 hasAnchor" number="12.0.4">
+<h3><span class="header-section-number">B.0.4</span> Cluster-GCN<a href="about-cluster-gcn.html#cluster-gcn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>이처럼 GCN 은 많은 그래프 데이터 대상 실적용에서 좋은 퍼포먼스를 보였으나 그럼에도 불구하고 아직 대량의 저장공간을 사용한다는 단점을 완전히 해소하지는 못했다. 이러한 저장공간 사용량을 줄이기 위한 다양한 시도들이 있었으며, 그 중 높은 호응을 받았던 시도 중 하나로 Cluster-GCN 이라는 알고리즘이 존재한다. 실제 알고리즘을 살펴보기 전 해당 논문에서 사용한 notation 들을 우선 정리하자.</p>
+<ul>
+<li><p>loss function <span class="math inline">\(\mathcal{L}\)</span> 을 cost function 으로 사용</p></li>
+<li><p>그래프 <span class="math inline">\(G=(\mathcal{V}, \mathcal{E}, A)\)</span></p></li>
+<li><p><span class="math inline">\(N=|\mathcal{V}|\)</span> vertices, <span class="math inline">\(|\mathcal{E}|\)</span> edges. 이때 임의의 vertice <span class="math inline">\(i, j\)</span> 사이의 edge 는 이 두 vertex 사이의 similiarity 를 표상.</p></li>
+<li><p>크기가 <span class="math inline">\(N \times N\)</span> 인 adjacency Matrix <span class="math inline">\(A\)</span> 는 sparse.</p></li>
+<li><p><span class="math inline">\(X \in \mathbb{R}^{N \times F}\)</span> 는 모든 <span class="math inline">\(N\)</span> 개의 node 에 대한 feature matrix. <span class="math inline">\(F\)</span> 는 각 node 별로 가지는 feature 의 갯수.</p></li>
+</ul>
+<p>Cluster-GCN 은 <span class="math inline">\(L\)</span> layer GCN 은 <span class="math inline">\(L\)</span> 개의 graph convolution layer 들로 구성되며, 이들의 각각은 이전 layer 에서의 그래프 상에서 각각의 node 들의 neighbor 들의 embedding 을 mixing 하는 것으로 각 node 에 대한 이번 layer 에서의 embedding 을 생산한다. 이를 수식으로 표 현하면 이하와 같다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; S=\left[\begin{array}{ccc}x_{11} &amp; x_{12} &amp; x_{13} \\x_{21} &amp; x_{22} &amp; x_{23} \\\vdots &amp; \vdots &amp; \vdots \\x_{81} &amp; x_{82} &amp; x_{83}\end{array}\right]\left[\begin{array}{cc}w_{11} &amp; w_{12} \\w_{21} &amp; w_{22} \\w_{31} &amp; w_{32}\end{array}\right]= \\
+&amp; \left[\begin{array}{ccc}\sum_{i=1}^{3} w_{i 1} x_{1 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{1 i} \\\sum_{i=1}^{3} w_{i 1} x_{2 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{2 i} \\\vdots &amp; \vdots \\\sum_{i=1}^{3} w_{i 1} x_{8 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{8 i}\end{array}\right] \\
+&amp; A S= \\
+&amp; =\left[\begin{array}{ccc}a_{11} &amp; \cdots &amp; a_{18} \\\vdots &amp; \ddots &amp; \vdots \\a_{81} &amp; \cdots &amp; a_{88}\end{array}\right]\left[\begin{array}{ccc}\sum_{i=1}^{3} w_{i 1} x_{1 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{1 i} \\\sum_{i=1}^{3} w_{i 1} x_{2 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{2 i} \\\vdots &amp; \vdots \\\sum_{i=1}^{3} w_{i 1} x_{8 i} &amp; \sum_{i=1}^{3} w_{i 2} x_{8 i}\end{array}\right] \\
+&amp; =\left[\begin{array}{cc}\sum_{j=1}^{8} a_{1 j} \sum_{i=1}^{3} w_{i 1} x_{1 i} &amp; \sum_{j=1}^{8} a_{1 j} \sum_{i=1}^{3} w_{i 2} x_{1 i} \\\vdots &amp; \vdots \\\sum_{j=1}^{8} a_{8 j} \sum_{i=1}^{3} w_{i 1} x_{1 i} &amp; \sum_{j=1}^{8} a_{8 j} \sum_{i=1}^{3} w_{i 2} x_{1 i}\end{array}\right] 
+\end{aligned}
+\]</span></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;Z^{(l+1)}=A^{\prime} X^{(l)} W^{(l)} \\
+&amp;X^{(l+1)}=\sigma\left(Z^{(l+1)}\right)
+\end{aligned}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(X^{(l)} \in \mathbb{R}^{N \times F_{l}}\)</span> 은 <span class="math inline">\(l\)</span> layer 에서의 각각의 <span class="math inline">\(N\)</span> 개의 node 들에 대한 embedding. 이때 <span class="math inline">\(X^{(0)}=X\)</span></p></li>
+<li><p><span class="math inline">\(A^{\prime}\)</span> 는 normalized &amp; regularized adjacency Matrix</p></li>
+<li><p><span class="math inline">\(W^{(l)} \in \mathbb{R}^{F_{l} \times F_{l+1}}\)</span> 는 feature Transformation Matrix. 이때 서술의 간략화를 위해 모든 layer 에서 동일 차원을 가정, ( <span class="math inline">\(\left.F_{1}=\cdots=F_{L}=F\right)\)</span> 즉 Transformation 에 의해 차원의 변동은 없음.</p></li>
+<li><p><span class="math inline">\(\sigma(\cdot)\)</span> 은 activation function. 가장 메이저한 element-wise ReLU 를 사용.</p></li>
+</ul>
+<p><span class="math inline">\(\mathrm{GCN}\)</span> 이 일반적으로 사용되는 목적인 Semi-supervised node classification 를 위해 cluster-GCN 을 사용할 경우 최적의 weight Matrix 를 찾 는 과정은 결국 loss function 을 최소로 하는 과정과 동치된다. 해당 논문에서는 loss function 을 이하로 정의하였다.</p>
+<p><span class="math display">\[
+\mathcal{L}=\frac{1}{\left|\mathcal{Y}_{L}\right|} \sum_{i \in \mathcal{Y}_{L}} \operatorname{loss}\left(y_{i}, z_{i}^{L}\right)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(\mathcal{Y}_{L}\)</span> 은 labeled node 에 대한 모든 label 을 보유</p></li>
+<li><p><span class="math inline">\(z_{i}^{(L)}\)</span> 는 <span class="math inline">\(Z^{(L)}\)</span> 의 <span class="math inline">\(i\)</span>-th row 와 더불어 <span class="math inline">\(y_{i}\)</span> 에 대한 ground-truth label 을 보유. 이는 곧 node <span class="math inline">\(i\)</span> 에 대한 final layer prediction 이라는 의밈.</p></li>
+</ul>
+<p>기본적으로 GCN training 에 있어서 가장 많이 사용되는 것은 gradient descent 알고리즘이다. 그러나 이는 높은 연산비용과 저장공간 이슈 라는 단점을 보유하고 있다. 특히 (2) 의 full gradient 를 계산하려면 <span class="math inline">\(\left\{Z^{(l)}\right\}_{l=1}^{L}\)</span> 의 모든 embedding Matrix 들을 계산하고 저장해야 하며, 이 는 <span class="math inline">\(O(N F L)\)</span> 만큼의 대량의 저장공간을 요구하게 된다. 이에 대한 대안으로 최근 연구에서 mini-batch Stochastic Gradient Descent (이하 SGD) 도 GCN 의 비용을 낮추는데 기여한다는 것이 밝혀졌다. full gradient 대비 GSD 는 각 update의 mini-batch 에 기반한 gradient 만 계 산하면 된다는 장점이 있다. 이를 묘사하기 위해 이하의 notation 을 사용하자. 각 SGD step 은 이하의 gradient estimation 을 사용하여 update 를 진행한다.</p>
+<p><span class="math display">\[
+\frac{1}{|\mathcal{B}|} \sum_{i \in \mathcal{B}} \nabla \operatorname{loss}\left(y_{i}, z_{i}^{(L)}\right)
+\]</span></p>
+<ul>
+<li>size <span class="math inline">\(b=|\mathcal{B}|\)</span> 인 <span class="math inline">\(\mathcal{B} \subseteq[N]\)</span> 는 node indices 의 batch</li>
+</ul>
+<p>cluster-GCN 의 목적은 바로 이 부분이다. mini-batch SGD update 에서, embedding utilization 을 최대화하기 위한 batch 와 corresponding computation 서브그래프를 임의로 디자인하는 것이 가능할까?</p>
+<p>각 batch 에서, layer <span class="math inline">\(1: L\)</span> 에 걸쳐 node 들의 set <span class="math inline">\(\mathcal{B}\)</span> 에 대한 embedding 을 계산하는 상황을 가정하자. 여기서 (B) 내에서 link 가 발생하는) 동일한 서브그래프 <span class="math inline">\(A_{\mathcal{B}, \mathcal{B}}\)</span> 가 computation 의 각 layer 에서 사용되므로, embedding utilization 이 이 배치 <span class="math inline">\(\left\|A_{\mathcal{B}, \mathcal{B}}\right\|_{0}\)</span> 내부에서의 edge 들의 숫자와 같다는 것을 발견하는 것은 어렵지 않다. 따라서 embedding utilization 을 최대화하는 것은 결국 batch 내부에서의 edge 의 갯수를 최대로 하는 batch <span class="math inline">\(\mathcal{B}\)</span> 를 발견하는 것과 같은 문제가 된다. 이인즉, SGD update 의 효율성을 graph clustering 알고리즘과 연결짓는 것이 가 능하다는 이야기이다.</p>
+<p>이 문제를 해결하기 위한 cluster-GCN 의 알고리즘은 이하와 같다.</p>
+<p>그래프 <span class="math inline">\(G\)</span> 에 대해, 이의 node 를 <span class="math inline">\(c\)</span> 개의 그룹으로 분할한다. <span class="math inline">\(\mathcal{V}=\left[\mathcal{V}_{1}, \cdots, \mathcal{V}_{c}\right]\)</span>. 따라서 우리는 <span class="math inline">\(c\)</span> 개의 서브그래프를 가진다.</p>
+<p><span class="math inline">\(\bar{G}=\left[G_{1}, \cdots, G_{c}\right]=\left[\left\{\mathcal{V}_{1}, \mathcal{E}_{1}\right\}, \cdots,\left\{\mathcal{V}_{c}, \mathcal{E}_{c}\right\}\right]\)</span>. 이때 <span class="math inline">\(\mathcal{E}_{t}\)</span> 는 <span class="math inline">\(\mathcal{V}_{t}\)</span> 에 속한 node 들 간에서만의 link 를 보유한다. 위와 같이 node 를 분류 한 후 adjacency matrix 는 이하와 같이 <span class="math inline">\(c^{2}\)</span> 개의 submatrix 로 분할된다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+A=\left[\begin{array}{ccc}
+A_{11} &amp; \cdots &amp; A_{1 c} \\
+\vdots &amp; . &amp; \vdots \\
+A_{c 1} &amp; \cdots &amp; A_{c c}
+\end{array}\right] &amp;=\bar{A} \quad+\Delta \\
+&amp;=\left[\begin{array}{ccc}
+A_{11} &amp; \cdots &amp; 0 \\
+\vdots &amp; \ddots &amp; \vdots \\
+0 &amp; \cdots &amp; A_{c c}
+\end{array}\right]+\left[\begin{array}{ccc}
+0 &amp; \cdots &amp; A_{1 c} \\
+\vdots &amp; \ddots &amp; \vdots \\
+A_{c 1} &amp; \cdots &amp; 0
+\end{array}\right]
+\end{aligned}
+\]</span></p>
+<ul>
+<li><p>각 diagonal block <span class="math inline">\(A_{t t}:\left|\mathcal{V}_{t}\right| \times\left|\mathcal{V}_{t}\right|\)</span> 크기의 adjacency matrix 이며, 보유하고 있는 link 는 <span class="math inline">\(G_{t}\)</span>.</p></li>
+<li><p><span class="math inline">\(\bar{A}\)</span> : 그래프 <span class="math inline">\(\bar{G}\)</span> 의 corresponding adjacency Matrix. - <span class="math inline">\(A_{s t}: 2\)</span> 개의 partition <span class="math inline">\(\mathcal{V}_{s}\)</span> 와 <span class="math inline">\(\mathcal{V}_{t}\)</span> 사이의 link 를 보유.</p></li>
+<li><p><span class="math inline">\(\nabla: A\)</span> 의 모든 비대각 block 으로 구성한 Matrix.</p></li>
+<li><p>feature Matrix <span class="math inline">\(X\)</span> 와 training lable <span class="math inline">\(Y\)</span> 도 <span class="math inline">\(\mathcal{V}\)</span> 를 <span class="math inline">\(c\)</span> 개로 patition 한 것에 맞추어 <span class="math inline">\(\left[X_{1}, \cdots, X_{c}\right]\)</span> 와 <span class="math inline">\(\left[Y_{1}, \cdots, Y_{c}\right]\)</span> 로 partition 가능. 이때 <span class="math inline">\(X_{t}\)</span> 와 <span class="math inline">\(Y_{t}\)</span> 는 <span class="math inline">\(V_{t}\)</span> 에 들어있는 node 에 상응하는 feature, label 을 각각 보유.</p></li>
+</ul>
+<p><span class="math inline">\(\bar{G}\)</span> 와 같이 block-diagonal 로 근사하는 것을 통해 우리는 GCN 의 objective function 이 서로 다른 batch (cluster) 로 decompose 가능하게 됨을 확인할 수 있다. 여기서 <span class="math inline">\(\bar{A}^{\prime}\)</span> 를 normalized <span class="math inline">\(\bar{A}\)</span> 라고 정의하자. 이 경우 마지막 embedding Matrix 는 <span class="math inline">\(\bar{A}\)</span> 의 block-diagonal form 때문에 아래와 같은 형태가 된다. 이때 <span class="math inline">\(\bar{A}_{t t}^{\prime}\)</span> 는 <span class="math inline">\(\bar{A}^{\prime}\)</span> 의 corresponding diagonal block.</p>
+<p><span class="math display">\[
+\begin{aligned}
+Z^{(L)}=&amp; \bar{A}^{\prime} \sigma\left(\bar{A}^{\prime} \sigma\left(\cdots \sigma\left(\bar{A}^{\prime} X W^{(0)}\right) W^{(1)}\right) \cdots\right) W^{(L-1)} \\
+=&amp; {\left.\left[\begin{array}{c}
+\bar{A}_{11}^{\prime} \sigma\left(\bar{A}_{11}^{\prime} \sigma\left(\cdots \sigma\left(\bar{A}_{11}^{\prime} X_{1} W^{(0)}\right) W^{(1)}\right) \cdots\right) W^{(L-1)} \\
+\vdots \\
+\bar{A}_{c c}^{\prime} \sigma\left(\bar{A}_{c c}^{\prime} \sigma\left(\cdots \sigma\left(\bar{A}_{c c}^{\prime} X_{c} W^{(0)}\right) W^{(1)}\right) \cdots\right.
+\end{array}\right) W^{(L-1)}\right] }
+\end{aligned}
+\]</span></p>
+<p>loss function 또한 이하와 같이 decompose 가능.</p>
+<p><span class="math display">\[
+\mathcal{L}_{\bar{A}^{\prime}}=\sum_{t} \frac{\left|\mathcal{V}_{t}\right|}{N} \mathcal{L}_{A_{t t}^{\prime}} \quad \mathcal{L}_{\bar{A}_{t t}^{\prime}}=\frac{1}{\left|\mathcal{V}_{t}\right|} \sum_{i \in \mathcal{V}_{t}} \operatorname{loss}\left(y_{i}, z_{i}^{(L)}\right)
+\]</span></p>
+<p>Cluster-GCN 은 이러한 둘의 decomposition 에 의해 성립한다. 각 단계에서 cluster <span class="math inline">\(\mathcal{V}_{t}\)</span> 를 샘플링한 후, <span class="math inline">\(\mathcal{L} \bar{A}_{t t}^{\prime}\)</span> 의 gradient 에 기반하여 update 하기 위해 <span class="math inline">\(S G D\)</span> 를 실행한다. 여기서 요구되는 것은 서브그래프 <span class="math inline">\(A_{t t}\)</span> 뿐이며 따라서 현재 batch 의 <span class="math inline">\(X_{t}, Y_{t}\)</span> 와 model <span class="math inline">\(\left\{W^{(l)}\right\}_{l=1}^{L}\)</span> 만으 로 충분하다. 실적용은 (6) 에서의 matrix product 에 대해 forward propagation 과 backward propagation 를 적용하는 것만으로 간단하 가능 하다. 이는 종래의 SGD 기반 training 방법론들에서 요구되어 왔던 neighborhood 탐색 과정 대비 훨씬 간단하다며 따라서 연산능력과 저장 공간을 훨씬 덜 차지한다는 장점을 가진다.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="concepts-questions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cnn-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/990102_Cluster_GCN.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

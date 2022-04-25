@@ -596,15 +596,7 @@ a_{m1} &amp; &amp; \cdots  &amp;  &amp; a_{mn}
 
 = (a_{ij})
 
-
-
-
-
-
-
-
-
-&amp;\; \; \; \; \; \; \;= 
+&amp;= 
 
 \begin{pmatrix}
 
@@ -614,15 +606,10 @@ a_{m1} &amp; &amp; \cdots  &amp;  &amp; a_{mn}
 
 \end{pmatrix}
 
+\\
+\\
 
-
-\\\
-
-\\\
-
-
-
-&amp;\; \; \; \; \; \; \;= 
+&amp;= 
 \begin{pmatrix}
 
 \pmb c_1 &amp;
@@ -631,32 +618,29 @@ a_{m1} &amp; &amp; \cdots  &amp;  &amp; a_{mn}
 
 \end{pmatrix}
 
-
-
-
 \end{align}\]</span>
 $</p>
+<p><br>
+<br>
+<br></p>
 <p>for symmetric matrix <span class="math inline">\(A\)</span>:</p>
-<p>$</p>
-<p>A_{p p} = ^{T} = _{j=1}^p _j _j _j^T</p>
-<p>$</p>
-<p>$</p>
-<p><span class="math display">\[\begin{alignat}{2}
-
+<p><span class="math display">\[
+A_{p \times p} = \Gamma \Lambda \Gamma^{T} = \sum_{j=1}^p \pmb \lambda_j \pmb \gamma_j \pmb \gamma_j^T
+\]</span></p>
+<p><br>
+<br>
+<br></p>
+<p>$$
+<span class="math display">\[\begin{alignat}{2}
 &amp;\Lambda = diag \{\lambda_1 , \cdots, \lambda_p \} &amp;&amp;\; \; \; \; \;=
 
 \begin{pmatrix}
-
 \lambda_1 &amp; \cdots &amp; 0\\
 \vdots &amp; \ddots &amp; \vdots\\
 0 &amp; \cdots &amp; \lambda_p
 
-
-
 \end{pmatrix}
-
 _{p \times p}
-
 
 \\
 
@@ -669,32 +653,28 @@ _{p \times p}
 \end{pmatrix}_{p \times p}
 
 
-\end{alignat}\]</span></p>
-<p>$</p>
+\end{alignat}\]</span>
+$$</p>
 <p>where <span class="math inline">\(\pmb \gamma_j\)</span> is evec of <span class="math inline">\(A\)</span>. Therefore <span class="math inline">\(\Gamma\)</span> is orthogonal Matrix.</p>
+<p><br>
+<br>
+<br></p>
 <p>let symmetric Matrix of rank <span class="math inline">\(r\)</span>, <span class="math inline">\(A_{p \times p}\)</span>, <span class="math inline">\((r \le p)\)</span>. Then there exists orthogonal Matrix <span class="math inline">\(\Gamma_{p \times p}\)</span>, which means <span class="math inline">\(\Gamma^T \Gamma = I_p\)</span> and</p>
-<p>$
-A = ^T = </p>
-<span class="math display">\[\begin{pmatrix}
-
+<p><span class="math display">\[
+A =  \Gamma \Lambda \Gamma^T = \Gamma 
+\begin{pmatrix}
 \Lambda_1 &amp; 0 \\
 0 &amp; 0
-
-\end{pmatrix}\]</span>
-<p>^T =</p>
-<p>_1 _1 ^T_1
-$</p>
-<p>where letting <span class="math inline">\(\delta_i=\)</span> i-th ev, <span class="math inline">\(i=1, \cdots, r\)</span>, then</p>
-<p>$</p>
-<p>\<br />
-\<br />
-</p>
+\end{pmatrix}
+\Gamma^T = \Gamma_1 \Lambda_1 \Gamma^T_1
+\]</span></p>
+<p>at here, by letting <span class="math inline">\(\delta_i=\)</span> i-th ev, <span class="math inline">\(i=1, \cdots, r\)</span>, then</p>
+$$
 =
 <span class="math display">\[\begin{pmatrix} \{\Gamma_1\}_{p \times r} , \; \; \; \{\Gamma_0\}_{p \times (p-r)} \end{pmatrix}\]</span>
-<p>\<br />
-\<br />
-</p>
-<p>= diag {_1 , , _r } =</p>
+<p>\
+\
+= diag {_1 , , _r } =</p>
 <span class="math display">\[\begin{pmatrix}
 
 \lambda_1 &amp; \cdots &amp; 0\\
@@ -705,20 +685,19 @@ $</p>
 
 \end{pmatrix}\]</span>
 <p>_{r r}</p>
-<p>$</p>
+<p>$$</p>
 <p>then <span class="math inline">\(\Gamma_1^T \Gamma_1 = I_r, \; \; \; \; \Gamma_1^T \Gamma_0 = 0\)</span> and</p>
-<p>$</p>
-<p>A^2 = A’A = AA’ =</p>
-<p>(_1 _1 ^T_1)’ _1 _1 ^T_1 = _1 _1 ^T_1 _1 _1 ^T_1</p>
-<p>= _1 _1^2 ^T_1</p>
-<p>$</p>
+<p><span class="math display">\[
+A^2 = A&#39;A = AA&#39; = 
+(\Gamma_1 \Lambda_1 \Gamma^T_1)&#39; \Gamma_1 \Lambda_1 \Gamma^T_1 = \Gamma_1 \Lambda_1 \Gamma^T_1 \ast \Gamma_1 \Lambda_1 \Gamma^T_1
+= \Gamma_1 \Lambda_1^2 \Gamma^T_1
+\]</span></p>
 <p>let <span class="math inline">\(\{\pmb \gamma_i\}_{p \times 1}\)</span> be i-th column vector of <span class="math inline">\(\Gamma\)</span>. then</p>
-$
-_i’ _i =
-<span class="math display">\[\begin{cases} 1 &amp; &amp; i=j \\ 0 &amp; &amp; i \not = j \end{cases}\]</span>
-<p>$</p>
+<p><span class="math display">\[
+\pmb \gamma_i&#39; \pmb \gamma_i =  \begin{cases} 1 &amp; &amp; i=j \\ 0 &amp; &amp; i \not = j \end{cases}
+\]</span></p>
 <p>thus</p>
-<p>$
+<p>$$
 <span class="math display">\[\begin{alignat}{2}
 
 A &amp;= \Gamma_1 \Lambda_1 \Gamma^T_1 
@@ -758,49 +737,46 @@ A \gamma_k
 
 
 \end{alignat}\]</span></p>
-<p>$</p>
-<p><br /><br />
-<br /><br />
-<br /></p>
+<p>$$</p>
+<p><br>
+<br>
+<br></p>
 <div id="remark-1" class="section level5 hasAnchor" number="6.1.1.0.1">
 <h5><span class="header-section-number">6.1.1.0.1</span> remark<a href="svd.html#remark-1" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>let orthogonal Matrix <span class="math inline">\(\Gamma\)</span>, therefore <span class="math inline">\(\Gamma &#39; \Gamma = I\)</span>, and <span class="math inline">\(\det(\Gamma) = \vert \Gamma \vert = 1\)</span>.</p>
 <p>let symmetric Matrix <span class="math inline">\(A_{p \times p}\)</span> with full rank. then by SVD,</p>
-<p>$</p>
-<p>(A) = A = ^T = =</p>
-<span class="math display">\[\begin{vmatrix}
+<p><span class="math display">\[
+\det(A) = \vert A \vert = \vert \Gamma \vert \vert \Lambda\vert  \vert \Gamma^T \vert  = \vert \Lambda \vert  = 
+\begin{vmatrix}
 \lambda &amp; \cdots &amp; 0 \\
 \vdots &amp; \ddots &amp; \vdots \\
 0 &amp; \cdots &amp; \lambda_p
-
-\end{vmatrix}\]</span>
-<p>= _{i=1}^p _i</p>
-<p>$</p>
+\end{vmatrix}
+= \prod_{i=1}^p \lambda_i
+\]</span></p>
 <p>let symmetric Matrix <span class="math inline">\(A_{p \times p}\)</span> with full rank. then by SVD,</p>
-<p>$</p>
-<p>n: ; ; ;</p>
-<p>A^n = (‘) (’)(‘) = ^n ’
-$</p>
+<p><span class="math display">\[
+\exists n\in \mathbb{R}: \; \; \; 
+A^n = (\Gamma \Lambda \Gamma&#39;) \ast (\Gamma \Lambda \Gamma&#39;)\cdots (\Gamma \Lambda \Gamma&#39;) = \Gamma \Lambda^n \Gamma&#39;
+\]</span></p>
 <p>in particular, a Cov Matrix <span class="math inline">\(\Sigma\)</span> can be written by</p>
-<p>$
-= ^T = _{i=1}^r _i _i _i’</p>
-<p>\</p>
-<p>^{-1} = ^{-1} ^T = _{i=1}^r _i^{-1} _i _i’</p>
-<p>\</p>
-<p>^{-} = ^{-} ^T = _{i=1}^r _i^{-} _i _i’</p>
-<p>$</p>
-<p><br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /></p>
+<p><span class="math display">\[
+\Sigma = \Gamma \Lambda \Gamma^T = \sum_{i=1}^r \lambda_i \gamma_i \gamma_i&#39;
+\\
+\Sigma^{-1} = \Gamma \Lambda^{-1} \Gamma^T = \sum_{i=1}^r \lambda_i^{-1}  \gamma_i \gamma_i&#39;
+\\
+\Sigma^{-\tfrac{1}{2}} = \Gamma \Lambda^{-\tfrac{1}{2}} \Gamma^T = \sum_{i=1}^r \lambda_i^{-\tfrac{1}{2}}  \gamma_i \gamma_i&#39;
+\]</span></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="singular-value-decomposition-general-version" class="section level3 hasAnchor" number="6.1.2">
 <h3><span class="header-section-number">6.1.2</span> Singular value Decomposition: General-version<a href="svd.html#singular-value-decomposition-general-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>decomposition of any aribtrary Matrix with rank <span class="math inline">\(r\)</span>, <span class="math inline">\(A_{n \times p} = \Gamma_{n \times r} \Lambda \triangle_{p \times r} &#39; = \sum_{j=1}^r \lambda_j \pmb \gamma_j \pmb \delta_j &#39;\)</span>.</p>
 <p><span class="math inline">\(\Lambda = diag(\lambda_1 , \cdots, \lambda_r), \; \; \; \; \lambda_j &gt;0\)</span>. 이때 <span class="math inline">\(\lambda_i\)</span>는 <span class="math inline">\(AA&#39;\)</span>나 <span class="math inline">\(A&#39;A\)</span>의 non-zero ev.</p>
-<p><span class="math inline">\(\Gamma, \triangle\)</span>는 <span class="math inline">\(AA&#39;\)</span>와 <span class="math inline">\(A&#39;A\)</span>의 corresponding <span class="math inline">\(r\)</span> evec으로 구성. 따라서 Both $’ = ’ = I_r $, i.e., are column orthogonal.</p>
+<p><span class="math inline">\(\Gamma\)</span> 와 <span class="math inline">\(\triangle\)</span>는 <span class="math inline">\(AA&#39;\)</span>와 <span class="math inline">\(A&#39;A\)</span>의 corresponding <span class="math inline">\(r\)</span> evec으로 구성. 따라서 Both $’ = ’ = I_r $, i.e., are column orthogonal.</p>
 <p>thus</p>
 <p>$</p>
 <p><span class="math display">\[\begin{alignat}{2}
@@ -863,7 +839,7 @@ A \delta_k
 <tbody>
 <tr class="odd">
 <td align="center"><span class="math inline">\(\begin{alignat}{2} A &amp;= \Gamma \Lambda \triangle^T &amp;&amp;=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i &#39; \\ A&#39;A &amp;= \triangle \Lambda^2 \triangle^T &amp;&amp;=\sum_{i=1}^r \lambda_i^2 \pmb \delta_i \pmb \delta_i &#39; \\ AA&#39;&amp;= \Gamma \Lambda^2 \Gamma^T &amp;&amp;=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i &#39; \\ \gamma_k &#39; A &amp;= \gamma_k &#39; \Gamma \Lambda \triangle^T &amp;&amp;= \lambda_k \pmb \delta_k &#39; \\ A \delta_k &amp;= \Gamma \Lambda \triangle^T \delta_k &amp;&amp;= \lambda_k \pmb \gamma_k \end{alignat}\)</span></td>
-<td align="center">$<span class="math display">\[\begin{alignat}{2} A &amp;= \Gamma_1 \Lambda_1 \Gamma^T_1 &amp;&amp;=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \gamma_i &#39; \\ A&#39;A &amp;= \Gamma_1 \Lambda_1^2 \Gamma^T_1 &amp;&amp;=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i &#39; \\ AA&#39;&amp;=  &amp;&amp; \\ \gamma_k &#39; A &amp;=  \lambda_k \gamma_k &#39; \gamma_k \gamma_k &#39;  &amp;&amp;= \lambda_k \pmb\gamma_k &#39; \\ A \gamma_k &amp;=  \lambda_k \gamma_k \gamma_k &#39; \gamma_k  &amp;&amp;= \lambda_k \pmb \gamma_k \end{alignat}\]</span> $</td>
+<td align="center"><span class="math display">\[\begin{alignat}{2} A &amp;= \Gamma_1 \Lambda_1 \Gamma^T_1 &amp;&amp;=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \gamma_i &#39; \\ A&#39;A &amp;= \Gamma_1 \Lambda_1^2 \Gamma^T_1 &amp;&amp;=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i &#39; \\ AA&#39;&amp;=  &amp;&amp; \\ \gamma_k &#39; A &amp;=  \lambda_k \gamma_k &#39; \gamma_k \gamma_k &#39;  &amp;&amp;= \lambda_k \pmb\gamma_k &#39; \\ A \gamma_k &amp;=  \lambda_k \gamma_k \gamma_k &#39; \gamma_k  &amp;&amp;= \lambda_k \pmb \gamma_k \end{alignat}\]</span></td>
 </tr>
 <tr class="even">
 <td align="center">c</td>
@@ -914,7 +890,7 @@ AA^- A &amp;= \Gamma \Lambda \triangle^T \ast \triangle \Lambda^{-1}  \Gamma&#39
 <h3><span class="header-section-number">6.1.3</span> Singular value Decomposition: Another-version<a href="svd.html#singular-value-decomposition-another-version" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>rank <span class="math inline">\(r\)</span> arbitrary Matrix <span class="math inline">\(A_{n \times p} = \Gamma_{n \times r} \Lambda \triangle^T_{p \times r} =\sum_{i=1}^r \lambda_i^{\tfrac{1}{2}} \pmb \gamma_i \pmb \delta_i &#39;\)</span></p>
 <p><span class="math inline">\(\Lambda = diag(\lambda_1^{\tfrac{1}{2}} , \cdots, \lambda_r^{\tfrac{1}{2}}), \; \; \; \; \; \lambda_j^{\tfrac{1}{2}} &gt;0\)</span>. 이때 <span class="math inline">\(\lambda_i\)</span>는 <span class="math inline">\(AA&#39;\)</span>와 <span class="math inline">\(A&#39;A\)</span>의 non-zero ev.</p>
-<p><span class="math inline">\(\Gamma, \triangle\)</span>는 <span class="math inline">\(AA&#39;\)</span>와 <span class="math inline">\(A&#39;A\)</span>의 corresponding <span class="math inline">\(r\)</span> evec으로 구성. 따라서 Both $’ = ’ = I_r $, i.e., are column orthogonal.</p>
+<p><span class="math inline">\(\Gamma, \triangle\)</span>는 <span class="math inline">\(AA&#39;\)</span>와 <span class="math inline">\(A&#39;A\)</span>의 corresponding <span class="math inline">\(r\)</span> evec으로 구성. 따라서 Both <span class="math display">\[\Gamma &#39; \Gamma = \triangle &#39; \triangle  = I_r\]</span>, i.e., are column orthogonal.</p>
 <p><br /><br />
 <br /><br />
 <br /><br />
@@ -924,9 +900,9 @@ AA^- A &amp;= \Gamma \Lambda \triangle^T \ast \triangle \Lambda^{-1}  \Gamma&#39
 <div id="quadratic-forms" class="section level3 hasAnchor" number="6.1.4">
 <h3><span class="header-section-number">6.1.4</span> Quadratic Forms<a href="svd.html#quadratic-forms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>for symmetric Matrix <span class="math inline">\(A_{p \times p}\)</span>, vector <span class="math inline">\(\pmb x \in \mathbb{R}^p\)</span>:</p>
-<p>$
-Q(x) = x’ A x = <em>{i=1}^p </em>{j=1}^p a_{ij} x_i x_j 
-$</p>
+<p><span class="math display">\[
+Q(x) = \pmb x&#39; A \pmb x = \sum_{i=1}^p \sum_{j=1}^p a_{ij} x_i x_j \tag{quadratic form}
+\]</span></p>
 <p>$
 <span class="math display">\[\begin{align}
 
@@ -949,45 +925,41 @@ $</p>
 <div id="propositions" class="section level5 hasAnchor" number="6.1.4.0.1">
 <h5><span class="header-section-number">6.1.4.0.1</span> propositions<a href="svd.html#propositions" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>if <span class="math inline">\(A=A&#39;\)</span>, and <span class="math inline">\(Q(x) = \pmb x &#39; A \pmb x\)</span> is corresponding quadratic form, then $y = ^T x: ; ; ; Q(x) = x’ A x = _{i=1}^p _1 y_i^2 $, <span class="math inline">\(\lambda_i\)</span> is ev of <span class="math inline">\(A\)</span>.</p>
-<p>$
-A&gt;0 _i&gt;0, ; ; ; i=1, , p
-$</p>
-<p>$
-A&gt;0 ; ; ; ; ; ; A &gt;0, ; A^{-1}
-$</p>
+<p><span class="math display">\[
+A&gt;0 \iff \forall \lambda_i&gt;0, \; \; \; i=1, \cdots, p
+\]</span></p>
+<p><span class="math display">\[
+A&gt;0 \; \; \; \Longrightarrow \; \; \;  \vert A \vert &gt;0, \; \exists A^{-1}
+\]</span></p>
 <p><span class="math inline">\(A=A&#39;, \; B=B&#39;, \; B&gt;0\)</span>, then maximum of <span class="math inline">\(\dfrac{\pmb x &#39; A \pmb x}{\pmb x &#39; B \pmb x}\)</span> is given by the largest ev of <span class="math inline">\(B^{-1}A\)</span>.</p>
 <p>the vector which maximizes(minimizes) <span class="math inline">\(\dfrac{\pmb x &#39; A \pmb x}{\pmb x &#39; B \pmb x}\)</span> is the corresponding evec of <span class="math inline">\(B^{-1}A\)</span> for largest(smallest) ev of <span class="math inline">\(B^{-1}A\)</span>.</p>
 <p>more generally, for ev of <span class="math inline">\(B^{-1}A\)</span>, <span class="math inline">\(\lambda_1, \cdots, \lambda_p\)</span>,</p>
-<p>$</p>
-<p>(  )</p>
-<p>= ; ; ; ; ;_1 _p ; ; ; ; ; =</p>
-<p>(  )</p>
-<p>$</p>
+<p><span class="math display">\[
+\max \left( \dfrac{\pmb x &#39; A \pmb x}{\pmb x &#39; B \pmb x} \right)
+= \; \; \; \; \;\lambda_1 \ge \cdots \ge \lambda_p \; \; \; \; \; =
+\min \left( \dfrac{\pmb x &#39; A \pmb x}{\pmb x &#39; B \pmb x} \right)
+\]</span></p>
 <p>if <span class="math inline">\({\pmb x &#39; B \pmb x}=1\)</span>, then</p>
-<p>$</p>
-<p>( {x ’ A x} )</p>
-<p>= ; ; ; ; ;_1 _p ; ; ; ; ; =</p>
-<p>( {x ’ A x} )</p>
-<p>$</p>
-<p><br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /></p>
+<p><span class="math display">\[
+\max \left( {\pmb x &#39; A \pmb x} \right)
+= \; \; \; \; \;\lambda_1 \ge \cdots \ge \lambda_p \; \; \; \; \; =
+\min \left( {\pmb x &#39; A \pmb x} \right)
+\]</span></p>
+<p><br>
+<br>
+<br></p>
 </div>
 </div>
 <div id="partitioned-matrices" class="section level3 hasAnchor" number="6.1.5">
 <h3><span class="header-section-number">6.1.5</span> Partitioned Matrices<a href="svd.html#partitioned-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math inline">\(A_{n \times p}, B_{p \times n}\)</span> and <span class="math inline">\(n \ge p\)</span>. then</p>
-<p>$</p>
-<span class="math display">\[\begin{vmatrix} 
-
+<p><span class="math display">\[
+\begin{vmatrix} 
 -\lambda I_n &amp; -A \\
 B &amp; I_p 
-
-\end{vmatrix}\]</span>
-<p>= (-)^{n-p} BA - I_n = AB - I_n </p>
-<p>$</p>
+\end{vmatrix}
+= (-\lambda)^{n-p} \ast \left \vert BA - \lambda I_n \right \vert = \left \vert AB - \lambda I_n \right \vert
+\]</span></p>
 <p>for <span class="math inline">\(A_{n \times p}, B_{p \times n}\)</span>, the non-zero ev of <span class="math inline">\(AB\)</span> and <span class="math inline">\(BA\)</span> are the same and have the same multiplicity. if <span class="math inline">\(\pmb x\)</span> is evec of <span class="math inline">\(AB\)</span> for an ev <span class="math inline">\(\lambda \not = 0\)</span>, then <span class="math inline">\(y=B \pmb x\)</span> is an evec of <span class="math inline">\(BA\)</span>.</p>
 <p>for <span class="math inline">\(A_{n \times p}, B_{q \times n}, \pmb a_{p \times 1}, \pmb b_{q \times 1}\)</span>, if <span class="math inline">\(rank \left( A \pmb a \pmb b B \right) \le 1\)</span>, then non-zero ev, if it exists, equals <span class="math inline">\(\pmb b&#39; BA \pmb a\)</span> with evec <span class="math inline">\(A \pmb a\)</span>.</p>
 <p><br /><br />
@@ -1001,18 +973,19 @@ B &amp; I_p
 <p>mutually orthogonal <span class="math inline">\(\pmb x_1 , \cdots, \pmb x_k \iff \forall {i,j}: \; \pmb x_i &#39; \pmb x_j\)</span></p>
 <p>In that case, $X= ( x_1 , , x_k ) $ has rank <span class="math inline">\(k\)</span>, and <span class="math inline">\(X&#39;X\)</span> is a diagonal Matrix with <span class="math inline">\(x_i &#39; x_i\)</span> in the i-th diagonal position.</p>
 <p>let’s consider bivariate data <span class="math inline">\((x_i , y_i), \; \; \; i= 1, \cdots, n\)</span>, and let <span class="math inline">\(\tilde x_i = x_i - \bar {\pmb x}, \; \tilde y_i = y_i - \bar {\pmb y}\)</span>. then correlation b/w <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is</p>
-<p>$
-
-{_{i=1}^n (x_i - {x})(y_i - {y})}
-{}</p>
-<p>=</p>
-<p>{x ’ y}
-{x y}</p>
-<p>= ()</p>
-<p>$</p>
+<p><span class="math display">\[
+\dfrac
+{\sum_{i=1}^n (x_i - \bar {\pmb x})(y_i - \bar {\pmb y})}
+{\sqrt{\left[ \sum_{i=1}^n (x_i - \bar {\pmb x})^2 \right] \ast \left[ \sum_{i=1}^n(y_i - \bar {\pmb y})^2 \right]}}
+= 
+\dfrac
+{\tilde x &#39; \tilde y}
+{\Vert \tilde x \Vert \ast \Vert \tilde y\Vert} 
+= \cos(\theta)
+\]</span></p>
 <p>where <span class="math inline">\(\theta\)</span> is the angle b/w the deviation vectors <span class="math inline">\({\tilde x}\)</span> and <span class="math inline">\({\tilde y}\)</span>.</p>
 <p>For two dimensions, the rotation can be expressed:</p>
-<p>$</p>
+<p>$$</p>
 <p><span class="math display">\[\begin{alignat}{2}
 
 \pmb y &amp;= \begin{pmatrix} y_1 \\ y_2 \end{pmatrix}
@@ -1055,8 +1028,8 @@ x_1 \\ x_2
 
 
 
-\\\
-\\\
+\\
+\\
 
 
 
@@ -1100,7 +1073,7 @@ x_1 \\ x_2
 
 
 \end{alignat}\]</span>
-$</p>
+$$</p>
 <p><br /><br />
 <br /><br />
 <br /><br />
@@ -1277,7 +1250,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211401_Overview.Rmd",
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/211401_Overview_SVD.Rmd",
 "text": "Edit"
 },
 "history": {

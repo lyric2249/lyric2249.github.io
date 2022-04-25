@@ -1,0 +1,813 @@
+# Linear
+
+## Overview & SVD
+
+### Spectral Decomposition
+
+
+$
+\begin{align}
+
+
+A = 
+
+\begin{pmatrix} 
+
+a_{11} & & \cdots  &  & a_{1n} \\
+\vdots & \ddots &   &  & \vdots \\
+a_{i1} & &  \ddots &  & a_{1n} \\
+\vdots & &  & \ddots & \vdots \\
+a_{m1} & & \cdots  &  & a_{mn}
+
+\end{pmatrix} 
+
+= (a_{ij})
+
+&= 
+
+\begin{pmatrix}
+
+\pmb r_1 \\
+\vdots \\
+\pmb r_m
+
+\end{pmatrix}
+
+\\
+\\
+
+&= 
+\begin{pmatrix}
+
+\pmb c_1 &
+\cdots &
+\pmb c_m
+
+\end{pmatrix}
+
+\end{align}
+$
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+for symmetric matrix $A$:
+
+$$
+A_{p \times p} = \Gamma \Lambda \Gamma^{T} = \sum_{j=1}^p \pmb \lambda_j \pmb \gamma_j \pmb \gamma_j^T
+$$
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+$$
+\begin{alignat}{2}
+&\Lambda = diag \{\lambda_1 , \cdots, \lambda_p \} &&\; \; \; \; \;=
+
+\begin{pmatrix}
+\lambda_1 & \cdots & 0\\
+\vdots & \ddots & \vdots\\
+0 & \cdots & \lambda_p
+
+\end{pmatrix}
+_{p \times p}
+
+\\
+
+&\Gamma &&\; \; \; \; \;= 
+
+\begin{pmatrix}
+
+\pmb\gamma_1 ,& \cdots, &\pmb\gamma_p
+
+\end{pmatrix}_{p \times p}
+
+
+\end{alignat}
+$$
+
+
+where $\pmb \gamma_j$ is evec of $A$. Therefore $\Gamma$ is orthogonal Matrix.
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+let symmetric Matrix of rank $r$, $A_{p \times p}$, $(r \le p)$. Then there exists orthogonal Matrix $\Gamma_{p \times p}$, which means $\Gamma^T \Gamma = I_p$ and
+
+
+
+$$
+A =  \Gamma \Lambda \Gamma^T = \Gamma 
+\begin{pmatrix}
+\Lambda_1 & 0 \\
+0 & 0
+\end{pmatrix}
+\Gamma^T = \Gamma_1 \Lambda_1 \Gamma^T_1
+$$
+
+at here, by letting $\delta_i=$ i-th ev, $i=1, \cdots, r$, then
+
+$$
+\Gamma = \begin{pmatrix} \{\Gamma_1\}_{p \times r} , \; \; \; \{\Gamma_0\}_{p \times (p-r)} \end{pmatrix}
+\\
+\\
+\Lambda = diag \{\lambda_1 , \cdots, \lambda_r \} = 
+\begin{pmatrix}
+\lambda_1 & \cdots & 0\\
+\vdots & \ddots & \vdots\\
+0 & \cdots & \lambda_r
+\end{pmatrix}
+_{r \times r}
+$$
+
+then $\Gamma_1^T \Gamma_1 = I_r, \; \; \; \; \Gamma_1^T \Gamma_0 = 0$ and 
+
+$$
+A^2 = A'A = AA' = 
+(\Gamma_1 \Lambda_1 \Gamma^T_1)' \Gamma_1 \Lambda_1 \Gamma^T_1 = \Gamma_1 \Lambda_1 \Gamma^T_1 \ast \Gamma_1 \Lambda_1 \Gamma^T_1
+= \Gamma_1 \Lambda_1^2 \Gamma^T_1
+$$
+
+let $\{\pmb \gamma_i\}_{p \times 1}$ be i-th column vector of $\Gamma$. then
+
+$$
+\pmb \gamma_i' \pmb \gamma_i =  \begin{cases} 1 & & i=j \\ 0 & & i \not = j \end{cases}
+$$
+
+
+thus 
+
+$$
+\begin{alignat}{2}
+
+A &= \Gamma_1 \Lambda_1 \Gamma^T_1 
+
+&&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \gamma_i '
+
+
+\\
+
+A'A &= \Gamma_1 \Lambda_1^2 \Gamma^T_1
+
+&&=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i '
+
+\\
+
+AA'&= 
+
+&&
+
+\\
+
+\gamma_k ' A 
+
+&=  \lambda_k \gamma_k ' \gamma_k \gamma_k '  
+
+&&= \lambda_k \pmb\gamma_k ' 
+
+
+
+\\
+
+A \gamma_k 
+
+&=  \lambda_k \gamma_k \gamma_k ' \gamma_k  
+
+&&= \lambda_k \pmb \gamma_k 
+
+
+\end{alignat}
+
+$$
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+##### remark
+
+let orthogonal Matrix $\Gamma$, therefore $\Gamma ' \Gamma = I$, and $\det(\Gamma) = \vert \Gamma \vert = 1$.
+
+let symmetric Matrix $A_{p \times p}$ with full rank. then by SVD, 
+
+$$
+\det(A) = \vert A \vert = \vert \Gamma \vert \vert \Lambda\vert  \vert \Gamma^T \vert  = \vert \Lambda \vert  = 
+\begin{vmatrix}
+\lambda & \cdots & 0 \\
+\vdots & \ddots & \vdots \\
+0 & \cdots & \lambda_p
+\end{vmatrix}
+= \prod_{i=1}^p \lambda_i
+$$
+
+let symmetric Matrix $A_{p \times p}$ with full rank. then by SVD, 
+
+
+$$
+\exists n\in \mathbb{R}: \; \; \; 
+A^n = (\Gamma \Lambda \Gamma') \ast (\Gamma \Lambda \Gamma')\cdots (\Gamma \Lambda \Gamma') = \Gamma \Lambda^n \Gamma'
+$$
+
+in particular, a Cov Matrix $\Sigma$ can be written by
+
+$$
+\Sigma = \Gamma \Lambda \Gamma^T = \sum_{i=1}^r \lambda_i \gamma_i \gamma_i'
+\\
+\Sigma^{-1} = \Gamma \Lambda^{-1} \Gamma^T = \sum_{i=1}^r \lambda_i^{-1}  \gamma_i \gamma_i'
+\\
+\Sigma^{-\tfrac{1}{2}} = \Gamma \Lambda^{-\tfrac{1}{2}} \Gamma^T = \sum_{i=1}^r \lambda_i^{-\tfrac{1}{2}}  \gamma_i \gamma_i'
+$$
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+### Singular value Decomposition: General-version
+
+decomposition of any aribtrary Matrix with rank $r$, $A_{n \times p} = \Gamma_{n \times r} \Lambda \triangle_{p \times r} ' = \sum_{j=1}^r \lambda_j \pmb \gamma_j \pmb \delta_j '$.
+
+$\Lambda = diag(\lambda_1 , \cdots, \lambda_r), \; \; \; \;  \lambda_j >0$. 이때 $\lambda_i$는 $AA'$나 $A'A$의 non-zero ev.
+
+$\Gamma$ 와 $\triangle$는 $AA'$와 $A'A$의 corresponding $r$ evec으로 구성. 따라서 Both $\Gamma ' \Gamma = \triangle ' \triangle  = I_r $, i.e., are column orthogonal.
+
+
+thus
+
+$
+
+
+\begin{alignat}{2}
+
+
+
+
+A &= \Gamma \Lambda \triangle^T 
+
+&&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i '
+
+
+\\
+
+A'A &= \triangle \Lambda^2 \triangle^T
+
+&&=\sum_{i=1}^r \lambda_i^2 \pmb \delta_i \pmb \delta_i '
+
+\\
+
+AA'&= \Gamma \Lambda^2 \Gamma^T
+
+&&=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i '
+
+
+\\
+
+\gamma_k ' A 
+
+&=  \gamma_k ' \Gamma \Lambda \triangle^T 
+
+&&= \lambda_k \pmb \delta_k '
+
+
+
+
+
+\\
+
+A \delta_k 
+
+&=  \Gamma \Lambda \triangle^T  \delta_k  
+
+&&= \lambda_k \pmb \gamma_k 
+
+
+\end{alignat}
+
+
+$
+
+
+| a | b |
+| :-: | :-: |
+| $\begin{alignat}{2} A &= \Gamma \Lambda \triangle^T &&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i ' \\ A'A &= \triangle \Lambda^2 \triangle^T &&=\sum_{i=1}^r \lambda_i^2 \pmb \delta_i \pmb \delta_i ' \\ AA'&= \Gamma \Lambda^2 \Gamma^T &&=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i ' \\ \gamma_k ' A &=  \gamma_k ' \Gamma \Lambda \triangle^T &&= \lambda_k \pmb \delta_k ' \\ A \delta_k &=  \Gamma \Lambda \triangle^T  \delta_k  &&= \lambda_k \pmb \gamma_k \end{alignat}$ | \begin{alignat}{2} A &= \Gamma_1 \Lambda_1 \Gamma^T_1 &&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \gamma_i ' \\ A'A &= \Gamma_1 \Lambda_1^2 \Gamma^T_1 &&=\sum_{i=1}^r \lambda_i^2 \pmb \gamma_i \pmb \gamma_i ' \\ AA'&=  && \\ \gamma_k ' A &=  \lambda_k \gamma_k ' \gamma_k \gamma_k '  &&= \lambda_k \pmb\gamma_k ' \\ A \gamma_k &=  \lambda_k \gamma_k \gamma_k ' \gamma_k  &&= \lambda_k \pmb \gamma_k \end{alignat} |
+| c | d |
+
+
+
+therefore, generalized inverse matrix, G-inverse Matrix $A^-$ will be
+
+$
+
+
+\begin{alignat}{2}
+
+
+
+
+A &= \Gamma \Lambda \triangle^T 
+
+&&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i '
+
+\\
+
+
+A^- &= \triangle 
+
+ \Lambda^{-1}  \Gamma'
+
+&&=\sum_{i=1}^r \lambda_i^{-1} \pmb \delta_i \pmb \gamma_i '
+
+
+
+\\
+
+AA^- A &= \Gamma \Lambda \triangle^T \ast \triangle \Lambda^{-1}  \Gamma' \ast \Gamma \Lambda \triangle^T 
+
+&&=\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i ' \; \; \; \; \;  \; \; \; \; \; = A
+
+
+
+
+\end{alignat}
+
+
+$
+
+<br />  
+<br />  
+<br />  
+<br />  
+<br />  
+
+
+
+### Singular value Decomposition: Another-version
+
+
+
+
+rank $r$ arbitrary Matrix $A_{n \times p} = \Gamma_{n \times r} \Lambda \triangle^T_{p \times r} =\sum_{i=1}^r \lambda_i^{\tfrac{1}{2}} \pmb \gamma_i \pmb \delta_i '$
+
+
+
+
+$\Lambda = diag(\lambda_1^{\tfrac{1}{2}} , \cdots, \lambda_r^{\tfrac{1}{2}}), \; \; \; \; \; \lambda_j^{\tfrac{1}{2}} >0$. 이때 $\lambda_i$는 $AA'$와 $A'A$의 non-zero ev.
+
+$\Gamma, \triangle$는 $AA'$와 $A'A$의 corresponding $r$ evec으로 구성. 따라서 Both $\Gamma ' \Gamma = \triangle ' \triangle  = I_r$, i.e., are column orthogonal.
+
+
+
+
+
+
+
+<br />  
+<br />  
+<br />  
+<br />  
+<br />  
+
+
+### Quadratic Forms
+
+for symmetric Matrix $A_{p \times p}$, vector $\pmb x \in \mathbb{R}^p$:
+
+$$
+Q(x) = \pmb x' A \pmb x = \sum_{i=1}^p \sum_{j=1}^p a_{ij} x_i x_j \tag{quadratic form}
+$$
+
+
+
+$
+\begin{align}
+
+\forall x \not = 0: Q(x) &> 0 \tag{positive definite} \\
+
+\\
+
+
+
+\forall x \not = 0: Q(x) &\ge 0 \tag{positive semi-definite}
+
+
+
+\end{align}
+$
+
+
+if corresponding quadratic form $Q(\cdot)$ is positive definite(semi-definite), $A$ is called positive definite(semi-definite). This is written by $A>0 \; \; \; (\ge 0)$.
+
+
+
+<br />  
+<br />  
+<br />  
+
+
+
+##### propositions
+
+if $A=A'$, and $Q(x) = \pmb x ' A \pmb x$ is corresponding quadratic form, then $\exists \pmb y = \Lambda^T \pmb x: \; \; \; Q(x) = \pmb x' A \pmb x = \sum_{i=1}^p \lambda_1 y_i^2 $, $\lambda_i$ is ev of $A$.
+
+$$
+A>0 \iff \forall \lambda_i>0, \; \; \; i=1, \cdots, p
+$$
+
+$$
+A>0 \; \; \; \Longrightarrow \; \; \;  \vert A \vert >0, \; \exists A^{-1}
+$$
+
+$A=A', \; B=B', \; B>0$, then maximum of $\dfrac{\pmb x ' A \pmb x}{\pmb x ' B \pmb x}$ is given by the largest ev of $B^{-1}A$.
+
+the vector which maximizes(minimizes) $\dfrac{\pmb x ' A \pmb x}{\pmb x ' B \pmb x}$ is the corresponding evec of $B^{-1}A$ for largest(smallest) ev of $B^{-1}A$.
+
+more generally, for ev of $B^{-1}A$, $\lambda_1, \cdots, \lambda_p$,
+
+$$
+\max \left( \dfrac{\pmb x ' A \pmb x}{\pmb x ' B \pmb x} \right)
+= \; \; \; \; \;\lambda_1 \ge \cdots \ge \lambda_p \; \; \; \; \; =
+\min \left( \dfrac{\pmb x ' A \pmb x}{\pmb x ' B \pmb x} \right)
+$$
+
+if ${\pmb x ' B \pmb x}=1$, then 
+
+$$
+\max \left( {\pmb x ' A \pmb x} \right)
+= \; \; \; \; \;\lambda_1 \ge \cdots \ge \lambda_p \; \; \; \; \; =
+\min \left( {\pmb x ' A \pmb x} \right)
+$$
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+### Partitioned Matrices
+
+
+$A_{n \times p}, B_{p \times n}$ and $n \ge p$. then 
+
+$$
+\begin{vmatrix} 
+-\lambda I_n & -A \\
+B & I_p 
+\end{vmatrix}
+= (-\lambda)^{n-p} \ast \left \vert BA - \lambda I_n \right \vert = \left \vert AB - \lambda I_n \right \vert
+$$
+
+for $A_{n \times p}, B_{p \times n}$, the non-zero ev of $AB$ and $BA$ are the same and have the same multiplicity. if $\pmb x$ is evec of $AB$ for an ev $\lambda \not = 0$, then $y=B \pmb x$ is an evec of $BA$.
+
+for $A_{n \times p}, B_{q \times n}, \pmb a_{p \times 1}, \pmb b_{q \times 1}$, if $rank \left( A \pmb a \pmb b B \right) \le 1$, then non-zero ev, if it exists, equals $\pmb b' BA \pmb a$ with evec $A \pmb a$.
+
+
+
+<br />  
+<br />  
+<br />  
+<br />  
+<br />  
+
+
+
+
+
+### Geometrical Aspects
+
+mutually orthogonal $\pmb x_1 , \cdots, \pmb x_k \iff \forall {i,j}: \;   \pmb x_i ' \pmb x_j$
+
+
+
+
+
+In that case, $X=  \left( \pmb x_1 , \cdots, \pmb x_k \right) $ has rank $k$, and $X'X$ is a diagonal Matrix with $x_i ' x_i$ in the i-th diagonal position. 
+
+
+
+
+let's consider bivariate data $(x_i , y_i), \; \; \; i= 1, \cdots, n$, and let $\tilde x_i = x_i - \bar {\pmb x}, \; \tilde y_i = y_i - \bar {\pmb y}$. then correlation b/w $x$ and $y$ is 
+
+$$
+\dfrac
+{\sum_{i=1}^n (x_i - \bar {\pmb x})(y_i - \bar {\pmb y})}
+{\sqrt{\left[ \sum_{i=1}^n (x_i - \bar {\pmb x})^2 \right] \ast \left[ \sum_{i=1}^n(y_i - \bar {\pmb y})^2 \right]}}
+= 
+\dfrac
+{\tilde x ' \tilde y}
+{\Vert \tilde x \Vert \ast \Vert \tilde y\Vert} 
+= \cos(\theta)
+$$
+
+where $\theta$ is the angle b/w the deviation vectors ${\tilde x}$ and ${\tilde y}$.
+
+For two dimensions, the rotation can be expressed:
+
+$$
+
+\begin{alignat}{2}
+
+\pmb y &= \begin{pmatrix} y_1 \\ y_2 \end{pmatrix}
+
+
+&&=
+
+
+\begin{pmatrix} 
+
+\cos(\theta) & \sin(\theta) \\
+
+-\sin(\theta) & \cos(\theta) 
+
+
+\end{pmatrix}
+
+
+
+
+\begin{pmatrix} 
+
+x_1 \\ x_2 
+
+\end{pmatrix}
+
+
+
+&& = \Gamma 
+
+\begin{pmatrix} 
+
+x_1 \\ x_2 
+
+\end{pmatrix}
+
+\\
+ 
+&= \Gamma \pmb x \tag{clockwise rotation}
+
+
+
+\\
+\\
+
+
+
+\pmb y &
+
+
+&&=
+
+
+\begin{pmatrix} 
+
+\cos(\theta) & -\sin(\theta) \\
+
+\sin(\theta) & \cos(\theta) 
+
+
+\end{pmatrix}
+
+
+
+
+\begin{pmatrix} 
+
+x_1 \\ x_2 
+
+\end{pmatrix}
+
+&&= \Gamma  ' 
+
+\begin{pmatrix} 
+
+x_1 \\ x_2 
+
+\end{pmatrix}
+
+\\
+
+& = \Gamma  '  \pmb x \tag{counter-clockwise rotation}
+
+
+
+
+\end{alignat}
+$$
+
+
+
+<br />  
+<br />  
+<br />  
+<br />  
+<br />  
+
+
+
+
+
+### Column, Row and Null Space
+
+Matrix $X_{n \times p}$:
+
+$
+
+\begin{alignat}{2}
+
+\mathcal{C}(X)
+
+&=
+
+
+
+\{ \pmb x \in \mathbb{R}^n  \; \vert \; \exists \pmb a \in \mathbb{R}^p \; \; s.t. \; \; X \pmb a = \pmb x\}  
+
+&&\subseteq 
+\mathbb{R}^n
+
+\tag{column (range) space}
+
+\\
+
+
+\mathcal{N}(X)
+
+&=
+
+\{ \pmb y \in \mathbb{R}^p  \; \vert \; X \pmb y = 0 \}  &&\subseteq \mathbb{R}^p
+
+\tag{null space}
+
+
+\\
+
+
+\mathcal{R}(X)
+
+
+
+&= 
+
+\{ \pmb z \in \mathbb{R}^p  \; \vert \; \exists \pmb b \in \mathbb{R}^n \; \; s.t. \; \; X' \pmb b = \pmb z \}
+
+
+&&\subseteq 
+\mathbb{R}^p
+
+\tag{row space}
+
+
+\\
+
+&= \mathcal{C}(X')
+
+
+\tag{column space of X`}
+
+
+\end{alignat}
+
+
+
+
+$
+
+
+
+Spaces by Singular Value Decomposition: General-version,
+
+Matrix $X_{n \times p}$ with $rank(X)=r$:
+
+$
+\begin{alignat}{2}
+
+X &= \Gamma \Lambda \triangle^T 
+
+\\
+
+& =\sum_{i=1}^r \lambda_i \pmb \gamma_i \pmb \delta_i '
+
+\\
+
+\mathcal{C}(X)
+
+&= \{ \gamma_1 , \cdots, \gamma_r \}
+
+
+
+\\
+
+
+
+\mathcal{N}(X)
+
+&= \{ \delta_{r+1} , \cdots, \delta_{p} \}
+
+\\
+
+
+\mathcal{R}(X)
+
+&= \{ \delta_{1} , \cdots, \delta_{r} \}
+
+
+\end{alignat}
+
+
+
+
+$
+
+- note: Matrix $X_{n \times p}$ with $rank(X)=r$
+
+
+$
+
+\begin{alignat}{2}
+
+\mathcal{N}(X) &= \mathcal{C}(X')^{\perp} = \mathcal{R}(X)^{\perp} \\
+
+\mathcal{N}(X)^{\perp}
+
+&= \mathcal{C}(X')
+= \mathcal{R}(X) \\
+
+\\
+
+\\
+
+\mathcal{C}(X'X) &= \mathcal{C}(X') = \mathcal{R}(X) \\
+
+\\
+
+\\
+
+\dim \left( \mathcal{C}(X) \right) &= 
+\dim \left( \mathcal{R}(X) \right) \\
+= \; \; \; \; \; 
+rank(X) &= 
+rank(X') = 
+rank(X'X) \\ &= r \le \min(n, p)
+
+\end{alignat}
+$
+
+$X'X$ has full rank (is nonsingular) $\iff$ if $X$ has full column rank ($X$ has linearly independent columns).
+
+
+
+

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>B.3 Graph Convolution Network | Self-Study</title>
+  <meta name="description" content="B.3 Graph Convolution Network | Self-Study" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="B.3 Graph Convolution Network | Self-Study" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  <meta name="github-repo" content="lyric2249/lyric2249.github.io" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="B.3 Graph Convolution Network | Self-Study" />
+  
+  
+  
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="cnn.html"/>
+<link rel="next" href="cluster-gcn.html"/>
+<script src="libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Self</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> url: your book url like <span>https://bookdown.org/yihui/bookdown</span><span></span></a></li>
+<li class="part"><span><b>I 20-02<span></span></b></span></li>
+<li class="chapter" data-level="2" data-path="categorical.html"><a href="categorical.html"><i class="fa fa-check"></i><b>2</b> Categorical<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="overview.html"><a href="overview.html"><i class="fa fa-check"></i><b>2.1</b> Overview<span></span></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="overview.html"><a href="overview.html#data-type-and-statistical-analysis"><i class="fa fa-check"></i><b>2.1.1</b> Data Type and Statistical Analysis<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bayesian.html"><a href="bayesian.html"><i class="fa fa-check"></i><b>3</b> Bayesian<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="abstract.html"><a href="abstract.html"><i class="fa fa-check"></i><b>3.1</b> Abstract<span></span></a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="abstract.html"><a href="abstract.html#변수의-독립성"><i class="fa fa-check"></i><b>3.1.1</b> 변수의 독립성<span></span></a></li>
+<li class="chapter" data-level="3.1.2" data-path="abstract.html"><a href="abstract.html#교환가능성"><i class="fa fa-check"></i><b>3.1.2</b> 교환가능성<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="continual-aeassessment-method.html"><a href="continual-aeassessment-method.html"><i class="fa fa-check"></i><b>3.2</b> Continual Aeassessment Method<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="horseshoe-prior.html"><a href="horseshoe-prior.html"><i class="fa fa-check"></i><b>3.3</b> Horseshoe Prior<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>II 21-01<span></span></b></span></li>
+<li class="chapter" data-level="4" data-path="mathematical-stats.html"><a href="mathematical-stats.html"><i class="fa fa-check"></i><b>4</b> Mathematical Stats<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="inference.html"><a href="inference.html"><i class="fa fa-check"></i><b>4.1</b> Inference<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="inference.html"><a href="inference.html#rao-blackwell-thm."><i class="fa fa-check"></i><b>4.1.1</b> Rao-Blackwell thm.<span></span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="inference.html"><a href="inference.html#completeness"><i class="fa fa-check"></i><b>4.1.2</b> Completeness<span></span></a></li>
+<li class="chapter" data-level="4.1.3" data-path="inference.html"><a href="inference.html#레만-쉐페-thm."><i class="fa fa-check"></i><b>4.1.3</b> 레만-쉐페 thm.<span></span></a></li>
+<li class="chapter" data-level="4.1.4" data-path="inference.html"><a href="inference.html#raoblack"><i class="fa fa-check"></i><b>4.1.4</b> Rao-Blackwell thm.<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="hypothesis-test.html"><a href="hypothesis-test.html"><i class="fa fa-check"></i><b>4.2</b> Hypothesis Test<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="power-fucntion.html"><a href="power-fucntion.html"><i class="fa fa-check"></i><b>4.3</b> Power Fucntion<span></span></a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="power-fucntion.html"><a href="power-fucntion.html#significance-probability-p-value"><i class="fa fa-check"></i><b>4.3.1</b> Significance Probability (p-value)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="optimal-testing-method.html"><a href="optimal-testing-method.html"><i class="fa fa-check"></i><b>4.4</b> Optimal Testing Method<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="data-reduction.html"><a href="data-reduction.html"><i class="fa fa-check"></i><b>4.5</b> Data Reduction<span></span></a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="data-reduction.html"><a href="data-reduction.html#sufficiency-principle"><i class="fa fa-check"></i><b>4.5.1</b> Sufficiency Principle<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="borel-paradox.html"><a href="borel-paradox.html"><i class="fa fa-check"></i><b>4.6</b> Borel Paradox<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html"><i class="fa fa-check"></i><b>4.7</b> Neyman–Pearson lemma<span></span></a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#overview-1"><i class="fa fa-check"></i><b>4.7.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="4.7.2" data-path="neymanpearson-lemma.html"><a href="neymanpearson-lemma.html#generalized-lrt"><i class="fa fa-check"></i><b>4.7.2</b> Generalized LRT<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="개념.html"><a href="개념.html"><i class="fa fa-check"></i><b>4.8</b> 개념<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="mcmc.html"><a href="mcmc.html"><i class="fa fa-check"></i><b>5</b> MCMC<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="importance-sampling.html"><a href="importance-sampling.html"><i class="fa fa-check"></i><b>5.1</b> Importance Sampling<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="importance-sampling.html"><a href="importance-sampling.html#independent-monte-carlo"><i class="fa fa-check"></i><b>5.1.1</b> Independent Monte Carlo<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html"><i class="fa fa-check"></i><b>5.2</b> Markov Chain Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#mh-algorithm"><i class="fa fa-check"></i><b>5.2.1</b> MH Algorithm<span></span></a></li>
+<li class="chapter" data-level="5.2.2" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#random-walk-chains-most-widely-used"><i class="fa fa-check"></i><b>5.2.2</b> Random Walk Chains (Most Widely Used)<span></span></a></li>
+<li class="chapter" data-level="5.2.3" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#basic-gibbs-sampler"><i class="fa fa-check"></i><b>5.2.3</b> Basic Gibbs Sampler<span></span></a></li>
+<li class="chapter" data-level="5.2.4" data-path="markov-chain-monte-carlo.html"><a href="markov-chain-monte-carlo.html#implementation"><i class="fa fa-check"></i><b>5.2.4</b> Implementation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html"><i class="fa fa-check"></i><b>5.3</b> Advanced MCMC (wk08)<span></span></a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#data-augmentation"><i class="fa fa-check"></i><b>5.3.1</b> Data Augmentation<span></span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#hit-and-run-algorithm"><i class="fa fa-check"></i><b>5.3.2</b> Hit-and-Run Algorithm<span></span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#metropolis-adjusted-langevin-algorithm"><i class="fa fa-check"></i><b>5.3.3</b> Metropolis-Adjusted Langevin Algorithm<span></span></a></li>
+<li class="chapter" data-level="5.3.4" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#multiple-try-metropolis-algorithm"><i class="fa fa-check"></i><b>5.3.4</b> Multiple-Try Metropolis Algorithm<span></span></a></li>
+<li class="chapter" data-level="5.3.5" data-path="advanced-mcmc-wk08.html"><a href="advanced-mcmc-wk08.html#reversible-jump-mcmc-algorithm"><i class="fa fa-check"></i><b>5.3.5</b> Reversible Jump MCMC Algorithm<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html"><i class="fa fa-check"></i><b>5.4</b> Auxiliary Variable MCMC<span></span></a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#introduction"><i class="fa fa-check"></i><b>5.4.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="5.4.2" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#multimodal-target-distribution"><i class="fa fa-check"></i><b>5.4.2</b> Multimodal Target Distribution<span></span></a></li>
+<li class="chapter" data-level="5.4.3" data-path="auxiliary-variable-mcmc.html"><a href="auxiliary-variable-mcmc.html#doubly-intractable-normalizing-constants"><i class="fa fa-check"></i><b>5.4.3</b> Doubly-intractable Normalizing Constants<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html"><i class="fa fa-check"></i><b>5.5</b> Approximate Bayesian Computation<span></span></a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#simulator-based-models"><i class="fa fa-check"></i><b>5.5.1</b> Simulator-Based Models<span></span></a></li>
+<li class="chapter" data-level="5.5.2" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#approximate-bayesian-computation-abc"><i class="fa fa-check"></i><b>5.5.2</b> Approximate Bayesian Computation (ABC)<span></span></a></li>
+<li class="chapter" data-level="5.5.3" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abcifying-monte-carlo-methods"><i class="fa fa-check"></i><b>5.5.3</b> ABCifying Monte Carlo Methods<span></span></a></li>
+<li class="chapter" data-level="5.5.4" data-path="approximate-bayesian-computation.html"><a href="approximate-bayesian-computation.html#abc-mcmc-algorithm"><i class="fa fa-check"></i><b>5.5.4</b> ABC-MCMC Algorithm<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html"><i class="fa fa-check"></i><b>5.6</b> Hamiltonian Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="hamiltonian-monte-carlo.html"><a href="hamiltonian-monte-carlo.html#introduction-to-hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>5.6.1</b> Introduction to Hamiltonian Monte Carlo<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html"><i class="fa fa-check"></i><b>5.7</b> Population Monte Carlo<span></span></a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#adaptive-direction-sampling"><i class="fa fa-check"></i><b>5.7.1</b> Adaptive Direction Sampling<span></span></a></li>
+<li class="chapter" data-level="5.7.2" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#conjugate-gradient-mc"><i class="fa fa-check"></i><b>5.7.2</b> Conjugate Gradient MC<span></span></a></li>
+<li class="chapter" data-level="5.7.3" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#parallel-tempering"><i class="fa fa-check"></i><b>5.7.3</b> Parallel Tempering<span></span></a></li>
+<li class="chapter" data-level="5.7.4" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#evolutionary-mc"><i class="fa fa-check"></i><b>5.7.4</b> Evolutionary MC<span></span></a></li>
+<li class="chapter" data-level="5.7.5" data-path="population-monte-carlo.html"><a href="population-monte-carlo.html#sequential-parallel-tempering"><i class="fa fa-check"></i><b>5.7.5</b> Sequential Parallel Tempering<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="stochastic-approximation-monte-carlo.html"><a href="stochastic-approximation-monte-carlo.html"><i class="fa fa-check"></i><b>5.8</b> Stochastic Approximation Monte Carlo<span></span></a></li>
+<li class="chapter" data-level="5.9" data-path="review.html"><a href="review.html"><i class="fa fa-check"></i><b>5.9</b> Review<span></span></a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="review.html"><a href="review.html#wk01"><i class="fa fa-check"></i><b>5.9.1</b> Wk01<span></span></a></li>
+<li class="chapter" data-level="5.9.2" data-path="review.html"><a href="review.html#wk03"><i class="fa fa-check"></i><b>5.9.2</b> wk03<span></span></a></li>
+<li class="chapter" data-level="5.9.3" data-path="review.html"><a href="review.html#wk04-05"><i class="fa fa-check"></i><b>5.9.3</b> wk04, 05<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="else.html"><a href="else.html"><i class="fa fa-check"></i><b>5.10</b> Else<span></span></a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="else.html"><a href="else.html#hw4.-rasch-model"><i class="fa fa-check"></i><b>5.10.1</b> Hw4. Rasch Model<span></span></a></li>
+<li class="chapter" data-level="5.10.2" data-path="else.html"><a href="else.html#da-example-mvn"><i class="fa fa-check"></i><b>5.10.2</b> DA) Example: MVN<span></span></a></li>
+<li class="chapter" data-level="5.10.3" data-path="else.html"><a href="else.html#bayesian-adaptive-clinical-trial-with-delayed-outcomes"><i class="fa fa-check"></i><b>5.10.3</b> Bayesian adaptive clinical trial with delayed outcomes<span></span></a></li>
+<li class="chapter" data-level="5.10.4" data-path="else.html"><a href="else.html#nmar의-종류"><i class="fa fa-check"></i><b>5.10.4</b> NMAR의 종류<span></span></a></li>
+<li class="chapter" data-level="5.10.5" data-path="else.html"><a href="else.html#wk10-bayesian-model-selection"><i class="fa fa-check"></i><b>5.10.5</b> wk10) Bayesian Model Selection<span></span></a></li>
+<li class="chapter" data-level="5.10.6" data-path="else.html"><a href="else.html#autologistic-model"><i class="fa fa-check"></i><b>5.10.6</b> Autologistic model<span></span></a></li>
+<li class="chapter" data-level="5.10.7" data-path="else.html"><a href="else.html#wk10-bayesian-model-averaging"><i class="fa fa-check"></i><b>5.10.7</b> wk10) Bayesian Model Averaging<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="mva.html"><a href="mva.html"><i class="fa fa-check"></i><b>6</b> MVA<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html"><i class="fa fa-check"></i><b>6.1</b> Overview of mva (not ended)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#notation"><i class="fa fa-check"></i><b>6.1.1</b> Notation<span></span></a></li>
+<li class="chapter" data-level="6.1.2" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#summary-statistics"><i class="fa fa-check"></i><b>6.1.2</b> Summary Statistics<span></span></a></li>
+<li class="chapter" data-level="6.1.3" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#statistical-inference-on-correlation"><i class="fa fa-check"></i><b>6.1.3</b> Statistical Inference on Correlation<span></span></a></li>
+<li class="chapter" data-level="6.1.4" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#standardization"><i class="fa fa-check"></i><b>6.1.4</b> Standardization<span></span></a></li>
+<li class="chapter" data-level="6.1.5" data-path="overview-of-mva-not-ended.html"><a href="overview-of-mva-not-ended.html#missing-value-treatment"><i class="fa fa-check"></i><b>6.1.5</b> Missing Value Treatment<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html"><i class="fa fa-check"></i><b>6.2</b> Multivariate Nomral (wk2)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#overview-2"><i class="fa fa-check"></i><b>6.2.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="6.2.2" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#spectral-decomposition"><i class="fa fa-check"></i><b>6.2.2</b> Spectral Decomposition<span></span></a></li>
+<li class="chapter" data-level="6.2.3" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#properties-of-mvn"><i class="fa fa-check"></i><b>6.2.3</b> Properties of MVN<span></span></a></li>
+<li class="chapter" data-level="6.2.4" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#chi2-distribution"><i class="fa fa-check"></i><b>6.2.4</b> <span class="math inline">\(\Chi^2\)</span> distribution<span></span></a></li>
+<li class="chapter" data-level="6.2.5" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#linear-combination-of-random-vectors"><i class="fa fa-check"></i><b>6.2.5</b> Linear Combination of Random Vectors<span></span></a></li>
+<li class="chapter" data-level="6.2.6" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#multivariate-normal-likelihood"><i class="fa fa-check"></i><b>6.2.6</b> Multivariate Normal Likelihood<span></span></a></li>
+<li class="chapter" data-level="6.2.7" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#sampling-distribtion-of-bar-pmb-y-s"><i class="fa fa-check"></i><b>6.2.7</b> Sampling Distribtion of <span class="math inline">\(\bar {\pmb y}, S\)</span><span></span></a></li>
+<li class="chapter" data-level="6.2.8" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#assessing-normality"><i class="fa fa-check"></i><b>6.2.8</b> Assessing Normality<span></span></a></li>
+<li class="chapter" data-level="6.2.9" data-path="multivariate-nomral-wk2.html"><a href="multivariate-nomral-wk2.html#power-transformation"><i class="fa fa-check"></i><b>6.2.9</b> Power Transformation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html"><i class="fa fa-check"></i><b>6.3</b> Inference about Mean Vector (wk3)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#overview-3"><i class="fa fa-check"></i><b>6.3.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="6.3.2" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#confidence-region"><i class="fa fa-check"></i><b>6.3.2</b> 1. Confidence Region<span></span></a></li>
+<li class="chapter" data-level="6.3.3" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#simultaneous-ci"><i class="fa fa-check"></i><b>6.3.3</b> 2. Simultaneous CI<span></span></a></li>
+<li class="chapter" data-level="6.3.4" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#note-bonferroni-multiple-comparison"><i class="fa fa-check"></i><b>6.3.4</b> 3. Note: Bonferroni Multiple Comparison<span></span></a></li>
+<li class="chapter" data-level="6.3.5" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#large-sample-inferences-about-a-mean-vector"><i class="fa fa-check"></i><b>6.3.5</b> 4. Large Sample Inferences about a Mean Vector<span></span></a></li>
+<li class="chapter" data-level="6.3.6" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#profile-analysis-wk4-5"><i class="fa fa-check"></i><b>6.3.6</b> 1. Profile Analysis (wk4, 5)<span></span></a></li>
+<li class="chapter" data-level="6.3.7" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#test-for-linear-trend"><i class="fa fa-check"></i><b>6.3.7</b> 2. Test for Linear Trend<span></span></a></li>
+<li class="chapter" data-level="6.3.8" data-path="inference-about-mean-vector-wk3.html"><a href="inference-about-mean-vector-wk3.html#inferences-about-a-covariance-matrix"><i class="fa fa-check"></i><b>6.3.8</b> 3. Inferences about a Covariance Matrix<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html"><i class="fa fa-check"></i><b>6.4</b> Comparison of Several MV Means (wk5)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#paired-comparison"><i class="fa fa-check"></i><b>6.4.1</b> Paired Comparison<span></span></a></li>
+<li class="chapter" data-level="6.4.2" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-mean-vectors-from-two-populations"><i class="fa fa-check"></i><b>6.4.2</b> Comparing Mean Vectors from Two Populations<span></span></a></li>
+<li class="chapter" data-level="6.4.3" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#profile-analysis-for-g2"><i class="fa fa-check"></i><b>6.4.3</b> Profile Analysis (for <span class="math inline">\(g=2\)</span>)<span></span></a></li>
+<li class="chapter" data-level="6.4.4" data-path="comparison-of-several-mv-means-wk5.html"><a href="comparison-of-several-mv-means-wk5.html#comparing-several-multivariate-population-means"><i class="fa fa-check"></i><b>6.4.4</b> Comparing Several Multivariate Population Means<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html"><i class="fa fa-check"></i><b>6.5</b> Multivariate Multiple Regression (wk6)<span></span></a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#overview-4"><i class="fa fa-check"></i><b>6.5.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="6.5.2" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#multivariate-multiple-regression"><i class="fa fa-check"></i><b>6.5.2</b> Multivariate Multiple Regression<span></span></a></li>
+<li class="chapter" data-level="6.5.3" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#hypothesis-testing"><i class="fa fa-check"></i><b>6.5.3</b> Hypothesis Testing<span></span></a></li>
+<li class="chapter" data-level="6.5.4" data-path="multivariate-multiple-regression-wk6.html"><a href="multivariate-multiple-regression-wk6.html#example"><i class="fa fa-check"></i><b>6.5.4</b> Example)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="pca.html"><a href="pca.html"><i class="fa fa-check"></i><b>6.6</b> PCA<span></span></a></li>
+<li class="chapter" data-level="6.7" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>6.7</b> Factor<span></span></a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="factor.html"><a href="factor.html#method-of-estimation"><i class="fa fa-check"></i><b>6.7.1</b> Method of Estimation<span></span></a></li>
+<li class="chapter" data-level="6.7.2" data-path="factor.html"><a href="factor.html#factor-rotation"><i class="fa fa-check"></i><b>6.7.2</b> Factor Rotation<span></span></a></li>
+<li class="chapter" data-level="6.7.3" data-path="factor.html"><a href="factor.html#varimax-criterion"><i class="fa fa-check"></i><b>6.7.3</b> Varimax Criterion<span></span></a></li>
+<li class="chapter" data-level="6.7.4" data-path="factor.html"><a href="factor.html#factor-scores"><i class="fa fa-check"></i><b>6.7.4</b> Factor Scores<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html"><i class="fa fa-check"></i><b>6.8</b> Discrimination and Classification<span></span></a>
+<ul>
+<li class="chapter" data-level="6.8.1" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#bayes-rule"><i class="fa fa-check"></i><b>6.8.1</b> Bayes Rule<span></span></a></li>
+<li class="chapter" data-level="6.8.2" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-two-mv-n-populations"><i class="fa fa-check"></i><b>6.8.2</b> Classification with Two mv <span class="math inline">\(N\)</span> Populations<span></span></a></li>
+<li class="chapter" data-level="6.8.3" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#evaluating-classification-functions"><i class="fa fa-check"></i><b>6.8.3</b> Evaluating Classification Functions<span></span></a></li>
+<li class="chapter" data-level="6.8.4" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#classification-with-several-populations-wk13"><i class="fa fa-check"></i><b>6.8.4</b> Classification with several Populations (wk13)<span></span></a></li>
+<li class="chapter" data-level="6.8.5" data-path="discrimination-and-classification.html"><a href="discrimination-and-classification.html#other-discriminant-analysis-methods"><i class="fa fa-check"></i><b>6.8.5</b> Other Discriminant Analysis Methods<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html"><i class="fa fa-check"></i><b>6.9</b> Clustering, Distance Methods, and Ordination<span></span></a>
+<ul>
+<li class="chapter" data-level="6.9.1" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#overview-5"><i class="fa fa-check"></i><b>6.9.1</b> Overview<span></span></a></li>
+<li class="chapter" data-level="6.9.2" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#hierarchical-clustering"><i class="fa fa-check"></i><b>6.9.2</b> Hierarchical Clustering<span></span></a></li>
+<li class="chapter" data-level="6.9.3" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#k-means-clustering"><i class="fa fa-check"></i><b>6.9.3</b> K-means Clustering<span></span></a></li>
+<li class="chapter" data-level="6.9.4" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#군집의-평가방법"><i class="fa fa-check"></i><b>6.9.4</b> 군집의 평가방법<span></span></a></li>
+<li class="chapter" data-level="6.9.5" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#clustering-using-density-estimation-wk14"><i class="fa fa-check"></i><b>6.9.5</b> Clustering using Density Estimation (wk14)<span></span></a></li>
+<li class="chapter" data-level="6.9.6" data-path="clustering-distance-methods-and-ordination.html"><a href="clustering-distance-methods-and-ordination.html#multidimensional-scaling-mds"><i class="fa fa-check"></i><b>6.9.6</b> Multidimensional Scaling (MDS)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="linear.html"><a href="linear.html"><i class="fa fa-check"></i><b>7</b> Linear<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="overview-svd.html"><a href="overview-svd.html"><i class="fa fa-check"></i><b>7.1</b> Overview &amp; SVD<span></span></a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="overview-svd.html"><a href="overview-svd.html#spectral-decomposition-1"><i class="fa fa-check"></i><b>7.1.1</b> Spectral Decomposition<span></span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="overview-svd.html"><a href="overview-svd.html#singular-value-decomposition-general-version"><i class="fa fa-check"></i><b>7.1.2</b> Singular value Decomposition: General-version<span></span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="overview-svd.html"><a href="overview-svd.html#singular-value-decomposition-another-version"><i class="fa fa-check"></i><b>7.1.3</b> Singular value Decomposition: Another-version<span></span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="overview-svd.html"><a href="overview-svd.html#quadratic-forms"><i class="fa fa-check"></i><b>7.1.4</b> Quadratic Forms<span></span></a></li>
+<li class="chapter" data-level="7.1.5" data-path="overview-svd.html"><a href="overview-svd.html#partitioned-matrices"><i class="fa fa-check"></i><b>7.1.5</b> Partitioned Matrices<span></span></a></li>
+<li class="chapter" data-level="7.1.6" data-path="overview-svd.html"><a href="overview-svd.html#geometrical-aspects"><i class="fa fa-check"></i><b>7.1.6</b> Geometrical Aspects<span></span></a></li>
+<li class="chapter" data-level="7.1.7" data-path="overview-svd.html"><a href="overview-svd.html#column-row-and-null-space"><i class="fa fa-check"></i><b>7.1.7</b> Column, Row and Null Space<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="introduction-1.html"><a href="introduction-1.html"><i class="fa fa-check"></i><b>7.2</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="introduction-1.html"><a href="introduction-1.html#what"><i class="fa fa-check"></i><b>7.2.1</b> What<span></span></a></li>
+<li class="chapter" data-level="7.2.2" data-path="introduction-1.html"><a href="introduction-1.html#random-vectors-and-matrices"><i class="fa fa-check"></i><b>7.2.2</b> Random Vectors and Matrices<span></span></a></li>
+<li class="chapter" data-level="7.2.3" data-path="introduction-1.html"><a href="introduction-1.html#multivariate-normal-distributions"><i class="fa fa-check"></i><b>7.2.3</b> Multivariate Normal Distributions<span></span></a></li>
+<li class="chapter" data-level="7.2.4" data-path="introduction-1.html"><a href="introduction-1.html#distributions-of-quadratic-forms"><i class="fa fa-check"></i><b>7.2.4</b> Distributions of Quadratic Forms<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="estimation.html"><a href="estimation.html"><i class="fa fa-check"></i><b>7.3</b> Estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="estimation.html"><a href="estimation.html#identifiability-and-estimability"><i class="fa fa-check"></i><b>7.3.1</b> Identifiability and Estimability<span></span></a></li>
+<li class="chapter" data-level="7.3.2" data-path="estimation.html"><a href="estimation.html#estimation-least-squares"><i class="fa fa-check"></i><b>7.3.2</b> Estimation: Least Squares<span></span></a></li>
+<li class="chapter" data-level="7.3.3" data-path="estimation.html"><a href="estimation.html#estimation-best-linear-unbiased"><i class="fa fa-check"></i><b>7.3.3</b> Estimation: Best Linear Unbiased<span></span></a></li>
+<li class="chapter" data-level="7.3.4" data-path="estimation.html"><a href="estimation.html#estimation-maximum-likelihood"><i class="fa fa-check"></i><b>7.3.4</b> Estimation: Maximum Likelihood<span></span></a></li>
+<li class="chapter" data-level="7.3.5" data-path="estimation.html"><a href="estimation.html#estimation-minimum-variance-unbiased"><i class="fa fa-check"></i><b>7.3.5</b> Estimation: Minimum Variance Unbiased<span></span></a></li>
+<li class="chapter" data-level="7.3.6" data-path="estimation.html"><a href="estimation.html#sampling-distributions-of-estimates"><i class="fa fa-check"></i><b>7.3.6</b> Sampling Distributions of Estimates<span></span></a></li>
+<li class="chapter" data-level="7.3.7" data-path="estimation.html"><a href="estimation.html#generalized-least-squaresgls"><i class="fa fa-check"></i><b>7.3.7</b> Generalized Least Squares(GLS)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="one-way-anova.html"><a href="one-way-anova.html"><i class="fa fa-check"></i><b>7.4</b> One-Way ANOVA<span></span></a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="one-way-anova.html"><a href="one-way-anova.html#one-way-anova-1"><i class="fa fa-check"></i><b>7.4.1</b> One-Way ANOVA<span></span></a></li>
+<li class="chapter" data-level="7.4.2" data-path="one-way-anova.html"><a href="one-way-anova.html#more-about-models"><i class="fa fa-check"></i><b>7.4.2</b> More About Models<span></span></a></li>
+<li class="chapter" data-level="7.4.3" data-path="one-way-anova.html"><a href="one-way-anova.html#estimating-and-testing-contrasts"><i class="fa fa-check"></i><b>7.4.3</b> Estimating and Testing Contrasts<span></span></a></li>
+<li class="chapter" data-level="7.4.4" data-path="one-way-anova.html"><a href="one-way-anova.html#cochrans-theorem"><i class="fa fa-check"></i><b>7.4.4</b> Cochran’s Theorem<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="testing.html"><a href="testing.html"><i class="fa fa-check"></i><b>7.5</b> Testing<span></span></a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="testing.html"><a href="testing.html#more-about-models-two-approaches-for-linear-model"><i class="fa fa-check"></i><b>7.5.1</b> More About Models: Two approaches for linear model<span></span></a></li>
+<li class="chapter" data-level="7.5.2" data-path="testing.html"><a href="testing.html#testing-models"><i class="fa fa-check"></i><b>7.5.2</b> Testing Models<span></span></a></li>
+<li class="chapter" data-level="7.5.3" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure"><i class="fa fa-check"></i><b>7.5.3</b> A Generalized Test Procedure<span></span></a></li>
+<li class="chapter" data-level="7.5.4" data-path="testing.html"><a href="testing.html#testing-linear-parametric-functions"><i class="fa fa-check"></i><b>7.5.4</b> Testing Linear Parametric Functions<span></span></a></li>
+<li class="chapter" data-level="7.5.5" data-path="testing.html"><a href="testing.html#theoretical-complements"><i class="fa fa-check"></i><b>7.5.5</b> Theoretical Complements<span></span></a></li>
+<li class="chapter" data-level="7.5.6" data-path="testing.html"><a href="testing.html#a-generalized-test-procedure-1"><i class="fa fa-check"></i><b>7.5.6</b> A Generalized Test Procedure<span></span></a></li>
+<li class="chapter" data-level="7.5.7" data-path="testing.html"><a href="testing.html#testing-single-degrees-of-freedom-in-a-given-subspace"><i class="fa fa-check"></i><b>7.5.7</b> Testing Single Degrees of Freedom in a Given Subspace<span></span></a></li>
+<li class="chapter" data-level="7.5.8" data-path="testing.html"><a href="testing.html#breaking-ss-into-independent-components"><i class="fa fa-check"></i><b>7.5.8</b> Breaking SS into Independent Components<span></span></a></li>
+<li class="chapter" data-level="7.5.9" data-path="testing.html"><a href="testing.html#general-theory"><i class="fa fa-check"></i><b>7.5.9</b> General Theory<span></span></a></li>
+<li class="chapter" data-level="7.5.10" data-path="testing.html"><a href="testing.html#two-way-anova"><i class="fa fa-check"></i><b>7.5.10</b> Two-Way ANOVA<span></span></a></li>
+<li class="chapter" data-level="7.5.11" data-path="testing.html"><a href="testing.html#confidence-regions"><i class="fa fa-check"></i><b>7.5.11</b> Confidence Regions<span></span></a></li>
+<li class="chapter" data-level="7.5.12" data-path="testing.html"><a href="testing.html#tests-for-generalized-least-squares-models"><i class="fa fa-check"></i><b>7.5.12</b> Tests for Generalized Least Squares Models<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html"><i class="fa fa-check"></i><b>7.6</b> Generalized Least Squares<span></span></a>
+<ul>
+<li class="chapter" data-level="7.6.1" data-path="generalized-least-squares.html"><a href="generalized-least-squares.html#a-direct-solution-via-inner-products"><i class="fa fa-check"></i><b>7.6.1</b> A direct solution via inner products<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="flat.html"><a href="flat.html"><i class="fa fa-check"></i><b>7.7</b> Flat<span></span></a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="flat.html"><a href="flat.html#flat-1"><i class="fa fa-check"></i><b>7.7.1</b> 1.Flat<span></span></a></li>
+<li class="chapter" data-level="7.7.2" data-path="flat.html"><a href="flat.html#solutions-to-systems-of-linear-equations"><i class="fa fa-check"></i><b>7.7.2</b> 2. Solutions to systems of linear equations<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="unified-approach-to-balanced-anova-models.html"><a href="unified-approach-to-balanced-anova-models.html"><i class="fa fa-check"></i><b>7.8</b> Unified Approach to Balanced ANOVA Models<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>III 21-02<span></span></b></span></li>
+<li class="chapter" data-level="8" data-path="network-stats.html"><a href="network-stats.html"><i class="fa fa-check"></i><b>8</b> Network Stats<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="introduction-2.html"><a href="introduction-2.html"><i class="fa fa-check"></i><b>8.1</b> Introduction<span></span></a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="introduction-2.html"><a href="introduction-2.html#types-of-network-analysis"><i class="fa fa-check"></i><b>8.1.1</b> Types of Network Analysis<span></span></a></li>
+<li class="chapter" data-level="8.1.2" data-path="introduction-2.html"><a href="introduction-2.html#network-modeling-and-inference"><i class="fa fa-check"></i><b>8.1.2</b> Network Modeling and Inference<span></span></a></li>
+<li class="chapter" data-level="8.1.3" data-path="introduction-2.html"><a href="introduction-2.html#network-processes"><i class="fa fa-check"></i><b>8.1.3</b> Network Processes<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html"><i class="fa fa-check"></i><b>8.2</b> Descriptive Statistics of Networks<span></span></a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#vertex-and-edge-characteristics"><i class="fa fa-check"></i><b>8.2.1</b> Vertex and Edge Characteristics<span></span></a></li>
+<li class="chapter" data-level="8.2.2" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#characterizing-network-cohesion"><i class="fa fa-check"></i><b>8.2.2</b> Characterizing Network Cohesion<span></span></a></li>
+<li class="chapter" data-level="8.2.3" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#graph-partitioning"><i class="fa fa-check"></i><b>8.2.3</b> Graph Partitioning<span></span></a></li>
+<li class="chapter" data-level="8.2.4" data-path="descriptive-statistics-of-networks.html"><a href="descriptive-statistics-of-networks.html#assortativity-and-mixing"><i class="fa fa-check"></i><b>8.2.4</b> Assortativity and Mixing<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html"><i class="fa fa-check"></i><b>8.3</b> Data Collection and Sampling<span></span></a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#sampling-designs"><i class="fa fa-check"></i><b>8.3.1</b> Sampling Designs<span></span></a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#coping-strategies"><i class="fa fa-check"></i><b>8.3.2</b> Coping Strategies<span></span></a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-collection-and-sampling.html"><a href="data-collection-and-sampling.html#big-data-solves-nothing"><i class="fa fa-check"></i><b>8.3.3</b> Big Data Solves Nothing<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html"><i class="fa fa-check"></i><b>8.4</b> Mathematical Models for Network Graphs<span></span></a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#classical-random-graph-models"><i class="fa fa-check"></i><b>8.4.1</b> Classical Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="8.4.2" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#generalized-random-graph-models"><i class="fa fa-check"></i><b>8.4.2</b> Generalized Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="8.4.3" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#network-graph-models-based-on-mechanisms"><i class="fa fa-check"></i><b>8.4.3</b> Network Graph Models Based on Mechanisms<span></span></a></li>
+<li class="chapter" data-level="8.4.4" data-path="mathematical-models-for-network-graphs.html"><a href="mathematical-models-for-network-graphs.html#assessing-significance-of-network-graph-characteristics"><i class="fa fa-check"></i><b>8.4.4</b> Assessing Significance of Network Graph Characteristics<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html"><i class="fa fa-check"></i><b>8.5</b> Introduction to ERGM<span></span></a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#exponential-random-graph-models"><i class="fa fa-check"></i><b>8.5.1</b> Exponential Random Graph Models<span></span></a></li>
+<li class="chapter" data-level="8.5.2" data-path="introduction-to-ergm.html"><a href="introduction-to-ergm.html#difficulty-in-parameter-estimation"><i class="fa fa-check"></i><b>8.5.2</b> Difficulty in Parameter Estimation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html"><i class="fa fa-check"></i><b>8.6</b> Parameter Estimation of ERGM<span></span></a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#current-methods-for-ergm"><i class="fa fa-check"></i><b>8.6.1</b> Current Methods for ERGM<span></span></a></li>
+<li class="chapter" data-level="8.6.2" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#approximation-based-algorithm"><i class="fa fa-check"></i><b>8.6.2</b> Approximation-based Algorithm<span></span></a></li>
+<li class="chapter" data-level="8.6.3" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#auxiliary-variable-mcmc-based-approaches"><i class="fa fa-check"></i><b>8.6.3</b> Auxiliary Variable MCMC-based Approaches<span></span></a></li>
+<li class="chapter" data-level="8.6.4" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#varying-trunction-stochastic-approximation-mcmc"><i class="fa fa-check"></i><b>8.6.4</b> Varying Trunction Stochastic Approximation MCMC<span></span></a></li>
+<li class="chapter" data-level="8.6.5" data-path="parameter-estimation-of-ergm.html"><a href="parameter-estimation-of-ergm.html#conclusion"><i class="fa fa-check"></i><b>8.6.5</b> Conclusion<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html"><i class="fa fa-check"></i><b>8.7</b> ERGM for Dynamic Networks<span></span></a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#temporal-ergm-tergm-t-ergm"><i class="fa fa-check"></i><b>8.7.1</b> Temporal ERGM (TERGM, T ERGM)<span></span></a></li>
+<li class="chapter" data-level="8.7.2" data-path="ergm-for-dynamic-networks.html"><a href="ergm-for-dynamic-networks.html#separable-temporal-ergm-stergm-st-ergm"><i class="fa fa-check"></i><b>8.7.2</b> Separable Temporal ERGM (STERGM, ST ERGM)<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="latent-network-models.html"><a href="latent-network-models.html"><i class="fa fa-check"></i><b>8.8</b> Latent Network Models<span></span></a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-model"><i class="fa fa-check"></i><b>8.8.1</b> Latent Position Model<span></span></a></li>
+<li class="chapter" data-level="8.8.2" data-path="latent-network-models.html"><a href="latent-network-models.html#latent-position-cluster-model"><i class="fa fa-check"></i><b>8.8.2</b> Latent Position Cluster Model<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html"><i class="fa fa-check"></i><b>8.9</b> Additive and Multiplicative Effects Network Models<span></span></a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#introduction-3"><i class="fa fa-check"></i><b>8.9.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="8.9.2" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#social-relations-regression"><i class="fa fa-check"></i><b>8.9.2</b> Social Relations Regression<span></span></a></li>
+<li class="chapter" data-level="8.9.3" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#multiplicative-effects-models"><i class="fa fa-check"></i><b>8.9.3</b> Multiplicative Effects Models<span></span></a></li>
+<li class="chapter" data-level="8.9.4" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#inference-via-posterior-approximation"><i class="fa fa-check"></i><b>8.9.4</b> Inference via Posterior Approximation<span></span></a></li>
+<li class="chapter" data-level="8.9.5" data-path="additive-and-multiplicative-effects-network-models.html"><a href="additive-and-multiplicative-effects-network-models.html#discussion-and-example-with-r"><i class="fa fa-check"></i><b>8.9.5</b> Discussion and Example with R<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html"><i class="fa fa-check"></i><b>8.10</b> Stochastic Block Models<span></span></a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#stochastic-block-model"><i class="fa fa-check"></i><b>8.10.1</b> Stochastic Block Model<span></span></a></li>
+<li class="chapter" data-level="8.10.2" data-path="stochastic-block-models.html"><a href="stochastic-block-models.html#mixed-membership-block-model-mmbm"><i class="fa fa-check"></i><b>8.10.2</b> Mixed Membership Block Model (MMBM)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="high-dimension.html"><a href="high-dimension.html"><i class="fa fa-check"></i><b>9</b> High Dimension<span></span></a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="introduction-4.html"><a href="introduction-4.html"><i class="fa fa-check"></i><b>9.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="9.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html"><i class="fa fa-check"></i><b>9.2</b> Concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#motivation"><i class="fa fa-check"></i><b>9.2.1</b> Motivation<span></span></a></li>
+<li class="chapter" data-level="9.2.2" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#from-markov-to-chernoff"><i class="fa fa-check"></i><b>9.2.2</b> From Markov to Chernoff<span></span></a></li>
+<li class="chapter" data-level="9.2.3" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-variables"><i class="fa fa-check"></i><b>9.2.3</b> sub-Gaussian random variables<span></span></a></li>
+<li class="chapter" data-level="9.2.4" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#properties-of-sub-gaussian-random-variables"><i class="fa fa-check"></i><b>9.2.4</b> Properties of sub-Gaussian random variables<span></span></a></li>
+<li class="chapter" data-level="9.2.5" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#equivalent-definitions"><i class="fa fa-check"></i><b>9.2.5</b> Equivalent definitions<span></span></a></li>
+<li class="chapter" data-level="9.2.6" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#sub-gaussian-random-vectors"><i class="fa fa-check"></i><b>9.2.6</b> Sub-Gaussian random vectors<span></span></a></li>
+<li class="chapter" data-level="9.2.7" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#hoeffdings-inequality"><i class="fa fa-check"></i><b>9.2.7</b> Hoeffding’s inequality<span></span></a></li>
+<li class="chapter" data-level="9.2.8" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#maximal-inequalities"><i class="fa fa-check"></i><b>9.2.8</b> Maximal inequalities<span></span></a></li>
+<li class="chapter" data-level="9.2.9" data-path="concentration-inequalities.html"><a href="concentration-inequalities.html#section"><i class="fa fa-check"></i><b>9.2.9</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html"><i class="fa fa-check"></i><b>9.3</b> Concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#sub-exponential-random-variables"><i class="fa fa-check"></i><b>9.3.1</b> Sub-exponential random variables<span></span></a></li>
+<li class="chapter" data-level="9.3.2" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#bernsteins-condition"><i class="fa fa-check"></i><b>9.3.2</b> Bernstein’s condition<span></span></a></li>
+<li class="chapter" data-level="9.3.3" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#mcdiarmids-inequality"><i class="fa fa-check"></i><b>9.3.3</b> McDiarmid’s inequality<span></span></a></li>
+<li class="chapter" data-level="9.3.4" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#levys-inequality"><i class="fa fa-check"></i><b>9.3.4</b> Levy’s inequality<span></span></a></li>
+<li class="chapter" data-level="9.3.5" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#quadratic-form"><i class="fa fa-check"></i><b>9.3.5</b> Quadratic form<span></span></a></li>
+<li class="chapter" data-level="9.3.6" data-path="concentration-inequalities-1.html"><a href="concentration-inequalities-1.html#the-johnsonlindenstrauss-lemma"><i class="fa fa-check"></i><b>9.3.6</b> The Johnson–Lindenstrauss Lemma<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html"><i class="fa fa-check"></i><b>9.4</b> Metric entropy and its uses<span></span></a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#metric-space"><i class="fa fa-check"></i><b>9.4.1</b> Metric space<span></span></a></li>
+<li class="chapter" data-level="9.4.2" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#covering-numbers-and-metric-entropy"><i class="fa fa-check"></i><b>9.4.2</b> Covering numbers and metric entropy<span></span></a></li>
+<li class="chapter" data-level="9.4.3" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#packing-numbers"><i class="fa fa-check"></i><b>9.4.3</b> Packing numbers<span></span></a></li>
+<li class="chapter" data-level="9.4.4" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-1"><i class="fa fa-check"></i><b>9.4.4</b> </a></li>
+<li class="chapter" data-level="9.4.5" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-2"><i class="fa fa-check"></i><b>9.4.5</b> </a></li>
+<li class="chapter" data-level="9.4.6" data-path="metric-entropy-and-its-uses.html"><a href="metric-entropy-and-its-uses.html#section-3"><i class="fa fa-check"></i><b>9.4.6</b> </a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="covariance-estimation.html"><a href="covariance-estimation.html"><i class="fa fa-check"></i><b>9.5</b> Covariance estimation<span></span></a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="covariance-estimation.html"><a href="covariance-estimation.html#matrix-algebra-review"><i class="fa fa-check"></i><b>9.5.1</b> Matrix algebra review<span></span></a></li>
+<li class="chapter" data-level="9.5.2" data-path="covariance-estimation.html"><a href="covariance-estimation.html#covariance-matrix-estimation-in-the-operator-norm"><i class="fa fa-check"></i><b>9.5.2</b> Covariance matrix estimation in the operator norm<span></span></a></li>
+<li class="chapter" data-level="9.5.3" data-path="covariance-estimation.html"><a href="covariance-estimation.html#bounds-for-structured-covariance-matrices"><i class="fa fa-check"></i><b>9.5.3</b> Bounds for structured covariance matrices<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html"><i class="fa fa-check"></i><b>9.6</b> Matrix concentration inequalities<span></span></a>
+<ul>
+<li class="chapter" data-level="9.6.1" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-calculus"><i class="fa fa-check"></i><b>9.6.1</b> Matrix calculus<span></span></a></li>
+<li class="chapter" data-level="9.6.2" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#matrix-chernoff"><i class="fa fa-check"></i><b>9.6.2</b> Matrix Chernoff<span></span></a></li>
+<li class="chapter" data-level="9.6.3" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#sub-gaussian-and-sub-exponential-matrices"><i class="fa fa-check"></i><b>9.6.3</b> Sub-Gaussian and sub-exponential matrices<span></span></a></li>
+<li class="chapter" data-level="9.6.4" data-path="matrix-concentration-inequalities.html"><a href="matrix-concentration-inequalities.html#랜덤-매트릭스에-대한-hoeffding-and-bernstein-bounds"><i class="fa fa-check"></i><b>9.6.4</b> 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html"><i class="fa fa-check"></i><b>9.7</b> Principal Component Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="9.7.1" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#pca-1"><i class="fa fa-check"></i><b>9.7.1</b> PCA<span></span></a></li>
+<li class="chapter" data-level="9.7.2" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#matrix-perturbation"><i class="fa fa-check"></i><b>9.7.2</b> Matrix Perturbation<span></span></a></li>
+<li class="chapter" data-level="9.7.3" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#spiked-cov-model"><i class="fa fa-check"></i><b>9.7.3</b> Spiked Cov Model<span></span></a></li>
+<li class="chapter" data-level="9.7.4" data-path="principal-component-analysis.html"><a href="principal-component-analysis.html#sparse-pca"><i class="fa fa-check"></i><b>9.7.4</b> sparse PCA<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>9.8</b> Linear Regression<span></span></a>
+<ul>
+<li class="chapter" data-level="9.8.1" data-path="linear-regression.html"><a href="linear-regression.html#problem-formulation"><i class="fa fa-check"></i><b>9.8.1</b> Problem formulation<span></span></a></li>
+<li class="chapter" data-level="9.8.2" data-path="linear-regression.html"><a href="linear-regression.html#least-squares-estimator-in-high-dimensions"><i class="fa fa-check"></i><b>9.8.2</b> Least Squares Estimator in high dimensions<span></span></a></li>
+<li class="chapter" data-level="9.8.3" data-path="linear-regression.html"><a href="linear-regression.html#sparse-linear-regression"><i class="fa fa-check"></i><b>9.8.3</b> Sparse linear regression<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="9.9" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html"><i class="fa fa-check"></i><b>9.9</b> Uniform laws of large numbers<span></span></a>
+<ul>
+<li class="chapter" data-level="9.9.1" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#motivation-1"><i class="fa fa-check"></i><b>9.9.1</b> Motivation<span></span></a></li>
+<li class="chapter" data-level="9.9.2" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#a-uniform-law-via-rademacher-complexity"><i class="fa fa-check"></i><b>9.9.2</b> A uniform law via Rademacher complexity<span></span></a></li>
+<li class="chapter" data-level="9.9.3" data-path="uniform-laws-of-large-numbers.html"><a href="uniform-laws-of-large-numbers.html#upper-bounds-on-the-rademacher-complexity"><i class="fa fa-check"></i><b>9.9.3</b> Upper bounds on the Rademacher complexity<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="survival-analysis.html"><a href="survival-analysis.html"><i class="fa fa-check"></i><b>10</b> Survival Analysis<span></span></a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="introduction-5.html"><a href="introduction-5.html"><i class="fa fa-check"></i><b>10.1</b> Introduction<span></span></a></li>
+<li class="chapter" data-level="10.2" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>10.2</b> </a></li>
+<li class="chapter" data-level="10.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html"><i class="fa fa-check"></i><b>10.3</b> Counting Processes and Martingales<span></span></a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#conditional-expectation"><i class="fa fa-check"></i><b>10.3.1</b> Conditional Expectation<span></span></a></li>
+<li class="chapter" data-level="10.3.2" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#martingale"><i class="fa fa-check"></i><b>10.3.2</b> Martingale<span></span></a></li>
+<li class="chapter" data-level="10.3.3" data-path="counting-processes-and-martingales.html"><a href="counting-processes-and-martingales.html#key-martingales-properties"><i class="fa fa-check"></i><b>10.3.3</b> Key Martingales Properties<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>10.4</b> </a></li>
+<li class="chapter" data-level="10.5" data-path="cox-regression.html"><a href="cox-regression.html"><i class="fa fa-check"></i><b>10.5</b> Cox Regression<span></span></a></li>
+<li class="chapter" data-level="10.6" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html"><i class="fa fa-check"></i><b>10.6</b> Filtration의 개념을 정복하자!<span></span></a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#random-process를-이야기-하기까지의-긴-여정의-요약"><i class="fa fa-check"></i><b>10.6.1</b> Random Process를 이야기 하기까지의 긴 여정의 요약<span></span></a></li>
+<li class="chapter" data-level="10.6.2" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#ft-measurable"><i class="fa fa-check"></i><b>10.6.2</b> Ft-measurable<span></span></a></li>
+<li class="chapter" data-level="10.6.3" data-path="filtration의-개념을-정복하자.html"><a href="filtration의-개념을-정복하자.html#epilogue"><i class="fa fa-check"></i><b>10.6.3</b> EPILOGUE<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="concepts.html"><a href="concepts.html"><i class="fa fa-check"></i><b>10.7</b> Concepts<span></span></a></li>
+</ul></li>
+<li class="part"><span><b>IV 22-01<span></span></b></span></li>
+<li class="chapter" data-level="11" data-path="scikit.html"><a href="scikit.html"><i class="fa fa-check"></i><b>11</b> scikit<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="linear-models.html"><a href="linear-models.html"><i class="fa fa-check"></i><b>11.1</b> Linear Models<span></span></a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="linear-models.html"><a href="linear-models.html#ordinary-least-squares"><i class="fa fa-check"></i><b>11.1.1</b> Ordinary Least Squares<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="appendix"><span><b>00-00<span></span></b></span></li>
+<li class="chapter" data-level="A" data-path="concepts-1.html"><a href="concepts-1.html"><i class="fa fa-check"></i><b>A</b> Concepts<span></span></a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="autologistic.html"><a href="autologistic.html"><i class="fa fa-check"></i><b>A.1</b> Autologistics<span></span></a></li>
+<li class="chapter" data-level="A.2" data-path="orderlogit.html"><a href="orderlogit.html"><i class="fa fa-check"></i><b>A.2</b> Ordered Logit<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="about-cluster-gcn.html"><a href="about-cluster-gcn.html"><i class="fa fa-check"></i><b>B</b> About Cluster-GCN<span></span></a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="ann.html"><a href="ann.html"><i class="fa fa-check"></i><b>B.1</b> ANN<span></span></a>
+<ul>
+<li class="chapter" data-level="B.1.1" data-path="ann.html"><a href="ann.html#training"><i class="fa fa-check"></i><b>B.1.1</b> Training<span></span></a></li>
+<li class="chapter" data-level="B.1.2" data-path="ann.html"><a href="ann.html#problem"><i class="fa fa-check"></i><b>B.1.2</b> Problem<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="B.2" data-path="cnn.html"><a href="cnn.html"><i class="fa fa-check"></i><b>B.2</b> CNN<span></span></a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="cnn.html"><a href="cnn.html#convolution-layer"><i class="fa fa-check"></i><b>B.2.1</b> Convolution Layer<span></span></a></li>
+<li class="chapter" data-level="B.2.2" data-path="cnn.html"><a href="cnn.html#pooling"><i class="fa fa-check"></i><b>B.2.2</b> Pooling<span></span></a></li>
+<li class="chapter" data-level="B.2.3" data-path="cnn.html"><a href="cnn.html#cnn-을-위한-back-propagation"><i class="fa fa-check"></i><b>B.2.3</b> CNN 을 위한 back-propagation<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="graph-convolution-network.html"><a href="graph-convolution-network.html"><i class="fa fa-check"></i><b>B.3</b> Graph Convolution Network<span></span></a></li>
+<li class="chapter" data-level="B.4" data-path="cluster-gcn.html"><a href="cluster-gcn.html"><i class="fa fa-check"></i><b>B.4</b> Cluster-GCN<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="cnn-1.html"><a href="cnn-1.html"><i class="fa fa-check"></i><b>C</b> CNN<span></span></a></li>
+<li class="chapter" data-level="D" data-path="cnn-2.html"><a href="cnn-2.html"><i class="fa fa-check"></i><b>D</b> CNN<span></span></a></li>
+<li class="chapter" data-level="E" data-path="cnn-3.html"><a href="cnn-3.html"><i class="fa fa-check"></i><b>E</b> CNN<span></span></a></li>
+<li class="chapter" data-level="F" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>F</b> 01<span></span></a></li>
+<li class="chapter" data-level="G" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>G</b> 02<span></span></a>
+<ul>
+<li class="chapter" data-level="G.1" data-path="section-8.html"><a href="section-8.html"><i class="fa fa-check"></i><b>G.1</b> 10.<span></span></a>
+<ul>
+<li class="chapter" data-level="G.1.1" data-path="section-8.html"><a href="section-8.html#stochastic-block-model-1"><i class="fa fa-check"></i><b>G.1.1</b> Stochastic Block Model<span></span></a></li>
+<li class="chapter" data-level="G.1.2" data-path="section-8.html"><a href="section-8.html#likelihood-function-1"><i class="fa fa-check"></i><b>G.1.2</b> Likelihood function<span></span></a></li>
+<li class="chapter" data-level="G.1.3" data-path="section-8.html"><a href="section-8.html#mixed-membership-block-model-mmbm-1"><i class="fa fa-check"></i><b>G.1.3</b> Mixed Membership Block Model (MMBM)<span></span></a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Self-Study</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="graph-convolution-network" class="section level2 hasAnchor" number="13.3">
+<h2><span class="header-section-number">B.3</span> Graph Convolution Network<a href="graph-convolution-network.html#graph-convolution-network" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>언급하였듯이 위치 정보가 중요한 역할을 하는 데이터에는 이미지 데이터 뿐만이 아니라 그래프 데이터 또한 포함된다. 따라서 CNN 의 개 발 이후 그래프 분석 분야에서도 <span class="math inline">\(\mathrm{CNN}\)</span> 을 적극 수용하며 발전시켜 나갔다. <span class="math inline">\(\mathrm{CNN}\)</span> 을 그래프 데이터의 문법에 맞추어 적용하기 위해 지정된 조건을 수학적 언어로 표현하면 이하와 같다. 여기서 기본적인 GCN 에서는 node feature 만이 존재한다고 가정한 후 논리를 전개한다. 즉, edge feature 의 존재를 배제한다.</p>
+<p>let <span class="math inline">\(G=(A, X)\)</span> graph itself. 이때 기본적인 graph convoution 은 이하와 같이 정의.</p>
+<p><span class="math display">\[
+H=\psi(A, X)=\sigma(A X W)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(A \in \mathbb{R}^{N \times N}:\)</span> Adjacency Matrix</p></li>
+<li><p><span class="math inline">\(X \in \mathbb{R}^{N \times d}\)</span> : node feature Matrix. <span class="math inline">\(N\)</span> 은 node 의 숫자, <span class="math inline">\(d\)</span> 는 node feature vector 의 차원.</p></li>
+<li><p><span class="math inline">\(H \in \mathbb{R}^{N \times m}\)</span> : latent node feature matrix. <span class="math inline">\(m\)</span> 은 latent feature vector 의 차원.</p></li>
+<li><p><span class="math inline">\(W \in \mathbb{R}^{d \times m}\)</span> : 학습시키는 것으로 사후에 entry값 변경이 가능한 weight matrix.</p></li>
+<li><p><span class="math inline">\(\phi(\cdot)\)</span> : 그래프 에 대한 convolution 연산 itself.</p></li>
+<li><p><span class="math inline">\(\sigma(\cdot)\)</span> : nonlinear activation function.</p></li>
+</ul>
+<p>그래프 convolution 의 기본적인 개념은 특정 node 의 latent vector 를 해당 node 에 인접한 neighbor 들을 활용하여 생산하는 것이다. node feature matrix <span class="math inline">\(X\)</span> 와 weight matrix <span class="math inline">\(W\)</span> 를 곱하여 <span class="math inline">\(N \times m\)</span> 크기의 node feature matrix <span class="math inline">\(S\)</span> 를 얻은 후, adjacency Matrix <span class="math inline">\(A\)</span> 와 node feature Matrix <span class="math inline">\(S\)</span> 를 곱하는 것으로 각 node 에 해당하는 index 위치의 latent feature vector 는 neighbor 여부가 1인 다른 node 들의 node feature matrix 의 합이라는 것을 발견할 수 있다. 이를 통해 최종적으로 <span class="math inline">\(m\)</span> 차원 latent feature matrix 가 생산된다.</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \delta_{k, m, n}^{(l)}=\frac{\partial L}{\partial \mathbf{X}_{k, m, n}^{(l)}} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \frac{\partial L}{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}} \frac{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}}{\partial \mathbf{X}_{k, m, n}^{(l)}} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)_{1}} \sum_{q=0}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \frac{\partial \mathbf{X}_{k,(m-p),(n-q)}^{(l+1)}}{\partial \mathbf{X}_{k, m, n}^{(l)}}
+\end{aligned}
+\]</span></p>
+<p><img src="https://cdn.mathpix.com/cropped/2022_04_22_50eddabab3eaffe2ca79g-07.jpg?height=93&amp;width=795&amp;top_left_y=589&amp;top_left_x=249" /></p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \stackrel{(i)}{=} \sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \frac{\partial}{\partial \mathbf{X}_{k, m, n}^{(l)}}\left\{\mathbf{W}_{k, p, q}^{(l+1)} \sigma\left(\mathbf{X}_{k, m, n}^{(l)}\right)\right\} \\
+&amp; =\sum_{p=0}^{F_{H}^{(l+1)}-1} \sum_{q=0}^{F_{W}^{(l+1)}-1} \delta_{k,(m-p),(n-q)}^{(l+1)} \mathbf{W}_{k, p, q}^{(l+1)} \cdot \sigma^{\prime}\left(\mathbf{X}_{k, m, n}^{(l)}\right) 
+\end{aligned}
+\]</span></p>
+<p>그러나 adjacency Matrix <span class="math inline">\(A\)</span> 를 보정하지 않고 원본 그대로 사용할 경우 이하와 같은 한계점이 존재한다.</p>
+<ol style="list-style-type: decimal">
+<li><p>neighbor node 와의 연결만을 표시. 그래프 convolution 과정에서 node 자체에 대한 정보는 latent feature vector 생산시에 고려되지 않는다.</p></li>
+<li><p>정규화되지 않은 <span class="math inline">\(A\)</span> 를 사용하는 경우 feature vector 의 크기가 일정하지 않고 불안정하게 변화한다.</p></li>
+</ol>
+<p>이러한 문제를 해결하기 위해 이하와 같은 해결책을 적용한다.</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(A\)</span> 에 self-loop 를 추가. 즉 새로운 adjacency Matrix <span class="math inline">\(\tilde{A}=A+I\)</span> 를 설정.</p></li>
+<li><p><span class="math inline">\(A\)</span> 의 degree Matrix <span class="math inline">\(D\)</span> 를 사용하여 <span class="math inline">\(A\)</span> 를 <span class="math inline">\(D^{-\frac{1}{2}} A D^{-\frac{1}{2}}\)</span> 로 정규화.</p></li>
+</ol>
+<p>이 과정을 모두 거친 새로운 정규화된 그래프 convolution 를 나타내는 수식은 이하와 같다.</p>
+<p><span class="math display">\[
+\phi(\tilde{A}, X)=\sigma\left(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} X W\right)
+\]</span></p>
+<p>이렇게 그래프 convolution 을 정의한 후 다수의 그래프 convolution layer 를 나열하는 것으로 이전 그래프 convolution layer 의 결과값 <span class="math inline">\(H^{(k)}\)</span> 을 다음 회차의 그래프 covolution layer <span class="math inline">\(H^{(k+1)}\)</span> 의 input 으로 삼는다. 즉 이하와 같다</p>
+<p><span class="math display">\[
+H^{(k)}=\sigma\left(\tilde{D}^{-1 / 2} \tilde{A} \tilde{D}^{-1 / 2} H^{(k-1)} W^{(k)}\right)
+\]</span></p>
+<p>이렇게 GCN 은 Graph Convolution Layers, (Readout), Fully-Connected Layers 의 3단계를 거쳐 최종적인 결과값을 생산하게 된다. 이때 Fully-Connected Layers 로 input 을 넣기 전 전체 그래프가 아닌 그래프를 기반으로 생산한 vector 가 필요한 상황이라면 둘 사이에 readout 단계를 넣어 그래프를 vector 로 정리하게 된다. readout 이 필수인 분석영역은 Graph classification / regression 이 있고, readout 없이 GCN 을 진행하는 분야는 Node Classification, Link Prediction 등이 있다.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="cnn.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="cluster-gcn.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/lyric2249/lyric2249.github.io/edit/main/990102_Cluster_GCN.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": {},
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+},
+"toolbar": {
+"position": "fixed"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
