@@ -1,4 +1,4 @@
-# 02
+ 02
 
 
 
@@ -29,8 +29,6 @@ word2vec을 통해 전처리하여
 
 
 
-# 서 론
-## 연구 배경 
 
 
 현대에 들어서는 분야별로 전문성이 심화되고 있으며 해당 분야에 대한 전문적인 지식 없이는 해당 분야를 얕게나마 이해하는 것도 벅차지고 있습니다. 그럼에도 통섭이라는 단어로 대표되는 분야 간의 협업 및 심화된 전문영역간의 상호교류의 수요는 계속해서 높아지고 있는 상황입니다. 이런 상황에서 각 분야에 대한 지식 없이는 협업의 생산성이 담보되지 않으면서도, 생산성을 갖추기 위해 해당 분야의 공부에 시간을 투자하기에는 자신의 분야에 집중하는 것만 해도 시간이 부족하다는 진퇴양난의 상황이 발생합니다.
@@ -48,7 +46,7 @@ Graph-based Trajectory Visualization for Text Mining of COVID-19 Biomedical Lite
 
 
 
-## 연구 목적 
+ 연구 목적 
 
 
 
@@ -67,7 +65,7 @@ Graph-based Trajectory Visualization for Text Mining of COVID-19 Biomedical Lite
 
 
 
-# Method
+ Method
 
 
 
@@ -87,14 +85,14 @@ Graph-based Trajectory Visualization for Text Mining of COVID-19 Biomedical Lite
 
 
 
-## Biterm
+ Biterm
 
 
 
 
 
 
-### 2.1.1 
+ 2.1.1 
 
 
 
@@ -119,7 +117,7 @@ Word-To-Vector, 속칭 word2vec 알고리즘을 활용하여
 
 
 
-### 3줄 요약
+ 3줄 요약
 
 3줄 요약에 주되게 사용되는 서비스는
 
@@ -139,7 +137,7 @@ tokenize 기법
 
 
 
-### 2.1.2 
+ 2.1.2 
 
 
 
@@ -347,7 +345,7 @@ topicnaming 에는 $A_max$ 를 활용하여 주제군별로 높게 랭킹된 단
 
 
 
-### 2.1.3 Latent Space Item Response Model  
+ 2.1.3 Latent Space Item Response Model  
 
 
 해당 단계에서는 위에서 획득한 단어들의 출현빈도를 사용하여 각 주제군들 간의 관계성을 확인하고 이 관계성을 interaction map 에 표시하여 각 글줄들 간의 관계를 구성한다.
@@ -446,7 +444,7 @@ $$
 
 
 
-### Procrustes Matching and Oblique Roation
+ Procrustes Matching and Oblique Roation
 
 
 
@@ -483,9 +481,9 @@ $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matri
 
 
 
-# Latent Space Item Response Model 구현
+ Latent Space Item Response Model 구현
 
-## 3.1. python 네이티브로 모델 설계
+ 3.1. python 네이티브로 모델 설계
 
 해당 알고리즘의 구현은 1차적으로 python 으로 진행되었다. 해당 패키지를 제작하는 1차적인 목표는 다름이 아닌 통계적 백그라운드가 부족한 유저도 해당 알고리즘을 활용하기 용이한 형태로 배포하는 것에 있다. 이러한 목적을 감안할 때 해당 알고리즘을 구현하기 위한 언어를 선정함에 있어 점유율이 높은 언어를 우선하는 것은 지극히 타당하다. 다양한 설문조사 및 통계를 기반으로 살펴보았을 때, 웹 환경과 모바일 환경을 제외하였을 때 파이썬의 점유율은 다양한 분야에 걸쳐 상위권을 놓치지 않고 있으며 1등을 차지하는 경우도 드물지 않다.[^주석] 따라서 타 언어에서의 구현보다 파이썬에서의 구현을 우선하는 것은 충분한 타당성을 지닌다.
 
@@ -500,7 +498,7 @@ $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matri
 
 
 
-### 3.1.1. python 네이티브에서의 속도 퍼포먼스
+ 3.1.1. python 네이티브에서의 속도 퍼포먼스
 
 속도 퍼포먼스 예시로서 이하의 샘플을 사용한다.
 
@@ -520,7 +518,7 @@ $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matri
 
 
 
-## 3.2. python에 c++ 접합한 모델 설계
+ 3.2. python에 c++ 접합한 모델 설계
 
 시간 최적화에 고려해볼 수 있는 요소는 다양하다. 대표적으로는 이하와 같은 요소들을 고려해볼 수 있다.
 
@@ -558,7 +556,7 @@ $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matri
 인풋 아웃풋 효율 문제와 신뢰성 문제로 코드를 직접 짜기보다는 외부 라이브러리 사용. 여기선 범용적으로 사용되는 래핑용 라이브러리인 `pybind11`을 사용하겠다.
 
 
-### Wrapping Timing
+ Wrapping Timing
 
 위에서 확인하였듯 c++ 에서의 처리속도는 python보다 빠름. 그러나 c++에서 생산한 값을 python 단에서 받을 때, 속도가 급격하게 느려지는 현상 발생함. 
 
@@ -570,7 +568,7 @@ $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matri
 
 
 
-### Library needed in `c++`
+ Library needed in `c++`
 
 위에서 iteration 파트를 c++에서 모두 돌리기로 결정하였다. 여기서 iteration 은 크게 2개, BTM 부분과 lsirm 파트. 이 둘은 모두 2차원 행렬에 대해 적용되므로 c++ 에서 활용할 수 있는 선형연산 수단이 필요함. c++ 자체로 선형연산을 지원하고 있지는 않으므로 c++ 라이브러리를 적용해야 함. 
 
@@ -591,7 +589,7 @@ c++에서 사용할 수 있는 메이저한 선형연산 라이브러리에는 �
 
 
 
-### 3.2.1. 접합 모델 검증 및 성능 비교
+ 3.2.1. 접합 모델 검증 및 성능 비교
 
 위에서 사용했던 예시와 동일하게 속도 퍼포먼스 예시로서 이하의 샘플을 사용한다.
 
@@ -613,7 +611,7 @@ c++에서 사용할 수 있는 메이저한 선형연산 라이브러리에는 �
 
 
 
-# Implementation
+ Implementation
 
 
 이 section은 앞에서 제시한 알고리즘을 string input 에 실적용할 수 있는  `topic_cluster_visualizer` 패키지의 function에 대해 논한다. 해당 package 는 https://pypi.org/project/topic-cluster-visualizer/ 에서 설치할 수 있으며, python 환경에서는 이하의 command 를 실행하는 것으로 설치할 수 있다.
@@ -674,7 +672,7 @@ need to be initialized with `target_data`, which is wanted to be analyzed.
 
 
 
-## `preprocess()`
+ `preprocess()`
 
 ```
 preprocess(self, train_data = None, keywords = None, train = False):
@@ -708,7 +706,7 @@ preprocess(self, train_data = None, keywords = None, train = False):
 
 
 
-## `btmize()`
+ `btmize()`
 
 위에서 획득한 corpus 들을 BTM 알고리즘을 통하여 샘플 갯수를 늘린 후 각 주제 하에서의 등장 확률을 추정. BTM 을 거치는 이유는 최대한 샘플 갯수를 늘려 추정의 정확성을 높이기 위함. 각 document 로부터 추려낸 단어들 각각에 대해 BTM 적용해서, 얘들을 각각 쌍으로 묶어서 sample 의 절대개수를 늘림. 이렇게 절대개수를 늘린 샘플들에서 바탕에 두고 있는 샘플의 개수를 empirical 하게 세팅하고, MCMC 방법론을 통해 이터레이션을 다횟수 돌리는 것으로 매 이터레이션에서 각 단어의 출현 확률을 보정해나감. 
 
@@ -716,7 +714,7 @@ preprocess(self, train_data = None, keywords = None, train = False):
 
 
 
-## `lsirmize()`
+ `lsirmize()`
 
 ```
 lsirmize(
@@ -791,7 +789,7 @@ std::vector<py::array_t<double>> onepl_lsrm_cont_missing
 `c++` 로 작성했기에 데이터형이 `c++` 기반으로 쓰여있긴 하나 이 자체는 `python` 함수로서 작동한다. 해당 함수는 각 확률구간마다 lsirm 파트를 실행한 후, lsirm 을 통해 각 이터레이션 별로 획득된 패러미터의 값들을 총합하여 해당 확률구간에서의 패러미터를 추정한다. 이를 통해 결과값은 `dict` 포맷으로 반환되며, 해당 `dict` 에는 `z`, `map`, `phiwz`, `words` 의 4가지 key 가 존재한다. 각각의 담고있는 내용은 이하와 같다.
 
 
-- `z`: 각 이터레이션에서 추정된 각 주제별 2차원 latent coordiante. #ofiteration × #oftopics × 2 크기의 행렬.
+- `z`: 각 이터레이션에서 추정된 각 주제별 2차원 latent coordiante. ofiteration × oftopics × 2 크기의 행렬.
 - `map`: 각 이터레이션 별로 얻어진 원점과의 총 거리.
 - `phiwz`: topic $z$ 가 주어졌을 경우의 corpus $w$ 의 출현확률
 - `words`: 해당 corpus 에서 어떤 corpus 들이 사용되었는가
@@ -805,8 +803,8 @@ std::vector<py::array_t<double>> onepl_lsrm_cont_missing
 
 
 
-# 구현 모델 실적용 예시
-## 4.1 데이터 서술
+ 구현 모델 실적용 예시
+ 4.1 데이터 서술
 
 상술하였듯이 해당 알고리즘의 결과값을 도드라지게 만들기 위해서는 문단이 짧으면서도, 해당 문단의 의미하는 바가 명확한 글줄들을 입력값으로 넣었을 때 결과값이 도드라진다. 따라서 만족스러운 결과를 위해 해당 조건에 맞는 데이터를 사용하자. 
 
@@ -821,7 +819,7 @@ std::vector<py::array_t<double>> onepl_lsrm_cont_missing
 | 15281 | 3079 | 10 |
 
 
-## 4.2 알고리즘 결과
+ 4.2 알고리즘 결과
 
 이렇게 획득한 데이터에 위의 패키지를 적용하여 시각화한 결과를 획득하였다. 이때 타 확률구간에 대한 procrustes matching 에 있어 기준선으로 작동한, 가장 거리가 멀었던 확률구간 기준으로 표기한 coordinate 는 이하와 같다. 
 
@@ -900,7 +898,7 @@ std::vector<py::array_t<double>> onepl_lsrm_cont_missing
 
 
 
-# 결론 
+ 결론 
 
 
 
@@ -1295,9 +1293,9 @@ Network (adjacency Matrix)
 -> also, called as a **Markov Network**, 여기서 Markov 라는 단어는 status of edge depends on a status of other edge 하는 성질을 가리킴
 
 $$
-\theta_1 (\underbrace{\text{# of edge}}_{\substack {\text{homophily effect} \\ \text{dyadic *in*dependent stat.}}})
+\theta_1 (\underbrace{\text{ of edge}}_{\substack {\text{homophily effect} \\ \text{dyadic *in*dependent stat.}}})
 +
-\theta_2 (\underbrace{\text{# of triangle}}_{\substack {\text{transitivity effect} \\ \text{dyadic dependent stat.}}})
+\theta_2 (\underbrace{\text{ of triangle}}_{\substack {\text{transitivity effect} \\ \text{dyadic dependent stat.}}})
 $$
 
 **dyadic independent statistics**: a status of dyad does not depends on the status of other dyads.
@@ -1341,7 +1339,7 @@ cause (2): Model-degeneracy
 
 we also need to consider high-order interactions.
 
-1. degree distribution: $D_k(y)$, which means # of node with degree $k$
+1. degree distribution: $D_k(y)$, which means  of node with degree $k$
 
 $\sum^{n-1}_{k=0} D_k(y) = n$: High-order interaction based on (nodes / edges / dyads) -> shared partnership distribution
 
@@ -1371,7 +1369,7 @@ by specifying decayed rate $\tau$, we can construct GW statistics.
 **homogeneous ERGM**
 
 $$
-P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\theta_1 S_1 (X) + \theta_2 \underbrace{T(X)}_{# of triangle} \Big)
+P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\theta_1 S_1 (X) + \theta_2 \underbrace{T(X)}_{ of triangle} \Big)
 $$
 
 - $\theta_1$: behaves similar to density
@@ -1397,7 +1395,7 @@ only applicable in **multiplex network**, which is all respondents are same but 
 
 
 
-#### Nomralizing constant of ERGM
+ Nomralizing constant of ERGM
 
 $$
 k(\theta) = \sum_{\text{all possible} y} \exp \Big( \sum^p_{i=1} \theta_i S_i (y) \Big)
@@ -1452,7 +1450,7 @@ calculating normalizing contants involves integration, which is generally diffic
 ----
 
 
-#### Latent Space Model
+ Latent Space Model
 
 we assume that there exists a latent space and we embedded each node into this latent space based on a connection (edge).
 
@@ -1529,7 +1527,7 @@ $y_{ij} = \mu + a_i + b_j + \epsilon_{ij}$
 
 
 
-#### Social Relation Model
+ Social Relation Model
 
 -> Goal: Capture sender and receiver correlations (dyadic corrlations)
 
@@ -1549,7 +1547,7 @@ Var \left[ \begin{pmatrix} \epsilon_{ij} \\ \epsilon_{ji}\end{pmatrix}\right]
 = \sigma^2 \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix}
 $$
 
-#### Social Relation Covariance Model
+ Social Relation Covariance Model
 
 You decompese the variance of $y_{ij}$ into three parts:
 
@@ -1567,7 +1565,7 @@ $$
 - $Cov(\underbrace{y_{ij}, y_{jk}}_{i\rightarrow j \rightarrow k}) = \sigma_{ab}$: row-col covariance
 - $Cov(\underbrace{y_{ij}, y_{ji}}_{ i\rightarrow j \\j \rightarrow i}) = 2 \sigma_{ab} + \rho \sigma^2$: row-col covariance + reciprocity
 
-#### Social Relation Regression Model
+ Social Relation Regression Model
 
 $$
 y_{ij} = \beta ' x_{ij} + \mu + a_i + b_j + \epsilon_{ij} \tag{SRRM}
@@ -1581,7 +1579,7 @@ Limitation of series of social relation model -> we cannot capture high-order de
 Goal: measure high-order dependence in a network as well as sender and receivers effect
 
 
-#### Additive and Multiplicative Model (AME)
+ Additive and Multiplicative Model (AME)
 
 $$
 \begin{align}
@@ -1629,7 +1627,7 @@ If we fit LSM seperatively, we cannot find the trajectory of each individuals.
 
 -> wee need a model taht combines each latent spaces.
 
-#### Hidden Markov Model
+ Hidden Markov Model
 
 
 
@@ -1645,7 +1643,7 @@ $$
 \pi(z_t \Big | z_{t-1}, \Psi_t) = \prod_{i=1}^n N(X_{it} \Big | X_{i(t-1)}, \sigma^2 I_P)
 $$
 
-#### Definition of Hidden Markov Model
+ Definition of Hidden Markov Model
 
 two process
 
@@ -1656,7 +1654,7 @@ $Y$ depends on $Z$.
 
 
 
-#### Construct the likelihood (directed Network)
+ Construct the likelihood (directed Network)
 
 $$
 P(Y_t \Big | X_t , \Psi) = \prod_{i \not = j} \Bigg [\frac{\exp(\pi_{ijt})}{1 + \exp(\pi_{ijt})} \Bigg ]^{y_{ijt}}
@@ -1665,7 +1663,7 @@ P(Y_t \Big | X_t , \Psi) = \prod_{i \not = j} \Bigg [\frac{\exp(\pi_{ijt})}{1 + 
 $$
 
 
-#### Logistic Regression Framework
+ Logistic Regression Framework
 
 $$
 \pi_{ijt} = \beta_{IN} \Bigg( 1-\frac{d_{ijt}}{r_j}\Bigg)
@@ -1873,9 +1871,9 @@ $$
 
 
 
-## 10.
+ 10.
 
-### Stochastic Block Model
+ Stochastic Block Model
 
 - Latent Class Model
 - for each actor (node), we assign group memberships
@@ -1932,7 +1930,7 @@ $\Rightarrow Y_{ij} \sim$ Bernoulli distribution with success probability $z_i '
 
 
 
-### Likelihood function
+ Likelihood function
 
 $$
 P (Y \Big | Z, C) = \prod_{i<j} P (y_{ij} \Big | Z, C)
@@ -1963,16 +1961,16 @@ $$
 
 In a Bayesian inference, we can assign $Dirichlet$ prior $\alpha, \cdots, \alpha$ $\pi(\alpha) \sim Gamma (a,b)$.
 
-#### Inference
+ Inference
 
 By combining equation (1) and (2), we can make an inference by the frequentist way using EM algorithm.
 
-#### Bayesian
+ Bayesian
 
 we need to assign prior for $C \Sim BETA$, $C_{ij} \sim BETA(A_{ij}, B_{ij})$, where A, B are $k \times k$ Matrix.
 
 
-#### Posterior Distribution 
+ Posterior Distribution 
 
 $$
 \begin{alignat}{2}
@@ -2015,7 +2013,7 @@ $\Rightarrow$ Computation is veery straightforward via MCMC.
 
 
 
-### Mixed Membership Block Model (MMBM)
+ Mixed Membership Block Model (MMBM)
 
 
 - SBM each actor only has one membership
@@ -2042,7 +2040,7 @@ The likeliood is $f(Y \Big | Z, C) = \prod_{i<j} \Big[ (z_{ij}' C z_{ji})^{y_{ij
 
 The goal of inference estimating not $z$ but the mixed memberships $\Theta$.
 
-#### Degree-corrected SBM
+ Degree-corrected SBM
 
 use Poisson Model.
 
