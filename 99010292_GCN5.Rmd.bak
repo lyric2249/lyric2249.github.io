@@ -1,0 +1,1042 @@
+# 02
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+Network (adjacency Matrix)
+-> Network Statistics $S(y)$, which capture characteristics of network
+-> plug-in network statistics with their corresponding prameteres into the exponential term $\underbrace{\exp \Big (\sum_{i=1}^p \theta_i S_i(y) \Big )}_{\text{unnormalized density}}$
+-> $P_\theta (Y=y) = \frac{1}{\kappa(\theta)} \exp \Big( \sum^p_{i=1}\theta_i S_i(y) \Big)$, to make a valid prob.
+
+  - $\kappa$: normalizing constant
+  - $\theta_i$: parameters measuring the strength of effects of $S_i(y)$
+  - $S_i(y)$: network statistics
+
+-> but extremely difficult to extimate. (1) doubly-interatable normalizing constant
+
+-> also, called as a **Markov Network**, 여기서 Markov 라는 단어는 status of edge depends on a status of other edge 하는 성질을 가리킴
+
+$$
+\theta_1 (\underbrace{\text{# of edge}}_{\substack {\text{homophily effect} \\ \text{dyadic *in*dependent stat.}}})
++
+\theta_2 (\underbrace{\text{# of triangle}}_{\substack {\text{transitivity effect} \\ \text{dyadic dependent stat.}}})
+$$
+
+**dyadic independent statistics**: a status of dyad does not depends on the status of other dyads.
+
+
+
+<mark>$S(y) = \sum_{i<j} y_{ij}h(x_i , x_j)$</mark>
+
+- $x$: covariate information of node
+- $x_i , x_j$
+
+how we define $h(x_i , x_j)$ determines the network stats?
+
+$$
+\begin{align}
+h(x_i , x_j) & = \cases{1 & \( x_i = x_j\) \\ 0 & o.w.}
+\tag{Uniform homophily effects}
+\\
+h(x_i , x_j, d) & = \cases{1 & \( x_i = x_j = d\) \\ 0 & o.w.}
+\tag{Differential homophily effects}
+h(x_i , x_j, d) & = \cases{2 & \( x_i = x_j = d\) \\ 1 & \( x_i = d or x_j = d and x_i \not = x_j \) (only one) \\ 0 & o.w.}
+\tag{Nodal Factor Effect}
+\\
+h(x_i , x_j) & = \frac12 (x_i + x_j)
+\tag{Main Effect (Continuous Case)}
+\\
+h(x_i , x_j , C ) & = \cases{1 & |x_i - x_j | = C \\ 0 & o.w.}
+\tag{Absolute Difference Effect}
+\\
+h(x_i ,x_j) & = |x_i - x_j|
+\end{align}
+$$
+
+
+
+
+상기의 1번과 2번은 $x$ 가 discrete 값일 때만 사용 가능. 이인즉 $x$ 가 factor 인 경우에만.
+
+
+cause (2): Model-degeneracy
+
+we also need to consider high-order interactions.
+
+1. degree distribution: $D_k(y)$, which means # of node with degree $k$
+
+$\sum^{n-1}_{k=0} D_k(y) = n$: High-order interaction based on (nodes / edges / dyads) -> shared partnership distribution
+
+
+
+
+
+
+- **edgewise shared partnership distribution**: $EP_k(y)$, the number of unordered pairs $9i,j)$ for which i and j share k common neighbors and y_{ij}=1
+
+
+$\sum^{n-2}_k=0 EP_k (y) = S_1(y_1)$, $S_1(y_1)$ is high-order transitivites.
+$\sum^{n-2}_k=0 DP_k (y) = \choose n2$, $DP_k (y)$ is high-order relationships of two-stars
+$DP_k (y) - EP_k(y)  = NP_k(y)$
+
+**dyadwise shared partnership distribution**
+
+**non-edgewise shared partnership distribution**
+
+$D_k(y), EP_k(y), DP_k(y)$ are distribution -> not plausible to plug-in -> geometrically weighted statistics -> summarise dist. into one statistics
+
+by specifying decayed rate $\tau$, we can construct GW statistics.
+
+
+
+
+**homogeneous ERGM**
+
+$$
+P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\theta_1 S_1 (X) + \theta_2 \underbrace{T(X)}_{# of triangle} \Big)
+$$
+
+- $\theta_1$: behaves similar to density
+- $\theta_2>0$: condition on edge, how likely it forms a triangle
+- $\theta_2<0$: <mark>????????????????????????????</mark>
+
+
+
+
+**inhomogeneous ERGM** : homogenous's all $\theta_{1ij} = \theta_1$, $\theta_{2ijk} = $\theta_2$
+
+
+$$
+P(Y=y) = \frac{1}{\kappa(\theta)} \exp \Big(\sum_{i<j}\theta_{1ij} y_ij} + \sum_{i \not = j \no = k}\theta_{2jk} y_{ij}y_{ik}y_{jk} \Big)
+$$
+
+only applicable in **multiplex network**, which is all respondents are same but they have different networks.
+
+
+
+
+
+
+
+
+#### Nomralizing constant of ERGM
+
+$$
+k(\theta) = \sum_{\text{all possible} y} \exp \Big( \sum^p_{i=1} \theta_i S_i (y) \Big)
+$$
+
+각 dyad 는 0 과 1 의 2가지 상태를 가짐. total possible $y$ 는 $2^{\choose n2}$. 연산량 미침.
+
+
+
+
+MCMC 	-> frequentist
+		-> Bayesian
+
+1. Bayesian Inference: we assume parameters follow a distribution.
+	- prior $\pi(\theta)$ -> prior belief of parameters
+	- likelihood $f(y | \theta)$
+	- posterior $\pi(\theta | y)$ -> posterior belief of parameters after including data
+2. Frequentist: parameters are fixed
+
+$$
+\begin{align}
+ & \propto f(y|\theta) \pi(\theta)
+\\
+pi(\theta|y) &= \frac{f(y|\theta) \pi(\theta)}{\underbrace{\pi(y) = \int f(y|\theta)\pi(\theta)d \theta}_{\text{marginal density of }y\text{ (normalizing constant)}}}
+\end{align}
+$$
+
+Generally, normalizing constant (denominator) does not depend on $\theta$
+
+
+calculating normalizing contants involves integration, which is generally difficult
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+
+#### Latent Space Model
+
+we assume that there exists a latent space and we embedded each node into this latent space based on a connection (edge).
+
+- $z_i$: latent position of node $i$
+
+Then, we try to explain a network based on a logistic regression framework.
+
+Main assumption:
+
+- given the latent position, each connection is conditionally independent each other.
+- latent positions can capture all dependence structures
+- the prob of having an edge is a function of latent positions.
+  - main function what researchers use is a distance
+- 
+
+
+
+
+
+
+
+
+
+
+$\begin{bmatrix} \circ \end{bmatrix}
+
+
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+
+ANOVA -> Additive Effect Model for network analysis
+
+$y_{ij}$: weighted edges from node $i$ to $j$.
+
+$y_{ij} = \mu + a_i + b_j + \epsilon_{ij}$
+
+
+
+
+#### Social Relation Model
+
+-> Goal: Capture sender and receiver correlations (dyadic corrlations)
+
+Assign Variance structures to $a_i$ and $b_j$:
+
+$$
+Var \left[ \begin{pmatrix} a_i \\ b_j \end{pmatrix}\right] \equiv \Sigma 
+= \begin{pmatrix} \sigma_a^2 & \sigma_{ab} \\ \sigma_{ab} & \sigma^2_b \end{pmatrix}
+$$
+
+- $\sigma_{ab}$: Covariance term for both $i \rightarrow j$ and $j \rightarrow i$, there should be a correlation b/w sender and receiver.
+
+In a social relation model, we caputre this correlation.
+
+$$
+Var \left[ \begin{pmatrix} \epsilon_{ij} \\ \epsilon_{ji}\end{pmatrix}\right] 
+= \sigma^2 \begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix}
+$$
+
+#### Social Relation Covariance Model
+
+You decompese the variance of $y_{ij}$ into three parts:
+
+$$
+Var(y_{ij}) = 
+\underbrace{\sigma^2_a }_{\text{variance of sender}}
++ 
+\underbrace{\sigma^2_b }_{\text{variance of receiver}}
++ 
+\underbrace{\sigma^2 }_{\text{common variance}}
+$$
+
+- $Cov(y_{ij}, y_{ik}) = \sigma_a^2$: within-row covariance
+- $Cov(y_{ij}, y_{kj}) = \sigma_b^2$ : within-col covariance
+- $Cov(\underbrace{y_{ij}, y_{jk}}_{i\rightarrow j \rightarrow k}) = \sigma_{ab}$: row-col covariance
+- $Cov(\underbrace{y_{ij}, y_{ji}}_{ i\rightarrow j \\j \rightarrow i}) = 2 \sigma_{ab} + \rho \sigma^2$: row-col covariance + reciprocity
+
+#### Social Relation Regression Model
+
+$$
+y_{ij} = \beta ' x_{ij} + \mu + a_i + b_j + \epsilon_{ij} \tag{SRRM}
+$$
+
+
+Goal: measure the covariate effects on an adjacency Matrix as well as sender and receiver effects
+
+Limitation of series of social relation model -> we cannot capture high-order dependence within networks
+
+Goal: measure high-order dependence in a network as well as sender and receivers effect
+
+
+#### Additive and Multiplicative Model (AME)
+
+$$
+\begin{align}
+&y_{ij} = \beta'x_{ij} + u_i ' v_j + a_i + b_j + \epsilon_{ij} \tag{AME}
+&& \begin{pmatrix} \epsilon_{ij} \\ \epsilon_{ji} \end{pmatrix} \sim N \left(0, \; \;\sigma^2\begin{pmatrix} 1 & \rho \\ \rho & 1 \end{pmatrix} \right)
+\end{align}
+$$
+
+we decompose $\epsilon_{ij} = \underbrace{u_i ' v_j}_{\substack{\text{high-order}\\ \text{dependence}}} + \epsilon_{ij}$
+
+- $u_i$: latent vector that measure a high-order dependence for node $i$ in aspect of sender effect
+- $v_j$: latent vector that measure a high-order dependence for node $j$ in aspect of receiver effect
+
+
+AME: $y_{ij} = \beta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+
+
+
+If we fit LSM seperatively, we cannot find the trajectory of each individuals.
+
+-> wee need a model taht combines each latent spaces.
+
+#### Hidden Markov Model
+
+
+
+
+- $Y_t = \{Y_{ijt}\}$: adjacency Matrix of observed network at time $t$
+- $z_{it}$: $p$-dimensional vectors of $i$-th actor/s latent position at time $t$
+- $z_t$: $n \times p$ Matrix whose its row is $z_{it}$.
+
+When we assign the prior distribution of $z_t$, we use the hidden Markov Model.
+
+$$
+\pi(z_1 \Big | \Psi_1) = \prod_{i=1}^n N(X_{i1} \Big | 0, \tau^2 I_P)\\
+\pi(z_t \Big | z_{t-1}, \Psi_t) = \prod_{i=1}^n N(X_{it} \Big | X_{i(t-1)}, \sigma^2 I_P)
+$$
+
+#### Definition of Hidden Markov Model
+
+two process
+
+- $Y$ (observable)
+- $Z$ (unobsevable, assumed to be a Markov Process)
+
+$Y$ depends on $Z$.
+
+
+
+#### Construct the likelihood (directed Network)
+
+$$
+P(Y_t \Big | X_t , \Psi) = \prod_{i \not = j} \Bigg [\frac{\exp(\pi_{ijt})}{1 + \exp(\pi_{ijt})} \Bigg ]^{y_{ijt}}
+\Bigg [\frac{1}{1 + \exp(\pi_{ijt})} \Bigg ]^{1-y_{ijt}}
+
+$$
+
+
+#### Logistic Regression Framework
+
+$$
+\pi_{ijt} = \beta_{IN} \Bigg( 1-\frac{d_{ijt}}{r_j}\Bigg)
++
+ \beta_{OUT} \Bigg( 1-\frac{d_{ijt}}{r_j}\Bigg)
+$$
+
+- $\beta_{IN}$: how likely it tends to receive the connection (popularity)
+- $\beta_{OUT}$: how likely it tends to senc the connection (social activity)
+
+- $d_{ijt} = \| z_{it} - z_{jt}\|$: euclidian distance
+- $r_i$: positive actor specific parameters, that represent each actor's social reach (tendency to form and receive edges)
+  - constraint $\sum_{i=1}^n r_i = !$
+  - geometric interpretation $r_i$ forming a radius arount the $i$-th actor.
+
+If the distance b/w two actors are **within** each other's radii, $d_i < \min(r_i , r_j)$, then the prob of forming an edge is **greater** than $\frac12$.
+
+If the distance b/w two actors are **outside** each other's radii, $d_i < \max(r_i , r_j)$, then the prob of forming an edge is **less** than $\frac12$.
+
+If $\d_{ijt}= r_i = r_j$, then the prob of forming an edge is **equal** to $\frac12$.
+
+<br>
+<br>
+
+If $\beta_{IN} > \beta_{OUT}$, the prob of an edge from $i \rightarrow j$ is determined more by the radius of $j$ than by the radius of $i$, which means **popularity > social activity**.
+
+If $\beta_{IN} < \beta_{OUT}$, **popularity < social activity**.
+
+
+※ Prior Distribution
+
+$$
+\beta_{IN} \sim N
+\\
+\beta_{OUT} \sim N
+\\
+\sigma^2 \sim Inv-Gamma
+\\
+\tau^2 \sim Inv-Gamma
+\\
+(r_1, \cdots, r_n ) \sim Dirichlet (\alpha_1 , \cdots, \alpha_n)
+$$
+
+※ MCMC iteration
+
+1. For $t=1:T$ and $i=1:n$, draw $z_{it}$ using MH conditional posterior for $z_{it}$ is
+
+$$
+\pi(z_{it} \Big | Y_{i:T}, \psi) \propto \begin{cases}
+\displaystyle
+\prod_{i \not = j} \frac{\exp(\pi_{ijt} \cdot y_{ijt})}{1+\exp(\pi_{ijt})} 
+ & \cdot N(z_{it} \Big | 0, \tau^2 I_p )
+ & \cdot N(z_{i2} \Big | z_{i1}, \sigma^2 I_p)
+ & && t=1
+\\
+\displaystyle
+\prod_{i \not = j} \frac{\exp(\pi_{ijt} \cdot y_{ijt})}{1+\exp(\pi_{ijt})} 
+ & \cdot N(z_{i(t+1)} \Big | z_{it}, \sigma^2 I_p )
+ & \cdot N(z_{it} \Big | z_{i(t-1)}, \sigma^2 I_p)
+ & && 2<t<T
+\\
+\displaystyle
+ & \prod_{i \not = j} \frac{\exp(\pi_{ijt} \cdot y_{ijt})}{1+\exp(\pi_{ijt})} 
+ & \cdot N(z_{it} \Big | z_{i(t-1)}, \sigma^2 I_p)
+& && 
+
+\end{cases}
+$$
+
+2. draw $\tau^2$ from its full conditional IG.
+3. draw $\sigma^2$ from its full conditional IG.
+4. draw $\beta_{IN}$ and $\beta_{OUT}$ using MH algorithm.
+5. draw $r_{1:N}$ via MH using a Dirichlet proposal. 
+
+
+
+
+
+
+let $\mathcal D$ denote the sampling
+
+
+
+
+
+
+----
+
+1. simple approach
+  1. to find the $z_{t+1}$, use $\hat z_{t+1} = E(z_{t+1} \Big | Y_{1:T}) \approx \frac1L \sum^L_{l=1}z_t^{(l)}$, where
+  $l$ indicates the $l$-th draw from the posterior.
+  2. By plugging-in $\hat z_{t+1}$ along with the posterior means of the parameter, into the $\pi_{ijt}$, we can generate $\hat Y_{t+1}$.
+
+
+
+
+$$
+\begin{align}
+&z_{it} = z_{i(t-1)} + \epsilon_{it} &&\epsilon_{it} \sim N(\mu_t , \sigma^2 I_p)
+\end{align}
+$$
+
+
+$\theta_t$ equals the angle $\arctan \Big \{2(X_{jt} - X_{i(t-1)} ) \Big \}$, which is two argument of arc tangent, the common variation of the arctangent function, which preserve the angle quadrant.
+
+$$
+\mu_t = R_t \begin{pmatrix} \mu \\ 0 \end{pmatrix} = 
+
+\begin{pmatrix} \cos(\theta_t) & -\sin(\theta_t) \\ \sin(\theta_t) & \cos(\theta_t) \end{pmatrix} \begin{pmatrix} \mu \\ 0 \end{pmatrix}
+$$
+
+- where $\mu_t$ is edge attraction at time $t$, and $\mu = \Bigg \|E(X_{it} - X_{i(t-1)}) \Bigg \|$.
+
+$$
+\pi(\mu) = \begin{cases} p_0 & & \mu = 0 \\ (1-p_0) f(\mu) & & \mu>0\end{cases}
+$$
+
+We assume $f(\mu) \sim \exp (\lambda)$.
+
+then the posterior density of $\mu$
+
+$$
+\pi (\mu \Big | Y_{1:T}) = \frac{\pi (Y_{1:T} \Big |  \mu) \pi (\mu)}{\pi (Y_{1:T})}
+=
+\frac{\pi (Y_{1:T} \Big |  \mu) }{\pi (Y_{1:T})} p_0 \cdot I\Big(\mu=0 \Big )
++\frac{\pi (Y_{1:T} \Big |  \mu) }{\pi (Y_{1:T})} 
+(1-p_0) f(\mu) \cdot I\Big(\mu>0 \Big )
+$$
+
+
+
+
+let 
+
+$$
+\pi_0 (\mu_0 = 0 \Big | Y_{1:T}) = \frac{f(Y_{1:T} | \mu)}{\pi(Y_{1:T})} p_0
+\\
+\pi_t (\mu \Big | Y_{1:T}) = \frac{f(Y_{1:T} | \mu)}{\pi(Y_{1:T})} (1-p_0) f(\mu)
+$$
+
+
+$$
+\pi_0 (\mu_0 = 0 \Big | Y_{1:T}) + \int_0^\infty \pi_+ (\mu \Big | Y_{1:p}) d\mu = 1
+
+\\
+
+\pi_0 (\mu = 0 \Big | Y_{1:p}) = \frac{1}{1 + \underbrace{\int_0^\infty K(U)dU}_{\text {approximate by a functinon}}}, \text{ where } K(U) = \frac{\pi_+ (\mu = U \Big | Y_{1:T})}{\pi_0 (\mu = 0 \Big | Y_{1:T})}
+$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 10.
+
+### Stochastic Block Model
+
+- Latent Class Model
+- for each actor (node), we assign group memberships
+
+two components in the block model,
+
+1. the vector of grop membership : $z$
+2. conditional on the group membership, the **block matrix** represents the edge probability of two nodes
+
+
+$$
+\begin{align}
+&
+\begin{bmatrix}
+0.8 & 0.05 & 0.02 \\
+0.05 & 0.9 & 0.03 \\
+0.02 & 0.03 & 0.7
+\end{bmatrix}
+
+&&
+\begin{bmatrix}
+b_{11} & b_{12} & b_{13} \\
+b_{21} & b_{22} & b_{23}  \\
+b_{31} & b_{32} & b_{32} 
+\end{bmatrix}
+
+\end{align}
+$$
+
+- $b_{11}$ 에 부여된 확률 0.8: the connection prob within group 1
+- $b_{22}$ 에 부여된 확률 0.9: the connection prob within group 1
+- $b_{11}$ 에 부여된 확률 0.05: the connection prob b/w group 1 and group 2
+
+
+
+※ notations:
+
+- $Y$: adjacency Matrix
+- $K$: the total membership groups ($<n$)
+- $Z_i$: $k$-vector, all elements of which are $0$, except exactly one that takes the value $1$ and represents the group node $i$ belongs to.
+- $Z := (z_1 , \cdots, z_n)'$
+- $C$: $k \times k$ block matrix
+  - entry $C_{ij} \in [0,1]$: prob of occurence of a edge from a node in $g$
+  
+  
+
+
+the idea of block Matrix $C$ means the edges are are conditionally independent, given the block membership.
+
+
+$\Rightarrow Y_{ij} \sim$ Bernoulli distribution with success probability $z_i ' C z_j$, and independent of $Y_{kl}$ for $(i,j) \no = (k,l)$, given $z_i$ and $z_j$.
+
+
+
+
+
+### Likelihood function
+
+$$
+P (Y \Big | Z, C) = \prod_{i<j} P (y_{ij} \Big | Z, C)
+
+= \prod_{i<j}
+
+\Bigg [  \Big (z_i ' Cz_j \Big )^{y_{ij}}
+
+ \Big (1-z_i ' Cz_j \Big )^{1-y_{ij}}
+
+ \Bigg ] \tag{1}
+
+$$
+
+
+
+In real data, $z$ and $C$ are unknown. $\Rightarrow$ we need additional assumptions.
+$\underbrace{1}_{2}$
+1. $z_i$ is independent of $z_j$.
+2. $P(z_{i \underbrace{k}_{\text group}} =1) = \theta_k$, $\sum_{j=1}^k \theta_k = 1$  $\Rightarrow$ the latent group $z_p$ follows multinomial distribution with $\theta$, i.e.,
+
+$$
+\pi(z \Big | \theta) = \prod_{i=1}^n z_i ' \theta = \prod_{k=1}^K \theta_k^{n_k} \tag{2}
+$$
+
+, where $n_k$ is the total number of nodes that belongs to group $K$.
+
+
+In a Bayesian inference, we can assign $Dirichlet$ prior $\alpha, \cdots, \alpha$ $\pi(\alpha) \sim Gamma (a,b)$.
+
+#### Inference
+
+By combining equation (1) and (2), we can make an inference by the frequentist way using EM algorithm.
+
+#### Bayesian
+
+we need to assign prior for $C \Sim BETA$, $C_{ij} \sim BETA(A_{ij}, B_{ij})$, where A, B are $k \times k$ Matrix.
+
+
+#### Posterior Distribution 
+
+$$
+\begin{alignat}{2}
+
+
+
+\pi(Z , \theta, C , \alpha  \Big | Y) 
+
+ & \propto f(Y \Big | Z , \theta, C , \alpha) 
+ && \cdot \pi(Z , \theta, C , \alpha)
+
+\\
+
+& = f(Y \Big | Z , \theta, C , \alpha)
+ && \cdot \pi(Z \Big | \theta, C , \alpha)
+ && \cdot \pi(\theta \Big | C , \alpha)
+ && \cdot \pi(C, \alpha)
+
+
+\\
+
+& = f(Y \Big | Z , C)
+ && \cdot \pi(Z \Big | \theta)
+ && \cdot \pi(\theta \Big | \alpha)
+ && \cdot \pi(C)
+ \cdot \pi(\alpha)
+
+\\
+& \propto \prod_{i<j} \Big[ (z_i' C z_j)^{y_{ij}}(1- z_i' C z_j)^{1-y_{ij}} \Big]
+ && \cdot \prod_{k=1}^K \theta_k^{n_k} 
+\Bigg[\Gamma(k \alpha) \Big \{ \sum^k_{i=} \theta_k = 1 \prod_{i=1}^k \frac{\theta_z^{\alpha-1}}{\Gamma(\alpha)}\Big \} \Bigg]
+ && \cdot\prod^k_{i<j} \Big[ C_{ij}^{A_{ij}-1} (1-C_{ij})^{B_{ij}-1} \Big]
+ && \cdot \alpha^{a-1} e^{-b \alpha}
+
+\end{alignat}
+$$
+
+$\Rightarrow$ Computation is veery straightforward via MCMC.
+
+
+
+
+### Mixed Membership Block Model (MMBM)
+
+
+- SBM each actor only has one membership
+- to alleviate the assumption of SBM, MMBM has been proposed
+- This model allows each node can have multiple membership instead of assigning $1$ to a ceratin membership, we estimate the probability of all membership.
+
+$$
+\begin{align}
+z_i &= (1, 0, 0) \tag{SBM}
+\\
+\theta_i &= (0.7, 0.2, 0.1) \tag{MMSB}
+\end{align}
+$$
+
+이때 MMSB 의 vector 의 각 항은 각각 group 1, group 2, group 3 일 prob.
+
+- $\theta_i$: weights or probabilities in the grous that have to be non-negative and sum to 1.
+
+For each dyad $y_{ij}$, a latent membership $z_{ij}$ is drawn from the multinomial distribution with $\theta_p$.
+
+$\pi(z \Big | \Theta) = \prod_{i \not = j} (z_{ij}'\theta_i x z_{ji}'\theta_j$, where $\Theta := (\theta_1 , \cdots, \theta_k)$ is $n \times k$ Matrix of membership probability.
+
+The likeliood is $f(Y \Big | Z, C) = \prod_{i<j} \Big[ (z_{ij}' C z_{ji})^{y_{ij}}(1- z_{ij}' C z_{ji})^{1-y_{ij}} \Big]$.
+
+The goal of inference estimating not $z$ but the mixed memberships $\Theta$.
+
+#### Degree-corrected SBM
+
+use Poisson Model.
+
+- $y_{ij}$: the number of edges from dyad (i,j) following a Poisson dist
+- $C_{ij}$: the expected number of edges from a node in group $i$ to a node in group $j$
+
+The likelihood is 
+
+$$
+\pi(Y_{ij} \Big | Z, C) = (Y_{ij}!)^{-1} \exp \Big \{ (-z_i ' C z_j ) (z_i ' C z_j )^{y_{ij}}  \Big \} \tag{3}
+$$
+
+In a large sparse graph, where the edge probability equals the expected number of edges, DC-SBM is asymptotically equivalient to the Bernoulli counterpart in equation (3). 
+
+
+- $\phi_p$: the ratio of node $i$'s degree to the sum of degrees in node $i$'s group.
+
+Under constraint $\sum_{i=1}^n \phi_i \cdot I \Big ( z_{ik} = 1 \Big) =1$, then equation (3) becomes
+
+
+$$
+f(y_{ij} \Big | Z, C, \phi) = (y_{ij}!)^{-1} \exp \Big \{ (- \phi_i \phi_j z_i ' C z_j ) (\phi_i \phi_j z_i ' C z_j )^{y_{ij}}  \Big \}
+$$
+
+which is **DC-SBM**.
+
+$\Rightarrow$ SBM ignores the variation of node degrees in a real network. 
+
+With DC-SBM, we can make correction better.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
