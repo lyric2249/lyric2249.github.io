@@ -110,13 +110,6 @@ Graph-based Trajectory Visualization for Text Mining of COVID-19 Biomedical Lite
 
 
 
-latent space response item model 을 적용하기 위해서는 각 주제에서의 각 확률의 등장 확률을 계산해낼 필요가 있습니다. 
-
-이 자체는 단순한 MCMC 알고리즘으로 이터레이션을 여러차례 돌려 각 단어의 등장 확률을 추정하는 것만으로 성립할 수 있습니다만, 한 단어에서 획득할 수 있는 corpus 의 
-
-
-
-
 자연어 처리가 필요. 개별 글줄에서 corpus를 추출한 후 
 
 풍부하게 하기 위하여 단어 벡터들 간의 유사도를 계산해낼 필요가 있다.
@@ -163,7 +156,14 @@ tokenize 기법
 
 
 
-이때 1차적으로 그러나 input 하는 글줄의 양도 적을 뿐더러 같은 분야의 글줄들을 다루기 때문에 개별 글줄마다의 특성을 통계적으로 파악하기에 충분하지 않을 정도로 개별 글줄들이 고유하게 가지는 단어의 갯수가 적을 수 있다. 이를 보완하기 위해서 Biterm Model을 도입.^[Xiaohui Yan, A Biterm Topic Model for Short Texts] Biterm Model 은 본질적으로 통계적 확률을 가리기 위한 재료의 가짓수가 적을 경우 이를 판단하기 위한 재료를 늘리기 위한 과정에 해당한다. 원본 문서에서 corpus의 갯수가 $n$ 개였다면 Biterm 과정을 거치는 것으로 $n^2$으로 확률 추정에 사용되는 샘플들의 갯수를 늘리는 것이 가능하다는 것입니다. 이렇게 샘플을 늘린 것으로 개별 단어의 확률 추정의 정밀도를 높인 채로 획득하는 것이 가능.
+이때 1차적으로 그러나 input 하는 글줄의 양도 적을 뿐더러 같은 분야의 글줄들을 다루기 때문에 개별 글줄마다의 특성을 통계적으로 파악하기에 충분하지 않을 정도로 개별 글줄들이 고유하게 가지는 단어의 갯수가 적을 수 있음
+
+이를 보완하기 위해서 Biterm Model을 도입.^[Xiaohui Yan, A Biterm Topic Model for Short Texts]
+
+
+
+
+Biterm Model 은 본질적으로 통계적 확률을 가리기 위한 재료의 가짓수가 적을 경우 이를 판단하기 위한 재료를 늘리기 위한 과정
 
 Biterm Model 은 다음과 같은 가정에 존재.
 
@@ -171,8 +171,17 @@ Biterm Model 은 다음과 같은 가정에 존재.
 - 각 글줄에는 인식할 수 없는 주제가 존재하며, 각각의 주제 내부에는 유사한 의미를 보유하는 단어들이 모여있다
 - 인식할 수 없는 단어의 클러스터가 함께 속해있는 그것을, 인식할 수 없는 주제라고 인식할 수 있다
 
-이의 과정은 이하와 같다.
 
+
+
+
+
+
+이러한 Biterm Model 은 본질적으로 사용 가능한 corpus 의 양을 늘리고자 하는 것입니다. 원본 문서에서 corpus의 갯수가 $n$ 개였다면 Biterm 과정을 거치는 것으로 $n^2$으로 확률 추정에 사용되는 샘플들의 갯수를 늘리는 것이 가능하다는 것입니다. 이렇게 샘플을 늘린 것으로 개별 단어의 확률을 
+
+이렇게 늘려서 획득한 각 corpus pair 들의 확률에서 개별 단어들의 확률 획득 가능.
+
+**원본 corpus 만으로 진행하는 거랑 무슨 차이가 있는지를 서술해야 함**
 
 1. $\theta \sim Dirichlet(\alpha)$ 로부터 모든 주제들의 분포를 샘플링.
 2. Biterm set B 의 각 biterm b 에 대해, 해당 biterm을 구성하는 2개의 단어의 합이 전체 주제들 중 어느 주제 z에 속하는지를 샘플링. 이때 $z \sim Mult(\theta)$.
@@ -185,15 +194,24 @@ $$
 p(B) = \prod_{i,j} \sum_z \theta_z \phi_{i|z} \phi_{j|z}
 $$
 
+
+
 이에 의해 latent topic z 의 조건부 posterior 는 이하와 같은 비례식을 따른다.
 
 $$
 p(z | z_{-b} , B, \alpha, \beta) \propto (n_z + \alpha) \frac{(n_{w_i}+\beta)(n_{w_{j|z}}+\beta)}{(\sum_w n_{w|z}+M \beta)^2}
 $$
 
+
+
 - $n_z$: biterm  가 주제 z에 할당된 횟수
 - $n_{-b}$: biterm b 가 포함되지 않았던 주제들
 - $n_{w|z}$: 주제 z에 할당된 단어 w 의 횟수
+
+
+
+
+
 
 이때 $p(z | z_{-b} , B, \alpha, \beta)$ 에의 깁스 샘플링의 직접적인 적용은 변수들 간의 dependency 때문에 convergence 로 이르지 못할 우려를 배제할 수 없음. 따라서 우리는 collapsed 깁스 샘플링을 사용하여 불필요한 패러미터들을 integrate out  하여 이의 영향을 억제한다. 이때 prior 을 $dirichlet$ 으로 사용한 것의 이득을 볼 수 있다. $dirichlet$ 을 사용한 것으로 $\phi_z$ 와 $\theta$ 가 integrate out 당하므로. 몇번의 iteration 이후 우리는 획득한 statistics (통계량) $\n_{w|z}$ 와 $\theta_z$ 를 활용하여 $\phi_{w|z}$ 와 $\theta_z$ 의 distribution 을 이하와 같이 구성할 수 있게 된다.
 
@@ -205,9 +223,117 @@ $$
 - $B$: 넘버링된 각 biterm
 - $K$: 설정한 총 topic 의 갯수
 
-이처럼 우리는 corpus 에서 biterm 을 구성한 후, 각 biterm 을 이용해 추정한 것으로 주제군 하에서의 corpus 분포 $\phi_{w|z}$ 와 주제 자체의 출현 분포 $\theta_z$ 을 정밀도 높게 추정하는데에 성공했다. 
+
+이제 해당 biterm을 쓰는 것으로 우리는 
 
 
+
+이제 우리는 주제군 하에서의 corpus 분포 $\phi_{w|z}$ 와 주제 자체의 출현 분포 $\theta_z$ 을 획득했음.
+
+우리가 목표로 하는 것은 글줄 모음에서 얻을 수 있는 각 주제별의 상관관계
+지금까지 진행한 작업으로
+주제별로 coefficient 를 얻어서 배치하는 건 가능하나 각 주제를 이름붙일 수 없으면 이는 무의미
+
+따라서 이렇게 획득한 각 주제 하에서의 단어 출현 확률에서 각 주제를 어떻게 이름붙일것인가에 대한 재료를 확보해야함
+
+이에 가장 직접적으로 활용할 수 있는 재료는 앞서 획득한 단어별 발생 확률
+
+타 문서에서의 발생 확률이 낮고, 해당 주제군에 속하는 문서들에서만 여러번 발생하는 단어들이라면 해당 단어는 해당 주제군에만 묶여 있다는 것으로 해석할 수 있으며, 이는 곧 해당 주제를 어떻게 이름붙일것인가 하는 고민에서 유의미하게 활용될 수 있을 것
+
+따라서 해당 고민을 해결하고자 하는 과정에는 모든 단어를 참고해서는 안되고 다른 주제군에서는 출현빈도가 낮고, 이 주제군에서는 높다는 조건을 만족해야함
+
+이 조건을 해결하기 위한 기준으로서 
+
+우리는 앞서 $M \times K$ 크기의 matrix 를 획득하였음. 이때 각 row 는 개별 단어의 각 주제군에서의 출현도, 각 column 은 각 주제군에서의 개별 단어의 출현율이 됨. 
+
+여기서 우리는 각 row 에서의 coefficient variation 과 maximum probability 를 활용할 것. 전자는 주제군별 단어 출현 확률의 변동 정도를, 후자는 특정 주제에 단어가 얼마나 강하게 묶여 있는지에 대한 척도가 됨. 
+
+
+BTM 은 topic-word distribution 을 생산하며, 이는 각 주제들 내부에서 각 단어의 확률을 측정하므로, 우리는 이들의 variation 을 조정해주어야 한다. 단순히 variance 를 측정하는 것만으로는 불충분. 따라서 우리는 standard deviation 을 각 주제군에서 획득한 각 단어의 확률의 평균으로 나눔하며, 이것이 곧 ```coefficient variation```이다.
+
+행렬 $X_i$의 각 행에서 단어를 선택하는 기준으로 계수 변동과 최대 확률을 선택하는 두 가지 이유가 있습니다. 
+
+첫째, 중요한 단어는 주제 간에 변동성이 낮으면 그 단어가 구체적으로 어떤 주제를 나타내지 않을 가능성이 높다. 따라서 확률의 variation 이 높은 단어야말로 주제를 판정함에 있어 유의미한 선택지로 판단될 수 있다. 따라서 의미 있는 단어를 판정함에 있어 variation을 사용하는 것은 타당하며, 여기서 coefficient variation 을 사용하는 것으로 더더욱 주제군간 topic 의 dispersion 을 증폭시키는 것이 가능하다.
+
+두 번째, 의미 있는 단어가 되기 위해서는 적어도 하나의 주제에서 가능성이 높아야 합니다. 예를 들어, 단어의 variation 이 높다고 한들 그 어느 주제군에서도 높은 확률을 보이고 있지 못한다면 이는 결국 해당 주제군을 표현한다고 하기 어려우며 주제군을 표현함에 있어 기능을 다하기 어렵다. 그렇기 때문에 적어도 하나의 주제에서 확률이 높은 단어와, 앞문단에서 언급하였듯 변화가 큰 단어를 선택한다는 두가지 기준을 통해 효과적으로 주제를 특징지을 수 있습니다.
+
+
+
+
+
+```
+
+
+BTM 을 적용하기 위해 우리는 topic 갯수를 20으로 지정. hyper 패러미터로서는 $\alpha=3, \beta=0.01$ 을 부여. 궁극적인 목표는 topic 간의 관계를 시각화하는 것이기에 이에 필요한 hyper 패러미터는 empirically 결정하였다. topic-word 의 posterior 분포, 즉 BTM 과정 자체는 Gibbs Sampler 를 통해 결정되었으며, 이는 20000번의 burn-in, 55000 회의 iteration, 그리고 100 iteration 마다 thining 진행.
+
+
+BTM 으로부터 획득한 각 topic-word 분포에서, 각 주제군들 하에서 높은 출현확률을 보이는 단어야말로 해당 주제를 특징짓기 적합함.
+
+이에 대해서는 각 주제군들 별로 부여된 각 단어들의 확률의 로그 히스토그램을 구하면
+
+bimodal 한 형태
+
+좌측의 mode 는 낮은 확률, 즉 주제를 특징짓기 부적합한 라인업들이며, 우측의 mode 는 높은 확률로 출현하는 단어들.
+
+따라서 noise 를 줄이기 위해 topic relationship 을 우측의 mode 에 등장하는 단어들만을 참고하여 판정하는 것은 실로 합리적일 것. 
+
+이 히스토그램에 기반하여 최하 cutoff value, normal distribution의 최한도를 결정하는, 은 
+
+우리는 
+
+topic 을 유의미하게 표현하기 위해선 최소한 1000개의 단어가 필요함을 empirically
+
+이 rationale 을 기반으로 하여 우리는 적어도 1000개의 단어는 사용하기로 결정
+
+topic 의 특징을 추출하기 위한 단어의 기준선으로 우리는 
+
+1. topic과 topic 간에 variance 가 큼 - coefficient variation
+2. max probability 가 상대적으로 높음 - max probability
+
+의 2가지 기준을 만족하는 단어들을 골라냈음. 해당 논문에서는 정해진 갯수의 단어를 사용하기 보다는 다른 갯수의 단어들을 사용하는 것으로 발생하는 변화를 관측하고자 하였음. **가령 포함하는 단어의 수가 변동함에 따라 topic 의 latent coordinate 가 격렬하게 변동한다면 이는 주제군으로 성립하기는 조금 어렵거나 주제군이 다루고 있는 바운더리가 넓어 그때그때 변동함을 의미할 것.** 특히, 우리는 다양한 매트릭스를 획득했다. 40%~60% 사이를 이용. 
+
+
+
+
+
+
+
+
+
+이의 실적용에서는 상대적 편의를 위하여 
+
+topic 들의 latent position 들 $\mathbf V = \{\mathbf v_i\}$ 를 획득ㄱ하기 위해 MCMC 가 적용되었다. MCMC 는 iteration 55000회, burn-in 5000회, thining 5. 해당 MCMC에 사용된 패러미터는 이하와 같다. 주제군들 간의 관계를 시각화하기 위해 우리는 2차원 Euclidean space 를 사용. 사용된 패러미터는 이하와 같다.
+
+jumping 룰에 관해서는:
+```
+$$
+\alpha = ?
+\\
+\beta = 0.28
+\\
+\theta = 1
+\\
+w_k = z_i = 0.06
+$$
+
+$$
+prior \beta = fixed
+\\
+\theta \sim N(0,1)
+\\
+a_\sigma = b_\sigma = 0.001
+$$
+
+```
+LSIRM 은 앞단계에서 이루어진 X_i 를 받아 결과값으로 $A_i$ 를 내놓는다. 이에 proc2와 oblim 을 적용하는 것으로 최종적 시각화에 사용될 matrix 를 내놓을 예정. 
+
+
+
+topicnaming 에는 $A_max$ 를 활용하여 주제군별로 높게 랭킹된 단어를 활용하여 topic naming 진행. 왜? baseline matrix 야말로 topic 들을 characterize 함에 있어 가장 연고한 dependency 구조를 보유하고 있으니까. 
+
+
+
+```
 
 
 
@@ -246,15 +372,30 @@ LSIRM 은 이하의 2가지로 모델링된다.
 - Attribute: 특정 item 에 몇 명의 응답자가 응답했는지와, 특정 응답자들에 의해 몇 개의 item 이 응답되었는가
 - Interaction: 각 item과 응답자의 latent position, 그리고 item 과 응답자 사이의 interaction을 측정
 
-이를 응용하는 것으로 목표하는 바를 달성할 수 있다. 해당 알고리즘의 목적은 주제 간의 관계를 추정하는 것과, 각 주제들에 연관된 단어를 근거로 하여 interaction map에서 주제의 latent position을 추정하는 것이다. 즉 topic 간의 관계를 획득하고 이 관계를 나타내는 coefficient 들을 연관된 단어를 기반으로 하여 interaction map 에 매핑하고자 하는 일련의 과정을 특정한 수리적 과정을 거쳐 달성해야 한다.
+이를 응용하는 것으로 목표하는 바 달성 가능
+
+해당 알고리즘의 목적은 주제 간의 관계를 추정하는 것과, 각 주제들에 연관된 단어를 근거로 하여 interaction map에서 주제의 latent position을 추정하는 것.
+
+즉 topic 간의 관계를 획득하고 이 관계를 나타내는 coefficient 들을 연관된 단어를 기반으로 하여 interaction map 에 표방하고자 하는 일련의 과정을
+
 
 앞서 획득한 $\phi_{w|z}$ 의 matrix $X_i$ 를 biparite network 로 인식하자. 이때 topic 은 item, respondent 은 word 가 된다.
 
+
 |topic|item|
-|:-:|:-:|
 |word|respondent|
 
-단 본디 원본 LSIRM 은 binary 데이터를 서술하기 위해 작성. 따라서 해당 문제에 직접 적용은 불가하다. 해당 문제의 경우 word2vec을 거쳐 각 단어의 출현 확률에 0에서 1 사이의 실수값을 부여하였기에 binary 모델이 아닌 Gaussian 버전. 해당 문제를 보정하기 위하여 해당 문제의 기본 아이디어만을 살리고 사용하는 확률을 Gaussian 확률로 변경하는 것으로 해당 문제를 보완할 수 있다. binary 가 아닌 Gaussian 용도로 변형된 LSIRM 은 이하와 같이 서술될 수 있다.
+
+이는 위에서 서술한 LSIRM에서 
+
+단 본디 원본 LSIRM 은 binary 데이터를 서술하기 위해 작성. 따라서 해당 문제에 직접 적용은 불가하다. 해당 문제의 경우 word2vec을 거쳐 각 단어의 출현 확률에 0에서 1 사이의 실수값을 부여하였기에 binary 모델이 아닌 Gaussian 버전. 이를 보정하기 위하여 해당 문제의 기본 아이디어만을 살리고 사용하는 확률을 Gaussian 확률로 변경하는 것으로 해당 문제를 보완 가능.
+
+해당 문제를 보정하기 위하여 
+
+모델을 Gaussian 버전으로 변경.
+
+
+binary 가 아닌 Gaussian 용도로 변형된 LSIRM 은 이하와 같이 서술될 수 있다.
 
 
 $$
@@ -268,11 +409,15 @@ $$
 - $\Theta = \bigg\{ \pmb \theta= \{\theta_j\}, \pmb \beta= \{\beta_j\}, \pmb U = \{u_j\}, 	\pmb V = \{v_j\} \bigg\}$
 - $\| u_i - v_j \|$: 단어 i 와 주제 j 각각의 latent position 사이의 Euclidean Distance.
 
-원본 LSIRM 의 경우 binary 자료를 연속형으로 변환하기 위해 logit link 함수를 사용했음. 따라서 여기서 우리는 interaction 부분, attribute 부분과 $x_{j,i}$ 사이의 선형성 가정을 이용. normality equation을 만족시키기 위해 error term $\epsilon_{i,j}$ 를 추가.
+원본 LSIRM 의 경우 binary 자료를 연속형으로 변환하기 위해 logit link 함수를 사용했음.
+
+따라서 여기서 우리는 interaction 부분, attribute 부분과 $x_{j,i}$ 사이의 선형성 가정을 이용. normality equation을 만족시키기 위해 error term $\epsilon_{i,j}$ 를 추가.
 
 이때 $\| u_i - v_j \|$ 가 짧을 경우, 이는 곧 word 의 latent position $u_i$ 와 topic 의 latent position $v_j$ 의 연관성이 존재할 가능성이 높다는 것을 의미하며, 이는 곧 word $i$ 가 topic $j$ 에 link 되어 있을 확률이 높음을 암시. 따라서, topic 의 latent position 은 word 들과의 거리에 기반하여 측정되는 것이 가능하다.
 
 위에 주어진 모델을 given 했을 때, 우리는 LSIRM 의 gaussian 버전에서의 패러미터를 측정하기 위해 베이지안 추론을 활용하였다. 우리는 패러미터에 대한 prior 분포를 이하와 같이 특정한다:
+
+
 
 $$
 \begin{alignedat}{2}
@@ -290,6 +435,8 @@ $$
 여기서 $\tau_\beta^2$ 은 constant value 로 고정한다.
 
 이제 LSIRM 의 posterior 분포를 살펴보자. 이는 이하와 같다.
+
+
 
 
 $$
@@ -314,13 +461,22 @@ $$
 ### Procrustes Matching and Oblique Roation
 
 
-다양한 matrix $X_i$ 각각에 대해 LSIRM 을 진행한 것을 통해 우리는 각 주제군들이 보유한 coordinate 로 구성된 matrix $A_i$ 들을 보유하고 있다. 주제군들 간의 관계의 해석을 더욱 진전시키기 위해 우리는 word set 의 함수의 결과값으로서의 latent position 이 어떻게 변화하는지를 체크하고자 한다. 특히, 우리는 각 matrix $X_i$ 로부터 생산한 각 주제군의 latent position $A_i$ 간을 이하의 과정을 거쳐 비교하고자 함. 
+
+
+다양한 matrix $X_i$ 각각에 대해 LSIRM 을 진행한 것을 통해 우리는 각 주제군들이 보유한 coordinate 로 구성된 matrix $A_i$ 들을 보유하고 있다. 
+
+주제군들 간의 관계의 해석을 더욱 진전시키기 위해 우리는 word set 의 함수의 결과값으로서의 latent position 이 어떻게 변화하는지를 체크하고자 한다. 특히, 우리는 각 matrix $X_i$ 로부터 생산한 각 주제군의 latent position $A_i$ 간을 이하의 과정을 거쳐 비교하고자 함. 
 
 이는 이하의 과정을 거쳐 진행.
 
 1. LSIRM 에서 생산한 MCMC 샘플들 각각에 대해 procrustes matching 진행. 이는 invariance property 를 제어하기 위함. (소위 within-matrix matching)
 2. 1에서 procrustes matching 을 통해 조정된 각각의 MCMC matrix 샘플들을 평균내는 것으로 최종적으로 사용할 estimated matrix 획득. 이렇게 획득한 esimated matrix 들에 대해 topic 들을 동일한 quadrant 에 위치시키기 위해 다시 한 번 procrustes matching.
-3. 각 주제들의 latent postion 으로부터 원점까지의 거리를 구한다. 이는 곧 dependency structure 의 강도를 구하기 위함. 특히, latent position 의 거리가 길다면 이것은 곧 네트워크의 더 강한 dependency 를 의미함. 이때 $X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matrix 를 구해야 한다. 이는 dependency structure amnong topic 을 최대화 시키는 녀석이어야 함. <br>이는 곧 topic 의 latent position 의 변화를 보여줌에 있어서 도움을 크게 줌. 왜냐? 각 matrix $X_i$ 로부터의 rotated positions $A_i$ 는 원점으로부터 가장 뻗어있는 (stretched, 멀리 떨어져 있는) 네트워크를 기준으로 하였기 때문. 이 가장 뻗어있는 네트워크에 대한 notation 은 $A_{max}$. 
+3 각 주제들의 latent postion 으로부터 원점까지의 거리를 구한다. 이는 곧 dependency structure 의 강도를 구하기 위함. 특히, latent position 의 거리가 길다면 이것은 곧 네트워크의 더 강한 dependency 를 의미함. 
+
+$X_i$ 를 동일한 quadrant 에 위치시키기 위해 우리는 baseline matrix 를 구해야 한다. 이는 dependency structure amnong topic 을 최대화 시키는 녀석이어야 함. 
+
+이는 곧 topic 의 latent position 의 변화를 보여줌에 있어서 도움을 크게 줌. 왜냐? 각 matrix $X_i$ 로부터의 rotated positions $A_i$ 는 원점으로부터 가장 뻗어있는 (stretched, 멀리 떨어져 있는) 네트워크를 기준으로 하였기 때문. 이 가장 뻗어있는 ㅔㄴ트워크에 대한 notation 은 $A_{max}$. 
+
 4. 마지막으로, 우리는 축을 회전시켜 topic 들 간의 관계의 해석성을 높이고자 함. 이 회전에는 ```oblique factor roation``` 을 사용. 이 과정들을 적용한 후 우리는 각 topic 의 coordinate 의 변화를 추적하여 topic 들 간의 관계를 추정하고자 함.
 
 
@@ -366,7 +522,7 @@ $$
 
 이를 통해 현재의 속도 퍼포먼스를 측정하고자 한다. corpus 갯수에 따른 속도를 측정하기 위하여, 총 corpus 의 1퍼센트부터 100퍼센트까지 1퍼센트p 간격으로, 즉 corpus 30개부터 3079개 전부를 사용하는 각 상황에서의 소요 시간을 측정한다. 이를 그래프로 나타내면 이하와 같다.
 
-![plot_for_each_corpus_usages](‪C:\Users\Song1\Documents\GitHub\202201_phd_paper\newplot (2).png)
+![plot_for_each_corpus_usages]()
 
 주제의 갯수를 가리키는 패러미터를 $K$로 지정하자. 이때 50퍼센트, 즉 corpus 1500개 가량에서 iteration 1회에 약 10회가 소모된다. 이는 곧 단순 산술계산하였을 때 해당 알고리즘을 제안한 논문에서 사용한 iteration 횟수인 55000을 적용하였을 경우 총 소모시간은 $10 * 55000$초, 즉 약 6일이 소모된다는 것을 말한다.
 
@@ -384,17 +540,18 @@ $$
 - 자료구조 최적화
 - 반복문 최소화
 
+
 /*또한 n번 반복하는 iteration이 $a$개라고 쳤을 때, 이의 반복을 `for` 문에만 의존하였을 때 이의 시간복잡도는 $O(n^a)$*/
 
 그러나 현재 해당 패키지는 내부연산 중에 많은 부분을 외부 라이브러리에 의존하고 있어 이러한 부분에서 건드릴 수 있는 포인트는 다소 한정적이다. 따라서 기존의 패키지 구성을 크게 터치하지 않는 방향에서 이를 해결할 방법을 모색하자. 
 
 이때 가장 간단하면서도 직접적인 방법은 파이썬이 아닌 속도가 빠른 단어로 해당 알고리즘을 구현하는 것이다. 파이썬은 인터프리터 언어로 작성 및 활용도 측면에서는 타 언어들에 비해 부동의 강점을 지니지만, 언어의 태생적인 속도의 경우 컴파일 언어에 비해 다소 희생한 부분이 존재한다. 이에 대해서는 이하를 참조.
 
-![comparison between other programming languages by graph](C:\Users\Song1\Documents\GitHub\202201_phd_paper\Barplot_language_speeds_(Benchmarks_Game_Mandelbrot).svg.png)
+![comparison between other programming languages by graph]()
 
-https://en.wikipedia.org/wiki/Comparison_of_programming_languages#/media/File:Barplot_language_speeds_(Benchmarks_Game_Mandelbrot).svg
+실제로 통계상 c++과 파이썬 사이의 속도차이는 극단적인 상황에서는 약 10배 가량 나고 있다. 따라서 c++ 로 해당 알고리즘을 작성한다면 현재 직면하고 있는 문제의 대다수는 해결할 수 있을 것.
 
-실제로 통계상 c++과 파이썬 사이의 속도차이는 극단적인 상황에서는 약 10배 가량 나고 있다. 따라서 c++ 로 해당 알고리즘을 작성한다면 현재 직면하고 있는 문제의 대다수는 해결할 수 있을 것이다. 그러나 이러한 목적 하에 해당 알고리즘을 컴파일 언어만으로 패키지를 작성한다면 앞서 언급하였던 "사용률이 높은 단어로 패키지를 작성하고자 하는 목적"에 부합하지 않게 될 것이다. 따라서 이러한 방향성을 가감없이 수용하는 것은 불가능하다.
+그러나 이러한 목적 하에 해당 알고리즘을 컴파일 언어만으로 패키지를 작성한다면 앞서 언급하였던 "사용률이 높은 단어로 패키지를 작성하고자 하는 목적"에 부합하지 않게 될 것이다. 따라서 이러한 방향성을 가감없이 수용하는 것은 불가능하다.
 
 그러나 해당 방안을 가감하여 수용한다면 해당 방안은 직면하고 있는 문제에 대한 강력한 해결책이 될 수 있으며, 실제로 이를 양립할 수 있는 방법이 있다. 
 
@@ -456,7 +613,7 @@ c++에서 사용할 수 있는 메이저한 선형연산 라이브러리에는 �
 
 위와 동일한 방법으로 corpus 갯수 별 소모시간을 그래프로 표기하면 다음과 같다.
 
-![plot_for_each_corpus_usages](C:\Users\Song1\Documents\GitHub\202201_phd_paper\그림1.png)
+![plot_for_each_corpus_usages]()
 
 보면 알 수 있듯이 python 에서 이터레이션을 진행했을 때에 반해 평균 약 3배의 속도 향상을 보임. 실사용 가능한 수준으로 유의미하게 개선되었다고 볼 수 있다.
 

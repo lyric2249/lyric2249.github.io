@@ -1,3 +1,1002 @@
+--- 
+title: "Self-Study"
+#author: "John Doe"
+#date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+#description: |
+#  This is a minimal example of using the bookdown package to write a book.
+#  The HTML output format for this example is bookdown::gitbook,
+#  set in the _output.yml file.
+link-citations: yes
+github-repo: lyric2249/lyric2249.github.io
+---
+
+# url: your book url like https://bookdown.org/yihui/bookdown
+
+Placeholder
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# (PART) 20-02  {-} 
+
+<!--chapter:end:202000.Rmd-->
+
+
+
+# Categorical
+
+## Overview
+
+### Data Type and Statistical Analysis
+
+
+<!--chapter:end:202206_Overview.Rmd-->
+
+
+# Bayesian
+
+Placeholder
+
+
+## Abstract
+### 변수의 독립성
+### 교환가능성
+
+<!--chapter:end:202401_Intro.Rmd-->
+
+## Continual Aeassessment Method
+
+<!--chapter:end:202402_Bayesian_CAM.Rmd-->
+
+## Horseshoe Prior
+
+<!--chapter:end:202499_HorseshoePrior.Rmd-->
+
+# (PART) 21-01  {-} 
+
+<!--chapter:end:211000.Rmd-->
+
+
+# Mathematical Stats
+
+Placeholder
+
+
+## Inference
+### Rao-Blackwell thm.
+### Completeness
+### 레만-쉐페 thm.
+### Rao-Blackwell thm. {#raoblack}
+
+<!--chapter:end:211101_Intro.Rmd-->
+
+
+
+## Hypothesis Test
+## Power Fucntion
+### Significance Probability (p-value)
+## Optimal Testing Method
+
+<!--chapter:end:211105_Hypothesis_test.Rmd-->
+
+
+
+## Data Reduction
+### Sufficiency Principle
+
+<!--chapter:end:211106_Data_Reduction.Rmd-->
+
+## Borel Paradox
+
+Throughout this chapter, for continuous rv $X, Y$, we have been writing expressions such as $E(Y \rvert X=x)$ and $P(Y \le y \rvert X=x)$. Thus far, we have not gotten into trouble. However, we might have.
+
+Formally, the conditioning in a conditional expectation is done with respect to a sub sigma-algebra(1.2.1), and the conditional E $E(Y \rvert G) $ is defined as a rv whose integral, over any set in the sub sigma-algebra $G$, agrees with that of $X$. This is quite an advanced concept in probatbility theory (see Billingsley 1995, Section 34).
+
+Since the conditional E is only defined in terms of its integral, it may not be unique even if the conditioning is well-defined. However, when we condition on sets of probatbility 0 (such as $ \{ X=x \}$), conditioning may not be well defined, so different conditional expectations are more likely to appear. To see how this could affect us, it is easiest to look at conditional distributions, which amounts to calculating $E \left[ I(Y \le y) \rvert X=x \right]$.
+
+Proschan and Presnell (1998) tell the story of a statistics exam that had the question "If $X$ and $Y$ are independent standard normals, what is the conditional distributions of $Y$ given that $Y=X$?" Different students interpreted the condition $Y=X$ in the following ways:
+1. $Z_1 = 0$, where $Z_1 = Y-X$;
+2. $Z_2 = 1$, where $Z_2 = Y/X$;
+3. $Z_3 = 1$, where $Z_3 = I(Y=X)$.
+
+Each condtion is a correct interpretation of the conditon $Y=X$, and each leads to a different conditional distribution (see Excercise 4.60.).
+
+This is the ***Borel Paradox*** and arises b/c different (Correct) interpretations of the probatbility 0 conditioning sets result in different conditional E. How can we avoid the paradox? One way is to avoid conditioning on sets probatbility 0. That is, compute only $E(Y \rvert X \in B )$, where $B$ is a set with $P (X \in B)>0$. So to compute something like $E(Y \rvert X =x )$, take a sequence $B_n \downarrow x$, and define $E(Y \rvert X =x )= \lim_{n \rightarrow \infty} E(Y \rvert X \in B_n )$. We now avoid the paradox, as the different answers for $E(Y \rvert X =x )$ will arose from different sequences, so there should be no surprises (Exercise 4.61).
+
+<!--chapter:end:211110_Borel_Paradox.Rmd-->
+
+
+
+## Neyman–Pearson lemma 
+### Overview
+### Generalized LRT
+## 개념
+
+<!--chapter:end:211111_NP_lemma.rmd-->
+
+
+# MCMC
+
+Placeholder
+
+
+## Importance Sampling
+### Independent Monte Carlo
+##### Inverse-cdf
+##### Rejection Sampling
+##### Variants of the RS: Squeeze RS
+###### Variants of the RS: Adaptive RS
+##### Importance Sampling
+##### Antithetic Sampling
+##### Control Variates
+##### Rao-Blackwellizaiton
+##### Sampling Importance Resampling
+##### Sequential Monte Carlo
+##### SIS for Markov Process
+##### Generalized Sequential Importance Sampling
+
+<!--chapter:end:211201_ImportanceSampling.Rmd-->
+
+
+
+## Markov Chain Monte Carlo
+### MH Algorithm
+#### Independent Chains
+##### Example: Bayesian Inference, Mixture Distribution
+### Random Walk Chains (Most Widely Used)
+#### Example: Mixture Distribution
+##### $\delta$-space에서 돌리는 방법
+##### $u$-space에서 돌리는 방법
+#### Example: Autocorrelation Plot (ACF)
+### Basic Gibbs Sampler
+#### Example: Fur Seal Pup Capture-Recapture Model
+#### MH-within-Gibbs Sampler
+#### Update Ordering
+#### Blocking
+#### Hybrid Gibbs Sampling
+##### Example: Fur Seal Pup Capture-Recapture Study
+### Implementation
+#### Ensuring Good Mixing and Convergence
+#### Simple Graphical Diagnostics
+
+<!--chapter:end:211202_MCMC.Rmd-->
+
+
+
+## Advanced MCMC (wk08) 
+### Data Augmentation
+### Hit-and-Run Algorithm
+### Metropolis-Adjusted Langevin Algorithm
+### Multiple-Try Metropolis Algorithm
+### Reversible Jump MCMC Algorithm
+#### Bayesian Variable Dimension Model
+
+<!--chapter:end:211203_AdvancedMCMC.Rmd-->
+
+
+
+## Auxiliary Variable MCMC
+### Introduction
+#### Auxiliary Variable MCMC Methods
+###  Multimodal Target Distribution
+#### Simulated Tempering
+#### Slice Sampler
+### Doubly-intractable Normalizing Constants
+#### Boltzmann Density {#ising}
+##### Perfect Sampler 
+##### Swendsen-Wang Algorithm
+#### ~~Møoller’s Algorithm~~
+#### Exchange Algorithm
+#### Adaptive Exchange Algorithm
+
+<!--chapter:end:211204_AuxiliaryVariableMCMC.Rmd-->
+
+
+
+## Approximate Bayesian Computation
+### Simulator-Based Models
+### Approximate Bayesian Computation (ABC)
+##### Intractability
+##### Potential Risks and Remedies in ABC
+### ABCifying Monte Carlo Methods
+### ABC-MCMC Algorithm
+##### ~~Sequential ABC Algorithms~~
+##### ~~Synthetic Likelihood~~
+
+<!--chapter:end:211205_ApproximateBayesianComputation.Rmd-->
+
+
+
+## Hamiltonian Monte Carlo
+##### HMC Example Trajectory
+### Introduction to Hamiltonian Monte Carlo
+##### Foundations of Hamiltonian Monte Carlo
+##### Phase Space and Hamilton’s Equations
+
+<!--chapter:end:211206_HamiltonianMonteCarlo.Rmd-->
+
+
+
+## Population Monte Carlo
+### Adaptive Direction Sampling
+### Conjugate Gradient MC
+### Parallel Tempering
+##### Exchange Algorithm
+### Evolutionary MC
+### Sequential Parallel Tempering
+
+<!--chapter:end:211207_PopulationMC.Rmd-->
+
+
+
+## Stochastic Approximation Monte Carlo
+
+<!--chapter:end:211208_StochasticAMC.Rmd-->
+
+
+
+## Review
+### Wk01
+### wk03
+### wk04, 05 
+
+<!--chapter:end:211298_Review.Rmd-->
+
+
+
+## Else
+### Hw4. Rasch Model
+### DA) Example: MVN
+#### 1. I-Step
+#### 2. P-Step
+### Bayesian adaptive clinical trial with delayed outcomes
+#### Continual Reassessment Method
+### NMAR의 종류
+### wk10) Bayesian Model Selection
+#### 1. Spike-and-Slab prior
+#### 2. Horseshoe prior (Scale-mixture prior)
+### Autologistic model
+### wk10) Bayesian Model Averaging
+#### Ex: BMA-CRM
+
+<!--chapter:end:211299_Else.Rmd-->
+
+
+# MVA
+
+Placeholder
+
+
+## Overview of mva (not ended)
+### Notation
+### Summary Statistics
+### Statistical Inference on Correlation
+##### CI for $\rho$
+### Standardization
+### Missing Value Treatment
+
+<!--chapter:end:211301_Overview.Rmd-->
+
+
+
+## Multivariate Nomral (wk2)
+### Overview
+### Spectral Decomposition
+### Properties of MVN
+### $\Chi^2$ distribution
+### Linear Combination of Random Vectors
+### Multivariate Normal Likelihood
+### Sampling Distribtion of $\bar {\pmb y}, S$
+##### Wishart Distribtion
+##### MV t-Distribtion
+##### Dirichlet Distribution
+##### CLT
+### Assessing Normality 
+##### 1. Univariate Marginal Distribtion
+###### a. Q-Q Plot
+###### b. others
+##### 2. Bivariate Normality
+##### 2. Multivariate Normality
+### Power Transformation
+##### Power Transformation
+##### nqplot, contour plot, cqplot,  cqplot and box-cox plot
+
+<!--chapter:end:211302_MVN.Rmd-->
+
+
+
+## Inference about Mean Vector (wk3)
+### Overview
+##### Remark
+### 1. Confidence Region
+##### Confidence Region
+### 2. Simultaneous CI
+##### Simultaneous CI for $\mu_i - \mu_k$
+### 3. Note: Bonferroni Multiple Comparison
+### 4. Large Sample Inferences about a Mean Vector
+### 1. Profile Analysis (wk4, 5)
+### 2. Test for Linear Trend
+### 3. Inferences about a Covariance Matrix
+
+<!--chapter:end:211305_InferenceaboutMeanVector.Rmd-->
+
+
+
+## Comparison of Several MV Means (wk5)
+### Paired Comparison
+##### Different Approach
+### Comparing Mean Vectors from Two Populations
+##### case 1: $ \Sigma_1 = \Sigma_2 = \Sigma $
+###### Example) Testing $H_0 : \mu_1 - \mu_2 = 0$ at $\alpha=0.05$ is equivalent to see whether falls within the confidence region
+###### Example) simultaneous CI for $(\mu_{1i} - \mu_{2i}), i=1, \cdots, p$.
+##### case 2: $ \Sigma_1 \not = \Sigma_2 $
+##### Other Statistics for Testing two Mean Vectors
+##### Testing Equality of Covariance Matrices
+### Profile Analysis (for $g=2$)
+##### 2. Coincident Profiles
+##### 3. Flat Profiles
+### Comparing Several Multivariate Population Means 
+##### One-Way MANOVA
+
+<!--chapter:end:211306_ComparisonofSeveralMVMeans.Rmd-->
+
+
+
+## Multivariate Multiple Regression (wk6)
+### Overview
+### Multivariate Multiple Regression
+##### Least Square
+### Hypothesis Testing
+##### Full Model vs. Reduced Model
+### Example)
+##### Sampling Distribution of the Wilk’s Lambda
+##### Prediction
+
+<!--chapter:end:211307_MultivariateMultipleRegression.Rmd-->
+
+
+
+## PCA
+
+<!--chapter:end:211308_PCA.Rmd-->
+
+
+
+## Factor
+##### Orthogonal Factor Model
+##### Uniqueness
+### Method of Estimation
+##### 1.  Principal Component Method
+##### 3.  ML Method
+###### 3.5. Test for the number of factors
+###### 3.7. Bartlett's Approx.
+##### 3.  Minimum Residual Method
+### Factor Rotation
+### Varimax Criterion
+##### Oblique Rotation
+### Factor Scores
+
+<!--chapter:end:211309_Factor.Rmd-->
+
+
+
+## Discrimination and Classification
+### Bayes Rule
+### Classification with Two mv $N$ Populations
+##### 1. if $\Sigma_1 = \Sigma_2 = \Sigma$ (LDA)
+###### LDA intuition
+###### Posterior
+##### 2. $\Sigma_1 \not = \Sigma_2$ (QDA)
+### Evaluating Classification Functions
+##### Apparent Error Rate (APER)
+###### Confusion Matrix
+##### Test Sample Error Rate
+##### Hold-out Error Rate
+### Classification with several Populations (wk13)
+##### Classification with several Normal Populations
+###### 1. $\Sigma_1 = \cdots = \Sigma_g = \Sigma$ (LDA)
+###### 2. $\not = \Sigma$ (QDA)
+### Other Discriminant Analysis Methods
+##### KNN
+##### Kernel (Density Estimation) Discriminant Analysis (KDA)
+##### Modern Classification Methods:
+
+<!--chapter:end:211311_DiscriminationandClassification.Rmd-->
+
+
+
+## Clustering, Distance Methods, and Ordination
+### Overview
+##### Clustering
+##### Distance Measures
+### Hierarchical Clustering
+##### 계층적 군집분석 Example
+##### HCA의 종류
+##### HCA의 장단점
+### K-means Clustering
+##### Determination of K
+### 군집의 평가방법
+### Clustering using Density Estimation (wk14)
+##### Kernel Density Estimation (KDE) 
+### Multidimensional Scaling (MDS)
+##### **Kruskal’s Stress**
+##### Algorithm to find 초기값 $d_{ij}^{(q)}$
+
+<!--chapter:end:211312_ClusterAnalysis.Rmd-->
+
+
+# Linear
+
+Placeholder
+
+
+## Overview & SVD
+### Spectral Decomposition
+##### remark
+### Singular value Decomposition: General-version
+### Singular value Decomposition: Another-version
+### Quadratic Forms
+##### propositions
+### Partitioned Matrices
+### Geometrical Aspects
+### Column, Row and Null Space
+
+<!--chapter:end:211401_Overview_SVD.Rmd-->
+
+
+
+## Introduction
+### What
+### Random Vectors and Matrices
+### Multivariate Normal Distributions
+### Distributions of Quadratic Forms
+
+<!--chapter:end:211402_Introduction.Rmd-->
+
+
+
+## Estimation
+### Identifiability and Estimability
+#### Identifiable
+#### Estimable
+### Estimation: Least Squares
+### Estimation: Best Linear Unbiased
+### Estimation: Maximum Likelihood
+### Estimation: Minimum Variance Unbiased
+### Sampling Distributions of Estimates
+### Generalized Least Squares(GLS)
+
+<!--chapter:end:211403_Estimation.Rmd-->
+
+
+
+## One-Way ANOVA
+### One-Way ANOVA
+### More About Models
+### Estimating and Testing Contrasts
+### Cochran’s Theorem
+
+<!--chapter:end:211404_One-WayANOVA.Rmd-->
+
+
+
+## Testing
+### More About Models: Two approaches for linear model
+### Testing Models
+### A Generalized Test Procedure
+### Testing Linear Parametric Functions
+### Theoretical Complements
+### A Generalized Test Procedure
+### Testing Single Degrees of Freedom in a Given Subspace
+### Breaking SS into Independent Components
+### General Theory
+### Two-Way ANOVA
+### Confidence Regions
+### Tests for Generalized Least Squares Models
+
+<!--chapter:end:211405_Testing.Rmd-->
+
+
+
+## Generalized Least Squares
+### A direct solution via inner products
+
+<!--chapter:end:211406_GeneralizedLeastSquares.Rmd-->
+
+
+
+## Flat
+### 1.Flat 
+### 2. Solutions to systems of linear equations
+
+<!--chapter:end:211407_Flat.Rmd-->
+
+
+
+## Unified Approach to Balanced ANOVA Models
+
+<!--chapter:end:211408_ANOVA.Rmd-->
+
+# (PART) 21-02  {-} 
+
+<!--chapter:end:212000.Rmd-->
+
+
+# Network Stats
+
+Placeholder
+
+
+## Introduction
+### Types of Network Analysis
+### Network Modeling and Inference
+### Network Processes
+#### Dynamic Processes
+
+<!--chapter:end:212101_Intro.Rmd-->
+
+
+
+## Descriptive Statistics of Networks
+### Vertex and Edge Characteristics
+#### Vertex Degree
+#### Vertex Centrality
+#### Characterizing Edges
+### Characterizing Network Cohesion
+#### Subgraphs and Censuses
+#### Density and Related Notions of Relative Frequency
+#### Connectivity, Cuts, and Flows
+### Graph Partitioning
+#### Hierarchical Clustering
+#### Spectral Partitioning
+#### Validation of Graph Partitioning
+### Assortativity and Mixing
+
+<!--chapter:end:212102_DescriptiveStats.Rmd-->
+
+
+
+## Data Collection and Sampling
+### Sampling Designs
+#### Induced and Incident Subgraph
+##### Example of a Bias
+#### Exploratory Sampling Design
+##### Snowball Sampling
+##### Respondent-driven Sampling
+##### Trace-route Sampling
+### Coping Strategies
+#### Head in Sand
+#### Learn Sampling Theory
+#### Missing Data Tools
+#### Model the Effective Network
+### Big Data Solves Nothing
+#### Entity resolution
+#### Diffusion
+#### Performativity
+
+<!--chapter:end:212103_DataCollection.Rmd-->
+
+
+
+## Mathematical Models for Network Graphs
+### Classical Random Graph Models
+### Generalized Random Graph Models
+### Network Graph Models Based on Mechanisms
+#### Small-World Models
+#### Preferential Attachment Models
+### Assessing Significance of Network Graph Characteristics
+#### Assessing the Number of Communities in a Network
+#### Assessing Small World Properties
+
+<!--chapter:end:212104_Math.Rmd-->
+
+
+
+## Introduction to ERGM
+### Exponential Random Graph Models
+#### What Is a Network?
+#### Exponential Random Graph Model (ERGMs)
+#### Network Statistics
+##### Degree and Shared Partnership Distribution
+### Difficulty in Parameter Estimation
+#### Intractable Normalizing Constants
+#### Model Degeneracy
+
+<!--chapter:end:212105_ERGM.Rmd-->
+
+
+
+## Parameter Estimation of ERGM
+### Current Methods for ERGM
+### Approximation-based Algorithm
+#### Maximum Pseudo Likelihood Estimation (MPLE)
+#### MCMC MLE
+#### MCMC Stochastic Approximation
+### Auxiliary Variable MCMC-based Approaches
+#### Exchange Algorithm
+#### Monte Carlo MH Algorithm
+### Varying Trunction Stochastic Approximation MCMC
+#### MCMC Stochastic Approximation
+##### Model Degeneracy
+#### Varying Truncation SAMCMC for ERGMs 
+##### Trajectory averaging estimator
+##### Numerical Examples
+### Conclusion
+
+<!--chapter:end:212106_ParameterEstimationofERGM.Rmd-->
+
+
+
+## ERGM for Dynamic Networks
+### Temporal ERGM (TERGM, T ERGM)
+#### Network Statistics for Temporal ERGM
+#### Estimation
+#### Degeneracy of Temporal ERGMs
+#### Assessing Statistic Importance and Quality of Fit
+### Separable Temporal ERGM (STERGM, ST ERGM)
+####  Temporal ERGM Interpretation
+#### Application Study
+#### Conclusion
+
+<!--chapter:end:212107_ERGMforDynamicNetworks.Rmd-->
+
+
+
+## Latent Network Models
+### Latent Position Model
+#### Methods
+##### Distance Models
+##### Projection Models
+#### Estimation
+#### Advantages
+### Latent Position Cluster Model
+#### Bayesian Estimation
+#### Identifiability of Positions and Cluster Labels
+
+<!--chapter:end:212108_Latent.Rmd-->
+
+
+
+## Additive and Multiplicative Effects Network Models
+### Introduction
+### Social Relations Regression
+#### additive Effect Model (iid model)
+### Multiplicative Effects Models
+### Inference via Posterior Approximation
+### Discussion and Example with R
+
+<!--chapter:end:212109_AddiMult.Rmd-->
+
+
+
+## Stochastic Block Models
+### Stochastic Block Model
+#### Likelihood function
+#### Inference
+#### Bayesian
+#### Posterior Distribution 
+### Mixed Membership Block Model (MMBM)
+#### Degree-corrected SBM
+
+<!--chapter:end:212112_SBM.Rmd-->
+
+# High Dimension
+
+## Introduction
+
+<!--chapter:end:212301.Rmd-->
+
+
+
+## Concentration inequalities
+### Motivation
+### From Markov to Chernoff
+###  sub-Gaussian random variables
+### Properties of sub-Gaussian random variables
+### Equivalent definitions
+###  Sub-Gaussian random vectors
+### Hoeffding’s inequality
+### Maximal inequalities
+### 
+
+<!--chapter:end:212302_ConIneq.Rmd-->
+
+
+
+## Concentration inequalities
+### Sub-exponential random variables
+### Bernstein’s condition
+### McDiarmid’s inequality
+### Levy’s inequality
+###  Quadratic form
+### The Johnson–Lindenstrauss Lemma
+
+<!--chapter:end:212303_ConIneq.Rmd-->
+
+
+
+## Metric entropy and its uses
+### Metric space
+### Covering numbers and metric entropy
+### Packing numbers
+### 
+### 
+### 
+
+<!--chapter:end:212304_MetricSpace.Rmd-->
+
+
+
+## Covariance estimation
+### Matrix algebra review
+### Covariance matrix estimation in the operator norm
+###  Bounds for structured covariance matrices
+
+<!--chapter:end:212305_CovEst.Rmd-->
+
+
+
+## Matrix concentration inequalities
+### Matrix calculus
+### Matrix Chernoff
+### Sub-Gaussian and sub-exponential matrices
+### 랜덤 매트릭스에 대한 Hoeffding and Bernstein bounds
+#### Hoeffding bound
+#### Bernstein bound
+#### Generalization to non-symmetric/rectangular matrices
+
+<!--chapter:end:212306_MatConIneq.Rmd-->
+
+
+
+## Principal Component Analysis
+### PCA
+### Matrix Perturbation
+#### ev 의 estimation
+#### evec 의 estimation
+### Spiked Cov Model
+### sparse PCA
+
+<!--chapter:end:212307_PCA.Rmd-->
+
+
+
+## Linear Regression
+### Problem formulation
+### Least Squares Estimator in high dimensions
+#### Mean Squared Error of the Least Squares Estimator
+### Sparse linear regression
+#### Lasso
+#### Slow convergence rate
+#### Fast Convergence Rate
+
+<!--chapter:end:212308_LR.Rmd-->
+
+
+
+## Uniform laws of large numbers
+### Motivation
+#### Cumulative distribution functions
+#### Uniform laws for more general function classes
+#### Empirical risk minimization
+### A uniform law via Rademacher complexity
+### Upper bounds on the Rademacher complexity
+
+<!--chapter:end:212309_LLN.Rmd-->
+
+
+# Survival Analysis
+
+Placeholder
+
+
+## Introduction
+#### Censoring Sources
+######### 임시방편
+###### notation
+#### Right Censoring (most of the course)
+###### Type of Data to be analyzed in survival analysis
+#### Left Censoring
+
+<!--chapter:end:212501_Intro.Rmd-->
+
+## 
+
+<!--chapter:end:212502.Rmd-->
+
+
+
+## Counting Processes and Martingales
+### Conditional Expectation
+### Martingale
+#### Centering Increments
+### Key Martingales Properties
+
+<!--chapter:end:212503_Martin.Rmd-->
+
+## 
+
+<!--chapter:end:212504.Rmd-->
+
+
+
+## Cox Regression
+#### Proportional Hazards Model
+#### Cox PH Model
+###### Cox Model: Independent Censoring
+#### Semiparametric PH Model: General
+#### Multiplicative Model
+#### Proportional Hazards Regression and Multiplicative Intensity Model
+#### Likelihood; conditional, marginal and partial likelihoods
+###### Partial & Marginal Likelihoods
+#### Cox Proportional Hazards Model
+#### Comparison of Nested Models
+#### Stratification
+#### Test statistics
+#### Handling ties
+
+<!--chapter:end:212505_Cox.Rmd-->
+
+
+
+## Filtration의 개념을 정복하자!
+### Random Process를 이야기 하기까지의 긴 여정의 요약
+#### Sigma-Algebra(Sigma-Field)
+### Ft-measurable
+#### 가측(measurable)이란
+#### Filtration
+##### t =0 일때 Ft
+##### t =1 일 때 Ft
+##### t =2 일때 Ft
+#### 좀더 현실적인 예
+#### 정보 집합으로서의 Filtration
+#### Natural Filtration
+### EPILOGUE
+
+<!--chapter:end:212598_Filtration.Rmd-->
+
+## Concepts
+
+$S(t)$: survival function. 시점 $t$까지는 살아있을 확률.
+
+$h(t) = \lambda(t) = \frac{f(t)}{S(t)}$: hazard function. 시점 $t$에서 사망할 확률.
+
+
+<!--chapter:end:212599_Notion.Rmd-->
+
+# (PART) 22-01  {-} 
+
+<!--chapter:end:221000.Rmd-->
+
+# scikit
+
+
+<!--chapter:end:221100.Rmd-->
+
+## Linear Models
+
+이하는 타겟이 리니어 구조를 따른다고 생각될 때 사용한다. notation은 이하를 따른다.
+
+$$
+\hat y (w,x) = w_0 + w_1 x_1 + \cdots w_p x_p = w_0 + wx
+$$
+
+
+### Ordinary Least Squares
+
+`LinearRegression()` 함수는 coef $w$ 와 함께 리니어 모델을 추정함. 이때 추정 기준은 coef 조합을 통한, 모델에서의 추정치와 실제값의 차이인, residual sum of squares (이하 RSS) 의 최소화. 이는 이하의 문제를 풀이하는 것과 같음.
+
+$$
+\min_w \| Xw - y\|^2_2
+$$
+
+
+```
+>>> from sklearn import linear_model
+>>> reg = linear_model.LinearRegression()
+>>> reg.fit([[0, 0], [1, 1], [2, 2]], [0, 1, 2])
+LinearRegression()
+>>> reg.coef_
+array([0.5, 0.5])
+```
+
+<!--chapter:end:221101_LinearModels.Rmd-->
+
+# (APPENDIX) 00-00 {-} 
+
+<!--chapter:end:990000.Rmd-->
+
+
+# Concepts
+
+Placeholder
+
+
+
+<!--chapter:end:990101_0Concepts.Rmd-->
+
+
+
+## Autologistics {#autologistic}
+
+<!--chapter:end:990101_1Autologistic.Rmd-->
+
+## Ordered Logit {#orderlogit}
+
+
+
+
+<!--chapter:end:990101_2OrderedLogit.Rmd-->
+
+
+
+## Concepts Questions
+### 통계 및 수학
+
+<!--chapter:end:990101_3ConceptsQ.Rmd-->
+
+
+# About Cluster-GCN
+
+Placeholder
+
+
+### ANN
+#### Training
+##### Backpropagation
+#### Problem
+### CNN
+#### Convolution Layer
+#### zero-padding
+#### Pooling
+#### CNN 을 위한 back-propagation
+### Graph Convolution Network
+### Cluster-GCN
+
+<!--chapter:end:990102_Cluster_GCN.Rmd-->
+
+
+# CNN
+
+Placeholder
+
+
+
+<!--chapter:end:99010291_CNN.Rmd-->
+
+
+# CNN
+
+Placeholder
+
+
+
+<!--chapter:end:99010292_GCN.Rmd-->
+
+
+# CNN
+
+Placeholder
+
+
+
+<!--chapter:end:99010292_GCN3.Rmd-->
+
+
+# 01
+
+Placeholder
+
+
+
+<!--chapter:end:99010292_GCN4.Rmd-->
+
 
 ---
 title: "Untitled"
@@ -1057,4 +2056,7 @@ std::vector<py::array_t<double>> onepl_lsrm_cont_missing
 
 
 
+
+
+<!--chapter:end:99010292_GCN5.Rmd-->
 
